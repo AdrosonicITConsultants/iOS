@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -48,7 +48,6 @@
 				E9E9908D3750226727C24458 /* Pods-CraftExchange.debug.xcconfig */,
 				C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -74,14 +73,70 @@
 			isa = PBXGroup;
 			children = (
 				C03BD87A2476F0BC00279D7F /* AppDelegate.swift */,
-				C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */,
-				C03BD87E2476F0BC00279D7F /* ViewController.swift */,
-				C03BD8802476F0BC00279D7F /* Main.storyboard */,
-				C03BD8832476F0BF00279D7F /* Assets.xcassets */,
-				C03BD8852476F0BF00279D7F /* LaunchScreen.storyboard */,
 				C03BD8882476F0BF00279D7F /* Info.plist */,
+				C03BD8922476F87700279D7F /* View */,
+				C03BD8912476F85500279D7F /* Entities */,
+				C03BD8902476F83B00279D7F /* Service */,
+				C03BD88F2476F83100279D7F /* Scene */,
+				C03BD88E2476F7FC00279D7F /* Resources */,
 			);
 			path = CraftExchange;
+			sourceTree = "<group>";
+		};
+		C03BD88E2476F7FC00279D7F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */,
+				C03BD8832476F0BF00279D7F /* Assets.xcassets */,
+				C03BD8852476F0BF00279D7F /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C03BD88F2476F83100279D7F /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		C03BD8902476F83B00279D7F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C03BD8912476F85500279D7F /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		C03BD8922476F87700279D7F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C03BD8942476F88E00279D7F /* Storyboards */,
+				C03BD8932476F87E00279D7F /* Controller */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C03BD8932476F87E00279D7F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C03BD87E2476F0BC00279D7F /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C03BD8942476F88E00279D7F /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C03BD8802476F0BC00279D7F /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		D6A4220DEA2D7D94A1412932 /* Frameworks */ = {
@@ -103,6 +158,7 @@
 				C03BD8732476F0BC00279D7F /* Sources */,
 				C03BD8742476F0BC00279D7F /* Frameworks */,
 				C03BD8752476F0BC00279D7F /* Resources */,
+				9971000716EDDADE7EE87117 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -160,6 +216,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9971000716EDDADE7EE87117 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CraftExchange/Pods-CraftExchange-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CraftExchange/Pods-CraftExchange-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CraftExchange/Pods-CraftExchange-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DD647A292368DDF6E4AE627D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

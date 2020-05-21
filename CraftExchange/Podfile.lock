@@ -1,3 +1,60 @@
-PODFILE CHECKSUM: f5b421104f30b04ee0e4ad7c03eb53568c37ef78
+PODS:
+  - Bond (7.6.6):
+    - Differ (~> 1.4)
+    - ReactiveKit (~> 3.14)
+  - Differ (1.4.5)
+  - Eureka (4.3.1)
+  - JGProgressHUD (2.1)
+  - ReachabilitySwift (5.0.0)
+  - ReactiveKit (3.17.1)
+  - Realm (5.0.0):
+    - Realm/Headers (= 5.0.0)
+  - Realm/Headers (5.0.0)
+  - RealmSwift (5.0.0):
+    - Realm (= 5.0.0)
+  - RichTextRow (1.0.3):
+    - Eureka (= 4.3.1)
+  - SideMenu (6.4.8)
+  - SwiftKeychainWrapper (3.4.0)
+
+DEPENDENCIES:
+  - Bond
+  - Eureka
+  - JGProgressHUD
+  - ReachabilitySwift
+  - ReactiveKit
+  - RealmSwift
+  - RichTextRow
+  - SideMenu
+  - SwiftKeychainWrapper
+
+SPEC REPOS:
+  trunk:
+    - Bond
+    - Differ
+    - Eureka
+    - JGProgressHUD
+    - ReachabilitySwift
+    - ReactiveKit
+    - Realm
+    - RealmSwift
+    - RichTextRow
+    - SideMenu
+    - SwiftKeychainWrapper
+
+SPEC CHECKSUMS:
+  Bond: 9e7d901cf4ed825b6004a93dd0a7f1c7479e2834
+  Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
+  Eureka: 28ea296f06710f6745266b71f17862048941a32d
+  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  ReactiveKit: f578a74d3555296ea61fab228f5245a4ed7b4b27
+  Realm: 76066d333de26f97e9caedaa85ee3ff4a62ca265
+  RealmSwift: c1bdff09b422569dc6881410d9ccf712bcdb79b0
+  RichTextRow: 75c870acfd96b9c2db8e4cabe7a3294cfa823659
+  SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
+  SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
+
+PODFILE CHECKSUM: 04eb0da001719905b59cbe1f8ebe17724d483b47
 
 COCOAPODS: 1.8.4
