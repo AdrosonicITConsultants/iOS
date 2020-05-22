@@ -14,6 +14,9 @@
 		C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8802476F0BC00279D7F /* Main.storyboard */; };
 		C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8832476F0BF00279D7F /* Assets.xcassets */; };
 		C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8852476F0BF00279D7F /* LaunchScreen.storyboard */; };
+		C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A12477EB8500B0B0FA /* RoundedButton.swift */; };
+		C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A52478394700B0B0FA /* RoundedTextField.swift */; };
+		C07D69A8247839E200B0B0FA /* RoundedButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07D69A7247839E200B0B0FA /* RoundedButton.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,10 @@
 		C03BD8832476F0BF00279D7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C03BD8862476F0BF00279D7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C03BD8882476F0BF00279D7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C07D69A12477EB8500B0B0FA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		C07D69A42478043F00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C07D69A52478394700B0B0FA /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
+		C07D69A7247839E200B0B0FA /* RoundedButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoundedButton.xib; sourceTree = "<group>"; };
 		C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.release.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.release.xcconfig"; sourceTree = "<group>"; };
 		D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CraftExchange.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E9908D3750226727C24458 /* Pods-CraftExchange.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.debug.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +124,7 @@
 		C03BD8922476F87700279D7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C07D699E2477EB2100B0B0FA /* CustomAssets */,
 				C03BD8942476F88E00279D7F /* Storyboards */,
 				C03BD8932476F87E00279D7F /* Controller */,
 			);
@@ -137,6 +145,16 @@
 				C03BD8802476F0BC00279D7F /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
+			isa = PBXGroup;
+			children = (
+				C07D69A12477EB8500B0B0FA /* RoundedButton.swift */,
+				C07D69A7247839E200B0B0FA /* RoundedButton.xib */,
+				C07D69A52478394700B0B0FA /* RoundedTextField.swift */,
+			);
+			path = CustomAssets;
 			sourceTree = "<group>";
 		};
 		D6A4220DEA2D7D94A1412932 /* Frameworks */ = {
@@ -210,6 +228,7 @@
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
+				C07D69A8247839E200B0B0FA /* RoundedButton.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +284,8 @@
 				C03BD87F2476F0BC00279D7F /* ViewController.swift in Sources */,
 				C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
+				C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */,
+				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +296,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C03BD8812476F0BC00279D7F /* Base */,
+				C07D69A42478043F00B0B0FA /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
