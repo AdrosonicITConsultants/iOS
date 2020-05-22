@@ -29,9 +29,9 @@
 		C03BD8862476F0BF00279D7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C03BD8882476F0BF00279D7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C07D69A12477EB8500B0B0FA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		C07D69A42478043F00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C07D69A52478394700B0B0FA /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		C07D69A7247839E200B0B0FA /* RoundedButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoundedButton.xib; sourceTree = "<group>"; };
+		C07D69AA247874BF00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.release.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.release.xcconfig"; sourceTree = "<group>"; };
 		D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CraftExchange.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E9908D3750226727C24458 /* Pods-CraftExchange.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.debug.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.debug.xcconfig"; sourceTree = "<group>"; };
@@ -296,7 +296,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C03BD8812476F0BC00279D7F /* Base */,
-				C07D69A42478043F00B0B0FA /* en */,
+				C07D69AA247874BF00B0B0FA /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

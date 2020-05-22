@@ -1,15 +1,24 @@
 
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "Cnk-FA-mkm"; */
+"Cnk-FA-mkm.normalTitle" = "Privacy Policy";
+
+/* Class = "UIButton"; normalTitle = "Need help?"; ObjectID = "WZa-NT-FFu"; */
+"WZa-NT-FFu.normalTitle" = "Need help?";
+
+/* Class = "UILabel"; text = "Enter your registered mobile number or email id"; ObjectID = "YB0-2C-Nhm"; */
+"YB0-2C-Nhm.text" = "Enter your registered mobile number or email id";
+
 /* Class = "UIButton"; normalTitle = "Change Language"; ObjectID = "YD7-2c-jdx"; */
 "YD7-2c-jdx.normalTitle" = "Change Language";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "ZeI-2a-QgN"; */
+"ZeI-2a-QgN.normalTitle" = "Next";
 
 /* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "jTH-D3-aJw"; */
 "jTH-D3-aJw.normalTitle" = "Privacy Policy";
 
 /* Class = "UIButton"; normalTitle = "Need help in deciding?"; ObjectID = "jdL-Q3-nqp"; */
 "jdL-Q3-nqp.normalTitle" = "Need help in deciding?";
-
-/* Class = "UILabel"; text = "Enter your registered mobile number or email id"; ObjectID = "sG1-6d-yv7"; */
-"sG1-6d-yv7.text" = "Enter your registered mobile number or email id";
 
 /* Class = "UILabel"; text = "What describes you the best?"; ObjectID = "usK-Lx-fKM"; */
 "usK-Lx-fKM.text" = "What describes you the best?";
