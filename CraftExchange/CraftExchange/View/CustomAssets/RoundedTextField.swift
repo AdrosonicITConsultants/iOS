@@ -48,7 +48,7 @@ class RoundedTextField: UITextField {
         }
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
-        self.layer.cornerRadius = 22
+        self.layer.cornerRadius = 21
         self.frame.size.height = 40
         // Placeholder text color
         attributedPlaceholder = NSAttributedString(string: placeholder != nil ?  placeholder! : "", attributes:[NSAttributedString.Key.foregroundColor: color])
