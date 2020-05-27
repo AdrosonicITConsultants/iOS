@@ -135,7 +135,7 @@
         <!--Login Email Controller-->
         <scene sceneID="XW3-EG-Spi">
             <objects>
-                <viewController id="AXX-CF-Ujx" customClass="LoginEmailController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginEmailController" id="AXX-CF-Ujx" customClass="LoginEmailController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJh-Ox-CYg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -195,19 +195,19 @@
                                                         <fragment content="New user?">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" Click here">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.32210981849999998" green="0.39943659310000001" blue="0.71376132969999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" to register.">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -251,6 +251,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
+                                                    <action selector="nextButtonSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="RXV-Yb-N7T"/>
                                                     <segue destination="75Y-19-Oy8" kind="push" id="Bif-IH-wBc"/>
                                                 </connections>
                                             </button>
@@ -327,6 +328,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="nextButton" destination="ZeI-2a-QgN" id="uFF-YC-ipP"/>
+                        <outlet property="usernameField" destination="VWJ-hF-pAR" id="BjZ-HI-rBF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SR7-QA-04P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -422,19 +424,19 @@
                                                         <fragment content="New user?">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" Click here">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.32210981849999998" green="0.39943659310000001" blue="0.71376132969999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" to register.">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -583,6 +585,6 @@
         <image name="person_icon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Hsc-1w-Sf2"/>
+        <segue reference="Jk2-7t-PGW"/>
     </inferredMetricsTieBreakers>
 </document>

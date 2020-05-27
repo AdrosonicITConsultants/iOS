@@ -6,19 +6,30 @@
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
 
-import Foundation
+import Bond
+import ReactiveKit
 import UIKit
 
-class LoginEmailController: UIViewController {
+class ValidationViewModel {
+    var username = Observable<String?>("")
+    var performValidation: (() -> Void)?
+}
 
+class LoginEmailController: UIViewController {
+  
+  lazy var viewModel = ValidationViewModel()
+
+  @IBOutlet weak var nextButton: RoundedButton!
+  @IBOutlet weak var usernameField: RoundedTextField!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
+    self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
   }
-
-  @IBOutlet weak var nextButton: RoundedButton!
   
   @IBAction func nextButtonSelected(_ sender: Any) {
-    self.performSegue(withIdentifier: "showPasswordScreenSegue", sender: self)
+    self.viewModel.performValidation?()
+//    self.performSegue(withIdentifier: "showPasswordScreenSegue", sender: self)
   }
 }
