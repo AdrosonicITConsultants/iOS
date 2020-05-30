@@ -13,7 +13,7 @@ import UIKit
 
 extension ValidateUserService {
   func createScene() -> UIViewController {
-    let storyboard = UIStoryboard(name: "myStoryboardName", bundle: nil)
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewController(withIdentifier: "LoginEmailController") as! LoginEmailController
     
     client.errors.bind(to: vc.reactive.userErrors)

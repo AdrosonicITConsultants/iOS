@@ -12,7 +12,7 @@ public class CraftExchangeClient: Client {
     public init() throws {
         super.init(baseURL: KeychainManager.standard.baseURL)
         defaultHeaders = ["Content-Type": "application/json",
-        "accept": "application/json"]
+        "Accept": "application/json"]
     }
 }
 

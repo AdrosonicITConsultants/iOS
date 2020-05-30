@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Role View Controller-->
         <scene sceneID="eJt-bL-2mR">
             <objects>
-                <viewController id="P12-bk-zAP" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RoleViewController" id="P12-bk-zAP" customClass="RoleViewController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zhn-Vv-4gK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,7 +44,7 @@
                                                 </constraints>
                                                 <state key="normal" image="artisian-option"/>
                                                 <connections>
-                                                    <segue destination="Iqw-HJ-Pgy" kind="presentation" modalPresentationStyle="fullScreen" id="h7e-01-4qA"/>
+                                                    <action selector="artisanSelected:" destination="P12-bk-zAP" eventType="touchUpInside" id="nqy-LQ-wUs"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="or-option" translatesAutoresizingMaskIntoConstraints="NO" id="w6J-Lo-wNe">
@@ -60,6 +60,9 @@
                                                     <constraint firstAttribute="width" constant="120" id="oxH-Rt-uXu"/>
                                                 </constraints>
                                                 <state key="normal" image="buyer-option"/>
+                                                <connections>
+                                                    <action selector="buyerSelected:" destination="P12-bk-zAP" eventType="touchUpInside" id="FMu-bG-vvx"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTH-D3-aJw">
                                                 <rect key="frame" x="20" y="714" width="374" height="30"/>
@@ -346,7 +349,7 @@
         <!--Navigation Controller-->
         <scene sceneID="9FO-FP-V6O">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Iqw-HJ-Pgy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginVCNavController" automaticallyAdjustsScrollViewInsets="NO" id="Iqw-HJ-Pgy" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7Ub-jZ-S03">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

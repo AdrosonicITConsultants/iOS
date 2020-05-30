@@ -72,6 +72,19 @@ class KeychainManager {
     }
 
     var baseURL: String {
-        return "http://101.53.156.143:8090/"
+        return "http://101.53.156.143:8090"
+    }
+  
+    var userRole: String? {
+        get {
+            defaults.string(forKey: "cx_user_role")
+        }
+        set {
+            if let newValue = newValue {
+                defaults.set(newValue, forKey: "cx_user_role")
+            } else {
+                defaults.removeObject(forKey: "cx_user_role")
+            }
+        }
     }
 }

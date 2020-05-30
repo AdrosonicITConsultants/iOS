@@ -11,7 +11,7 @@ import Foundation
 extension User {
   public static func validateUsername(username: String) -> Request<String, APIError> {
       return Request(
-          path: "login/validateusername/\(username)",
+          path: "login/validateusername?emailOrMobile=\(username)",
           method: .get,
           resource: { print(String(data: $0, encoding: .utf8) ?? "validation failed")
           return String(data: $0, encoding: .utf8) ?? "validation failed"
