@@ -12,13 +12,13 @@ import ReactiveKit
 import RealmSwift
 import SwiftKeychainWrapper
 
-class ValidateUserService: BaseService<String> {
+class ValidateUserService: BaseService<Data> {
 
     required init() {
         super.init()
     }
 
-    func fetch(username: String) -> SafeSignal<String> {
+    func fetch(username: String) -> SafeSignal<Data> {
       return User.validateUsername(username: username).response(using: client).debug()
     }
 }

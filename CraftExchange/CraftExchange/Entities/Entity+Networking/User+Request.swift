@@ -9,19 +9,19 @@
 import Foundation
 
 extension User {
-  public static func validateUsername(username: String) -> Request<String, APIError> {
+  public static func validateUsername(username: String) -> Request<Data, APIError> {
       return Request(
           path: "login/validateusername?emailOrMobile=\(username)",
           method: .get,
           resource: { print(String(data: $0, encoding: .utf8) ?? "validation failed")
-          return String(data: $0, encoding: .utf8) ?? "validation failed"
+          return $0
       },
           error: APIError.init,
           needsAuthorization: false
       )
   }
   
-  public static func authenticate(username: String, password: String) -> Request<String, APIError> {
+  public static func authenticate(username: String, password: String) -> Request<Data, APIError> {
     let parameters: [String: Any] = ["emailOrMobile":username,
                                      "password":password]
       return Request(
@@ -29,7 +29,7 @@ extension User {
           method: .post,
           parameters: JSONParameters(parameters),
           resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
-            return String(data: $0, encoding: .utf8) ?? "authentication failed"},
+            return $0},
           error: APIError.init,
           needsAuthorization: false
       )

@@ -255,7 +255,6 @@
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="nextButtonSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="RXV-Yb-N7T"/>
-                                                    <segue destination="75Y-19-Oy8" kind="push" id="Bif-IH-wBc"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZa-NT-FFu">
@@ -364,10 +363,10 @@
             </objects>
             <point key="canvasLocation" x="968" y="-796"/>
         </scene>
-        <!--View Controller-->
+        <!--Login Password Controller-->
         <scene sceneID="MiI-I7-oFF">
             <objects>
-                <viewController id="75Y-19-Oy8" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginPasswordController" id="75Y-19-Oy8" customClass="LoginPasswordController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SO8-1I-sGx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -376,7 +375,7 @@
                                 <rect key="frame" x="0.0" y="84" width="414" height="812"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXR-ee-VTo">
-                                        <rect key="frame" x="0.0" y="-4" width="414" height="812"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-underlying-text" translatesAutoresizingMaskIntoConstraints="NO" id="B9z-kI-Xd7">
                                                 <rect key="frame" x="0.0" y="10" width="414" height="200"/>
@@ -473,6 +472,9 @@
                                                         <real key="value" value="18"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="loginButtonSelected:" destination="75Y-19-Oy8" eventType="touchUpInside" id="nt4-9D-S4c"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUQ-tC-MvQ">
                                                 <rect key="frame" x="211" y="352" width="123" height="30"/>
@@ -561,6 +563,9 @@
                         <viewLayoutGuide key="safeArea" id="OHd-LR-w0N"/>
                     </view>
                     <navigationItem key="navigationItem" id="p4g-Bh-WbZ"/>
+                    <connections>
+                        <outlet property="passwordField" destination="fIe-lL-2BD" id="kv8-qP-Tjt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B5H-mb-a3T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -588,6 +593,6 @@
         <image name="person_icon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Jk2-7t-PGW"/>
+        <segue reference="Hsc-1w-Sf2"/>
     </inferredMetricsTieBreakers>
 </document>

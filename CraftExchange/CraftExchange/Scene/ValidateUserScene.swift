@@ -24,8 +24,30 @@ extension ValidateUserService {
     
     vc.viewModel.performValidation = {
       if let username = vc.viewModel.username.value {
-        self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseString) in
-          print("validation scene: \(responseString)")
+        self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
+                {
+                  if (jsonDict["data"] as? String) == "Valid" {
+                    DispatchQueue.main.async {
+                      let controller = LoginUserService(client: self.client).createScene(username:username)
+                      vc.navigationController?.pushViewController(controller, animated: true)
+                    }
+                  }else {
+                    DispatchQueue.main.async {
+                      vc.alert("Invalid User Email Id or Mobile Number")
+                    }
+                  }
+                } else {
+                  DispatchQueue.main.async {
+                    vc.alert("Invalid User Email Id or Mobile Number")
+                  }
+                }
+            } catch let error as NSError {
+              DispatchQueue.main.async {
+                vc.alert(error.description)
+              }
+            }
         }.dispose(in: vc.bag)
       }
     }

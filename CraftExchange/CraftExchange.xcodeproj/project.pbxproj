@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
+		C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */; };
 		C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87A2476F0BC00279D7F /* AppDelegate.swift */; };
 		C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */; };
 		C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8802476F0BC00279D7F /* Main.storyboard */; };
@@ -43,7 +44,7 @@
 		C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A12477EB8500B0B0FA /* RoundedButton.swift */; };
 		C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A52478394700B0B0FA /* RoundedTextField.swift */; };
 		C091894E248038BB0058501C /* RoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091894D248038BB0058501C /* RoleViewController.swift */; };
-		C0918950248038E30058501C /* RoleSelectionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091894F248038E30058501C /* RoleSelectionScene.swift */; };
+		C0918950248038E30058501C /* LoginUserScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091894F248038E30058501C /* LoginUserScene.swift */; };
 		C0A9107D247CD81600852695 /* RegisterArtisan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A9107C247CD81600852695 /* RegisterArtisan.storyboard */; };
 		C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A9107F247CD8D000852695 /* Lato-Italic.ttf */; };
 		C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */; };
@@ -68,11 +69,14 @@
 		C0A910AB247CD90B00852695 /* PlayfairDisplay-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A9109F247CD90B00852695 /* PlayfairDisplay-MediumItalic.ttf */; };
 		C0A910AC247CD90B00852695 /* PlayfairDisplay-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A910A0247CD90B00852695 /* PlayfairDisplay-BlackItalic.ttf */; };
 		C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A910A1247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf */; };
+		C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9970E2483AD740035A33D /* LoginPasswordController.swift */; };
+		C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A997102483ADFA0035A33D /* LoginUserService.swift */; };
 		C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */; };
 		C0CB9057247DAF0900CF3528 /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CB9056247DAF0900CF3528 /* ForgotPassword.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		C03BD8772476F0BC00279D7F /* CraftExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03BD87A2476F0BC00279D7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,7 +115,7 @@
 		C07D69A52478394700B0B0FA /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		C07D69AA247874BF00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C091894D248038BB0058501C /* RoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewController.swift; sourceTree = "<group>"; };
-		C091894F248038E30058501C /* RoleSelectionScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleSelectionScene.swift; sourceTree = "<group>"; };
+		C091894F248038E30058501C /* LoginUserScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserScene.swift; sourceTree = "<group>"; };
 		C0A9107C247CD81600852695 /* RegisterArtisan.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterArtisan.storyboard; sourceTree = "<group>"; };
 		C0A9107F247CD8D000852695 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 		C0A9109F247CD90B00852695 /* PlayfairDisplay-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-MediumItalic.ttf"; sourceTree = "<group>"; };
 		C0A910A0247CD90B00852695 /* PlayfairDisplay-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-BlackItalic.ttf"; sourceTree = "<group>"; };
 		C0A910A1247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C0A9970E2483AD740035A33D /* LoginPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordController.swift; sourceTree = "<group>"; };
+		C0A997102483ADFA0035A33D /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
 		C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailController.swift; sourceTree = "<group>"; };
 		C0CB9056247DAF0900CF3528 /* ForgotPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ForgotPassword.storyboard; sourceTree = "<group>"; };
 		C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.release.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.release.xcconfig"; sourceTree = "<group>"; };
@@ -213,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				C07376BF247BD9020014C3CA /* ValidateUserScene.swift */,
-				C091894F248038E30058501C /* RoleSelectionScene.swift */,
+				C091894F248038E30058501C /* LoginUserScene.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -223,6 +229,7 @@
 			children = (
 				C071E25E247EFAAB0085805B /* BaseService.swift */,
 				C071E25C247EF9280085805B /* ValidateUserService.swift */,
+				C0A997102483ADFA0035A33D /* LoginUserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -258,6 +265,7 @@
 			children = (
 				C091894D248038BB0058501C /* RoleViewController.swift */,
 				C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */,
+				C0A9970E2483AD740035A33D /* LoginPasswordController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -284,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				C071E22C247E810D0085805B /* Strings+Extensions.swift */,
+				C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */,
 				C071E263247F07930085805B /* ReactiveExtentions.swift */,
 			);
 			path = Extensions;
@@ -539,13 +548,14 @@
 				C071E248247EE59E0085805B /* HTTPMethod.swift in Sources */,
 				C071E247247EE59E0085805B /* Result.swift in Sources */,
 				C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */,
-				C0918950248038E30058501C /* RoleSelectionScene.swift in Sources */,
+				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
 				C071E253247EE5C80085805B /* CraftExchangeClient.swift in Sources */,
 				C071E24B247EE59E0085805B /* RequestParameters.swift in Sources */,
 				C071E264247F07930085805B /* ReactiveExtentions.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
 				C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */,
+				C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */,
 				C071E22D247E810D0085805B /* Strings+Extensions.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
 				C091894E248038BB0058501C /* RoleViewController.swift in Sources */,
@@ -554,7 +564,9 @@
 				C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */,
 				C071E256247EE6CD0085805B /* KeychainManager.swift in Sources */,
 				C071E238247ED41A0085805B /* User.swift in Sources */,
+				C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */,
 				C071E258247EE9940085805B /* APIClient.swift in Sources */,
+				C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
