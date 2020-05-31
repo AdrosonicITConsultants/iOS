@@ -186,6 +186,62 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C0144ABE24844390006FF4AB /* LoginControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C091894D248038BB0058501C /* RoleViewController.swift */,
+				C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */,
+				C0A9970E2483AD740035A33D /* LoginPasswordController.swift */,
+			);
+			path = LoginControllers;
+			sourceTree = "<group>";
+		};
+		C0144ABF248443BB006FF4AB /* ForgotPasswordControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */,
+				C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */,
+				C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */,
+			);
+			path = ForgotPasswordControllers;
+			sourceTree = "<group>";
+		};
+		C0144AC0248443F6006FF4AB /* LoginServices */ = {
+			isa = PBXGroup;
+			children = (
+				C071E25C247EF9280085805B /* ValidateUserService.swift */,
+				C0A997102483ADFA0035A33D /* LoginUserService.swift */,
+			);
+			path = LoginServices;
+			sourceTree = "<group>";
+		};
+		C0144AC12484441B006FF4AB /* ForgotPasswordServices */ = {
+			isa = PBXGroup;
+			children = (
+				C0144AAE2483FCA5006FF4AB /* ForgotPasswordService.swift */,
+				C0144AB02483FCB5006FF4AB /* ResetPasswordService.swift */,
+			);
+			path = ForgotPasswordServices;
+			sourceTree = "<group>";
+		};
+		C0144AC224844447006FF4AB /* LoginScenes */ = {
+			isa = PBXGroup;
+			children = (
+				C07376BF247BD9020014C3CA /* ValidateUserScene.swift */,
+				C091894F248038E30058501C /* LoginUserScene.swift */,
+			);
+			path = LoginScenes;
+			sourceTree = "<group>";
+		};
+		C0144AC324844457006FF4AB /* ForgotPasswordScenes */ = {
+			isa = PBXGroup;
+			children = (
+				C0144AAA2483FC38006FF4AB /* ForgotPasswordScene.swift */,
+				C0144AAC2483FC4B006FF4AB /* ResetPasswordScene.swift */,
+			);
+			path = ForgotPasswordScenes;
+			sourceTree = "<group>";
+		};
 		C03BD86E2476F0BC00279D7F = {
 			isa = PBXGroup;
 			children = (
@@ -234,10 +290,8 @@
 		C03BD88F2476F83100279D7F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				C07376BF247BD9020014C3CA /* ValidateUserScene.swift */,
-				C091894F248038E30058501C /* LoginUserScene.swift */,
-				C0144AAA2483FC38006FF4AB /* ForgotPasswordScene.swift */,
-				C0144AAC2483FC4B006FF4AB /* ResetPasswordScene.swift */,
+				C0144AC224844447006FF4AB /* LoginScenes */,
+				C0144AC324844457006FF4AB /* ForgotPasswordScenes */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -246,10 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				C071E25E247EFAAB0085805B /* BaseService.swift */,
-				C071E25C247EF9280085805B /* ValidateUserService.swift */,
-				C0A997102483ADFA0035A33D /* LoginUserService.swift */,
-				C0144AAE2483FCA5006FF4AB /* ForgotPasswordService.swift */,
-				C0144AB02483FCB5006FF4AB /* ResetPasswordService.swift */,
+				C0144AC0248443F6006FF4AB /* LoginServices */,
+				C0144AC12484441B006FF4AB /* ForgotPasswordServices */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -283,12 +335,8 @@
 		C03BD8932476F87E00279D7F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C091894D248038BB0058501C /* RoleViewController.swift */,
-				C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */,
-				C0A9970E2483AD740035A33D /* LoginPasswordController.swift */,
-				C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */,
-				C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */,
-				C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */,
+				C0144ABF248443BB006FF4AB /* ForgotPasswordControllers */,
+				C0144ABE24844390006FF4AB /* LoginControllers */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
