@@ -198,19 +198,19 @@
                                                         <fragment content="New user?">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="label" size="15"/>
+                                                                <font key="NSFont" metaFont="system" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" Click here">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.32210981849999998" green="0.39943659310000001" blue="0.71376132969999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="label" size="15"/>
+                                                                <font key="NSFont" metaFont="system" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" to register.">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="label" size="15"/>
+                                                                <font key="NSFont" metaFont="system" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -426,19 +426,19 @@
                                                         <fragment content="New user?">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="label" size="15"/>
+                                                                <font key="NSFont" metaFont="system" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" Click here">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.32210981849999998" green="0.39943659310000001" blue="0.71376132969999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="label" size="15"/>
+                                                                <font key="NSFont" metaFont="system" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" to register.">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="label" size="15"/>
+                                                                <font key="NSFont" metaFont="system" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -483,7 +483,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Forgot password?"/>
                                                 <connections>
-                                                    <segue destination="GSh-6b-q9o" kind="presentation" modalPresentationStyle="fullScreen" id="0Kd-dQ-FpN"/>
+                                                    <action selector="forgotPasswordSelected:" destination="75Y-19-Oy8" eventType="touchUpInside" id="9h2-fs-43G"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Gr-j2-q2m">
@@ -570,16 +570,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B5H-mb-a3T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2942" y="-796"/>
-        </scene>
-        <!--ForgotPassword-->
-        <scene sceneID="3ag-ZF-Zs0">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ForgotPassword" id="GSh-6b-q9o" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="UU5-P0-BhG"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="otj-uH-d4g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3573" y="-796"/>
         </scene>
     </scenes>
     <resources>

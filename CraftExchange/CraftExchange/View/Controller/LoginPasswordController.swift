@@ -14,6 +14,7 @@ class LoginViewModel {
     var username = Observable<String?>("")
     var password = Observable<String?>("")
     var performAuthentication: (() -> Void)?
+    var goToForgotPassword: (() -> Void)?
 }
 
 class LoginPasswordController: UIViewController {
@@ -30,6 +31,9 @@ class LoginPasswordController: UIViewController {
   
   @IBAction func loginButtonSelected(_ sender: Any) {
     self.viewModel.performAuthentication?()
-//    self.performSegue(withIdentifier: "showPasswordScreenSegue", sender: self)
+  }
+  
+  @IBAction func forgotPasswordSelected(_ sender: Any) {
+    self.viewModel.goToForgotPassword?()
   }
 }

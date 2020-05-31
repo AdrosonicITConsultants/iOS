@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
 		C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */; };
+		C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */; };
+		C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */; };
+		C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AAA2483FC38006FF4AB /* ForgotPasswordScene.swift */; };
+		C0144AAD2483FC4B006FF4AB /* ResetPasswordScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AAC2483FC4B006FF4AB /* ResetPasswordScene.swift */; };
+		C0144AAF2483FCA5006FF4AB /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AAE2483FCA5006FF4AB /* ForgotPasswordService.swift */; };
+		C0144AB12483FCB5006FF4AB /* ResetPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AB02483FCB5006FF4AB /* ResetPasswordService.swift */; };
+		C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */; };
+		C0144AB424843D4A006FF4AB /* RegisterArtisan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0144AB624843D4A006FF4AB /* RegisterArtisan.storyboard */; };
+		C0144AB924843D66006FF4AB /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0144ABB24843D66006FF4AB /* ForgotPassword.storyboard */; };
 		C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87A2476F0BC00279D7F /* AppDelegate.swift */; };
 		C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */; };
 		C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8802476F0BC00279D7F /* Main.storyboard */; };
@@ -45,7 +54,6 @@
 		C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A52478394700B0B0FA /* RoundedTextField.swift */; };
 		C091894E248038BB0058501C /* RoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091894D248038BB0058501C /* RoleViewController.swift */; };
 		C0918950248038E30058501C /* LoginUserScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C091894F248038E30058501C /* LoginUserScene.swift */; };
-		C0A9107D247CD81600852695 /* RegisterArtisan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A9107C247CD81600852695 /* RegisterArtisan.storyboard */; };
 		C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A9107F247CD8D000852695 /* Lato-Italic.ttf */; };
 		C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */; };
 		C0A9108C247CD8D000852695 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A91081247CD8D000852695 /* Lato-Thin.ttf */; };
@@ -72,11 +80,21 @@
 		C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9970E2483AD740035A33D /* LoginPasswordController.swift */; };
 		C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A997102483ADFA0035A33D /* LoginUserService.swift */; };
 		C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */; };
-		C0CB9057247DAF0900CF3528 /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CB9056247DAF0900CF3528 /* ForgotPassword.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
+		C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
+		C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
+		C0144AAA2483FC38006FF4AB /* ForgotPasswordScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordScene.swift; sourceTree = "<group>"; };
+		C0144AAC2483FC4B006FF4AB /* ResetPasswordScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordScene.swift; sourceTree = "<group>"; };
+		C0144AAE2483FCA5006FF4AB /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
+		C0144AB02483FCB5006FF4AB /* ResetPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordService.swift; sourceTree = "<group>"; };
+		C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdResetSuccessfulController.swift; sourceTree = "<group>"; };
+		C0144AB524843D4A006FF4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RegisterArtisan.storyboard; sourceTree = "<group>"; };
+		C0144AB824843D54006FF4AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RegisterArtisan.strings; sourceTree = "<group>"; };
+		C0144ABA24843D66006FF4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ForgotPassword.storyboard; sourceTree = "<group>"; };
+		C0144ABD24843D72006FF4AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ForgotPassword.strings; sourceTree = "<group>"; };
 		C03BD8772476F0BC00279D7F /* CraftExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03BD87A2476F0BC00279D7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,7 +134,6 @@
 		C07D69AA247874BF00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C091894D248038BB0058501C /* RoleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleViewController.swift; sourceTree = "<group>"; };
 		C091894F248038E30058501C /* LoginUserScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserScene.swift; sourceTree = "<group>"; };
-		C0A9107C247CD81600852695 /* RegisterArtisan.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterArtisan.storyboard; sourceTree = "<group>"; };
 		C0A9107F247CD8D000852695 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		C0A91081247CD8D000852695 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
@@ -143,7 +160,6 @@
 		C0A9970E2483AD740035A33D /* LoginPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordController.swift; sourceTree = "<group>"; };
 		C0A997102483ADFA0035A33D /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
 		C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailController.swift; sourceTree = "<group>"; };
-		C0CB9056247DAF0900CF3528 /* ForgotPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ForgotPassword.storyboard; sourceTree = "<group>"; };
 		C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.release.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.release.xcconfig"; sourceTree = "<group>"; };
 		D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CraftExchange.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E9908D3750226727C24458 /* Pods-CraftExchange.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.debug.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.debug.xcconfig"; sourceTree = "<group>"; };
@@ -195,9 +211,9 @@
 				C03BD88F2476F83100279D7F /* Scene */,
 				C03BD8922476F87700279D7F /* View */,
 				C03BD8902476F83B00279D7F /* Service */,
+				C03BD8912476F85500279D7F /* Entities */,
 				C071E23E247EE51D0085805B /* Framework */,
 				C03BD8882476F0BF00279D7F /* Info.plist */,
-				C03BD8912476F85500279D7F /* Entities */,
 				C03BD88E2476F7FC00279D7F /* Resources */,
 			);
 			path = CraftExchange;
@@ -220,6 +236,8 @@
 			children = (
 				C07376BF247BD9020014C3CA /* ValidateUserScene.swift */,
 				C091894F248038E30058501C /* LoginUserScene.swift */,
+				C0144AAA2483FC38006FF4AB /* ForgotPasswordScene.swift */,
+				C0144AAC2483FC4B006FF4AB /* ResetPasswordScene.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -230,6 +248,8 @@
 				C071E25E247EFAAB0085805B /* BaseService.swift */,
 				C071E25C247EF9280085805B /* ValidateUserService.swift */,
 				C0A997102483ADFA0035A33D /* LoginUserService.swift */,
+				C0144AAE2483FCA5006FF4AB /* ForgotPasswordService.swift */,
+				C0144AB02483FCB5006FF4AB /* ResetPasswordService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -266,6 +286,9 @@
 				C091894D248038BB0058501C /* RoleViewController.swift */,
 				C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */,
 				C0A9970E2483AD740035A33D /* LoginPasswordController.swift */,
+				C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */,
+				C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */,
+				C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -274,8 +297,8 @@
 			isa = PBXGroup;
 			children = (
 				C03BD8802476F0BC00279D7F /* Main.storyboard */,
-				C0A9107C247CD81600852695 /* RegisterArtisan.storyboard */,
-				C0CB9056247DAF0900CF3528 /* ForgotPassword.storyboard */,
+				C0144AB624843D4A006FF4AB /* RegisterArtisan.storyboard */,
+				C0144ABB24843D66006FF4AB /* ForgotPassword.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -477,7 +500,7 @@
 				C0A910A7247CD90B00852695 /* PlayfairDisplay-Italic.ttf in Resources */,
 				C0A9108C247CD8D000852695 /* Lato-Thin.ttf in Resources */,
 				C0A91090247CD8D000852695 /* Lato-BlackItalic.ttf in Resources */,
-				C0CB9057247DAF0900CF3528 /* ForgotPassword.storyboard in Resources */,
+				C0144AB924843D66006FF4AB /* ForgotPassword.storyboard in Resources */,
 				C0A910A5247CD90B00852695 /* PlayfairDisplay-BoldItalic.ttf in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
@@ -485,7 +508,7 @@
 				C0A91094247CD8D000852695 /* Lato-ThinItalic.ttf in Resources */,
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
 				C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */,
-				C0A9107D247CD81600852695 /* RegisterArtisan.storyboard in Resources */,
+				C0144AB424843D4A006FF4AB /* RegisterArtisan.storyboard in Resources */,
 				C0A9108F247CD8D000852695 /* Lato-Regular.ttf in Resources */,
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
@@ -555,21 +578,26 @@
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
 				C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */,
+				C0144AAD2483FC4B006FF4AB /* ResetPasswordScene.swift in Sources */,
 				C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */,
 				C071E22D247E810D0085805B /* Strings+Extensions.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
 				C091894E248038BB0058501C /* RoleViewController.swift in Sources */,
 				C071E23A247EDDB20085805B /* UserProductCategory.swift in Sources */,
+				C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */,
 				C071E25D247EF9280085805B /* ValidateUserService.swift in Sources */,
 				C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */,
 				C071E256247EE6CD0085805B /* KeychainManager.swift in Sources */,
+				C0144AB12483FCB5006FF4AB /* ResetPasswordService.swift in Sources */,
 				C071E238247ED41A0085805B /* User.swift in Sources */,
 				C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */,
 				C071E258247EE9940085805B /* APIClient.swift in Sources */,
 				C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
+				C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
+				C0144AAF2483FCA5006FF4AB /* ForgotPasswordService.swift in Sources */,
 				C071E246247EE59E0085805B /* Utilities.swift in Sources */,
 				C071E234247EB6170085805B /* ProductCategory.swift in Sources */,
 				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
@@ -582,12 +610,32 @@
 				C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */,
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
+				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,
+				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		C0144AB624843D4A006FF4AB /* RegisterArtisan.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0144AB524843D4A006FF4AB /* Base */,
+				C0144AB824843D54006FF4AB /* en */,
+			);
+			name = RegisterArtisan.storyboard;
+			sourceTree = "<group>";
+		};
+		C0144ABB24843D66006FF4AB /* ForgotPassword.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0144ABA24843D66006FF4AB /* Base */,
+				C0144ABD24843D72006FF4AB /* en */,
+			);
+			name = ForgotPassword.storyboard;
+			sourceTree = "<group>";
+		};
 		C03BD8802476F0BC00279D7F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

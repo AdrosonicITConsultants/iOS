@@ -30,6 +30,5 @@ class LoginEmailController: UIViewController {
   
   @IBAction func nextButtonSelected(_ sender: Any) {
     self.viewModel.performValidation?()
-//    self.performSegue(withIdentifier: "showPasswordScreenSegue", sender: self)
   }
 }

@@ -54,6 +54,11 @@ extension LoginUserService {
       }
     }
     
+    vc.viewModel.goToForgotPassword = {
+      let controller = ForgotPasswordService(client: self.client).createScene()
+      vc.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     return vc
   }
 }

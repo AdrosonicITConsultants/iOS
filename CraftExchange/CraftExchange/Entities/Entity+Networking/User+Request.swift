@@ -34,4 +34,45 @@ extension User {
           needsAuthorization: false
       )
   }
+  
+  public static func sendOTP(username: String) -> Request<Data, APIError> {
+      return Request(
+          path: "forgotpassword/sendotp?email=\(username)",
+          method: .get,
+          resource: { print(String(data: $0, encoding: .utf8) ?? "opt sendind failed")
+          return $0
+      },
+          error: APIError.init,
+          needsAuthorization: false
+      )
+  }
+  
+  public static func verifyEmailOtp(emailId: String, otp: String) -> Request<Data, APIError> {
+    let parameters: [String: Any] = ["email":emailId,
+                                     "id": 0,
+                                     "otp":otp]
+      return Request(
+          path: "forgotpassword/verifyEmailOtp",
+          method: .post,
+          parameters: JSONParameters(parameters),
+          resource: {print(String(data: $0, encoding: .utf8) ?? "opt varification failed")
+            return $0},
+          error: APIError.init,
+          needsAuthorization: false
+      )
+  }
+  
+  public static func resetPassword(username: String, password: String) -> Request<Data, APIError> {
+    let parameters: [String: Any] = ["emailOrMobile":username,
+                                     "password":password]
+      return Request(
+          path: "forgotpassword/resetpassword",
+          method: .post,
+          parameters: JSONParameters(parameters),
+          resource: {print(String(data: $0, encoding: .utf8) ?? "reset password failed")
+            return $0},
+          error: APIError.init,
+          needsAuthorization: false
+      )
+  }
 }
