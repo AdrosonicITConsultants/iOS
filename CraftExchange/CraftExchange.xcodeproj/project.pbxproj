@@ -94,6 +94,7 @@
 		C0ACE9A82485970100EFA4ED /* REGValidateUserEmailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9A72485970100EFA4ED /* REGValidateUserEmailScene.swift */; };
 		C0ACE9AC2485A54600EFA4ED /* RegisterArtisanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9AB2485A54600EFA4ED /* RegisterArtisanService.swift */; };
 		C0ACE9AE2485A5BB00EFA4ED /* RegisterArtisanScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9AD2485A5BB00EFA4ED /* RegisterArtisanScene.swift */; };
+		C0ACE9B02485BD0C00EFA4ED /* ClusterDetails+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */; };
 		C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */; };
 /* End PBXBuildFile section */
 
@@ -189,6 +190,7 @@
 		C0ACE9A72485970100EFA4ED /* REGValidateUserEmailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGValidateUserEmailScene.swift; sourceTree = "<group>"; };
 		C0ACE9AB2485A54600EFA4ED /* RegisterArtisanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterArtisanService.swift; sourceTree = "<group>"; };
 		C0ACE9AD2485A5BB00EFA4ED /* RegisterArtisanScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterArtisanScene.swift; sourceTree = "<group>"; };
+		C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClusterDetails+Request.swift"; sourceTree = "<group>"; };
 		C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailController.swift; sourceTree = "<group>"; };
 		C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.release.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.release.xcconfig"; sourceTree = "<group>"; };
 		D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CraftExchange.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -448,6 +450,7 @@
 				C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */,
 				C0ACE9912484EF3800EFA4ED /* Country+Request.swift */,
 				C0ACE99D2485916400EFA4ED /* ProductCategory+Request.swift */,
+				C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */,
 			);
 			path = "Entity+Networking";
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 				C0ACE9A22485947500EFA4ED /* ValidateWeaverService.swift in Sources */,
 				C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
+				C0ACE9B02485BD0C00EFA4ED /* ClusterDetails+Request.swift in Sources */,
 				C0144AAF2483FCA5006FF4AB /* ForgotPasswordService.swift in Sources */,
 				C071E246247EE59E0085805B /* Utilities.swift in Sources */,
 				C071E234247EB6170085805B /* ProductCategory.swift in Sources */,
