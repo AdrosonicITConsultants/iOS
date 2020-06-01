@@ -17,7 +17,7 @@ class ProductCategory: Object, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case prodCatDescription = "product_desc"
+        case prodCatDescription = "productDesc"
     }
 
     convenience required init(from decoder: Decoder) throws {

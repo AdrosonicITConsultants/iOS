@@ -11,8 +11,9 @@ import ReactiveKit
 import UIKit
 
 class ValidationViewModel {
-    var username = Observable<String?>("")
-    var performValidation: (() -> Void)?
+  var username = Observable<String?>("")
+  var performValidation: (() -> Void)?
+  var goToRegister: (() -> Void)?
 }
 
 class LoginEmailController: UIViewController {
@@ -30,5 +31,9 @@ class LoginEmailController: UIViewController {
   
   @IBAction func nextButtonSelected(_ sender: Any) {
     self.viewModel.performValidation?()
+  }
+  
+  @IBAction func registerSelected(_ sender: Any) {
+    self.viewModel.goToRegister?()
   }
 }

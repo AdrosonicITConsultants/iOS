@@ -11,10 +11,11 @@ import ReactiveKit
 import UIKit
 
 class LoginViewModel {
-    var username = Observable<String?>("")
-    var password = Observable<String?>("")
-    var performAuthentication: (() -> Void)?
-    var goToForgotPassword: (() -> Void)?
+  var username = Observable<String?>("")
+  var password = Observable<String?>("")
+  var performAuthentication: (() -> Void)?
+  var goToForgotPassword: (() -> Void)?
+  var goToRegister: (() -> Void)?
 }
 
 class LoginPasswordController: UIViewController {
@@ -35,5 +36,9 @@ class LoginPasswordController: UIViewController {
   
   @IBAction func forgotPasswordSelected(_ sender: Any) {
     self.viewModel.goToForgotPassword?()
+  }
+  
+  @IBAction func registerSelected(_ sender: Any) {
+    self.viewModel.goToRegister?()
   }
 }

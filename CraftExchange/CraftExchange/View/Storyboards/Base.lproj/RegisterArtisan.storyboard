@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Validate Artisan Controller-->
         <scene sceneID="lnG-Qc-wDV">
             <objects>
-                <viewController id="aPo-hV-Nkv" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="REGValidateArtisanController" id="aPo-hV-Nkv" customClass="REGValidateArtisanController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3g2-fY-aJq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,15 +78,6 @@
                                                     <constraint firstAttribute="height" constant="1" id="k8h-Rg-4ga"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your 4 digit pin provided along with weaver id" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D9L-S7-kMG">
-                                                <rect key="frame" x="20" y="385" width="374" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="4ep-Yv-8TL"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRv-bK-7fK" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
                                                 <rect key="frame" x="147.5" y="519" width="119" height="34"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,7 +94,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="824-BP-8MA" kind="show" id="72w-bm-DYe"/>
+                                                    <action selector="nextButtonSelected:" destination="aPo-hV-Nkv" eventType="touchUpInside" id="Oly-Rc-n7h"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you don't have weaver id get in touch with us" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPU-Wj-0ZS">
@@ -115,20 +106,6 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vgl-v2-Nos" customClass="RoundedTextField" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="80" y="455" width="254" height="34"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="34" id="AlQ-M7-0bs"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="pin"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
-                                                        <real key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3z-mi-jeB" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
                                                 <rect key="frame" x="147.5" y="653" width="119" height="35"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -159,38 +136,29 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstItem="IRv-bK-7fK" firstAttribute="leading" secondItem="q3z-mi-jeB" secondAttribute="leading" id="1xw-eW-CDT"/>
                                             <constraint firstItem="q3z-mi-jeB" firstAttribute="top" secondItem="UPU-Wj-0ZS" secondAttribute="bottom" constant="20" id="7dl-Lj-fZv"/>
                                             <constraint firstItem="ZfG-gl-5i3" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" constant="80" id="9G5-a7-eKb"/>
                                             <constraint firstItem="0ZZ-2e-OIf" firstAttribute="top" secondItem="Aw2-Fs-LhI" secondAttribute="top" id="9KD-WF-WON"/>
-                                            <constraint firstItem="D9L-S7-kMG" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" constant="20" id="A4f-Hl-5sz"/>
                                             <constraint firstItem="Aw2-Fs-LhI" firstAttribute="top" secondItem="q3z-mi-jeB" secondAttribute="bottom" constant="40" id="Aw4-uP-f9c"/>
-                                            <constraint firstItem="D9L-S7-kMG" firstAttribute="top" secondItem="WgC-ov-haV" secondAttribute="bottom" constant="30" id="DeO-Bg-UXs"/>
                                             <constraint firstItem="KXg-06-u9E" firstAttribute="top" secondItem="eca-mW-Hli" secondAttribute="top" constant="10" id="F5B-Ts-BNe"/>
                                             <constraint firstItem="UPU-Wj-0ZS" firstAttribute="top" secondItem="IRv-bK-7fK" secondAttribute="bottom" constant="30" id="Ha3-Og-mx3"/>
                                             <constraint firstItem="0ZZ-2e-OIf" firstAttribute="baseline" secondItem="3Sz-zx-F3F" secondAttribute="baseline" id="HyG-C7-dpo"/>
                                             <constraint firstItem="KXg-06-u9E" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" id="MSo-X6-eL5"/>
                                             <constraint firstItem="WgC-ov-haV" firstAttribute="top" secondItem="ZfG-gl-5i3" secondAttribute="bottom" constant="30" id="Mz7-t8-9p0"/>
-                                            <constraint firstAttribute="trailing" secondItem="vgl-v2-Nos" secondAttribute="trailing" constant="80" id="PjQ-vt-DzU"/>
                                             <constraint firstItem="UPU-Wj-0ZS" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" constant="80" id="RDe-mE-8Hx"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" constant="80" id="RcQ-jr-8wv"/>
                                             <constraint firstItem="ZfG-gl-5i3" firstAttribute="top" secondItem="vJc-fC-iHP" secondAttribute="bottom" constant="20" id="RpJ-1Z-jix"/>
                                             <constraint firstAttribute="trailing" secondItem="3Sz-zx-F3F" secondAttribute="trailing" constant="20" id="TYI-rU-xPL"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="centerX" secondItem="D9L-S7-kMG" secondAttribute="centerX" id="U4F-6L-EmW"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="centerX" secondItem="IRv-bK-7fK" secondAttribute="centerX" id="Wbn-el-H7p"/>
                                             <constraint firstItem="vJc-fC-iHP" firstAttribute="top" secondItem="KXg-06-u9E" secondAttribute="bottom" constant="20" id="ZGr-Eb-v6V"/>
-                                            <constraint firstAttribute="trailing" secondItem="D9L-S7-kMG" secondAttribute="trailing" constant="20" id="cIy-I2-tD1"/>
+                                            <constraint firstItem="IRv-bK-7fK" firstAttribute="centerX" secondItem="WgC-ov-haV" secondAttribute="centerX" id="auZ-RF-glO"/>
                                             <constraint firstAttribute="trailing" secondItem="ZfG-gl-5i3" secondAttribute="trailing" constant="80" id="el2-tG-Bx7"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="top" secondItem="D9L-S7-kMG" secondAttribute="bottom" constant="20" id="fNN-xA-J4L"/>
                                             <constraint firstItem="Aw2-Fs-LhI" firstAttribute="centerX" secondItem="q3z-mi-jeB" secondAttribute="centerX" id="g6u-0A-eSc"/>
                                             <constraint firstAttribute="trailing" secondItem="UPU-Wj-0ZS" secondAttribute="trailing" constant="80" id="goA-LB-6sd"/>
                                             <constraint firstAttribute="trailing" secondItem="KXg-06-u9E" secondAttribute="trailing" id="isb-oQ-zxh"/>
-                                            <constraint firstItem="IRv-bK-7fK" firstAttribute="top" secondItem="vgl-v2-Nos" secondAttribute="bottom" constant="30" id="jDQ-JX-dZl"/>
+                                            <constraint firstItem="IRv-bK-7fK" firstAttribute="centerX" secondItem="UPU-Wj-0ZS" secondAttribute="centerX" id="j3q-vq-Yax"/>
+                                            <constraint firstAttribute="bottom" secondItem="IRv-bK-7fK" secondAttribute="bottom" constant="255" id="jry-do-Hwb"/>
                                             <constraint firstItem="0ZZ-2e-OIf" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" constant="20" id="nJi-5h-mTq"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="leading" secondItem="ZfG-gl-5i3" secondAttribute="leading" id="nkM-fN-agt"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="centerX" secondItem="vJc-fC-iHP" secondAttribute="centerX" id="pBr-q2-Fbu"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="leading" secondItem="UPU-Wj-0ZS" secondAttribute="leading" id="qj5-vB-jpE"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="centerX" secondItem="q3z-mi-jeB" secondAttribute="centerX" id="thG-qh-crk"/>
-                                            <constraint firstItem="vgl-v2-Nos" firstAttribute="centerX" secondItem="WgC-ov-haV" secondAttribute="centerX" id="xvC-XS-Zpv"/>
+                                            <constraint firstItem="IRv-bK-7fK" firstAttribute="centerX" secondItem="vJc-fC-iHP" secondAttribute="centerX" id="zia-01-2dl"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -216,6 +184,9 @@
                         <viewLayoutGuide key="safeArea" id="ETp-pi-Utl"/>
                     </view>
                     <navigationItem key="navigationItem" id="YrN-m1-pIu"/>
+                    <connections>
+                        <outlet property="weaverIdField" destination="ZfG-gl-5i3" id="xg7-Le-ssL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wst-fz-M1m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -239,10 +210,10 @@
             </objects>
             <point key="canvasLocation" x="66.666666666666671" y="-796.20535714285711"/>
         </scene>
-        <!--View Controller-->
+        <!--Validate User Email Controller-->
         <scene sceneID="KvG-4p-L8p">
             <objects>
-                <viewController id="824-BP-8MA" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="REGValidateUserEmailController" id="824-BP-8MA" customClass="REGValidateUserEmailController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7st-5N-AMm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -251,7 +222,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-m5-ecb">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-underlying-text" translatesAutoresizingMaskIntoConstraints="NO" id="dk5-dC-dji">
                                                 <rect key="frame" x="0.0" y="10" width="414" height="200"/>
@@ -318,7 +289,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="dur-t0-7vE" kind="show" id="H9l-mZ-F42"/>
+                                                    <action selector="nextButtonSelected:" destination="824-BP-8MA" eventType="touchUpInside" id="hJS-vz-OAE"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In case of any help" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPo-LB-gPr">
@@ -387,6 +358,9 @@
                                                         <real key="value" value="18"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="sendOTPSelected:" destination="824-BP-8MA" eventType="touchUpInside" id="Nw2-0C-P53"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -444,15 +418,19 @@
                         <viewLayoutGuide key="safeArea" id="woC-Bp-v1u"/>
                     </view>
                     <navigationItem key="navigationItem" id="CCH-Nq-7rC"/>
+                    <connections>
+                        <outlet property="otpField" destination="DUr-Xg-mAP" id="vR6-wb-gao"/>
+                        <outlet property="usernameField" destination="EU7-On-GdN" id="6AD-Fm-pUv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q0M-0I-7cs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1784" y="-796"/>
         </scene>
-        <!--View Controller-->
+        <!--New User Password Controller-->
         <scene sceneID="9fK-OU-sYK">
             <objects>
-                <viewController id="dur-t0-7vE" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="REGNewUserPasswordController" id="dur-t0-7vE" customClass="REGNewUserPasswordController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7hH-0Z-HWh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -461,16 +439,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGb-NN-EUH">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-underlying-text" translatesAutoresizingMaskIntoConstraints="NO" id="rOx-QU-uDF">
-                                                <rect key="frame" x="0.0" y="10" width="414" height="257"/>
+                                                <rect key="frame" x="0.0" y="10" width="414" height="301"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="Q14-mk-GgZ"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your new password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZH-2f-fSR">
-                                                <rect key="frame" x="110.5" y="287" width="193" height="40"/>
+                                                <rect key="frame" x="110.5" y="331" width="193" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="SIZ-ov-zRB"/>
                                                 </constraints>
@@ -479,7 +457,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hTP-XB-3eb">
-                                                <rect key="frame" x="192" y="734" width="30" height="30"/>
+                                                <rect key="frame" x="192" y="778" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="1nj-BN-drV"/>
                                                     <constraint firstAttribute="width" constant="30" id="fxo-Ll-B0b"/>
@@ -489,7 +467,7 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez8-FI-Zx5">
-                                                <rect key="frame" x="20" y="734" width="120" height="30"/>
+                                                <rect key="frame" x="20" y="778" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="5ev-jt-wD0"/>
                                                     <constraint firstAttribute="width" constant="120" id="Mvh-fQ-z10"/>
@@ -499,7 +477,7 @@
                                                 </state>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hHl-ks-fAD" customClass="RoundedTextField" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="80" y="347" width="254" height="34"/>
+                                                <rect key="frame" x="80" y="391" width="254" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="XSy-7m-H4e"/>
                                                 </constraints>
@@ -513,7 +491,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Gm-8f-Ita" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="147.5" y="485" width="119" height="34"/>
+                                                <rect key="frame" x="147.5" y="529" width="119" height="34"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="119" id="6Pu-kv-8uJ"/>
@@ -528,11 +506,11 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <segue destination="eOc-9y-B6R" kind="show" id="jAs-nG-c8b"/>
+                                                    <action selector="confirmPasswordSelected:" destination="dur-t0-7vE" eventType="touchUpInside" id="4dd-Gf-SkN"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In case of any help" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kn4-GW-yCZ">
-                                                <rect key="frame" x="80" y="599" width="254" height="40"/>
+                                                <rect key="frame" x="80" y="643" width="254" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="dpo-fA-G9B"/>
                                                 </constraints>
@@ -541,7 +519,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="03W-MY-jG5" customClass="RoundedTextField" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="80" y="411" width="254" height="34"/>
+                                                <rect key="frame" x="80" y="455" width="254" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="34" id="zmY-bH-She"/>
                                                 </constraints>
@@ -555,7 +533,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mK5-Ml-cl4" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="147.5" y="659" width="119" height="35"/>
+                                                <rect key="frame" x="147.5" y="703" width="119" height="35"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="bEm-vV-9zh"/>
@@ -572,7 +550,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuR-5s-OjE">
-                                                <rect key="frame" x="274" y="734" width="120" height="30"/>
+                                                <rect key="frame" x="274" y="778" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="MdA-LJ-wtQ"/>
                                                     <constraint firstAttribute="width" constant="120" id="loc-uy-D5M"/>
@@ -636,15 +614,19 @@
                         <viewLayoutGuide key="safeArea" id="HRp-Mi-3gK"/>
                     </view>
                     <navigationItem key="navigationItem" id="8or-aM-P8i"/>
+                    <connections>
+                        <outlet property="confirmPasswordField" destination="03W-MY-jG5" id="8Ff-dz-uoZ"/>
+                        <outlet property="passwordField" destination="hHl-ks-fAD" id="GMb-bn-Yr6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xZn-7h-Sxe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2549" y="-796"/>
         </scene>
-        <!--View Controller-->
+        <!--Register Artisan Controller-->
         <scene sceneID="aC9-e8-LpO">
             <objects>
-                <viewController id="eOc-9y-B6R" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterArtisanController" id="eOc-9y-B6R" customClass="RegisterArtisanController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8n5-Xi-SkB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -653,7 +635,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDQ-tc-lof">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="852"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-underlying-text" translatesAutoresizingMaskIntoConstraints="NO" id="Zsq-9v-OVl">
                                                 <rect key="frame" x="0.0" y="10" width="414" height="200"/>
@@ -662,7 +644,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YBx-tV-YCN">
-                                                <rect key="frame" x="192" y="734" width="30" height="30"/>
+                                                <rect key="frame" x="192" y="778" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="2Wn-VP-ZRV"/>
                                                     <constraint firstAttribute="width" constant="30" id="bgq-mt-8z1"/>
@@ -672,7 +654,7 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ag6-IK-UWx">
-                                                <rect key="frame" x="20" y="734" width="120" height="30"/>
+                                                <rect key="frame" x="20" y="778" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="36i-TS-9Be"/>
                                                     <constraint firstAttribute="height" constant="30" id="aMM-bT-Gy0"/>
@@ -682,7 +664,7 @@
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-cl-0z9">
-                                                <rect key="frame" x="274" y="734" width="120" height="30"/>
+                                                <rect key="frame" x="274" y="778" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="OEw-Cg-WnF"/>
                                                     <constraint firstAttribute="width" constant="120" id="P4h-7C-PZT"/>
@@ -855,6 +837,9 @@
                                                         <real key="value" value="18"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="completeButtonSelected:" destination="eOc-9y-B6R" eventType="touchUpInside" id="5Ih-WL-CnZ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -936,7 +921,6 @@
         <image name="email" width="18" height="20"/>
         <image name="lock" width="16" height="20"/>
         <image name="logo-underlying-text" width="375" height="180"/>
-        <image name="pin" width="24" height="24"/>
         <image name="upload" width="19" height="19"/>
     </resources>
 </document>

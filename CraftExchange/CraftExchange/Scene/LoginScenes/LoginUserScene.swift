@@ -59,6 +59,11 @@ extension LoginUserService {
       vc.navigationController?.pushViewController(controller, animated: true)
     }
     
+    vc.viewModel.goToRegister = {
+      let controller = ValidateWeaverService(client: self.client).createScene()
+      vc.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     return vc
   }
 }

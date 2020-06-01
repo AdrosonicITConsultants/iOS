@@ -1,5 +1,5 @@
 //
-//  ArtisanUser.swift
+//  CXUser.swift
 //  CraftExchange
 //
 //  Created by Preety Singh on 01/06/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ArtisanUser {
+struct CXUser {
 
   var address: LocalAddress?
   var alternateMobile: String?
@@ -29,12 +29,13 @@ struct ArtisanUser {
   var websiteLink: String?
 }
 
-extension ArtisanUser {
+extension CXUser {
   func toJSON() -> [String: Any] {
     var message: [String: Any] = [:]
     
     message["clusterId"] = clusterId
     message["productCategoryIds"] = productCategoryIds
+    message["refRoleId"] = refRoleId
     
     if refRoleId == 1 { //Artisan
       if let weaverId = weaverId {

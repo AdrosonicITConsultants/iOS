@@ -1,8 +1,8 @@
 //
-//  ForgotPasswordScene.swift
+//  REGValidateUserEmailScene.swift
 //  CraftExchange
 //
-//  Created by Preety Singh on 31/05/20.
+//  Created by Preety Singh on 02/06/20.
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
 
@@ -11,11 +11,11 @@ import Bond
 import ReactiveKit
 import UIKit
 
-extension ForgotPasswordService {
+extension REGValidateUserEmailService {
   
-  func createScene() -> UIViewController {
-    let storyboard = UIStoryboard(name: "ForgotPassword", bundle: Bundle.main)
-    let vc = storyboard.instantiateViewController(withIdentifier: "ForgotPasswordController") as! ForgotPasswordController
+  func createScene(weaverId: String?) -> UIViewController {
+    let storyboard = UIStoryboard(name: "RegisterArtisan", bundle: Bundle.main)
+    let vc = storyboard.instantiateViewController(withIdentifier: "REGValidateUserEmailController") as! REGValidateUserEmailController
     
     client.errors.bind(to: vc.reactive.userErrors)
     
@@ -62,7 +62,10 @@ extension ForgotPasswordService {
                 {
                   if (jsonDict["valid"] as? Bool) == true {
                     DispatchQueue.main.async {
-                      let controller = ResetPasswordService(client: self.client).createScene(username: username)
+                      let storyboard = UIStoryboard(name: "RegisterArtisan", bundle: Bundle.main)
+                      let controller = storyboard.instantiateViewController(withIdentifier: "REGNewUserPasswordController") as! REGNewUserPasswordController
+                      controller.weaverId = weaverId
+                      controller.validatedEmailId = username
                       vc.navigationController?.pushViewController(controller, animated: true)
                     }
                   }else {

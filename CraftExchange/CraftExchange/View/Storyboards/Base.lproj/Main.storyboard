@@ -216,7 +216,7 @@
                                                     </attributedString>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="JR9-c0-5yW" kind="presentation" modalPresentationStyle="fullScreen" id="Jk2-7t-PGW"/>
+                                                    <action selector="registerSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="coc-0J-QN2"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPR-I0-MCd">
@@ -337,14 +337,6 @@
             </objects>
             <point key="canvasLocation" x="1947.826086956522" y="-796.20535714285711"/>
         </scene>
-        <!--RegisterArtisan-->
-        <scene sceneID="Ed2-qg-Ogu">
-            <objects>
-                <viewControllerPlaceholder storyboardName="RegisterArtisan" id="JR9-c0-5yW" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZYs-L8-INv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2438" y="-377"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="9FO-FP-V6O">
             <objects>
@@ -444,7 +436,7 @@
                                                     </attributedString>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="JR9-c0-5yW" kind="presentation" modalPresentationStyle="fullScreen" id="Hsc-1w-Sf2"/>
+                                                    <action selector="registerSelected:" destination="75Y-19-Oy8" eventType="touchUpInside" id="A6e-lr-mCE"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mW3-pX-gwT">
@@ -582,7 +574,4 @@
         <image name="or-option" width="237" height="37.5"/>
         <image name="person_icon" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Hsc-1w-Sf2"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -1,8 +1,8 @@
 //
-//  ValidateUserScene.swift
+//  REGValidateWeaverScene.swift
 //  CraftExchange
 //
-//  Created by Preety Singh on 25/05/20.
+//  Created by Preety Singh on 02/06/20.
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
 
@@ -11,10 +11,10 @@ import Bond
 import ReactiveKit
 import UIKit
 
-extension ValidateUserService {
+extension ValidateWeaverService {
   func createScene() -> UIViewController {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewController(withIdentifier: "LoginEmailController") as! LoginEmailController
+    let storyboard = UIStoryboard(name: "RegisterArtisan", bundle: nil)
+    let vc = storyboard.instantiateViewController(withIdentifier: "REGValidateArtisanController") as! REGValidateArtisanController
     
     client.errors.bind(to: vc.reactive.userErrors)
     
@@ -23,24 +23,24 @@ extension ValidateUserService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.performValidation = {
-      if let username = vc.viewModel.username.value {
-        self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+      if let weaverId = vc.viewModel.weaverId.value {
+        self.fetch(weaverId: weaverId).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
-                  if (jsonDict["data"] as? String) == "Valid" {
+                  if (jsonDict["errorMessage"] as? String) == nil {
                     DispatchQueue.main.async {
-                      let controller = LoginUserService(client: self.client).createScene(username:username)
+                      let controller = REGValidateUserEmailService(client: self.client).createScene(weaverId: weaverId)
                       vc.navigationController?.pushViewController(controller, animated: true)
                     }
                   }else {
                     DispatchQueue.main.async {
-                      vc.alert("Invalid User Email Id or Mobile Number")
+                      vc.alert("Invalid Artisan Id")
                     }
                   }
                 } else {
                   DispatchQueue.main.async {
-                    vc.alert("Invalid User Email Id or Mobile Number")
+                    vc.alert("Invalid Artisan Id")
                   }
                 }
             } catch let error as NSError {
@@ -52,11 +52,7 @@ extension ValidateUserService {
       }
     }
     
-    vc.viewModel.goToRegister = {
-      let controller = ValidateWeaverService(client: self.client).createScene()
-      vc.navigationController?.pushViewController(controller, animated: true)
-    }
-    
     return vc
   }
 }
+
