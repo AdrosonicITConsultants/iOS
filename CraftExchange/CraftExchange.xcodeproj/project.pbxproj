@@ -79,6 +79,10 @@
 		C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A910A1247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf */; };
 		C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9970E2483AD740035A33D /* LoginPasswordController.swift */; };
 		C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A997102483ADFA0035A33D /* LoginUserService.swift */; };
+		C0ACE9902484EF0D00EFA4ED /* User+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */; };
+		C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9912484EF3800EFA4ED /* Country+Request.swift */; };
+		C0ACE99424852A5B00EFA4ED /* ArtisanUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE99324852A5B00EFA4ED /* ArtisanUser.swift */; };
+		C0ACE9962485895600EFA4ED /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9952485895600EFA4ED /* Country.swift */; };
 		C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +163,10 @@
 		C0A910A1247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-ExtraBold.ttf"; sourceTree = "<group>"; };
 		C0A9970E2483AD740035A33D /* LoginPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordController.swift; sourceTree = "<group>"; };
 		C0A997102483ADFA0035A33D /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
+		C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Register.swift"; sourceTree = "<group>"; };
+		C0ACE9912484EF3800EFA4ED /* Country+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Request.swift"; sourceTree = "<group>"; };
+		C0ACE99324852A5B00EFA4ED /* ArtisanUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanUser.swift; sourceTree = "<group>"; };
+		C0ACE9952485895600EFA4ED /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailController.swift; sourceTree = "<group>"; };
 		C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CraftExchange.release.xcconfig"; path = "Target Support Files/Pods-CraftExchange/Pods-CraftExchange.release.xcconfig"; sourceTree = "<group>"; };
 		D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CraftExchange.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -290,6 +298,7 @@
 		C03BD88F2476F83100279D7F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C0ACE98C2484EDE400EFA4ED /* RegisterScenes */,
 				C0144AC224844447006FF4AB /* LoginScenes */,
 				C0144AC324844457006FF4AB /* ForgotPasswordScenes */,
 			);
@@ -300,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				C071E25E247EFAAB0085805B /* BaseService.swift */,
+				C0ACE98D2484EDF300EFA4ED /* RegisterServices */,
 				C0144AC0248443F6006FF4AB /* LoginServices */,
 				C0144AC12484441B006FF4AB /* ForgotPasswordServices */,
 			);
@@ -311,6 +321,7 @@
 			children = (
 				C071E259247EF5AD0085805B /* Entity+Networking */,
 				C071E22A247E7F820085805B /* Address.swift */,
+				C0ACE9952485895600EFA4ED /* Country.swift */,
 				C071E22F247EAB300085805B /* BuyerCompanyDetails.swift */,
 				C071E231247EAC0F0085805B /* ClusterDetails.swift */,
 				C071E233247EB6170085805B /* ProductCategory.swift */,
@@ -318,6 +329,7 @@
 				C071E237247ED41A0085805B /* User.swift */,
 				C071E239247EDDB20085805B /* UserProductCategory.swift */,
 				C071E23B247EDDF90085805B /* ClusterProductCategory.swift */,
+				C0ACE99324852A5B00EFA4ED /* ArtisanUser.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -335,6 +347,7 @@
 		C03BD8932476F87E00279D7F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C0ACE98E2484EE0800EFA4ED /* RegisterControllers */,
 				C0144ABF248443BB006FF4AB /* ForgotPasswordControllers */,
 				C0144ABE24844390006FF4AB /* LoginControllers */,
 			);
@@ -410,6 +423,8 @@
 			isa = PBXGroup;
 			children = (
 				C071E25A247EF5C40085805B /* User+Request.swift */,
+				C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */,
+				C0ACE9912484EF3800EFA4ED /* Country+Request.swift */,
 			);
 			path = "Entity+Networking";
 			sourceTree = "<group>";
@@ -466,6 +481,27 @@
 				C0A910A1247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf */,
 			);
 			path = Playfair;
+			sourceTree = "<group>";
+		};
+		C0ACE98C2484EDE400EFA4ED /* RegisterScenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RegisterScenes;
+			sourceTree = "<group>";
+		};
+		C0ACE98D2484EDF300EFA4ED /* RegisterServices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RegisterServices;
+			sourceTree = "<group>";
+		};
+		C0ACE98E2484EE0800EFA4ED /* RegisterControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RegisterControllers;
 			sourceTree = "<group>";
 		};
 		D6A4220DEA2D7D94A1412932 /* Frameworks */ = {
@@ -641,8 +677,10 @@
 				C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */,
 				C071E258247EE9940085805B /* APIClient.swift in Sources */,
 				C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */,
+				C0ACE99424852A5B00EFA4ED /* ArtisanUser.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
+				C0ACE9962485895600EFA4ED /* Country.swift in Sources */,
 				C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
 				C0144AAF2483FCA5006FF4AB /* ForgotPasswordService.swift in Sources */,
@@ -653,12 +691,14 @@
 				C071E236247EB69D0085805B /* Role.swift in Sources */,
 				C071E230247EAB300085805B /* BuyerCompanyDetails.swift in Sources */,
 				C071E249247EE59E0085805B /* Client.swift in Sources */,
+				C0ACE9902484EF0D00EFA4ED /* User+Register.swift in Sources */,
 				C071E25F247EFAAB0085805B /* BaseService.swift in Sources */,
 				C071E25B247EF5C40085805B /* User+Request.swift in Sources */,
 				C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */,
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
 				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,
+				C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */,
 				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
