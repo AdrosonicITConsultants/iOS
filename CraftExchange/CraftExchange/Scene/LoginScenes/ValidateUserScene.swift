@@ -53,8 +53,12 @@ extension ValidateUserService {
     }
     
     vc.viewModel.goToRegister = {
-      let controller = ValidateWeaverService(client: self.client).createScene()
-      vc.navigationController?.pushViewController(controller, animated: true)
+      if KeychainManager.standard.userRoleId == 1 {
+        let controller = ValidateWeaverService(client: self.client).createScene()
+        vc.navigationController?.pushViewController(controller, animated: true)
+      }else {
+        vc.alert("Feature Comming Soon!!!")
+      }
     }
     
     return vc

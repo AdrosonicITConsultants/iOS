@@ -10,8 +10,12 @@ import Foundation
 
 extension User {
   public static func validateUsername(username: String) -> Request<Data, APIError> {
+    var roleId = 1
+    if let role =  KeychainManager.standard.userRoleId {
+      roleId = role
+    }
       return Request(
-          path: "login/validateusername?emailOrMobile=\(username)",
+          path: "login/validateusername?emailOrMobile=\(username)&roleId=\(roleId)",
           method: .get,
           resource: { print(String(data: $0, encoding: .utf8) ?? "validation failed")
           return $0
@@ -22,8 +26,13 @@ extension User {
   }
   
   public static func authenticate(username: String, password: String) -> Request<Data, APIError> {
+    var roleId = 1
+    if let role =  KeychainManager.standard.userRoleId {
+      roleId = role
+    }
     let parameters: [String: Any] = ["emailOrMobile":username,
-                                     "password":password]
+                                     "password":password,
+                                     "roleId":roleId]
       return Request(
           path: "login/authenticate",
           method: .post,
@@ -36,8 +45,12 @@ extension User {
   }
   
   public static func sendOTP(username: String) -> Request<Data, APIError> {
+    var roleId = 1
+    if let role =  KeychainManager.standard.userRoleId {
+      roleId = role
+    }
       return Request(
-          path: "forgotpassword/sendotp?email=\(username)",
+          path: "forgotpassword/sendotp?email=\(username)&roleId=\(roleId)",
           method: .get,
           resource: { print(String(data: $0, encoding: .utf8) ?? "opt sendind failed")
           return $0
@@ -63,8 +76,13 @@ extension User {
   }
   
   public static func resetPassword(username: String, password: String) -> Request<Data, APIError> {
+    var roleId = 1
+    if let role =  KeychainManager.standard.userRoleId {
+      roleId = role
+    }
     let parameters: [String: Any] = ["emailOrMobile":username,
-                                     "password":password]
+                                     "password":password,
+                                     "roleId":roleId]
       return Request(
           path: "forgotpassword/resetpassword",
           method: .post,

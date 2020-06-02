@@ -87,4 +87,17 @@ class KeychainManager {
             }
         }
     }
+  
+    var userRoleId: Int? {
+        get {
+            defaults.integer(forKey: "cx_user_roleId")
+        }
+        set {
+            if let newValue = newValue {
+                defaults.set(newValue, forKey: "cx_user_roleId")
+            } else {
+                defaults.removeObject(forKey: "cx_user_roleId")
+            }
+        }
+  }
 }

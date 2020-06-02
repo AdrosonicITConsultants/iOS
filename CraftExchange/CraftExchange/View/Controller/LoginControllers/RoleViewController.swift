@@ -19,15 +19,18 @@ class RoleViewController: UIViewController {
   
   @IBAction func artisanSelected(_ sender: Any) {
     KeychainManager.standard.userRole = "Artisan"
+    KeychainManager.standard.userRoleId = 1
     showLogin()
   }
   
   @IBAction func buyerSelected(_ sender: Any) {
     KeychainManager.standard.userRole = "Buyer"
+    KeychainManager.standard.userRoleId = 2
     showLogin()
   }
   
   func showLogin() {
+    print(KeychainManager.standard.userRoleId as Any)
     do {
       let client = try SafeClient(wrapping: CraftExchangeClient())
       let controller = ValidateUserService(client: client).createScene()
