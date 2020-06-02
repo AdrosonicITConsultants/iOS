@@ -3,4 +3,81 @@
    uuid = "2538E42C-8799-4DB4-AC03-A1068E5ECCDC"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "00A88B23-7075-4106-8151-4EDC5F4AC78B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "60DEA650-4F71-439E-8906-9D2981D5267E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Scene/RegisterScenes/REGArtisanDataScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "fetchClusters()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B1AB06EB-FD8F-4DA6-8D14-B250A89A0000"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Scene/RegisterScenes/RegisterArtisanScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "createScene(newUser:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B1AB06EB-FD8F-4DA6-8D14-B250A89A0000 - 91ccb81a000a8a19"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in CraftExchange.RegisterArtisanService.createScene(newUser: CraftExchange.CXUser) -&gt; __C.UIViewController"
+                  moduleName = "CraftExchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shankaraware/Documents/iOS%20Workspace/Craft-Exchange/iOS/CraftExchange/CraftExchange/Scene/RegisterScenes/RegisterArtisanScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "135">
+               </Location>
+               <Location
+                  uuid = "B1AB06EB-FD8F-4DA6-8D14-B250A89A0000 - e04e7b2105a92bb2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (CraftExchange.RegisterArtisanController, Foundation.Data) -&gt; () in closure #2 () -&gt; () in CraftExchange.RegisterArtisanService.createScene(newUser: CraftExchange.CXUser) -&gt; __C.UIViewController"
+                  moduleName = "CraftExchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shankaraware/Documents/iOS%20Workspace/Craft-Exchange/iOS/CraftExchange/CraftExchange/Scene/RegisterScenes/RegisterArtisanScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "208">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

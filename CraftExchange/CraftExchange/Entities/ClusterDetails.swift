@@ -14,7 +14,7 @@ class ClusterDetails: Object, Decodable {
 
     @objc dynamic var entityID: Int = 0
     @objc dynamic var clusterDescription: String?
-    let prodCategory = List<ProductCategory>()
+    var prodCategory = List<ProductCategory>()
   
     enum CodingKeys: String, CodingKey {
         case id = "id"

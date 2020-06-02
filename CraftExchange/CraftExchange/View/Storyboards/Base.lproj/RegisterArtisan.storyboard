@@ -673,91 +673,6 @@
                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4V-0g-hy9" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="147.5" y="416" width="119" height="35"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="119" id="b4G-Ba-ZHl"/>
-                                                    <constraint firstAttribute="height" constant="35" id="goj-tV-eGV"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Saree">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="18"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zy5-x2-fF9" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="57" y="471" width="119" height="35"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="119" id="Ieq-2c-zjY"/>
-                                                    <constraint firstAttribute="height" constant="35" id="SPS-Nq-d46"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Fabric">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="18"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="edR-mK-d5x" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="245" y="471" width="119" height="35"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="4D4-SH-w0X"/>
-                                                    <constraint firstAttribute="width" constant="119" id="Adc-6W-9xb"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Dupatta">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="18"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkI-0w-1ez" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="57" y="526" width="119" height="35"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="dd2-le-ysf"/>
-                                                    <constraint firstAttribute="width" constant="119" id="jUz-wA-x8R"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Accessories">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="18"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SyO-nS-lgU" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="245" y="526" width="119" height="35"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="JND-98-PBC"/>
-                                                    <constraint firstAttribute="width" constant="119" id="kTJ-eT-eFD"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="Stole/ Scarf">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="18"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ok-4T-r1a">
                                                 <rect key="frame" x="57" y="335" width="300" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -765,17 +680,8 @@
                                                     <constraint firstAttribute="height" constant="1" id="gwO-CZ-kD0"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select category of products you make" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iDc-nw-iGg">
-                                                <rect key="frame" x="50" y="356" width="314" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="JGl-HN-T9e"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By completing this form and sign up process, you hereby agree to our" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jd-su-VgH">
-                                                <rect key="frame" x="50" y="676" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="531" width="314" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ku7-3B-z2p"/>
                                                 </constraints>
@@ -784,14 +690,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4Y-lN-F0D">
-                                                <rect key="frame" x="75.5" y="581" width="263" height="30"/>
+                                                <rect key="frame" x="75.5" y="436" width="263" height="30"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                 <state key="normal" title="You can always do this step later. SKIP">
                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSG-oc-kDh">
-                                                <rect key="frame" x="57" y="714" width="300" height="24"/>
+                                                <rect key="frame" x="57" y="569" width="300" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="hCz-41-RXZ"/>
                                                 </constraints>
@@ -823,7 +729,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X00-T7-K4f" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="147" y="626" width="120" height="40"/>
+                                                <rect key="frame" x="147" y="481" width="120" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="EwQ-fD-9hN"/>
@@ -844,45 +750,30 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstItem="MkI-0w-1ez" firstAttribute="baseline" secondItem="SyO-nS-lgU" secondAttribute="firstBaseline" id="2v6-JD-bmh"/>
-                                            <constraint firstItem="m4V-0g-hy9" firstAttribute="top" secondItem="iDc-nw-iGg" secondAttribute="bottom" constant="20" id="3Oi-uP-xoU"/>
                                             <constraint firstItem="dSG-oc-kDh" firstAttribute="top" secondItem="1Jd-su-VgH" secondAttribute="bottom" constant="-2" id="5B9-8E-tT0"/>
                                             <constraint firstItem="dSG-oc-kDh" firstAttribute="leading" secondItem="DDQ-tc-lof" secondAttribute="leading" constant="57" id="5Mu-Mx-wIo"/>
                                             <constraint firstItem="1Jd-su-VgH" firstAttribute="leading" secondItem="DDQ-tc-lof" secondAttribute="leading" constant="50" id="81Y-yR-XwU"/>
                                             <constraint firstAttribute="trailing" secondItem="Zsq-9v-OVl" secondAttribute="trailing" id="8et-uI-3Mn"/>
                                             <constraint firstItem="Zsq-9v-OVl" firstAttribute="leading" secondItem="DDQ-tc-lof" secondAttribute="leading" id="BRw-xA-GxF"/>
                                             <constraint firstAttribute="trailing" secondItem="dSG-oc-kDh" secondAttribute="trailing" constant="57" id="BmZ-81-Bqw"/>
-                                            <constraint firstItem="edR-mK-d5x" firstAttribute="leading" secondItem="SyO-nS-lgU" secondAttribute="leading" id="CEV-3w-bso"/>
                                             <constraint firstAttribute="bottom" secondItem="Ag6-IK-UWx" secondAttribute="bottom" constant="44" id="GQO-lu-G39"/>
                                             <constraint firstItem="X00-T7-K4f" firstAttribute="top" secondItem="e4Y-lN-F0D" secondAttribute="bottom" constant="15" id="GRp-lq-Qcv"/>
                                             <constraint firstItem="Zsq-9v-OVl" firstAttribute="top" secondItem="DDQ-tc-lof" secondAttribute="top" constant="10" id="GuV-o5-fDe"/>
-                                            <constraint firstItem="MkI-0w-1ez" firstAttribute="trailing" secondItem="zy5-x2-fF9" secondAttribute="trailing" id="H50-H5-KC4"/>
                                             <constraint firstItem="Ag6-IK-UWx" firstAttribute="leading" secondItem="DDQ-tc-lof" secondAttribute="leading" constant="20" id="HXh-lz-U2W"/>
                                             <constraint firstItem="7Ok-4T-r1a" firstAttribute="leading" secondItem="DDQ-tc-lof" secondAttribute="leading" constant="57" id="J4r-XO-kpK"/>
-                                            <constraint firstItem="MkI-0w-1ez" firstAttribute="leading" secondItem="zy5-x2-fF9" secondAttribute="leading" id="Mvu-ku-vdZ"/>
                                             <constraint firstItem="2cW-rB-2Wg" firstAttribute="top" secondItem="Zsq-9v-OVl" secondAttribute="bottom" constant="10" id="Qod-1l-8jL"/>
-                                            <constraint firstItem="edR-mK-d5x" firstAttribute="baseline" secondItem="zy5-x2-fF9" secondAttribute="baseline" id="Tye-Oo-fPT"/>
                                             <constraint firstItem="7Ok-4T-r1a" firstAttribute="top" secondItem="2cW-rB-2Wg" secondAttribute="bottom" constant="15" id="YZj-5T-aAj"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="2cW-rB-2Wg" secondAttribute="centerX" id="ZcZ-ga-MJP"/>
-                                            <constraint firstItem="MkI-0w-1ez" firstAttribute="top" secondItem="zy5-x2-fF9" secondAttribute="bottom" constant="20" id="aBs-WN-cK3"/>
-                                            <constraint firstItem="SyO-nS-lgU" firstAttribute="leading" secondItem="MkI-0w-1ez" secondAttribute="trailing" constant="69" id="cN0-tr-1cp"/>
-                                            <constraint firstItem="MkI-0w-1ez" firstAttribute="top" secondItem="SyO-nS-lgU" secondAttribute="top" id="dBJ-I5-aSp"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="X00-T7-K4f" secondAttribute="centerX" id="dOE-6U-ucP"/>
-                                            <constraint firstItem="iDc-nw-iGg" firstAttribute="top" secondItem="7Ok-4T-r1a" secondAttribute="bottom" constant="20" id="dSh-dg-Adq"/>
                                             <constraint firstAttribute="trailing" secondItem="7Ok-4T-r1a" secondAttribute="trailing" constant="57" id="e6A-DC-eXR"/>
-                                            <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="m4V-0g-hy9" secondAttribute="centerX" id="eR2-Vm-d7M"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="e4Y-lN-F0D" secondAttribute="centerX" id="fof-Ls-E4C"/>
-                                            <constraint firstItem="iDc-nw-iGg" firstAttribute="leading" secondItem="DDQ-tc-lof" secondAttribute="leading" constant="50" id="gH4-ke-KX3"/>
                                             <constraint firstItem="1Jd-su-VgH" firstAttribute="top" secondItem="X00-T7-K4f" secondAttribute="bottom" constant="10" id="hT6-iS-RLG"/>
                                             <constraint firstAttribute="trailing" secondItem="1Jd-su-VgH" secondAttribute="trailing" constant="50" id="i8t-jY-3c5"/>
+                                            <constraint firstItem="e4Y-lN-F0D" firstAttribute="top" secondItem="7Ok-4T-r1a" secondAttribute="bottom" constant="100" id="iSs-ib-0H8"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="dSG-oc-kDh" secondAttribute="centerX" id="ihg-4g-Hfa"/>
                                             <constraint firstItem="Ag6-IK-UWx" firstAttribute="baseline" secondItem="3LE-cl-0z9" secondAttribute="baseline" id="j3v-V5-XWX"/>
-                                            <constraint firstAttribute="trailing" secondItem="iDc-nw-iGg" secondAttribute="trailing" constant="50" id="jvi-1b-s8v"/>
                                             <constraint firstItem="Ag6-IK-UWx" firstAttribute="top" secondItem="YBx-tV-YCN" secondAttribute="top" id="kLO-q7-0OB"/>
-                                            <constraint firstItem="zy5-x2-fF9" firstAttribute="top" secondItem="m4V-0g-hy9" secondAttribute="bottom" constant="20" id="lJT-tb-Q8V"/>
                                             <constraint firstAttribute="trailing" secondItem="3LE-cl-0z9" secondAttribute="trailing" constant="20" id="swQ-Yn-fvf"/>
-                                            <constraint firstItem="e4Y-lN-F0D" firstAttribute="top" secondItem="MkI-0w-1ez" secondAttribute="bottom" constant="20" id="uKk-eT-643"/>
-                                            <constraint firstItem="MkI-0w-1ez" firstAttribute="leading" secondItem="7Ok-4T-r1a" secondAttribute="leading" id="uwk-Nr-qKc"/>
                                         </constraints>
                                     </view>
                                 </subviews>

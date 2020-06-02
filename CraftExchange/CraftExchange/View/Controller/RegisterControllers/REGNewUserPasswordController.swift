@@ -38,7 +38,7 @@ class REGNewUserPasswordController: UIViewController {
         if KeychainManager.standard.userRole == "Artisan" {
           do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let controller = RegisterArtisanService(client: client).createScene(weaverId: weaverId!, email: email, password: password)
+            let controller = REGArtisanInfoInputService(client: client).createScene(weaverId: weaverId!, email: email, password: password)
             self.navigationController?.pushViewController(controller, animated: true)
           } catch let error {
             print("Unable to load view:\n\(error.localizedDescription)")
