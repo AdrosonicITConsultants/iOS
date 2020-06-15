@@ -84,6 +84,12 @@
 		C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A910A1247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf */; };
 		C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9970E2483AD740035A33D /* LoginPasswordController.swift */; };
 		C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A997102483ADFA0035A33D /* LoginUserService.swift */; };
+		C0AAC39024927296008C2047 /* RoundedTextFieldRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAC38F24927296008C2047 /* RoundedTextFieldRow.swift */; };
+		C0AAC392249272AC008C2047 /* RoundedTextFieldRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AAC391249272AC008C2047 /* RoundedTextFieldRow.xib */; };
+		C0AAC3942492BB8A008C2047 /* RoundedActionSheetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAC3932492BB89008C2047 /* RoundedActionSheetRow.swift */; };
+		C0AAC3962492BBA2008C2047 /* RoundedActionSheetRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */; };
+		C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC755C249402C00011B7D3 /* RoundedButtonViewRow.swift */; };
+		C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AC755E249403380011B7D3 /* RoundedButtonViewRow.xib */; };
 		C0ACE9902484EF0D00EFA4ED /* User+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */; };
 		C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9912484EF3800EFA4ED /* Country+Request.swift */; };
 		C0ACE99424852A5B00EFA4ED /* CXUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE99324852A5B00EFA4ED /* CXUser.swift */; };
@@ -185,6 +191,12 @@
 		C0A910A1247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-ExtraBold.ttf"; sourceTree = "<group>"; };
 		C0A9970E2483AD740035A33D /* LoginPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordController.swift; sourceTree = "<group>"; };
 		C0A997102483ADFA0035A33D /* LoginUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserService.swift; sourceTree = "<group>"; };
+		C0AAC38F24927296008C2047 /* RoundedTextFieldRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextFieldRow.swift; sourceTree = "<group>"; };
+		C0AAC391249272AC008C2047 /* RoundedTextFieldRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedTextFieldRow.xib; sourceTree = "<group>"; };
+		C0AAC3932492BB89008C2047 /* RoundedActionSheetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedActionSheetRow.swift; sourceTree = "<group>"; };
+		C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedActionSheetRow.xib; sourceTree = "<group>"; };
+		C0AC755C249402C00011B7D3 /* RoundedButtonViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButtonViewRow.swift; sourceTree = "<group>"; };
+		C0AC755E249403380011B7D3 /* RoundedButtonViewRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedButtonViewRow.xib; sourceTree = "<group>"; };
 		C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Register.swift"; sourceTree = "<group>"; };
 		C0ACE9912484EF3800EFA4ED /* Country+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Request.swift"; sourceTree = "<group>"; };
 		C0ACE99324852A5B00EFA4ED /* CXUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CXUser.swift; sourceTree = "<group>"; };
@@ -479,6 +491,12 @@
 			children = (
 				C07D69A12477EB8500B0B0FA /* RoundedButton.swift */,
 				C07D69A52478394700B0B0FA /* RoundedTextField.swift */,
+				C0AC755C249402C00011B7D3 /* RoundedButtonViewRow.swift */,
+				C0AC755E249403380011B7D3 /* RoundedButtonViewRow.xib */,
+				C0AAC38F24927296008C2047 /* RoundedTextFieldRow.swift */,
+				C0AAC391249272AC008C2047 /* RoundedTextFieldRow.xib */,
+				C0AAC3932492BB89008C2047 /* RoundedActionSheetRow.swift */,
+				C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */,
 			);
 			path = CustomAssets;
 			sourceTree = "<group>";
@@ -643,6 +661,7 @@
 				C0A910A7247CD90B00852695 /* PlayfairDisplay-Italic.ttf in Resources */,
 				C0A9108C247CD8D000852695 /* Lato-Thin.ttf in Resources */,
 				C0A91090247CD8D000852695 /* Lato-BlackItalic.ttf in Resources */,
+				C0AAC392249272AC008C2047 /* RoundedTextFieldRow.xib in Resources */,
 				C0144AB924843D66006FF4AB /* ForgotPassword.storyboard in Resources */,
 				C0A910A5247CD90B00852695 /* PlayfairDisplay-BoldItalic.ttf in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
@@ -656,8 +675,10 @@
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
+				C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */,
 				C0A9108D247CD8D000852695 /* Lato-Bold.ttf in Resources */,
 				C0A91092247CD8D000852695 /* Lato-BoldItalic.ttf in Resources */,
+				C0AAC3962492BBA2008C2047 /* RoundedActionSheetRow.xib in Resources */,
 				C0A91093247CD8D000852695 /* Lato-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -728,6 +749,7 @@
 				C071E22D247E810D0085805B /* Strings+Extensions.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
 				C091894E248038BB0058501C /* RoleViewController.swift in Sources */,
+				C0AAC3942492BB8A008C2047 /* RoundedActionSheetRow.swift in Sources */,
 				C071E23A247EDDB20085805B /* UserProductCategory.swift in Sources */,
 				C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */,
 				C071E25D247EF9280085805B /* ValidateUserService.swift in Sources */,
@@ -747,6 +769,7 @@
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
 				C0ACE9A02485923F00EFA4ED /* RegisterArtisanController.swift in Sources */,
 				C0ACE9962485895600EFA4ED /* Country.swift in Sources */,
+				C0AAC39024927296008C2047 /* RoundedTextFieldRow.swift in Sources */,
 				C09F215224862F12001F2FCD /* ProductCategory+Transaction.swift in Sources */,
 				C0ACE9A22485947500EFA4ED /* ValidateWeaverService.swift in Sources */,
 				C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */,
@@ -771,6 +794,7 @@
 				C071E25B247EF5C40085805B /* User+Request.swift in Sources */,
 				C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */,
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,
+				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
 				C09F214D24862987001F2FCD /* REGArtisanInfoInputService.swift in Sources */,
 				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,
