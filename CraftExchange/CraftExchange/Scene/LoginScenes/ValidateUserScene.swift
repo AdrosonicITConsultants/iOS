@@ -57,7 +57,9 @@ extension ValidateUserService {
         let controller = ValidateWeaverService(client: self.client).createScene()
         vc.navigationController?.pushViewController(controller, animated: true)
       }else {
-        vc.alert("Feature Comming Soon!!!")
+//        vc.alert("Feature Comming Soon!!!")
+        let controller = REGValidateUserEmailService(client: self.client).createScene(weaverId: nil)
+        vc.navigationController?.pushViewController(controller, animated: true)
       }
     }
     

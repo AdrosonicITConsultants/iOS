@@ -198,19 +198,19 @@
                                                         <fragment content="New user?">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" Click here">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.32210981849999998" green="0.39943659310000001" blue="0.71376132969999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" to register.">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -418,19 +418,19 @@
                                                         <fragment content="New user?">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" Click here">
                                                             <attributes>
                                                                 <color key="NSColor" red="0.32210981849999998" green="0.39943659310000001" blue="0.71376132969999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                         <fragment content=" to register.">
                                                             <attributes>
                                                                 <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                                <font key="NSFont" metaFont="system" size="15"/>
+                                                                <font key="NSFont" metaFont="label" size="15"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>

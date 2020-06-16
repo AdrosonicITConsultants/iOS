@@ -59,25 +59,20 @@ class RegisterArtisanDataController: FormViewController {
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "First name"
-      $0.add(rule: RuleRequired())
       $0.cell.height = { 80.0 }
-    }.onChange({ (row) in
-      self.viewModel.firstname.value = row.cell.valueTextField.text
-    })
+      self.viewModel.firstname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Last name"
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.height = { 80.0 }
-    }.onChange({ (row) in
-      self.viewModel.lastname.value = row.cell.valueTextField.text
-    })
+      self.viewModel.lastname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Pincode"
-      $0.add(rule: RuleRequired())
       $0.cell.height = { 80.0 }
-    }.onChange({ (row) in
-      self.viewModel.pincode.value = row.cell.valueTextField.text
-    })
+      self.viewModel.pincode.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< RoundedActionSheetRow() {
     $0.cell.titleLabel.text = "Cluster"
     $0.cell.options = ["Cluster1","Cluster2"]
@@ -112,46 +107,37 @@ class RegisterArtisanDataController: FormViewController {
       $0.cell.titleLabel.text = "District"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
-    }.onChange({ (row) in
-      self.viewModel.district.value = row.cell.valueTextField.text
-    })
+      self.viewModel.district.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "State"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
-    }.onChange({ (row) in
-      self.viewModel.state.value = row.cell.valueTextField.text
-    })
+      self.viewModel.state.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Mobile Number"
-      $0.add(rule: RuleRequired())
       $0.cell.height = { 80.0 }
-    }.onChange({ (row) in
-      self.viewModel.mobNo.value = row.cell.valueTextField.text
-    })
+      self.viewModel.mobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Pan No."
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
-    }.onChange({ (row) in
-      self.viewModel.panNo.value = row.cell.valueTextField.text
-    })
+      self.viewModel.panNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Address"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
-    }.onChange({ (row) in
-      self.viewModel.addr.value = row.cell.valueTextField.text
-    })
+      self.viewModel.addr.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
     <<< MultipleSelectorRow<String>() {
         $0.title = "Product Category"
         $0.options = []
 //        self.viewModel.cluster.value?.prodCategory.compactMap{$0.prodCatDescription}
 //      print("options prod cat: \($0.options) prodCatArray: \(self.viewModel.cluster.value?.prodCategory)")
         $0.tag = "ProductCategoryRow"
-//        $0.cell.contentView.layer.borderWidth = 1
-//        $0.cell.contentView.layer.borderColor = UIColor.darkGray.cgColor
-//        $0.cell.contentView.layer.cornerRadius = 20
         $0.cell.height = { 44.0 }
       }.onChange({ (actionSheetRow) in
         actionSheetRow.value?.forEach({ (str) in
@@ -166,13 +152,6 @@ class RegisterArtisanDataController: FormViewController {
           }
         })
     })
-//    <<< ButtonRow() {
-//      $0.title = "Next"
-//      $0.tag = "NextButton"
-//    }.onCellSelection({ (cell, row) in
-//      print("\(row.tag ?? "NextButton")")
-//      self.viewModel.nextSelected?()
-//    })
       <<< RoundedButtonViewRow("REGNextCell") {
         $0.cell.titleLabel.text = "Fields are mandatory"
         $0.cell.compulsoryIcon.isHidden = false

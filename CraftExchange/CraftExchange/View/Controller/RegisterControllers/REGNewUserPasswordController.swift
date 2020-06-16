@@ -43,6 +43,14 @@ class REGNewUserPasswordController: UIViewController {
           } catch let error {
             print("Unable to load view:\n\(error.localizedDescription)")
           }
+        }else {
+          do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let controller = REGBuyerPersonalInfoService(client: client).createScene(email: email, password: password)
+            self.navigationController?.pushViewController(controller, animated: true)
+          } catch let error {
+            print("Unable to load view:\n\(error.localizedDescription)")
+          }
         }
       }else {
           self.alert("Password & Confirm password mismatch.")

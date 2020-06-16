@@ -24,7 +24,8 @@ extension REGValidateUserEmailService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.sendOTP = {
-      if let username = vc.viewModel.username.value {
+      if (vc.viewModel.username.value != nil) && vc.viewModel.username.value != "" {
+        let username = vc.viewModel.username.value ?? ""
         self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>

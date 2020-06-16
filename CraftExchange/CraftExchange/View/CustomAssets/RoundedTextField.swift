@@ -44,8 +44,9 @@ class RoundedTextField: UITextField {
             imageView.tintColor = color
             leftView = imageView
         } else {
-            leftViewMode = UITextField.ViewMode.always//UITextField.ViewMode.never
-//            leftView = nil
+          let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 5))
+          leftView = paddingView
+          leftViewMode = .always
         }
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
