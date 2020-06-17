@@ -25,5 +25,13 @@ class PwdResetSuccessfulController: UIViewController {
 //      appDelegate?.window?.rootViewController = vc
 //      appDelegate?.window?.makeKeyAndVisible()
 //    }
+    do {
+      let client = try SafeClient(wrapping: CraftExchangeClient())
+      let controller = ValidateUserService(client: client).createScene()
+      let navigationController = UINavigationController(rootViewController: controller)
+      self.present(navigationController, animated: true, completion: nil)
+    } catch let error {
+      print("Unable to load view:\n\(error.localizedDescription)")
+    }
   }
 }

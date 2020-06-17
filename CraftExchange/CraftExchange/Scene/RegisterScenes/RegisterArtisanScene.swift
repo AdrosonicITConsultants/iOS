@@ -36,9 +36,14 @@ extension RegisterArtisanService {
                   DispatchQueue.main.async {
                     
                     vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
-                      let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                      let controller = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
-                      vc.navigationController?.present(controller, animated: true, completion: nil)
+                      do {
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        let controller = ValidateUserService(client: client).createScene()
+                        let navigationController = UINavigationController(rootViewController: controller)
+                        vc.present(navigationController, animated: true, completion: nil)
+                      } catch let error {
+                        print("Unable to load view:\n\(error.localizedDescription)")
+                      }
                     }
                   }
                 }else {
@@ -86,9 +91,14 @@ extension RegisterArtisanService {
                   DispatchQueue.main.async {
                     
                     vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
-                      let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                      let controller = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
-                      vc.navigationController?.present(controller, animated: true, completion: nil)
+                      do {
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        let controller = ValidateUserService(client: client).createScene()
+                        let navigationController = UINavigationController(rootViewController: controller)
+                        vc.present(navigationController, animated: true, completion: nil)
+                      } catch let error {
+                        print("Unable to load view:\n\(error.localizedDescription)")
+                      }
                     }
                   }
                 }else {
