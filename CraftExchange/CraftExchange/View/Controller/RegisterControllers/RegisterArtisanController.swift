@@ -17,12 +17,19 @@ class REGArtisanViewModel {
 class RegisterArtisanController: UIViewController {
   
   lazy var viewModel = REGArtisanViewModel()
-
+  var isTCAccepted = false
   @IBOutlet weak var completeButton: RoundedButton!
+  @IBOutlet weak var checkboxButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.rightBarButtonItem = roleBarButton()
+  }
+  
+  @IBAction func toggleCheckbox(_ sender: Any) {
+    isTCAccepted = !isTCAccepted
+    let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")
+    checkboxButton.setImage(img, for: .normal)
   }
   
   @IBAction func completeButtonSelected(_ sender: Any) {

@@ -19,7 +19,8 @@ class REGBuyerViewModel {
 class RegisterBuyerController: UIViewController {
   
   lazy var viewModel = REGBuyerViewModel()
-
+  var isTCAccepted = false
+  @IBOutlet weak var checkboxButton: UIButton!
   @IBOutlet weak var websiteLinkField: RoundedTextField!
   @IBOutlet weak var mediaLinkField: RoundedTextField!
   
@@ -28,6 +29,12 @@ class RegisterBuyerController: UIViewController {
     self.viewModel.websiteLink.bidirectionalBind(to: websiteLinkField.reactive.text)
     self.viewModel.socialMediaLink.bidirectionalBind(to: mediaLinkField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+  }
+  
+  @IBAction func toggleCheckbox(_ sender: Any) {
+    isTCAccepted = !isTCAccepted
+    let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")
+    checkboxButton.setImage(img, for: .normal)
   }
   
   @IBAction func completeButtonSelected(_ sender: Any) {
