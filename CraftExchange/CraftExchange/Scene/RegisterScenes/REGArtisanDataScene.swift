@@ -62,10 +62,32 @@ extension REGArtisanInfoInputService {
     fetchClusters()
 
     vc.viewModel.nextSelected = {
-      if vc.form.validate().count == 0 {
-        let newUser = createNewUser()
-        let controller = RegisterArtisanService(client: self.client).createScene(newUser: newUser)
-        vc.navigationController?.pushViewController(controller, animated: true)
+      if vc.viewModel.firstname.value != nil && vc.viewModel.firstname.value?.isNotBlank ?? false && vc.viewModel.pincode.value != nil && vc.viewModel.pincode.value?.isNotBlank ?? false && vc.viewModel.mobNo.value != nil && vc.viewModel.mobNo.value?.isNotBlank ?? false  && vc.viewModel.selectedClusterId.value != nil {
+        var isValid = true
+        let pincode = vc.viewModel.pincode.value ?? ""
+        let mobNo = vc.viewModel.mobNo.value ?? ""
+        if pincode.isValidPincode {
+          if mobNo.isValidPhoneNumber {
+            var isValid = true
+            if vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value?.isNotBlank ?? false {
+              let val = vc.viewModel.panNo.value?.isValidPAN ?? false
+              if val == false {
+                isValid = false
+              }
+            }
+            if isValid {
+              let newUser = createNewUser()
+              let controller = RegisterArtisanService(client: self.client).createScene(newUser: newUser)
+              vc.navigationController?.pushViewController(controller, animated: true)
+            }else {
+              vc.alert("Please enter valid PAN")
+            }
+          }else {
+            vc.alert("Please enter valid phone number")
+          }
+        }else {
+          vc.alert("Please enter valid pincode")
+        }
       }else {
         vc.alert("Please enter all mandatory fields")
       }

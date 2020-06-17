@@ -87,41 +87,63 @@ extension RegisterArtisanService {
     
     vc.viewModel.completeRegistration = {
       if vc.isTCAccepted {
-        let userObj = createNewUser()
-        self.fetch(newUser: userObj.toJSON()).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-            do {
-                if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
-                {
-                  if (jsonDict["valid"] as? Bool) == true {
-                    DispatchQueue.main.async {
-                      
-                      vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
-                        do {
-                          let client = try SafeClient(wrapping: CraftExchangeClient())
-                          let controller = ValidateUserService(client: client).createScene()
-                          let navigationController = UINavigationController(rootViewController: controller)
-                          vc.present(navigationController, animated: true, completion: nil)
-                        } catch let error {
-                          print("Unable to load view:\n\(error.localizedDescription)")
+        var isValid = true
+        if vc.viewModel.websiteLink.value != nil && vc.viewModel.websiteLink.value?.isNotBlank ?? false {
+          let urlValid = vc.viewModel.websiteLink.value?.isValidUrl ?? false
+          if urlValid == false {
+            isValid = false
+          }
+        }
+        if vc.viewModel.socialMediaLink.value != nil && vc.viewModel.socialMediaLink.value?.isNotBlank ?? false {
+          let urlValid = vc.viewModel.socialMediaLink.value?.isValidUrl ?? false
+          if urlValid == false {
+            isValid = false
+          }
+        }
+        if isValid {
+          vc.showLoading()
+          let userObj = createNewUser()
+          self.fetch(newUser: userObj.toJSON()).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            DispatchQueue.main.async {
+              vc.hideLoading()
+            }
+              do {
+                  if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
+                  {
+                    if (jsonDict["valid"] as? Bool) == true {
+                      DispatchQueue.main.async {
+                        
+                        vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
+                          do {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            let controller = ValidateUserService(client: client).createScene()
+                            let navigationController = UINavigationController(rootViewController: controller)
+                            vc.present(navigationController, animated: true, completion: nil)
+                          } catch let error {
+                            print("Unable to load view:\n\(error.localizedDescription)")
+                          }
                         }
                       }
+                    }else {
+                      DispatchQueue.main.async {
+                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed")")
+                      }
                     }
-                  }else {
+                  } else {
                     DispatchQueue.main.async {
-                      vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed")")
+                      vc.alert("Registration Failed")
                     }
                   }
-                } else {
-                  DispatchQueue.main.async {
-                    vc.alert("Registration Failed")
-                  }
+              } catch let error as NSError {
+                DispatchQueue.main.async {
+                  vc.alert(error.description)
                 }
-            } catch let error as NSError {
-              DispatchQueue.main.async {
-                vc.alert(error.description)
               }
-            }
-        }.dispose(in: vc.bag)
+          }.dispose(in: vc.bag)
+        }
+        else {
+          vc.alert("Please enter valid links")
+        }
       }else {
         vc.alert("Please accept Terms and Conditions for proceeding ahead!")
       }

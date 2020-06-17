@@ -47,14 +47,25 @@ extension REGBuyerPersonalInfoService {
       fetchCountries()
 
       vc.viewModel.nextSelected = {
-        if let name = vc.viewModel.firstname.value,
-          let lastNm = vc.viewModel.lastname.value,
-          let number = vc.viewModel.mobNo.value {
-          let newUser = createNewUser()
-          let controller = REGBuyerCompanyInfoService(client: self.client).createScene(existingUser: newUser)
-          vc.navigationController?.pushViewController(controller, animated: true)
+        if vc.viewModel.firstname.value != nil && vc.viewModel.firstname.value?.isNotBlank ?? false &&
+        vc.viewModel.lastname.value != nil && vc.viewModel.lastname.value?.isNotBlank ?? false &&
+          vc.viewModel.mobNo.value != nil && vc.viewModel.mobNo.value?.isNotBlank ?? false && vc.viewModel.mobNo.value?.isValidPhoneNumber ?? false {
+          var isValid = true
+          if vc.viewModel.alternateMobNo.value != nil && vc.viewModel.alternateMobNo.value?.isNotBlank ?? false {
+            let val = vc.viewModel.alternateMobNo.value?.isValidPhoneNumber ?? false
+            if val == false {
+              isValid = false
+            }
+          }
+          if isValid {
+            let newUser = createNewUser()
+            let controller = REGBuyerCompanyInfoService(client: self.client).createScene(existingUser: newUser)
+            vc.navigationController?.pushViewController(controller, animated: true)
+          }else {
+            vc.alert("Please enter valid phone number")
+          }
         }else {
-          vc.alert("Please enter all mandatory fields")
+          vc.alert("Please enter all mandatory fields with valid data")
         }
       }
       

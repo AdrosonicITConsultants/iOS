@@ -24,11 +24,32 @@ extension REGBuyerCompanyInfoService {
       }.dispose(in: vc.bag)
 
       vc.viewModel.nextSelected = {
-        if vc.viewModel.companyName.value != nil && vc.viewModel.companyName.value != "" &&
-          vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value != "" {
-          let newUser = createNewUser()
-          let controller = REGBuyerAddressInfoService(client: self.client).createScene(existingUser: newUser)
-          vc.navigationController?.pushViewController(controller, animated: true)
+        if vc.viewModel.companyName.value != nil && vc.viewModel.companyName.value?.isNotBlank ?? false &&
+          vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value?.isNotBlank ?? false {
+          if vc.viewModel.panNo.value?.isValidPAN ?? false {
+            var isValid = true
+            if vc.viewModel.pocEmailId.value != nil && vc.viewModel.pocEmailId.value?.isNotBlank ?? false {
+              let val = vc.viewModel.pocEmailId.value?.isValidEmailAddress ?? false
+              if val == false {
+                isValid = false
+              }
+            }
+            if vc.viewModel.pocMobNo.value != nil && vc.viewModel.pocMobNo.value?.isNotBlank ?? false {
+              let val = vc.viewModel.pocMobNo.value?.isValidPhoneNumber ?? false
+              if val == false {
+                isValid = false
+              }
+            }
+            if isValid {
+              let newUser = createNewUser()
+              let controller = REGBuyerAddressInfoService(client: self.client).createScene(existingUser: newUser)
+              vc.navigationController?.pushViewController(controller, animated: true)
+            }else {
+              vc.alert("Please enter valid email id and phone number of point of contact.")
+            }
+          }else {
+            vc.alert("Please enter valid PAN")
+          }
         }else {
           vc.alert("Please enter all mandatory fields")
         }

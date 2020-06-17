@@ -24,8 +24,9 @@ extension ForgotPasswordService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.sendOTP = {
-      if let username = vc.viewModel.username.value {
+      if (vc.viewModel.username.value != nil) && vc.viewModel.username.value?.isNotBlank ?? false && vc.viewModel.username.value?.isValidEmailAddress ?? false {
         vc.showLoading()
+        let username = vc.viewModel.username.value ?? ""
         vc.sendOTPButton.isEnabled = false
         vc.sendOTPButton.isUserInteractionEnabled = false
         self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
@@ -58,12 +59,14 @@ extension ForgotPasswordService {
             }
         }.dispose(in: vc.bag)
       }else {
-        vc.alert("Please enter email id")
+        vc.alert("Please enter valid email id")
       }
     }
     
     vc.viewModel.validateOTP = {
-      if let username = vc.viewModel.username.value, let otp = vc.viewModel.otp.value {
+      if (vc.viewModel.username.value != nil) && vc.viewModel.username.value?.isNotBlank ?? false && vc.viewModel.username.value?.isValidEmailAddress ?? false && (vc.viewModel.otp.value != nil) && vc.viewModel.otp.value?.isNotBlank ?? false {
+        let username = vc.viewModel.username.value ?? ""
+        let otp = vc.viewModel.otp.value ?? ""
         vc.showLoading()
         self.fetch(emailId: username, otp: otp).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
           DispatchQueue.main.async {
@@ -94,7 +97,7 @@ extension ForgotPasswordService {
             }
         }.dispose(in: vc.bag)
       }else {
-        vc.alert("Please enter email id & OTP")
+        vc.alert("Please enter valid email id & OTP")
       }
     }
     

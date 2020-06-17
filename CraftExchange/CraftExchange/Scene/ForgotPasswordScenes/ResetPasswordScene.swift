@@ -25,39 +25,49 @@ extension ResetPasswordService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.preformResetPassword = {
-      if let username = vc.viewModel.username.value, let password = vc.viewModel.password.value, let confirmPass = vc.viewModel.confirmPassword.value {
-        if password == confirmPass {
-          self.fetch(username: username, password: password).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-              do {
-                  if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
-                  {
-                    if (jsonDict["valid"] as? Bool) == true {
-                      DispatchQueue.main.async {
-//                        vc.alert("Password Reset Successfully")
-                        let storyboard = UIStoryboard(name: "ForgotPassword", bundle: Bundle.main)
-                        let controller = storyboard.instantiateViewController(withIdentifier: "PwdResetSuccessfulController") as! PwdResetSuccessfulController
-                        vc.navigationController?.present(controller, animated: true, completion: nil)
+      if vc.viewModel.username.value != nil && vc.viewModel.username.value?.isNotBlank ?? false && vc.viewModel.password.value != nil && vc.viewModel.password.value?.isNotBlank ?? false && vc.viewModel.confirmPassword.value != nil && vc.viewModel.confirmPassword.value?.isNotBlank ?? false {
+        let username = vc.viewModel.username.value ?? ""
+        let password = vc.viewModel.password.value ?? ""
+        let confirmPass = vc.viewModel.confirmPassword.value ?? ""
+        if password.isValidPassword {
+          if password == confirmPass {
+            vc.showLoading()
+              self.fetch(username: username, password: password).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+                DispatchQueue.main.async {
+                  vc.hideLoading()
+                }
+                do {
+                    if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
+                    {
+                      if (jsonDict["valid"] as? Bool) == true {
+                        DispatchQueue.main.async {
+  //                        vc.alert("Password Reset Successfully")
+                          let storyboard = UIStoryboard(name: "ForgotPassword", bundle: Bundle.main)
+                          let controller = storyboard.instantiateViewController(withIdentifier: "PwdResetSuccessfulController") as! PwdResetSuccessfulController
+                          vc.navigationController?.present(controller, animated: true, completion: nil)
+                        }
+                      }else {
+                        DispatchQueue.main.async {
+                          vc.alert("\(jsonDict["errorMessage"] as? String ?? "Password Reset Failed.")")
+                        }
                       }
-                    }else {
-                      DispatchQueue.main.async {
-                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Password Reset Failed.")")
-                      }
+                    } else {
+                        DispatchQueue.main.async {
+                          vc.alert("Password Reset Failed.")
+                        }
                     }
-                  } else {
-                      DispatchQueue.main.async {
-                        vc.alert("Password Reset Failed.")
-                      }
-                  }
-              } catch let error as NSError {
-                  DispatchQueue.main.async {
-                    vc.alert("\(error.description)")
-                  }
-              }
-          }.dispose(in: vc.bag)
+                } catch let error as NSError {
+                    DispatchQueue.main.async {
+                      vc.alert("\(error.description)")
+                    }
+                }
+              }.dispose(in: vc.bag)
+            }else {
+              vc.alert("Password & Confirm password mismatch.")
+            }
         }else {
-          vc.alert("Password & Confirm password mismatch.")
+          vc.alert("Please enter valid password with 8 characters. It should contain at least 1 Capital alphabet, number and special character.")
         }
-        
       }else {
         vc.alert("Please enter password & confirm your password")
       }

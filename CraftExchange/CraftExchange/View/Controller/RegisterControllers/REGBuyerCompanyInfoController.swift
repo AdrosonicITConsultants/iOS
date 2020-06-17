@@ -73,6 +73,7 @@ class REGBuyerCompanyInfoController: FormViewController {
       }
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "PAN Number"
+        $0.cell.valueTextField.autocapitalizationType = .allCharacters
         $0.cell.height = { 80.0 }
         self.viewModel.panNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
       }

@@ -23,8 +23,13 @@ extension ValidateUserService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.performValidation = {
-      if let username = vc.viewModel.username.value {
+      if vc.viewModel.username.value != nil && vc.viewModel.username.value?.isNotBlank ?? false {
+        let username = vc.viewModel.username.value ?? ""
+        vc.showLoading()
         self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          DispatchQueue.main.async {
+            vc.hideLoading()
+          }
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {

@@ -34,31 +34,38 @@ class REGNewUserPasswordController: UIViewController {
   }
   
   @IBAction func confirmPasswordSelected(_ sender: Any) {
-    if let email = validatedEmailId, let password = viewModel.password.value, let confirmPass = viewModel.confirmPassword.value {
-      if password == confirmPass {
-        if KeychainManager.standard.userRole == "Artisan" {
-          do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let controller = REGArtisanInfoInputService(client: client).createScene(weaverId: weaverId!, email: email, password: password)
-            self.navigationController?.pushViewController(controller, animated: true)
-          } catch let error {
-            print("Unable to load view:\n\(error.localizedDescription)")
+    if viewModel.password.value != nil && viewModel.password.value?.isNotBlank ?? false && viewModel.confirmPassword.value != nil && viewModel.confirmPassword.value?.isNotBlank ?? false {
+      let email = validatedEmailId ?? ""
+      let password = viewModel.password.value ?? ""
+      let confirmPass = viewModel.confirmPassword.value ?? ""
+      if password.isValidPassword {
+        if password == confirmPass {
+          if KeychainManager.standard.userRole == "Artisan" {
+            do {
+              let client = try SafeClient(wrapping: CraftExchangeClient())
+              let controller = REGArtisanInfoInputService(client: client).createScene(weaverId: weaverId!, email: email, password: password)
+              self.navigationController?.pushViewController(controller, animated: true)
+            } catch let error {
+              print("Unable to load view:\n\(error.localizedDescription)")
+            }
+          }else {
+            do {
+              let client = try SafeClient(wrapping: CraftExchangeClient())
+              let controller = REGBuyerPersonalInfoService(client: client).createScene(email: email, password: password)
+              self.navigationController?.pushViewController(controller, animated: true)
+            } catch let error {
+              print("Unable to load view:\n\(error.localizedDescription)")
+            }
           }
         }else {
-          do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let controller = REGBuyerPersonalInfoService(client: client).createScene(email: email, password: password)
-            self.navigationController?.pushViewController(controller, animated: true)
-          } catch let error {
-            print("Unable to load view:\n\(error.localizedDescription)")
-          }
+          alert("Password & Confirm password mismatch.")
         }
       }else {
-          self.alert("Password & Confirm password mismatch.")
-        }
-      }else {
-        self.alert("Please enter password & confirm your password")
+        alert("Please enter valid password with 8 characters. It should contain at least 1 Capital alphabet, number and special character.")
       }
+    }else {
+      alert("Please enter password & confirm your password")
+    }
   }
 }
 

@@ -125,6 +125,7 @@ class RegisterArtisanDataController: FormViewController {
       $0.cell.titleLabel.text = "Pan No."
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
+      $0.cell.valueTextField.autocapitalizationType = .allCharacters
       self.viewModel.panNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
     }
     <<< RoundedTextFieldRow() {

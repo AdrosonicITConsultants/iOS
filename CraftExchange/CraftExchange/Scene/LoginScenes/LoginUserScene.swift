@@ -25,8 +25,14 @@ extension LoginUserService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.performAuthentication = {
-      if let username = vc.viewModel.username.value, let password = vc.viewModel.password.value {
+      if vc.viewModel.username.value != nil && vc.viewModel.username.value?.isNotBlank ?? false && vc.viewModel.password.value != nil && vc.viewModel.password.value?.isNotBlank ?? false {
+        let username = vc.viewModel.username.value ?? ""
+        let password = vc.viewModel.password.value ?? ""
+        vc.showLoading()
         self.fetch(username: username, password: password).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          DispatchQueue.main.async {
+            vc.hideLoading()
+          }
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {

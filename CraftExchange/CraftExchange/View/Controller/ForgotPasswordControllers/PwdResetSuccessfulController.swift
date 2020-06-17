@@ -18,13 +18,6 @@ class PwdResetSuccessfulController: UIViewController {
   }
   
   @IBAction func showLoginSelected(_sender: Any) {
-//    self.dismiss(animated: true) {
-//      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//      let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
-//      let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//      appDelegate?.window?.rootViewController = vc
-//      appDelegate?.window?.makeKeyAndVisible()
-//    }
     do {
       let client = try SafeClient(wrapping: CraftExchangeClient())
       let controller = ValidateUserService(client: client).createScene()

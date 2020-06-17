@@ -24,12 +24,16 @@ extension REGBuyerAddressInfoService {
       }.dispose(in: vc.bag)
 
       vc.viewModel.nextSelected = {
-        if vc.viewModel.addr1.value != nil && vc.viewModel.addr1.value != "" &&
-          vc.viewModel.country.value != nil && vc.viewModel.country.value != "" &&
-          vc.viewModel.pincode.value != nil && vc.viewModel.pincode.value != "" {
-          let newUser = createNewUser()
-          let controller = RegisterArtisanService(client: self.client).createScene(existingUser: newUser)
-          vc.navigationController?.pushViewController(controller, animated: true)
+        if vc.viewModel.addr1.value != nil && vc.viewModel.addr1.value?.isNotBlank ?? false &&
+          vc.viewModel.country.value != nil && vc.viewModel.country.value?.isNotBlank ?? false &&
+          vc.viewModel.pincode.value != nil && vc.viewModel.pincode.value?.isNotBlank ?? false {
+          if vc.viewModel.pincode.value?.isValidPincode ?? false {
+            let newUser = createNewUser()
+            let controller = RegisterArtisanService(client: self.client).createScene(existingUser: newUser)
+            vc.navigationController?.pushViewController(controller, animated: true)
+          }else {
+            vc.alert("Please enter valid Pincode")
+          }
         }else {
           vc.alert("Please enter all mandatory fields")
         }
