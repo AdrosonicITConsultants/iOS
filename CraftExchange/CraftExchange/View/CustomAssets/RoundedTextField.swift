@@ -20,8 +20,14 @@ class RoundedTextField: UITextField {
         textRect.origin.x += leftPadding
         return textRect
     }
-
+  
     @IBInspectable var leftImage: UIImage? {
+        didSet {
+            updateView()
+        }
+    }
+  
+    @IBInspectable var rightImage: UIImage? {
         didSet {
             updateView()
         }
@@ -29,7 +35,7 @@ class RoundedTextField: UITextField {
 
     @IBInspectable var leftPadding: CGFloat = 0
 
-    @IBInspectable var color: UIColor = UIColor.lightGray {
+    @IBInspectable var color: UIColor = UIColor.black {
         didSet {
             updateView()
         }
@@ -43,7 +49,18 @@ class RoundedTextField: UITextField {
             imageView.image = image
             imageView.tintColor = color
             leftView = imageView
-        } else {
+        } else if let image = rightImage {
+            rightViewMode = UITextField.ViewMode.always
+            let button = UIButton.init(type: .custom)
+            button.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 2)
+            button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+            button.setImage(image, for: .normal)
+            button.tag = 111
+            button.tintColor = color
+            button.addTarget(self, action: #selector(togglePasswordDisplay(_:)), for: .touchUpInside)
+            rightView = button
+        }
+        else {
           let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 5))
           leftView = paddingView
           leftViewMode = .always
@@ -55,4 +72,14 @@ class RoundedTextField: UITextField {
         // Placeholder text color
         attributedPlaceholder = NSAttributedString(string: placeholder != nil ?  placeholder! : "", attributes:[NSAttributedString.Key.foregroundColor: color])
     }
+  
+  @objc func togglePasswordDisplay(_ sender: UIButton) {
+    self.isSecureTextEntry = !self.isSecureTextEntry
+    let button = self.viewWithTag(111) as! UIButton
+    if isSecureTextEntry == true {
+      button.setImage(UIImage.init(systemName: "eye"), for: .normal)
+    }else {
+      button.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
+    }
+  }
 }

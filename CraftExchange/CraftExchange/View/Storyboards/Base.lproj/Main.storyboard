@@ -398,6 +398,7 @@
                                                     <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                         <color key="value" cocoaTouchSystemColor="darkTextColor"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="rightImage" value="eye" catalog="system"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="lock"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
@@ -569,6 +570,7 @@
         <image name="back-chevron.png" width="13" height="21"/>
         <image name="buyer-option" width="160.5" height="160"/>
         <image name="change language" width="21" height="24"/>
+        <image name="eye" catalog="system" width="64" height="40"/>
         <image name="lock" width="16" height="20"/>
         <image name="logo-underlying-text" width="375" height="180"/>
         <image name="or-option" width="237" height="37.5"/>
