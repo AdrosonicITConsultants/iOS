@@ -21,7 +21,8 @@ class ForgotPasswordController: UIViewController {
   
   
   lazy var viewModel = ForgotPassworViewModel()
-
+  
+  @IBOutlet weak var sendOTPButton: RoundedButton!
   @IBOutlet weak var nextButton: RoundedButton!
   @IBOutlet weak var usernameField: RoundedTextField!
   @IBOutlet weak var otpField: RoundedTextField!
@@ -32,6 +33,7 @@ class ForgotPasswordController: UIViewController {
     
     self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
     self.viewModel.otp.bidirectionalBind(to: otpField.reactive.text)
+    self.navigationItem.rightBarButtonItem = roleBarButton()
   }
   
   @IBAction func nextButtonSelected(_ sender: Any) {

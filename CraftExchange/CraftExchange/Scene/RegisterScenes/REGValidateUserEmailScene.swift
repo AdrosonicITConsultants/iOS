@@ -24,9 +24,17 @@ extension REGValidateUserEmailService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.sendOTP = {
+      vc.showLoading()
+      vc.sendOtpButton.isEnabled = false
+      vc.sendOtpButton.isUserInteractionEnabled = false
       if (vc.viewModel.username.value != nil) && vc.viewModel.username.value != "" {
         let username = vc.viewModel.username.value ?? ""
         self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          DispatchQueue.main.async {
+            vc.hideLoading()
+            vc.sendOtpButton.isEnabled = true
+            vc.sendOtpButton.isUserInteractionEnabled = true
+          }
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
@@ -57,7 +65,11 @@ extension REGValidateUserEmailService {
     
     vc.viewModel.validateOTP = {
       if let username = vc.viewModel.username.value, let otp = vc.viewModel.otp.value {
+        vc.showLoading()
         self.fetch(emailId: username, otp: otp).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          DispatchQueue.main.async {
+            vc.hideLoading()
+          }
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {

@@ -30,6 +30,7 @@ class REGNewUserPasswordController: UIViewController {
     // Do any additional setup after loading the view.
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
     self.viewModel.confirmPassword.bidirectionalBind(to: confirmPasswordField.reactive.text)
+    self.navigationItem.rightBarButtonItem = roleBarButton()
   }
   
   @IBAction func confirmPasswordSelected(_ sender: Any) {

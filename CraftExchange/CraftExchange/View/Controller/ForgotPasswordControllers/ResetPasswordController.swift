@@ -30,6 +30,7 @@ class ResetPasswordController: UIViewController {
     // Do any additional setup after loading the view.
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
     self.viewModel.confirmPassword.bidirectionalBind(to: confirmPasswordField.reactive.text)
+    self.navigationItem.rightBarButtonItem = roleBarButton()
   }
   
   @IBAction func resetPasswordSelected(_ sender: Any) {

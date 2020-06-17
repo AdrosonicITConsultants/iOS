@@ -25,7 +25,15 @@ extension ForgotPasswordService {
     
     vc.viewModel.sendOTP = {
       if let username = vc.viewModel.username.value {
+        vc.showLoading()
+        vc.sendOTPButton.isEnabled = false
+        vc.sendOTPButton.isUserInteractionEnabled = false
         self.fetch(username: username).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          DispatchQueue.main.async {
+            vc.hideLoading()
+            vc.sendOTPButton.isEnabled = true
+            vc.sendOTPButton.isUserInteractionEnabled = true
+          }
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
@@ -56,7 +64,11 @@ extension ForgotPasswordService {
     
     vc.viewModel.validateOTP = {
       if let username = vc.viewModel.username.value, let otp = vc.viewModel.otp.value {
+        vc.showLoading()
         self.fetch(emailId: username, otp: otp).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          DispatchQueue.main.async {
+            vc.hideLoading()
+          }
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {

@@ -48,8 +48,16 @@ extension REGBuyerAddressInfoService {
         newUser.designation = existingUser.designation ?? ""
         newUser.buyerCompanyDetails = existingUser.buyerCompanyDetails
         newUser.buyerPointOfContact = existingUser.buyerPointOfContact
-
-        let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr1.value ?? "")"), country: (1,"India"), city: "\(vc.viewModel.city.value ?? "")", district: nil, landmark: nil, line1: "\(vc.viewModel.addr1.value ?? "")", line2: "\(vc.viewModel.addr2.value ?? "")", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "\(vc.viewModel.street.value ?? "")", userId: 0)
+        var countryID = 1
+        var countryName = "India"
+        if vc.viewModel.country.value == "USA" {
+          countryID = 2
+          countryName = vc.viewModel.country.value ?? "USA"
+        }else if vc.viewModel.country.value == "Spain" {
+          countryID = 3
+          countryName = vc.viewModel.country.value ?? "Spain"
+        }
+        let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr1.value ?? "")"), country: (countryID,countryName), city: "\(vc.viewModel.city.value ?? "")", district: nil, landmark: nil, line1: "\(vc.viewModel.addr1.value ?? "")", line2: "\(vc.viewModel.addr2.value ?? "")", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "\(vc.viewModel.street.value ?? "")", userId: 0)
         newUser.address = newAddr
         
         return newUser

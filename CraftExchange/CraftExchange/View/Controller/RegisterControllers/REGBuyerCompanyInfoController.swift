@@ -36,7 +36,7 @@ class REGBuyerCompanyInfoController: FormViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    self.navigationItem.rightBarButtonItem = roleBarButton()
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
 
     self.form +++

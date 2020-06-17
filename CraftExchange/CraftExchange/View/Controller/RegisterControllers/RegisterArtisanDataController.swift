@@ -40,6 +40,7 @@ class RegisterArtisanDataController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 //      DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
+    self.navigationItem.rightBarButtonItem = roleBarButton()
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
 
     self.form +++

@@ -32,7 +32,7 @@ class REGBuyerAddressInfoController: FormViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    self.navigationItem.rightBarButtonItem = roleBarButton()
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
 
     self.form +++
@@ -80,11 +80,14 @@ class REGBuyerAddressInfoController: FormViewController {
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.state.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
     }
-      <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Country"
+      <<< ActionSheetRow() {
+        $0.title = "Country"
         $0.cell.height = { 80.0 }
-        self.viewModel.country.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-      }
+        $0.options = ["India", "USA", "Spain"]
+        
+      }.onChange({ (actionsheet) in
+        self.viewModel.country.value = actionsheet.value ?? "India"
+      })
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "Pincode"
         $0.cell.height = { 80.0 }

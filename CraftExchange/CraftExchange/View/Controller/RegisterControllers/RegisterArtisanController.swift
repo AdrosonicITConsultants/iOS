@@ -22,6 +22,7 @@ class RegisterArtisanController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.navigationItem.rightBarButtonItem = roleBarButton()
   }
   
   @IBAction func completeButtonSelected(_ sender: Any) {

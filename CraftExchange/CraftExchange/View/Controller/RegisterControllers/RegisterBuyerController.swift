@@ -27,6 +27,7 @@ class RegisterBuyerController: UIViewController {
     super.viewDidLoad()
     self.viewModel.websiteLink.bidirectionalBind(to: websiteLinkField.reactive.text)
     self.viewModel.socialMediaLink.bidirectionalBind(to: mediaLinkField.reactive.text)
+    self.navigationItem.rightBarButtonItem = roleBarButton()
   }
   
   @IBAction func completeButtonSelected(_ sender: Any) {

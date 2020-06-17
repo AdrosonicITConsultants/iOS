@@ -41,6 +41,19 @@ extension UIViewController {
     }
 }
 
+extension UIViewController {
+  func roleBarButton() -> UIBarButtonItem {
+    let rightButtonItem = UIBarButtonItem.init(
+        title: "\(KeychainManager.standard.userRole ?? "")",
+        style: .plain,
+        target: self,
+        action: nil
+    )
+    rightButtonItem.tintColor = .darkGray
+    return rightButtonItem
+  }
+}
+
 extension UIViewController: LoadingStateListener {
 
     public func setLoadingState<LoadingValue, LoadingError>(_ state: ObservedLoadingState<LoadingValue, LoadingError>) {

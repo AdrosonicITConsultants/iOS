@@ -419,7 +419,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="CCH-Nq-7rC"/>
                     <connections>
+                        <outlet property="nextButton" destination="B0Y-zs-JN0" id="ODa-cz-6pW"/>
                         <outlet property="otpField" destination="DUr-Xg-mAP" id="vR6-wb-gao"/>
+                        <outlet property="sendOtpButton" destination="lLx-ab-u6f" id="VmI-UF-hxM"/>
                         <outlet property="usernameField" destination="EU7-On-GdN" id="6AD-Fm-pUv"/>
                     </connections>
                 </viewController>

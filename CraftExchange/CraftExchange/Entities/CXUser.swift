@@ -44,7 +44,7 @@ extension CXUser {
     }else { // Buyer
       if let buyerCompanyDetails = buyerCompanyDetails {
         let json = buyerCompanyDetails.toJSON()
-        message["buyerCompanyDetails"] = json
+        message["companyDetails"] = json
       }
       if let buyerPointOfContact = buyerPointOfContact {
         let json = buyerPointOfContact.toJSON()

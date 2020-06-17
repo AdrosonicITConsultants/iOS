@@ -21,6 +21,7 @@ class REGValidateUserEmailController: UIViewController {
   
   lazy var viewModel = REGValidateUserEmailViewModel()
 
+  @IBOutlet weak var sendOtpButton: RoundedButton!
   @IBOutlet weak var nextButton: RoundedButton!
   @IBOutlet weak var usernameField: RoundedTextField!
   @IBOutlet weak var otpField: RoundedTextField!
@@ -28,7 +29,7 @@ class REGValidateUserEmailController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
-    
+    self.navigationItem.rightBarButtonItem = roleBarButton()
     self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
     self.viewModel.otp.bidirectionalBind(to: otpField.reactive.text)
   }

@@ -28,6 +28,7 @@ class LoginPasswordController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
+    self.navigationItem.rightBarButtonItem = roleBarButton()
   }
   
   @IBAction func loginButtonSelected(_ sender: Any) {

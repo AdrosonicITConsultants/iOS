@@ -26,6 +26,7 @@ class REGValidateArtisanController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.viewModel.weaverId.bidirectionalBind(to: weaverIdField.reactive.text)
+    self.navigationItem.rightBarButtonItem = roleBarButton()
   }
   
   @IBAction func nextButtonSelected(_ sender: Any) {
