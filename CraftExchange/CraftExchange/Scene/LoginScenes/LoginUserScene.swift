@@ -44,6 +44,8 @@ extension LoginUserService {
                       KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
                       KeychainManager.standard.userID = userObj?["id"] as? Int ?? 0
                       KeychainManager.standard.username = userObj?["firstName"] as? String ?? ""
+                      let app = UIApplication.shared.delegate as? AppDelegate
+                      app?.showDemoVideo = true
                       let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
                       let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
                       tab.modalPresentationStyle = .fullScreen

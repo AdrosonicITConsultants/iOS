@@ -105,10 +105,13 @@ class SideMenuController: FormViewController {
             row.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
             KeychainManager.standard.deleteAll()
+            self.showLoading()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
             vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            self.present(vc, animated: true, completion: {
+              self.hideLoading()
+            })
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })

@@ -71,6 +71,7 @@
 		C09F21542486312D001F2FCD /* ClusterDetails+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F21532486312D001F2FCD /* ClusterDetails+Transaction.swift */; };
 		C0A5EB6624A0EB0100AD42EA /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5EB6524A0EB0100AD42EA /* SideMenuController.swift */; };
 		C0A5EB6A24A0F68500AD42EA /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */; };
+		C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C0A5EB6D24A1321F00AD42EA /* video.mp4 */; };
 		C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A9107F247CD8D000852695 /* Lato-Italic.ttf */; };
 		C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */; };
 		C0A9108C247CD8D000852695 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A91081247CD8D000852695 /* Lato-Thin.ttf */; };
@@ -194,6 +195,7 @@
 		C09F21532486312D001F2FCD /* ClusterDetails+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClusterDetails+Transaction.swift"; sourceTree = "<group>"; };
 		C0A5EB6524A0EB0100AD42EA /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		C0A5EB6D24A1321F00AD42EA /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		C0A9107F247CD8D000852695 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		C0A91081247CD8D000852695 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 		C03BD88E2476F7FC00279D7F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C0A5EB6D24A1321F00AD42EA /* video.mp4 */,
 				C0A91095247CD90B00852695 /* Playfair */,
 				C0A9107E247CD8D000852695 /* Lato */,
 				C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */,
@@ -732,6 +735,7 @@
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
+				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
 				C0A91094247CD8D000852695 /* Lato-ThinItalic.ttf in Resources */,
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
 				C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */,
