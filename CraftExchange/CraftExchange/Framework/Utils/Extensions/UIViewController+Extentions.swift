@@ -9,6 +9,7 @@
 import UIKit
 import JGProgressHUD
 import ReactiveKit
+import SideMenu
 
 // Makes UIViewController a LoadingStateListener. That means that we can pass an instance of UIViewController
 // to `consumeLoadingState` operator of a LoadingSignal to convert it into regular SafeSignal.
@@ -112,4 +113,25 @@ extension UIViewController {
         guard hud.isVisible else { return }
         hud.dismiss(animated: true)
     }
+}
+
+extension UIViewController {
+  func setupSideMenu() {
+    let menu = UIBarButtonItem(image: UIImage(named: "Ios-menu"), style: .done, target: self, action: nil)
+    menu.tintColor = .darkGray
+    navigationItem.leftBarButtonItem = menu
+    menu.reactive.tap.observeNext {
+        let menuController = SideMenuController(style: .plain)
+        let menu = SideMenuNavigationController(rootViewController: menuController)
+        menu.setToolbarHidden(false, animated: false)
+        menu.leftSide = true
+        menu.statusBarEndAlpha = 0
+        let style = SideMenuPresentationStyle.menuSlideIn
+        style.onTopShadowOpacity = 0.8
+        style.presentingScaleFactor = 0.90
+        menu.settings.presentationStyle = style
+        menu.settings.menuWidth = min(self.view.frame.width, self.view.frame.height) * CGFloat(0.80)
+        self.present(menu, animated: true, completion: nil)
+    }.dispose(in: bag)
+  }
 }

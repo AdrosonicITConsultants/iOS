@@ -1,0 +1,21 @@
+//
+//  UIColor+Extensions.swift
+//  CraftExchange
+//
+//  Created by Preety Singh on 22/06/20.
+//  Copyright © 2020 Adrosonic. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+extension UIColor {
+  
+  func menuTitleBlue() -> UIColor {
+      return colorWith(r: 67, g: 99, b: 210)
+  }
+  
+  func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) -> UIColor {
+      return UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
+  }
+}

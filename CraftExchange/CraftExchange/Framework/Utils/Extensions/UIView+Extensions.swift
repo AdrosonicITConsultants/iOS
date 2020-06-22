@@ -16,4 +16,17 @@ extension UIView {
     layer.shadowOffset = CGSize.zero
     layer.shadowRadius = 5
   }
+  
+  func addDashedBorder() {
+      let shapeLayer = CAShapeLayer()
+      shapeLayer.strokeColor = UIColor.darkGray.cgColor
+      shapeLayer.lineWidth = 2
+      shapeLayer.lineDashPattern = [5,5]
+
+      let path = CGMutablePath()
+      path.addLines(between: [CGPoint(x: 0, y: 0),
+                              CGPoint(x: self.frame.width, y: 0)])
+      shapeLayer.path = path
+      layer.addSublayer(shapeLayer)
+  }
 }

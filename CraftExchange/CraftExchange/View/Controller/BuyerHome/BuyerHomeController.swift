@@ -27,16 +27,9 @@ class BuyerHomeController: UIViewController {
     self.antaranDesignView.layer.cornerRadius = 5
     
     loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
-
+    
+    self.setupSideMenu()
+    
     super.viewDidLoad()
   }
-  
-  @IBAction func logoutSelected(_ sender: Any) {
-    KeychainManager.standard.deleteAll()
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
-    vc.modalPresentationStyle = .fullScreen
-    self.present(vc, animated: true, completion: nil)
-  }
-  
 }
