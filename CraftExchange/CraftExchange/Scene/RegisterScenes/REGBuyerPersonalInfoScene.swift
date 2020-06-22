@@ -48,7 +48,6 @@ extension REGBuyerPersonalInfoService {
 
       vc.viewModel.nextSelected = {
         if vc.viewModel.firstname.value != nil && vc.viewModel.firstname.value?.isNotBlank ?? false &&
-        vc.viewModel.lastname.value != nil && vc.viewModel.lastname.value?.isNotBlank ?? false &&
           vc.viewModel.mobNo.value != nil && vc.viewModel.mobNo.value?.isNotBlank ?? false && vc.viewModel.mobNo.value?.isValidPhoneNumber ?? false {
           var isValid = true
           if vc.viewModel.alternateMobNo.value != nil && vc.viewModel.alternateMobNo.value?.isNotBlank ?? false {

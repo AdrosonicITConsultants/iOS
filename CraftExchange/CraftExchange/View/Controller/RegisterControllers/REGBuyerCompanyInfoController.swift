@@ -95,6 +95,7 @@ class REGBuyerCompanyInfoController: FormViewController {
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "Point of contact's email address"
         $0.cell.height = { 80.0 }
+        $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocEmailId.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
       }
       <<< RoundedTextFieldRow() {

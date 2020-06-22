@@ -23,6 +23,7 @@ class BuyerAddressViewModel {
   var state = Observable<String?>(nil)
   var country = Observable<String?>(nil)
   var pincode = Observable<String?>(nil)
+  var landmark = Observable<String?>(nil)
   var nextSelected: (() -> Void)?
 }
 
@@ -69,6 +70,12 @@ class REGBuyerAddressInfoController: FormViewController {
       self.viewModel.street.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
     }
     <<< RoundedTextFieldRow() {
+      $0.cell.titleLabel.text = "Landmark"
+      $0.cell.compulsoryIcon.isHidden = true
+      $0.cell.height = { 80.0 }
+      self.viewModel.landmark.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+    }
+    <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "City"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
@@ -84,9 +91,12 @@ class REGBuyerAddressInfoController: FormViewController {
         $0.title = "Country"
         $0.cell.height = { 80.0 }
         $0.options = ["India", "USA", "Spain"]
-        
       }.onChange({ (actionsheet) in
         self.viewModel.country.value = actionsheet.value ?? "India"
+      }).cellUpdate({ (str, row) in
+        let attrstr = NSMutableAttributedString(string: "Country *", attributes:[NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+        attrstr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: NSRange(location: attrstr.length - 1,length:1))
+        row.cell.textLabel?.attributedText = attrstr
       })
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "Pincode"

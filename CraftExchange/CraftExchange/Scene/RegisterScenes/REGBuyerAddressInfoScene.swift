@@ -61,7 +61,7 @@ extension REGBuyerAddressInfoService {
           countryID = 3
           countryName = vc.viewModel.country.value ?? "Spain"
         }
-        let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr1.value ?? "")"), country: (countryID,countryName), city: "\(vc.viewModel.city.value ?? "")", district: nil, landmark: nil, line1: "\(vc.viewModel.addr1.value ?? "")", line2: "\(vc.viewModel.addr2.value ?? "")", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "\(vc.viewModel.street.value ?? "")", userId: 0)
+        let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr1.value ?? "")"), country: (countryID,countryName), city: "\(vc.viewModel.city.value ?? "")", district: nil, landmark: "\(vc.viewModel.landmark.value ?? "")", line1: "\(vc.viewModel.addr1.value ?? "")", line2: "\(vc.viewModel.addr2.value ?? "")", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "\(vc.viewModel.street.value ?? "")", userId: 0)
         newUser.address = newAddr
         
         return newUser

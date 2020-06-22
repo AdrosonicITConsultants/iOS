@@ -25,7 +25,8 @@ extension REGBuyerCompanyInfoService {
 
       vc.viewModel.nextSelected = {
         if vc.viewModel.companyName.value != nil && vc.viewModel.companyName.value?.isNotBlank ?? false &&
-          vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value?.isNotBlank ?? false {
+          vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value?.isNotBlank ?? false &&
+          vc.viewModel.pocFirstName.value != nil && vc.viewModel.pocFirstName.value?.isNotBlank ?? false {
           if vc.viewModel.panNo.value?.isValidPAN ?? false {
             var isValid = true
             if vc.viewModel.pocEmailId.value != nil && vc.viewModel.pocEmailId.value?.isNotBlank ?? false {

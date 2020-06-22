@@ -59,6 +59,7 @@ class REGBuyerPersonalInfoController: FormViewController {
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Last name"
       $0.cell.height = { 80.0 }
+      $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.lastname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
     }
     <<< RoundedTextFieldRow() {
