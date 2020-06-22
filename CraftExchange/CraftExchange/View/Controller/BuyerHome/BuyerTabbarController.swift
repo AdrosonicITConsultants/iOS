@@ -14,4 +14,6 @@ class BuyerTabbarController: UITabBarController {
   override func viewDidLoad() {
     super.viewDidLoad()
   }
+  
+  
 }

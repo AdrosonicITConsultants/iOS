@@ -31,4 +31,12 @@ class BuyerHomeController: UIViewController {
     super.viewDidLoad()
   }
   
+  @IBAction func logoutSelected(_ sender: Any) {
+    KeychainManager.standard.deleteAll()
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
+    vc.modalPresentationStyle = .fullScreen
+    self.present(vc, animated: true, completion: nil)
+  }
+  
 }
