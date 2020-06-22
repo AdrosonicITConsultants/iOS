@@ -31,9 +31,9 @@ class KeychainManager {
         defaults.synchronize()
     }
 
-    var userID: String? {
+    var userID: Int? {
         get {
-            defaults.string(forKey: "cx_user_id")
+            defaults.integer(forKey: "cx_user_id")
         }
         set {
             if let newValue = newValue {
@@ -97,6 +97,19 @@ class KeychainManager {
                 defaults.set(newValue, forKey: "cx_user_roleId")
             } else {
                 defaults.removeObject(forKey: "cx_user_roleId")
+            }
+        }
+  }
+  
+  var userAccessToken: String? {
+        get {
+            defaults.string(forKey: "AccessToken")
+        }
+        set {
+            if let newValue = newValue {
+                defaults.set(newValue, forKey: "AccessToken")
+            } else {
+                defaults.removeObject(forKey: "AccessToken")
             }
         }
   }

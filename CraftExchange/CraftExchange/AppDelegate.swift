@@ -18,13 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
-    if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != "" {
-      
-    }else {
+//    if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+//      let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+//      let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
+//      window?.rootViewController = tab
+//    }else {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
       window?.rootViewController = vc
-    }
+//    }
     window?.makeKeyAndVisible()
     return true
   }

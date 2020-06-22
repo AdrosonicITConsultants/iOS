@@ -17,6 +17,15 @@ class RoleViewController: UIViewController {
     // Do any additional setup after loading the view.
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+      let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+      let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
+      tab.modalPresentationStyle = .fullScreen
+      self.present(tab, animated: true, completion: nil)
+    }
+  }
+  
   @IBAction func artisanSelected(_ sender: Any) {
     KeychainManager.standard.userRole = "Artisan"
     KeychainManager.standard.userRoleId = 1

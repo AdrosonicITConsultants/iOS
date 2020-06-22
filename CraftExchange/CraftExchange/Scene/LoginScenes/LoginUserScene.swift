@@ -36,10 +36,18 @@ extension LoginUserService {
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
-                  if (jsonDict["data"] as? Dictionary<String,Any>) != nil {
+                  if let dataDict = jsonDict["data"] as? Dictionary<String,Any> {
                     print("logged In User: \(jsonDict)")
                     DispatchQueue.main.async {
-                      vc.alert("User Logged In Successfully")
+//                      vc.alert("User Logged In Successfully")
+                      let userObj = dataDict["user"] as? Dictionary<String,Any>
+                      KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
+                      KeychainManager.standard.userID = userObj?["id"] as? Int ?? 0
+                      KeychainManager.standard.username = userObj?["firstName"] as? String ?? ""
+                      let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+                      let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
+                      tab.modalPresentationStyle = .fullScreen
+                      vc.present(tab, animated: true, completion: nil)
                     }
                   }else {
                     DispatchQueue.main.async {
