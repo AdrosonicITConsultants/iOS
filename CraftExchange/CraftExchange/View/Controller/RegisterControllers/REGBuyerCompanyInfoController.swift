@@ -21,7 +21,6 @@ class BuyerCompanyViewModel {
   var cinNo = Observable<String?>(nil)
   var panNo = Observable<String?>(nil)
   var pocFirstName = Observable<String?>(nil)
-  var pocLastName = Observable<String?>(nil)
   var pocMobNo = Observable<String?>(nil)
   var pocEmailId = Observable<String?>(nil)
   var brandLogo = Observable<String?>(nil)
@@ -82,24 +81,19 @@ class REGBuyerCompanyInfoController: FormViewController {
         $0.cell.height = { 80.0 }
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Point of contact's first name"
+        $0.cell.titleLabel.text = "Name"
         $0.cell.height = { 80.0 }
+        $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocFirstName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Point of contact's last name"
-        $0.cell.height = { 80.0 }
-        $0.cell.compulsoryIcon.isHidden = true
-        self.viewModel.pocLastName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-      }
-      <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Point of contact's email address"
+        $0.cell.titleLabel.text = "Email Address"
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocEmailId.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Point of contact's mobile number"
+        $0.cell.titleLabel.text = "Mobile Number"
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocMobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)

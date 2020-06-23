@@ -51,11 +51,13 @@ extension User {
   }
   
   public static func registerUser(json: [String: Any]) -> Request<Data, APIError> {
-//      let parameters: [String: Any] = ["registerRequest": json]
+    var str = json.jsonString
+    str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    let headers: [String: String] = ["accept": "application/json"]
       return Request(
-          path: "register/user",
+        path: "register/user?registerRequest=\(str)",
           method: .post,
-          parameters: JSONParameters(json),
+          headers: headers,
           resource: {print(String(data: $0, encoding: .utf8) ?? "user registration failed")
             return $0},
           error: APIError.init,
@@ -63,3 +65,5 @@ extension User {
       )
   }
 }
+
+

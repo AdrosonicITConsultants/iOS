@@ -25,8 +25,7 @@ extension REGBuyerCompanyInfoService {
 
       vc.viewModel.nextSelected = {
         if vc.viewModel.companyName.value != nil && vc.viewModel.companyName.value?.isNotBlank ?? false &&
-          vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value?.isNotBlank ?? false &&
-          vc.viewModel.pocFirstName.value != nil && vc.viewModel.pocFirstName.value?.isNotBlank ?? false {
+          vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value?.isNotBlank ?? false {
           if vc.viewModel.panNo.value?.isValidPAN ?? false {
             var isValid = true
             if vc.viewModel.pocEmailId.value != nil && vc.viewModel.pocEmailId.value?.isNotBlank ?? false {
@@ -62,17 +61,29 @@ extension REGBuyerCompanyInfoService {
         newUser.email = existingUser.email
         newUser.password = existingUser.password
         newUser.refRoleId = existingUser.refRoleId
-        newUser.firstName = existingUser.firstName ?? ""
-        newUser.lastName = existingUser.lastName ?? ""
-        newUser.mobile = existingUser.mobile ?? ""
-        newUser.alternateMobile = existingUser.alternateMobile ?? ""
-        newUser.designation = existingUser.designation ?? ""
-
-        let newCompDetails = buyerCompDetails.init(id: 0, companyName: "\(vc.viewModel.companyName.value ?? "")", cin: "\(vc.viewModel.cinNo.value ?? "")", contact: "\(vc.viewModel.panNo.value ?? "")", gstNo: "\(vc.viewModel.gstNo.value ?? "")", logo: "logo")
+        newUser.firstName = existingUser.firstName ?? nil
+        newUser.lastName = existingUser.lastName ?? nil
+        newUser.mobile = existingUser.mobile ?? nil
+        newUser.alternateMobile = existingUser.alternateMobile ?? nil
+        newUser.designation = existingUser.designation ?? nil
+        
+        let compName = vc.viewModel.companyName.value ?? nil
+        let cin = vc.viewModel.cinNo.value ?? nil
+        let panNo = vc.viewModel.panNo.value ?? nil
+        let gstNo = vc.viewModel.gstNo.value ?? nil
+        
+        let newCompDetails = buyerCompDetails.init(id: 0, companyName: compName, cin: cin, contact: panNo, gstNo: gstNo, logo: nil)
         newUser.buyerCompanyDetails = newCompDetails
         
-        let newPointOfContact = pointOfContact.init(id: 0, contactNo: "\(vc.viewModel.pocMobNo.value ?? "")", email: "\(vc.viewModel.pocEmailId.value ?? "")", firstName: "\(vc.viewModel.pocFirstName.value ?? "")", lastName: "\(vc.viewModel.pocLastName.value ?? "")")
-        newUser.buyerPointOfContact = newPointOfContact
+        if (vc.viewModel.pocFirstName.value != nil && vc.viewModel.pocFirstName.value?.isNotBlank ?? false) ||
+          (vc.viewModel.pocMobNo.value != nil && vc.viewModel.pocMobNo.value?.isNotBlank ?? false) ||
+          vc.viewModel.pocEmailId.value != nil && vc.viewModel.pocEmailId.value?.isNotBlank ?? false {
+          let pocName = vc.viewModel.pocFirstName.value ?? nil
+          let pocEmail = vc.viewModel.pocEmailId.value ?? nil
+          let pocMob = vc.viewModel.pocMobNo.value ?? nil
+          let newPointOfContact = pointOfContact.init(id: 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
+          newUser.buyerPointOfContact = newPointOfContact
+        }
         
         return newUser
       }

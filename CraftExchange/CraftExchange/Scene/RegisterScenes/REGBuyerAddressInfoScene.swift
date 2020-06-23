@@ -45,11 +45,11 @@ extension REGBuyerAddressInfoService {
         newUser.email = existingUser.email
         newUser.password = existingUser.password
         newUser.refRoleId = existingUser.refRoleId
-        newUser.firstName = existingUser.firstName ?? ""
-        newUser.lastName = existingUser.lastName ?? ""
-        newUser.mobile = existingUser.mobile ?? ""
-        newUser.alternateMobile = existingUser.alternateMobile ?? ""
-        newUser.designation = existingUser.designation ?? ""
+        newUser.firstName = existingUser.firstName ?? nil
+        newUser.lastName = existingUser.lastName ?? nil
+        newUser.mobile = existingUser.mobile ?? nil
+        newUser.alternateMobile = existingUser.alternateMobile ?? nil
+        newUser.designation = existingUser.designation ?? nil
         newUser.buyerCompanyDetails = existingUser.buyerCompanyDetails
         newUser.buyerPointOfContact = existingUser.buyerPointOfContact
         var countryID = 1
@@ -61,7 +61,15 @@ extension REGBuyerAddressInfoService {
           countryID = 3
           countryName = vc.viewModel.country.value ?? "Spain"
         }
-        let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr1.value ?? "")"), country: (countryID,countryName), city: "\(vc.viewModel.city.value ?? "")", district: nil, landmark: "\(vc.viewModel.landmark.value ?? "")", line1: "\(vc.viewModel.addr1.value ?? "")", line2: "\(vc.viewModel.addr2.value ?? "")", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "\(vc.viewModel.street.value ?? "")", userId: 0)
+        let addr1 = vc.viewModel.addr1.value ?? nil
+        let addr2 = vc.viewModel.addr2.value ?? nil
+        let city = vc.viewModel.city.value ?? nil
+        let landmark = vc.viewModel.landmark.value ?? nil
+        let state = vc.viewModel.state.value ?? nil
+        let street = vc.viewModel.street.value ?? nil
+        let pin = vc.viewModel.pincode.value ?? nil
+        
+        let newAddr = LocalAddress.init(id: 0, addrType: (0,"test"), country: (countryID,countryName), city: city, district: nil, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: 0)
         newUser.address = newAddr
         
         return newUser

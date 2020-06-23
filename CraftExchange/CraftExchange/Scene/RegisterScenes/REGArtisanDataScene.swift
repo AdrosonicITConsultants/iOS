@@ -101,10 +101,10 @@ extension REGArtisanInfoInputService {
       newUser.password = password
       newUser.refRoleId = 1
       newUser.clusterId = vc.viewModel.selectedClusterId.value ?? 1
-      newUser.firstName = vc.viewModel.firstname.value ?? ""
-      newUser.lastName = vc.viewModel.lastname.value ?? ""
-      newUser.mobile = vc.viewModel.mobNo.value ?? ""
-      newUser.pancard = vc.viewModel.panNo.value ?? ""
+      newUser.firstName = vc.viewModel.firstname.value ?? nil
+      newUser.lastName = vc.viewModel.lastname.value ?? nil
+      newUser.mobile = vc.viewModel.mobNo.value ?? nil
+      newUser.pancard = vc.viewModel.panNo.value ?? nil
       newUser.productCategoryIds = vc.viewModel.selectedProdCat.value
       
       let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr.value ?? "")"), country: (1,"India"), city: "", district: "\(vc.viewModel.district.value ?? "")", landmark: "", line1: "\(vc.viewModel.addr.value ?? "")", line2: "", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "", userId: 0)

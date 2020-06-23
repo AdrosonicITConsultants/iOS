@@ -156,7 +156,6 @@ struct pointOfContact {
   let contactNo: String?
   var email: String?
   var firstName: String?
-  var lastName: String?
 }
 
 extension pointOfContact {
@@ -172,9 +171,6 @@ extension pointOfContact {
     }
     if let firstName = firstName {
         message["firstName"] = firstName
-    }
-    if let lastName = lastName {
-        message["lastName"] = lastName
     }
     
     return message

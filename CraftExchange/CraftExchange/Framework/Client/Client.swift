@@ -53,7 +53,7 @@ open class Client: NSObject {
 
         let request = prepare(request: request)
         let headers = defaultHeaders.merging(contentsOf: request.headers ?? [:])
-        
+
         var urlRequest = URLRequest(url: URL(string: "\(self.baseURL)/\(request.path)")!)
         //self.baseURL.appendingPathComponent(request.path))!)
         urlRequest.httpMethod = request.method.rawValue

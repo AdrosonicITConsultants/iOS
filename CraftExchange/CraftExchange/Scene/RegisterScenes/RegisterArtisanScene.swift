@@ -155,16 +155,16 @@ extension RegisterArtisanService {
       newUser.email = existingUser.email
       newUser.password = existingUser.password
       newUser.refRoleId = existingUser.refRoleId
-      newUser.firstName = existingUser.firstName ?? ""
-      newUser.lastName = existingUser.lastName ?? ""
-      newUser.mobile = existingUser.mobile ?? ""
-      newUser.alternateMobile = existingUser.alternateMobile ?? ""
-      newUser.designation = existingUser.designation ?? ""
+      newUser.firstName = existingUser.firstName ?? nil
+      newUser.lastName = existingUser.lastName ?? nil
+      newUser.mobile = existingUser.mobile ?? nil
+      newUser.alternateMobile = existingUser.alternateMobile ?? nil
+      newUser.designation = existingUser.designation ?? nil
       newUser.buyerCompanyDetails = existingUser.buyerCompanyDetails
       newUser.buyerPointOfContact = existingUser.buyerPointOfContact
       newUser.address = existingUser.address
-      newUser.websiteLink = vc.viewModel.websiteLink.value ?? ""
-      newUser.socialMediaLink = vc.viewModel.socialMediaLink.value ?? ""
+      newUser.websiteLink = vc.viewModel.websiteLink.value ?? nil
+      newUser.socialMediaLink = vc.viewModel.socialMediaLink.value ?? nil
       
       return newUser
     }

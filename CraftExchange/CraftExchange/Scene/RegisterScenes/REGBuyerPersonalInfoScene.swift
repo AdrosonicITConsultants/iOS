@@ -74,11 +74,11 @@ extension REGBuyerPersonalInfoService {
         newUser.email = email
         newUser.password = password
         newUser.refRoleId = 2
-        newUser.firstName = vc.viewModel.firstname.value ?? ""
-        newUser.lastName = vc.viewModel.lastname.value ?? ""
-        newUser.mobile = vc.viewModel.mobNo.value ?? ""
-        newUser.alternateMobile = vc.viewModel.alternateMobNo.value ?? ""
-        newUser.designation = vc.viewModel.designation.value ?? ""
+        newUser.firstName = vc.viewModel.firstname.value ?? nil
+        newUser.lastName = vc.viewModel.lastname.value ?? nil
+        newUser.mobile = vc.viewModel.mobNo.value ?? nil
+        newUser.alternateMobile = vc.viewModel.alternateMobNo.value ?? nil
+        newUser.designation = vc.viewModel.designation.value ?? nil
 
         return newUser
       }

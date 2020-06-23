@@ -86,36 +86,25 @@ public struct QueryParameters: RequestParameters {
     }
 }
 
+public struct JSONFormParameters: RequestParameters {
 
-struct KMPredictionParameters: RequestParameters {
+    public let json: Any
 
-    public let xml: String
-
-    public init(_ xml: String) {
-        self.xml = xml
+    public init(_ json: Any) {
+        self.json = json
     }
 
     public func apply(urlRequest: URLRequest) -> URLRequest {
         var request = urlRequest
-        request.setValue(String(xml.lengthOfBytes(using: .utf8)), forHTTPHeaderField: "Content-Length")
-        request.setValue("application/xml", forHTTPHeaderField: "Content-Type")
+        request.setValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "accept")
-        request.httpBody = xml.data(using: .utf8, allowLossyConversion: true)
-        return request
-    }
-}
 
-public struct KMDataParameter: RequestParameters {
+        if let json = json as? [Any] {
+            request.httpBody = json.jsonString.data(using: .utf8)
+        } else if let json = json as? [String: Any] {
+            request.httpBody = json.jsonString.data(using: .utf8)
+        }
 
-    public let data: Data
-
-    public init(_ data: Data) {
-        self.data = data
-    }
-
-    public func apply(urlRequest: URLRequest) -> URLRequest {
-        var request = urlRequest
-        request.httpBody = data
         return request
     }
 }
