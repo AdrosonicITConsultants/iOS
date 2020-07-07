@@ -12,6 +12,7 @@ import UIKit
 
 class REGArtisanViewModel {
     var completeRegistration: (() -> Void)?
+    var selectedProdCat = Observable<[Int]?>(nil)
 }
 
 class RegisterArtisanController: UIViewController {
@@ -35,4 +36,25 @@ class RegisterArtisanController: UIViewController {
   @IBAction func completeButtonSelected(_ sender: Any) {
     self.viewModel.completeRegistration?()
   }
+    
+    @IBAction func toggleProductCat(_ sender: Any) {
+        let button = sender as? RoundedButton
+        if button?.backgroundColor == .white {
+            //Set selected
+            button?.backgroundColor = .black
+            button?.setTitleColor(.white, for: .normal)
+            if (self.viewModel.selectedProdCat.value?.count ?? 0 > 0) {
+                self.viewModel.selectedProdCat.value?.append(button?.tag ?? 1)
+            }else {
+                self.viewModel.selectedProdCat.value = [button?.tag ?? 1]
+            }
+        }else {
+            //Unselect
+            button?.backgroundColor = .white
+            button?.setTitleColor(.black, for: .normal)
+            self.viewModel.selectedProdCat.value?.removeAll(where: { (i) -> Bool in
+                i == button?.tag
+            })
+        }
+    }
 }

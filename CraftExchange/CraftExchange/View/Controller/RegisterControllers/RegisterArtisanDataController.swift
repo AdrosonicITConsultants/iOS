@@ -14,29 +14,30 @@ import ReactiveKit
 import UIKit
 import Reachability
 import JGProgressHUD
+import RealmSwift
+import Realm
 
 class ArtisanDataViewModel {
   var firstname = Observable<String?>(nil)
   var lastname = Observable<String?>(nil)
   var pincode = Observable<String?>(nil)
-//  var cluster = Observable<ClusterDetails?>(nil)
-  var selectedProdCat = Observable<[Int]?>(nil)
+//  var selectedProdCat = Observable<[Int]?>(nil)
   var district = Observable<String?>(nil)
   var state = Observable<String?>(nil)
   var mobNo = Observable<String?>(nil)
   var panNo = Observable<String?>(nil)
   var addr = Observable<String?>(nil)
-//  var clusterArray = Observable<[ClusterDetails]?>(nil)
-//  var clusterNameArray = Observable<[String]?>(nil)
   var selectedClusterId = Observable<Int?>(nil)
   var nextSelected: (() -> Void)?
+    var viewDidAppear: (() -> Void)?
 }
 
 class RegisterArtisanDataController: FormViewController {
   
   let viewModel = ArtisanDataViewModel()
   var weaverID: String?
-  
+  var allClusters: [ClusterDetails]?
+    
   override func viewDidLoad() {
     super.viewDidLoad()
 //      DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
@@ -75,34 +76,18 @@ class RegisterArtisanDataController: FormViewController {
       self.viewModel.pincode.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
     }
     <<< RoundedActionSheetRow() {
+        $0.tag = "ClusterRow"
     $0.cell.titleLabel.text = "Cluster"
-    $0.cell.options = ["Cluster1","Cluster2"]
+    $0.cell.options = allClusters?.compactMap { $0.clusterDescription }
     $0.cell.delegate = self
     $0.add(rule: RuleRequired())
     $0.cell.height = { 80.0 }
-      /*$0.title = "Cluster"
-      $0.tag = "ClusterRow"
-      $0.options = ["Cluster1","Cluster2"]
-      $0.options = self.viewModel.clusterArray.value?.compactMap{$0.clusterDescription}
-      print("options cluster: \($0.options) clusterArray: \(self.viewModel.clusterArray.value)")
-      $0.add(rule: RuleRequired())*/
     }.onChange({ (row) in
       print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-//      self.viewModel.cluster.value = self.viewModel.clusterArray.value?[row.indexPath?.row ?? 0]
-//      self.viewModel.cluster.value = self.viewModel.clusterArray.value?[0]
-      if let r = self.form.rowBy(tag: "ProductCategoryRow") as? MultipleSelectorRow<String> {
-//        var catname = self.viewModel.cluster.value?.prodCategory.compactMap{$0.prodCatDescription}
-        if row.value == "Cluster1" {
-          self.viewModel.selectedClusterId.value = 1
-          r.options = ["Saree","Razai"]
-        }else {
-          self.viewModel.selectedClusterId.value = 2
-          r.options = ["Saree"]
-        }
-        r.value = []
-        self.viewModel.selectedProdCat.value = []
-        r.updateCell()
-      }
+        let selectedClusterObj = self.allClusters?.filter({ (obj) -> Bool in
+            obj.clusterDescription == row.value
+            }).first
+        self.viewModel.selectedClusterId.value = selectedClusterObj?.entityID
     })
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "District"
@@ -134,7 +119,7 @@ class RegisterArtisanDataController: FormViewController {
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.addr.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
     }
-    <<< MultipleSelectorRow<String>() {
+    /*<<< MultipleSelectorRow<String>() {
         $0.title = "Product Category"
         $0.options = []
 //        self.viewModel.cluster.value?.prodCategory.compactMap{$0.prodCatDescription}
@@ -153,7 +138,7 @@ class RegisterArtisanDataController: FormViewController {
             self.viewModel.selectedProdCat.value?.append(codeToAdd)
           }
         })
-    })
+    })*/
       <<< RoundedButtonViewRow("REGNextCell") {
         $0.cell.titleLabel.text = "Fields are mandatory"
         $0.cell.compulsoryIcon.isHidden = false
@@ -178,6 +163,10 @@ class RegisterArtisanDataController: FormViewController {
         $0.cell.delegate = self
         $0.cell.height = { 100.0 }
     }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.viewModel.viewDidAppear?()
     }
 
 }

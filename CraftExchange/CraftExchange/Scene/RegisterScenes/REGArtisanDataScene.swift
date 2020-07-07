@@ -27,27 +27,16 @@ extension REGArtisanInfoInputService {
     
     func fetchClusters() {
       self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, clusterArray) in
-//        vc.viewModel.clusterArray.value = []
           do {
               if (clusterArray.count > 0) {
-//                vc.viewModel.clusterArray.value = clusterArray
-                
+                DispatchQueue.main.async {
+                    vc.allClusters = clusterArray
+                    let row = vc.form.rowBy(tag: "ClusterRow") as? RoundedActionSheetRow
+                    row?.cell.options = clusterArray.compactMap {$0.clusterDescription}
+                    row?.updateCell()
+                }
                 clusterArray.forEach( {clusterObj in
-//                    clusterObj.saveOrUpdate()
-//                    vc.viewModel.clusterArray.value?.append(clusterObj)
-                  
-                    self.fetchProductCategory(forCluster: clusterObj.entityID).bind(to: vc, context: .global(qos: .background)) { (_, clusterArray) in
-                        
-//                        vc.viewModel.clusterArray.value = clusterArray
-                      
-                        clusterArray.forEach( {clusterObj in
-//                          clusterObj.saveOrUpdate()
-//                          var obj = vc.viewModel.clusterArray.value?.filter{$0.entityID == clusterObj.entityID}.first
-//                          obj?.prodCategory = clusterObj.prodCategory
-//                          vc.viewModel.clusterArray.value?.append(clusterObj)
-                          
-                        })
-                    }.dispose(in: vc.bag)
+                    clusterObj.saveOrUpdate()
                   }
                 )
               }else {
@@ -59,8 +48,10 @@ extension REGArtisanInfoInputService {
       }.dispose(in: vc.bag)
     }
     
-    fetchClusters()
-
+    vc.viewModel.viewDidAppear = {
+        fetchClusters()
+    }
+    
     vc.viewModel.nextSelected = {
       if vc.viewModel.firstname.value != nil && vc.viewModel.firstname.value?.isNotBlank ?? false && vc.viewModel.pincode.value != nil && vc.viewModel.pincode.value?.isNotBlank ?? false && vc.viewModel.mobNo.value != nil && vc.viewModel.mobNo.value?.isNotBlank ?? false  && vc.viewModel.selectedClusterId.value != nil {
         var isValid = true
@@ -105,7 +96,7 @@ extension REGArtisanInfoInputService {
       newUser.lastName = vc.viewModel.lastname.value ?? nil
       newUser.mobile = vc.viewModel.mobNo.value ?? nil
       newUser.pancard = vc.viewModel.panNo.value ?? nil
-      newUser.productCategoryIds = vc.viewModel.selectedProdCat.value
+//      newUser.productCategoryIds = vc.viewModel.selectedProdCat.value
       
       let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr.value ?? "")"), country: (1,"India"), city: "", district: "\(vc.viewModel.district.value ?? "")", landmark: "", line1: "\(vc.viewModel.addr.value ?? "")", line2: "", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "", userId: 0)
       newUser.address = newAddr

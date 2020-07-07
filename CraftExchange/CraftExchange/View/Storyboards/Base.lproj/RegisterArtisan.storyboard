@@ -691,7 +691,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By completing this form and sign up process, you hereby agree to our" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jd-su-VgH">
-                                                <rect key="frame" x="50" y="531" width="314" height="40"/>
+                                                <rect key="frame" x="50" y="581" width="314" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ku7-3B-z2p"/>
                                                 </constraints>
@@ -700,14 +700,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4Y-lN-F0D">
-                                                <rect key="frame" x="75.5" y="436" width="263" height="30"/>
+                                                <rect key="frame" x="75.5" y="486" width="263" height="30"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                 <state key="normal" title="You can always do this step later. SKIP">
                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSG-oc-kDh">
-                                                <rect key="frame" x="57" y="569" width="300" height="24"/>
+                                                <rect key="frame" x="57" y="619" width="300" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="hCz-41-RXZ"/>
                                                 </constraints>
@@ -739,7 +739,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X00-T7-K4f" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
-                                                <rect key="frame" x="147" y="481" width="120" height="40"/>
+                                                <rect key="frame" x="147" y="531" width="120" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="EwQ-fD-9hN"/>
@@ -758,7 +758,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTT-Hn-FdU">
-                                                <rect key="frame" x="30" y="531" width="20" height="22"/>
+                                                <rect key="frame" x="30" y="581" width="20" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="22" id="968-cL-le1"/>
                                                     <constraint firstAttribute="width" constant="20" id="lWh-BX-3Bi"/>
@@ -769,6 +769,153 @@
                                                     <action selector="toggleCheckbox:" destination="eOc-9y-B6R" eventType="touchUpInside" id="G9F-gO-H8i"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fwf-UJ-I62">
+                                                <rect key="frame" x="114" y="383" width="0.0" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2la-6R-N3O">
+                                                <rect key="frame" x="57" y="356" width="120" height="110"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W8Q-2G-YTk" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="Saree">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="toggleProductCat:" destination="eOc-9y-B6R" eventType="touchUpInside" id="c4F-SN-Czp"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cqw-RR-kBn" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="40" width="120" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="Dupattas">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="toggleProductCat:" destination="eOc-9y-B6R" eventType="touchUpInside" id="F73-di-to4"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ckk-9J-xxc" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="80" width="120" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="Stole">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="toggleProductCat:" destination="eOc-9y-B6R" eventType="touchUpInside" id="McQ-ei-Ayd"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="5SK-Oi-t8k"/>
+                                                    <constraint firstItem="cqw-RR-kBn" firstAttribute="width" secondItem="W8Q-2G-YTk" secondAttribute="width" id="6WI-4O-QvF"/>
+                                                    <constraint firstItem="Ckk-9J-xxc" firstAttribute="width" secondItem="W8Q-2G-YTk" secondAttribute="width" id="A3x-aS-WcS"/>
+                                                    <constraint firstItem="cqw-RR-kBn" firstAttribute="height" secondItem="W8Q-2G-YTk" secondAttribute="height" id="HFy-Va-I6T"/>
+                                                    <constraint firstItem="Ckk-9J-xxc" firstAttribute="height" secondItem="W8Q-2G-YTk" secondAttribute="height" id="T3Z-4w-fU9"/>
+                                                    <constraint firstAttribute="width" constant="120" id="gJQ-Mp-oFS"/>
+                                                    <constraint firstAttribute="height" constant="110" id="jdA-m0-AMZ"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gAD-A2-U62">
+                                                <rect key="frame" x="237" y="356" width="120" height="110"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aW8-LB-2Kt" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="Fabric">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="toggleProductCat:" destination="eOc-9y-B6R" eventType="touchUpInside" id="NNB-Sr-nDX"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="7pf-ep-Joa" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="40" width="120" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="Fashion Accessories">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="toggleProductCat:" destination="eOc-9y-B6R" eventType="touchUpInside" id="vab-Us-xV5"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9t-Uc-nDQ" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="80" width="120" height="30"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <state key="normal" title="Home Accessories">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="toggleProductCat:" destination="eOc-9y-B6R" eventType="touchUpInside" id="Jbj-wV-Qge"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="1PJ-2d-pPL"/>
+                                                    <constraint firstItem="j9t-Uc-nDQ" firstAttribute="width" secondItem="aW8-LB-2Kt" secondAttribute="width" id="cQG-eJ-hVZ"/>
+                                                    <constraint firstAttribute="height" constant="110" id="fwL-kn-Axi"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="jew-qo-F9Z"/>
+                                                    <constraint firstItem="7pf-ep-Joa" firstAttribute="width" secondItem="aW8-LB-2Kt" secondAttribute="width" id="kJB-KW-1h7"/>
+                                                    <constraint firstItem="j9t-Uc-nDQ" firstAttribute="height" secondItem="aW8-LB-2Kt" secondAttribute="height" id="lbc-Zy-bJh"/>
+                                                    <constraint firstItem="7pf-ep-Joa" firstAttribute="height" secondItem="aW8-LB-2Kt" secondAttribute="height" id="wRK-TS-4l1"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -785,14 +932,19 @@
                                             <constraint firstItem="7Ok-4T-r1a" firstAttribute="leading" secondItem="DDQ-tc-lof" secondAttribute="leading" constant="57" id="J4r-XO-kpK"/>
                                             <constraint firstItem="kTT-Hn-FdU" firstAttribute="top" secondItem="1Jd-su-VgH" secondAttribute="top" id="Ln5-KJ-Mjh"/>
                                             <constraint firstItem="2cW-rB-2Wg" firstAttribute="top" secondItem="Zsq-9v-OVl" secondAttribute="bottom" constant="10" id="Qod-1l-8jL"/>
+                                            <constraint firstItem="2la-6R-N3O" firstAttribute="leading" secondItem="7Ok-4T-r1a" secondAttribute="leading" id="Wgq-pg-DcK"/>
                                             <constraint firstItem="7Ok-4T-r1a" firstAttribute="top" secondItem="2cW-rB-2Wg" secondAttribute="bottom" constant="15" id="YZj-5T-aAj"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="2cW-rB-2Wg" secondAttribute="centerX" id="ZcZ-ga-MJP"/>
+                                            <constraint firstItem="gAD-A2-U62" firstAttribute="top" secondItem="2la-6R-N3O" secondAttribute="top" id="b1g-up-VIA"/>
+                                            <constraint firstItem="e4Y-lN-F0D" firstAttribute="top" secondItem="2la-6R-N3O" secondAttribute="bottom" constant="20" id="dAA-j9-xMF"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="X00-T7-K4f" secondAttribute="centerX" id="dOE-6U-ucP"/>
                                             <constraint firstAttribute="trailing" secondItem="7Ok-4T-r1a" secondAttribute="trailing" constant="57" id="e6A-DC-eXR"/>
+                                            <constraint firstItem="2la-6R-N3O" firstAttribute="top" secondItem="7Ok-4T-r1a" secondAttribute="bottom" constant="20" id="eb7-c5-ojG"/>
+                                            <constraint firstItem="gAD-A2-U62" firstAttribute="trailing" secondItem="7Ok-4T-r1a" secondAttribute="trailing" id="f0s-xZ-ktQ"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="e4Y-lN-F0D" secondAttribute="centerX" id="fof-Ls-E4C"/>
                                             <constraint firstItem="1Jd-su-VgH" firstAttribute="top" secondItem="X00-T7-K4f" secondAttribute="bottom" constant="10" id="hT6-iS-RLG"/>
                                             <constraint firstAttribute="trailing" secondItem="1Jd-su-VgH" secondAttribute="trailing" constant="50" id="i8t-jY-3c5"/>
-                                            <constraint firstItem="e4Y-lN-F0D" firstAttribute="top" secondItem="7Ok-4T-r1a" secondAttribute="bottom" constant="100" id="iSs-ib-0H8"/>
+                                            <constraint firstItem="e4Y-lN-F0D" firstAttribute="top" secondItem="7Ok-4T-r1a" secondAttribute="bottom" constant="150" id="iSs-ib-0H8"/>
                                             <constraint firstItem="YBx-tV-YCN" firstAttribute="centerX" secondItem="dSG-oc-kDh" secondAttribute="centerX" id="ihg-4g-Hfa"/>
                                             <constraint firstItem="Ag6-IK-UWx" firstAttribute="baseline" secondItem="3LE-cl-0z9" secondAttribute="baseline" id="j3v-V5-XWX"/>
                                             <constraint firstItem="Ag6-IK-UWx" firstAttribute="top" secondItem="YBx-tV-YCN" secondAttribute="top" id="kLO-q7-0OB"/>

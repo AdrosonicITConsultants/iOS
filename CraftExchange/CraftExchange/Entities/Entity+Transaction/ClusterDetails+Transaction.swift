@@ -11,15 +11,13 @@ import Realm
 import RealmSwift
 
 extension ClusterDetails {
-
+    
     func saveOrUpdate() {
-      let realm = try! Realm()
-      if let object = realm.objects(ProductCategory.self).filter("%K == %@", "entityID", self.entityID).first {
+        let realm = try! Realm()
+        if let object = realm.objects(ClusterDetails.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-              clusterDescription = object.prodCatDescription
-              self.prodCategory.forEach({prodCat in
-                prodCat.saveOrUpdate()
-              })
+                clusterDescription = object.clusterDescription
+                adjective = object.adjective
             }
         } else {
             try? realm.write {
@@ -28,4 +26,7 @@ extension ClusterDetails {
         }
     }
 }
+
+
+
 

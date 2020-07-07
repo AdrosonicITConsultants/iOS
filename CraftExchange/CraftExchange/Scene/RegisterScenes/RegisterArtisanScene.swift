@@ -25,10 +25,9 @@ extension RegisterArtisanService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.completeRegistration = {
-//      let newAddr = LocalAddress.init(id: 0, addrType: (0,"addr type"), country: (1,"India"), city: "city str", district: "district str", landmark: "landmark str", line1: "line 1 str", line2: "line 2 str", pincode: "pin123", state: "state str", street: "street str", userId: 0)
-//      let newUser = CXUser.init(address: newAddr, alternateMobile: "123", buyerCompanyDetails: nil, buyerPointOfContact: nil, clusterId: 1, designation: nil, email: email, firstName: "ps", lastName: "iOS", mobile: "676", pancard: "pan676", password: password, productCategoryIds: [1,2], refRoleId: 1, socialMediaLink: "www.adrosonic.com", weaverId: weaverId, websiteLink: "www.adrosonic.com")
       if vc.isTCAccepted {
-        self.fetch(newUser: newUser.toJSON()).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+        let userObj = createNewUser()
+        self.fetch(newUser: userObj.toJSON()).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
@@ -66,6 +65,23 @@ extension RegisterArtisanService {
         vc.alert("Please accept Terms and Conditions for proceeding ahead!")
       }
       
+    }
+    
+    func createNewUser() -> CXUser {
+      var finalUser = CXUser()
+      finalUser.weaverId = newUser.weaverId
+      finalUser.email = newUser.email
+      finalUser.password = newUser.password
+      finalUser.refRoleId = 1
+      finalUser.clusterId = newUser.clusterId
+      finalUser.firstName = newUser.firstName
+      finalUser.lastName = newUser.lastName
+      finalUser.mobile = newUser.mobile
+      finalUser.pancard = newUser.pancard
+      finalUser.address = newUser.address
+      finalUser.productCategoryIds = vc.viewModel.selectedProdCat.value
+
+      return finalUser
     }
     
     return vc
