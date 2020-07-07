@@ -52,15 +52,7 @@ extension REGBuyerAddressInfoService {
         newUser.designation = existingUser.designation ?? nil
         newUser.buyerCompanyDetails = existingUser.buyerCompanyDetails
         newUser.buyerPointOfContact = existingUser.buyerPointOfContact
-        var countryID = 1
-        var countryName = "India"
-        if vc.viewModel.country.value == "USA" {
-          countryID = 2
-          countryName = vc.viewModel.country.value ?? "USA"
-        }else if vc.viewModel.country.value == "Spain" {
-          countryID = 3
-          countryName = vc.viewModel.country.value ?? "Spain"
-        }
+        let selectedCountryObj = vc.allCountries?.filter("%K == %@", "name", vc.viewModel.country.value).first
         let addr1 = vc.viewModel.addr1.value ?? nil
         let addr2 = vc.viewModel.addr2.value ?? nil
         let city = vc.viewModel.city.value ?? nil
@@ -69,7 +61,7 @@ extension REGBuyerAddressInfoService {
         let street = vc.viewModel.street.value ?? nil
         let pin = vc.viewModel.pincode.value ?? nil
         
-        let newAddr = LocalAddress.init(id: 0, addrType: (0,"test"), country: (countryID,countryName), city: city, district: nil, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: 0)
+        let newAddr = LocalAddress.init(id: 0, addrType: (0,"test"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: nil, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: 0)
         newUser.address = newAddr
         
         return newUser

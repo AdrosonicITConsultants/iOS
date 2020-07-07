@@ -13,6 +13,8 @@ import Eureka
 import ReactiveKit
 import UIKit
 import Reachability
+import Realm
+import RealmSwift
 import JGProgressHUD
 
 class BuyerAddressViewModel {
@@ -29,13 +31,16 @@ class BuyerAddressViewModel {
 
 class REGBuyerAddressInfoController: FormViewController {
   
-  var viewModel = BuyerAddressViewModel()
-  
+    var viewModel = BuyerAddressViewModel()
+    var allCountries: Results<Country>?
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.rightBarButtonItem = roleBarButton()
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+    let realm = try! Realm()
+    allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
+    
     self.form +++
       Section()
     <<< LabelRow() {
@@ -90,7 +95,7 @@ class REGBuyerAddressInfoController: FormViewController {
       <<< ActionSheetRow() {
         $0.title = "Country"
         $0.cell.height = { 80.0 }
-        $0.options = ["India", "USA", "Spain"]
+        $0.options = allCountries?.compactMap { $0.name }
       }.onChange({ (actionsheet) in
         self.viewModel.country.value = actionsheet.value ?? "India"
       }).cellUpdate({ (str, row) in

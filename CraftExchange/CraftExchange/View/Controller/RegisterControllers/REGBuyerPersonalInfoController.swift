@@ -16,12 +16,13 @@ import Reachability
 import JGProgressHUD
 
 class BuyerDataViewModel {
-  var firstname = Observable<String?>(nil)
-  var lastname = Observable<String?>(nil)
-  var mobNo = Observable<String?>(nil)
-  var alternateMobNo = Observable<String?>(nil)
-  var designation = Observable<String?>(nil)
-  var nextSelected: (() -> Void)?
+    var firstname = Observable<String?>(nil)
+    var lastname = Observable<String?>(nil)
+    var mobNo = Observable<String?>(nil)
+    var alternateMobNo = Observable<String?>(nil)
+    var designation = Observable<String?>(nil)
+    var nextSelected: (() -> Void)?
+    var viewDidAppear: (() -> Void)?
 }
 
 class REGBuyerPersonalInfoController: FormViewController {
@@ -103,6 +104,10 @@ class REGBuyerPersonalInfoController: FormViewController {
         $0.cell.delegate = self
         $0.cell.height = { 100.0 }
     }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.viewModel.viewDidAppear?()
     }
 
 }

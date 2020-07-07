@@ -14,6 +14,7 @@ import ReactiveKit
 import UIKit
 import Reachability
 import JGProgressHUD
+import ImageRow
 
 class BuyerCompanyViewModel {
   var companyName = Observable<String?>(nil)
@@ -58,6 +59,16 @@ class REGBuyerCompanyInfoController: FormViewController {
         $0.cell.height = { 80.0 }
         self.viewModel.companyName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
       }
+        <<< ImageRow() { row in
+            row.title = "Upload your brand logo"
+            row.sourceTypes = [.Camera, .PhotoLibrary, .SavedPhotosAlbum]
+            row.clearAction = .yes(style: UIAlertAction.Style.destructive)
+        }.onChange({ (row) in
+            if let image = row.value {
+                let imageData:NSData = image.pngData()! as NSData
+                print(imageData.length)
+            }
+        })
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "GST Number"
         $0.cell.height = { 80.0 }

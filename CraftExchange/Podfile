@@ -15,4 +15,5 @@ target 'CraftExchange' do
   pod 'SwiftKeychainWrapper'
   pod 'ReachabilitySwift'
   pod 'SideMenu'
+  pod 'ImageRow'
 end

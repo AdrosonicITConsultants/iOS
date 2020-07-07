@@ -27,6 +27,7 @@ struct CXUser {
   var socialMediaLink: String?
   var weaverId: String?
   var websiteLink: String?
+    var profileImg: Data?
 }
 
 extension CXUser {
@@ -178,12 +179,13 @@ extension pointOfContact {
 }
 
 struct buyerCompDetails {
-  var id: Int = 0
-  let companyName: String?
-  var cin: String?
-  var contact: String?
-  var gstNo: String?
-  var logo: String?
+    var id: Int = 0
+    let companyName: String?
+    var cin: String?
+    var contact: String?
+    var gstNo: String?
+    var logo: String?
+    var companyLogo: Data?
 }
 
 extension buyerCompDetails {

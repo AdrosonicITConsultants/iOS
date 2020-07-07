@@ -46,6 +46,10 @@
 	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow  CraftExchange to use Photo Library.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow CraftExchange to use Camera.</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

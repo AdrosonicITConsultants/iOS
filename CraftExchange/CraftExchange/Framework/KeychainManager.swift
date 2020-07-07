@@ -72,7 +72,7 @@ class KeychainManager {
     }
 
     var baseURL: String {
-        return "http://101.53.156.143:8090"
+        return "http://101.53.153.96:8090"
     }
   
     var userRole: String? {

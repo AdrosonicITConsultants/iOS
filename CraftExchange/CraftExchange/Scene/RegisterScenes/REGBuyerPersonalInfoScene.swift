@@ -25,14 +25,10 @@ extension REGBuyerPersonalInfoService {
       
       func fetchCountries() {
         self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, countryArray) in
-  //        vc.viewModel.clusterArray.value = []
             do {
                 if (countryArray.count > 0) {
-  //                vc.viewModel.clusterArray.value = clusterArray
-                  
-                  countryArray.forEach( {clusterObj in
-  //                    clusterObj.saveOrUpdate()
-  //                    vc.viewModel.clusterArray.value?.append(clusterObj)
+                    countryArray.forEach( {countryObj in
+                      countryObj.saveOrUpdate()
                     }
                   )
                 }else {
@@ -43,8 +39,10 @@ extension REGBuyerPersonalInfoService {
             }
         }.dispose(in: vc.bag)
       }
-      
-      fetchCountries()
+        
+    vc.viewModel.viewDidAppear = {
+        fetchCountries()
+    }
 
       vc.viewModel.nextSelected = {
         if vc.viewModel.firstname.value != nil && vc.viewModel.firstname.value?.isNotBlank ?? false &&
