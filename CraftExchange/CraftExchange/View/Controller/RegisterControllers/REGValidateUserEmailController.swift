@@ -33,6 +33,12 @@ class REGValidateUserEmailController: UIViewController {
     self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
     self.viewModel.otp.bidirectionalBind(to: otpField.reactive.text)
   }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        usernameField.text = appDelegate?.registerUser?.email
+        self.viewModel.username.value = usernameField.text
+    }
   
   @IBAction func nextButtonSelected(_ sender: Any) {
       self.viewModel.validateOTP?()

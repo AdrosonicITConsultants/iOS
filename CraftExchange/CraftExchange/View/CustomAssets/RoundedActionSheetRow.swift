@@ -17,7 +17,8 @@ class RoundedActionSheetView: Cell<String>, CellType {
   @IBOutlet var compulsoryIcon: UIImageView!
   var options: [String]?
   var delegate: UIViewController?
-  
+    var selectedVal: String?
+    
   public override func setup() {
     super.setup()
     actionButton.addTarget(self, action: #selector(actionButtonSelected(_:)), for: .touchUpInside)
@@ -34,6 +35,9 @@ class RoundedActionSheetView: Cell<String>, CellType {
       let action = UIAlertAction.init(title: option, style: .default) { (action) in
         self.actionButton.setTitle(option, for: .normal)
         self.row.value = option
+        if self.selectedVal == option {
+            action.setValue(true, forKey: "checked")
+        }
       }
       alert.addAction(action)
     }

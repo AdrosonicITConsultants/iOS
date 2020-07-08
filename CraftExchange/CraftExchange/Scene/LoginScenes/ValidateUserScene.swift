@@ -58,6 +58,8 @@ extension ValidateUserService {
     }
     
     vc.viewModel.goToRegister = {
+      let appDelegate = UIApplication.shared.delegate as? AppDelegate
+      appDelegate?.registerUser = nil
       if KeychainManager.standard.userRoleId == 1 {
         let controller = ValidateWeaverService(client: self.client).createScene()
         vc.navigationController?.pushViewController(controller, animated: true)

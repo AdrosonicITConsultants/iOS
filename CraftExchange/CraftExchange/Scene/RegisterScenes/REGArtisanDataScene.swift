@@ -85,7 +85,8 @@ extension REGArtisanInfoInputService {
     }
     
     func createNewUser() -> CXUser {
-      var newUser = CXUser()
+      let appDelegate = UIApplication.shared.delegate as? AppDelegate
+      var newUser = appDelegate?.registerUser ?? CXUser()
       
       newUser.weaverId = weaverId
       newUser.email = email
@@ -100,7 +101,8 @@ extension REGArtisanInfoInputService {
       
       let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr.value ?? "")"), country: (1,"India"), city: "", district: "\(vc.viewModel.district.value ?? "")", landmark: "", line1: "\(vc.viewModel.addr.value ?? "")", line2: "", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "", userId: 0)
       newUser.address = newAddr
-
+    
+      appDelegate?.registerUser = newUser
       return newUser
     }
     

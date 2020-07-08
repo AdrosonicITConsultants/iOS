@@ -38,7 +38,7 @@ class REGBuyerCompanyInfoController: FormViewController {
     super.viewDidLoad()
     self.navigationItem.rightBarButtonItem = roleBarButton()
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     self.form +++
       Section()
       <<< LabelRow() {
@@ -58,6 +58,8 @@ class REGBuyerCompanyInfoController: FormViewController {
         $0.cell.titleLabel.text = "Brand/ Company name"
         $0.cell.height = { 80.0 }
         self.viewModel.companyName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.buyerCompanyDetails?.companyName
+        self.viewModel.companyName.value = $0.cell.valueTextField.text
       }
         <<< ImageRow() { row in
             row.title = "Upload your brand logo"
@@ -74,18 +76,24 @@ class REGBuyerCompanyInfoController: FormViewController {
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.gstNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.buyerCompanyDetails?.gstNo
+        self.viewModel.gstNo.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "CIN Number"
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.cinNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.buyerCompanyDetails?.cin
+        self.viewModel.cinNo.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "PAN Number"
         $0.cell.valueTextField.autocapitalizationType = .allCharacters
         $0.cell.height = { 80.0 }
         self.viewModel.panNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.pancard
+        self.viewModel.panNo.value = $0.cell.valueTextField.text
       }
       <<< LabelRow() {
         $0.title = "Point of Contact Details"
@@ -96,18 +104,24 @@ class REGBuyerCompanyInfoController: FormViewController {
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocFirstName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.buyerPointOfContact?.firstName
+        self.viewModel.pocFirstName.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "Email Address"
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocEmailId.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.buyerPointOfContact?.email
+        self.viewModel.pocEmailId.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
         $0.cell.titleLabel.text = "Mobile Number"
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocMobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.buyerPointOfContact?.contactNo
+        self.viewModel.pocMobNo.value = $0.cell.valueTextField.text
       }
       <<< RoundedButtonViewRow("REGNextCell") {
         $0.cell.titleLabel.text = "Fields are mandatory"

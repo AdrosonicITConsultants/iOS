@@ -33,6 +33,7 @@ class REGBuyerPersonalInfoController: FormViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     self.navigationItem.rightBarButtonItem = roleBarButton()
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
 
@@ -54,31 +55,40 @@ class REGBuyerPersonalInfoController: FormViewController {
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "First name"
       $0.cell.height = { 80.0 }
-      self.viewModel.firstname.value = $0.cell.valueTextField.text
       self.viewModel.firstname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.firstName
+        self.viewModel.firstname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Last name"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.lastname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.lastName
+        self.viewModel.lastname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Mobile Number"
       $0.cell.height = { 80.0 }
       self.viewModel.mobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.mobile
+        self.viewModel.mobNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Alternate Contact Number"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.alternateMobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.alternateMobile
+        self.viewModel.alternateMobNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Designation"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.designation.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.designation
+        self.viewModel.designation.value = $0.cell.valueTextField.text
     }
       <<< RoundedButtonViewRow("REGNextCell") {
         $0.cell.titleLabel.text = "Fields are mandatory"

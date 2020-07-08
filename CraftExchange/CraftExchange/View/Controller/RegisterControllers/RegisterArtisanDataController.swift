@@ -29,7 +29,7 @@ class ArtisanDataViewModel {
   var addr = Observable<String?>(nil)
   var selectedClusterId = Observable<Int?>(nil)
   var nextSelected: (() -> Void)?
-    var viewDidAppear: (() -> Void)?
+  var viewDidAppear: (() -> Void)?
 }
 
 class RegisterArtisanDataController: FormViewController {
@@ -43,7 +43,7 @@ class RegisterArtisanDataController: FormViewController {
 //      DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
     self.navigationItem.rightBarButtonItem = roleBarButton()
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     self.form +++
       Section()
     <<< LabelRow() {
@@ -63,21 +63,32 @@ class RegisterArtisanDataController: FormViewController {
       $0.cell.titleLabel.text = "First name"
       $0.cell.height = { 80.0 }
       self.viewModel.firstname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.firstName
+        self.viewModel.firstname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Last name"
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.height = { 80.0 }
       self.viewModel.lastname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.lastName
+        self.viewModel.lastname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Pincode"
       $0.cell.height = { 80.0 }
       self.viewModel.pincode.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.pincode
+        self.viewModel.pincode.value = $0.cell.valueTextField.text
     }
     <<< RoundedActionSheetRow() {
         $0.tag = "ClusterRow"
     $0.cell.titleLabel.text = "Cluster"
+        if let selectedCluster = appDelegate?.registerUser?.clusterId {
+            $0.cell.selectedVal = allClusters?.first(where: { (obj) -> Bool in
+                obj.entityID == selectedCluster
+                })?.clusterDescription
+        }
     $0.cell.options = allClusters?.compactMap { $0.clusterDescription }
     $0.cell.delegate = self
     $0.add(rule: RuleRequired())
@@ -88,23 +99,29 @@ class RegisterArtisanDataController: FormViewController {
             obj.clusterDescription == row.value
             }).first
         self.viewModel.selectedClusterId.value = selectedClusterObj?.entityID
-    })
+        })
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "District"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.district.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.district
+        self.viewModel.district.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "State"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.state.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.state
+        self.viewModel.state.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Mobile Number"
       $0.cell.height = { 80.0 }
       self.viewModel.mobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.mobile
+        self.viewModel.mobNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Pan No."
@@ -112,12 +129,16 @@ class RegisterArtisanDataController: FormViewController {
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.valueTextField.autocapitalizationType = .allCharacters
       self.viewModel.panNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.pancard
+        self.viewModel.panNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Address"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.addr.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.line1
+        self.viewModel.addr.value = $0.cell.valueTextField.text
     }
     /*<<< MultipleSelectorRow<String>() {
         $0.title = "Product Category"

@@ -25,12 +25,25 @@ class RegisterArtisanController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    self.viewModel.selectedProdCat.value = appDelegate?.registerUser?.productCategoryIds
   }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        for subview in self.view.subviews {
+            if self.viewModel.selectedProdCat.value?.contains(subview.tag) ?? false {
+                let button = subview as? RoundedButton
+                button?.backgroundColor = .black
+                button?.setTitleColor(.white, for: .normal)
+            }
+        }
+    }
   
   @IBAction func toggleCheckbox(_ sender: Any) {
     isTCAccepted = !isTCAccepted
     let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")
     checkboxButton.setImage(img, for: .normal)
+    
   }
   
   @IBAction func completeButtonSelected(_ sender: Any) {
@@ -56,5 +69,7 @@ class RegisterArtisanController: UIViewController {
                 i == button?.tag
             })
         }
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.registerUser?.productCategoryIds = self.viewModel.selectedProdCat.value
     }
 }

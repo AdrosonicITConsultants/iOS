@@ -32,6 +32,8 @@ extension RegisterArtisanService {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
                   if (jsonDict["valid"] as? Bool) == true {
+                    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                    appDelegate?.registerUser = nil
                     DispatchQueue.main.async {
                       
                       vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
@@ -68,7 +70,9 @@ extension RegisterArtisanService {
     }
     
     func createNewUser() -> CXUser {
-      var finalUser = CXUser()
+      let appDelegate = UIApplication.shared.delegate as? AppDelegate
+      var finalUser = appDelegate?.registerUser ?? CXUser()
+        
       finalUser.weaverId = newUser.weaverId
       finalUser.email = newUser.email
       finalUser.password = newUser.password
@@ -81,6 +85,7 @@ extension RegisterArtisanService {
       finalUser.address = newUser.address
       finalUser.productCategoryIds = vc.viewModel.selectedProdCat.value
 
+      appDelegate?.registerUser = finalUser
       return finalUser
     }
     
@@ -166,7 +171,8 @@ extension RegisterArtisanService {
     }
     
     func createNewUser() -> CXUser {
-      var newUser = CXUser()
+      let appDelegate = UIApplication.shared.delegate as? AppDelegate
+      var newUser = appDelegate?.registerUser ?? CXUser()
       
       newUser.email = existingUser.email
       newUser.password = existingUser.password
@@ -182,6 +188,7 @@ extension RegisterArtisanService {
       newUser.websiteLink = vc.viewModel.websiteLink.value ?? nil
       newUser.socialMediaLink = vc.viewModel.socialMediaLink.value ?? nil
       
+      appDelegate?.registerUser = newUser
       return newUser
     }
     

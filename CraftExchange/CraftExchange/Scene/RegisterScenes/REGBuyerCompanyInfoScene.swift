@@ -56,7 +56,8 @@ extension REGBuyerCompanyInfoService {
       }
       
       func createNewUser() -> CXUser {
-        var newUser = CXUser()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        var newUser = appDelegate?.registerUser ?? CXUser()
         
         newUser.email = existingUser.email
         newUser.password = existingUser.password
@@ -85,6 +86,7 @@ extension REGBuyerCompanyInfoService {
           newUser.buyerPointOfContact = newPointOfContact
         }
         
+        appDelegate?.registerUser = newUser
         return newUser
       }
       

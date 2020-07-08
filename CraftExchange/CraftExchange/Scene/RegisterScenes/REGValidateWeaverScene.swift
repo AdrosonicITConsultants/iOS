@@ -30,6 +30,7 @@ extension ValidateWeaverService {
                 {
                   if (jsonDict["errorMessage"] as? String) == nil {
                     DispatchQueue.main.async {
+                      createUser()
                       let controller = REGValidateUserEmailService(client: self.client).createScene(weaverId: weaverId)
                       vc.navigationController?.pushViewController(controller, animated: true)
                     }
@@ -50,6 +51,14 @@ extension ValidateWeaverService {
             }
         }.dispose(in: vc.bag)
       }
+    }
+    
+    func createUser() {
+        if let weaverId = vc.viewModel.weaverId.value {
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.registerUser = CXUser()
+            appDelegate?.registerUser?.weaverId = weaverId
+        }
     }
     
     return vc

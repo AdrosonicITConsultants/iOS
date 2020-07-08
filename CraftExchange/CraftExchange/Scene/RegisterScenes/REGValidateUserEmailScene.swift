@@ -76,6 +76,7 @@ extension REGValidateUserEmailService {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
                   if (jsonDict["valid"] as? Bool) == true {
+                    modifyUser()
                     DispatchQueue.main.async {
                       let storyboard = UIStoryboard(name: "RegisterArtisan", bundle: Bundle.main)
                       let controller = storyboard.instantiateViewController(withIdentifier: "REGNewUserPasswordController") as! REGNewUserPasswordController
@@ -102,6 +103,13 @@ extension REGValidateUserEmailService {
       }else {
         vc.alert("Please enter valid email id & OTP")
       }
+    }
+    
+    func modifyUser() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if let _ = appDelegate?.registerUser {
+            appDelegate?.registerUser?.email = vc.viewModel.username.value ?? ""
+        }
     }
     
     return vc

@@ -40,6 +40,7 @@ class REGNewUserPasswordController: UIViewController {
       let confirmPass = viewModel.confirmPassword.value ?? ""
       if password.isValidPassword {
         if password == confirmPass {
+          modifyUser()
           if KeychainManager.standard.userRole == "Artisan" {
             do {
               let client = try SafeClient(wrapping: CraftExchangeClient())
@@ -67,5 +68,20 @@ class REGNewUserPasswordController: UIViewController {
       alert("Please enter password & confirm your password")
     }
   }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        passwordField.text = appDelegate?.registerUser?.password
+        confirmPasswordField.text = appDelegate?.registerUser?.password
+        self.viewModel.password.value = passwordField.text
+        self.viewModel.confirmPassword.value = confirmPasswordField.text
+    }
+    
+    func modifyUser() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if let _ = appDelegate?.registerUser {
+            appDelegate?.registerUser?.password = self.viewModel.password.value ?? ""
+        }
+    }
 }
 

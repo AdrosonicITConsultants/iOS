@@ -40,7 +40,7 @@ class REGBuyerAddressInfoController: FormViewController {
     self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
     let realm = try! Realm()
     allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
-    
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     self.form +++
       Section()
     <<< LabelRow() {
@@ -61,36 +61,48 @@ class REGBuyerAddressInfoController: FormViewController {
       $0.cell.height = { 80.0 }
       self.viewModel.addr1.value = $0.cell.valueTextField.text
       self.viewModel.addr1.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+      $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.line1
+        self.viewModel.addr1.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Address Line 2"
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.height = { 80.0 }
       self.viewModel.addr2.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+      $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.line2
+        self.viewModel.addr2.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Street"
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.height = { 80.0 }
       self.viewModel.street.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+      $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.street
+        self.viewModel.street.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "Landmark"
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.height = { 80.0 }
       self.viewModel.landmark.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+      $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.landmark
+        self.viewModel.landmark.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "City"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.city.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+      $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.city
+        self.viewModel.city.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "State"
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.state.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+      $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.state
+        self.viewModel.state.value = $0.cell.valueTextField.text
     }
       <<< ActionSheetRow() {
         $0.title = "Country"
@@ -107,6 +119,8 @@ class REGBuyerAddressInfoController: FormViewController {
         $0.cell.titleLabel.text = "Pincode"
         $0.cell.height = { 80.0 }
         self.viewModel.pincode.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+        $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.pincode
+        self.viewModel.pincode.value = $0.cell.valueTextField.text
       }
       <<< RoundedButtonViewRow("REGNextCell") {
         $0.cell.titleLabel.text = "Fields are mandatory"

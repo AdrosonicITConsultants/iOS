@@ -23,14 +23,19 @@ class RegisterBuyerController: UIViewController {
   @IBOutlet weak var checkboxButton: UIButton!
   @IBOutlet weak var websiteLinkField: RoundedTextField!
   @IBOutlet weak var mediaLinkField: RoundedTextField!
+  let appDelegate = UIApplication.shared.delegate as? AppDelegate
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.viewModel.websiteLink.bidirectionalBind(to: websiteLinkField.reactive.text)
     self.viewModel.socialMediaLink.bidirectionalBind(to: mediaLinkField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    websiteLinkField.text = appDelegate?.registerUser?.websiteLink
+    mediaLinkField.text = appDelegate?.registerUser?.socialMediaLink
+    self.viewModel.websiteLink.value = websiteLinkField.text
+    self.viewModel.socialMediaLink.value = mediaLinkField.text
   }
-  
+    
   @IBAction func toggleCheckbox(_ sender: Any) {
     isTCAccepted = !isTCAccepted
     let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")

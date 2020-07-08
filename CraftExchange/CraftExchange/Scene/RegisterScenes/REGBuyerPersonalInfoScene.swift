@@ -67,7 +67,8 @@ extension REGBuyerPersonalInfoService {
       }
       
       func createNewUser() -> CXUser {
-        var newUser = CXUser()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        var newUser = appDelegate?.registerUser ?? CXUser()
         
         newUser.email = email
         newUser.password = password
@@ -78,6 +79,7 @@ extension REGBuyerPersonalInfoService {
         newUser.alternateMobile = vc.viewModel.alternateMobNo.value ?? nil
         newUser.designation = vc.viewModel.designation.value ?? nil
 
+        appDelegate?.registerUser = newUser
         return newUser
       }
       

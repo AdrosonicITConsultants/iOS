@@ -40,7 +40,8 @@ extension REGBuyerAddressInfoService {
       }
       
       func createNewUser() -> CXUser {
-        var newUser = CXUser()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        var newUser = appDelegate?.registerUser ?? CXUser()
         
         newUser.email = existingUser.email
         newUser.password = existingUser.password
@@ -64,6 +65,7 @@ extension REGBuyerAddressInfoService {
         let newAddr = LocalAddress.init(id: 0, addrType: (0,"test"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: nil, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: 0)
         newUser.address = newAddr
         
+        appDelegate?.registerUser = newUser
         return newUser
       }
       
