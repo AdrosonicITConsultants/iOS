@@ -18,6 +18,7 @@ PODS:
     - Eureka (~> 5.2.1)
   - SideMenu (6.4.8)
   - SwiftKeychainWrapper (3.4.0)
+  - WMSegmentControl (0.1.16)
 
 DEPENDENCIES:
   - Bond
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - RichTextRow
   - SideMenu
   - SwiftKeychainWrapper
+  - WMSegmentControl
 
 SPEC REPOS:
   trunk:
@@ -45,6 +47,7 @@ SPEC REPOS:
     - RichTextRow
     - SideMenu
     - SwiftKeychainWrapper
+    - WMSegmentControl
 
 SPEC CHECKSUMS:
   Bond: 9e7d901cf4ed825b6004a93dd0a7f1c7479e2834
@@ -59,7 +62,8 @@ SPEC CHECKSUMS:
   RichTextRow: e82a02fef3f130d880a921b9dd9dd5336e22c521
   SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
+  WMSegmentControl: 828fc1c3cdc9be84d4786aa15e61bd03342294ea
 
-PODFILE CHECKSUM: 8a22ff01f6e80ce53bd8ba83c8f38f4a3b37d656
+PODFILE CHECKSUM: c3a31906897abcda31bb8c6a4d53dfe94e924d26
 
 COCOAPODS: 1.8.4

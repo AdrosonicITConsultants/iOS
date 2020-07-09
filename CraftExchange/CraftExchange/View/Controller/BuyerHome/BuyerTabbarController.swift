@@ -13,6 +13,8 @@ class BuyerTabbarController: UITabBarController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    appDelegate?.tabbar = self
   }
   
   

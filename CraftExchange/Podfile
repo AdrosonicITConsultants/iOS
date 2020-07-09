@@ -16,4 +16,5 @@ target 'CraftExchange' do
   pod 'ReachabilitySwift'
   pod 'SideMenu'
   pod 'ImageRow'
+  pod 'WMSegmentControl'
 end

@@ -54,7 +54,16 @@ class SideMenuController: FormViewController {
             $0.cell.imageView?.image = UIImage(named: "my-profile-icon")
             $0.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
-              self.dismiss(animated: true, completion: nil)
+              self.dismiss(animated: true, completion: {
+                  let profileStoryboard = UIStoryboard.init(name: "MyProfile", bundle: Bundle.main)
+                  let vc = profileStoryboard.instantiateViewController(identifier: "BuyerProfileController")
+                  let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                    var nav = appDelegate?.tabbar?.selectedViewController as? UINavigationController
+                if nav == nil {
+                    nav = appDelegate?.tabbar?.selectedViewController?.navigationController
+                }
+                  nav?.pushViewController(vc, animated: true)
+              })
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
