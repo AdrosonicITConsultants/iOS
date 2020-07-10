@@ -62,7 +62,7 @@ extension REGBuyerAddressInfoService {
         let street = vc.viewModel.street.value ?? nil
         let pin = vc.viewModel.pincode.value ?? nil
         
-        let newAddr = LocalAddress.init(id: 0, addrType: (0,"test"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: nil, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: 0)
+        let newAddr = LocalAddress.init(id: 0, addrType: (2,"delivery"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: nil, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: 0)
         newUser.address = newAddr
         
         appDelegate?.registerUser = newUser

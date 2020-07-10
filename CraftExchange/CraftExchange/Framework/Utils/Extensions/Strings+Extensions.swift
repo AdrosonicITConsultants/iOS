@@ -57,4 +57,8 @@ extension String {
       let result = panTest.evaluate(with: self)
       return result
   }
+    
+    var localized: String {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
+    }
 }

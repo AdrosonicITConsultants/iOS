@@ -14,8 +14,13 @@ extension UIColor {
   func menuTitleBlue() -> UIColor {
       return colorWith(r: 67, g: 99, b: 210)
   }
+    
+    func customLightGray() -> UIColor {
+        return colorWith(r: 185, g: 185, b: 185, a: 21)
+    }
   
   func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) -> UIColor {
       return UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
   }
+    
 }

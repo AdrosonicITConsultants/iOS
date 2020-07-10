@@ -38,12 +38,20 @@ extension LoginUserService {
                 {
                   if let dataDict = jsonDict["data"] as? Dictionary<String,Any> {
                     print("logged In User: \(jsonDict)")
+                    guard let userObj = dataDict["user"] as? Dictionary<String,Any> else {
+                        DispatchQueue.main.async {
+                            vc.alert("\(jsonDict["errorMessage"] as? String ?? "Login Failed. Please validate your password.".localized)")
+                        }
+                        return
+                    }
+                    let userData = try JSONSerialization.data(withJSONObject: userObj, options: .prettyPrinted)
+                    let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
+                    loggedInUser?.saveOrUpdate()
                     DispatchQueue.main.async {
 //                      vc.alert("User Logged In Successfully")
-                      let userObj = dataDict["user"] as? Dictionary<String,Any>
                       KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
-                      KeychainManager.standard.userID = userObj?["id"] as? Int ?? 0
-                      KeychainManager.standard.username = userObj?["firstName"] as? String ?? ""
+                      KeychainManager.standard.userID = userObj["id"] as? Int ?? 0
+                      KeychainManager.standard.username = userObj["firstName"] as? String ?? ""
                       let app = UIApplication.shared.delegate as? AppDelegate
                       app?.showDemoVideo = true
                       let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
@@ -53,12 +61,12 @@ extension LoginUserService {
                     }
                   }else {
                     DispatchQueue.main.async {
-                      vc.alert("\(jsonDict["errorMessage"] as? String ?? "Login Failed. Please validate your password.")")
+                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Login Failed. Please validate your password.".localized)")
                     }
                   }
                 } else {
                     DispatchQueue.main.async {
-                      vc.alert("Login Failed. Please validate your password.")
+                        vc.alert("Login Failed. Please validate your password.".localized)
                     }
                 }
             } catch let error as NSError {

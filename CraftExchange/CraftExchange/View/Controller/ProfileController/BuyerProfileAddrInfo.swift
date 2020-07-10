@@ -8,9 +8,40 @@
 
 import Foundation
 import UIKit
+import Bond
+import Contacts
+import ContactsUI
+import Eureka
+import ReactiveKit
+import UIKit
+import Reachability
+import JGProgressHUD
+import RealmSwift
+import Realm
 
-class BuyerProfileAddrInfo: UIViewController {
+class BuyerProfileAddrInfo: FormViewController {
     override func viewDidLoad() {
-        self.view.backgroundColor = .green
+        super.viewDidLoad()
+        self.view.backgroundColor = .red
+        self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
+        self.form +++
+          Section()
+            <<< LabelRow() {
+                $0.cell.height = { 80.0 }
+                $0.title = "Delivery Address".localized
+                var addressString = ""
+                User.loggedIn()?.addressList .forEach({ (address) in
+                    if address.addressType?.entityID == 2 {
+                        addressString = address.addressString
+                    }
+                })
+                $0.cell.detailTextLabel?.text = addressString
+                $0.cell.detailTextLabel?.numberOfLines = 10
+                $0.cell.detailTextLabel?.font = .systemFont(ofSize: 10)
+            }
+            <<< LabelRow() { row in
+                row.cell.height = { 400.0 }
+            }
     }
 }

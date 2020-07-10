@@ -23,35 +23,57 @@ class User: Object, Decodable {
   @objc dynamic var pancard: String?
   @objc dynamic var websiteLink: String?
   @objc dynamic var socialMediaLink: String?
-  @objc dynamic var addressId: String?
-  @objc dynamic var buyerCompanyDetailsId: String?
-  @objc dynamic var weaverId: String?
+  @objc dynamic var buyerCompanyDetails: BuyerCompanyDetails?
+  @objc dynamic var weaverDetails: Weaver?
+  @objc dynamic var cluster: ClusterDetails?
   @objc dynamic var refRoleId: String?
   @objc dynamic var registeredOn: String?
-  @objc dynamic var status: String?
-  @objc dynamic var emailVerified: String?
+  dynamic var status: Int?
+  dynamic var emailVerified: Int?
   @objc dynamic var lastLoggedIn: String?
-
+  @objc dynamic var profilePic: String?
+  @objc dynamic var pointOfContact: CompanyPointOfContact?
+  var addressList = List<Address>()
+  var paymentAccountList = List<PaymentAccDetails>()
+  dynamic var rating: Int?
+  @objc dynamic var userName: String?
+  dynamic var enabled: Bool?
+  @objc dynamic var authorities: String?
+  dynamic var accountNonExpired: Bool?
+  dynamic var accountNonLocked: Bool?
+  dynamic var credentialsNonExpired: Bool?
+    
   enum CodingKeys: String, CodingKey {
     case id = "id"
-    case firstName = "first_name"
-    case lastName = "last_name"
+    case firstName = "firstName"
+    case lastName = "lastName"
     case email = "email"
     case password = "password"
     case designation = "designation"
     case mobile = "mobile"
-    case alternateMobile = "alternate_mobile"
+    case alternateMobile = "alternateMobile"
     case pancard = "pancard"
-    case websiteLink = "website_link"
-    case socialMediaLink = "social_media_link"
-    case addressId = "address_id"
-    case buyerCompanyDetailsId = "buyer_company_details_id"
-    case weaverId = "weaver_id"
-    case refRoleId = "ref_role_id"
-    case registeredOn = "registered_on"
+    case websiteLink = "websiteLink"
+    case socialMediaLink = "socialMediaLink"
+    case buyerCompanyDetails = "companyDetails"
+    case weaverDetails = "weaverDetails"
+    case cluster = "cluster"
+    case refRoleId = "refRoleId"
+    case registeredOn = "registeredOn"
     case status = "status"
-    case emailVerified = "email_verified"
-    case lastLoggedIn = "last_logged_in"
+    case emailVerified = "emailVerified"
+    case lastLoggedIn = "lastLoggedIn"
+    case profilePic = "profilePic"
+    case pointOfContact = "pointOfContact"
+    case addressList = "addressses"
+    case rating = "rating"
+    case paymentAccountList = "paymentAccountDetails"
+    case userName = "userName"
+    case enabled = "enabled"
+    case authorities = "authorities"
+    case accountNonExpired = "accountNonExpired"
+    case accountNonLocked = "accountNonLocked"
+    case credentialsNonExpired = "credentialsNonExpired"
   }
 
   convenience required init(from decoder: Decoder) throws {
@@ -68,13 +90,27 @@ class User: Object, Decodable {
     pancard = try? values.decodeIfPresent(String.self, forKey: .pancard)
     websiteLink = try? values.decodeIfPresent(String.self, forKey: .websiteLink)
     socialMediaLink = try? values.decodeIfPresent(String.self, forKey: .socialMediaLink)
-    addressId = try? values.decodeIfPresent(String.self, forKey: .addressId)
-    buyerCompanyDetailsId = try? values.decodeIfPresent(String.self, forKey: .buyerCompanyDetailsId)
-    weaverId = try? values.decodeIfPresent(String.self, forKey: .weaverId)
+    buyerCompanyDetails = try? values.decodeIfPresent(BuyerCompanyDetails.self, forKey: .buyerCompanyDetails)
+    weaverDetails = try? values.decodeIfPresent(Weaver.self, forKey: .weaverDetails)
+    cluster = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster)
     refRoleId = try? values.decodeIfPresent(String.self, forKey: .refRoleId)
     registeredOn = try? values.decodeIfPresent(String.self, forKey: .registeredOn)
-    status = try? values.decodeIfPresent(String.self, forKey: .status)
-    emailVerified = try? values.decodeIfPresent(String.self, forKey: .emailVerified)
+    status = try? values.decodeIfPresent(Int.self, forKey: .status)
+    emailVerified = try? values.decodeIfPresent(Int.self, forKey: .emailVerified)
     lastLoggedIn = try? values.decodeIfPresent(String.self, forKey: .lastLoggedIn)
-  }
+    profilePic = try? values.decodeIfPresent(String.self, forKey: .profilePic)
+    if let list = try? values.decodeIfPresent([Address].self, forKey: .addressList) {
+        addressList.append(objectsIn: list)
+    }
+    rating = try? values.decodeIfPresent(Int.self, forKey: .rating)
+    if let list = try? values.decodeIfPresent([PaymentAccDetails].self, forKey: .paymentAccountList) {
+        paymentAccountList.append(objectsIn: list)
+    }
+    userName = try? values.decodeIfPresent(String.self, forKey: .userName)
+    enabled = try? values.decodeIfPresent(Bool.self, forKey: .enabled)
+    accountNonLocked = try? values.decodeIfPresent(Bool.self, forKey: .accountNonLocked)
+    accountNonExpired = try? values.decodeIfPresent(Bool.self, forKey: .accountNonExpired)
+    credentialsNonExpired = try? values.decodeIfPresent(Bool.self, forKey: .credentialsNonExpired)
+    }
+    
 }

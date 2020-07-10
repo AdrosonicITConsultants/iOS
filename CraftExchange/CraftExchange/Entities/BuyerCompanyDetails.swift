@@ -18,14 +18,16 @@ class BuyerCompanyDetails: Object, Decodable {
     @objc dynamic var logo: String?
     @objc dynamic var cin: String?
     @objc dynamic var gstNo: String?
+    @objc dynamic var compDesc: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case companyName = "company_name"
+        case companyName = "companyName"
         case contact = "contact"
         case logo = "logo"
         case cin = "cin"
-        case gstNo = "gst_no"
+        case gstNo = "gstNo"
+        case compDesc = "desc"
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -37,5 +39,6 @@ class BuyerCompanyDetails: Object, Decodable {
       logo = try? values.decodeIfPresent(String.self, forKey: .logo)
       cin = try? values.decodeIfPresent(String.self, forKey: .cin)
       gstNo = try? values.decodeIfPresent(String.self, forKey: .gstNo)
+      compDesc = try? values.decodeIfPresent(String.self, forKey: .compDesc)
     }
 }

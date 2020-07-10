@@ -8,7 +8,16 @@
 
 import Foundation
 import UIKit
-import AVKit
+import Bond
+import Contacts
+import ContactsUI
+import Eureka
+import ReactiveKit
+import UIKit
+import Reachability
+import JGProgressHUD
+import RealmSwift
+import Realm
 import WMSegmentControl
 
 class BuyerProfileController: UIViewController {
@@ -20,14 +29,12 @@ class BuyerProfileController: UIViewController {
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var buyerNameLbl: UILabel!
     @IBOutlet weak var yellowBgView: UIView!
+    @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var buttonView: UIView!
     
     private lazy var GeneralInfoViewController: BuyerGeneralInfo = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-
-        // Instantiate View Controller
         var viewController = BuyerGeneralInfo.init()
-
+        
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
 
@@ -35,10 +42,6 @@ class BuyerProfileController: UIViewController {
     }()
 
     private lazy var CompanyProfileInfoViewController: BuyerCompanyProfileInfo = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-
-        // Instantiate View Controller
         var viewController = BuyerCompanyProfileInfo.init()
 
         // Add View Controller as Child View Controller
@@ -48,10 +51,6 @@ class BuyerProfileController: UIViewController {
     }()
     
     private lazy var ProfileAddrInfoViewController: BuyerProfileAddrInfo = {
-        // Load Storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-
-        // Instantiate View Controller
         var viewController = BuyerProfileAddrInfo.init()
 
         // Add View Controller as Child View Controller
@@ -61,9 +60,13 @@ class BuyerProfileController: UIViewController {
     }()
     override func viewDidLoad() {
         yellowBgView.layer.cornerRadius = yellowBgView.bounds.width/2
+        buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
+        companyName.text = User.loggedIn()?.buyerCompanyDetails?.companyName
+        ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
     }
     override func viewDidAppear(_ animated: Bool) {
         segmentControl.setSelectedIndex(0)
+        segmentControl.sendActions(for: .valueChanged)
     }
     @IBAction func segmentValueChanged(_ sender: Any) {
         if segmentControl.selectedSegmentIndex == 0 {
@@ -81,13 +84,46 @@ class BuyerProfileController: UIViewController {
         }
     }
     @IBAction func editProfileSelected(_ sender: Any) {
+        NotificationCenter.default.post(name: Notification.Name("EnableEditNotification"), object: nil)
+        if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
+            constraint.constant = 0.0
+            profileView.isHidden = true
+        }
+        if let constraint = (buttonView.constraints.filter{$0.firstAttribute == .height}.first) {
+            constraint.constant = 60.0
+            buttonView.isHidden = false
+            self.view.bringSubviewToFront(buttonView)
+        }
+        buttonView.backgroundColor = .clear
+        segmentControl.backgroundColor = .clear
+    }
+    
+    @IBAction func cancelSelected(_ sender: Any) {
+        NotificationCenter.default.post(name: Notification.Name("DisableEditNotification"), object: nil)
+        if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
+            constraint.constant = 200.0
+            profileView.isHidden = false
+            self.view.bringSubviewToFront(profileView)
+        }
+        if let constraint = (buttonView.constraints.filter{$0.firstAttribute == .height}.first) {
+            constraint.constant = 0.0
+            buttonView.isHidden = true
+        }
+        buttonView.backgroundColor = .clear
+        segmentControl.backgroundColor = .white
+    }
+    
+    @IBAction func saveSelected(_ sender: Any) {
+        self.cancelSelected(sender)
+        //TODO: Save Edit Profile Request
     }
 
-    private func add(asChildViewController viewController: UIViewController) {
+    private func add(asChildViewController viewController: FormViewController) {
         // Add Child View Controller
         addChild(viewController)
 
         // Add Child View as Subview
+        childContainerView.backgroundColor = .white
         childContainerView.addSubview(viewController.view)
 
         // Configure Child View
@@ -98,7 +134,7 @@ class BuyerProfileController: UIViewController {
         viewController.didMove(toParent: self)
     }
     
-    private func remove(asChildViewController viewController: UIViewController) {
+    private func remove(asChildViewController viewController: FormViewController) {
         // Notify Child View Controller
         viewController.willMove(toParent: nil)
 

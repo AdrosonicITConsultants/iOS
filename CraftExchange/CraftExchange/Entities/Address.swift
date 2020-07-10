@@ -19,10 +19,11 @@ class Address: Object, Decodable {
     @objc dynamic var city: String?
     @objc dynamic var district: String?
     @objc dynamic var state: String?
-    @objc dynamic var country: String?
+    @objc dynamic var country: Country?
     @objc dynamic var pincode: String?
     @objc dynamic var landmark: String?
-
+    @objc dynamic var addressType: AddressType?
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case line1 = "line1"
@@ -34,6 +35,7 @@ class Address: Object, Decodable {
         case country = "country"
         case pincode = "pincode"
         case landmark = "landmark"
+        case addressType = "addressType"
     }
 
     convenience required init(from decoder: Decoder) throws {
@@ -46,8 +48,9 @@ class Address: Object, Decodable {
       city = try? values.decodeIfPresent(String.self, forKey: .city)
       district = try? values.decodeIfPresent(String.self, forKey: .district)
       state = try? values.decodeIfPresent(String.self, forKey: .state)
-      country = try? values.decodeIfPresent(String.self, forKey: .country)
+      country = try? values.decodeIfPresent(Country.self, forKey: .country)
       pincode = try? values.decodeIfPresent(String.self, forKey: .pincode)
       landmark = try? values.decodeIfPresent(String.self, forKey: .landmark)
+      addressType = try? values.decodeIfPresent(AddressType.self, forKey: .addressType)
     }
 }

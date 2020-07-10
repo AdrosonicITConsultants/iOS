@@ -71,6 +71,12 @@
 		C09F214F24862B56001F2FCD /* REGArtisanDataScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F214E24862B56001F2FCD /* REGArtisanDataScene.swift */; };
 		C09F215224862F12001F2FCD /* ProductCategory+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F215124862F12001F2FCD /* ProductCategory+Transaction.swift */; };
 		C09F21542486312D001F2FCD /* ClusterDetails+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F21532486312D001F2FCD /* ClusterDetails+Transaction.swift */; };
+		C0A29FFC24B8A72300A49E56 /* CompanyPointOfContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A29FFB24B8A72300A49E56 /* CompanyPointOfContact.swift */; };
+		C0A29FFE24B8ABC500A49E56 /* Weaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A29FFD24B8ABC500A49E56 /* Weaver.swift */; };
+		C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A29FFF24B8B7A900A49E56 /* AddressType.swift */; };
+		C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A00124B8B9A900A49E56 /* PaymentAccDetails.swift */; };
+		C0A2A00424B8D22E00A49E56 /* User+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A00324B8D22E00A49E56 /* User+Transaction.swift */; };
+		C0A2A00624B8D89800A49E56 /* Address+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A2A00524B8D89800A49E56 /* Address+Transaction.swift */; };
 		C0A3F41724B7959C0071F7F8 /* BuyerProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3F41624B7959C0071F7F8 /* BuyerProfileController.swift */; };
 		C0A3F41924B7A7EF0071F7F8 /* BuyerGeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3F41824B7A7EF0071F7F8 /* BuyerGeneralInfo.swift */; };
 		C0A3F41B24B7A8090071F7F8 /* BuyerCompanyProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3F41A24B7A8090071F7F8 /* BuyerCompanyProfileInfo.swift */; };
@@ -201,6 +207,12 @@
 		C09F214E24862B56001F2FCD /* REGArtisanDataScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGArtisanDataScene.swift; sourceTree = "<group>"; };
 		C09F215124862F12001F2FCD /* ProductCategory+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductCategory+Transaction.swift"; sourceTree = "<group>"; };
 		C09F21532486312D001F2FCD /* ClusterDetails+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClusterDetails+Transaction.swift"; sourceTree = "<group>"; };
+		C0A29FFB24B8A72300A49E56 /* CompanyPointOfContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPointOfContact.swift; sourceTree = "<group>"; };
+		C0A29FFD24B8ABC500A49E56 /* Weaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weaver.swift; sourceTree = "<group>"; };
+		C0A29FFF24B8B7A900A49E56 /* AddressType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressType.swift; sourceTree = "<group>"; };
+		C0A2A00124B8B9A900A49E56 /* PaymentAccDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAccDetails.swift; sourceTree = "<group>"; };
+		C0A2A00324B8D22E00A49E56 /* User+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Transaction.swift"; sourceTree = "<group>"; };
+		C0A2A00524B8D89800A49E56 /* Address+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+Transaction.swift"; sourceTree = "<group>"; };
 		C0A3F41624B7959C0071F7F8 /* BuyerProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProfileController.swift; sourceTree = "<group>"; };
 		C0A3F41824B7A7EF0071F7F8 /* BuyerGeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerGeneralInfo.swift; sourceTree = "<group>"; };
 		C0A3F41A24B7A8090071F7F8 /* BuyerCompanyProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerCompanyProfileInfo.swift; sourceTree = "<group>"; };
@@ -416,11 +428,15 @@
 				C071E259247EF5AD0085805B /* Entity+Networking */,
 				C071E22A247E7F820085805B /* Address.swift */,
 				C0ACE9952485895600EFA4ED /* Country.swift */,
+				C0A29FFF24B8B7A900A49E56 /* AddressType.swift */,
 				C071E22F247EAB300085805B /* BuyerCompanyDetails.swift */,
+				C0A29FFD24B8ABC500A49E56 /* Weaver.swift */,
+				C0A29FFB24B8A72300A49E56 /* CompanyPointOfContact.swift */,
 				C071E231247EAC0F0085805B /* ClusterDetails.swift */,
 				C071E233247EB6170085805B /* ProductCategory.swift */,
 				C071E235247EB69D0085805B /* Role.swift */,
 				C071E237247ED41A0085805B /* User.swift */,
+				C0A2A00124B8B9A900A49E56 /* PaymentAccDetails.swift */,
 				C071E239247EDDB20085805B /* UserProductCategory.swift */,
 				C071E23B247EDDF90085805B /* ClusterProductCategory.swift */,
 				C0ACE99324852A5B00EFA4ED /* CXUser.swift */,
@@ -570,6 +586,8 @@
 				C09F215124862F12001F2FCD /* ProductCategory+Transaction.swift */,
 				C09F21532486312D001F2FCD /* ClusterDetails+Transaction.swift */,
 				C094288024B39E74005FDF93 /* Country+Transaction.swift */,
+				C0A2A00324B8D22E00A49E56 /* User+Transaction.swift */,
+				C0A2A00524B8D89800A49E56 /* Address+Transaction.swift */,
 			);
 			path = "Entity+Transaction";
 			sourceTree = "<group>";
@@ -830,8 +848,10 @@
 			files = (
 				C071E248247EE59E0085805B /* HTTPMethod.swift in Sources */,
 				C08FBE002497F31B0065BB20 /* REGBuyerPersonalInfoService.swift in Sources */,
+				C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */,
 				C071E247247EE59E0085805B /* Result.swift in Sources */,
 				C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */,
+				C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */,
 				C0ACE99C248590B100EFA4ED /* REGNewUserPasswordController.swift in Sources */,
 				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
 				C071E253247EE5C80085805B /* CraftExchangeClient.swift in Sources */,
@@ -854,6 +874,7 @@
 				C0E212D62498D11C00EC2B80 /* REGBuyerAddressInfoController.swift in Sources */,
 				C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */,
 				C071E25D247EF9280085805B /* ValidateUserService.swift in Sources */,
+				C0A29FFC24B8A72300A49E56 /* CompanyPointOfContact.swift in Sources */,
 				C08FBDFE2497F2DA0065BB20 /* REGBuyerPersonalInfoScene.swift in Sources */,
 				C0ACE99E2485916400EFA4ED /* ProductCategory+Request.swift in Sources */,
 				C0ACE99A2485908E00EFA4ED /* REGValidateUserEmailController.swift in Sources */,
@@ -880,6 +901,7 @@
 				C09F215224862F12001F2FCD /* ProductCategory+Transaction.swift in Sources */,
 				C0ACE9A22485947500EFA4ED /* ValidateWeaverService.swift in Sources */,
 				C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */,
+				C0A2A00624B8D89800A49E56 /* Address+Transaction.swift in Sources */,
 				C09F214F24862B56001F2FCD /* REGArtisanDataScene.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
 				C0ACE9B02485BD0C00EFA4ED /* ClusterDetails+Request.swift in Sources */,
@@ -888,6 +910,7 @@
 				C071E246247EE59E0085805B /* Utilities.swift in Sources */,
 				C071E234247EB6170085805B /* ProductCategory.swift in Sources */,
 				C094288124B39E74005FDF93 /* Country+Transaction.swift in Sources */,
+				C0A29FFE24B8ABC500A49E56 /* Weaver.swift in Sources */,
 				C0A3F41D24B7A8220071F7F8 /* BuyerProfileAddrInfo.swift in Sources */,
 				C09F21542486312D001F2FCD /* ClusterDetails+Transaction.swift in Sources */,
 				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
@@ -909,6 +932,7 @@
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C05498D524995914005D5E57 /* RegisterBuyerController.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
+				C0A2A00424B8D22E00A49E56 /* User+Transaction.swift in Sources */,
 				C09F214D24862987001F2FCD /* REGArtisanInfoInputService.swift in Sources */,
 				C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */,
 				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,

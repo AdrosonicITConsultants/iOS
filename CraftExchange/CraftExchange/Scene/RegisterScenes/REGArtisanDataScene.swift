@@ -99,7 +99,7 @@ extension REGArtisanInfoInputService {
       newUser.pancard = vc.viewModel.panNo.value ?? nil
 //      newUser.productCategoryIds = vc.viewModel.selectedProdCat.value
       
-      let newAddr = LocalAddress.init(id: 0, addrType: (0,"\(vc.viewModel.addr.value ?? "")"), country: (1,"India"), city: "", district: "\(vc.viewModel.district.value ?? "")", landmark: "", line1: "\(vc.viewModel.addr.value ?? "")", line2: "", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "", userId: 0)
+      let newAddr = LocalAddress.init(id: 0, addrType: (1,"Registered"), country: (1,"India"), city: "", district: "\(vc.viewModel.district.value ?? "")", landmark: "", line1: "\(vc.viewModel.addr.value ?? "")", line2: "", pincode: "\(vc.viewModel.pincode.value ?? "")", state: "\(vc.viewModel.state.value ?? "")", street: "", userId: 0)
       newUser.address = newAddr
     
       appDelegate?.registerUser = newUser
