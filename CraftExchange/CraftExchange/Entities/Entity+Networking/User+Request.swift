@@ -93,4 +93,15 @@ extension User {
           needsAuthorization: false
       )
   }
+    
+    public static func getProfile() -> Request<Data, APIError> {
+        return Request(
+            path: "user/myprofile",
+            method: .get,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get profile failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
 }

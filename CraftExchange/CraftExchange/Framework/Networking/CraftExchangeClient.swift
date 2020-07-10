@@ -11,8 +11,13 @@ import Foundation
 public class CraftExchangeClient: Client {
     public init() throws {
         super.init(baseURL: KeychainManager.standard.baseURL)
-        defaultHeaders = ["Content-Type": "application/json",
-        "Accept": "application/json"]
+        if let accessToken = KeychainManager.standard.userAccessToken {
+            defaultHeaders = ["Content-Type": "application/json",
+            "Accept": "application/json", "Authorization": "Bearer \(accessToken)"]
+        }else {
+            defaultHeaders = ["Content-Type": "application/json",
+            "Accept": "application/json"]
+        }
     }
 }
 

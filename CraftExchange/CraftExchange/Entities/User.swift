@@ -33,8 +33,8 @@ class User: Object, Decodable {
   @objc dynamic var lastLoggedIn: String?
   @objc dynamic var profilePic: String?
   @objc dynamic var pointOfContact: CompanyPointOfContact?
-  var addressList = List<Address>()
-  var paymentAccountList = List<PaymentAccDetails>()
+  let addressList = List<Address>()
+  let paymentAccountList = List<PaymentAccDetails>()
   dynamic var rating: Int?
   @objc dynamic var userName: String?
   dynamic var enabled: Bool?

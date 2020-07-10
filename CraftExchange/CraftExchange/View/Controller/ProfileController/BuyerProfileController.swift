@@ -20,8 +20,15 @@ import RealmSwift
 import Realm
 import WMSegmentControl
 
+class BuyerProfileViewModel {
+  var viewDidLoad: (() -> Void)?
+}
+
 class BuyerProfileController: UIViewController {
 
+    let viewModel = BuyerProfileViewModel()
+    var reachabilityManager = try? Reachability()
+    
     @IBOutlet weak var childContainerView: UIView!
     @IBOutlet weak var segmentControl: WMSegment!
     @IBOutlet weak var profileImg: UIImageView!
@@ -58,16 +65,20 @@ class BuyerProfileController: UIViewController {
 
         return viewController
     }()
+    
     override func viewDidLoad() {
+        viewModel.viewDidLoad?()
         yellowBgView.layer.cornerRadius = yellowBgView.bounds.width/2
         buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
         companyName.text = User.loggedIn()?.buyerCompanyDetails?.companyName
         ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         segmentControl.setSelectedIndex(0)
         segmentControl.sendActions(for: .valueChanged)
     }
+    
     @IBAction func segmentValueChanged(_ sender: Any) {
         if segmentControl.selectedSegmentIndex == 0 {
             add(asChildViewController: GeneralInfoViewController)

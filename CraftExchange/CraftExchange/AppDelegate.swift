@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
     window?.rootViewController = vc
     window?.makeKeyAndVisible()
+    let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+    print(paths[0])
     return true
   }
 

@@ -51,6 +51,11 @@ extension Address {
                 line2 = object.line2
                 state = object.state
                 street = object.street
+                city = object.city
+                district = object.district
+                country = object.country
+                pincode = object.pincode
+                landmark = object.landmark
             }
         } else {
             try? realm.write {
