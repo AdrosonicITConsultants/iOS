@@ -41,37 +41,59 @@ class BuyerProfileController: UIViewController {
     
     private lazy var GeneralInfoViewController: BuyerGeneralInfo = {
         var viewController = BuyerGeneralInfo.init()
-        
-        // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
-
         return viewController
     }()
 
     private lazy var CompanyProfileInfoViewController: BuyerCompanyProfileInfo = {
         var viewController = BuyerCompanyProfileInfo.init()
-
-        // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
-
         return viewController
     }()
     
     private lazy var ProfileAddrInfoViewController: BuyerProfileAddrInfo = {
         var viewController = BuyerProfileAddrInfo.init()
-
-        // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
+        return viewController
+    }()
+    
+    private lazy var ArtisanInfoViewController: ArtisanGeneralInfo = {
+        var viewController = ArtisanGeneralInfo.init()
+        self.add(asChildViewController: viewController)
+        return viewController
+    }()
 
+    private lazy var ArtisanBrandInfoViewController: ArtisanBrandDetails = {
+        var viewController = ArtisanBrandDetails.init()
+        self.add(asChildViewController: viewController)
+        return viewController
+    }()
+    
+    private lazy var ArtisanBankInfoViewController: ArtisanBankDetails = {
+        var viewController = ArtisanBankDetails.init()
+        self.add(asChildViewController: viewController)
         return viewController
     }()
     
     override func viewDidLoad() {
         viewModel.viewDidLoad?()
-        yellowBgView.layer.cornerRadius = yellowBgView.bounds.width/2
-        buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
-        companyName.text = User.loggedIn()?.buyerCompanyDetails?.companyName
-        ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
+        setupSegmentTitle()
+        if KeychainManager.standard.userRole == "Artisan" {
+            self.navigationItem.title = "Hello \(User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? "")"
+            if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
+                constraint.constant = 0.0
+                profileView.isHidden = true
+            }
+            if let constraint = (buttonView.constraints.filter{$0.firstAttribute == .height}.first) {
+                constraint.constant = 0.0
+                buttonView.isHidden = true
+            }
+        }else {
+            yellowBgView.layer.cornerRadius = yellowBgView.bounds.width/2
+            buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
+            companyName.text = User.loggedIn()?.buyerCompanyDetails?.companyName
+            ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,19 +101,43 @@ class BuyerProfileController: UIViewController {
         segmentControl.sendActions(for: .valueChanged)
     }
     
-    @IBAction func segmentValueChanged(_ sender: Any) {
-        if segmentControl.selectedSegmentIndex == 0 {
-            add(asChildViewController: GeneralInfoViewController)
-            remove(asChildViewController: CompanyProfileInfoViewController)
-            remove(asChildViewController: ProfileAddrInfoViewController)
-        } else if segmentControl.selectedSegmentIndex == 1 {
-            remove(asChildViewController: GeneralInfoViewController)
-            add(asChildViewController: CompanyProfileInfoViewController)
-            remove(asChildViewController: ProfileAddrInfoViewController)
+    func setupSegmentTitle() {
+        if KeychainManager.standard.userRole == "Artisan" {
+            segmentControl.buttonTitles = "My Details, Brand Details, Bank Details"
         }else {
-            remove(asChildViewController: GeneralInfoViewController)
-            remove(asChildViewController: CompanyProfileInfoViewController)
-            add(asChildViewController: ProfileAddrInfoViewController)
+            segmentControl.buttonTitles = "General, Brand, Delivery"
+        }
+    }
+    
+    @IBAction func segmentValueChanged(_ sender: Any) {
+        if KeychainManager.standard.userRole == "Artisan" {
+            if segmentControl.selectedSegmentIndex == 0 {
+                add(asChildViewController: ArtisanInfoViewController)
+                remove(asChildViewController: ArtisanBrandInfoViewController)
+                remove(asChildViewController: ArtisanBankInfoViewController)
+            } else if segmentControl.selectedSegmentIndex == 1 {
+                remove(asChildViewController: ArtisanInfoViewController)
+                add(asChildViewController: ArtisanBrandInfoViewController)
+                remove(asChildViewController: ArtisanBankInfoViewController)
+            }else {
+                remove(asChildViewController: ArtisanInfoViewController)
+                remove(asChildViewController: ArtisanBrandInfoViewController)
+                add(asChildViewController: ArtisanBankInfoViewController)
+            }
+        }else {
+            if segmentControl.selectedSegmentIndex == 0 {
+                add(asChildViewController: GeneralInfoViewController)
+                remove(asChildViewController: CompanyProfileInfoViewController)
+                remove(asChildViewController: ProfileAddrInfoViewController)
+            } else if segmentControl.selectedSegmentIndex == 1 {
+                remove(asChildViewController: GeneralInfoViewController)
+                add(asChildViewController: CompanyProfileInfoViewController)
+                remove(asChildViewController: ProfileAddrInfoViewController)
+            }else {
+                remove(asChildViewController: GeneralInfoViewController)
+                remove(asChildViewController: CompanyProfileInfoViewController)
+                add(asChildViewController: ProfileAddrInfoViewController)
+            }
         }
     }
     @IBAction func editProfileSelected(_ sender: Any) {

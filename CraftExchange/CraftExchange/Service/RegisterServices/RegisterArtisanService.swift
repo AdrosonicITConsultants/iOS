@@ -18,7 +18,7 @@ class RegisterArtisanService: BaseService<Data> {
         super.init()
     }
 
-  func fetch(newUser: [String:Any]) -> SafeSignal<Data> {
+    func fetch(newUser: [String:Any]) -> SafeSignal<Data> {
       return User.registerUser(json: newUser).response(using: client).debug()
     }
 }

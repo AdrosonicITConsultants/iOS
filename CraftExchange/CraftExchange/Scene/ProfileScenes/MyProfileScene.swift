@@ -26,6 +26,21 @@ extension MyProfileService {
     vc.viewModel.viewDidLoad = {
         if vc.reachabilityManager?.connection != .unavailable {
             vc.showLoading()
+            self.fetchAllProductCategory().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+                do {
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
+                            try JSONDecoder().decode([ProductCategory].self, from: data) .forEach({ (cat) in
+                                cat.saveOrUpdate()
+                            })
+                      }
+                    }
+                }catch let error as NSError {
+                    print(error.description)
+                }
+            }.dispose(in: vc.bag)
+            
             self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
               DispatchQueue.main.async {
                 vc.hideLoading()

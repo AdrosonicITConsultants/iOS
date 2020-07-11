@@ -13,20 +13,20 @@ import RealmSwift
 class UserProductCategory: Object, Decodable {
 
     @objc dynamic var entityID: Int = 0
-    @objc dynamic var userId: String?
-    @objc dynamic var productCategoryId: String?
+    dynamic var userId: Int?
+    dynamic var productCategoryId: Int?
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case userId = "user_id"
-        case productCategoryId = "product_category_id"
+        case userId = "userId"
+        case productCategoryId = "productCategoryId"
     }
 
     convenience required init(from decoder: Decoder) throws {
       self.init()
       let values = try decoder.container(keyedBy: CodingKeys.self)
       entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
-      userId = try values.decodeIfPresent(String.self, forKey: .userId)
-      productCategoryId = try values.decodeIfPresent(String.self, forKey: .productCategoryId)
+      userId = try? values.decodeIfPresent(Int.self, forKey: .userId)
+      productCategoryId = try? values.decodeIfPresent(Int.self, forKey: .productCategoryId)
     }
 }

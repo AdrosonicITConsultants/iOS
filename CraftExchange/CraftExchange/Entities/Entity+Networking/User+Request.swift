@@ -104,4 +104,15 @@ extension User {
             needsAuthorization: true
         )
     }
+    
+    public static func updateBuyerProfile() -> Request<Data, APIError> {
+        return Request(
+            path: "user/edit/buyerProfile",
+            method: .put,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "buyer profile update failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
 }

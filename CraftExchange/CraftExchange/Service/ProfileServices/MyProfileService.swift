@@ -21,4 +21,8 @@ class MyProfileService: BaseService<Data> {
     override func fetch() -> SafeSignal<Data> {
       return User.getProfile().response(using: client).debug()
     }
+    
+    func fetchAllProductCategory() -> SafeSignal<Data> {
+      return ProductCategory.getAllProducts().response(using: client).debug()
+    }
 }

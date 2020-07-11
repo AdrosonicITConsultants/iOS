@@ -33,8 +33,9 @@ class User: Object, Decodable {
   @objc dynamic var lastLoggedIn: String?
   @objc dynamic var profilePic: String?
   @objc dynamic var pointOfContact: CompanyPointOfContact?
-  let addressList = List<Address>()
-  let paymentAccountList = List<PaymentAccDetails>()
+  var addressList = List<Address>()
+  var paymentAccountList = List<PaymentAccDetails>()
+  var userProductCategories = List<UserProductCategory>()
   dynamic var rating: Int?
   @objc dynamic var userName: String?
   dynamic var enabled: Bool?
@@ -74,6 +75,7 @@ class User: Object, Decodable {
     case accountNonExpired = "accountNonExpired"
     case accountNonLocked = "accountNonLocked"
     case credentialsNonExpired = "credentialsNonExpired"
+    case userProductCategories = "userProductCategories"
   }
 
   convenience required init(from decoder: Decoder) throws {
@@ -91,6 +93,7 @@ class User: Object, Decodable {
     websiteLink = try? values.decodeIfPresent(String.self, forKey: .websiteLink)
     socialMediaLink = try? values.decodeIfPresent(String.self, forKey: .socialMediaLink)
     buyerCompanyDetails = try? values.decodeIfPresent(BuyerCompanyDetails.self, forKey: .buyerCompanyDetails)
+    pointOfContact = try? values.decodeIfPresent(CompanyPointOfContact.self, forKey: .pointOfContact)
     weaverDetails = try? values.decodeIfPresent(Weaver.self, forKey: .weaverDetails)
     cluster = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster)
     refRoleId = try? values.decodeIfPresent(String.self, forKey: .refRoleId)
@@ -111,6 +114,9 @@ class User: Object, Decodable {
     accountNonLocked = try? values.decodeIfPresent(Bool.self, forKey: .accountNonLocked)
     accountNonExpired = try? values.decodeIfPresent(Bool.self, forKey: .accountNonExpired)
     credentialsNonExpired = try? values.decodeIfPresent(Bool.self, forKey: .credentialsNonExpired)
+    if let list = try? values.decodeIfPresent([UserProductCategory].self, forKey: .userProductCategories) {
+        userProductCategories.append(objectsIn: list)
+    }
     }
     
 }

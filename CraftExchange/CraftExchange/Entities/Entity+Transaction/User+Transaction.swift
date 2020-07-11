@@ -25,8 +25,19 @@ extension User {
             try? realm.write {
                 designation = object.designation
                 alternateMobile = object.alternateMobile
-                buyerCompanyDetails = object.buyerCompanyDetails
-                pointOfContact = object.pointOfContact
+                buyerCompanyDetails?.contact = object.buyerCompanyDetails?.contact
+                buyerCompanyDetails?.companyName = object.buyerCompanyDetails?.companyName
+                buyerCompanyDetails?.compDesc = object.buyerCompanyDetails?.compDesc
+                buyerCompanyDetails?.logo = object.buyerCompanyDetails?.logo
+                buyerCompanyDetails?.cin = object.buyerCompanyDetails?.cin
+                buyerCompanyDetails?.gstNo = object.buyerCompanyDetails?.gstNo
+                pointOfContact?.pocFirstName = object.pointOfContact?.pocFirstName
+                pointOfContact?.pocLastName = object.pointOfContact?.pocLastName
+                pointOfContact?.pocEmail = object.pointOfContact?.pocEmail
+                pointOfContact?.pocContantNo = object.pointOfContact?.pocContantNo
+                addressList = object.addressList
+                paymentAccountList = object.paymentAccountList
+                userProductCategories = object.userProductCategories
             }
         } else {
             try? realm.write {

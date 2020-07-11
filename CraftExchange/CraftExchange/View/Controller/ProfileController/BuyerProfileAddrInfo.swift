@@ -30,16 +30,17 @@ class BuyerProfileAddrInfo: FormViewController {
             <<< LabelRow() {
                 $0.cell.height = { 80.0 }
                 $0.title = "Delivery Address".localized
+            }.cellUpdate({ (cell, row) in
                 var addressString = ""
                 User.loggedIn()?.addressList .forEach({ (address) in
                     if address.addressType?.entityID == 2 {
                         addressString = address.addressString
                     }
                 })
-                $0.cell.detailTextLabel?.text = addressString
-                $0.cell.detailTextLabel?.numberOfLines = 10
-                $0.cell.detailTextLabel?.font = .systemFont(ofSize: 10)
-            }
+                cell.detailTextLabel?.text = addressString
+                cell.detailTextLabel?.numberOfLines = 10
+                cell.detailTextLabel?.font = .systemFont(ofSize: 10)
+            })
             <<< LabelRow() { row in
                 row.cell.height = { 400.0 }
             }
