@@ -30,39 +30,11 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
         self.view.backgroundColor = .white
         form +++
             Section()
-            /*<<< ImageRow() {
-                $0.cell.imageView?.center = $0.cell.center
-                $0.cell.imageView?.layer.cornerRadius = 30
-                $0.cell.height = { 60.0 }
-                $0.cell.imageView?.image = UIImage(named: "my-profile-icon")
-                $0.sourceTypes = [.Camera, .PhotoLibrary, .SavedPhotosAlbum]
-                $0.clearAction = .yes(style: UIAlertAction.Style.destructive)
-            }.onChange({ (row) in
-                if let image = row.value {
-                    let imageData:NSData = image.pngData()! as NSData
-                    print(imageData.length)
-                }
-            })*/
-            <<< LabelRow() {
-              $0.cell.height = { 150.0 }
-              $0.cell.imageView?.frame = $0.cell.contentView.frame
-              $0.cell.imageView?.image = UIImage(named: "my-profile-icon")
-                $0.cell.imageView?.contentMode = .scaleAspectFit
-            }.onCellSelection({ (cell, row) in
-                let alert = UIAlertController.init(title: "Please select".localized, message: "", preferredStyle: .actionSheet)
-                let action1 = UIAlertAction.init(title: "Gallery", style: .default) { (action) in
-                  
-                }
-                alert.addAction(action1)
-                let action2 = UIAlertAction.init(title: "Camera", style: .default) { (action) in
-                  
-                }
-                alert.addAction(action2)
-                let action3 = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
-                }
-                alert.addAction(action3)
-                self.present(alert, animated: true, completion: nil)
-            })
+            <<< ProfileImageRow() {
+                $0.cell.height = { 180.0 }
+                $0.cell.delegate = self
+                $0.tag = "ProfileView"
+            }
             <<< LabelRow() {
                 $0.cell.height = { 40.0 }
                 $0.title = "Avg rating".localized
@@ -172,4 +144,21 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
         
     }
     
+}
+
+extension ArtisanGeneralInfo: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+            print("Image not found!")
+            return
+        }
+        let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+        row?.cell.actionButton.setImage(selectedImage, for: .normal)
+        picker.dismiss(animated: true, completion: nil)
+    }
 }

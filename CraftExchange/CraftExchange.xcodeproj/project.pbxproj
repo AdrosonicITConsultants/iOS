@@ -68,6 +68,8 @@
 		C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */; };
 		C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */; };
 		C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */; };
+		C09B3EFE24BA569300FBC115 /* ProfileImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EFD24BA569300FBC115 /* ProfileImageRow.swift */; };
+		C09B3F0024BA56AD00FBC115 /* ProfileImageRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09B3EFF24BA56AD00FBC115 /* ProfileImageRow.xib */; };
 		C09C970024B908C500FD97E9 /* MyProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C96FF24B908C500FD97E9 /* MyProfileService.swift */; };
 		C09C970324B9096000FD97E9 /* MyProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C970224B9096000FD97E9 /* MyProfileScene.swift */; };
 		C09C970524B919D300FD97E9 /* ArtisanGeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C970424B919D300FD97E9 /* ArtisanGeneralInfo.swift */; };
@@ -212,6 +214,8 @@
 		C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompanyPointOfContact+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuyerCompanyDetails+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProductCategories+Transaction.swift"; sourceTree = "<group>"; };
+		C09B3EFD24BA569300FBC115 /* ProfileImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageRow.swift; sourceTree = "<group>"; };
+		C09B3EFF24BA56AD00FBC115 /* ProfileImageRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileImageRow.xib; sourceTree = "<group>"; };
 		C09C96FF24B908C500FD97E9 /* MyProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileService.swift; sourceTree = "<group>"; };
 		C09C970224B9096000FD97E9 /* MyProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileScene.swift; sourceTree = "<group>"; };
 		C09C970424B919D300FD97E9 /* ArtisanGeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanGeneralInfo.swift; sourceTree = "<group>"; };
@@ -585,6 +589,8 @@
 				C0AAC391249272AC008C2047 /* RoundedTextFieldRow.xib */,
 				C0AAC3932492BB89008C2047 /* RoundedActionSheetRow.swift */,
 				C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */,
+				C09B3EFD24BA569300FBC115 /* ProfileImageRow.swift */,
+				C09B3EFF24BA56AD00FBC115 /* ProfileImageRow.xib */,
 			);
 			path = CustomAssets;
 			sourceTree = "<group>";
@@ -809,6 +815,7 @@
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
 				C0A910A4247CD90B00852695 /* PlayfairDisplay-Medium.ttf in Resources */,
+				C09B3F0024BA56AD00FBC115 /* ProfileImageRow.xib in Resources */,
 				C0A910AC247CD90B00852695 /* PlayfairDisplay-BlackItalic.ttf in Resources */,
 				C0A910AB247CD90B00852695 /* PlayfairDisplay-MediumItalic.ttf in Resources */,
 				C0A910A7247CD90B00852695 /* PlayfairDisplay-Italic.ttf in Resources */,
@@ -941,6 +948,7 @@
 				C0ACE9962485895600EFA4ED /* Country.swift in Sources */,
 				C0A3F41724B7959C0071F7F8 /* BuyerProfileController.swift in Sources */,
 				C09C970324B9096000FD97E9 /* MyProfileScene.swift in Sources */,
+				C09B3EFE24BA569300FBC115 /* ProfileImageRow.swift in Sources */,
 				C09C970724B919EE00FD97E9 /* ArtisanBrandDetails.swift in Sources */,
 				C0AAC39024927296008C2047 /* RoundedTextFieldRow.swift in Sources */,
 				C09F215224862F12001F2FCD /* ProductCategory+Transaction.swift in Sources */,

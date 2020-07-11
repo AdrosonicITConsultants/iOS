@@ -30,19 +30,14 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
         self.view.backgroundColor = .white
         form +++
             Section()
-            <<< ImageRow() {
-                $0.cell.imageView?.center = $0.cell.center
-                $0.cell.imageView?.layer.cornerRadius = 30
-                $0.cell.height = { 60.0 }
-                $0.cell.imageView?.image = UIImage(named: "my-profile-icon")
-                $0.sourceTypes = [.Camera, .PhotoLibrary, .SavedPhotosAlbum]
-                $0.clearAction = .yes(style: UIAlertAction.Style.destructive)
-            }.onChange({ (row) in
-                if let image = row.value {
-                    let imageData:NSData = image.pngData()! as NSData
-                    print(imageData.length)
-                }
-            })
+            <<< ProfileImageRow() {
+                $0.cell.height = { 180.0 }
+                $0.cell.delegate = self
+                $0.tag = "ProfileView"
+            }/*.cellUpdate({ (cell, row) in
+                cell.actionButton.imageView?.layer.cornerRadius = 90
+                cell.actionButton.layer.cornerRadius = 90
+            })*/
             <<< RoundedTextFieldRow() {
                 $0.tag = "Name"
                 $0.cell.height = { 80.0 }
@@ -150,6 +145,23 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
         
     }
     
+}
+
+extension ArtisanBrandDetails: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+            print("Image not found!")
+            return
+        }
+        let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+        row?.cell.actionButton.setImage(selectedImage, for: .normal)
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
 
 
