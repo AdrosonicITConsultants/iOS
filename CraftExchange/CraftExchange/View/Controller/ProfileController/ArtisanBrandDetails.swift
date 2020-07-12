@@ -26,7 +26,7 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
         super.viewDidLoad()
         self.view.backgroundColor = .red
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
         self.view.backgroundColor = .white
         form +++
             Section()
@@ -34,10 +34,31 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 180.0 }
                 $0.cell.delegate = self
                 $0.tag = "ProfileView"
-            }/*.cellUpdate({ (cell, row) in
-                cell.actionButton.imageView?.layer.cornerRadius = 90
-                cell.actionButton.layer.cornerRadius = 90
-            })*/
+                if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.logo {
+                    do {
+                        let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
+                        $0.cell.actionButton.setImage(downloadedImage, for: .normal)
+                    }catch {
+                        print(error)
+                    }
+                }else if  let name = User.loggedIn()?.logo {
+                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(User.loggedIn()?.entityID)/CompanyDetails/Logo/\(name)")
+                    URLSession.shared.dataTask(with: url!) { data, response, error in
+                        // do your stuff here...
+                        DispatchQueue.main.async {
+                            // do something on the main queue
+                            if error == nil {
+                                if let finalData = data {
+                                    User.loggedIn()?.saveOrUpdateBrandLogo(data: finalData)
+                                    NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
+                                }
+                            }
+                        }
+                    }.resume()
+                }else {
+                    $0.cell.actionButton.setImage(UIImage.init(named: "user"), for: .normal)
+                }
+            }
             <<< RoundedTextFieldRow() {
                 $0.tag = "Name"
                 $0.cell.height = { 80.0 }
@@ -143,6 +164,16 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.backgroundColor = .black
         }
         
+    }
+    
+    @objc func updateLogoPic() {
+        let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+        do {
+            let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(User.loggedIn()?.logo ?? "download.jpg")", from: .caches, as: UIImage.self)
+            row?.cell.actionButton.setImage(downloadedImage, for: .normal)
+        }catch {
+            print(error)
+        }
     }
     
 }

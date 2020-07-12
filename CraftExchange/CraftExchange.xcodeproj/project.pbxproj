@@ -70,6 +70,17 @@
 		C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */; };
 		C09B3EFE24BA569300FBC115 /* ProfileImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EFD24BA569300FBC115 /* ProfileImageRow.swift */; };
 		C09B3F0024BA56AD00FBC115 /* ProfileImageRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09B3EFF24BA56AD00FBC115 /* ProfileImageRow.xib */; };
+		C09B3F0C24BA615900FBC115 /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0224BA615800FBC115 /* Disk.swift */; };
+		C09B3F0D24BA615900FBC115 /* Disk+InternalHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0324BA615800FBC115 /* Disk+InternalHelpers.swift */; };
+		C09B3F0E24BA615900FBC115 /* Disk+[Data].swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0424BA615800FBC115 /* Disk+[Data].swift */; };
+		C09B3F0F24BA615900FBC115 /* Disk+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0524BA615800FBC115 /* Disk+Data.swift */; };
+		C09B3F1024BA615900FBC115 /* Disk+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0624BA615800FBC115 /* Disk+Errors.swift */; };
+		C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0724BA615800FBC115 /* Disk+Helpers.swift */; };
+		C09B3F1224BA615900FBC115 /* Disk+VolumeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0824BA615800FBC115 /* Disk+VolumeInformation.swift */; };
+		C09B3F1324BA615900FBC115 /* Disk+[UIImage].swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0924BA615800FBC115 /* Disk+[UIImage].swift */; };
+		C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0A24BA615800FBC115 /* Disk+UIImage.swift */; };
+		C09B3F1524BA615900FBC115 /* Disk+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F0B24BA615800FBC115 /* Disk+Codable.swift */; };
+		C09B3F1924BA6DF500FBC115 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3F1824BA6DF500FBC115 /* UIImageView+Extensions.swift */; };
 		C09C970024B908C500FD97E9 /* MyProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C96FF24B908C500FD97E9 /* MyProfileService.swift */; };
 		C09C970324B9096000FD97E9 /* MyProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C970224B9096000FD97E9 /* MyProfileScene.swift */; };
 		C09C970524B919D300FD97E9 /* ArtisanGeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C970424B919D300FD97E9 /* ArtisanGeneralInfo.swift */; };
@@ -216,6 +227,17 @@
 		C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProductCategories+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EFD24BA569300FBC115 /* ProfileImageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageRow.swift; sourceTree = "<group>"; };
 		C09B3EFF24BA56AD00FBC115 /* ProfileImageRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileImageRow.xib; sourceTree = "<group>"; };
+		C09B3F0224BA615800FBC115 /* Disk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disk.swift; sourceTree = "<group>"; };
+		C09B3F0324BA615800FBC115 /* Disk+InternalHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+InternalHelpers.swift"; sourceTree = "<group>"; };
+		C09B3F0424BA615800FBC115 /* Disk+[Data].swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+[Data].swift"; sourceTree = "<group>"; };
+		C09B3F0524BA615800FBC115 /* Disk+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+Data.swift"; sourceTree = "<group>"; };
+		C09B3F0624BA615800FBC115 /* Disk+Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+Errors.swift"; sourceTree = "<group>"; };
+		C09B3F0724BA615800FBC115 /* Disk+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+Helpers.swift"; sourceTree = "<group>"; };
+		C09B3F0824BA615800FBC115 /* Disk+VolumeInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+VolumeInformation.swift"; sourceTree = "<group>"; };
+		C09B3F0924BA615800FBC115 /* Disk+[UIImage].swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+[UIImage].swift"; sourceTree = "<group>"; };
+		C09B3F0A24BA615800FBC115 /* Disk+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+UIImage.swift"; sourceTree = "<group>"; };
+		C09B3F0B24BA615800FBC115 /* Disk+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Disk+Codable.swift"; sourceTree = "<group>"; };
+		C09B3F1824BA6DF500FBC115 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		C09C96FF24B908C500FD97E9 /* MyProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileService.swift; sourceTree = "<group>"; };
 		C09C970224B9096000FD97E9 /* MyProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileScene.swift; sourceTree = "<group>"; };
 		C09C970424B919D300FD97E9 /* ArtisanGeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanGeneralInfo.swift; sourceTree = "<group>"; };
@@ -434,8 +456,8 @@
 		C03BD8902476F83B00279D7F /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				C09C96FE24B9089B00FD97E9 /* ProfileServices */,
 				C071E25E247EFAAB0085805B /* BaseService.swift */,
+				C09C96FE24B9089B00FD97E9 /* ProfileServices */,
 				C0ACE98D2484EDF300EFA4ED /* RegisterServices */,
 				C0144AC0248443F6006FF4AB /* LoginServices */,
 				C0144AC12484441B006FF4AB /* ForgotPasswordServices */,
@@ -504,6 +526,7 @@
 		C071E22E247E81320085805B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C09B3F0124BA615800FBC115 /* Disk */,
 				C071E23D247EE50C0085805B /* Extensions */,
 			);
 			path = Utils;
@@ -517,6 +540,7 @@
 				C071E263247F07930085805B /* ReactiveExtentions.swift */,
 				C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */,
 				C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */,
+				C09B3F1824BA6DF500FBC115 /* UIImageView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -602,6 +626,23 @@
 				C0925799249F7235006C4C05 /* BuyerTabbarController.swift */,
 			);
 			path = BuyerHome;
+			sourceTree = "<group>";
+		};
+		C09B3F0124BA615800FBC115 /* Disk */ = {
+			isa = PBXGroup;
+			children = (
+				C09B3F0224BA615800FBC115 /* Disk.swift */,
+				C09B3F0324BA615800FBC115 /* Disk+InternalHelpers.swift */,
+				C09B3F0424BA615800FBC115 /* Disk+[Data].swift */,
+				C09B3F0524BA615800FBC115 /* Disk+Data.swift */,
+				C09B3F0624BA615800FBC115 /* Disk+Errors.swift */,
+				C09B3F0724BA615800FBC115 /* Disk+Helpers.swift */,
+				C09B3F0824BA615800FBC115 /* Disk+VolumeInformation.swift */,
+				C09B3F0924BA615800FBC115 /* Disk+[UIImage].swift */,
+				C09B3F0A24BA615800FBC115 /* Disk+UIImage.swift */,
+				C09B3F0B24BA615800FBC115 /* Disk+Codable.swift */,
+			);
+			path = Disk;
 			sourceTree = "<group>";
 		};
 		C09C96FE24B9089B00FD97E9 /* ProfileServices */ = {
@@ -894,20 +935,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C071E248247EE59E0085805B /* HTTPMethod.swift in Sources */,
+				C09B3F0D24BA615900FBC115 /* Disk+InternalHelpers.swift in Sources */,
 				C08FBE002497F31B0065BB20 /* REGBuyerPersonalInfoService.swift in Sources */,
 				C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */,
+				C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */,
 				C071E247247EE59E0085805B /* Result.swift in Sources */,
 				C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */,
 				C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */,
 				C0ACE99C248590B100EFA4ED /* REGNewUserPasswordController.swift in Sources */,
 				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
 				C071E253247EE5C80085805B /* CraftExchangeClient.swift in Sources */,
+				C09B3F0F24BA615900FBC115 /* Disk+Data.swift in Sources */,
 				C071E24B247EE59E0085805B /* RequestParameters.swift in Sources */,
 				C071E264247F07930085805B /* ReactiveExtentions.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
 				C08FBE06249801CD0065BB20 /* REGBuyerCompanyInfoService.swift in Sources */,
 				C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */,
 				C0925798249F7009006C4C05 /* BuyerHomeController.swift in Sources */,
+				C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */,
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
 				C092579A249F7235006C4C05 /* BuyerTabbarController.swift in Sources */,
 				C0ACE9AE2485A5BB00EFA4ED /* RegisterArtisanScene.swift in Sources */,
@@ -916,7 +961,9 @@
 				C0144AAD2483FC4B006FF4AB /* ResetPasswordScene.swift in Sources */,
 				C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */,
 				C071E22D247E810D0085805B /* Strings+Extensions.swift in Sources */,
+				C09B3F1524BA615900FBC115 /* Disk+Codable.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
+				C09B3F1224BA615900FBC115 /* Disk+VolumeInformation.swift in Sources */,
 				C091894E248038BB0058501C /* RoleViewController.swift in Sources */,
 				C0AAC3942492BB8A008C2047 /* RoundedActionSheetRow.swift in Sources */,
 				C071E23A247EDDB20085805B /* UserProductCategory.swift in Sources */,
@@ -940,8 +987,10 @@
 				C0A5EB6A24A0F68500AD42EA /* UIColor+Extensions.swift in Sources */,
 				C0ACE9A62485966600EFA4ED /* REGValidateUserEmailService.swift in Sources */,
 				C0ACE99424852A5B00EFA4ED /* CXUser.swift in Sources */,
+				C09B3F1324BA615900FBC115 /* Disk+[UIImage].swift in Sources */,
 				C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
+				C09B3F0E24BA615900FBC115 /* Disk+[Data].swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
 				C0ACE9A02485923F00EFA4ED /* RegisterArtisanController.swift in Sources */,
 				C08FBE042497FFB00065BB20 /* REGBuyerCompanyInfoController.swift in Sources */,
@@ -969,6 +1018,7 @@
 				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
 				C071E22B247E7F820085805B /* Address.swift in Sources */,
 				C0ACE9A82485970100EFA4ED /* REGValidateUserEmailScene.swift in Sources */,
+				C09B3F1024BA615900FBC115 /* Disk+Errors.swift in Sources */,
 				C08FBDFC2497EF870065BB20 /* REGBuyerPersonalInfoController.swift in Sources */,
 				C071E236247EB69D0085805B /* Role.swift in Sources */,
 				C0ACE9A4248594DE00EFA4ED /* REGValidateWeaverScene.swift in Sources */,
@@ -981,7 +1031,9 @@
 				C071E25F247EFAAB0085805B /* BaseService.swift in Sources */,
 				C071E25B247EF5C40085805B /* User+Request.swift in Sources */,
 				C09C970524B919D300FD97E9 /* ArtisanGeneralInfo.swift in Sources */,
+				C09B3F0C24BA615900FBC115 /* Disk.swift in Sources */,
 				C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */,
+				C09B3F1924BA6DF500FBC115 /* UIImageView+Extensions.swift in Sources */,
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C05498D524995914005D5E57 /* RegisterBuyerController.swift in Sources */,

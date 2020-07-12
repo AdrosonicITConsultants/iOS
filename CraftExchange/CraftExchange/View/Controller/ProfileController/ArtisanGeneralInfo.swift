@@ -26,7 +26,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
         super.viewDidLoad()
         self.view.backgroundColor = .red
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProfilePic), name: NSNotification.Name("loadProfileImage"), object: nil)
         self.view.backgroundColor = .white
         form +++
             Section()
@@ -34,6 +34,30 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 180.0 }
                 $0.cell.delegate = self
                 $0.tag = "ProfileView"
+                if let _ = User.loggedIn()?.profilePicUrl, let name = User.loggedIn()?.profilePic {
+                    do {
+                        let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
+                        $0.cell.actionButton.setImage(downloadedImage, for: .normal)
+                    }catch {
+                        print(error)
+                    }
+                }else if let name = User.loggedIn()?.profilePic {
+                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(User.loggedIn()?.entityID)/ProfilePics/\(name)")
+                    URLSession.shared.dataTask(with: url!) { data, response, error in
+                        // do your stuff here...
+                        DispatchQueue.main.async {
+                            // do something on the main queue
+                            if error == nil {
+                                if let finalData = data {
+                                    User.loggedIn()?.saveOrUpdateProfileImage(data: finalData)
+                                    NotificationCenter.default.post(name: Notification.Name("loadProfileImage"), object: nil)
+                                }
+                            }
+                        }
+                    }.resume()
+                }else {
+                    $0.cell.actionButton.setImage(UIImage.init(named: "user"), for: .normal)
+                }
             }
             <<< LabelRow() {
                 $0.cell.height = { 40.0 }
@@ -144,6 +168,15 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
         
     }
     
+    @objc func updateProfilePic() {
+        let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+        do {
+            let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(User.loggedIn()?.profilePic ?? "download.jpg")", from: .caches, as: UIImage.self)
+            row?.cell.actionButton.setImage(downloadedImage, for: .normal)
+        }catch {
+            print(error)
+        }
+    }
 }
 
 extension ArtisanGeneralInfo: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

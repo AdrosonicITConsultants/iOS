@@ -45,4 +45,32 @@ extension User {
             }
         }
     }
+    
+    func saveOrUpdateProfileImage(data: Data) {
+        let realm = try! Realm()
+        if let object = realm.objects(User.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                try Disk.save(data, to: .caches, as: "\(entityID)/\(profilePic ?? "download.jpg")")
+                profilePicUrl = try? Disk.retrieveURL("\(entityID)/\(profilePic ?? "download.jpg")", from: .caches, as: Data.self).absoluteString
+            }
+        } else {
+            try? realm.write {
+                realm.add(self)
+            }
+        }
+    }
+    
+    func saveOrUpdateBrandLogo(data: Data) {
+        let realm = try! Realm()
+        if let object = realm.objects(User.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                try Disk.save(data, to: .caches, as: "\(entityID)/\(logo ?? "download.jpg")")
+                logoUrl = try? Disk.retrieveURL("\(entityID)/\(logo ?? "download.jpg")", from: .caches, as: Data.self).absoluteString
+            }
+        } else {
+            try? realm.write {
+                realm.add(self)
+            }
+        }
+    }
 }

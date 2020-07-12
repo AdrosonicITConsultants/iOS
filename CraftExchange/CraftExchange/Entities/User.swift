@@ -32,6 +32,7 @@ class User: Object, Decodable {
   dynamic var emailVerified: Int?
   @objc dynamic var lastLoggedIn: String?
   @objc dynamic var profilePic: String?
+  @objc dynamic var logo: String?
   @objc dynamic var pointOfContact: CompanyPointOfContact?
   var addressList = List<Address>()
   var paymentAccountList = List<PaymentAccDetails>()
@@ -43,6 +44,8 @@ class User: Object, Decodable {
   dynamic var accountNonExpired: Bool?
   dynamic var accountNonLocked: Bool?
   dynamic var credentialsNonExpired: Bool?
+  @objc dynamic var logoUrl: String?
+  @objc dynamic var profilePicUrl: String?
     
   enum CodingKeys: String, CodingKey {
     case id = "id"
@@ -76,6 +79,7 @@ class User: Object, Decodable {
     case accountNonLocked = "accountNonLocked"
     case credentialsNonExpired = "credentialsNonExpired"
     case userProductCategories = "userProductCategories"
+    case logo = "logo"
   }
 
   convenience required init(from decoder: Decoder) throws {
@@ -117,6 +121,7 @@ class User: Object, Decodable {
     if let list = try? values.decodeIfPresent([UserProductCategory].self, forKey: .userProductCategories) {
         userProductCategories.append(objectsIn: list)
     }
+    logo = try? values.decodeIfPresent(String.self, forKey: .logo)
     }
     
 }
