@@ -23,19 +23,11 @@ extension User {
         let realm = try! Realm()
         if let object = realm.objects(User.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                designation = object.designation
-                alternateMobile = object.alternateMobile
-                buyerCompanyDetails?.contact = object.buyerCompanyDetails?.contact
-                buyerCompanyDetails?.companyName = object.buyerCompanyDetails?.companyName
-                buyerCompanyDetails?.compDesc = object.buyerCompanyDetails?.compDesc
-                buyerCompanyDetails?.logo = object.buyerCompanyDetails?.logo
-                buyerCompanyDetails?.cin = object.buyerCompanyDetails?.cin
-                buyerCompanyDetails?.gstNo = object.buyerCompanyDetails?.gstNo
-                pointOfContact?.pocFirstName = object.pointOfContact?.pocFirstName
-                pointOfContact?.pocLastName = object.pointOfContact?.pocLastName
-                pointOfContact?.pocEmail = object.pointOfContact?.pocEmail
-                pointOfContact?.pocContantNo = object.pointOfContact?.pocContantNo
-                paymentAccountList = object.paymentAccountList
+                object.designation = designation
+                object.alternateMobile = alternateMobile
+                object.buyerCompanyDetails = buyerCompanyDetails
+                object.pointOfContact = pointOfContact
+                object.paymentAccountList = paymentAccountList
                 object.userProductCategories = userProductCategories
             }
         } else {

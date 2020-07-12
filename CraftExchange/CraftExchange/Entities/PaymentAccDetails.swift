@@ -22,7 +22,7 @@ class PaymentAccDetails: Object, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case AccNoUpiMobile = "accNoUpiMobile"
+        case AccNoUpiMobile = "accNo_UPI_Mobile"
         case name = "name"
         case bankName = "bankName"
         case branchName = "branchName"

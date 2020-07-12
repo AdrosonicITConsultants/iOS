@@ -124,7 +124,40 @@ extension User {
           path: "user/edit/artistProfile?address=\(str)",
             method: .put,
             headers: headers,
-            resource: {print(String(data: $0, encoding: .utf8) ?? "user registration failed")
+            resource: {print(String(data: $0, encoding: .utf8) ?? "artist edit profile failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func updateArtisanBrandDetails(json: [String: Any]) -> Request<Data, APIError> {
+        let finalJson = ["companyDetails" : json]
+        var str = finalJson.jsonString
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["accept": "application/json"]
+        return Request(
+            path: "user/edit/artistBrandDetails?editBrandDetails=\(str)",
+            method: .put,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func updateArtisanBankDetails(json: [[String: Any]]) -> Request<Data, APIError> {
+        var str = json.jsonString
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["accept": "application/json"]
+        let parameters: [String: Any] = ["paymentAccountDetails":json]
+        return Request(
+          path: "user/edit/bankDetails",
+            method: .put,
+            parameters: JSONParameters(parameters),
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
               return $0},
             error: APIError.init,
             needsAuthorization: true

@@ -186,6 +186,7 @@ struct buyerCompDetails {
     var gstNo: String?
     var logo: String?
     var companyLogo: Data?
+    var compDesc: String?
 }
 
 extension buyerCompDetails {
@@ -208,7 +209,49 @@ extension buyerCompDetails {
     if let logo = logo {
         message["logo"] = logo
     }
+    if let compDesc = compDesc {
+        message["desc"] = compDesc
+    }
+    return message
+  }
+}
+
+struct bankDetails {
+    var id: Int = 0
+    let accNo: String?
+    let accType: (accId: Int, accDesc: String)?
+    var bankName: String?
+    var branchName: String?
+    var ifsc: String?
+    var name: String?
+}
+
+extension bankDetails {
+  func toJSON() -> [String: Any] {
+    var message: [String: Any] = [:]
     
+    message["id"] = id
+    if let accNo = accNo {
+        message["accNo_UPI_Mobile"] = accNo
+    }
+    if let bankName = bankName {
+        message["bankName"] = bankName
+    }
+    if let branchName = branchName {
+        message["branch"] = branchName
+    }
+    if let ifsc = ifsc {
+        message["ifsc"] = ifsc
+    }
+    if let name = name {
+        message["name"] = name
+    }
+    if let accType = accType {
+      var json: [String: Any] = [:]
+      json["id"] = accType.accId
+      json["accountDesc"] = accType.accDesc
+      message["accountType"] = json
+    }
     return message
   }
 }

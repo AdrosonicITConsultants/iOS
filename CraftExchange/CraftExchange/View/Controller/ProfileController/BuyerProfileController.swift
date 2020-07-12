@@ -23,6 +23,8 @@ import WMSegmentControl
 class BuyerProfileViewModel {
     var viewDidLoad: (() -> Void)?
     var updateArtisanProfile: (([String:Any]) -> Void)?
+    var updateArtisanBrandDetails: (([String:Any]) -> Void)?
+    var updateArtisanBankDetails: (([[String:Any]]) -> Void)?
 }
 
 class BuyerProfileController: UIViewController {

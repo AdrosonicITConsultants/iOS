@@ -73,7 +73,7 @@ extension REGBuyerCompanyInfoService {
         let panNo = vc.viewModel.panNo.value ?? nil
         let gstNo = vc.viewModel.gstNo.value ?? nil
         
-        let newCompDetails = buyerCompDetails.init(id: 0, companyName: compName, cin: cin, contact: panNo, gstNo: gstNo, logo: nil)
+        let newCompDetails = buyerCompDetails.init(id: 0, companyName: compName, cin: cin, contact: panNo, gstNo: gstNo, logo: nil, compDesc: nil)
         newUser.buyerCompanyDetails = newCompDetails
         
         if (vc.viewModel.pocFirstName.value != nil && vc.viewModel.pocFirstName.value?.isNotBlank ?? false) ||

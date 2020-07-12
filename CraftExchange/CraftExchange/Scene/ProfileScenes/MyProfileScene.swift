@@ -38,6 +38,36 @@ extension MyProfileService {
         }.dispose(in: vc.bag)
     }
     
+    vc.viewModel.updateArtisanBrandDetails = { json in
+        self.updateArtisanBrand(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool ?? false {
+                        DispatchQueue.main.async {
+                            vc.alert("Success", "\(json["data"] as? String ?? "Artisan Brand Details updated successfully".localized)") { (action) in
+                            }
+                        }
+                  }
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
+    vc.viewModel.updateArtisanBankDetails = { json in
+        self.updateArtisanBank(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool ?? false {
+                        DispatchQueue.main.async {
+                            vc.alert("Success", "\(json["data"] as? String ?? "Artisan Brand Details updated successfully".localized)") { (action) in
+                            }
+                        }
+                  }
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
     vc.viewModel.viewDidLoad = {
         if vc.reachabilityManager?.connection != .unavailable {
             vc.showLoading()
