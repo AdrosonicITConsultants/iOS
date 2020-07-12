@@ -31,7 +31,7 @@ class BuyerProfileController: UIViewController {
     
     @IBOutlet weak var childContainerView: UIView!
     @IBOutlet weak var segmentControl: WMSegment!
-    @IBOutlet weak var profileImg: UIImageView!
+    @IBOutlet weak var profileImg: UIButton!
     @IBOutlet weak var ratingLbl: UILabel!
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var buyerNameLbl: UILabel!
@@ -93,6 +93,31 @@ class BuyerProfileController: UIViewController {
             buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
             companyName.text = User.loggedIn()?.buyerCompanyDetails?.companyName
             ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
+            profileImg.imageView?.layer.cornerRadius = 35
+            if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails?.logo {
+                do {
+                    let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
+                    profileImg.setImage(downloadedImage, for: .normal)
+                }catch {
+                    print(error)
+                }
+            }else if  let name = User.loggedIn()?.buyerCompanyDetails?.logo {
+                let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(User.loggedIn()?.entityID)/CompanyDetails/Logo/\(name)")
+                URLSession.shared.dataTask(with: url!) { data, response, error in
+                    // do your stuff here...
+                    DispatchQueue.main.async {
+                        // do something on the main queue
+                        if error == nil {
+                            if let finalData = data {
+                                User.loggedIn()?.saveOrUpdateBrandLogo(data: finalData)
+                                NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
+                            }
+                        }
+                    }
+                }.resume()
+            }else {
+                profileImg.setImage(UIImage.init(named: "user"), for: .normal)
+            }
         }
     }
     
@@ -107,6 +132,28 @@ class BuyerProfileController: UIViewController {
         }else {
             segmentControl.buttonTitles = "General, Brand, Delivery"
         }
+    }
+    
+    @IBAction func updateBrandLogoSelected(_ sender: Any) {
+        let alert = UIAlertController.init(title: "Please Select:".localized, message: "Options:".localized, preferredStyle: .actionSheet)
+        let action1 = UIAlertAction.init(title: "Camera".localized, style: .default) { (action) in
+            let imagePicker =  UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        alert.addAction(action1)
+        let action2 = UIAlertAction.init(title: "Gallery".localized, style: .default) { (action) in
+          let imagePicker =  UIImagePickerController()
+          imagePicker.delegate = self
+          imagePicker.sourceType = .photoLibrary
+          self.present(imagePicker, animated: true, completion: nil)
+        }
+        alert.addAction(action2)
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func segmentValueChanged(_ sender: Any) {
@@ -202,3 +249,20 @@ class BuyerProfileController: UIViewController {
         viewController.removeFromParent()
     }
 }
+
+extension BuyerProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+            print("Image not found!")
+            return
+        }
+        profileImg.setImage(selectedImage, for: .normal)
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
