@@ -25,4 +25,8 @@ class MyProfileService: BaseService<Data> {
     func fetchAllProductCategory() -> SafeSignal<Data> {
       return ProductCategory.getAllProducts().response(using: client).debug()
     }
+    
+    func updateArtisanProfile(json: [String: Any]) -> SafeSignal<Data> {
+        return User.updateArtisanProfile(json: json).response(using: client).debug()
+    }
 }

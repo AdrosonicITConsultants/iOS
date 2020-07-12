@@ -21,7 +21,8 @@ import Realm
 import WMSegmentControl
 
 class BuyerProfileViewModel {
-  var viewDidLoad: (() -> Void)?
+    var viewDidLoad: (() -> Void)?
+    var updateArtisanProfile: (([String:Any]) -> Void)?
 }
 
 class BuyerProfileController: UIViewController {

@@ -23,6 +23,21 @@ extension MyProfileService {
         print("responseString")
     }.dispose(in: vc.bag)
     
+    vc.viewModel.updateArtisanProfile = { json in
+        self.updateArtisanProfile(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool ?? false {
+                        DispatchQueue.main.async {
+                            vc.alert("Success", "\(json["data"] as? String ?? "Profile updated successfully".localized)") { (action) in
+                            }
+                        }
+                  }
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
     vc.viewModel.viewDidLoad = {
         if vc.reachabilityManager?.connection != .unavailable {
             vc.showLoading()
@@ -59,6 +74,9 @@ extension MyProfileService {
                 let userData = try JSONSerialization.data(withJSONObject: userObj, options: .prettyPrinted)
                 let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
                 loggedInUser?.saveOrUpdate()
+                    loggedInUser?.addressList .forEach({ (addr) in
+                        addr.saveOrUpdate()
+                    })
                 DispatchQueue.main.async {
                     vc.buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
                     vc.companyName.text = User.loggedIn()?.buyerCompanyDetails?.companyName

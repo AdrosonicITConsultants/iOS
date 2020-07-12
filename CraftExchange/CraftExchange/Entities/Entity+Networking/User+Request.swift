@@ -115,4 +115,19 @@ extension User {
             needsAuthorization: true
         )
     }
+    
+    public static func updateArtisanProfile(json: [String: Any]) -> Request<Data, APIError> {
+      var str = json.jsonString
+      str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+      let headers: [String: String] = ["accept": "application/json"]
+        return Request(
+          path: "user/edit/artistProfile?address=\(str)",
+            method: .put,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "user registration failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
 }

@@ -32,7 +32,7 @@ extension Address {
             finalString.append(" \(district ?? "")")
         }
         if state != nil && state != "" {
-            finalString.append(", \(street ?? "")")
+            finalString.append(", \(state ?? "")")
         }
         if pincode != nil && pincode != "" {
             finalString.append(", \(pincode ?? "")")
@@ -47,15 +47,15 @@ extension Address {
         let realm = try! Realm()
         if let object = realm.objects(Address.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                line1 = object.line1
-                line2 = object.line2
-                state = object.state
-                street = object.street
-                city = object.city
-                district = object.district
-                country = object.country
-                pincode = object.pincode
-                landmark = object.landmark
+                object.line1 = line1
+                object.line2 = line2
+                object.state = state
+                object.street = street
+                object.city = city
+                object.district = district
+                object.country = country
+                object.pincode = pincode
+                object.landmark = landmark
             }
         } else {
             try? realm.write {

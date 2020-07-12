@@ -20,14 +20,26 @@ import RealmSwift
 import Realm
 import ImageRow
 
+class ArtisanGeneralInfoViewModel {
+  var addr1 = Observable<String?>(nil)
+  var district = Observable<String?>(nil)
+  var state = Observable<String?>(nil)
+  var country = Observable<String?>(nil)
+  var pincode = Observable<String?>(nil)
+}
+
 class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
-    
+    var editEnabled = false
+    var viewModel = ArtisanGeneralInfoViewModel()
+    var allCountries: Results<Country>?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .red
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfilePic), name: NSNotification.Name("loadProfileImage"), object: nil)
         self.view.backgroundColor = .white
+        let realm = try! Realm()
+        allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
         form +++
             Section()
             <<< ProfileImageRow() {
@@ -133,7 +145,78 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 cell.detailTextLabel?.textColor = .black
                 cell.detailTextLabel?.numberOfLines = 10
                 cell.detailTextLabel?.font = .systemFont(ofSize: 12)
+                })
+            +++ Section() {
+                $0.tag = "EditAddressSection"
+                $0.hidden = true
+            }
+            <<< TextRow() {
+                $0.tag = "AddressEditRow1"
+                $0.title = "Address Line 1".localized
+                var addressString = ""
+                User.loggedIn()?.addressList .forEach({ (address) in
+                    if address.addressType?.entityID == 1 {
+                        addressString = address.line1 ?? ""
+                    }
+                })
+                $0.cell.textField.text = addressString
+                self.viewModel.addr1.value = $0.cell.textField.text
+                self.viewModel.addr1.bidirectionalBind(to: $0.cell.textField.reactive.text)
+                }.cellUpdate({ (cell, row) in
+                    self.viewModel.addr1.value = cell.textField.text
+                })
+            <<< TextRow() {
+                $0.tag = "AddressEditRow2"
+                $0.title = "District".localized
+                var addressString = ""
+                User.loggedIn()?.addressList .forEach({ (address) in
+                    if address.addressType?.entityID == 1 {
+                        addressString = address.district ?? ""
+                    }
+                })
+                $0.cell.textField.text = addressString
+                self.viewModel.district.value = $0.cell.textField.text
+                self.viewModel.district.bidirectionalBind(to: $0.cell.textField.reactive.text)
+                }.cellUpdate({ (cell, row) in
+                })
+            <<< TextRow() {
+                $0.tag = "AddressEditRow3"
+                $0.title = "State".localized
+                var addressString = ""
+                User.loggedIn()?.addressList .forEach({ (address) in
+                    if address.addressType?.entityID == 1 {
+                        addressString = address.state ?? ""
+                    }
+                })
+                $0.cell.textField.text = addressString
+                self.viewModel.state.value = $0.cell.textField.text
+                self.viewModel.state.bidirectionalBind(to: $0.cell.textField.reactive.text)
+                }.cellUpdate({ (cell, row) in
+                })
+            <<< TextRow() {
+                $0.tag = "AddressEditRow4"
+                $0.title = "Pincode".localized
+                var addressString = ""
+                User.loggedIn()?.addressList .forEach({ (address) in
+                    if address.addressType?.entityID == 1 {
+                        addressString = address.pincode ?? ""
+                    }
+                })
+                $0.cell.textField.text = addressString
+                self.viewModel.pincode.value = $0.cell.textField.text
+                self.viewModel.pincode.bidirectionalBind(to: $0.cell.textField.reactive.text)
+            }.cellUpdate({ (cell, row) in
             })
+            <<< ActionSheetRow<String>() { row in
+                row.tag = "AddressEditRow5"
+                row.title = "Country"
+                row.cell.height = { 80.0 }
+                row.options = allCountries?.compactMap { $0.name }
+            }.cellUpdate({ (cell, row) in
+                row.cell.textLabel?.text = "Country".localized
+                self.viewModel.country.value = row.value
+            })
+            +++ Section()
             <<< RoundedButtonViewRow("EditArtisanDetails") {
                 $0.tag = "EditArtisanDetails"
                 $0.cell.titleLabel.isHidden = true
@@ -156,16 +239,27 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
     func customButtonSelected(tag: Int) {
         //Edit selected
         let btnRow = self.form.rowBy(tag: "EditArtisanDetails") as? RoundedButtonViewRow
+        let secRow = self.form.sectionBy(tag: "EditAddressSection")
         if btnRow?.cell.buttonView.titleLabel?.text == "Edit your details" {
+            editEnabled = true
+            secRow?.hidden = false
+            secRow?.evaluateHidden()
             btnRow?.cell.buttonView.setTitle("Save your details", for: .normal)
             btnRow?.cell.buttonView.borderColour = .red
             btnRow?.cell.buttonView.backgroundColor = .red
         }else {
+            editEnabled = false
+            secRow?.hidden = true
+            secRow?.evaluateHidden()
             btnRow?.cell.buttonView.setTitle("Edit your details", for: .normal)
             btnRow?.cell.buttonView.borderColour = .black
             btnRow?.cell.buttonView.backgroundColor = .black
+            if let parentVC = self.parent as? BuyerProfileController {
+                let selectedCountryObj = self.allCountries?.filter("%K == %@", "name", self.viewModel.country.value).first
+                let newAddr = LocalAddress.init(id: User.loggedIn()?.addressList.first?.entityID ?? 0, addrType: (1,"Registered"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: nil, district: self.viewModel.district.value, landmark: nil, line1: self.viewModel.addr1.value, line2: nil, pincode: self.viewModel.pincode.value, state: self.viewModel.state.value , street: nil, userId: User.loggedIn()?.entityID ?? 0)
+                parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON())
+            }
         }
-        
     }
     
     @objc func updateProfilePic() {

@@ -35,9 +35,8 @@ extension User {
                 pointOfContact?.pocLastName = object.pointOfContact?.pocLastName
                 pointOfContact?.pocEmail = object.pointOfContact?.pocEmail
                 pointOfContact?.pocContantNo = object.pointOfContact?.pocContantNo
-                addressList = object.addressList
                 paymentAccountList = object.paymentAccountList
-                userProductCategories = object.userProductCategories
+                object.userProductCategories = userProductCategories
             }
         } else {
             try? realm.write {
