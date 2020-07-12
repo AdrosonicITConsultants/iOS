@@ -737,6 +737,9 @@
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="updateBrandLogoSelected:" destination="eOc-9y-B6R" eventType="touchUpInside" id="qJ8-v0-iO8"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X00-T7-K4f" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
                                                 <rect key="frame" x="147" y="531" width="120" height="40"/>
@@ -977,6 +980,7 @@
                     <navigationItem key="navigationItem" id="VkZ-GR-jxy"/>
                     <connections>
                         <outlet property="checkboxButton" destination="kTT-Hn-FdU" id="gGN-NP-yDR"/>
+                        <outlet property="uploadImageButton" destination="2cW-rB-2Wg" id="oDU-Pv-0yP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0SS-Gr-viD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

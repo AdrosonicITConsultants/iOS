@@ -135,25 +135,7 @@ class BuyerProfileController: UIViewController {
     }
     
     @IBAction func updateBrandLogoSelected(_ sender: Any) {
-        let alert = UIAlertController.init(title: "Please Select:".localized, message: "Options:".localized, preferredStyle: .actionSheet)
-        let action1 = UIAlertAction.init(title: "Camera".localized, style: .default) { (action) in
-            let imagePicker =  UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-        alert.addAction(action1)
-        let action2 = UIAlertAction.init(title: "Gallery".localized, style: .default) { (action) in
-          let imagePicker =  UIImagePickerController()
-          imagePicker.delegate = self
-          imagePicker.sourceType = .photoLibrary
-          self.present(imagePicker, animated: true, completion: nil)
-        }
-        alert.addAction(action2)
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
-        }
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        self.showImagePickerAlert()
     }
     
     @IBAction func segmentValueChanged(_ sender: Any) {

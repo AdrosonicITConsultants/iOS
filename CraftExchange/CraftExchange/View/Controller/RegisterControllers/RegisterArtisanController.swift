@@ -21,7 +21,8 @@ class RegisterArtisanController: UIViewController {
   var isTCAccepted = false
   @IBOutlet weak var completeButton: RoundedButton!
   @IBOutlet weak var checkboxButton: UIButton!
-  
+  @IBOutlet weak var uploadImageButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navigationItem.rightBarButtonItem = roleBarButton()
@@ -71,5 +72,26 @@ class RegisterArtisanController: UIViewController {
         }
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.registerUser?.productCategoryIds = self.viewModel.selectedProdCat.value
+    }
+    
+    @IBAction func updateBrandLogoSelected(_ sender: Any) {
+        self.showImagePickerAlert()
+    }
+}
+
+extension RegisterArtisanController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+            print("Image not found!")
+            return
+        }
+        uploadImageButton.setImage(selectedImage, for: .normal)
+        uploadImageButton.setTitle("", for: .normal)
+        picker.dismiss(animated: true, completion: nil)
     }
 }
