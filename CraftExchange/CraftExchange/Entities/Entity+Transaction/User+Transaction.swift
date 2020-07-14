@@ -25,14 +25,34 @@ extension User {
             try? realm.write {
                 object.designation = designation
                 object.alternateMobile = alternateMobile
-                object.buyerCompanyDetails = buyerCompanyDetails
-                object.pointOfContact = pointOfContact
-                object.paymentAccountList = paymentAccountList
-                object.userProductCategories = userProductCategories
+                object.pancard = pancard
+                if object.buyerCompanyDetails.count > 0 {
+                    object.buyerCompanyDetails.first?.companyName = buyerCompanyDetails.first?.companyName
+                    object.buyerCompanyDetails.first?.compDesc = buyerCompanyDetails.first?.compDesc
+                    object.buyerCompanyDetails.first?.logo = buyerCompanyDetails.first?.logo
+                    object.buyerCompanyDetails.first?.cin = buyerCompanyDetails.first?.cin
+                    object.buyerCompanyDetails.first?.gstNo = buyerCompanyDetails.first?.gstNo
+                    object.buyerCompanyDetails.first?.contact = buyerCompanyDetails.first?.contact
+                }else {
+                    object.buyerCompanyDetails = buyerCompanyDetails
+                }
+                
+                if object.pointOfContact.count > 0 {
+                    object.pointOfContact.first?.pocContantNo = pointOfContact.first?.pocContantNo
+                    object.pointOfContact.first?.pocEmail = pointOfContact.first?.pocEmail
+                    object.pointOfContact.first?.pocFirstName = pointOfContact.first?.pocFirstName
+                    object.pointOfContact.first?.pocLastName = pointOfContact.first?.pocLastName
+                }else {
+                    object.pointOfContact = pointOfContact
+                }
+                
+                object.paymentAccountList = self.paymentAccountList
+                object.userProductCategories = self.userProductCategories
+                object.addressList = addressList
             }
         } else {
             try? realm.write {
-                realm.add(self)
+                realm.add(self, update: .modified)
             }
         }
     }
@@ -46,7 +66,7 @@ extension User {
             }
         } else {
             try? realm.write {
-                realm.add(self)
+                realm.add(self, update: .modified)
             }
         }
     }
@@ -60,7 +80,7 @@ extension User {
             }
         } else {
             try? realm.write {
-                realm.add(self)
+                realm.add(self, update: .modified)
             }
         }
     }

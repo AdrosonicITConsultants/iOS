@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 class ClusterDetails: Object, Decodable {
-
+    @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
     @objc dynamic var clusterDescription: String?
     @objc dynamic var adjective: String?
@@ -21,12 +21,17 @@ class ClusterDetails: Object, Decodable {
         case clusterDescription = "desc"
         case adjective = "adjective"
     }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 
     convenience required init(from decoder: Decoder) throws {
       
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+        id = "\(entityID)"
         clusterDescription = try? values.decodeIfPresent(String.self, forKey: .clusterDescription)
         adjective = try values.decodeIfPresent(String.self, forKey: .adjective)
     }

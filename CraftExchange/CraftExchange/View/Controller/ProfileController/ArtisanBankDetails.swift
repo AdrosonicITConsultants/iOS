@@ -39,6 +39,12 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
         super.viewDidLoad()
         self.view.backgroundColor = .red
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
+        var addressString = ""
+        User.loggedIn()?.paymentAccountList .forEach({ (account) in
+            if account.accType.first?.entityID == 1 {
+                addressString = account.AccNoUpiMobile ?? ""
+            }
+        })
         
         self.view.backgroundColor = .white
         form +++
@@ -54,14 +60,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType == 1 {
+                    if account.accType.first?.entityID == 1 {
                         valueString = account.AccNoUpiMobile ?? ""
                     }
                 })
                 $0.cell.valueTextField.text = valueString
-                $0.cell.valueTextField.textColor = .black
                 self.viewModel.accNo.value = $0.cell.valueTextField.text
                 self.viewModel.accNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -87,14 +93,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType == 1 {
+                    if account.accType.first?.entityID == 1 {
                         valueString = account.bankName ?? ""
                     }
                 })
                 $0.cell.valueTextField.text = valueString
-                $0.cell.valueTextField.textColor = .black
                 self.viewModel.bankName.value = $0.cell.valueTextField.text
                 self.viewModel.bankName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -120,14 +126,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType == 1 {
+                    if account.accType.first?.entityID == 1 {
                         valueString = account.name ?? ""
                     }
                 })
                 $0.cell.valueTextField.text = valueString
-                $0.cell.valueTextField.textColor = .black
                 self.viewModel.benficiaryName.value = $0.cell.valueTextField.text
                 self.viewModel.benficiaryName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -153,14 +159,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType == 1 {
+                    if account.accType.first?.entityID == 1 {
                         valueString = account.branchName ?? ""
                     }
                 })
                 $0.cell.valueTextField.text = valueString
-                $0.cell.valueTextField.textColor = .black
                 self.viewModel.branchName.value = $0.cell.valueTextField.text
                 self.viewModel.branchName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -186,14 +192,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType == 1 {
+                    if account.accType.first?.entityID == 1 {
                         valueString = account.ifsc ?? ""
                     }
                 })
                 $0.cell.valueTextField.text = valueString
-                $0.cell.valueTextField.textColor = .black
                 self.viewModel.ifsc.value = $0.cell.valueTextField.text
                 self.viewModel.ifsc.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -223,15 +229,8 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
             <<< TextRow() {
                 $0.tag = "gpay"
                 $0.cell.height = { 60.0 }
-                $0.title = "Google Pay UPI Id".localized
+                $0.title = "Google Pay".localized
                 $0.cell.imageView?.image = UIImage.init(named: "gPayIcon")
-                var valueString = ""
-                User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType == 2 {
-                        valueString = account.AccNoUpiMobile ?? ""
-                    }
-                })
-                $0.cell.textField.text = valueString
                 self.viewModel.gpayId.value = $0.cell.textField.text
                 self.viewModel.gpayId.bidirectionalBind(to: $0.cell.textField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -244,20 +243,20 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     cell.isUserInteractionEnabled = false
                     cell.textField.isUserInteractionEnabled = false
                     cell.textField.layer.borderColor = UIColor.white.cgColor
+                    var valueString = ""
+                    User.loggedIn()?.paymentAccountList .forEach({ (account) in
+                        if account.accType.first?.entityID == 2 {
+                            valueString = account.AccNoUpiMobile ?? ""
+                        }
+                    })
+                    cell.textField.text = valueString
                 }
             })
             <<< TextRow() {
                 $0.tag = "paytm"
                 $0.cell.height = { 60.0 }
-                $0.title = "Paytm Registered Mobile Number".localized
+                $0.title = "Paytm".localized
                 $0.cell.imageView?.image = UIImage.init(named: "paytmIcon")
-                var valueString = ""
-                User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType == 3 {
-                        valueString = account.AccNoUpiMobile ?? ""
-                    }
-                })
-                $0.cell.textField.text = valueString
                 self.viewModel.paytm.value = $0.cell.textField.text
                 self.viewModel.paytm.bidirectionalBind(to: $0.cell.textField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -270,6 +269,13 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     cell.isUserInteractionEnabled = false
                     cell.textField.isUserInteractionEnabled = false
                     cell.textField.layer.borderColor = UIColor.white.cgColor
+                    var valueString = ""
+                    User.loggedIn()?.paymentAccountList .forEach({ (account) in
+                        if account.accType.first?.entityID == 4 {
+                            valueString = account.AccNoUpiMobile ?? ""
+                        }
+                    })
+                    cell.textField.text = valueString
                 }
             })
             <<< RoundedButtonViewRow("EditArtisanBankDetails") {
@@ -306,14 +312,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {
                 var finalJson: [[String: Any]]?
-                let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.accNo.value, accType: (accId: 0, accDesc: "Bank"), bankName: self.viewModel.bankName.value, branchName: self.viewModel.branchName.value, ifsc: self.viewModel.ifsc.value, name: self.viewModel.benficiaryName.value)
+                let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.accNo.value, accType: (accId: 1, accDesc: "bank"), bankName: self.viewModel.bankName.value, branchName: self.viewModel.branchName.value, ifsc: self.viewModel.ifsc.value, name: self.viewModel.benficiaryName.value)
                 finalJson = [newBankDetails.toJSON()]
                 if self.viewModel.gpayId.value != "" {
-                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.gpayId.value, accType: (accId: 1, accDesc: "UPI"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
+                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.gpayId.value, accType: (accId: 2, accDesc: "gpay"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
                 }
                 if self.viewModel.paytm.value != "" {
-                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.paytm.value, accType: (accId: 2, accDesc: "Paytm"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
+                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.paytm.value, accType: (accId: 4, accDesc: "paytm"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
                 }
                 if let _ = finalJson {

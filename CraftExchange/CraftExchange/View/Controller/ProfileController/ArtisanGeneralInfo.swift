@@ -178,6 +178,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 self.viewModel.district.value = $0.cell.textField.text
                 self.viewModel.district.bidirectionalBind(to: $0.cell.textField.reactive.text)
                 }.cellUpdate({ (cell, row) in
+                    self.viewModel.district.value = cell.textField.text
                 })
             <<< TextRow() {
                 $0.tag = "AddressEditRow3"
@@ -192,6 +193,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 self.viewModel.state.value = $0.cell.textField.text
                 self.viewModel.state.bidirectionalBind(to: $0.cell.textField.reactive.text)
                 }.cellUpdate({ (cell, row) in
+                    self.viewModel.state.value = cell.textField.text
                 })
             <<< TextRow() {
                 $0.tag = "AddressEditRow4"
@@ -206,6 +208,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 self.viewModel.pincode.value = $0.cell.textField.text
                 self.viewModel.pincode.bidirectionalBind(to: $0.cell.textField.reactive.text)
             }.cellUpdate({ (cell, row) in
+                self.viewModel.pincode.value = cell.textField.text
             })
             <<< ActionSheetRow<String>() { row in
                 row.tag = "AddressEditRow5"

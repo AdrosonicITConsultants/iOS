@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 class User: Object, Decodable {
-
+    @objc dynamic var id: String = ""
   @objc dynamic var entityID: Int = 0
   @objc dynamic var firstName: String?
   @objc dynamic var lastName: String?
@@ -23,7 +23,7 @@ class User: Object, Decodable {
   @objc dynamic var pancard: String?
   @objc dynamic var websiteLink: String?
   @objc dynamic var socialMediaLink: String?
-  @objc dynamic var buyerCompanyDetails: BuyerCompanyDetails?
+  var buyerCompanyDetails = List<BuyerCompanyDetails>()
   @objc dynamic var weaverDetails: Weaver?
   @objc dynamic var cluster: ClusterDetails?
   @objc dynamic var refRoleId: String?
@@ -33,7 +33,7 @@ class User: Object, Decodable {
   @objc dynamic var lastLoggedIn: String?
   @objc dynamic var profilePic: String?
   @objc dynamic var logo: String?
-  @objc dynamic var pointOfContact: CompanyPointOfContact?
+  var pointOfContact = List<CompanyPointOfContact>()
   var addressList = List<Address>()
   var paymentAccountList = List<PaymentAccDetails>()
   var userProductCategories = List<UserProductCategory>()
@@ -46,6 +46,10 @@ class User: Object, Decodable {
   dynamic var credentialsNonExpired: Bool?
   @objc dynamic var logoUrl: String?
   @objc dynamic var profilePicUrl: String?
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
     
   enum CodingKeys: String, CodingKey {
     case id = "id"
@@ -86,6 +90,7 @@ class User: Object, Decodable {
     self.init()
     let values = try decoder.container(keyedBy: CodingKeys.self)
     entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+    id = "\(entityID)"
     firstName = try? values.decodeIfPresent(String.self, forKey: .firstName)
     lastName = try? values.decodeIfPresent(String.self, forKey: .lastName)
     email = try? values.decodeIfPresent(String.self, forKey: .email)
@@ -96,8 +101,12 @@ class User: Object, Decodable {
     pancard = try? values.decodeIfPresent(String.self, forKey: .pancard)
     websiteLink = try? values.decodeIfPresent(String.self, forKey: .websiteLink)
     socialMediaLink = try? values.decodeIfPresent(String.self, forKey: .socialMediaLink)
-    buyerCompanyDetails = try? values.decodeIfPresent(BuyerCompanyDetails.self, forKey: .buyerCompanyDetails)
-    pointOfContact = try? values.decodeIfPresent(CompanyPointOfContact.self, forKey: .pointOfContact)
+    if let list = try? values.decodeIfPresent(BuyerCompanyDetails.self, forKey: .buyerCompanyDetails) {
+        buyerCompanyDetails.append(list)
+    }
+    if let list = try? values.decodeIfPresent(CompanyPointOfContact.self, forKey: .pointOfContact) {
+        pointOfContact.append(list)
+    }
     weaverDetails = try? values.decodeIfPresent(Weaver.self, forKey: .weaverDetails)
     cluster = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster)
     refRoleId = try? values.decodeIfPresent(String.self, forKey: .refRoleId)

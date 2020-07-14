@@ -20,18 +20,44 @@ import RealmSwift
 import Realm
 import WMSegmentControl
 
-class BuyerProfileViewModel {
+class MyProfileViewModel {
     var viewDidLoad: (() -> Void)?
     var updateArtisanProfile: (([String:Any]) -> Void)?
     var updateArtisanBrandDetails: (([String:Any]) -> Void)?
     var updateArtisanBankDetails: (([[String:Any]]) -> Void)?
+    var updateBuyerDetails: (([String:Any]) -> Void)?
+    
+    var addr1 = Observable<String?>(nil)
+    var addr2 = Observable<String?>(nil)
+    var district = Observable<String?>(nil)
+    var state = Observable<String?>(nil)
+    var street = Observable<String?>(nil)
+    var country = Observable<String?>(nil)
+    var pincode = Observable<String?>(nil)
+    var landmark = Observable<String?>(nil)
+    var city = Observable<String?>(nil)
+    var alternateMobile = Observable<String?>(nil)
+    
+    var companyName = Observable<String?>(nil)
+    var compDesc = Observable<String?>(nil)
+    var cin = Observable<String?>(nil)
+    var contact = Observable<String?>(nil)
+    var gst = Observable<String?>(nil)
+    
+    var pocFirstName = Observable<String?>(nil)
+    var poclastName = Observable<String?>(nil)
+    var pocEmail = Observable<String?>(nil)
+    var pocContact = Observable<String?>(nil)
+    
+    var designation = Observable<String?>(nil)
+    var pancard = Observable<String?>(nil)
 }
 
 class BuyerProfileController: UIViewController {
 
-    let viewModel = BuyerProfileViewModel()
+    let viewModel = MyProfileViewModel()
     var reachabilityManager = try? Reachability()
-    
+    var isEditable = false
     @IBOutlet weak var childContainerView: UIView!
     @IBOutlet weak var segmentControl: WMSegment!
     @IBOutlet weak var profileImg: UIButton!
@@ -41,21 +67,25 @@ class BuyerProfileController: UIViewController {
     @IBOutlet weak var yellowBgView: UIView!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var buttonView: UIView!
+    var allCountries: Results<Country>?
     
     private lazy var GeneralInfoViewController: BuyerGeneralInfo = {
         var viewController = BuyerGeneralInfo.init()
+        viewController.isEditable = self.isEditable
         self.add(asChildViewController: viewController)
         return viewController
     }()
 
     private lazy var CompanyProfileInfoViewController: BuyerCompanyProfileInfo = {
         var viewController = BuyerCompanyProfileInfo.init()
+        viewController.isEditable = self.isEditable
         self.add(asChildViewController: viewController)
         return viewController
     }()
     
     private lazy var ProfileAddrInfoViewController: BuyerProfileAddrInfo = {
         var viewController = BuyerProfileAddrInfo.init()
+        viewController.isEditable = self.isEditable
         self.add(asChildViewController: viewController)
         return viewController
     }()
@@ -80,6 +110,8 @@ class BuyerProfileController: UIViewController {
     
     override func viewDidLoad() {
         viewModel.viewDidLoad?()
+        let realm = try! Realm()
+        allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
         setupSegmentTitle()
         if KeychainManager.standard.userRole == "Artisan" {
             self.navigationItem.title = "Hello \(User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? "")"
@@ -94,17 +126,17 @@ class BuyerProfileController: UIViewController {
         }else {
             yellowBgView.layer.cornerRadius = yellowBgView.bounds.width/2
             buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
-            companyName.text = User.loggedIn()?.buyerCompanyDetails?.companyName
+            companyName.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName
             ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
             profileImg.imageView?.layer.cornerRadius = 35
-            if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails?.logo {
+            if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
                 do {
                     let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
                     profileImg.setImage(downloadedImage, for: .normal)
                 }catch {
                     print(error)
                 }
-            }else if  let name = User.loggedIn()?.buyerCompanyDetails?.logo {
+            }else if  let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
                 let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(User.loggedIn()?.entityID)/CompanyDetails/Logo/\(name)")
                 URLSession.shared.dataTask(with: url!) { data, response, error in
                     // do your stuff here...
@@ -173,6 +205,7 @@ class BuyerProfileController: UIViewController {
         }
     }
     @IBAction func editProfileSelected(_ sender: Any) {
+        isEditable = true
         NotificationCenter.default.post(name: Notification.Name("EnableEditNotification"), object: nil)
         if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
             constraint.constant = 0.0
@@ -188,6 +221,7 @@ class BuyerProfileController: UIViewController {
     }
     
     @IBAction func cancelSelected(_ sender: Any) {
+        isEditable = false
         NotificationCenter.default.post(name: Notification.Name("DisableEditNotification"), object: nil)
         if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
             constraint.constant = 200.0
@@ -204,7 +238,43 @@ class BuyerProfileController: UIViewController {
     
     @IBAction func saveSelected(_ sender: Any) {
         self.cancelSelected(sender)
-        //TODO: Save Edit Profile Request
+
+        var newUser = CXUser()
+
+        newUser.alternateMobile = self.viewModel.alternateMobile.value ?? ""
+        newUser.designation = self.viewModel.designation.value ?? ""
+        newUser.pancard = self.viewModel.pancard.value ?? ""
+        
+        let selectedCountryObj = self.allCountries?.filter("%K == %@", "name", self.viewModel.country.value).first
+        let addr1 = self.viewModel.addr1.value ?? nil
+        let addr2 = self.viewModel.addr2.value ?? nil
+        let city = self.viewModel.city.value ?? nil
+        let landmark = self.viewModel.landmark.value ?? nil
+        let state = self.viewModel.state.value ?? nil
+        let street = self.viewModel.street.value ?? nil
+        let pin = self.viewModel.pincode.value ?? nil
+        let district = self.viewModel.district.value ?? nil
+
+        let newAddr = LocalAddress.init(id: 0, addrType: nil, country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: district, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: User.loggedIn()?.entityID ?? 0)
+        newUser.address = newAddr
+        
+
+        let cin = self.viewModel.cin.value ?? nil
+        let gstNo = self.viewModel.gst.value ?? nil
+        
+        let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: User.loggedIn()?.buyerCompanyDetails.first?.companyName ?? "", cin: cin, contact: User.loggedIn()?.buyerCompanyDetails.first?.contact ?? "", gstNo: gstNo, logo: nil, compDesc: User.loggedIn()?.buyerCompanyDetails.first?.compDesc ?? "")
+        newUser.buyerCompanyDetails = newCompDetails
+        
+        if (self.viewModel.pocFirstName.value != nil && self.viewModel.pocFirstName.value?.isNotBlank ?? false) ||
+          (self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false) ||
+          self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
+          let pocName = self.viewModel.pocFirstName.value ?? nil
+          let pocEmail = self.viewModel.pocEmail.value ?? nil
+          let pocMob = self.viewModel.pocContact.value ?? nil
+          let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
+          newUser.buyerPointOfContact = newPointOfContact
+        }
+        self.viewModel.updateBuyerDetails?(newUser.toJSON(updateAddress: true, buyerComp: true))
     }
 
     private func add(asChildViewController viewController: FormViewController) {

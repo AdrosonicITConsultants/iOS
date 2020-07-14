@@ -73,7 +73,7 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.text = User.loggedIn()?.buyerCompanyDetails?.companyName ?? ""
+                $0.cell.valueTextField.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName ?? ""
                 $0.cell.valueTextField.textColor = .black
                 $0.cell.valueTextField.leftPadding = 0
                 self.viewModel.companyName.value = $0.cell.valueTextField.text
@@ -140,7 +140,7 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.text = User.loggedIn()?.buyerCompanyDetails?.compDesc ?? ""
+                $0.cell.valueTextField.text = User.loggedIn()?.buyerCompanyDetails.first?.compDesc ?? ""
                 $0.cell.valueTextField.textColor = .black
                 self.viewModel.compDesc.value = $0.cell.valueTextField.text
                 self.viewModel.compDesc.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -195,7 +195,7 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.borderColour = .black
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {
-                let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails?.entityID ?? 0, companyName: self.viewModel.companyName.value, cin: nil, contact: nil, gstNo: nil, logo: nil, compDesc: self.viewModel.compDesc.value)
+                let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: self.viewModel.companyName.value, cin: nil, contact: nil, gstNo: nil, logo: nil, compDesc: self.viewModel.compDesc.value)
                 parentVC.viewModel.updateArtisanBrandDetails?(newCompDetails.toJSON())
             }
         }

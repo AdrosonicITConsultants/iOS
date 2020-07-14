@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import AVKit
+import RealmSwift
+import Realm
 
 class BuyerHomeController: UIViewController {
   
@@ -35,6 +37,10 @@ class BuyerHomeController: UIViewController {
     }
     
     super.viewDidLoad()
+    let realm = try! Realm()
+    let allAcc = realm.objects(PaymentAccDetails.self).sorted(byKeyPath: "entityID")
+    let allAdd = realm.objects(Address.self).sorted(byKeyPath: "entityID")
+    let allPordId = realm.objects(UserProductCategory.self).sorted(byKeyPath: "entityID")
   }
   
   func showVideo() {

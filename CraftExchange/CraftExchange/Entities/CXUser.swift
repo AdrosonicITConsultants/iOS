@@ -31,12 +31,19 @@ struct CXUser {
 }
 
 extension CXUser {
-  func toJSON() -> [String: Any] {
+    func toJSON(updateAddress: Bool, buyerComp: Bool) -> [String: Any] {
     var message: [String: Any] = [:]
     
-    message["clusterId"] = clusterId
-    message["productCategoryIds"] = productCategoryIds
-    message["refRoleId"] = refRoleId
+    if clusterId != 0 {
+        message["clusterId"] = clusterId
+    }
+    if productCategoryIds != [0] {
+        message["productCategoryIds"] = productCategoryIds
+    }
+    
+    if refRoleId != 0 {
+        message["refRoleId"] = refRoleId
+    }
     
     if refRoleId == 1 { //Artisan
       if let weaverId = weaverId {
@@ -45,7 +52,11 @@ extension CXUser {
     }else { // Buyer
       if let buyerCompanyDetails = buyerCompanyDetails {
         let json = buyerCompanyDetails.toJSON()
-        message["companyDetails"] = json
+        if buyerComp {
+            message["buyerCompanyDetails"] = json
+        }else {
+            message["companyDetails"] = json
+        }
       }
       if let buyerPointOfContact = buyerPointOfContact {
         let json = buyerPointOfContact.toJSON()
@@ -53,8 +64,13 @@ extension CXUser {
       }
     }
     if let address = address {
-      let json = address.toJSON()
-      message["address"] = json
+        if updateAddress {
+            let json = address.toUpdateAddressJSON()
+            message["address"] = json
+        }else {
+            let json = address.toJSON()
+            message["address"] = json
+        }
     }
     if let alternateMobile = alternateMobile {
         message["alternateMobile"] = alternateMobile
@@ -150,6 +166,41 @@ extension LocalAddress {
     }
     return message
   }
+    
+    func toUpdateAddressJSON() -> [String: Any] {
+      var message: [String: Any] = [:]
+
+      if let country = country {
+        var json: [String: Any] = [:]
+        json["id"] = country.countryId
+        message["country"] = json
+      }
+      if let city = city {
+          message["city"] = city
+      }
+      if let district = district {
+          message["district"] = district
+      }
+      if let landmark = landmark {
+          message["landmark"] = landmark
+      }
+      if let line1 = line1 {
+          message["line1"] = line1
+      }
+      if let line2 = line2 {
+          message["line2"] = line2
+      }
+      if let pincode = pincode {
+          message["pincode"] = pincode
+      }
+      if let state = state {
+          message["state"] = state
+      }
+      if let street = street {
+          message["street"] = street
+      }
+      return message
+    }
 }
 
 struct pointOfContact {
@@ -230,7 +281,6 @@ extension bankDetails {
   func toJSON() -> [String: Any] {
     var message: [String: Any] = [:]
     
-    message["id"] = id
     if let accNo = accNo {
         message["accNo_UPI_Mobile"] = accNo
     }
@@ -251,6 +301,9 @@ extension bankDetails {
       json["id"] = accType.accId
       json["accountDesc"] = accType.accDesc
       message["accountType"] = json
+    }
+    if let userId = User.loggedIn()?.entityID {
+        message["userId"] = userId
     }
     return message
   }

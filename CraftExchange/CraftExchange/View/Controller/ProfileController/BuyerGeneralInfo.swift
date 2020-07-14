@@ -20,6 +20,7 @@ import RealmSwift
 import Realm
 
 class BuyerGeneralInfo: FormViewController {
+    var isEditable: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,8 @@ class BuyerGeneralInfo: FormViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(enableEditing), name: Notification.Name("EnableEditNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(disableEditing), name: Notification.Name("DisableEditNotification"), object: nil)
         self.view.backgroundColor = .white
+        let parentVC = self.parent as! BuyerProfileController
+        
         form +++
             Section()
             <<< RoundedTextFieldRow() {
@@ -35,16 +38,27 @@ class BuyerGeneralInfo: FormViewController {
                 $0.cell.titleLabel.text = "Designation".localized
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
-                $0.cell.height = { 60.0 }
                 $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.valueTextField.isUserInteractionEnabled = false
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.text = User.loggedIn()?.designation ?? "Designation"
+                $0.cell.valueTextField.text = User.loggedIn()?.designation ?? ""
                 $0.cell.valueTextField.textColor = .darkGray
-                $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                $0.cell.valueTextField.leftPadding = 0
-                $0.cell.isUserInteractionEnabled = false
-            }
+                parentVC.viewModel.designation.value = $0.cell.valueTextField.text
+                parentVC.viewModel.designation.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+                $0.cell.height = { 80.0 }
+            }.cellUpdate({ (cell, row) in
+                parentVC.viewModel.designation.value = cell.valueTextField.text
+                if self.isEditable {
+                    cell.isUserInteractionEnabled = true
+                    cell.valueTextField.isUserInteractionEnabled = true
+                    cell.valueTextField.layer.borderColor = UIColor.black.cgColor
+                    cell.valueTextField.leftPadding = 10
+                }else {
+                    cell.isUserInteractionEnabled = false
+                    cell.valueTextField.isUserInteractionEnabled = false
+                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                    cell.valueTextField.leftPadding = 0
+                }
+            })
             <<< LabelRow() {
                 $0.cell.height = { 80.0 }
                 $0.title = "Registered Address".localized
@@ -77,20 +91,36 @@ class BuyerGeneralInfo: FormViewController {
                 row.cell.textLabel?.textColor = .darkGray
             })
             <<< RoundedTextFieldRow("alternateMobile") {
+                $0.tag = "alternateMobile"
+                $0.cell.titleLabel.text = "Alternate Mobile".localized
+                $0.cell.compulsoryIcon.isHidden = true
                 $0.cellStyle = .default
-                $0.cell.valueTextField.isUserInteractionEnabled = false
-                $0.cell.valueTextField.text = "\(User.loggedIn()?.alternateMobile ?? "") (alternate)"
+                $0.cell.valueTextField.text = User.loggedIn()?.alternateMobile ?? ""
                 $0.cell.valueTextField.leftImage = UIImage.init(named: "phoneIcon")
                 $0.cell.valueTextField.leftImage?.withTintColor(.gray)
-                if User.loggedIn()?.alternateMobile != nil && User.loggedIn()?.alternateMobile != "" {
-                    $0.cell.isHidden = false
-                    $0.cell.height = { 40.0 }
+            }.cellUpdate({ (cell, row) in
+                parentVC.viewModel.alternateMobile.value = cell.valueTextField.text
+                if self.isEditable {
+                    cell.isUserInteractionEnabled = true
+                    cell.valueTextField.isUserInteractionEnabled = true
+                    cell.valueTextField.layer.borderColor = UIColor.black.cgColor
+                    cell.valueTextField.leftPadding = 10
+                    cell.isHidden = false
+                    cell.height = { 80.0 }
                 }else {
-                    $0.cell.isHidden = true
-                    $0.cell.height = { 0.0 }
+                    cell.isUserInteractionEnabled = false
+                    cell.valueTextField.isUserInteractionEnabled = false
+                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                    cell.valueTextField.leftPadding = 0
+                    if User.loggedIn()?.alternateMobile != nil && User.loggedIn()?.alternateMobile != "" {
+                        cell.isHidden = false
+                        cell.height = { 80.0 }
+                    }else {
+                        cell.isHidden = true
+                        cell.height = { 0.0 }
+                    }
                 }
-                $0.cell.isUserInteractionEnabled = false
-            }
+            })
             <<< LabelRow() { row in
                 row.cell.height = { 300.0 }
             }
@@ -98,21 +128,20 @@ class BuyerGeneralInfo: FormViewController {
     
     @objc func enableEditing() {
         self.view.backgroundColor = .lightGray
-        let designationRow = self.form.rowBy(tag: "Designation") as? RoundedTextFieldRow
-        designationRow?.cell.valueTextField.isUserInteractionEnabled = true
-        let alternateMobile = self.form.rowBy(tag: "alternateMobile") as? RoundedTextFieldRow
-        alternateMobile?.cell.valueTextField.isUserInteractionEnabled = true
+        isEditable = true
+        for row in self.form.allRows {
+            if row.tag == "Designation" || row.tag == "alternateMobile" {
+                row.updateCell()
+            }
+        }
     }
     
     @objc func disableEditing() {
-        let designationRow = self.form.rowBy(tag: "Designation") as? RoundedTextFieldRow
-        designationRow?.cell.valueTextField.isUserInteractionEnabled = false
-        let alternateMobile = self.form.rowBy(tag: "alternateMobile") as? RoundedTextFieldRow
-        alternateMobile?.cell.valueTextField.isUserInteractionEnabled = false
-    }
-    
-    @objc func saveProfileUpdate() {
-        print("save profile changes")
-        NotificationCenter.default.post(name: Notification.Name("DisableEditNotification"), object: nil)
+        isEditable = false
+        for row in self.form.allRows {
+            if row.tag == "Designation" || row.tag == "alternateMobile" {
+                row.updateCell()
+            }
+        }
     }
 }

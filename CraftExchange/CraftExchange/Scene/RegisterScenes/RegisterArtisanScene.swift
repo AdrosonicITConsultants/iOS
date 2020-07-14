@@ -27,7 +27,7 @@ extension RegisterArtisanService {
     vc.viewModel.completeRegistration = {
       if vc.isTCAccepted {
         let userObj = createNewUser()
-        self.fetch(newUser: userObj.toJSON()).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+        self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false)).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
@@ -124,7 +124,7 @@ extension RegisterArtisanService {
         if isValid {
           vc.showLoading()
           let userObj = createNewUser()
-          self.fetch(newUser: userObj.toJSON()).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false)).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             DispatchQueue.main.async {
               vc.hideLoading()
             }

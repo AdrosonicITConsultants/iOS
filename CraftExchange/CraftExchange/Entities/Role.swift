@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 class Role: Object, Decodable {
-
+    @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
     @objc dynamic var roleDescription: String?
 
@@ -19,11 +19,16 @@ class Role: Object, Decodable {
         case id = "id"
         case roleDescription = "role_desc"
     }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 
     convenience required init(from decoder: Decoder) throws {
-      self.init()
-      let values = try decoder.container(keyedBy: CodingKeys.self)
-      entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
-      roleDescription = try values.decodeIfPresent(String.self, forKey: .roleDescription)
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+        id = "\(entityID)"
+        roleDescription = try values.decodeIfPresent(String.self, forKey: .roleDescription)
     }
 }

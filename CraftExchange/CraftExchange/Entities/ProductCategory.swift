@@ -11,7 +11,7 @@ import Realm
 import RealmSwift
 
 class ProductCategory: Object, Decodable {
-
+    @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
     @objc dynamic var prodCatDescription: String?
 
@@ -19,11 +19,16 @@ class ProductCategory: Object, Decodable {
         case id = "id"
         case prodCatDescription = "productDesc"
     }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 
     convenience required init(from decoder: Decoder) throws {
       self.init()
       let values = try decoder.container(keyedBy: CodingKeys.self)
       entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+        id = "\(entityID)"
       prodCatDescription = try values.decodeIfPresent(String.self, forKey: .prodCatDescription)
     }
 }

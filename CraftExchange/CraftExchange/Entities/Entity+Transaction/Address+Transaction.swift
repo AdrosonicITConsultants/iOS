@@ -37,8 +37,8 @@ extension Address {
         if pincode != nil && pincode != "" {
             finalString.append(", \(pincode ?? "")")
         }
-        if country?.name != nil && country?.name != "" {
-            finalString.append("\n \(country?.name ?? "")")
+        if country.first?.name != nil && country.first?.name != "" {
+            finalString.append("\n \(country.first?.name ?? "")")
         }
         return finalString
     }
@@ -59,7 +59,7 @@ extension Address {
             }
         } else {
             try? realm.write {
-                realm.add(self)
+                realm.add(self, update: .modified)
             }
         }
     }

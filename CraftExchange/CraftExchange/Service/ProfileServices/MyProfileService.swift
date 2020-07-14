@@ -37,4 +37,8 @@ class MyProfileService: BaseService<Data> {
     func updateArtisanBank(json: [[String: Any]]) -> SafeSignal<Data> {
         return User.updateArtisanBankDetails(json: json).response(using: client).debug()
     }
+    
+    func updateBuyerDetails(json: [String: Any]) -> SafeSignal<Data> {
+        return User.updateBuyerProfile(json: json).response(using: client).debug()
+    }
 }

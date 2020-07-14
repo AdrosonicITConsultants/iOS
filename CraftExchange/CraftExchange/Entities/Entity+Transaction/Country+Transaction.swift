@@ -22,7 +22,7 @@ extension Country {
             }
         } else {
             try? realm.write {
-                realm.add(self)
+                realm.add(self, update: .modified)
             }
         }
     }
