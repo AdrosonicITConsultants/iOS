@@ -139,23 +139,79 @@ extension User {
         }
     }
     
-    /*
-     
-     public static func updateBuyerProfile(json: [String: Any]) -> Request<Data, APIError> {
-         var str = json.jsonString
-         print("buyer: \n\n \(str)")
-         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-           return Request(
-             path: "user/edit/buyerProfile?profileDetails=\(str)",
-               method: .put,
-               resource: {print(String(data: $0, encoding: .utf8) ?? "buyer edit profile failed")
-                 return $0},
-               error: APIError.init,
-               needsAuthorization: true
-           )
-     }
-     */
+    public static func updateArtisanProfile(json: [String: Any], imageData: Data?, filename: String?) -> Request<Data, APIError> {
+      var str = json.jsonString
+      str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
+        if let content = imageData, let filename = filename  {
+        let boundary = "\(UUID().uuidString)"
+        let dataLength = content.count
+        let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
+                                         "accept": "application/json",
+                                         "Content-Length": String(dataLength)
+        ]
+        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "profilePic")
+            return Request(
+              path: "user/edit/artistProfile?address=\(str)",
+                method: .put,
+                parameters: DataParameter(finalData),
+                headers: headers,
+                resource: {print(String(data: $0, encoding: .utf8) ?? "artist edit profile failed")
+                  return $0},
+                error: APIError.init,
+                needsAuthorization: true
+            )
+            
+        }else {
+//            let headers: [String: String] = ["accept": "application/json"]
+            return Request(
+              path: "user/edit/artistProfile?address=\(str)",
+                method: .put,
+                resource: {print(String(data: $0, encoding: .utf8) ?? "artist edit profile failed")
+                  return $0},
+                error: APIError.init,
+                needsAuthorization: true
+            )
+        }
+    }
     
+    public static func updateArtisanBrandDetails(json: [String: Any], imageData: Data?, filename: String?) -> Request<Data, APIError> {
+        let finalJson = ["companyDetails" : json]
+        var str = finalJson.jsonString
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        if let content = imageData, let filename = filename  {
+        let boundary = "\(UUID().uuidString)"
+        let dataLength = content.count
+        let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
+                                         "accept": "application/json",
+                                         "Content-Length": String(dataLength)
+        ]
+        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "logo")
+            return Request(
+                path: "user/edit/artistBrandDetails?editBrandDetails=\(str)",
+                method: .put,
+                parameters: DataParameter(finalData),
+                headers: headers,
+                resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
+                  return $0},
+                error: APIError.init,
+                needsAuthorization: true
+            )
+        }else {
+            let headers: [String: String] = ["accept": "application/json"]
+            return Request(
+                path: "user/edit/artistBrandDetails?editBrandDetails=\(str)",
+                method: .put,
+                headers: headers,
+                resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
+                  return $0},
+                error: APIError.init,
+                needsAuthorization: true
+            )
+        }
+    }
+    
+    /*
     public static func updateArtisanProfile(json: [String: Any]) -> Request<Data, APIError> {
       var str = json.jsonString
       str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -185,7 +241,7 @@ extension User {
             error: APIError.init,
             needsAuthorization: true
         )
-    }
+    }*/
     
     public static func updateArtisanBankDetails(json: [[String: Any]]) -> Request<Data, APIError> {
         var str = json.jsonString

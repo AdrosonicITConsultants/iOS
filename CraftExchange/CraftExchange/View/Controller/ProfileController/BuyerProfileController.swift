@@ -23,8 +23,8 @@ import Photos
 
 class MyProfileViewModel {
     var viewDidLoad: (() -> Void)?
-    var updateArtisanProfile: (([String:Any]) -> Void)?
-    var updateArtisanBrandDetails: (([String:Any]) -> Void)?
+    var updateArtisanProfile: (([String:Any], Data?, String?) -> Void)?
+    var updateArtisanBrandDetails: (([String:Any], Data?, String?) -> Void)?
     var updateArtisanBankDetails: (([[String:Any]]) -> Void)?
     var updateBuyerDetails: (([String:Any],Data?,String?) -> Void)?
     

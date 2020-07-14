@@ -24,6 +24,7 @@ class ArtisanBrandDetailsViewModel {
     var companyName = Observable<String?>(nil)
     var compDesc = Observable<String?>(nil)
     var productCatIds = Observable<[Int]?>(nil)
+    var imageData = Observable<(Data,String)?>(nil)
 }
 
 class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
@@ -37,37 +38,38 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
         self.view.backgroundColor = .white
+        let parentVC = self.parent as? BuyerProfileController
+        
         form +++
             Section()
             <<< ProfileImageRow() {
                 $0.cell.height = { 180.0 }
                 $0.cell.delegate = self
                 $0.tag = "ProfileView"
-                if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.logo {
+                if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
                     do {
                         let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
                         $0.cell.actionButton.setImage(downloadedImage, for: .normal)
                     }catch {
                         print(error)
                     }
-                }else if  let name = User.loggedIn()?.logo, let userID = User.loggedIn()?.entityID {
-                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
-                    URLSession.shared.dataTask(with: url!) { data, response, error in
-                        // do your stuff here...
-                        DispatchQueue.main.async {
-                            // do something on the main queue
-                            if error == nil {
-                                if let finalData = data {
-                                    User.loggedIn()?.saveOrUpdateBrandLogo(data: finalData)
-                                    NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
-                                }
-                            }
-                        }
-                    }.resume()
-                }else {
+                    if parentVC?.reachabilityManager?.connection != .unavailable {
+                        refreshBrandLogo()
+                    }
+                } else if parentVC?.reachabilityManager?.connection != .unavailable {
+                    refreshBrandLogo()
+                } else {
                     $0.cell.actionButton.setImage(UIImage.init(named: "user"), for: .normal)
                 }
-            }
+            }.cellUpdate({ (cell, row) in
+                if self.isEditable {
+                    cell.isUserInteractionEnabled = true
+                    cell.actionButton.isUserInteractionEnabled = true
+                }else {
+                    cell.isUserInteractionEnabled = false
+                    cell.actionButton.isUserInteractionEnabled = false
+                }
+            })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Name"
                 $0.cell.height = { 80.0 }
@@ -181,6 +183,24 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
             }
     }
     
+    func refreshBrandLogo() {
+        if let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
+            let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
+            URLSession.shared.dataTask(with: url!) { data, response, error in
+                // do your stuff here...
+                DispatchQueue.main.async {
+                    // do something on the main queue
+                    if error == nil {
+                        if let finalData = data {
+                            User.loggedIn()?.saveOrUpdateBrandLogo(data: finalData)
+                            NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
+                        }
+                    }
+                }
+            }.resume()
+        }
+    }
+    
     func customButtonSelected(tag: Int) {
         //Edit selected
         let btnRow = self.form.rowBy(tag: "EditArtisanBrandDetails") as? RoundedButtonViewRow
@@ -196,23 +216,30 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {
                 let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: self.viewModel.companyName.value, cin: nil, contact: nil, gstNo: nil, logo: nil, compDesc: self.viewModel.compDesc.value)
-                parentVC.viewModel.updateArtisanBrandDetails?(newCompDetails.toJSON())
+                if self.viewModel.imageData.value != nil {
+                    parentVC.viewModel.updateArtisanBrandDetails?(newCompDetails.toJSON(), self.viewModel.imageData.value?.0, self.viewModel.imageData.value?.1)
+                }else {
+                    parentVC.viewModel.updateArtisanBrandDetails?(newCompDetails.toJSON(), nil, nil)
+                }
+                
             }
         }
         for row in self.form.allRows {
-            if row.tag == "Name" || row.tag == "Description" {
+            if row.tag == "Name" || row.tag == "Description" || row.tag == "ProfileView" {
                 row.updateCell()
             }
         }
     }
     
     @objc func updateLogoPic() {
-        let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
-        do {
-            let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(User.loggedIn()?.logo ?? "")", from: .caches, as: UIImage.self)
-            row?.cell.actionButton.setImage(downloadedImage, for: .normal)
-        }catch {
-            print(error)
+        if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
+            let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+            do {
+                let downloadedImage = try Disk.retrieve("\(userID)/\(name)", from: .caches, as: UIImage.self)
+                row?.cell.actionButton.setImage(downloadedImage, for: .normal)
+            }catch {
+                print(error)
+            }
         }
     }
     
@@ -231,6 +258,21 @@ extension ArtisanBrandDetails: UIImagePickerControllerDelegate, UINavigationCont
         }
         let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
         row?.cell.actionButton.setImage(selectedImage, for: .normal)
+        var imgdata: Data?
+        if let compressedImg = selectedImage.resizedTo1MB() {
+            if let data = compressedImg.pngData() {
+                imgdata = data
+            } else if let data = compressedImg.jpegData(compressionQuality: 1) {
+                imgdata = data
+            }
+        }else {
+            if let data = selectedImage.pngData() {
+                imgdata = data
+            } else if let data = selectedImage.jpegData(compressionQuality: 0.5) {
+                imgdata = data
+            }
+        }
+        self.viewModel.imageData.value = (imgdata, "logo.jpg") as? (Data, String)
         picker.dismiss(animated: true, completion: nil)
     }
 }

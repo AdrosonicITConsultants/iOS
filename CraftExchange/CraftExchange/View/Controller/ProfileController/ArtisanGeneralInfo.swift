@@ -26,6 +26,7 @@ class ArtisanGeneralInfoViewModel {
   var state = Observable<String?>(nil)
   var country = Observable<String?>(nil)
   var pincode = Observable<String?>(nil)
+    var profileImageData = Observable<(Data,String)?>(nil)
 }
 
 class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
@@ -40,6 +41,8 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
         self.view.backgroundColor = .white
         let realm = try! Realm()
         allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
+        let parentVC = self.parent as? BuyerProfileController
+        
         form +++
             Section()
             <<< ProfileImageRow() {
@@ -53,24 +56,23 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                     }catch {
                         print(error)
                     }
-                }else if let name = User.loggedIn()?.profilePic, let userID = User.loggedIn()?.entityID {
-                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/ProfilePics/\(name)")
-                    URLSession.shared.dataTask(with: url!) { data, response, error in
-                        // do your stuff here...
-                        DispatchQueue.main.async {
-                            // do something on the main queue
-                            if error == nil {
-                                if let finalData = data {
-                                    User.loggedIn()?.saveOrUpdateProfileImage(data: finalData)
-                                    NotificationCenter.default.post(name: Notification.Name("loadProfileImage"), object: nil)
-                                }
-                            }
-                        }
-                    }.resume()
-                }else {
+                    if parentVC?.reachabilityManager?.connection != .unavailable {
+                        updateArtisanProfilePic()
+                    }
+                } else if parentVC?.reachabilityManager?.connection != .unavailable {
+                    updateArtisanProfilePic()
+                } else {
                     $0.cell.actionButton.setImage(UIImage.init(named: "user"), for: .normal)
                 }
-            }
+            }.cellUpdate({ (cell, row) in
+                if self.editEnabled {
+                    cell.isUserInteractionEnabled = true
+                    cell.actionButton.isUserInteractionEnabled = true
+                }else {
+                    cell.isUserInteractionEnabled = false
+                    cell.actionButton.isUserInteractionEnabled = false
+                }
+            })
             <<< LabelRow() {
                 $0.cell.height = { 40.0 }
                 $0.title = "Avg rating".localized
@@ -239,6 +241,24 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
             }
     }
     
+    func updateArtisanProfilePic() {
+        if let name = User.loggedIn()?.profilePic, let userID = User.loggedIn()?.entityID {
+            let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/ProfilePics/\(name)")
+            URLSession.shared.dataTask(with: url!) { data, response, error in
+                // do your stuff here...
+                DispatchQueue.main.async {
+                    // do something on the main queue
+                    if error == nil {
+                        if let finalData = data {
+                            User.loggedIn()?.saveOrUpdateProfileImage(data: finalData)
+                            NotificationCenter.default.post(name: Notification.Name("loadProfileImage"), object: nil)
+                        }
+                    }
+                }
+            }.resume()
+        }
+    }
+    
     func customButtonSelected(tag: Int) {
         //Edit selected
         let btnRow = self.form.rowBy(tag: "EditArtisanDetails") as? RoundedButtonViewRow
@@ -260,18 +280,27 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
             if let parentVC = self.parent as? BuyerProfileController {
                 let selectedCountryObj = self.allCountries?.filter("%K == %@", "name", self.viewModel.country.value).first
                 let newAddr = LocalAddress.init(id: User.loggedIn()?.addressList.first?.entityID ?? 0, addrType: (1,"Registered"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: nil, district: self.viewModel.district.value, landmark: nil, line1: self.viewModel.addr1.value, line2: nil, pincode: self.viewModel.pincode.value, state: self.viewModel.state.value , street: nil, userId: User.loggedIn()?.entityID ?? 0)
-                parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON())
+                if self.viewModel.profileImageData.value != nil {
+                    parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON(),self.viewModel.profileImageData.value?.0,self.viewModel.profileImageData.value?.1)
+                }else {
+                    parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON(),nil,nil)
+                }
+                
             }
         }
+        let profileRow = self.form.rowBy(tag: "ProfileView")
+        profileRow?.updateCell()
     }
     
     @objc func updateProfilePic() {
-        let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
-        do {
-            let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(User.loggedIn()?.profilePic ?? "")", from: .caches, as: UIImage.self)
-            row?.cell.actionButton.setImage(downloadedImage, for: .normal)
-        }catch {
-            print(error)
+        if let _ = User.loggedIn()?.profilePicUrl, let name = User.loggedIn()?.profilePic, let userID = User.loggedIn()?.entityID {
+            let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+            do {
+                let downloadedImage = try Disk.retrieve("\(userID)/\(name)", from: .caches, as: UIImage.self)
+                row?.cell.actionButton.setImage(downloadedImage, for: .normal)
+            }catch {
+                print(error)
+            }
         }
     }
 }
@@ -289,6 +318,22 @@ extension ArtisanGeneralInfo: UIImagePickerControllerDelegate, UINavigationContr
         }
         let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
         row?.cell.actionButton.setImage(selectedImage, for: .normal)
+        var imgdata: Data?
+        if let compressedImg = selectedImage.resizedTo1MB() {
+            if let data = compressedImg.pngData() {
+                imgdata = data
+            } else if let data = compressedImg.jpegData(compressionQuality: 1) {
+                imgdata = data
+            }
+        }else {
+            if let data = selectedImage.pngData() {
+                imgdata = data
+            } else if let data = selectedImage.jpegData(compressionQuality: 0.5) {
+                imgdata = data
+            }
+        }
+        self.viewModel.profileImageData.value = (imgdata, "profilePic.jpg") as? (Data, String)
+        
         picker.dismiss(animated: true, completion: nil)
     }
 }

@@ -26,12 +26,12 @@ class MyProfileService: BaseService<Data> {
       return ProductCategory.getAllProducts().response(using: client).debug()
     }
     
-    func updateArtisanProfile(json: [String: Any]) -> SafeSignal<Data> {
-        return User.updateArtisanProfile(json: json).response(using: client).debug()
+    func updateArtisanProfile(json: [String: Any], imageData: Data?, filename: String?) -> SafeSignal<Data> {
+        return User.updateArtisanProfile(json: json, imageData: imageData, filename: filename).response(using: client).debug()
     }
     
-    func updateArtisanBrand(json: [String: Any]) -> SafeSignal<Data> {
-        return User.updateArtisanBrandDetails(json: json).response(using: client).debug()
+    func updateArtisanBrand(json: [String: Any], imageData: Data?, filename: String?) -> SafeSignal<Data> {
+        return User.updateArtisanBrandDetails(json: json, imageData: imageData, filename: filename).response(using: client).debug()
     }
     
     func updateArtisanBank(json: [[String: Any]]) -> SafeSignal<Data> {

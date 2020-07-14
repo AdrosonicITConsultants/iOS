@@ -26,6 +26,8 @@ extension User {
                 object.designation = designation
                 object.alternateMobile = alternateMobile
                 object.pancard = pancard
+                object.profilePic = profilePic
+                object.logo = logo
                 if object.buyerCompanyDetails.count > 0 {
                     object.buyerCompanyDetails.first?.companyName = buyerCompanyDetails.first?.companyName
                     object.buyerCompanyDetails.first?.compDesc = buyerCompanyDetails.first?.compDesc
@@ -75,13 +77,8 @@ extension User {
         let realm = try! Realm()
         if let object = realm.objects(User.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                if KeychainManager.standard.userRole == "Artisan" {
-                    try Disk.save(data, to: .caches, as: "\(entityID)/\(logo ?? "")")
-                    logoUrl = try? Disk.retrieveURL("\(entityID)/\(logo ?? "")", from: .caches, as: Data.self).absoluteString
-                }else {
-                    try Disk.save(data, to: .caches, as: "\(entityID)/\(buyerCompanyDetails.first?.logo ?? "")")
-                    logoUrl = try? Disk.retrieveURL("\(entityID)/\(buyerCompanyDetails.first?.logo ?? "")", from: .caches, as: Data.self).absoluteString
-                }
+                try Disk.save(data, to: .caches, as: "\(entityID)/\(buyerCompanyDetails.first?.logo ?? "")")
+                logoUrl = try? Disk.retrieveURL("\(entityID)/\(buyerCompanyDetails.first?.logo ?? "")", from: .caches, as: Data.self).absoluteString
             }
         } else {
             try? realm.write {

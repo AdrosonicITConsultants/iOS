@@ -23,8 +23,8 @@ extension MyProfileService {
         print("responseString")
     }.dispose(in: vc.bag)
     
-    vc.viewModel.updateArtisanProfile = { json in
-        self.updateArtisanProfile(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+    vc.viewModel.updateArtisanProfile = { (json, imageData, filename) in
+        self.updateArtisanProfile(json: json, imageData: imageData, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool ?? false {
@@ -38,8 +38,8 @@ extension MyProfileService {
         }.dispose(in: vc.bag)
     }
     
-    vc.viewModel.updateArtisanBrandDetails = { json in
-        self.updateArtisanBrand(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+    vc.viewModel.updateArtisanBrandDetails = { (json, imageData, filename) in
+        self.updateArtisanBrand(json: json, imageData: imageData, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool ?? false {
