@@ -24,7 +24,9 @@ extension MyProfileService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.updateArtisanProfile = { (json, imageData, filename) in
-        self.updateArtisanProfile(json: json, imageData: imageData, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+        let request = OfflineProfileActionsRequest(type: .editArtisan, imageData: (imageData,filename) as? (Data, String), json: json, bankJson: nil)
+        OfflineRequestManager.defaultManager.queueRequest(request)
+        /*self.updateArtisanProfile(json: json, imageData: imageData, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool ?? false {
@@ -35,11 +37,13 @@ extension MyProfileService {
                   }
                 }
             }
-        }.dispose(in: vc.bag)
+        }.dispose(in: vc.bag)*/
     }
     
     vc.viewModel.updateArtisanBrandDetails = { (json, imageData, filename) in
-        self.updateArtisanBrand(json: json, imageData: imageData, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+        let request = OfflineProfileActionsRequest(type: .editArtisanBrand, imageData: (imageData,filename) as? (Data, String), json: json, bankJson: nil)
+        OfflineRequestManager.defaultManager.queueRequest(request)
+        /*self.updateArtisanBrand(json: json, imageData: imageData, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool ?? false {
@@ -50,11 +54,13 @@ extension MyProfileService {
                   }
                 }
             }
-        }.dispose(in: vc.bag)
+        }.dispose(in: vc.bag)*/
     }
     
     vc.viewModel.updateArtisanBankDetails = { json in
-        self.updateArtisanBank(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+        let request = OfflineProfileActionsRequest(type: .editArtisanBank, imageData: nil, json: nil, bankJson: json)
+        OfflineRequestManager.defaultManager.queueRequest(request)
+        /*self.updateArtisanBank(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool ?? false {
@@ -65,11 +71,13 @@ extension MyProfileService {
                   }
                 }
             }
-        }.dispose(in: vc.bag)
+        }.dispose(in: vc.bag)*/
     }
     
-    vc.viewModel.updateBuyerDetails = { (json, data, filename) in
-        self.updateBuyerDetails(json: json, imageData: data, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+    vc.viewModel.updateBuyerDetails = { (json, imageData, filename) in
+        let request = OfflineProfileActionsRequest(type: .editBuyer, imageData: (imageData,filename) as? (Data, String), json: json, bankJson: nil)
+        OfflineRequestManager.defaultManager.queueRequest(request)
+        /*self.updateBuyerDetails(json: json, imageData: data, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool ?? false {
@@ -80,7 +88,7 @@ extension MyProfileService {
                   }
                 }
             }
-        }.dispose(in: vc.bag)
+        }.dispose(in: vc.bag)*/
     }
     
     vc.viewModel.viewDidLoad = {
