@@ -108,3 +108,19 @@ public struct JSONFormParameters: RequestParameters {
         return request
     }
 }
+
+public struct DataParameter: RequestParameters {
+
+    public let data: Data
+
+    public init(_ data: Data) {
+        self.data = data
+    }
+
+    public func apply(urlRequest: URLRequest) -> URLRequest {
+        var request = urlRequest
+        request.httpBody = data
+        return request
+    }
+}
+

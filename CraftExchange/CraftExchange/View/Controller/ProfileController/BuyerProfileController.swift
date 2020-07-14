@@ -19,13 +19,14 @@ import JGProgressHUD
 import RealmSwift
 import Realm
 import WMSegmentControl
+import Photos
 
 class MyProfileViewModel {
     var viewDidLoad: (() -> Void)?
     var updateArtisanProfile: (([String:Any]) -> Void)?
     var updateArtisanBrandDetails: (([String:Any]) -> Void)?
     var updateArtisanBankDetails: (([[String:Any]]) -> Void)?
-    var updateBuyerDetails: (([String:Any]) -> Void)?
+    var updateBuyerDetails: (([String:Any],Data?,String?) -> Void)?
     
     var addr1 = Observable<String?>(nil)
     var addr2 = Observable<String?>(nil)
@@ -51,6 +52,7 @@ class MyProfileViewModel {
     
     var designation = Observable<String?>(nil)
     var pancard = Observable<String?>(nil)
+    var imageData = Observable<(Data,String)?>(nil)
 }
 
 class BuyerProfileController: UIViewController {
@@ -113,6 +115,7 @@ class BuyerProfileController: UIViewController {
         let realm = try! Realm()
         allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
         setupSegmentTitle()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
         if KeychainManager.standard.userRole == "Artisan" {
             self.navigationItem.title = "Hello \(User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? "")"
             if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
@@ -129,30 +132,39 @@ class BuyerProfileController: UIViewController {
             companyName.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName
             ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
             profileImg.imageView?.layer.cornerRadius = 35
-            if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
+            if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
                 do {
-                    let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
+                    let downloadedImage = try Disk.retrieve("\(userID)/\(name)", from: .caches, as: UIImage.self)
                     profileImg.setImage(downloadedImage, for: .normal)
                 }catch {
                     print(error)
                 }
-            }else if  let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
-                let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(User.loggedIn()?.entityID)/CompanyDetails/Logo/\(name)")
-                URLSession.shared.dataTask(with: url!) { data, response, error in
-                    // do your stuff here...
-                    DispatchQueue.main.async {
-                        // do something on the main queue
-                        if error == nil {
-                            if let finalData = data {
-                                User.loggedIn()?.saveOrUpdateBrandLogo(data: finalData)
-                                NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
-                            }
-                        }
-                    }
-                }.resume()
-            }else {
+                if self.reachabilityManager?.connection != .unavailable {
+                    refreshProfileImage()
+                }
+            } else if self.reachabilityManager?.connection != .unavailable {
+                refreshProfileImage()
+            } else {
                 profileImg.setImage(UIImage.init(named: "user"), for: .normal)
             }
+        }
+    }
+    
+    func refreshProfileImage() {
+        if let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID  {
+            let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
+            URLSession.shared.dataTask(with: url!) { data, response, error in
+                // do your stuff here...
+                DispatchQueue.main.async {
+                    // do something on the main queue
+                    if error == nil {
+                        if let finalData = data {
+                            User.loggedIn()?.saveOrUpdateBrandLogo(data: finalData)
+                            NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
+                        }
+                    }
+                }
+            }.resume()
         }
     }
     
@@ -274,7 +286,11 @@ class BuyerProfileController: UIViewController {
           let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
           newUser.buyerPointOfContact = newPointOfContact
         }
-        self.viewModel.updateBuyerDetails?(newUser.toJSON(updateAddress: true, buyerComp: true))
+        if self.viewModel.imageData.value != nil {
+            self.viewModel.updateBuyerDetails?(newUser.toJSON(updateAddress: true, buyerComp: true), self.viewModel.imageData.value?.0, self.viewModel.imageData.value?.1)
+        }else {
+            self.viewModel.updateBuyerDetails?(newUser.toJSON(updateAddress: true, buyerComp: true), nil, nil)
+        }
     }
 
     private func add(asChildViewController viewController: FormViewController) {
@@ -303,6 +319,17 @@ class BuyerProfileController: UIViewController {
         // Notify Child View Controller
         viewController.removeFromParent()
     }
+    
+    @objc func updateLogoPic() {
+        if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
+            do {
+                let downloadedImage = try Disk.retrieve("\(userID)/\(name)", from: .caches, as: UIImage.self)
+                profileImg.setImage(downloadedImage, for: .normal)
+            }catch {
+                print(error)
+            }
+        }
+    }
 }
 
 extension BuyerProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -317,6 +344,22 @@ extension BuyerProfileController: UIImagePickerControllerDelegate, UINavigationC
             return
         }
         profileImg.setImage(selectedImage, for: .normal)
+        var imgdata: Data?
+        if let compressedImg = selectedImage.resizedTo1MB() {
+            if let data = compressedImg.pngData() {
+                imgdata = data
+            } else if let data = compressedImg.jpegData(compressionQuality: 1) {
+                imgdata = data
+            }
+        }else {
+            if let data = selectedImage.pngData() {
+                imgdata = data
+            } else if let data = selectedImage.jpegData(compressionQuality: 0.5) {
+                imgdata = data
+            }
+        }
+        self.viewModel.imageData.value = (imgdata, "logo.jpg") as? (Data, String)
+        
         picker.dismiss(animated: true, completion: nil)
     }
 }

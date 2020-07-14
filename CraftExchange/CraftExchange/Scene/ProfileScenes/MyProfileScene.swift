@@ -68,8 +68,8 @@ extension MyProfileService {
         }.dispose(in: vc.bag)
     }
     
-    vc.viewModel.updateBuyerDetails = { json in
-        self.updateBuyerDetails(json: json).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+    vc.viewModel.updateBuyerDetails = { (json, data, filename) in
+        self.updateBuyerDetails(json: json, imageData: data, filename: filename).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool ?? false {

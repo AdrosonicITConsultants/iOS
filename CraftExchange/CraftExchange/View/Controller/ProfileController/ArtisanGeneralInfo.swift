@@ -53,8 +53,8 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                     }catch {
                         print(error)
                     }
-                }else if let name = User.loggedIn()?.profilePic {
-                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(User.loggedIn()?.entityID)/ProfilePics/\(name)")
+                }else if let name = User.loggedIn()?.profilePic, let userID = User.loggedIn()?.entityID {
+                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/ProfilePics/\(name)")
                     URLSession.shared.dataTask(with: url!) { data, response, error in
                         // do your stuff here...
                         DispatchQueue.main.async {
@@ -268,7 +268,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
     @objc func updateProfilePic() {
         let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
         do {
-            let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(User.loggedIn()?.profilePic ?? "download.jpg")", from: .caches, as: UIImage.self)
+            let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(User.loggedIn()?.profilePic ?? "")", from: .caches, as: UIImage.self)
             row?.cell.actionButton.setImage(downloadedImage, for: .normal)
         }catch {
             print(error)
