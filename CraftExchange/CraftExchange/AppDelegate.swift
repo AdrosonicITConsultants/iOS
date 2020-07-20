@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var showDemoVideo: Bool = false
   var registerUser: CXUser?
     var tabbar: BuyerTabbarController?
+    var artisanTabbar: ArtisanTabbarController?
     
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.

@@ -11,6 +11,14 @@ import Realm
 import RealmSwift
 
 extension ProductCategory {
+    
+    func getProductCat(catId: Int) -> ProductCategory? {
+        let realm = try! Realm()
+        if let object = realm.objects(ProductCategory.self).filter("%K == %@", "entityID", catId).first {
+            return object
+        }
+        return nil
+    }
 
     func saveOrUpdate() {
       let realm = try! Realm()

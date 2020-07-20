@@ -60,11 +60,17 @@ class SideMenuController: FormViewController {
                 do {
                   let client = try SafeClient(wrapping: CraftExchangeClient())
                   let vc = MyProfileService(client: client).createScene()
-                    let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                      var nav = appDelegate?.tabbar?.selectedViewController as? UINavigationController
-                  if nav == nil {
-                      nav = appDelegate?.tabbar?.selectedViewController?.navigationController
-                  }
+                      let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                    var nav: UINavigationController?
+                    if let tab = appDelegate?.tabbar?.selectedViewController as? UINavigationController {
+                        nav = tab
+                    }else if let tab = appDelegate?.tabbar?.selectedViewController?.navigationController {
+                          nav = tab
+                    }else if let tab = appDelegate?.artisanTabbar?.selectedViewController as? UINavigationController {
+                        nav = tab
+                    }else if let tab = appDelegate?.artisanTabbar?.selectedViewController?.navigationController {
+                          nav = tab
+                    }
                     nav?.pushViewController(vc, animated: true)
                 } catch let error {
                   print("Unable to load view:\n\(error.localizedDescription)")

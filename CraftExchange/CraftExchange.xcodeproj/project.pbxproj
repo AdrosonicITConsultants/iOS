@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
+		C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB024C16EF100197519 /* HomeScreenService.swift */; };
+		C005BCB424C1778D00197519 /* ArtisanHomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */; };
+		C005BCB624C1AB2F00197519 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB524C1AB2F00197519 /* Product.swift */; };
+		C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB724C1DC9F00197519 /* Product+Request.swift */; };
+		C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB924C2335400197519 /* Product+Transaction.swift */; };
 		C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */; };
 		C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */; };
 		C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */; };
@@ -107,6 +112,10 @@
 		C0A5EB6624A0EB0100AD42EA /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5EB6524A0EB0100AD42EA /* SideMenuController.swift */; };
 		C0A5EB6A24A0F68500AD42EA /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */; };
 		C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C0A5EB6D24A1321F00AD42EA /* video.mp4 */; };
+		C0A8EE9B24C095A70074C620 /* ArtisanTabbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0A8EE9A24C095A60074C620 /* ArtisanTabbar.storyboard */; };
+		C0A8EE9D24C095D20074C620 /* ArtisanHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A8EE9C24C095D20074C620 /* ArtisanHomeController.swift */; };
+		C0A8EE9F24C0ED070074C620 /* ProductCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A8EE9E24C0ED070074C620 /* ProductCategoryCell.swift */; };
+		C0A8EEA124C0EF680074C620 /* ArtisanTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A8EEA024C0EF680074C620 /* ArtisanTabbarController.swift */; };
 		C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A9107F247CD8D000852695 /* Lato-Italic.ttf */; };
 		C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */; };
 		C0A9108C247CD8D000852695 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A91081247CD8D000852695 /* Lato-Thin.ttf */; };
@@ -163,6 +172,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C005BCB024C16EF100197519 /* HomeScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenService.swift; sourceTree = "<group>"; };
+		C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanHomeScene.swift; sourceTree = "<group>"; };
+		C005BCB524C1AB2F00197519 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		C005BCB724C1DC9F00197519 /* Product+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Request.swift"; sourceTree = "<group>"; };
+		C005BCB924C2335400197519 /* Product+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Transaction.swift"; sourceTree = "<group>"; };
 		C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
 		C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
@@ -267,6 +281,10 @@
 		C0A5EB6524A0EB0100AD42EA /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		C0A5EB6D24A1321F00AD42EA /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		C0A8EE9A24C095A60074C620 /* ArtisanTabbar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArtisanTabbar.storyboard; sourceTree = "<group>"; };
+		C0A8EE9C24C095D20074C620 /* ArtisanHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanHomeController.swift; sourceTree = "<group>"; };
+		C0A8EE9E24C0ED070074C620 /* ProductCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryCell.swift; sourceTree = "<group>"; };
+		C0A8EEA024C0EF680074C620 /* ArtisanTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanTabbarController.swift; sourceTree = "<group>"; };
 		C0A9107F247CD8D000852695 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		C0A91080247CD8D000852695 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		C0A91081247CD8D000852695 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
@@ -344,6 +362,14 @@
 				C1F52EE3C4CE7FE5C6191B5D /* Pods-CraftExchange.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C005BCB224C1777700197519 /* HomeScenes */ = {
+			isa = PBXGroup;
+			children = (
+				C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */,
+			);
+			path = HomeScenes;
 			sourceTree = "<group>";
 		};
 		C0144ABE24844390006FF4AB /* LoginControllers */ = {
@@ -451,6 +477,7 @@
 		C03BD88F2476F83100279D7F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C005BCB224C1777700197519 /* HomeScenes */,
 				C09C970124B9094900FD97E9 /* ProfileScenes */,
 				C0ACE98C2484EDE400EFA4ED /* RegisterScenes */,
 				C0144AC224844447006FF4AB /* LoginScenes */,
@@ -467,6 +494,7 @@
 				C0ACE98D2484EDF300EFA4ED /* RegisterServices */,
 				C0144AC0248443F6006FF4AB /* LoginServices */,
 				C0144AC12484441B006FF4AB /* ForgotPasswordServices */,
+				C005BCB024C16EF100197519 /* HomeScreenService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -486,6 +514,7 @@
 				C071E233247EB6170085805B /* ProductCategory.swift */,
 				C071E235247EB69D0085805B /* Role.swift */,
 				C071E237247ED41A0085805B /* User.swift */,
+				C005BCB524C1AB2F00197519 /* Product.swift */,
 				C0A2A00124B8B9A900A49E56 /* PaymentAccDetails.swift */,
 				C0F0653624BCC4C8004B5138 /* AccountType.swift */,
 				C071E239247EDDB20085805B /* UserProductCategory.swift */,
@@ -525,6 +554,7 @@
 				C0144AB624843D4A006FF4AB /* RegisterArtisan.storyboard */,
 				C0144ABB24843D66006FF4AB /* ForgotPassword.storyboard */,
 				C06DB541249B59910009BCC1 /* Tabbar.storyboard */,
+				C0A8EE9A24C095A60074C620 /* ArtisanTabbar.storyboard */,
 				C09D002424B7379C0039F805 /* MyProfile.storyboard */,
 			);
 			path = Storyboards;
@@ -598,6 +628,7 @@
 				C0ACE9912484EF3800EFA4ED /* Country+Request.swift */,
 				C0ACE99D2485916400EFA4ED /* ProductCategory+Request.swift */,
 				C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */,
+				C005BCB724C1DC9F00197519 /* Product+Request.swift */,
 			);
 			path = "Entity+Networking";
 			sourceTree = "<group>";
@@ -623,6 +654,7 @@
 				C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */,
 				C09B3EFD24BA569300FBC115 /* ProfileImageRow.swift */,
 				C09B3EFF24BA56AD00FBC115 /* ProfileImageRow.xib */,
+				C0A8EE9E24C0ED070074C620 /* ProductCategoryCell.swift */,
 			);
 			path = CustomAssets;
 			sourceTree = "<group>";
@@ -632,6 +664,8 @@
 			children = (
 				C0925797249F7009006C4C05 /* BuyerHomeController.swift */,
 				C0925799249F7235006C4C05 /* BuyerTabbarController.swift */,
+				C0A8EEA024C0EF680074C620 /* ArtisanTabbarController.swift */,
+				C0A8EE9C24C095D20074C620 /* ArtisanHomeController.swift */,
 			);
 			path = BuyerHome;
 			sourceTree = "<group>";
@@ -675,6 +709,7 @@
 				C09F215124862F12001F2FCD /* ProductCategory+Transaction.swift */,
 				C09F21532486312D001F2FCD /* ClusterDetails+Transaction.swift */,
 				C094288024B39E74005FDF93 /* Country+Transaction.swift */,
+				C005BCB924C2335400197519 /* Product+Transaction.swift */,
 				C0A2A00324B8D22E00A49E56 /* User+Transaction.swift */,
 				C0A0D76224BD7B360089CC47 /* PaymentAccDetails+Transaction.swift */,
 				C0A2A00524B8D89800A49E56 /* Address+Transaction.swift */,
@@ -877,6 +912,7 @@
 				C0A910AC247CD90B00852695 /* PlayfairDisplay-BlackItalic.ttf in Resources */,
 				C0A910AB247CD90B00852695 /* PlayfairDisplay-MediumItalic.ttf in Resources */,
 				C0A910A7247CD90B00852695 /* PlayfairDisplay-Italic.ttf in Resources */,
+				C0A8EE9B24C095A70074C620 /* ArtisanTabbar.storyboard in Resources */,
 				C0A9108C247CD8D000852695 /* Lato-Thin.ttf in Resources */,
 				C0A91090247CD8D000852695 /* Lato-BlackItalic.ttf in Resources */,
 				C0AAC392249272AC008C2047 /* RoundedTextFieldRow.xib in Resources */,
@@ -954,13 +990,16 @@
 				C071E248247EE59E0085805B /* HTTPMethod.swift in Sources */,
 				C09B3F0D24BA615900FBC115 /* Disk+InternalHelpers.swift in Sources */,
 				C08FBE002497F31B0065BB20 /* REGBuyerPersonalInfoService.swift in Sources */,
+				C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */,
 				C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */,
 				C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */,
 				C071E247247EE59E0085805B /* Result.swift in Sources */,
 				C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */,
+				C0A8EE9F24C0ED070074C620 /* ProductCategoryCell.swift in Sources */,
 				C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */,
 				C0ACE99C248590B100EFA4ED /* REGNewUserPasswordController.swift in Sources */,
 				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
+				C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */,
 				C071E253247EE5C80085805B /* CraftExchangeClient.swift in Sources */,
 				C09B3F0F24BA615900FBC115 /* Disk+Data.swift in Sources */,
 				C071E24B247EE59E0085805B /* RequestParameters.swift in Sources */,
@@ -969,6 +1008,7 @@
 				C08FBE06249801CD0065BB20 /* REGBuyerCompanyInfoService.swift in Sources */,
 				C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */,
 				C0925798249F7009006C4C05 /* BuyerHomeController.swift in Sources */,
+				C005BCB624C1AB2F00197519 /* Product.swift in Sources */,
 				C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */,
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
 				C092579A249F7235006C4C05 /* BuyerTabbarController.swift in Sources */,
@@ -1045,10 +1085,14 @@
 				C0A3F41924B7A7EF0071F7F8 /* BuyerGeneralInfo.swift in Sources */,
 				C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */,
 				C0ACE9982485900F00EFA4ED /* REGValidateArtisanController.swift in Sources */,
+				C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */,
 				C0ACE9902484EF0D00EFA4ED /* User+Register.swift in Sources */,
 				C0F0653724BCC4C8004B5138 /* AccountType.swift in Sources */,
 				C071E25F247EFAAB0085805B /* BaseService.swift in Sources */,
+				C0A8EEA124C0EF680074C620 /* ArtisanTabbarController.swift in Sources */,
+				C0A8EE9D24C095D20074C620 /* ArtisanHomeController.swift in Sources */,
 				C071E25B247EF5C40085805B /* User+Request.swift in Sources */,
+				C005BCB424C1778D00197519 /* ArtisanHomeScene.swift in Sources */,
 				C09C970524B919D300FD97E9 /* ArtisanGeneralInfo.swift in Sources */,
 				C09B3F0C24BA615900FBC115 /* Disk.swift in Sources */,
 				C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */,
