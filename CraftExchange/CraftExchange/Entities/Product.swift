@@ -14,6 +14,7 @@ class Product: Object, Decodable {
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
     @objc dynamic var productSpec: String?
+    @objc dynamic var productTag: String?
     @objc dynamic var code: String?
     @objc dynamic var warpYarnId: Int = 0
     @objc dynamic var weftYarnId: Int = 0
@@ -26,8 +27,8 @@ class Product: Object, Decodable {
     @objc dynamic var extraWeftDyeId: Int = 0
     @objc dynamic var length: String?
     @objc dynamic var width: String?
-    dynamic var reedCountId: Int?
-    dynamic var productStatusId: Int?
+    @objc dynamic var reedCountId: Int = 0
+    @objc dynamic var productStatusId: Int = 0
     @objc dynamic var gsm: String?
     @objc dynamic var weight: String?
     @objc dynamic var createdOn: Date?
@@ -35,6 +36,8 @@ class Product: Object, Decodable {
     @objc dynamic var isDeleted: Bool = false
     @objc dynamic var artitionId: Int = 0
     @objc dynamic var productCategoryId: Int = 0
+    @objc dynamic var madeWithAnthran: Int = 0
+    @objc dynamic var clusterId: Int = 0
     var relatedProducts = List<Product>()
     
     enum CodingKeys: String, CodingKey {
@@ -62,6 +65,9 @@ class Product: Object, Decodable {
         case isDeleted = "isDeleted"
         case relProduct = "relProduct"
         case productCategoryId = "productCategoryId"
+        case madeWithAnthran = "madeWithAnthran"
+        case clusterId = "clusterId"
+        case productTag = "tag"
     }
     
     override class func primaryKey() -> String? {
@@ -74,7 +80,10 @@ class Product: Object, Decodable {
         entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
         productCategoryId = try (values.decodeIfPresent(Int.self, forKey: .productCategoryId) ?? 0)
-        productSpec = try values.decodeIfPresent(String.self, forKey: .productSpec)
+        clusterId = try (values.decodeIfPresent(Int.self, forKey: .clusterId) ?? 0)
+        madeWithAnthran = try (values.decodeIfPresent(Int.self, forKey: .clusterId) ?? 0)
+        productSpec = try? values.decodeIfPresent(String.self, forKey: .productSpec)
+        productTag = try? values.decodeIfPresent(String.self, forKey: .productTag)
         code = try? values.decodeIfPresent(String.self, forKey: .code)
         warpYarnId = try (values.decodeIfPresent(Int.self, forKey: .warpYarnId) ?? 0)
         weftYarnId = try (values.decodeIfPresent(Int.self, forKey: .weftYarnId) ?? 0)
@@ -87,8 +96,8 @@ class Product: Object, Decodable {
         extraWeftYarnCount = try? values.decodeIfPresent(String.self, forKey: .extraWeftYarnCount)
         length = try? values.decodeIfPresent(String.self, forKey: .length)
         width = try? values.decodeIfPresent(String.self, forKey: .width)
-        reedCountId = try? values.decodeIfPresent(Int.self, forKey: .reedCountId)
-        productStatusId = try? values.decodeIfPresent(Int.self, forKey: .productStatusId)
+        reedCountId = try (values.decodeIfPresent(Int.self, forKey: .reedCountId) ?? 0)
+        productStatusId = try (values.decodeIfPresent(Int.self, forKey: .productStatusId) ?? 0)
         gsm = try? values.decodeIfPresent(String.self, forKey: .gsm)
         weight = try? values.decodeIfPresent(String.self, forKey: .weight)
         createdOn = try? values.decodeIfPresent(Date.self, forKey: .createdOn)

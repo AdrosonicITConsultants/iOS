@@ -22,13 +22,34 @@ extension Product {
         objects.forEach { (prod) in
             if !catIds.contains(prod.productCategoryId ) {
                 catIds.append(prod.productCategoryId )
-                if let cat = ProductCategory().getProductCat(catId: prod.productCategoryId ) {
+                if let cat = ProductCategory.getProductCat(catId: prod.productCategoryId ) {
                     prodCat.append(cat)
                 }
             }
         }
         
         return prodCat
+    }
+    
+    static func allArtisanProducts(for categoryId: Int) -> SafeSignal<Results<Product>> {
+        let realm = try? Realm()
+        guard let userId = KeychainManager.standard.userID else {
+            return Signal { observer in
+                observer.receive(completion: .finished)
+                return BlockDisposable {
+                }
+            }
+        }
+        return Signal { observer in
+            if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId).filter("%K == %@", "productCategoryId", categoryId)
+                .sorted(byKeyPath: "modifiedOn", ascending: false) {
+                observer.receive(lastElement: results)
+            } else {
+                observer.receive(completion: .finished)
+            }
+            return BlockDisposable {
+            }
+        }
     }
     
     func saveOrUpdate() {
@@ -40,6 +61,36 @@ extension Product {
         } else {
             try? realm.write {
                 realm.add(self, update: .modified)
+            }
+        }
+    }
+    
+    func syncChanges() {
+        let realm = try? Realm()
+        try? realm?.write {
+            let messagesToAddOrUpdate = realm?.objects(Product.self).filter { $0.isDeleted == false }
+
+            var emailUpdates: [Int: Product] = [:]
+            let idsToCheck = messagesToAddOrUpdate?.compactMap { $0.entityID }
+            let emailsPresent = realm?.objects(Product.self).filter("%K IN %@", "entityID", idsToCheck ?? [0])
+            emailsPresent?.forEach({ (message) in
+                emailUpdates[message.entityID] = message
+            })
+
+            messagesToAddOrUpdate?.forEach { (message) in
+                if emailUpdates[message.entityID] == nil {
+                    realm?.add(message, update: .modified)
+                } else {
+                    if let exisitingMessage = emailUpdates[message.entityID] {
+                        exisitingMessage.code = message.code
+                    }
+                }
+            }
+            
+            let messagesToDelete = realm?.objects(Product.self).filter { $0.isDeleted == true }
+            let idsToBeDeleted = messagesToDelete?.compactMap { $0.entityID }
+            if let emailsToDelete = realm?.objects(Product.self).filter("%K IN %@", "entityID", idsToBeDeleted ?? [0]) {
+                realm?.delete(emailsToDelete)
             }
         }
     }

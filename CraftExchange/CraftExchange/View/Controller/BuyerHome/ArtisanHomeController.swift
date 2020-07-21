@@ -129,5 +129,15 @@ extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = ProductCatalogService(client: client).createScene(for: dataSource?[indexPath.row].entityID ?? 0)
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
