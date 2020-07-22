@@ -74,6 +74,10 @@ class KeychainManager {
     var baseURL: String {
         return "http://101.53.153.96:8090"
     }
+    
+    var imageBaseURL: String {
+        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+    }
   
     var userRole: String? {
         get {

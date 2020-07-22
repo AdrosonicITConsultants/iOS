@@ -13,7 +13,6 @@ import Contacts
 import ContactsUI
 import Eureka
 import ReactiveKit
-import UIKit
 import Reachability
 import JGProgressHUD
 import RealmSwift

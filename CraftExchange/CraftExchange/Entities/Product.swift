@@ -39,6 +39,7 @@ class Product: Object, Decodable {
     @objc dynamic var madeWithAnthran: Int = 0
     @objc dynamic var clusterId: Int = 0
     var relatedProducts = List<Product>()
+    var productImages = List<ProductImage>()
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -68,6 +69,7 @@ class Product: Object, Decodable {
         case madeWithAnthran = "madeWithAnthran"
         case clusterId = "clusterId"
         case productTag = "tag"
+        case productImages = "productImages"
     }
     
     override class func primaryKey() -> String? {
@@ -115,8 +117,11 @@ class Product: Object, Decodable {
         } else {
             isDeleted = false
         }
-//        if let list = try? values.decodeIfPresent(Product.self, forKey: .relProduct) {
-//           relatedProducts.append(list)
-//        }
+        if let list = try? values.decodeIfPresent([Product].self, forKey: .relProduct) {
+           relatedProducts.append(objectsIn: list)
+        }
+        if let list = try? values.decodeIfPresent([ProductImage].self, forKey: .productImages) {
+           productImages.append(objectsIn: list)
+        }
     }
 }

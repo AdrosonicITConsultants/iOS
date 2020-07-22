@@ -57,6 +57,28 @@ extension Product {
         if let object = realm.objects(Product.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
                 code = object.code
+                productSpec = object.productSpec
+                productTag = object.productTag
+                warpYarnId = object.warpYarnId
+                weftYarnId = object.weftYarnId
+                extraWeftYarnId = object.extraWeftYarnId
+                warpYarnCount = object.warpYarnCount
+                weftYarnCount = object.weftYarnCount
+                extraWeftYarnCount = object.extraWeftYarnCount
+                warpDyeId = object.warpDyeId
+                weftDyeId = object.weftDyeId
+                extraWeftDyeId = object.extraWeftDyeId
+                length = object.length
+                width = object.width
+                reedCountId = object.reedCountId
+                productStatusId = object.productStatusId
+                gsm = object.gsm
+                weight = object.weight
+                createdOn = object.createdOn
+                modifiedOn = object.modifiedOn
+                isDeleted = object.isDeleted
+                relatedProducts = object.relatedProducts
+                productImages = object.productImages
             }
         } else {
             try? realm.write {
