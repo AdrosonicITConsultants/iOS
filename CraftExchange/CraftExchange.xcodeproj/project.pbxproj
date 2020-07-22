@@ -76,6 +76,12 @@
 		C0925798249F7009006C4C05 /* BuyerHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0925797249F7009006C4C05 /* BuyerHomeController.swift */; };
 		C092579A249F7235006C4C05 /* BuyerTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0925799249F7235006C4C05 /* BuyerTabbarController.swift */; };
 		C094288124B39E74005FDF93 /* Country+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094288024B39E74005FDF93 /* Country+Transaction.swift */; };
+		C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */; };
+		C0995BF624C8C8A000EC4CC3 /* CategoryBrandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BF524C8C8A000EC4CC3 /* CategoryBrandCell.xib */; };
+		C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BF724C8CB8C00EC4CC3 /* RegionCell.swift */; };
+		C0995BFA24C8CB9900EC4CC3 /* RegionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BF924C8CB9900EC4CC3 /* RegionCell.xib */; };
+		C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BFB24C8CE5900EC4CC3 /* BuyerProductCell.xib */; };
+		C0995BFE24C8D15F00EC4CC3 /* BuyerProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BFD24C8D15F00EC4CC3 /* BuyerProductCell.swift */; };
 		C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */; };
 		C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */; };
 		C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */; };
@@ -254,6 +260,12 @@
 		C0925797249F7009006C4C05 /* BuyerHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerHomeController.swift; sourceTree = "<group>"; };
 		C0925799249F7235006C4C05 /* BuyerTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerTabbarController.swift; sourceTree = "<group>"; };
 		C094288024B39E74005FDF93 /* Country+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Transaction.swift"; sourceTree = "<group>"; };
+		C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBrandCell.swift; sourceTree = "<group>"; };
+		C0995BF524C8C8A000EC4CC3 /* CategoryBrandCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryBrandCell.xib; sourceTree = "<group>"; };
+		C0995BF724C8CB8C00EC4CC3 /* RegionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCell.swift; sourceTree = "<group>"; };
+		C0995BF924C8CB9900EC4CC3 /* RegionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegionCell.xib; sourceTree = "<group>"; };
+		C0995BFB24C8CE5900EC4CC3 /* BuyerProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyerProductCell.xib; sourceTree = "<group>"; };
+		C0995BFD24C8D15F00EC4CC3 /* BuyerProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCell.swift; sourceTree = "<group>"; };
 		C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompanyPointOfContact+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuyerCompanyDetails+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProductCategories+Transaction.swift"; sourceTree = "<group>"; };
@@ -689,8 +701,14 @@
 				C09B3EFD24BA569300FBC115 /* ProfileImageRow.swift */,
 				C09B3EFF24BA56AD00FBC115 /* ProfileImageRow.xib */,
 				C0A8EE9E24C0ED070074C620 /* ProductCategoryCell.swift */,
-				C04F72D824C611D400E8122E /* ArtisanProductCell.swift */,
 				C04F72DA24C611E700E8122E /* ArtisanProductCell.xib */,
+				C04F72D824C611D400E8122E /* ArtisanProductCell.swift */,
+				C0995BF524C8C8A000EC4CC3 /* CategoryBrandCell.xib */,
+				C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */,
+				C0995BF924C8CB9900EC4CC3 /* RegionCell.xib */,
+				C0995BF724C8CB8C00EC4CC3 /* RegionCell.swift */,
+				C0995BFB24C8CE5900EC4CC3 /* BuyerProductCell.xib */,
+				C0995BFD24C8D15F00EC4CC3 /* BuyerProductCell.swift */,
 			);
 			path = CustomAssets;
 			sourceTree = "<group>";
@@ -954,8 +972,10 @@
 			files = (
 				C0A910A2247CD90B00852695 /* PlayfairDisplay-Bold.ttf in Resources */,
 				C0A910A6247CD90B00852695 /* PlayfairDisplay-ExtraBoldItalic.ttf in Resources */,
+				C0995BFA24C8CB9900EC4CC3 /* RegionCell.xib in Resources */,
 				C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */,
 				C0A9108E247CD8D000852695 /* Lato-Black.ttf in Resources */,
+				C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */,
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
 				C06DB542249B59910009BCC1 /* Tabbar.storyboard in Resources */,
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
@@ -979,6 +999,7 @@
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
 				C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */,
 				C0144AB424843D4A006FF4AB /* RegisterArtisan.storyboard in Resources */,
+				C0995BF624C8C8A000EC4CC3 /* CategoryBrandCell.xib in Resources */,
 				C0A9108F247CD8D000852695 /* Lato-Regular.ttf in Resources */,
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
@@ -1104,7 +1125,9 @@
 				C0ACE9A62485966600EFA4ED /* REGValidateUserEmailService.swift in Sources */,
 				C0ACE99424852A5B00EFA4ED /* CXUser.swift in Sources */,
 				C09B3F1324BA615900FBC115 /* Disk+[UIImage].swift in Sources */,
+				C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */,
 				C0A0D76624BE442F0089CC47 /* OfflineProfileActionsRequest.swift in Sources */,
+				C0995BFE24C8D15F00EC4CC3 /* BuyerProductCell.swift in Sources */,
 				C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
 				C09B3F0E24BA615900FBC115 /* Disk+[Data].swift in Sources */,
@@ -1136,6 +1159,7 @@
 				C09F21542486312D001F2FCD /* ClusterDetails+Transaction.swift in Sources */,
 				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
 				C071E22B247E7F820085805B /* Address.swift in Sources */,
+				C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */,
 				C0ACE9A82485970100EFA4ED /* REGValidateUserEmailScene.swift in Sources */,
 				C09B3F1024BA615900FBC115 /* Disk+Errors.swift in Sources */,
 				C08FBDFC2497EF870065BB20 /* REGBuyerPersonalInfoController.swift in Sources */,
