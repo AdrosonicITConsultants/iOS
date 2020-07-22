@@ -105,18 +105,21 @@ class ArtisanProdCatalogueController: UITableViewController {
     }
 }
 
-//extension ArtisanProdCatalogueController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return dataSource?.changeset?.count ?? 0
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-//                                                              for: indexPath) as! ArtisanProductCell
-//
-//        cell.productTag.text = dataSource?.
-//        cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
-//        return cell
-//    }
-//
-//}
+extension ArtisanProdCatalogueController {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Write action code for the trash
+        let viewEditAction = UIContextualAction(style: .normal, title:  "View & \n Edit".localized, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            print("Update action ...")
+            success(true)
+        })
+        viewEditAction.image = UIImage.init(named: "iOS-edit")
+        viewEditAction.backgroundColor = .systemBlue
+
+        return UISwipeActionsConfiguration(actions: [viewEditAction])
+    }
+}

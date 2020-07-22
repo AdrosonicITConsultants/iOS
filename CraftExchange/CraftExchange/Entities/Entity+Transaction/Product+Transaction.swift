@@ -56,29 +56,44 @@ extension Product {
         let realm = try! Realm()
         if let object = realm.objects(Product.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                code = object.code
-                productSpec = object.productSpec
-                productTag = object.productTag
-                warpYarnId = object.warpYarnId
-                weftYarnId = object.weftYarnId
-                extraWeftYarnId = object.extraWeftYarnId
-                warpYarnCount = object.warpYarnCount
-                weftYarnCount = object.weftYarnCount
-                extraWeftYarnCount = object.extraWeftYarnCount
-                warpDyeId = object.warpDyeId
-                weftDyeId = object.weftDyeId
-                extraWeftDyeId = object.extraWeftDyeId
-                length = object.length
-                width = object.width
-                reedCountId = object.reedCountId
-                productStatusId = object.productStatusId
-                gsm = object.gsm
-                weight = object.weight
-                createdOn = object.createdOn
-                modifiedOn = object.modifiedOn
-                isDeleted = object.isDeleted
-                relatedProducts = object.relatedProducts
-                productImages = object.productImages
+                object.code = code
+                object.productSpec = productSpec
+                object.productTag = productTag
+                object.warpYarnId = warpYarnId
+                object.weftYarnId = weftYarnId
+                object.extraWeftYarnId = extraWeftYarnId
+                object.warpYarnCount = warpYarnCount
+                object.weftYarnCount = weftYarnCount
+                object.extraWeftYarnCount = extraWeftYarnCount
+                object.warpDyeId = warpDyeId
+                object.weftDyeId = weftDyeId
+                object.extraWeftDyeId = extraWeftDyeId
+                object.length = length
+                object.width = width
+                object.reedCountId = reedCountId
+                object.productStatusId = productStatusId
+                object.gsm = gsm
+                object.weight = weight
+                object.createdOn = createdOn
+                object.modifiedOn = modifiedOn
+                object.isDeleted = isDeleted
+                object.relatedProducts = relatedProducts
+                
+                let idsToCheck = productImages.compactMap { $0.entityID }
+                var imgsToDelete: [ProductImage] = []
+                object.productImages .forEach { (img) in
+                    if !idsToCheck.contains(img.entityID) {
+                        imgsToDelete.append(img)
+                    }
+                }
+                realm.delete(imgsToDelete)
+                
+                let existingImgs = object.productImages.compactMap { $0.entityID }
+                productImages .forEach { (img) in
+                    if !existingImgs.contains(img.entityID) {
+                        object.productImages.append(img)
+                    }
+                }
             }
         } else {
             try? realm.write {

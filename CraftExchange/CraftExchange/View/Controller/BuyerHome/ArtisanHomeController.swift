@@ -70,11 +70,11 @@ class ArtisanHomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         dataSource = Product().getAllProductCatForUser()
-        if dataSource?.count == 0 {
+//        if dataSource?.count == 0 {
             viewModel.viewWillAppear?()
-        }else {
+//        }else {
             self.refreshLayout()
-        }
+//        }
     }
     
     func refreshBrandLogo() {
@@ -117,13 +117,6 @@ extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! ProductCategoryCell
-//        if indexPath.row % 2 == 0 {
-//            cell.categoryCover.image = UIImage.init(named: "Dupatta")
-//            cell.categoryName.text = "Dupatta"
-//        }else {
-//            cell.categoryCover.image = UIImage.init(named: "Saree")
-//            cell.categoryName.text = "Saree"
-//        }
         cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription
         cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
         return cell

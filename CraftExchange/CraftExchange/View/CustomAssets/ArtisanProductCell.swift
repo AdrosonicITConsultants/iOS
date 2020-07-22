@@ -30,8 +30,10 @@ class ArtisanProductCell: UITableViewCell {
         }
         if productObj.madeWithAnthran == 1 {
             designedByImage.image = UIImage.init(named: "iosAntaranSelfDesign")
+            productImage.image = UIImage.init(named: "iosAntaranSelfDesign")
         }else {
             designedByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+            productImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
         }
         if let tag = productObj.productImages.first?.lable {
             let prodId = productObj.entityID
