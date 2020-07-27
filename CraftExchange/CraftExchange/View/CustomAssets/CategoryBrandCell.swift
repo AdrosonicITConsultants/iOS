@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class CategoryBrandCell: UITableViewCell {
+class CategoryBrandCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var logoImage: UIImageView!
     var delegate: UIViewController!

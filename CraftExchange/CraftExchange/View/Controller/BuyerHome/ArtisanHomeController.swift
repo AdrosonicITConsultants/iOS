@@ -14,7 +14,7 @@ import Realm
 import Bond
 import Reachability
 
-class ArtisanHomeViewModel {
+class HomeViewModel {
     var artisanBrandUrl = Observable<String?>("")
     var artisanName = Observable<String?>("")
     var viewDidLoad: (() -> Void)?
@@ -30,7 +30,7 @@ class ArtisanHomeController: UIViewController {
     private let reuseIdentifier = "ProductCategoryCell"
     var dataSource: [ProductCategory]?
     let realm = try? Realm()
-    lazy var viewModel = ArtisanHomeViewModel()
+    lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
     
   override func viewDidLoad() {

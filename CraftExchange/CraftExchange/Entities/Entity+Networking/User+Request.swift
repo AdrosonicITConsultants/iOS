@@ -211,38 +211,6 @@ extension User {
         }
     }
     
-    /*
-    public static func updateArtisanProfile(json: [String: Any]) -> Request<Data, APIError> {
-      var str = json.jsonString
-      str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-      let headers: [String: String] = ["accept": "application/json"]
-        return Request(
-          path: "user/edit/artistProfile?address=\(str)",
-            method: .put,
-            headers: headers,
-            resource: {print(String(data: $0, encoding: .utf8) ?? "artist edit profile failed")
-              return $0},
-            error: APIError.init,
-            needsAuthorization: true
-        )
-    }
-    
-    public static func updateArtisanBrandDetails(json: [String: Any]) -> Request<Data, APIError> {
-        let finalJson = ["companyDetails" : json]
-        var str = finalJson.jsonString
-        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let headers: [String: String] = ["accept": "application/json"]
-        return Request(
-            path: "user/edit/artistBrandDetails?editBrandDetails=\(str)",
-            method: .put,
-            headers: headers,
-            resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
-              return $0},
-            error: APIError.init,
-            needsAuthorization: true
-        )
-    }*/
-    
     public static func updateArtisanBankDetails(json: [[String: Any]]) -> Request<Data, APIError> {
         var str = json.jsonString
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -255,6 +223,43 @@ extension User {
               return $0},
             error: APIError.init,
             needsAuthorization: true
+        )
+    }
+    
+    public static func getFilteredArtisans() -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: "filter/getFilteredArtisansMobile",
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get all filtered artisan failed")
+            return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    static func fetchBrandImage(with userID: Int, name: String) -> Request<Data, APIError> {
+        var str = "User/\(userID)/CompanyDetails/Logo/\(name)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,//"Product/10/download.jpg",//
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func fetchProfileImage(with userID: Int, name: String) -> Request<Data, APIError> {
+        var str = "User/\(userID)/ProfilePics/\(name)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,//"Product/10/download.jpg",//
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
         )
     }
 }

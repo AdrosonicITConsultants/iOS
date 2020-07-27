@@ -86,4 +86,16 @@ extension User {
             }
         }
     }
+    
+    func getAllArtisansForCluster(clusterId: Int) -> [User] {
+        let realm = try! Realm()
+        let objects = realm.objects(User.self).filter("%K == %@", "refRoleId", "1")
+        var prodCat: [User] = []
+        objects.forEach { (userObj) in
+            if userObj.cluster?.entityID == clusterId {
+                prodCat.append(userObj)
+            }
+        }
+        return prodCat
+    }
 }

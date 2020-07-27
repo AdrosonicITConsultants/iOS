@@ -109,7 +109,11 @@ class User: Object, Decodable {
     }
     weaverDetails = try? values.decodeIfPresent(Weaver.self, forKey: .weaverDetails)
     cluster = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster)
-    refRoleId = try? values.decodeIfPresent(String.self, forKey: .refRoleId)
+    if let roleId = try? values.decodeIfPresent(Int.self, forKey: .refRoleId) {
+        refRoleId = "\(roleId)"
+    }else if let roleId = try? values.decodeIfPresent(String.self, forKey: .refRoleId) {
+        refRoleId = roleId
+    }
     registeredOn = try? values.decodeIfPresent(String.self, forKey: .registeredOn)
     status = try? values.decodeIfPresent(Int.self, forKey: .status)
     emailVerified = try? values.decodeIfPresent(Int.self, forKey: .emailVerified)

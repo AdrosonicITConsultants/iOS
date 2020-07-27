@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -117,6 +118,9 @@
                                                 <state key="normal" title="Explore " image="ios-explore">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="artisanSelfDesignSelected:" destination="7z9-L7-4Bz" eventType="touchUpInside" id="OQG-G7-gVQ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -166,6 +170,9 @@
                                                 <state key="normal" title="Explore " image="ios-explore">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="antaranDesignSelected:" destination="7z9-L7-4Bz" eventType="touchUpInside" id="SVR-1M-Is1"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -392,8 +399,153 @@
             </objects>
             <point key="canvasLocation" x="-907.24637681159425" y="821.65178571428567"/>
         </scene>
+        <!--Design Collection Controller-->
+        <scene sceneID="U1j-P7-l1d">
+            <objects>
+                <viewController storyboardIdentifier="DesignCollectionController" id="Uka-tn-9Lt" customClass="DesignCollectionController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GkJ-Bf-vqY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-Mm-7jy">
+                                <rect key="frame" x="0.0" y="44" width="414" height="75"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8D7-iM-LC1">
+                                        <rect key="frame" x="20" y="9.5" width="60" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="cfM-9z-gQS"/>
+                                            <constraint firstAttribute="height" constant="55" id="xIo-il-xC2"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Antaran Co Design Collection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="od3-TO-fte">
+                                        <rect key="frame" x="90" y="17" width="304" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="4tg-a3-AJT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.87528365850000001" green="0.94788891080000004" blue="0.98824304340000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="od3-TO-fte" firstAttribute="top" secondItem="wqR-Mm-7jy" secondAttribute="top" constant="17" id="0LJ-Wg-v8B"/>
+                                    <constraint firstAttribute="height" constant="75" id="fcY-wn-dPN"/>
+                                    <constraint firstItem="8D7-iM-LC1" firstAttribute="leading" secondItem="wqR-Mm-7jy" secondAttribute="leading" constant="20" id="h0n-6s-YSO"/>
+                                    <constraint firstItem="8D7-iM-LC1" firstAttribute="centerY" secondItem="od3-TO-fte" secondAttribute="centerY" id="ndf-9s-eG8"/>
+                                    <constraint firstAttribute="trailing" secondItem="od3-TO-fte" secondAttribute="trailing" constant="20" id="qmd-cU-A78"/>
+                                    <constraint firstItem="od3-TO-fte" firstAttribute="leading" secondItem="8D7-iM-LC1" secondAttribute="trailing" constant="10" id="rT1-YU-iIM"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7y-aW-E27" customClass="WMSegment" customModule="WMSegmentControl">
+                                <rect key="frame" x="0.0" y="127" width="414" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="IMc-fr-5VB"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="typeNum">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectorTypeNum">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="buttonTitles" value="Regions, Categories, Artisan Brands"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectorTextColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectorColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="Uka-tn-9Lt" eventType="valueChanged" id="Xkj-5g-olH"/>
+                                </connections>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1of-gE-wNp">
+                                <rect key="frame" x="0.0" y="183" width="414" height="713"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bF2-dq-dJi">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="n6I-xv-4Dd">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aMA-Vx-D6G">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Uka-tn-9Lt" id="UDq-Gt-wZv"/>
+                                    <outlet property="delegate" destination="Uka-tn-9Lt" id="D6C-29-0ro"/>
+                                </connections>
+                            </collectionView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Q4-e9-M0o">
+                                <rect key="frame" x="0.0" y="175" width="414" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="Hwd-uG-p6K"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="250" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                <state key="normal" title="View by cluster" image="arrow.down" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="filterByClusterSelected:" destination="Uka-tn-9Lt" eventType="touchUpInside" id="Z2Y-he-OFd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="1of-gE-wNp" firstAttribute="leading" secondItem="T6f-t1-Atd" secondAttribute="leading" id="2cT-rY-pzg"/>
+                            <constraint firstItem="J7y-aW-E27" firstAttribute="leading" secondItem="T6f-t1-Atd" secondAttribute="leading" id="B5Q-LT-2Co"/>
+                            <constraint firstItem="J7y-aW-E27" firstAttribute="top" secondItem="wqR-Mm-7jy" secondAttribute="bottom" constant="8" id="CfY-iu-Iz7"/>
+                            <constraint firstItem="wqR-Mm-7jy" firstAttribute="top" secondItem="T6f-t1-Atd" secondAttribute="top" id="O1q-sA-T2T"/>
+                            <constraint firstItem="3Q4-e9-M0o" firstAttribute="trailing" secondItem="T6f-t1-Atd" secondAttribute="trailing" id="WoN-aQ-hpU"/>
+                            <constraint firstItem="wqR-Mm-7jy" firstAttribute="leading" secondItem="T6f-t1-Atd" secondAttribute="leading" id="aCD-e0-ooE"/>
+                            <constraint firstItem="3Q4-e9-M0o" firstAttribute="top" secondItem="J7y-aW-E27" secondAttribute="bottom" constant="8" id="cCr-Uu-6D2"/>
+                            <constraint firstItem="1of-gE-wNp" firstAttribute="top" secondItem="3Q4-e9-M0o" secondAttribute="bottom" constant="8" id="eu7-PG-emA"/>
+                            <constraint firstItem="J7y-aW-E27" firstAttribute="trailing" secondItem="T6f-t1-Atd" secondAttribute="trailing" id="ohD-Em-KWc"/>
+                            <constraint firstItem="wqR-Mm-7jy" firstAttribute="trailing" secondItem="T6f-t1-Atd" secondAttribute="trailing" id="u1d-D8-Is5"/>
+                            <constraint firstItem="3Q4-e9-M0o" firstAttribute="leading" secondItem="T6f-t1-Atd" secondAttribute="leading" id="u4j-y6-tVV"/>
+                            <constraint firstItem="1of-gE-wNp" firstAttribute="trailing" secondItem="T6f-t1-Atd" secondAttribute="trailing" id="ulP-im-j79"/>
+                            <constraint firstAttribute="bottom" secondItem="1of-gE-wNp" secondAttribute="bottom" id="wNA-z6-Dvz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="T6f-t1-Atd"/>
+                    </view>
+                    <connections>
+                        <outlet property="categoryCollection" destination="1of-gE-wNp" id="ocS-bq-Pt0"/>
+                        <outlet property="clusterBtnHtConstraint" destination="Hwd-uG-p6K" id="NYV-FC-YAK"/>
+                        <outlet property="collectionSegment" destination="J7y-aW-E27" id="h7d-Ml-wPq"/>
+                        <outlet property="createdByLbl" destination="od3-TO-fte" id="IMc-fG-6uL"/>
+                        <outlet property="createdByView" destination="wqR-Mm-7jy" id="h6d-xc-EtE"/>
+                        <outlet property="madeByImage" destination="8D7-iM-LC1" id="xZb-Vi-ePp"/>
+                        <outlet property="viewByCluster" destination="3Q4-e9-M0o" id="lyB-tx-gp8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d5n-MC-cZm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1019" y="1538"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="coverImage" width="374" height="128"/>
         <image name="custom-design-icon" width="31" height="22"/>
         <image name="home-antaran-design" width="169" height="71"/>

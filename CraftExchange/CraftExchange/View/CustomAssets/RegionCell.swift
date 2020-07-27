@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RegionCell: UITableViewCell {
+class RegionCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var adjectiveLabel: UILabel!
     @IBOutlet weak var logoImage: UIImageView!

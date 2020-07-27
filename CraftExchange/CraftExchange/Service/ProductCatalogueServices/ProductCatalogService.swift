@@ -21,8 +21,8 @@ class ProductCatalogService: BaseService<Data> {
     func fetchAllArtisanProduct() -> SafeSignal<Data> {
       return Product.getAllArtisanProduct().response(using: client).debug()
     }
-//    
-//    override func update(_ collection: [Product]?) {
-//        
-//    }
+
+    func fetchAllFilteredArtisan() -> SafeSignal<Data> {
+      return User.getFilteredArtisans().response(using: client).debug()
+    }
 }
