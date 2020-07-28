@@ -33,38 +33,41 @@ extension ProductCatalogService {
         func performSync() {
             if let category = selectedProductCat {
                 fetchAllProducts(categoryId: category.entityID).bind(to: controller, context: .global(qos: .background)) { _, responseData in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                      if let obj = json["data"] as? [String: Any] {
-                          if let prodArray = obj["products"] as? [[String: Any]] {
-                              if let proddata = try? JSONSerialization.data(withJSONObject: prodArray, options: .fragmentsAllowed) {
-                                  if let object = try? JSONDecoder().decode([Product].self, from: proddata) {
-                                      DispatchQueue.main.async {
-                                          object .forEach { (prodObj) in
-                                              prodObj.saveOrUpdate()
-                                              if prodObj == object.last {
-    //                                                    controller.dataSource = Product.allProducts(categoryId: category.entityID)
-                                                  DispatchQueue.main.async {
-                                                      controller.endRefresh()
-                                                  }
-                                              }
-                                          }
-                                      }
-                                  }
-                              }
+                    DispatchQueue.main.async {
+                    responseData .forEach { (prodObj) in
+                        prodObj.saveOrUpdate()
+                        if prodObj == responseData.last {
+                            DispatchQueue.main.async {
+                                controller.endRefresh()
+                            }
                         }
-                      }
+                    }
                     }
                 }.dispose(in: controller.bag)
             } else if let region = selectedRegion {
-                fetchAllProducts(clusterId: region.entityID).bind(to: controller, context: .global(qos: .background)) { _, sync in
+                fetchAllProducts(clusterId: region.entityID).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     DispatchQueue.main.async {
-                        controller.endRefresh()
-                    }
+                      responseData .forEach { (prodObj) in
+                          prodObj.saveOrUpdate()
+                          if prodObj == responseData.last {
+                              DispatchQueue.main.async {
+                                  controller.endRefresh()
+                              }
+                          }
+                      }
+                      }
                 }.dispose(in: controller.bag)
             }else if let artisan = selectedArtisan {
-                fetchAllProducts(artisanId: artisan.entityID).bind(to: controller, context: .global(qos: .background)) { _, sync in
+                fetchAllProducts(artisanId: artisan.entityID).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     DispatchQueue.main.async {
-                        controller.endRefresh()
+                    responseData .forEach { (prodObj) in
+                        prodObj.saveOrUpdate()
+                        if prodObj == responseData.last {
+                            DispatchQueue.main.async {
+                                controller.endRefresh()
+                            }
+                        }
+                    }
                     }
                 }.dispose(in: controller.bag)
             }
