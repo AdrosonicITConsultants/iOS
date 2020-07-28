@@ -42,7 +42,12 @@ class BuyerHomeController: UIViewController {
     }
     
     super.viewDidLoad()
+    viewModel.viewDidLoad?()
   }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.viewWillAppear?()
+    }
   
     @IBAction func artisanSelfDesignSelected(_ sender: Any) {
 //        let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)

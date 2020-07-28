@@ -62,10 +62,12 @@ extension LoginUserService {
                             let controller = HomeScreenService(client: self.client).createScene()
                             vc.present(controller, animated: true, completion: nil)
                         }else {
-                            let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-                            let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
-                            tab.modalPresentationStyle = .fullScreen
-                            vc.present(tab, animated: true, completion: nil)
+//                            let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+//                            let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
+//                            tab.modalPresentationStyle = .fullScreen
+//                            vc.present(tab, animated: true, completion: nil)
+                            let controller = HomeScreenService(client: self.client).createBuyerScene()
+                            vc.present(controller, animated: true, completion: nil)
                         }
                     }
                   }else {

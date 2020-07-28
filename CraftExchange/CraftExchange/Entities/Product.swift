@@ -70,6 +70,8 @@ class Product: Object, Decodable {
         case clusterId = "clusterId"
         case productTag = "tag"
         case productImages = "productImages"
+        case cluster = "cluster"
+        case productCategory = "productCategory"
     }
     
     override class func primaryKey() -> String? {
@@ -82,8 +84,14 @@ class Product: Object, Decodable {
         entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
         productCategoryId = try (values.decodeIfPresent(Int.self, forKey: .productCategoryId) ?? 0)
-        clusterId = try (values.decodeIfPresent(Int.self, forKey: .clusterId) ?? 0)
-        madeWithAnthran = try (values.decodeIfPresent(Int.self, forKey: .clusterId) ?? 0)
+        if let value = try? values.decodeIfPresent(Int.self, forKey: .clusterId) {
+            clusterId = value
+        } else if let value = try? values.decodeIfPresent(String.self, forKey: .clusterId) {
+            clusterId = Int(value) ?? 0
+        } else {
+            clusterId = 0
+        }
+        madeWithAnthran = try (values.decodeIfPresent(Int.self, forKey: .madeWithAnthran) ?? 0)
         productSpec = try? values.decodeIfPresent(String.self, forKey: .productSpec)
         productTag = try? values.decodeIfPresent(String.self, forKey: .productTag)
         code = try? values.decodeIfPresent(String.self, forKey: .code)
@@ -107,8 +115,10 @@ class Product: Object, Decodable {
         artitionId = try (values.decodeIfPresent(Int.self, forKey: .artitionId) ?? 0)
         if let value = try? values.decodeIfPresent(Int.self, forKey: .artitionId) {
             artitionId = value
+        } else if let value = try? values.decodeIfPresent(String.self, forKey: .artitionId) {
+            artitionId = Int(value) ?? 0
         } else {
-            artitionId = KeychainManager.standard.userID ?? 0
+            artitionId = 0
         }
         if let value = try? values.decodeIfPresent(Bool.self, forKey: .isDeleted) {
             isDeleted = value
@@ -122,6 +132,12 @@ class Product: Object, Decodable {
         }
         if let list = try? values.decodeIfPresent([ProductImage].self, forKey: .productImages) {
            productImages.append(objectsIn: list)
+        }
+        if let list = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster) {
+            clusterId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(ProductCategory.self, forKey: .productCategory) {
+            productCategoryId = list.entityID
         }
     }
 }

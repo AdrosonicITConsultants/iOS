@@ -12,6 +12,14 @@ import RealmSwift
 
 extension ClusterDetails {
     
+    static func getCluster(clusterId: Int) -> ClusterDetails? {
+        let realm = try! Realm()
+        if let object = realm.objects(ClusterDetails.self).filter("%K == %@", "entityID", clusterId).first {
+            return object
+        }
+        return nil
+    }
+    
     func saveOrUpdate() {
         let realm = try! Realm()
         if let object = realm.objects(ClusterDetails.self).filter("%K == %@", "entityID", self.entityID).first {

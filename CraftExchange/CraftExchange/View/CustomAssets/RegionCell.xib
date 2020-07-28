@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Mh-DO-qEw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+                        <rect key="frame" x="0.0" y="10" width="414" height="103"/>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -47,7 +47,7 @@
                     <constraint firstAttribute="trailing" secondItem="6Mh-DO-qEw" secondAttribute="trailing" id="gUu-7T-0Fe"/>
                     <constraint firstItem="CXy-wY-OSx" firstAttribute="top" secondItem="6Mh-DO-qEw" secondAttribute="bottom" constant="2" id="kEP-J0-6Ac"/>
                     <constraint firstItem="Gfc-3s-AXB" firstAttribute="top" secondItem="CXy-wY-OSx" secondAttribute="bottom" id="sYU-Dr-yRq"/>
-                    <constraint firstItem="6Mh-DO-qEw" firstAttribute="top" secondItem="86A-O9-f27" secondAttribute="top" id="sjI-3G-3XZ"/>
+                    <constraint firstItem="6Mh-DO-qEw" firstAttribute="top" secondItem="86A-O9-f27" secondAttribute="top" constant="10" id="sjI-3G-3XZ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

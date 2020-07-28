@@ -45,8 +45,7 @@ class DesignCollectionController: UIViewController {
         allRegions = realm.objects(ClusterDetails.self).sorted(byKeyPath: "entityID")
         allCategories = realm.objects(ProductCategory.self).sorted(byKeyPath: "entityID")
         allArtisanBrands = realm.objects(User.self).filter("%K == %@", "refRoleId", "1").compactMap{$0}
-//        categoryCollection.register(RegionCell.self, forCellWithReuseIdentifier: "RegionCell")
-//        categoryCollection.register(CategoryBrandCell.self, forCellWithReuseIdentifier: "CategoryBrandCell")
+
         categoryCollection.register(UINib(nibName: "RegionCell", bundle: nil), forCellWithReuseIdentifier: "RegionCell")
         categoryCollection.register(UINib(nibName: "CategoryBrandCell", bundle: nil), forCellWithReuseIdentifier: "CategoryBrandCell")
         
@@ -159,6 +158,12 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             cell.titleLabel.text = allRegions?.compactMap{$0}[indexPath.row].clusterDescription
             cell.adjectiveLabel.text = allRegions?[indexPath.row].adjective
             cell.logoImage.image = UIImage.init(named: "coverImage")
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+            cell.layer.shadowColor = UIColor.lightGray.cgColor
+            cell.layer.shadowOpacity = 1
+            cell.layer.shadowOffset = CGSize.zero
+            cell.layer.shadowRadius = 5
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryBrandCell", for: indexPath) as! CategoryBrandCell
@@ -218,6 +223,46 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             return cell
         default:
             return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionSegment.selectedSegmentIndex {
+        case 0:
+            print("Region Cell")
+            let region = allRegions?[indexPath.row]
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = ProductCatalogService(client: client).createScene(selectedRegion: region, selectedProductCat: nil, selectedArtisan: nil, madeByAntaran: madeByAntaran)
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
+        case 1:
+            print("Category Cell")
+            let category = allCategories?[indexPath.row]
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = ProductCatalogService(client: client).createScene(selectedRegion: nil, selectedProductCat: category, selectedArtisan: nil, madeByAntaran: madeByAntaran)
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
+        case 2:
+            print("Artisan Cell")
+            let artisan = allArtisanBrands?[indexPath.row]
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = ProductCatalogService(client: client).createScene(selectedRegion: nil, selectedProductCat: nil, selectedArtisan: artisan, madeByAntaran: madeByAntaran)
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
+        default:
+            print("Region Cell")
         }
     }
     

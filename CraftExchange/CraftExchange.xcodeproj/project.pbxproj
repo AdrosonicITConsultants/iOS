@@ -26,6 +26,8 @@
 		C0285A9B24CEDE8F0045623A /* BuyerProductCatagoryScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */; };
 		C0285A9D24CF22CB0045623A /* BrandLogoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9C24CF22CB0045623A /* BrandLogoService.swift */; };
 		C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */; };
+		C0285AA124CF4E4F0045623A /* BuyerProductCatalogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */; };
+		C0285AA324CF58E00045623A /* BuyerProductCatalogScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */; };
 		C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87A2476F0BC00279D7F /* AppDelegate.swift */; };
 		C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */; };
 		C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8802476F0BC00279D7F /* Main.storyboard */; };
@@ -211,6 +213,8 @@
 		C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatagoryScene.swift; sourceTree = "<group>"; };
 		C0285A9C24CF22CB0045623A /* BrandLogoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandLogoService.swift; sourceTree = "<group>"; };
 		C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePicService.swift; sourceTree = "<group>"; };
+		C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatalogController.swift; sourceTree = "<group>"; };
+		C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatalogScene.swift; sourceTree = "<group>"; };
 		C03BD8772476F0BC00279D7F /* CraftExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03BD87A2476F0BC00279D7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -900,6 +904,7 @@
 			isa = PBXGroup;
 			children = (
 				C0F4723224C9901900DB8F38 /* DesignCollectionController.swift */,
+				C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */,
 			);
 			path = BuyerProductCatalog;
 			sourceTree = "<group>";
@@ -909,6 +914,7 @@
 			children = (
 				C0FBE34E24C6F7420037347A /* ArtisanProductCatalogueScene.swift */,
 				C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */,
+				C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */,
 			);
 			path = ProductCatalogueScenes;
 			sourceTree = "<group>";
@@ -1125,6 +1131,7 @@
 				C0E212D62498D11C00EC2B80 /* REGBuyerAddressInfoController.swift in Sources */,
 				C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */,
 				C071E25D247EF9280085805B /* ValidateUserService.swift in Sources */,
+				C0285AA124CF4E4F0045623A /* BuyerProductCatalogController.swift in Sources */,
 				C0A29FFC24B8A72300A49E56 /* CompanyPointOfContact.swift in Sources */,
 				C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */,
 				C08FBDFE2497F2DA0065BB20 /* REGBuyerPersonalInfoScene.swift in Sources */,
@@ -1211,6 +1218,7 @@
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C05498D524995914005D5E57 /* RegisterBuyerController.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
+				C0285AA324CF58E00045623A /* BuyerProductCatalogScene.swift in Sources */,
 				C0A2A00424B8D22E00A49E56 /* User+Transaction.swift in Sources */,
 				C09F214D24862987001F2FCD /* REGArtisanInfoInputService.swift in Sources */,
 				C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */,

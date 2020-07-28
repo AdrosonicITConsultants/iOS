@@ -13,6 +13,14 @@ import ReactiveKit
 
 extension User {
     
+    static func getUser(userId: Int) -> User? {
+        let realm = try! Realm()
+        if let object = realm.objects(User.self).filter("%K == %@", "entityID", userId).first {
+            return object
+        }
+        return nil
+    }
+    
     static func loggedIn() -> User? {
         guard let userID = KeychainManager.standard.userID else { return nil }
         let realm = try? Realm()

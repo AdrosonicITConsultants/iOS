@@ -25,4 +25,16 @@ class ProductCatalogService: BaseService<Data> {
     func fetchAllFilteredArtisan() -> SafeSignal<Data> {
       return User.getFilteredArtisans().response(using: client).debug()
     }
+    
+    func fetchAllProducts(clusterId: Int) -> SafeSignal<[Product]> {
+      return Product.getAllProducts(clusterId: clusterId).response(using: client).debug()
+    }
+    
+    func fetchAllProducts(categoryId: Int) -> SafeSignal<Data> {
+      return Product.getAllProducts(productCategoryId: categoryId).response(using: client).debug()
+    }
+    
+    func fetchAllProducts(artisanId: Int) -> SafeSignal<Data> {
+      return Product.getAllProducts(artisanId: artisanId).response(using: client).debug()
+    }
 }

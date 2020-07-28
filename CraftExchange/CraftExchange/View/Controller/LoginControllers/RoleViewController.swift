@@ -32,10 +32,12 @@ class RoleViewController: UIViewController {
             let controller = HomeScreenService(client: client).createScene()
             self.present(controller, animated: true, completion: nil)
         }else {
-            let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-            let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
-            tab.modalPresentationStyle = .fullScreen
-            self.present(tab, animated: true, completion: nil)
+//            let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+//            let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
+//            tab.modalPresentationStyle = .fullScreen
+//            self.present(tab, animated: true, completion: nil)
+            let controller = HomeScreenService(client: client).createBuyerScene()
+            self.present(controller, animated: true, completion: nil)
         }
     }
   }

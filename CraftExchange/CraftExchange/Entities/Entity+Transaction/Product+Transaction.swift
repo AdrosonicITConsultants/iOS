@@ -52,6 +52,68 @@ extension Product {
         }
     }
     
+    static func allProducts(categoryId: Int) -> SafeSignal<Results<Product>> {
+        let realm = try? Realm()
+        guard KeychainManager.standard.userID != nil else {
+            return Signal { observer in
+                observer.receive(completion: .finished)
+                return BlockDisposable {
+                }
+            }
+        }
+        return Signal { observer in
+            if let results = realm?.objects(Product.self).filter("%K == %@", "productCategoryId", categoryId).sorted(byKeyPath: "modifiedOn", ascending: false) {
+                observer.receive(lastElement: results)
+            } else {
+                observer.receive(completion: .finished)
+            }
+            return BlockDisposable {
+            }
+        }
+    }
+    
+    static func allProducts(clusterId: Int) -> SafeSignal<Results<Product>> {
+        let realm = try? Realm()
+        guard KeychainManager.standard.userID != nil else {
+            return Signal { observer in
+                observer.receive(completion: .finished)
+                return BlockDisposable {
+                }
+            }
+        }
+        return Signal { observer in
+            if let results = realm?.objects(Product.self).filter("%K == %@", "clusterId", clusterId)
+                .sorted(byKeyPath: "modifiedOn", ascending: false) {
+                observer.receive(lastElement: results)
+            } else {
+                observer.receive(completion: .finished)
+            }
+            return BlockDisposable {
+            }
+        }
+    }
+    
+    static func allProducts(artisanId: Int) -> SafeSignal<Results<Product>> {
+        let realm = try? Realm()
+        guard KeychainManager.standard.userID != nil else {
+            return Signal { observer in
+                observer.receive(completion: .finished)
+                return BlockDisposable {
+                }
+            }
+        }
+        return Signal { observer in
+            if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", artisanId)
+                .sorted(byKeyPath: "modifiedOn", ascending: false) {
+                observer.receive(lastElement: results)
+            } else {
+                observer.receive(completion: .finished)
+            }
+            return BlockDisposable {
+            }
+        }
+    }
+    
     func saveOrUpdate() {
         let realm = try! Realm()
         if let object = realm.objects(Product.self).filter("%K == %@", "entityID", self.entityID).first {
@@ -78,6 +140,8 @@ extension Product {
                 object.modifiedOn = modifiedOn
                 object.isDeleted = isDeleted
                 object.relatedProducts = relatedProducts
+                object.productCategoryId = productCategoryId
+                object.clusterId = clusterId
                 
                 let idsToCheck = productImages.compactMap { $0.entityID }
                 var imgsToDelete: [ProductImage] = []
