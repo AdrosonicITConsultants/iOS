@@ -120,6 +120,7 @@ extension Product {
             try? realm.write {
                 object.code = code
                 object.productSpec = productSpec
+                object.productDesc = productDesc
                 object.productTag = productTag
                 object.warpYarnId = warpYarnId
                 object.weftYarnId = weftYarnId

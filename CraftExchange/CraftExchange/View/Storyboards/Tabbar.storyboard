@@ -7,6 +7,11 @@
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Enquiries-->
         <scene sceneID="GgS-pE-kHY">
@@ -83,7 +88,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="coverImage" translatesAutoresizingMaskIntoConstraints="NO" id="bE3-oy-alz">
-                                <rect key="frame" x="20" y="159" width="374" height="120"/>
+                                <rect key="frame" x="20" y="159" width="374.00000000000006" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="N6q-3c-ZUB"/>
                                 </constraints>
@@ -95,20 +100,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="352"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgx-zE-xrF">
-                                        <rect key="frame" x="20" y="40" width="177" height="309"/>
+                                        <rect key="frame" x="20" y="40" width="177" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-artist-self-design" translatesAutoresizingMaskIntoConstraints="NO" id="xva-Ze-XaK">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
                                                 <gestureRecognizers/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artisan Self Design" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XjW-dz-hQv">
-                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
+                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcb-iM-Ra2">
-                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="ZKR-Fj-nNP"/>
                                                     <constraint firstAttribute="height" constant="15" id="m12-4Z-Irr"/>
@@ -147,20 +152,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-Eu-hdm">
-                                        <rect key="frame" x="217" y="40" width="177" height="309"/>
+                                        <rect key="frame" x="217" y="40" width="177" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-antaran-design" translatesAutoresizingMaskIntoConstraints="NO" id="jEi-z8-Xys">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
                                                 <gestureRecognizers/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Antaran co-design collection" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrs-a5-f3F">
-                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
+                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-xP-551">
-                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="eir-EC-szw"/>
                                                     <constraint firstAttribute="height" constant="15" id="rI2-cj-RH4"/>
@@ -561,7 +566,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="URc-5x-B2S">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ring _of_string-ios" translatesAutoresizingMaskIntoConstraints="NO" id="URc-5x-B2S">
                                 <rect key="frame" x="147" y="49" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="Gpb-C8-loH"/>
@@ -599,6 +604,16 @@
                                     <outlet property="delegate" destination="vGY-f9-K4o" id="46C-TL-Vxz"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dupattas" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc4-Qe-NoT">
+                                <rect key="frame" x="82" y="86" width="250" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="M40-Lq-jFF"/>
+                                    <constraint firstAttribute="width" constant="250" id="mxN-hs-xge"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -621,6 +636,8 @@
                             <constraint firstItem="4Sk-xP-Agw" firstAttribute="trailing" secondItem="EJU-RT-fCX" secondAttribute="trailing" id="qIe-n3-eFd"/>
                             <constraint firstItem="zRT-pH-an9" firstAttribute="top" secondItem="EJU-RT-fCX" secondAttribute="bottom" constant="10" id="rlp-uf-A2a"/>
                             <constraint firstItem="EJU-RT-fCX" firstAttribute="leading" secondItem="4Sk-xP-Agw" secondAttribute="leading" id="sIb-9C-f4T"/>
+                            <constraint firstItem="Kc4-Qe-NoT" firstAttribute="centerY" secondItem="URc-5x-B2S" secondAttribute="centerY" id="sTc-vm-3no"/>
+                            <constraint firstItem="Kc4-Qe-NoT" firstAttribute="centerX" secondItem="URc-5x-B2S" secondAttribute="centerX" id="t5Q-Zh-LhJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Sk-xP-Agw"/>
                     </view>
@@ -631,6 +648,7 @@
                         <outlet property="descriptionLabel" destination="EJU-RT-fCX" id="7cP-1s-kqu"/>
                         <outlet property="filterButton" destination="zRT-pH-an9" id="rJr-ZR-8nO"/>
                         <outlet property="tableView" destination="Xib-ci-E86" id="HqM-KD-VWk"/>
+                        <outlet property="titleLabel" destination="Kc4-Qe-NoT" id="7iS-MU-S6c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gV-fO-alj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -648,6 +666,7 @@
         <image name="ios_Thead behind" width="226" height="212"/>
         <image name="ios_bell" width="19" height="22"/>
         <image name="ios_search" width="20" height="19"/>
+        <image name="ring _of_string-ios" width="34" height="43"/>
         <image name="tab-chat" width="21" height="21"/>
         <image name="tab-enquiries" width="19" height="21"/>
         <image name="tab-home" width="22" height="20"/>

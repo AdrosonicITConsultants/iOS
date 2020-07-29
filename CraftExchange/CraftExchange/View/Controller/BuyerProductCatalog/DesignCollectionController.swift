@@ -169,6 +169,12 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryBrandCell", for: indexPath) as! CategoryBrandCell
             cell.titleLabel.text = allCategories?[indexPath.row].prodCatDescription
             cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "Saree")
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+            cell.layer.shadowColor = UIColor.lightGray.cgColor
+            cell.layer.shadowOpacity = 1
+            cell.layer.shadowOffset = CGSize.zero
+            cell.layer.shadowRadius = 5
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryBrandCell", for: indexPath) as! CategoryBrandCell
@@ -220,6 +226,12 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
                     }
                 }
             }
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = UIColor.lightGray.cgColor
+            cell.layer.shadowColor = UIColor.lightGray.cgColor
+            cell.layer.shadowOpacity = 1
+            cell.layer.shadowOffset = CGSize.zero
+            cell.layer.shadowRadius = 5
             return cell
         default:
             return UICollectionViewCell()

@@ -22,6 +22,7 @@ class BuyerProductCatalogController: UIViewController {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var refreshFilter: ((_ catId: Int) -> ())?
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var brandLogoImage: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -41,20 +42,24 @@ class BuyerProductCatalogController: UIViewController {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
-        self.brandLogoImage.image = UIImage.init(named: "user")
         if let cluster = selectedCluster {
-            self.title = cluster.clusterDescription
-            filterButton.setTitle("Filter by product category".localized, for: .normal)
-            brandLogoHtConstraint.constant = 0
-            brandLogoImage.isHidden = true
-            descriptionLabel.text = cluster.adjective
+            self.titleLabel.text = cluster.clusterDescription
+            self.titleLabel.isHidden = false
+            filterButton.setTitle("Filter by category".localized, for: .normal)
+            brandLogoHtConstraint.constant = 80
+            brandLogoImage.isHidden = false
+            descriptionLabel.text = getClusterDescription()//cluster.adjective
         }else if let category = selectedCategory {
-            self.title = category.prodCatDescription
+            self.titleLabel.text = category.prodCatDescription
+            self.titleLabel.isHidden = false
             filterButton.setTitle("Filter by region".localized, for: .normal)
-            brandLogoHtConstraint.constant = 0
-            brandLogoImage.isHidden = true
+            brandLogoHtConstraint.constant = 80
+            brandLogoImage.isHidden = false
             descriptionLabel.text = category.prodCatDescription
         }else if let artisan = selectedArtisan {
+            self.brandLogoImage.image = UIImage.init(named: "user")
+            self.titleLabel.text = ""
+            self.titleLabel.isHidden = true
             brandLogoHtConstraint.constant = 120
             brandLogoImage.isHidden = false
             if let title = artisan.buyerCompanyDetails.first?.companyName, artisan.buyerCompanyDetails.first?.companyName != "" {
@@ -63,7 +68,7 @@ class BuyerProductCatalogController: UIViewController {
                 self.title = artisan.firstName
             }
             descriptionLabel.text = "By \(artisan.firstName ?? "") \(artisan.lastName ?? "") from \(artisan.cluster?.clusterDescription ?? "")"
-            filterButton.setTitle("Filter by product category".localized, for: .normal)
+            filterButton.setTitle("Filter by category".localized, for: .normal)
             setBrandLogo()
         }
         
@@ -80,6 +85,25 @@ class BuyerProductCatalogController: UIViewController {
             self.applicationEnteredForeground?()
         }
         setDatasource(withId: 0)
+    }
+    
+    func getClusterDescription() -> String {
+        switch selectedCluster?.entityID {
+        case 1:
+            return "Maniabandha in Cuttack is known for single weft ikat weaving - particularly the “khandua patta” woven for Lord Jagnath."
+        case 2:
+            return "A coastal village of Odisha, on banks of Brahmani river, Gopalpur is a Tussar weave cluster."
+        case 3:
+            return "Part of Nellore district of Andhra, Venktagiri  is famous for fine handloom cotton and silk saris, dupattas."
+        case 4:
+            return "A district in Assam, on the banks of Brahmaputra river, Kamrup is the leading eri silk cluster of India."
+        case 5:
+            return "Situated on north bank of Brahmaputra in Assam, Nalbari specialises in weave of mulberry silk; while cotton, eri and zari yarns are also used."
+        case 6:
+            return "Dimapur, Phek region weavers now weave contemporary textiles in thick cotton for home textiles, jackets, bags."
+        default:
+            return selectedCluster?.adjective ?? ""
+        }
     }
     
     func setBrandLogo() {
@@ -182,7 +206,7 @@ class BuyerProductCatalogController: UIViewController {
             if self.selectedCategory != nil {
                 self.filterButton.setTitle("Filter by region".localized, for: .normal)
             }else {
-                self.filterButton.setTitle("Filter by product category".localized, for: .normal)
+                self.filterButton.setTitle("Filter by category".localized, for: .normal)
             }
             self.setDatasource(withId: 0)
             self.tableView.reloadData()
@@ -245,9 +269,6 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
         if let prod = product {
             cell.configure(prod)
         }
-        cell.layer.borderColor = UIColor.white.cgColor
-        cell.layer.borderWidth = 10
-        
         return cell
     }
     

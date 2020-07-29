@@ -14,6 +14,7 @@ class Product: Object, Decodable {
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
     @objc dynamic var productSpec: String?
+    @objc dynamic var productDesc: String?
     @objc dynamic var productTag: String?
     @objc dynamic var code: String?
     @objc dynamic var warpYarnId: Int = 0
@@ -44,6 +45,7 @@ class Product: Object, Decodable {
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case productSpec = "productSpec"
+        case productDesc = "product_spe"
         case code = "code"
         case warpYarnId = "warpYarnId"
         case weftYarnId = "weftYarnId"
@@ -93,6 +95,7 @@ class Product: Object, Decodable {
         }
         madeWithAnthran = try (values.decodeIfPresent(Int.self, forKey: .madeWithAnthran) ?? 0)
         productSpec = try? values.decodeIfPresent(String.self, forKey: .productSpec)
+        productDesc = try? values.decodeIfPresent(String.self, forKey: .productDesc)
         productTag = try? values.decodeIfPresent(String.self, forKey: .productTag)
         code = try? values.decodeIfPresent(String.self, forKey: .code)
         warpYarnId = try (values.decodeIfPresent(Int.self, forKey: .warpYarnId) ?? 0)

@@ -20,14 +20,27 @@ class BuyerProductCell: UITableViewCell {
     @IBOutlet weak var generateEnquiryButton: UIButton!
     var delegate: UIViewController!
     
+    @IBOutlet
+    weak var containerView: UIView! {
+        didSet {
+            containerView.backgroundColor = UIColor.clear
+            containerView.layer.shadowColor = UIColor.lightGray.cgColor
+            containerView.layer.shadowOpacity = 1
+            containerView.layer.shadowOffset = CGSize.zero
+            containerView.layer.shadowRadius = 5
+        }
+    }
+    
     func configure(_ productObj: Product) {
+        viewMoreButton.layer.borderColor = UIColor.lightGray.cgColor
+        viewMoreButton.layer.borderWidth = 1
         productTag.text = productObj.productTag ?? ""
-        productDesc.text = productObj.productSpec ?? ""
+        productDesc.text = productObj.productDesc ?? productObj.productSpec ?? ""
         if productObj.productStatusId == 1 {
             inStock.text = "Available in stock".localized
             inStock.textColor = .green
         }else {
-            inStock.text = "Exclusive made to order".localized
+            inStock.text = "Exclusively Made to order".localized
             inStock.textColor = .red
         }
         if productObj.madeWithAnthran == 1 {
