@@ -100,6 +100,9 @@
                                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="addProductSelected:" destination="7z9-L7-4Bz" eventType="touchUpInside" id="84a-gL-wv1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.90493291620000005" green="0.87798142430000004" blue="0.72938615080000002" alpha="0.78277504280821919" colorSpace="custom" customColorSpace="displayP3"/>

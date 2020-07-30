@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderAvailabilityCell" rowHeight="185" id="QNg-n9-6fP" customClass="OrderAvailabilityCellView" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="185"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QNg-n9-6fP" id="E8h-BP-ceh">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="185"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xh8-2e-k3U">
+                        <rect key="frame" x="39" y="10" width="120" height="120"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="120" id="OGP-fo-gTt"/>
+                            <constraint firstAttribute="height" constant="120" id="UIr-qZ-fPf"/>
+                        </constraints>
+                        <state key="normal" image="made to order"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIq-ks-faK">
+                        <rect key="frame" x="232" y="10" width="120" height="120"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="120" id="GSE-ia-CU8"/>
+                            <constraint firstAttribute="width" constant="120" id="qvd-oj-uJI"/>
+                        </constraints>
+                        <state key="normal" image="in stock"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make to order" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgQ-ys-fF6">
+                        <rect key="frame" x="45.5" y="138" width="107" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="107" id="Ufy-re-BuG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available in stock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khU-Y2-Z3u">
+                        <rect key="frame" x="226" y="138" width="132" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="132" id="3Ir-d9-1Zt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="oIq-ks-faK" firstAttribute="leading" secondItem="xh8-2e-k3U" secondAttribute="trailing" constant="73" id="8xQ-33-67l"/>
+                    <constraint firstItem="khU-Y2-Z3u" firstAttribute="centerX" secondItem="oIq-ks-faK" secondAttribute="centerX" id="Bhd-kQ-PSj"/>
+                    <constraint firstItem="xh8-2e-k3U" firstAttribute="leading" secondItem="E8h-BP-ceh" secondAttribute="leadingMargin" constant="19" id="Uwt-2F-NSt"/>
+                    <constraint firstItem="xh8-2e-k3U" firstAttribute="top" secondItem="E8h-BP-ceh" secondAttribute="top" constant="10" id="bVd-8X-OKb"/>
+                    <constraint firstItem="fgQ-ys-fF6" firstAttribute="top" secondItem="xh8-2e-k3U" secondAttribute="bottom" constant="8" id="pM8-Pz-emB"/>
+                    <constraint firstItem="khU-Y2-Z3u" firstAttribute="top" secondItem="oIq-ks-faK" secondAttribute="bottom" constant="8" id="quJ-3f-d0w"/>
+                    <constraint firstItem="oIq-ks-faK" firstAttribute="top" secondItem="E8h-BP-ceh" secondAttribute="top" constant="10" id="qxa-7g-HKJ"/>
+                    <constraint firstItem="xh8-2e-k3U" firstAttribute="centerX" secondItem="fgQ-ys-fF6" secondAttribute="centerX" id="y4U-H7-bb6"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="inStockBtn" destination="oIq-ks-faK" id="d8F-vX-rGG"/>
+                <outlet property="inStockLbl" destination="khU-Y2-Z3u" id="3MO-Wf-ym9"/>
+                <outlet property="makeToOrderBtn" destination="xh8-2e-k3U" id="koH-QY-xFo"/>
+                <outlet property="makeToOrderLbl" destination="fgQ-ys-fF6" id="m8e-S2-skg"/>
+            </connections>
+            <point key="canvasLocation" x="-269.56521739130437" y="-16.40625"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="in stock" width="41" height="45"/>
+        <image name="made to order" width="60" height="25"/>
+    </resources>
+</document>

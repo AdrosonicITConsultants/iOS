@@ -8,8 +8,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="TimesNewRoman.ttf">
+            <string>.SFUI-Regular</string>
         </array>
     </customFonts>
     <scenes>
@@ -88,7 +88,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="coverImage" translatesAutoresizingMaskIntoConstraints="NO" id="bE3-oy-alz">
-                                <rect key="frame" x="20" y="159" width="374.00000000000006" height="120"/>
+                                <rect key="frame" x="20" y="159" width="374" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="N6q-3c-ZUB"/>
                                 </constraints>
@@ -100,20 +100,20 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="352"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgx-zE-xrF">
-                                        <rect key="frame" x="20" y="40" width="177" height="167"/>
+                                        <rect key="frame" x="20" y="40" width="177" height="309"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-artist-self-design" translatesAutoresizingMaskIntoConstraints="NO" id="xva-Ze-XaK">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
                                                 <gestureRecognizers/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artisan Self Design" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XjW-dz-hQv">
-                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
+                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcb-iM-Ra2">
-                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="ZKR-Fj-nNP"/>
                                                     <constraint firstAttribute="height" constant="15" id="m12-4Z-Irr"/>
@@ -152,20 +152,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-Eu-hdm">
-                                        <rect key="frame" x="217" y="40" width="177" height="167"/>
+                                        <rect key="frame" x="217" y="40" width="177" height="309"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-antaran-design" translatesAutoresizingMaskIntoConstraints="NO" id="jEi-z8-Xys">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
                                                 <gestureRecognizers/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Antaran co-design collection" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrs-a5-f3F">
-                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
+                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-xP-551">
-                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="eir-EC-szw"/>
                                                     <constraint firstAttribute="height" constant="15" id="rI2-cj-RH4"/>
@@ -604,13 +604,13 @@
                                     <outlet property="delegate" destination="vGY-f9-K4o" id="46C-TL-Vxz"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dupattas" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc4-Qe-NoT">
-                                <rect key="frame" x="82" y="86" width="250" height="46"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dupattas" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kc4-Qe-NoT">
+                                <rect key="frame" x="82" y="84" width="250" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="M40-Lq-jFF"/>
+                                    <constraint firstAttribute="height" constant="50" id="M40-Lq-jFF"/>
                                     <constraint firstAttribute="width" constant="250" id="mxN-hs-xge"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
+                                <fontDescription key="fontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="24"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -629,6 +629,7 @@
                             <constraint firstItem="URc-5x-B2S" firstAttribute="centerX" secondItem="s2l-m4-5ww" secondAttribute="centerX" id="UJ9-Cz-t5k"/>
                             <constraint firstItem="Xib-ci-E86" firstAttribute="trailing" secondItem="4Sk-xP-Agw" secondAttribute="trailing" id="Yr1-bu-G0x"/>
                             <constraint firstItem="URc-5x-B2S" firstAttribute="centerX" secondItem="zRT-pH-an9" secondAttribute="centerX" id="egL-mF-XrL"/>
+                            <constraint firstItem="Kc4-Qe-NoT" firstAttribute="top" secondItem="4Sk-xP-Agw" secondAttribute="top" constant="40" id="fAZ-0x-8Pv"/>
                             <constraint firstItem="Xib-ci-E86" firstAttribute="bottom" secondItem="4Sk-xP-Agw" secondAttribute="bottom" id="hTp-aw-7PV"/>
                             <constraint firstItem="Xib-ci-E86" firstAttribute="leading" secondItem="4Sk-xP-Agw" secondAttribute="leading" id="nIN-Qy-RGx"/>
                             <constraint firstItem="zRT-pH-an9" firstAttribute="leading" secondItem="4Sk-xP-Agw" secondAttribute="leading" id="nRC-lL-LNm"/>
@@ -636,7 +637,6 @@
                             <constraint firstItem="4Sk-xP-Agw" firstAttribute="trailing" secondItem="EJU-RT-fCX" secondAttribute="trailing" id="qIe-n3-eFd"/>
                             <constraint firstItem="zRT-pH-an9" firstAttribute="top" secondItem="EJU-RT-fCX" secondAttribute="bottom" constant="10" id="rlp-uf-A2a"/>
                             <constraint firstItem="EJU-RT-fCX" firstAttribute="leading" secondItem="4Sk-xP-Agw" secondAttribute="leading" id="sIb-9C-f4T"/>
-                            <constraint firstItem="Kc4-Qe-NoT" firstAttribute="centerY" secondItem="URc-5x-B2S" secondAttribute="centerY" id="sTc-vm-3no"/>
                             <constraint firstItem="Kc4-Qe-NoT" firstAttribute="centerX" secondItem="URc-5x-B2S" secondAttribute="centerX" id="t5Q-Zh-LhJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Sk-xP-Agw"/>

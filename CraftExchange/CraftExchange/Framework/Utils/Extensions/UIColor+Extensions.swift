@@ -10,17 +10,25 @@ import Foundation
 import UIKit
 
 extension UIColor {
-  
-  func menuTitleBlue() -> UIColor {
+
+    func menuTitleBlue() -> UIColor {
       return colorWith(r: 67, g: 99, b: 210)
-  }
+    }
+    
+    func menuSelectorBlue() -> UIColor {
+      return colorWith(r: 66, g: 125, b: 239)
+    }
+    
+    func CEGreen() -> UIColor {
+      return colorWith(r: 77, g: 157, b: 97)
+    }
     
     func customLightGray() -> UIColor {
         return colorWith(r: 185, g: 185, b: 185, a: 21)
     }
-  
-  func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) -> UIColor {
+
+    func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) -> UIColor {
       return UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
-  }
+    }
     
 }

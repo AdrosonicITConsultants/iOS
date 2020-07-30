@@ -106,6 +106,17 @@ class ArtisanHomeController: UIViewController {
         playerViewController.player!.play()
     })
   }
+    
+    @IBAction func addProductSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = UploadProductService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataSource {

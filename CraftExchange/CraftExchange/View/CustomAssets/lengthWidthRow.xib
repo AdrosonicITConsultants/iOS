@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="lengthWidthRow" rowHeight="76" id="Iv8-Ks-tLu" customClass="lengthWidthRowView" customModule="CraftExchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Iv8-Ks-tLu" id="ep8-8x-ZzC">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7X9-eF-YTn">
+                        <rect key="frame" x="20" y="1" width="374" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ls6-yV-noQ" customClass="ButtonWithImage" customModule="CraftExchange" customModuleProvider="target">
+                        <rect key="frame" x="20" y="38" width="167" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="KAi-jK-fd1"/>
+                        </constraints>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Select the length">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bm9-lZ-z8B" customClass="ButtonWithImage" customModule="CraftExchange" customModuleProvider="target">
+                        <rect key="frame" x="227" y="38" width="167" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="eUC-Kb-WZK"/>
+                        </constraints>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Select the width">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cross icon" translatesAutoresizingMaskIntoConstraints="NO" id="Z3x-sE-pdh">
+                        <rect key="frame" x="197" y="43" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="knv-Na-Amz"/>
+                            <constraint firstAttribute="width" constant="20" id="x0W-yn-UUB"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Bm9-lZ-z8B" firstAttribute="leading" secondItem="Z3x-sE-pdh" secondAttribute="trailing" constant="10" id="A5r-qJ-wyj"/>
+                    <constraint firstItem="Ls6-yV-noQ" firstAttribute="leading" secondItem="ep8-8x-ZzC" secondAttribute="leading" constant="20" id="AI4-Re-jAN"/>
+                    <constraint firstItem="Z3x-sE-pdh" firstAttribute="top" secondItem="7X9-eF-YTn" secondAttribute="bottom" constant="12" id="Jii-yp-L8K"/>
+                    <constraint firstAttribute="trailing" secondItem="Bm9-lZ-z8B" secondAttribute="trailing" constant="20" id="Rzf-Nx-NJ8"/>
+                    <constraint firstItem="Z3x-sE-pdh" firstAttribute="centerY" secondItem="Ls6-yV-noQ" secondAttribute="centerY" id="dzY-Gl-1h6"/>
+                    <constraint firstItem="Z3x-sE-pdh" firstAttribute="centerX" secondItem="7X9-eF-YTn" secondAttribute="centerX" id="i13-7n-ry5"/>
+                    <constraint firstItem="Z3x-sE-pdh" firstAttribute="centerY" secondItem="Bm9-lZ-z8B" secondAttribute="centerY" id="mxl-io-9zq"/>
+                    <constraint firstItem="Z3x-sE-pdh" firstAttribute="leading" secondItem="Ls6-yV-noQ" secondAttribute="trailing" constant="10" id="q75-R7-6io"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="length" destination="Ls6-yV-noQ" id="5S7-HW-eJO"/>
+                <outlet property="productTitle" destination="7X9-eF-YTn" id="Xjn-dM-iwf"/>
+                <outlet property="width" destination="Bm9-lZ-z8B" id="Lcb-5t-sL8"/>
+            </connections>
+            <point key="canvasLocation" x="213.04347826086959" y="-271.875"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cross icon" width="11" height="11"/>
+    </resources>
+</document>

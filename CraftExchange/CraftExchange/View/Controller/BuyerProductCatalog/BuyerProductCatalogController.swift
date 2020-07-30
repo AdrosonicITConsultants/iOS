@@ -47,14 +47,15 @@ class BuyerProductCatalogController: UIViewController {
             self.titleLabel.isHidden = false
             filterButton.setTitle("Filter by category".localized, for: .normal)
             brandLogoHtConstraint.constant = 80
-            brandLogoImage.isHidden = false
+            brandLogoImage.isHidden = true
             descriptionLabel.text = getClusterDescription()//cluster.adjective
+            self.titleLabel.addImageWith(name: "ring _of_string-ios", behindText: ((self.titleLabel?.text) != nil))
         }else if let category = selectedCategory {
             self.titleLabel.text = category.prodCatDescription
             self.titleLabel.isHidden = false
             filterButton.setTitle("Filter by region".localized, for: .normal)
             brandLogoHtConstraint.constant = 80
-            brandLogoImage.isHidden = false
+            brandLogoImage.isHidden = true
             descriptionLabel.text = category.prodCatDescription
         }else if let artisan = selectedArtisan {
             self.brandLogoImage.image = UIImage.init(named: "user")

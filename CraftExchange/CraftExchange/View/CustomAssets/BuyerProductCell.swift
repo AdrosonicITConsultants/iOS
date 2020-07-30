@@ -38,7 +38,7 @@ class BuyerProductCell: UITableViewCell {
         productDesc.text = productObj.productDesc ?? productObj.productSpec ?? ""
         if productObj.productStatusId == 1 {
             inStock.text = "Available in stock".localized
-            inStock.textColor = .green
+            inStock.textColor = UIColor().CEGreen()
         }else {
             inStock.text = "Exclusively Made to order".localized
             inStock.textColor = .red
