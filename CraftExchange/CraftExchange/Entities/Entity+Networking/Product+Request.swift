@@ -26,21 +26,6 @@ extension Product {
             needsAuthorization: true
         )
       }
-    
-    public static func getAllProducts() -> Request<Data, APIError> {
-      //
-      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-      return Request(
-          path: "product/getAllProducts",
-          method: .get,
-          headers: headers,
-          resource: {
-            print(String(data: $0, encoding: .utf8) ?? "get all products failed")
-          return $0},
-          error: APIError.init,
-          needsAuthorization: true
-      )
-    }
 
     static func fetchProductImage(with productId: Int, imageName: String) -> Request<Data, APIError> {
         var str = "Product/\(productId)/\(imageName)"
@@ -130,6 +115,20 @@ extension Product {
             }
             return []
           },
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
+    
+    public static func getProductUploadData() -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/getProductUploadData",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "get all artisan product failed")
+          return $0},
           error: APIError.init,
           needsAuthorization: true
       )

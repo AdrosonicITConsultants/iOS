@@ -39,8 +39,19 @@ class UploadProductViewModel {
     var prodName = Observable<String?>(nil)
     var prodCode = Observable<String?>(nil)
     var prodCategory = Observable<ProductCategory?>(nil)
-    var prodType = Observable<String?>(nil)
-    var prodWeaveType = Observable<[String]?>(nil)
+    var prodType = Observable<ProductType?>(nil)
+    var prodWeaveType = Observable<[Weave]?>(nil)
+    var warpYarn = Observable<Yarn?>(nil)
+    var weftYarn = Observable<Yarn?>(nil)
+    var exWeftYarn = Observable<Yarn?>(nil)
+    var warpYarnCnt = Observable<YarnCount?>(nil)
+    var weftYarnCnt = Observable<YarnCount?>(nil)
+    var exWeftYarnCnt = Observable<YarnCount?>(nil)
+    var warpDye = Observable<Dye?>(nil)
+    var weftDye = Observable<Dye?>(nil)
+    var exWeftDye = Observable<Dye?>(nil)
+    var reedCount = Observable<ReedCount?>(nil)
+    var prodCare = Observable<[ProductCare]?>(nil)
 }
 
 class UploadProductController: FormViewController {
@@ -48,6 +59,11 @@ class UploadProductController: FormViewController {
     var doneStates: [NewProductState] = []
     lazy var viewModel = UploadProductViewModel()
     var allCategories: Results<ProductCategory>?
+    var allWeaves: Results<Weave>?
+    var allYarns: Results<Yarn>?
+    var allDye: Results<Dye>?
+    var allReed: Results<ReedCount>?
+    var allProdCare: Results<ProductCare>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +71,11 @@ class UploadProductController: FormViewController {
         self.viewModel.productImages.value = []
         let realm = try! Realm()
         allCategories = realm.objects(ProductCategory.self).sorted(byKeyPath: "entityID")
+        allWeaves = realm.objects(Weave.self).sorted(byKeyPath: "entityID")
+        allYarns = realm.objects(Yarn.self).sorted(byKeyPath: "entityID")
+        allDye = realm.objects(Dye.self).sorted(byKeyPath: "entityID")
+        allReed = realm.objects(ReedCount.self).sorted(byKeyPath: "entityID")
+        allProdCare = realm.objects(ProductCare.self).sorted(byKeyPath: "entityID")
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         form
@@ -141,25 +162,29 @@ class UploadProductController: FormViewController {
                 obj.prodCatDescription == row.value
                 }).first
             self.viewModel.prodCategory.value = selectedClusterObj
+            let typeRow = self.form.rowBy(tag: "ProdTypeRow") as! RoundedActionSheetRow
+            typeRow.cell.options = selectedClusterObj?.productTypes.compactMap { $0.productDesc }
+            typeRow.value = nil
+            self.viewModel.prodType.value = nil
             })
         <<< RoundedActionSheetRow() {
             $0.tag = "ProdTypeRow"
             $0.cell.titleLabel.text = "Product type"
             $0.cell.compulsoryIcon.isHidden = true
-            if let selectedCluster = self.viewModel.prodCategory.value {
-                $0.cell.selectedVal = selectedCluster.prodCatDescription
+            if let selectedCat = self.viewModel.prodCategory.value {
+                $0.cell.selectedVal = selectedCat.prodCatDescription
+                $0.cell.options = selectedCat.productTypes.compactMap { $0.productDesc }
             }
-            $0.cell.options = allCategories?.compactMap { $0.prodCatDescription }
             $0.cell.delegate = self
             $0.cell.height = { 80.0 }
             $0.hidden = true
         }.onChange({ (row) in
           print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-            let selectedClusterObj = self.allCategories?.filter({ (obj) -> Bool in
-                obj.prodCatDescription == row.value
-                }).first
-            self.viewModel.prodCategory.value = selectedClusterObj
-            })
+            let selectedTypeObj = self.viewModel.prodCategory.value?.productTypes.filter({ (obj) -> Bool in
+                obj.productDesc == row.value
+            }).first
+            self.viewModel.prodType.value = selectedTypeObj
+        })
         <<< RoundedButtonViewRow("Next2") {
             $0.tag = "Next2"
             $0.cell.titleLabel.isHidden = true
@@ -189,10 +214,19 @@ class UploadProductController: FormViewController {
         }
         <<< MultipleSelectorRow<String>() {row in
             row.title = "Weave Types"
-            row.options = ["Weft Ikat", "Loinloom Weaving", "Extra Weft Jamdani"]
+            row.options = allWeaves?.compactMap { $0.weaveDesc }
+            if let selectedWeaves = self.viewModel.prodWeaveType.value?.compactMap({$0.weaveDesc}) {
+                row.value = Set(selectedWeaves)
+            }
             row.hidden = true
         }.onChange({ (row) in
-            
+            row.value?.compactMap({$0}).forEach({ (str) in
+                if let selectedWeaveObj = self.allWeaves?.filter({ (obj) -> Bool in
+                    obj.weaveDesc == str
+                }).first {
+                    self.viewModel.prodWeaveType.value?.append(selectedWeaveObj)
+                }
+            })
         })
         <<< RoundedButtonViewRow("Next3") {
             $0.tag = "Next3"
@@ -264,19 +298,20 @@ class UploadProductController: FormViewController {
             $0.tag = "ReedCountRow"
             $0.cell.titleLabel.text = "Enter reed count"
             $0.cell.compulsoryIcon.isHidden = true
-            if let selectedCluster = self.viewModel.prodCategory.value {
-                $0.cell.selectedVal = selectedCluster.prodCatDescription
+            $0.cell.options = allReed?.compactMap({$0.count})
+            if let selectedObj = self.viewModel.reedCount.value {
+                $0.cell.selectedVal = selectedObj.count
             }
-            $0.cell.options = allCategories?.compactMap { $0.prodCatDescription }
             $0.cell.delegate = self
             $0.cell.height = { 80.0 }
             $0.hidden = true
         }.onChange({ (row) in
           print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-            let selectedClusterObj = self.allCategories?.filter({ (obj) -> Bool in
-                obj.prodCatDescription == row.value
+            row.cell.options = self.allReed?.compactMap { $0.count }
+            let selectedObj = self.allReed?.filter({ (obj) -> Bool in
+                obj.count == row.value
                 }).first
-            self.viewModel.prodCategory.value = selectedClusterObj
+            self.viewModel.reedCount.value = selectedObj
             })
         <<< RoundedButtonViewRow("Next5") {
             $0.tag = "Next5"
@@ -351,10 +386,19 @@ class UploadProductController: FormViewController {
         }
         <<< MultipleSelectorRow<String>() {row in
             row.title = "Wash care instruction"
-            row.options = ["Gentle hand wash", "Dry Clean", "Do not bleach"]
+            row.options = allProdCare?.compactMap({$0.productCareDesc})
+            if let selectedObjs = self.viewModel.prodCare.value?.compactMap({$0.productCareDesc}) {
+                row.value = Set(selectedObjs)
+            }
             row.hidden = true
         }.onChange({ (row) in
-            
+            row.value?.compactMap({$0}).forEach({ (str) in
+                if let selectedObj = self.allProdCare?.filter({ (obj) -> Bool in
+                    obj.productCareDesc == str
+                }).first {
+                    self.viewModel.prodCare.value?.append(selectedObj)
+                }
+            })
         })
         <<< RoundedButtonViewRow("Next7") {
             $0.tag = "Next7"
@@ -633,9 +677,9 @@ extension UploadProductController: UICollectionViewDelegate, UICollectionViewDat
                 print("Add Warp")
                 cell.cardImg.image = UIImage.init(named: "warp")
                 cell.cardTitle.text = "Warp".localized
-                cell.option1 = ["Warp Yarn 1", "Warp Yarn 2", "Warp Yarn 3"]
-                cell.option2 = ["Warp Count 1", "Warp Count 2", "Warp Count 3"]
-                cell.option3 = ["Warp Dyed 1", "Warp Dyed 2", "Warp Dyed 3"]
+                cell.option1 = allYarns?.compactMap({$0.yarnDesc})
+                cell.option2 = self.viewModel.warpYarn.value?.yarnType.first?.yarnCounts.compactMap({$0.count})
+                cell.option3 = allDye?.compactMap({$0.dyeDesc})
                 cell.optionalLbl.isHidden = true
             case 1:
                 print("Add Weft")
@@ -733,61 +777,3 @@ extension UploadProductController: UIImagePickerControllerDelegate, UINavigation
         }
     }
 }
-/*
-extension UploadProductController: iCarouselDelegate, iCarouselDataSource {
-  func numberOfItems(in carousel: iCarousel) -> Int {
-    if let count = viewModel.productImages.value?.count {
-        if count == 3 {
-            return 3
-        }else {
-            return count+1
-        }
-    }
-    return 1
-  }
-  
-  func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-    
-    var outerView = self.view.viewWithTag(1001)
-    var addProductBtn = view?.viewWithTag(201) as? UIButton
-    var lineView = view?.viewWithTag(202)
-    if outerView == nil {
-        outerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 280, height: 280))
-        outerView?.backgroundColor = .black
-        outerView?.tag = 1001
-        
-        addProductBtn = UIButton.init(type: .custom)
-        addProductBtn?.tag = 201
-        addProductBtn?.setImage(UIImage.init(named: "Add photo"), for: .normal)
-        addProductBtn?.addTarget(self, action: #selector(addProductSelected(sender:)), for: .touchUpInside)
-        addProductBtn?.frame = CGRect.init(x: 20, y: 10, width: 200, height: 200)
-        outerView?.addSubview(addProductBtn!)
-        
-        lineView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 1, height: 40))
-        lineView?.backgroundColor = .white
-        lineView?.center = CGPoint.init(x: outerView?.center.x ?? 0, y: (addProductBtn?.frame.origin.y ?? 0) + (addProductBtn?.frame.size.height ?? 0) + 20)
-        lineView?.tag = 201
-        outerView?.addSubview(lineView!)
-        
-        
-    }
-        
-    
-    
-    return outerView ?? UIView()
-  }
-    
-    @objc func addProductSelected(sender: UIButton) {
-        
-    }
-  
-  func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
-    if (option == .spacing)
-    {
-      return value * 1.1;
-    }
-    return value
-  }
-  
-}
-*/

@@ -35,11 +35,11 @@ class HomeScreenService: BaseService<Data> {
       return Product.getAllArtisanProduct().response(using: client).debug()
     }
     
-    func fetchAllProducts() -> SafeSignal<Data> {
-      return Product.getAllProducts().response(using: client).debug()
-    }
-    
     func fetchAllClusters() -> SafeSignal<[ClusterDetails]> {
       return ClusterDetails.getAllClusters().response(using: client).debug()
+    }
+    
+    func fetchProductUploadData() -> SafeSignal<Data> {
+      return Product.getProductUploadData().response(using: client).debug()
     }
 }
