@@ -9,11 +9,11 @@ PODS:
   - JGProgressHUD (2.1)
   - ReachabilitySwift (5.0.0)
   - ReactiveKit (3.17.1)
-  - Realm (5.3.2):
-    - Realm/Headers (= 5.3.2)
-  - Realm/Headers (5.3.2)
-  - RealmSwift (5.3.2):
-    - Realm (= 5.3.2)
+  - Realm (5.3.3):
+    - Realm/Headers (= 5.3.3)
+  - Realm/Headers (5.3.3)
+  - RealmSwift (5.3.3):
+    - Realm (= 5.3.3)
   - RichTextRow (1.0.4):
     - Eureka (~> 5.2.1)
   - SideMenu (6.4.9)
@@ -61,8 +61,8 @@ SPEC CHECKSUMS:
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   ReactiveKit: f578a74d3555296ea61fab228f5245a4ed7b4b27
-  Realm: c6794276ca8884808ba168a22f9d71362b170b85
-  RealmSwift: 42ec6cec3170aeeda407f797f07268a7d055ebc7
+  Realm: 2d57ea355bf8ca2a0964d6bfb38d28d7ff2addf6
+  RealmSwift: 0a709536ecea30eea1d3c514f6ade2ed078dee3c
   RichTextRow: e82a02fef3f130d880a921b9dd9dd5336e22c521
   SideMenu: 8ef57a3cfc024a2d3fc1c036c7fe98537baec9e0
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6

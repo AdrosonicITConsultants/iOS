@@ -68,6 +68,9 @@ class DesignCollectionController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setLayout()
         viewModel.viewWillAppear?()
+        collectionSegment.bottomBarHeight = 5
+        collectionSegment.type = .normal
+        collectionSegment.selectorType = .bottomBar
     }
     
     func refreshArtisanList() {

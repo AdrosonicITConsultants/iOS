@@ -167,6 +167,12 @@ class BuyerProfileController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        segmentControl.bottomBarHeight = 5
+        segmentControl.type = .normal
+        segmentControl.selectorType = .bottomBar
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         segmentControl.setSelectedIndex(0)
         segmentControl.sendActions(for: .valueChanged)
