@@ -117,6 +117,7 @@
 		C0995BFA24C8CB9900EC4CC3 /* RegionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BF924C8CB9900EC4CC3 /* RegionCell.xib */; };
 		C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BFB24C8CE5900EC4CC3 /* BuyerProductCell.xib */; };
 		C0995BFE24C8D15F00EC4CC3 /* BuyerProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BFD24C8D15F00EC4CC3 /* BuyerProductCell.swift */; };
+		C09980AF24D5A74500BE86D0 /* OfflineProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09980AE24D5A74500BE86D0 /* OfflineProductRequest.swift */; };
 		C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */; };
 		C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */; };
 		C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */; };
@@ -339,6 +340,7 @@
 		C0995BF924C8CB9900EC4CC3 /* RegionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegionCell.xib; sourceTree = "<group>"; };
 		C0995BFB24C8CE5900EC4CC3 /* BuyerProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyerProductCell.xib; sourceTree = "<group>"; };
 		C0995BFD24C8D15F00EC4CC3 /* BuyerProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCell.swift; sourceTree = "<group>"; };
+		C09980AE24D5A74500BE86D0 /* OfflineProductRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineProductRequest.swift; sourceTree = "<group>"; };
 		C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompanyPointOfContact+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuyerCompanyDetails+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProductCategories+Transaction.swift"; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A0D76524BE442F0089CC47 /* OfflineProfileActionsRequest.swift */,
+				C09980AE24D5A74500BE86D0 /* OfflineProductRequest.swift */,
 			);
 			path = OfflineManagers;
 			sourceTree = "<group>";
@@ -1374,6 +1377,7 @@
 				C0A2A00424B8D22E00A49E56 /* User+Transaction.swift in Sources */,
 				C09F214D24862987001F2FCD /* REGArtisanInfoInputService.swift in Sources */,
 				C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */,
+				C09980AF24D5A74500BE86D0 /* OfflineProductRequest.swift in Sources */,
 				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,
 				C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */,
 				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,

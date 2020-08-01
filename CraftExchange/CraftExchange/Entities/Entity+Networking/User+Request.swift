@@ -265,12 +265,13 @@ extension User {
 }
 
 class MultipartDataHelper {
+    
+    func convertToStringToData(inputString: String) -> Data {
+      let outputData = inputString.data(using: .utf8)
+      return outputData ?? Data()
+    }
+    
     func createBody(boundary: String, data: Data, mimeType: String, filename: String , param: String) -> Data {
-      func convertToStringToData(inputString: String) -> Data {
-        let outputData = inputString.data(using: .utf8)
-        return outputData ?? Data()
-      }
-      
       let body = NSMutableData()
       
       let boundaryPrefix = "--\(boundary)\r\n"
@@ -281,7 +282,6 @@ class MultipartDataHelper {
       let mimeType = "Content-Type: \(mimeType)\r\n\r\n"
       let mimeTypeData = convertToStringToData(inputString: mimeType)
       
-      
       body.append(boundaryPrefixData)
       body.append(contentDsipositionData)
       body.append(mimeTypeData)
@@ -289,6 +289,33 @@ class MultipartDataHelper {
       body.append(convertToStringToData(inputString: "\r\n"))
       let bottomBoundaryStr = "--\(boundary)--"
       body.append(convertToStringToData(inputString: bottomBoundaryStr))
+      
+      return body as Data
+    }
+    
+    func createBody(boundary: String, mimeType: String, imageData: [(String, Data)]) -> Data {
+      let body = NSMutableData()
+        var i = 1
+        for image in imageData {
+            let boundaryPrefix = "--\(boundary)\r\n"
+            let boundaryPrefixData = convertToStringToData(inputString: boundaryPrefix)
+            let contentDisposition = "Content-Disposition: form-data; name=\"file\(i)\"; filename=\"\(image.0)\"\r\n"
+            let contentDsipositionData = convertToStringToData(inputString: contentDisposition)
+            
+            let mimeType = "Content-Type: \(mimeType)\r\n\r\n"
+            let mimeTypeData = convertToStringToData(inputString: mimeType)
+            
+            body.append(boundaryPrefixData)
+            body.append(contentDsipositionData)
+            body.append(mimeTypeData)
+            body.append(image.1)
+            body.append(convertToStringToData(inputString: "\r\n"))
+            if image == imageData.last! {
+                let bottomBoundaryStr = "--\(boundary)--"
+                body.append(convertToStringToData(inputString: bottomBoundaryStr))
+            }
+            i = i + 1
+        }
       
       return body as Data
     }

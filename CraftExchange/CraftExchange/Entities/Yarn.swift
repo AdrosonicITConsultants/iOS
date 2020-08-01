@@ -18,7 +18,7 @@ class Yarn: Object, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case yarnDesc = "weaveDesc"
+        case yarnDesc = "yarnDesc"
         case yarnType = "yarnType"
     }
     

@@ -308,3 +308,139 @@ extension bankDetails {
     return message
   }
 }
+
+struct productDetails {
+    var id: Int = 0
+    var tag: String?
+    var code: String?
+    var productCategoryId: Int?
+    var productTypeId: Int?
+    var productSpec: String?
+    var weight: String?
+    var statusId: Int?
+    var gsm: String?
+    var warpDyeId: Int?
+    var warpYarnCount: String?
+    var warpYarnId: Int?
+    var weftDyeId: Int?
+    var weftYarnCount: String?
+    var weftYarnId: Int?
+    var extraWeftDyeId: Int?
+    var extraWeftYarnCount: String?
+    var extraWeftYarnId: Int?
+    var width: String?
+    var length: String?
+    var reedCountId: String?
+    var careIds: [Int]?
+    var weaveIds: [Int]?
+    var relatedProduct: [relatedProductInfo]?
+}
+
+extension productDetails {
+    func toJSON() -> [String: Any] {
+        var product: [String: Any] = [:]
+        
+        if let tag = tag {
+            product["tag"] = tag
+        }
+        if let code = code {
+            product["code"] = code
+        }
+        if let productCategoryId = productCategoryId {
+            product["productCategoryId"] = productCategoryId
+        }
+        if let productTypeId = productTypeId {
+            product["productTypeId"] = productTypeId
+        }
+        if let productSpec = productSpec {
+            product["productSpec"] = productSpec
+        }
+        if let weight = weight {
+            product["weight"] = weight
+        }
+        if let statusId = statusId {
+            product["statusId"] = statusId
+        }
+        if let gsm = gsm {
+            product["gsm"] = gsm
+        }
+        if let warpDyeId = warpDyeId {
+            product["warpDyeId"] = warpDyeId
+        }
+        if let warpYarnCount = warpYarnCount {
+            product["warpYarnCount"] = warpYarnCount
+        }
+        if let warpYarnId = warpYarnId {
+            product["warpYarnId"] = warpYarnId
+        }
+        if let weftDyeId = weftDyeId {
+            product["weftDyeId"] = weftDyeId
+        }
+        if let weftYarnCount = weftYarnCount {
+            product["weftYarnCount"] = weftYarnCount
+        }
+        if let weftYarnId = weftYarnId {
+            product["weftYarnId"] = weftYarnId
+        }
+        if let extraWeftDyeId = extraWeftDyeId {
+            product["extraWeftDyeId"] = extraWeftDyeId
+        }
+        if let extraWeftYarnCount = extraWeftYarnCount {
+            product["extraWeftYarnCount"] = extraWeftYarnCount
+        }
+        if let extraWeftYarnId = extraWeftYarnId {
+            product["extraWeftYarnId"] = extraWeftYarnId
+        }
+        if let width = width {
+            product["width"] = width
+        }
+        if let length = length {
+            product["length"] = length
+        }
+        if let reedCountId = reedCountId {
+            product["reedCountId"] = reedCountId
+        }
+        if let careIds = careIds {
+            product["careIds"] = careIds
+        }
+        if let weaveIds = weaveIds {
+            product["weaveIds"] = weaveIds
+        }
+        if let relatedProduct = relatedProduct {
+            var arr: [[String:Any]] = []
+            relatedProduct .forEach({ (info) in
+                arr.append(info.toJSON())
+            })
+            product["relatedProduct"] = arr
+        }
+        return product
+    }
+}
+
+struct relatedProductInfo {
+    var productTypeId: Int?
+    var width: String?
+    var length: String?
+    var weigth: String?
+}
+
+extension relatedProductInfo {
+    func toJSON() -> [String: Any] {
+        var product: [String: Any] = [:]
+        
+        if let productTypeId = productTypeId {
+            product["productTypeId"] = productTypeId
+        }
+        if let width = width {
+            product["width"] = width
+        }
+        if let length = length {
+            product["length"] = length
+        }
+//        if let weigth = weigth {
+//            product["weigth"] = weigth
+//        }
+        
+        return product
+    }
+}

@@ -36,11 +36,14 @@ enum NewProductState: Int {
 
 class UploadProductViewModel {
     var productImages = Observable<[UIImage]?>(nil)
+    
     var prodName = Observable<String?>(nil)
     var prodCode = Observable<String?>(nil)
     var prodCategory = Observable<ProductCategory?>(nil)
     var prodType = Observable<ProductType?>(nil)
+    
     var prodWeaveType = Observable<[Weave]?>(nil)
+    
     var warpYarn = Observable<Yarn?>(nil)
     var weftYarn = Observable<Yarn?>(nil)
     var exWeftYarn = Observable<Yarn?>(nil)
@@ -50,8 +53,28 @@ class UploadProductViewModel {
     var warpDye = Observable<Dye?>(nil)
     var weftDye = Observable<Dye?>(nil)
     var exWeftDye = Observable<Dye?>(nil)
+    var custWarpYarnCnt = Observable<String?>(nil)
+    var custWeftYarnCnt = Observable<String?>(nil)
+    var custExWeftYarnCnt = Observable<String?>(nil)
+    
     var reedCount = Observable<ReedCount?>(nil)
+    
     var prodCare = Observable<[ProductCare]?>(nil)
+
+    var prodLength = Observable<String?>(nil)
+    var prodWidth = Observable<String?>(nil)
+    var relatedProdLength = Observable<String?>(nil)
+    var relatedProdWidth = Observable<String?>(nil)
+    
+    var productAvailability = Observable<Bool>(false)
+    
+    var prodWeight = Observable<String?>(nil)
+    var relatedProdWeight = Observable<String?>(nil)
+    
+    var gsm = Observable<String?>(nil)
+    var prodDescription = Observable<String?>(nil)
+    
+    var saveProductSelected: (() -> Void)?
 }
 
 class UploadProductController: FormViewController {
@@ -69,6 +92,8 @@ class UploadProductController: FormViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.viewModel.productImages.value = []
+        self.viewModel.prodCare.value = []
+        self.viewModel.prodWeaveType.value = []
         let realm = try! Realm()
         allCategories = realm.objects(ProductCategory.self).sorted(byKeyPath: "entityID")
         allWeaves = realm.objects(Weave.self).sorted(byKeyPath: "entityID")
@@ -166,6 +191,7 @@ class UploadProductController: FormViewController {
             typeRow.cell.options = selectedClusterObj?.productTypes.compactMap { $0.productDesc }
             typeRow.value = nil
             self.viewModel.prodType.value = nil
+            typeRow.cell.actionButton.setTitle("", for: .normal)
             })
         <<< RoundedActionSheetRow() {
             $0.tag = "ProdTypeRow"
@@ -184,6 +210,39 @@ class UploadProductController: FormViewController {
                 obj.productDesc == row.value
             }).first
             self.viewModel.prodType.value = selectedTypeObj
+            self.viewModel.prodLength.value = nil
+            self.viewModel.prodWidth.value = nil
+            self.viewModel.relatedProdLength.value = nil
+            self.viewModel.relatedProdWidth.value = nil
+            self.viewModel.prodWeight.value = nil
+            self.viewModel.relatedProdWeight.value = nil
+            self.viewModel.gsm.value = nil
+            let row = self.form.rowBy(tag: "ProdLenWidthRow") as! lengthWidthRow
+            row.cell.lengthTextField.text = nil
+            row.cell.widthTextField.text = nil
+            row.cell.length.setTitle("Select length", for: .normal)
+            row.cell.width.setTitle("Select width", for: .normal)
+            let row2 = self.form.rowBy(tag: "RelatedProdLenWidthRow") as! lengthWidthRow
+            row2.cell.lengthTextField.text = nil
+            row2.cell.widthTextField.text = nil
+            row2.cell.length.setTitle("Select length", for: .normal)
+            row2.cell.width.setTitle("Select width", for: .normal)
+            let row3 = self.form.rowBy(tag: "ProdWeightRow") as! TextRow
+            row3.value = nil
+            row3.cell.textField.text = nil
+            let row4 = self.form.rowBy(tag: "RelatedProdWeightRow") as! TextRow
+            row4.value = nil
+            row4.cell.textField.text = nil
+            let row5 = self.form.rowBy(tag: "GSMRow") as! RoundedTextFieldRow
+            row5.value = nil
+            row5.cell.valueTextField.text = nil
+            let section = self.form.sectionBy(tag: "\(NewProductState.gsm.rawValue)")
+            if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                section?.hidden = false
+            }else {
+                section?.hidden = true
+            }
+            section?.evaluateHidden()
         })
         <<< RoundedButtonViewRow("Next2") {
             $0.tag = "Next2"
@@ -224,7 +283,9 @@ class UploadProductController: FormViewController {
                 if let selectedWeaveObj = self.allWeaves?.filter({ (obj) -> Bool in
                     obj.weaveDesc == str
                 }).first {
-                    self.viewModel.prodWeaveType.value?.append(selectedWeaveObj)
+                    if !(self.viewModel.prodWeaveType.value?.contains(selectedWeaveObj) ?? false) {
+                        self.viewModel.prodWeaveType.value?.append(selectedWeaveObj)
+                    }
                 }
             })
         })
@@ -346,17 +407,87 @@ class UploadProductController: FormViewController {
             $0.hidden = true
         }
         <<< lengthWidthRow() {
-            $0.cell.productTitle.text = "Saree"
+            $0.tag = "ProdLenWidthRow"
+            $0.cell.productTitle.text = self.viewModel.prodType.value?.productDesc ?? ""
             $0.cell.lengthWidthDelegate = self
-            $0.cell.height = { 70.0 }
+            $0.cell.height = { 80.0 }
+            $0.cell.length.tag = 1001
+            $0.cell.width.tag = 1002
             $0.hidden = true
-        }
+            self.viewModel.prodLength.bidirectionalBind(to: $0.cell.lengthTextField.reactive.text)
+            $0.cell.lengthTextField.text = self.viewModel.prodLength.value ?? ""
+            self.viewModel.prodLength.value = $0.cell.lengthTextField.text
+            self.viewModel.prodWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
+            $0.cell.widthTextField.text = self.viewModel.prodWidth.value ?? ""
+            self.viewModel.prodWidth.value = $0.cell.widthTextField.text
+        }.cellUpdate({ (cell, row) in
+            cell.productTitle.text = self.viewModel.prodType.value?.productDesc ?? ""
+            cell.option1 = self.viewModel.prodType.value?.productLengths.compactMap({$0.length})
+            cell.option2 = self.viewModel.prodType.value?.productWidths.compactMap({$0.width})
+            if self.viewModel.prodType.value?.productLengths.count ?? 0 > 0 {
+                cell.length.isHidden = false
+                cell.length.isUserInteractionEnabled = true
+                cell.lengthTextField.isHidden = true
+            }else {
+                cell.length.isHidden = true
+                cell.length.isUserInteractionEnabled = false
+                cell.lengthTextField.isHidden = false
+            }
+            if self.viewModel.prodType.value?.productWidths.count ?? 0 > 0 {
+                cell.width.isHidden = false
+                cell.width.isUserInteractionEnabled = true
+                cell.widthTextField.isHidden = true
+            }else {
+                cell.width.isHidden = true
+                cell.width.isUserInteractionEnabled = false
+                cell.widthTextField.isHidden = false
+            }
+        })
         <<< lengthWidthRow() {
-            $0.cell.productTitle.text = "Blouse"
+            $0.tag = "RelatedProdLenWidthRow"
+            $0.cell.productTitle.text = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
             $0.cell.lengthWidthDelegate = self
-            $0.cell.height = { 70.0 }
+            $0.cell.height = { 80.0 }
             $0.hidden = true
-        }
+            $0.cell.length.tag = 2001
+            $0.cell.width.tag = 2002
+            self.viewModel.relatedProdLength.bidirectionalBind(to: $0.cell.lengthTextField.reactive.text)
+            $0.cell.lengthTextField.text = self.viewModel.relatedProdLength.value ?? ""
+            self.viewModel.relatedProdLength.value = $0.cell.lengthTextField.text
+            self.viewModel.relatedProdWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
+            $0.cell.widthTextField.text = self.viewModel.relatedProdWidth.value ?? ""
+            self.viewModel.relatedProdWidth.value = $0.cell.widthTextField.text
+        }.cellUpdate({ (cell, row) in
+            cell.productTitle.text = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
+            if self.viewModel.prodType.value?.relatedProductTypes.count ?? 0 > 0 {
+                cell.height = { 70.0 }
+            }else {
+                cell.height = { 0.0 }
+            }
+            if let type = self.viewModel.prodType.value?.relatedProductTypes.first {
+                cell.option1 = type.productLengths.compactMap({$0.length})
+                cell.option2 = type.productWidths.compactMap({$0.width})
+                if type.productLengths.count > 0 {
+                    cell.length.isHidden = false
+                    cell.length.isUserInteractionEnabled = true
+                    cell.lengthTextField.isHidden = true
+                }else {
+                    cell.length.isHidden = true
+                    cell.length.isUserInteractionEnabled = false
+                    cell.lengthTextField.isHidden = false
+                }
+                if type.productWidths.count > 0 {
+                    cell.width.isHidden = false
+                    cell.width.isUserInteractionEnabled = true
+                    cell.widthTextField.isHidden = true
+                }else {
+                    cell.width.isHidden = true
+                    cell.width.isUserInteractionEnabled = false
+                    cell.widthTextField.isHidden = false
+                }
+            }
+            
+        })
         <<< RoundedButtonViewRow("Next6") {
             $0.tag = "Next6"
             $0.cell.titleLabel.isHidden = true
@@ -396,7 +527,9 @@ class UploadProductController: FormViewController {
                 if let selectedObj = self.allProdCare?.filter({ (obj) -> Bool in
                     obj.productCareDesc == str
                 }).first {
-                    self.viewModel.prodCare.value?.append(selectedObj)
+                    if !(self.viewModel.prodCare.value?.contains(selectedObj) ?? false) {
+                        self.viewModel.prodCare.value?.append(selectedObj)
+                    }
                 }
             })
         })
@@ -430,8 +563,22 @@ class UploadProductController: FormViewController {
         <<< OrderAvailabilityCell() {
             $0.cell.availabilityDelegate = self
             $0.hidden = true
+            $0.cell.makeToOrderBtn.tag = 111
+            $0.cell.inStockBtn.tag = 222
             $0.cell.height = { 180.0 }
-        }
+        }.cellUpdate({ (cell, row) in
+            if self.viewModel.productAvailability.value == true {
+                cell.inStockBtn.layer.borderColor = UIColor().menuSelectorBlue().cgColor
+                cell.inStockBtn.layer.borderWidth = 5
+                cell.makeToOrderBtn.layer.borderColor = UIColor.lightGray.cgColor
+                cell.makeToOrderBtn.layer.borderWidth = 1
+            }else {
+                cell.makeToOrderBtn.layer.borderColor = UIColor().menuSelectorBlue().cgColor
+                cell.makeToOrderBtn.layer.borderWidth = 5
+                cell.inStockBtn.layer.borderColor = UIColor.lightGray.cgColor
+                cell.inStockBtn.layer.borderWidth = 1
+            }
+        })
         <<< RoundedButtonViewRow("Next8") {
             $0.tag = "Next8"
             $0.cell.titleLabel.isHidden = true
@@ -465,13 +612,32 @@ class UploadProductController: FormViewController {
             $0.hidden = true
         }
         <<< TextRow() {
-            $0.title = "Saree"
+            $0.tag = "ProdWeightRow"
+            $0.title = self.viewModel.prodType.value?.productDesc ?? ""
             $0.hidden = true
-        }
+            self.viewModel.prodWeight.bidirectionalBind(to: $0.cell.textField.reactive.text)
+            $0.cell.textField.text = self.viewModel.prodWeight.value
+            $0.cell.textField.placeholder = "Enter weigth"
+        }.cellUpdate({ (cell, row) in
+            row.title = self.viewModel.prodType.value?.productDesc ?? ""
+            self.viewModel.prodWeight.value = cell.row.value
+        })
         <<< TextRow() {
-            $0.title = "Blouse"
+            $0.tag = "RelatedProdWeightRow"
+            $0.title = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
             $0.hidden = true
-        }
+            self.viewModel.relatedProdWeight.bidirectionalBind(to: $0.cell.textField.reactive.text)
+            $0.cell.textField.text = self.viewModel.relatedProdWeight.value
+            $0.cell.textField.placeholder = "Enter weigth"
+        }.cellUpdate({ (cell, row) in
+            row.title = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
+            if self.viewModel.prodType.value?.relatedProductTypes.count ?? 0 > 0 {
+                cell.height = { 40.0 }
+            }else {
+                cell.height = { 0.0 }
+            }
+            self.viewModel.relatedProdWeight.value = cell.row.value
+        })
         <<< RoundedButtonViewRow("Next9") {
             $0.tag = "Next9"
             $0.cell.titleLabel.isHidden = true
@@ -498,21 +664,35 @@ class UploadProductController: FormViewController {
                 header.height = { ht }
                 return header
               }()
+            section.hidden = true
         }
         <<< LabelRow() {
             $0.cell.height = { 60.0 }
             $0.cell.imageView?.image = UIImage(named: "GSM ")
             $0.hidden = true
-        }
+        }.cellUpdate({ (cell, row) in
+            if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                cell.height = { 60.0 }
+            }else {
+                cell.height = { 0.0 }
+            }
+        })
         <<< RoundedTextFieldRow() {
-          $0.cell.titleLabel.text = "GSM"
+            $0.tag = "GSMRow"
+            $0.cell.titleLabel.text = "GSM"
             $0.cell.compulsoryIcon.isHidden = true
-          $0.cell.height = { 80.0 }
             $0.hidden = true
-//          self.viewModel.gsm.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-//          $0.cell.valueTextField.text = appDelegate?.registerUser?.buyerCompanyDetails?.companyName
-//          self.viewModel.companyName.value = $0.cell.valueTextField.text
-        }
+            self.viewModel.gsm.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+            $0.cell.valueTextField.text = self.viewModel.gsm.value
+            self.viewModel.gsm.value = $0.cell.valueTextField.text
+        }.cellUpdate({ (cell, row) in
+            self.viewModel.gsm.value = cell.valueTextField.text
+            if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                cell.height = { 80.0 }
+            }else {
+                cell.height = { 0.0 }
+            }
+        })
         <<< RoundedButtonViewRow("Next10") {
             $0.tag = "Next10"
             $0.cell.titleLabel.isHidden = true
@@ -544,7 +724,11 @@ class UploadProductController: FormViewController {
             $0.cell.height = { 180.0 }
             $0.placeholder = "Describe your product".localized
             $0.hidden = true
-        }
+            self.viewModel.prodDescription.bidirectionalBind(to: $0.cell.textView.reactive.text)
+            $0.cell.textView.text = self.viewModel.prodDescription.value ?? ""
+        }.cellUpdate({ (cell, row) in
+            self.viewModel.prodDescription.value = cell.textView.text
+        })
         <<< RoundedButtonViewRow("Next11") {
             $0.tag = "Next11"
             $0.cell.titleLabel.isHidden = true
@@ -591,6 +775,7 @@ class UploadProductController: FormViewController {
             }
             currentState = nil
         }
+        
     }
     
     func createSectionView(forStep:Int, title:String) -> UIView {
@@ -629,20 +814,94 @@ class UploadProductController: FormViewController {
 }
 
 extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, LengthWidthCellProtocol, AvailabilityCellProtocol {
-    func lengthWidthSelected(tag: Int) {
+    func lengthWidthSelected(tag: Int, withValue: String) {
         print("tag: \(tag)")
+        switch tag {
+        case 1001:
+            print("prod len")
+            self.viewModel.prodLength.value = withValue
+        case 1002:
+            print("prod width")
+            self.viewModel.prodWidth.value = withValue
+        case 2001:
+            print("rel prod len")
+            self.viewModel.relatedProdLength.value = withValue
+        case 2002:
+            print("rel prod width")
+            self.viewModel.relatedProdWidth.value = withValue
+        default:
+            print("")
+        }
     }
     
     func customButtonSelected(tag: Int) {
         expandSection(tag: tag+1)
+        if tag == NewProductState.addDescription.rawValue {
+            self.viewModel.saveProductSelected?()
+        }
     }
-    
-    func showOption(tag: Int) {
+
+    func showOption(tag: Int, withValue: String) {
         print("option")
+        switch tag {
+        case 101:
+            print("warp yarn")
+            self.viewModel.warpYarn.value = searchYarnOptions(value: withValue)
+            self.viewModel.warpYarnCnt.value = nil
+        case 102:
+            print("warp yarn")
+            self.viewModel.warpYarnCnt.value = searchYarnCntOptions(value: withValue)
+        case 103:
+            print("warp yarn")
+            self.viewModel.warpDye.value = searchDyeOptions(value: withValue)
+        case 201:
+            print("weft yarn")
+            self.viewModel.weftYarn.value = searchYarnOptions(value: withValue)
+            self.viewModel.weftYarnCnt.value = nil
+        case 202:
+            print("weft yarn")
+            self.viewModel.weftYarnCnt.value = searchYarnCntOptions(value: withValue)
+        case 203:
+            print("weft yarn")
+            self.viewModel.weftDye.value = searchDyeOptions(value: withValue)
+        case 301:
+            print("ex-weft yarn")
+            self.viewModel.exWeftYarn.value = searchYarnOptions(value: withValue)
+            self.viewModel.exWeftYarnCnt.value = nil
+        case 302:
+            print("ex-weft yarn")
+            self.viewModel.exWeftYarnCnt.value = searchYarnCntOptions(value: withValue)
+        case 303:
+            print("ex-weft yarn")
+            self.viewModel.exWeftDye.value = searchDyeOptions(value: withValue)
+        default:
+            print("")
+        }
     }
     
-    func availabilitySelected(tag: Int) {
-        print(tag)
+    func searchYarnOptions(value: String) -> Yarn? {
+        let selectedObj = self.allYarns?.filter({ (obj) -> Bool in
+            obj.yarnDesc == value
+            }).first
+        return selectedObj ?? nil
+    }
+    
+    func searchYarnCntOptions(value: String) -> YarnCount? {
+        let selectedObj = self.viewModel.warpYarn.value?.yarnType.first?.yarnCounts.filter({ (obj) -> Bool in
+            obj.count == value
+            }).first
+        return selectedObj ?? nil
+    }
+    
+    func searchDyeOptions(value: String) -> Dye? {
+        let selectedObj = self.allDye?.filter({ (obj) -> Bool in
+            obj.dyeDesc == value
+            }).first
+        return selectedObj ?? nil
+    }
+    
+    func availabilitySelected(isAvailable: Bool) {
+        self.viewModel.productAvailability.value = isAvailable
     }
 }
 
@@ -672,31 +931,70 @@ extension UploadProductController: UICollectionViewDelegate, UICollectionViewDat
             cell.layer.shadowRadius = 5.0
             cell.layer.shadowOpacity = 1
             cell.layer.masksToBounds = false
+            cell.option1 = allYarns?.compactMap({$0.yarnDesc})
+            cell.option2 = self.viewModel.warpYarn.value?.yarnType.first?.yarnCounts.compactMap({$0.count})
+            cell.option3 = allDye?.compactMap({$0.dyeDesc})
             switch indexPath.row {
             case 0:
                 print("Add Warp")
                 cell.cardImg.image = UIImage.init(named: "warp")
                 cell.cardTitle.text = "Warp".localized
-                cell.option1 = allYarns?.compactMap({$0.yarnDesc})
-                cell.option2 = self.viewModel.warpYarn.value?.yarnType.first?.yarnCounts.compactMap({$0.count})
-                cell.option3 = allDye?.compactMap({$0.dyeDesc})
                 cell.optionalLbl.isHidden = true
+                cell.buttonOne.tag = 101
+                cell.buttonTwo.tag = 102
+                cell.buttonThree.tag = 103
+                self.viewModel.custWarpYarnCnt.bidirectionalBind(to: cell.yarnCountTextField.reactive.text)
+                cell.yarnCountTextField.text = self.viewModel.custWarpYarnCnt.value ?? ""
+                self.viewModel.custWarpYarnCnt.value = cell.yarnCountTextField.text
+                if self.viewModel.warpYarn.value?.yarnType.first?.manual == true {
+                    cell.yarnCountTextField.isHidden = false
+                    cell.buttonTwo.isHidden = true
+                    cell.buttonTwo.isUserInteractionEnabled = false
+                }else {
+                    cell.yarnCountTextField.isHidden = true
+                    cell.buttonTwo.isHidden = false
+                    cell.buttonTwo.isUserInteractionEnabled = true
+                }
             case 1:
                 print("Add Weft")
                 cell.cardImg.image = UIImage.init(named: "weft")
                 cell.cardTitle.text = "Weft".localized
-                cell.option1 = ["Weft Yarn 1", "Weft Yarn 2", "Weft Yarn 3"]
-                cell.option2 = ["Weft Count 1", "Weft Count 2", "Weft Count 3"]
-                cell.option3 = ["Weft Dyed 1", "Weft Dyed 2", "Weft Dyed 3"]
                 cell.optionalLbl.isHidden = true
+                cell.buttonOne.tag = 201
+                cell.buttonTwo.tag = 202
+                cell.buttonThree.tag = 203
+                self.viewModel.custWeftYarnCnt.bidirectionalBind(to: cell.yarnCountTextField.reactive.text)
+                cell.yarnCountTextField.text = self.viewModel.custWeftYarnCnt.value ?? ""
+                self.viewModel.custWeftYarnCnt.value = cell.yarnCountTextField.text
+                if self.viewModel.weftYarn.value?.yarnType.first?.manual == true {
+                    cell.yarnCountTextField.isHidden = false
+                    cell.buttonTwo.isHidden = true
+                    cell.buttonTwo.isUserInteractionEnabled = false
+                }else {
+                    cell.yarnCountTextField.isHidden = true
+                    cell.buttonTwo.isHidden = false
+                    cell.buttonTwo.isUserInteractionEnabled = true
+                }
             case 2:
                 print("Add Extra Weft")
                 cell.cardImg.image = UIImage.init(named: "extra weft")
                 cell.cardTitle.text = "Extra Weft".localized
-                cell.option1 = ["ExWeft Yarn 1", "ExWeft Yarn 2", "ExWeft Yarn 3"]
-                cell.option2 = ["ExWeft Count 1", "ExWeft Count 2", "ExWeft Count 3"]
-                cell.option3 = ["ExWeft Dyed 1", "ExWeft Dyed 2", "ExWeft Dyed 3"]
                 cell.optionalLbl.isHidden = false
+                cell.buttonOne.tag = 301
+                cell.buttonTwo.tag = 302
+                cell.buttonThree.tag = 303
+                self.viewModel.custExWeftYarnCnt.bidirectionalBind(to: cell.yarnCountTextField.reactive.text)
+                cell.yarnCountTextField.text = self.viewModel.custExWeftYarnCnt.value ?? ""
+                self.viewModel.custExWeftYarnCnt.value = cell.yarnCountTextField.text
+                if self.viewModel.exWeftYarn.value?.yarnType.first?.manual == true {
+                    cell.yarnCountTextField.isHidden = false
+                    cell.buttonTwo.isHidden = true
+                    cell.buttonTwo.isUserInteractionEnabled = false
+                }else {
+                    cell.yarnCountTextField.isHidden = true
+                    cell.buttonTwo.isHidden = false
+                    cell.buttonTwo.isUserInteractionEnabled = true
+                }
             default:
                 print("")
             }
@@ -775,5 +1073,27 @@ extension UploadProductController: UIImagePickerControllerDelegate, UINavigation
         picker.dismiss(animated: true) {
             self.reloadAddPhotoRow()
         }
+    }
+}
+
+extension UploadProductController: OfflineRequestManagerDelegate {
+    func offlineRequest(withDictionary dictionary: [String : Any]) -> OfflineRequest? {
+        return OfflineProductRequest(dictionary: dictionary)
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, shouldAttemptRequest request: OfflineRequest) -> Bool {
+        return true
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, didUpdateConnectionStatus connected: Bool) {
+        
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, didFinishRequest request: OfflineRequest) {
+        
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, requestDidFail request: OfflineRequest, withError error: Error) {
+        
     }
 }

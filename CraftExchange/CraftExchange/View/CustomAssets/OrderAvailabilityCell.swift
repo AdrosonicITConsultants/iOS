@@ -12,7 +12,7 @@ import UIKit
 import Eureka
 
 protocol AvailabilityCellProtocol {
-  func availabilitySelected(tag: Int)
+  func availabilitySelected(isAvailable: Bool)
 }
 
 class OrderAvailabilityCellView: Cell<String>, CellType {
@@ -42,17 +42,21 @@ class OrderAvailabilityCellView: Cell<String>, CellType {
     }
     
     @IBAction func customButtonSelected(_ sender: Any) {
-      availabilityDelegate?.availabilitySelected(tag: tag)
         let btn = sender as! UIButton
-        if btn.layer.borderColor == UIColor.lightGray.cgColor {
-            btn.layer.borderColor = UIColor().menuSelectorBlue().cgColor
-            btn.layer.borderWidth = 5
+        if btn.tag == makeToOrderBtn.tag {
+            makeToOrderBtn.layer.borderColor = UIColor().menuSelectorBlue().cgColor
+            makeToOrderBtn.layer.borderWidth = 5
+            inStockBtn.layer.borderColor = UIColor.lightGray.cgColor
+            inStockBtn.layer.borderWidth = 1
+            availabilityDelegate?.availabilitySelected(isAvailable: false)
         }else {
-            btn.layer.borderColor = UIColor.lightGray.cgColor
-            btn.layer.borderWidth = 1
+            inStockBtn.layer.borderColor = UIColor().menuSelectorBlue().cgColor
+            inStockBtn.layer.borderWidth = 5
+            makeToOrderBtn.layer.borderColor = UIColor.lightGray.cgColor
+            makeToOrderBtn.layer.borderWidth = 1
+            availabilityDelegate?.availabilitySelected(isAvailable: true)
         }
     }
-    
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value

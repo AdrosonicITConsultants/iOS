@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 protocol LengthWidthCellProtocol {
-  func lengthWidthSelected(tag: Int)
+  func lengthWidthSelected(tag: Int, withValue: String)
 }
 
 class lengthWidthRowView: Cell<String>, CellType {
@@ -20,6 +20,10 @@ class lengthWidthRowView: Cell<String>, CellType {
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var length: UIButton!
     @IBOutlet weak var width: UIButton!
+    @IBOutlet weak var lengthTextField: UITextField!
+    @IBOutlet weak var widthTextField: UITextField!
+    var option1: [String]?
+    var option2: [String]?
     
     public override func setup() {
         super.setup()
@@ -32,7 +36,25 @@ class lengthWidthRowView: Cell<String>, CellType {
     }
     
     @IBAction func customButtonSelected(_ sender: Any) {
-      lengthWidthDelegate?.lengthWidthSelected(tag: tag)
+        let btn = sender as! UIButton
+        var options: [String] = []
+        if btn.tag == 1001 || btn.tag == 2001 {
+            options = option1 ?? []
+        }else if btn.tag == 1002 || btn.tag == 2002 {
+            options = option2 ?? []
+        }
+      let alert = UIAlertController.init(title: "Please select", message: "", preferredStyle: .actionSheet)
+      for option in options {
+        let action = UIAlertAction.init(title: option, style: .default) { (action) in
+          btn.setTitle(option, for: .normal)
+          self.lengthWidthDelegate?.lengthWidthSelected(tag: btn.tag, withValue: option)
+        }
+        alert.addAction(action)
+      }
+      let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+      }
+      alert.addAction(action)
+      (lengthWidthDelegate as? UIViewController)?.present(alert, animated: true, completion: nil)
     }
     
 }

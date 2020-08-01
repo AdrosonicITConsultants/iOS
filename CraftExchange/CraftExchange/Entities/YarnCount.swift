@@ -18,7 +18,7 @@ class YarnCount: Object, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
-        case count = "yarnTypeDesc"
+        case count = "count"
         case yarnTypeId = "yarnTypeId"
     }
     

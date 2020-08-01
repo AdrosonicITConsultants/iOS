@@ -133,4 +133,43 @@ extension Product {
           needsAuthorization: true
       )
     }
+    
+    public static func uploadProduct(json: [String: Any], imageData: [(String,Data)]) -> Request<Data, APIError> {
+        var str = json.jsonString
+        print("product: \n\n \(str)")
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
+        if imageData.count > 0 {
+            let boundary = "\(UUID().uuidString)"
+            var dataLength = 0
+            imageData .forEach { (imgData) in
+                dataLength = dataLength + imgData.1.count
+            }
+            let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
+                                             "accept": "application/json",
+                                             "Content-Length": String(dataLength)
+            ]
+            let finalData = MultipartDataHelper().createBody(boundary: boundary, mimeType: "application/octet-stream", imageData: imageData)
+            return Request(
+                path: "product/uploadProduct?productData=\(str)",
+                method: .post,
+                parameters: DataParameter(finalData),
+                headers: headers,
+                resource: {
+                    print(String(data: $0, encoding: .utf8) ?? "artisan upload product failed")
+                    return $0},
+                error: APIError.init,
+                needsAuthorization: true
+            )
+        }else {
+            return Request(
+                path: "product/uploadProduct?productData=\(str)",
+                method: .post,
+                resource: {print(String(data: $0, encoding: .utf8) ?? "artisan upload product failed")
+                  return $0},
+                error: APIError.init,
+                needsAuthorization: true
+            )
+        }
+    }
 }

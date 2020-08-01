@@ -49,13 +49,35 @@
                             <constraint firstAttribute="width" constant="20" id="x0W-yn-UUB"/>
                         </constraints>
                     </imageView>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Length" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Qh-1S-RiS">
+                        <rect key="frame" x="20" y="38" width="167" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="o6g-39-Yps"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Width" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="agm-4e-qQo">
+                        <rect key="frame" x="227" y="38" width="167" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="IGO-fr-Sc6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Z3x-sE-pdh" firstAttribute="leading" secondItem="3Qh-1S-RiS" secondAttribute="trailing" constant="10" id="6ed-Nt-1nC"/>
+                    <constraint firstAttribute="trailing" secondItem="agm-4e-qQo" secondAttribute="trailing" constant="20" id="9e6-hP-Ooo"/>
                     <constraint firstItem="Bm9-lZ-z8B" firstAttribute="leading" secondItem="Z3x-sE-pdh" secondAttribute="trailing" constant="10" id="A5r-qJ-wyj"/>
                     <constraint firstItem="Ls6-yV-noQ" firstAttribute="leading" secondItem="ep8-8x-ZzC" secondAttribute="leading" constant="20" id="AI4-Re-jAN"/>
                     <constraint firstItem="Z3x-sE-pdh" firstAttribute="top" secondItem="7X9-eF-YTn" secondAttribute="bottom" constant="12" id="Jii-yp-L8K"/>
+                    <constraint firstItem="3Qh-1S-RiS" firstAttribute="leading" secondItem="ep8-8x-ZzC" secondAttribute="leading" constant="20" id="Lzp-ob-Wf8"/>
+                    <constraint firstItem="agm-4e-qQo" firstAttribute="leading" secondItem="Z3x-sE-pdh" secondAttribute="trailing" constant="10" id="MJc-Qv-SXu"/>
                     <constraint firstAttribute="trailing" secondItem="Bm9-lZ-z8B" secondAttribute="trailing" constant="20" id="Rzf-Nx-NJ8"/>
+                    <constraint firstItem="3Qh-1S-RiS" firstAttribute="top" secondItem="Ls6-yV-noQ" secondAttribute="top" id="Uda-cv-x2g"/>
                     <constraint firstItem="Z3x-sE-pdh" firstAttribute="centerY" secondItem="Ls6-yV-noQ" secondAttribute="centerY" id="dzY-Gl-1h6"/>
+                    <constraint firstItem="agm-4e-qQo" firstAttribute="baseline" secondItem="3Qh-1S-RiS" secondAttribute="baseline" id="eTL-Yu-phN"/>
                     <constraint firstItem="Z3x-sE-pdh" firstAttribute="centerX" secondItem="7X9-eF-YTn" secondAttribute="centerX" id="i13-7n-ry5"/>
                     <constraint firstItem="Z3x-sE-pdh" firstAttribute="centerY" secondItem="Bm9-lZ-z8B" secondAttribute="centerY" id="mxl-io-9zq"/>
                     <constraint firstItem="Z3x-sE-pdh" firstAttribute="leading" secondItem="Ls6-yV-noQ" secondAttribute="trailing" constant="10" id="q75-R7-6io"/>
@@ -63,8 +85,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="length" destination="Ls6-yV-noQ" id="5S7-HW-eJO"/>
+                <outlet property="lengthTextField" destination="3Qh-1S-RiS" id="bUV-wc-rdd"/>
                 <outlet property="productTitle" destination="7X9-eF-YTn" id="Xjn-dM-iwf"/>
                 <outlet property="width" destination="Bm9-lZ-z8B" id="Lcb-5t-sL8"/>
+                <outlet property="widthTextField" destination="agm-4e-qQo" id="bQP-nm-M9k"/>
             </connections>
             <point key="canvasLocation" x="213.04347826086959" y="-271.875"/>
         </tableViewCell>
