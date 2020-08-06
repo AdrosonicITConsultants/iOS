@@ -15,10 +15,10 @@ import RealmSwift
 import UIKit
 
 extension UploadProductService {
-    func createScene() -> UIViewController {
+    func createScene(productObject: Product?) -> UIViewController {
     
         let vc = UploadProductController.init(style: .plain)
-        
+        vc.product = productObject
         vc.viewModel.saveProductSelected = {
             if let prodName = vc.viewModel.prodName.value,
                 let prodCode = vc.viewModel.prodCode.value,
@@ -89,10 +89,16 @@ extension UploadProductService {
                         i += 1
                     })
                 }
-                
-                let request = OfflineProductRequest(type: .uploadProduct, imageData: imgData, json: newProductObj.toJSON())
-                OfflineRequestManager.defaultManager.queueRequest(request)
-                vc.navigationController?.popViewController(animated: true)
+                if let existingProduct = vc.product {
+                    newProductObj.id = existingProduct.entityID
+                    let request = OfflineProductRequest(type: .editProduct, imageData: imgData, json: newProductObj.editJSON())
+                    OfflineRequestManager.defaultManager.queueRequest(request)
+                    vc.navigationController?.popViewController(animated: true)
+                }else {
+                    let request = OfflineProductRequest(type: .uploadProduct, imageData: imgData, json: newProductObj.toJSON())
+                    OfflineRequestManager.defaultManager.queueRequest(request)
+                    vc.navigationController?.popViewController(animated: true)
+                }
             }else {
                 vc.alert("Error".localized, "Please enter all required data".localized) { (alert) in
                     

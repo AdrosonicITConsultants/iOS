@@ -14,6 +14,14 @@ import ReactiveKit
 
 extension Weave {
     
+    static func getWeaveType(searchId: Int) -> Weave? {
+        let realm = try! Realm()
+        if let object = realm.objects(Weave.self).filter("%K == %@", "entityID", searchId).first {
+            return object
+        }
+        return nil
+    }
+    
     func saveOrUpdate() {
         let realm = try! Realm()
         if let object = realm.objects(Weave.self).filter("%K == %@", "entityID", self.entityID).first {

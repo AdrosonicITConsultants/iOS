@@ -110,7 +110,7 @@ class ArtisanHomeController: UIViewController {
     @IBAction func addProductSelected(_ sender: Any) {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = UploadProductService(client: client).createScene()
+            let vc = UploadProductService(client: client).createScene(productObject: nil)
             vc.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc, animated: true)
         }catch {

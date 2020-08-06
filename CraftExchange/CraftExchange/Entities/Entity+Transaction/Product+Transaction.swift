@@ -142,6 +142,7 @@ extension Product {
                 object.isDeleted = isDeleted
                 object.relatedProducts = relatedProducts
                 object.productCategoryId = productCategoryId
+                object.productTypeId = productTypeId
                 object.clusterId = clusterId
                 
                 let idsToCheck = productImages.compactMap { $0.entityID }
@@ -159,6 +160,10 @@ extension Product {
                         object.productImages.append(img)
                     }
                 }
+                object.productCares.removeAll()
+                object.productCares = productCares
+                object.weaves.removeAll()
+                object.weaves = weaves
             }
         } else {
             try? realm.write {
@@ -166,6 +171,74 @@ extension Product {
             }
         }
     }
+    
+    func saveOrUpdate(reference: ThreadSafeReference<Product>) {
+        let realm = try! Realm()
+//        if let object = realm.objects(Product.self).filter("%K == %@", "entityID", self.entityID).first {
+        if let object = realm.resolve(reference) {
+            try? realm.write {
+                object.code = code
+                object.productSpec = productSpec
+                object.productDesc = productDesc
+                object.productTag = productTag
+                object.warpYarnId = warpYarnId
+                object.weftYarnId = weftYarnId
+                object.extraWeftYarnId = extraWeftYarnId
+                object.warpYarnCount = warpYarnCount
+                object.weftYarnCount = weftYarnCount
+                object.extraWeftYarnCount = extraWeftYarnCount
+                object.warpDyeId = warpDyeId
+                object.weftDyeId = weftDyeId
+                object.extraWeftDyeId = extraWeftDyeId
+                object.length = length
+                object.width = width
+                object.reedCountId = reedCountId
+                object.productStatusId = productStatusId
+                object.gsm = gsm
+                object.weight = weight
+                object.createdOn = createdOn
+                object.modifiedOn = modifiedOn
+                object.isDeleted = isDeleted
+                object.relatedProducts = relatedProducts
+                object.productCategoryId = productCategoryId
+                object.productTypeId = productTypeId
+                object.clusterId = clusterId
+                
+                let idsToCheck = productImages.compactMap { $0.entityID }
+                var imgsToDelete: [ProductImage] = []
+                object.productImages .forEach { (img) in
+                    if !idsToCheck.contains(img.entityID) {
+                        imgsToDelete.append(img)
+                    }
+                }
+                realm.delete(imgsToDelete)
+                
+                let existingImgs = object.productImages.compactMap { $0.entityID }
+                productImages .forEach { (img) in
+                    if !existingImgs.contains(img.entityID) {
+                        object.productImages.append(img)
+                    }
+                }
+                object.productCares.removeAll()
+                object.productCares = productCares
+                object.weaves.removeAll()
+                object.weaves = weaves
+            }
+        }
+//        } else {
+//            try? realm.write {
+//                realm.add(self, update: .modified)
+//            }
+//        }
+    }
+    
+    func addNew() {
+        let realm = try? Realm()
+        try? realm?.write {
+            realm?.add(self, update: .modified)
+        }
+    }
+    
     
     func syncChanges() {
         let realm = try? Realm()

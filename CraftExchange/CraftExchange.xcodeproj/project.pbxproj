@@ -28,6 +28,8 @@
 		C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */; };
 		C0285AA124CF4E4F0045623A /* BuyerProductCatalogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */; };
 		C0285AA324CF58E00045623A /* BuyerProductCatalogScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */; };
+		C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */; };
+		C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */; };
 		C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87A2476F0BC00279D7F /* AppDelegate.swift */; };
 		C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */; };
 		C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8802476F0BC00279D7F /* Main.storyboard */; };
@@ -246,6 +248,8 @@
 		C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePicService.swift; sourceTree = "<group>"; };
 		C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatalogController.swift; sourceTree = "<group>"; };
 		C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatalogScene.swift; sourceTree = "<group>"; };
+		C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductType+Transaction.swift"; sourceTree = "<group>"; };
+		C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YarnCount+Transaction.swift"; sourceTree = "<group>"; };
 		C03BD8772476F0BC00279D7F /* CraftExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03BD87A2476F0BC00279D7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -910,9 +914,11 @@
 				C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */,
 				C0917DF124D472C1006B6664 /* Weave+Transaction.swift */,
 				C0917DF324D47361006B6664 /* Yarn+Transaction.swift */,
+				C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */,
 				C0917DF524D473FA006B6664 /* ReedCount+Transaction.swift */,
 				C0917DF724D47485006B6664 /* Dye+Transaction.swift */,
 				C0917DF924D474E3006B6664 /* ProductCare+Transaction.swift */,
+				C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */,
 			);
 			path = "Entity+Transaction";
 			sourceTree = "<group>";
@@ -1263,6 +1269,7 @@
 				C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */,
 				C071E22D247E810D0085805B /* Strings+Extensions.swift in Sources */,
 				C09B3F1524BA615900FBC115 /* Disk+Codable.swift in Sources */,
+				C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
 				C09B3F1224BA615900FBC115 /* Disk+VolumeInformation.swift in Sources */,
 				C091894E248038BB0058501C /* RoleViewController.swift in Sources */,
@@ -1345,6 +1352,7 @@
 				C05E3AD724D1B31F00963FAA /* UploadProductService.swift in Sources */,
 				C0917DFA24D474E3006B6664 /* ProductCare+Transaction.swift in Sources */,
 				C0A3F41924B7A7EF0071F7F8 /* BuyerGeneralInfo.swift in Sources */,
+				C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */,
 				C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */,
 				C0ACE9982485900F00EFA4ED /* REGValidateArtisanController.swift in Sources */,
 				C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */,

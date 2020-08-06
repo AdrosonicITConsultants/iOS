@@ -13,6 +13,13 @@ import Bond
 import ReactiveKit
 
 extension Yarn {
+    static func getYarn(searchId: Int) -> Yarn? {
+        let realm = try! Realm()
+        if let object = realm.objects(Yarn.self).filter("%K == %@", "entityID", searchId).first {
+            return object
+        }
+        return nil
+    }
     
     func saveOrUpdate() {
         let realm = try! Realm()

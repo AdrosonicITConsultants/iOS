@@ -13,6 +13,13 @@ import Bond
 import ReactiveKit
 
 extension Dye {
+    static func getDyeType(searchId: Int) -> Dye? {
+        let realm = try! Realm()
+        if let object = realm.objects(Dye.self).filter("%K == %@", "entityID", searchId).first {
+            return object
+        }
+        return nil
+    }
     
     func saveOrUpdate() {
         let realm = try! Realm()

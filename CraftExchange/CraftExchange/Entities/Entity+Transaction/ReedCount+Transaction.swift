@@ -13,6 +13,13 @@ import Bond
 import ReactiveKit
 
 extension ReedCount {
+    static func getReedCount(searchId: Int) -> ReedCount? {
+        let realm = try! Realm()
+        if let object = realm.objects(ReedCount.self).filter("%K == %@", "entityID", searchId).first {
+            return object
+        }
+        return nil
+    }
     
     func saveOrUpdate() {
         let realm = try! Realm()

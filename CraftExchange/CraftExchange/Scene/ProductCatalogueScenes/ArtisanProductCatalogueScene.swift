@@ -78,6 +78,14 @@ extension ProductCatalogService {
                 cell.configure(prodObj)
             }.dispose(in: controller.bag)
         }
+
+        controller.tableView.reactive.selectedRowIndexPath
+        .bind(to: controller, context: .immediateOnMain) { _, indexPath in
+            guard let object = dataSource.changeset?[indexPath.row] else { return }
+            let vc = UploadProductService(client: self.client).createScene(productObject: object)
+            vc.modalPresentationStyle = .fullScreen
+            controller.navigationController?.pushViewController(vc, animated: true)
+        }.dispose(in: controller.bag)
         
         return controller
     }
