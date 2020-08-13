@@ -160,10 +160,10 @@ extension Product {
                         object.productImages.append(img)
                     }
                 }
-                object.productCares.removeAll()
-                object.productCares = productCares
-                object.weaves.removeAll()
-                object.weaves = weaves
+//                object.productCares.removeAll()
+//                object.productCares = productCares
+//                object.weaves.removeAll()
+//                object.weaves = weaves
             }
         } else {
             try? realm.write {
