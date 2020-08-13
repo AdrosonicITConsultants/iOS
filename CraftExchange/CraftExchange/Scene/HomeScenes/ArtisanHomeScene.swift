@@ -112,7 +112,7 @@ extension HomeScreenService {
                     }
                 }
             }.dispose(in: vc.bag)
-
+            /*
             self.fetchAllArtisanProduct().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                 print(responseData)
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -139,7 +139,7 @@ extension HomeScreenService {
                   }
                 }
             }.dispose(in: vc.bag)
-            
+            */
             self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
               DispatchQueue.main.async {
                 vc.hideLoading()

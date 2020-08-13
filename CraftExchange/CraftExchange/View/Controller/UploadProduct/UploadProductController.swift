@@ -164,9 +164,7 @@ class UploadProductController: FormViewController {
                 $0.cell.collectionDelegate = self
                 $0.cell.height = { 300.0 }
                 $0.hidden = true
-            }.cellUpdate({ (cell, row) in
-                cell.collectionView.reloadData()
-            })
+            }
             <<< RoundedButtonViewRow("Next1") {
                 $0.tag = "Next1"
                 $0.cell.titleLabel.isHidden = true
@@ -839,8 +837,8 @@ class UploadProductController: FormViewController {
             }else {
                 do {
                     let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client, productObject: product!)
-                    service.fetch().observeNext { (attachment) in
+                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
+                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
                         DispatchQueue.main.async {
                             let tag = image.lable ?? "name.jpg"
                             let prodId = self.product?.entityID
@@ -851,6 +849,10 @@ class UploadProductController: FormViewController {
                 }catch {
                     print(error.localizedDescription)
                 }
+            }
+            if image == product?.productImages.last {
+                let row = self.form.rowBy(tag: "AddPhotoRow") as? CollectionViewRow
+                row?.cell.collectionView.reloadData()
             }
         }
     }
@@ -1068,9 +1070,11 @@ extension UploadProductController: UICollectionViewDelegate, UICollectionViewDat
                     cell.buttonTwo.isHidden = false
                     cell.buttonTwo.isUserInteractionEnabled = true
                 }
-                cell.buttonOne.setTitle(self.viewModel.warpYarn.value?.yarnDesc, for: .normal)
-                cell.buttonTwo.setTitle(self.viewModel.warpYarnCnt.value?.count, for: .normal)
-                cell.buttonThree.setTitle(self.viewModel.warpDye.value?.dyeDesc, for: .normal)
+                if self.product != nil {
+                    cell.buttonOne.setTitle(self.viewModel.warpYarn.value?.yarnDesc, for: .normal)
+                    cell.buttonTwo.setTitle(self.viewModel.warpYarnCnt.value?.count, for: .normal)
+                    cell.buttonThree.setTitle(self.viewModel.warpDye.value?.dyeDesc, for: .normal)
+                }
             case 1:
                 print("Add Weft")
                 cell.cardImg.image = UIImage.init(named: "weft")
@@ -1091,9 +1095,11 @@ extension UploadProductController: UICollectionViewDelegate, UICollectionViewDat
                     cell.buttonTwo.isHidden = false
                     cell.buttonTwo.isUserInteractionEnabled = true
                 }
-                cell.buttonOne.setTitle(self.viewModel.weftYarn.value?.yarnDesc, for: .normal)
-                cell.buttonTwo.setTitle(self.viewModel.weftYarnCnt.value?.count, for: .normal)
-                cell.buttonThree.setTitle(self.viewModel.weftDye.value?.dyeDesc, for: .normal)
+                if self.product != nil {
+                    cell.buttonOne.setTitle(self.viewModel.weftYarn.value?.yarnDesc, for: .normal)
+                    cell.buttonTwo.setTitle(self.viewModel.weftYarnCnt.value?.count, for: .normal)
+                    cell.buttonThree.setTitle(self.viewModel.weftDye.value?.dyeDesc, for: .normal)
+                }
             case 2:
                 print("Add Extra Weft")
                 cell.cardImg.image = UIImage.init(named: "extra weft")
@@ -1114,9 +1120,11 @@ extension UploadProductController: UICollectionViewDelegate, UICollectionViewDat
                     cell.buttonTwo.isHidden = false
                     cell.buttonTwo.isUserInteractionEnabled = true
                 }
-                cell.buttonOne.setTitle(self.viewModel.exWeftYarn.value?.yarnDesc, for: .normal)
-                cell.buttonTwo.setTitle(self.viewModel.exWeftYarnCnt.value?.count, for: .normal)
-                cell.buttonThree.setTitle(self.viewModel.exWeftDye.value?.dyeDesc, for: .normal)
+                if self.product != nil {
+                    cell.buttonOne.setTitle(self.viewModel.exWeftYarn.value?.yarnDesc, for: .normal)
+                    cell.buttonTwo.setTitle(self.viewModel.exWeftYarnCnt.value?.count, for: .normal)
+                    cell.buttonThree.setTitle(self.viewModel.exWeftDye.value?.dyeDesc, for: .normal)
+                }
             default:
                 print("")
             }

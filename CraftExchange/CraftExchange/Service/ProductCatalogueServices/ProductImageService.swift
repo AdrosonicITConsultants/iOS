@@ -14,7 +14,8 @@ import RealmSwift
 
 class ProductImageService: BaseService<URL> {
     var productObject: Product!
-
+    var name: String?
+    
     convenience init(client: SafeClient, productObject: Product) {
         self.init(client: client)
         self.productObject = productObject
@@ -23,13 +24,25 @@ class ProductImageService: BaseService<URL> {
             _object.value = try? Disk.retrieveURL("\(prodId)/\(name)", from: .caches, as: Data.self)
         }
     }
-
-    override func update(_ object: URL?) {
-        super.update(object)
+    
+    convenience init(client: SafeClient, productObject: Product, withName: String) {
+        self.init(client: client)
+        self.productObject = productObject
+        self.name = withName
+        let prodId = productObject.entityID
+        _object.value = try? Disk.retrieveURL("\(prodId)/\(withName)", from: .caches, as: Data.self)
     }
 
+//    override func update(_ object: URL?) {
+//        super.update(object)
+//    }
+
     func fetch() -> Signal<Data, Never> {
-        return Product.fetchProductImage(with: productObject.entityID, imageName: productObject.productImages.first?.lable ?? "").response(using: client).debug()
+        return Product.fetchProductImage(with: productObject.entityID, imageName: name ?? productObject.productImages.first?.lable ?? "").response(using: client).debug()
+    }
+    
+    func fetch(withName: String) -> Signal<Data, Never> {
+        return Product.fetchProductImage(with: productObject.entityID, imageName: withName).response(using: client).debug()
     }
 }
 
