@@ -109,7 +109,11 @@ class UploadProductController: FormViewController {
             viewModel.prodCode.value = productObj.code
             viewModel.prodType.value = ProductType.getProductType(searchId: productObj.productTypeId)
             viewModel.prodCategory.value = ProductCategory.getProductCat(catId: productObj.productCategoryId)
-            viewModel.prodWeaveType.value = productObj.weaves.compactMap({$0})
+            productObj.weaves.forEach { (type) in
+                if let obj = Weave.getWeaveType(searchId: type.weaveId) {
+                    viewModel.prodWeaveType.value?.append(obj)
+                }
+            }
             viewModel.warpYarn.value = Yarn.getYarn(searchId: productObj.warpYarnId)
             viewModel.weftYarn.value = Yarn.getYarn(searchId: productObj.weftYarnId)
             viewModel.exWeftYarn.value = Yarn.getYarn(searchId: productObj.extraWeftYarnId)
@@ -132,7 +136,11 @@ class UploadProductController: FormViewController {
                 viewModel.exWeftYarnCnt.value = YarnCount.getYarnCount(forType: viewModel.exWeftYarn.value?.yarnType.first?.entityID ?? 0, searchString: productObj.extraWeftYarnCount ?? "0")
             }
             viewModel.reedCount.value = ReedCount.getReedCount(searchId: productObj.reedCountId)
-            viewModel.prodCare.value = productObj.productCares.compactMap({$0})
+            productObj.productCares.forEach { (type) in
+                if let obj = ProductCare.getCareType(searchId: type.productCareId) {
+                    viewModel.prodCare.value?.append(obj)
+                }
+            }
             viewModel.prodLength.value = productObj.length
             viewModel.prodWidth.value = productObj.width
             viewModel.prodWeight.value = productObj.weight
@@ -344,6 +352,10 @@ class UploadProductController: FormViewController {
                 }).first {
                     if !(self.viewModel.prodWeaveType.value?.contains(selectedWeaveObj) ?? false) {
                         self.viewModel.prodWeaveType.value?.append(selectedWeaveObj)
+                    }else {
+                        if let index = self.viewModel.prodWeaveType.value?.firstIndex(of: selectedWeaveObj) {
+                            self.viewModel.prodWeaveType.value?.remove(at: index)
+                        }
                     }
                 }
             })
@@ -598,6 +610,10 @@ class UploadProductController: FormViewController {
                 }).first {
                     if !(self.viewModel.prodCare.value?.contains(selectedObj) ?? false) {
                         self.viewModel.prodCare.value?.append(selectedObj)
+                    }else {
+                        if let index = self.viewModel.prodCare.value?.firstIndex(of: selectedObj) {
+                            self.viewModel.prodCare.value?.remove(at: index)
+                        }
                     }
                 }
             })

@@ -41,9 +41,9 @@ class Product: Object, Decodable {
     @objc dynamic var madeWithAnthran: Int = 0
     @objc dynamic var clusterId: Int = 0
     var relatedProducts = List<Product>()
-    var weaves = List<Weave>()
+    var weaves = List<WeaveType>()
     var productImages = List<ProductImage>()
-    var productCares = List<ProductCare>()
+    var productCares = List<ProductCareType>()
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -150,26 +150,19 @@ class Product: Object, Decodable {
             productCategoryId = list.entityID
         }
         if let list = try? values.decodeIfPresent([WeaveType].self, forKey: .productWeaves) {
-            for obj in list {
-                if let weave = Weave.getWeaveType(searchId: obj.weaveId ?? 0) {
-                    weaves.append(weave)
-                }
-            }
+            weaves.append(objectsIn:list)
         }
         if let list = try? values.decodeIfPresent([ProductCareType].self, forKey: .productCares) {
-            for obj in list {
-                if let care = ProductCare.getCareType(searchId: obj.productCareId ?? 0) {
-                    productCares.append(care)
-                }
-            }
+            productCares.append(objectsIn:list)
         }
     }
 }
 
-struct WeaveType: Decodable {
-    var entityId: Int?
-    var productId: Int?
-    var weaveId: Int?
+class WeaveType: Object, Decodable {
+    @objc dynamic var id: String = ""
+    @objc dynamic var entityId: Int = 0
+    @objc dynamic var productId: Int = 0
+    @objc dynamic var weaveId: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -177,18 +170,25 @@ struct WeaveType: Decodable {
         case weaveId = "weaveId"
     }
     
-    init(from decoder: Decoder) throws {
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         entityId = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+        id = "\(entityId)"
         productId = try (values.decodeIfPresent(Int.self, forKey: .productId) ?? 0)
         weaveId = try (values.decodeIfPresent(Int.self, forKey: .weaveId) ?? 0)
     }
 }
 
-struct ProductCareType: Decodable {
-    var entityId: Int?
-    var productId: Int?
-    var productCareId: Int?
+class ProductCareType: Object, Decodable {
+    @objc dynamic var id: String = ""
+    @objc dynamic var entityId: Int = 0
+    @objc dynamic var productId: Int = 0
+    @objc dynamic var productCareId: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -196,9 +196,15 @@ struct ProductCareType: Decodable {
         case productCareId = "productCareId"
     }
     
-    init(from decoder: Decoder) throws {
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         entityId = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+        id = "\(entityId)"
         productId = try (values.decodeIfPresent(Int.self, forKey: .productId) ?? 0)
         productCareId = try (values.decodeIfPresent(Int.self, forKey: .productCareId) ?? 0)
     }

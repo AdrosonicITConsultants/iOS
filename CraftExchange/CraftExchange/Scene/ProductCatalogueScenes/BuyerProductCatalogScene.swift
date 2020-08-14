@@ -55,7 +55,7 @@ extension ProductCatalogService {
                               }
                           }
                       }
-                      }
+                    }
                 }.dispose(in: controller.bag)
             }else if let artisan = selectedArtisan {
                 fetchAllProducts(artisanId: artisan.entityID).bind(to: controller, context: .global(qos: .background)) { _, responseData in
@@ -86,82 +86,6 @@ extension ProductCatalogService {
         
         controller.viewWillAppear = {
             syncData()
-            /*
-            controller.dataSource = nil
-            let dataSource = TableViewRealmDataSource<Results<Product>>()
-            if let category = selectedProductCat {
-                controller.title = category.prodCatDescription
-                controller.brandLogoImage.image = UIImage.init(named: category.prodCatDescription ?? "Saree")
-                controller.dataSource = dataSource
-                let results = Product.allProducts(categoryId: category.entityID)
-                results.bind(to: controller.tableView, cellType: BuyerProductCell.self, using: dataSource) {
-                    cell, results, indexPath in
-                    let prodObj = results[indexPath.row]
-                    cell.configure(prodObj)
-                }.dispose(in: controller.bag)
-            }else if let region = selectedRegion {
-                controller.title = region.clusterDescription ?? ""
-                controller.brandLogoImage.image = UIImage.init(named: region.clusterDescription ?? "Saree")
-                controller.descriptionLabel.text = region.adjective
-                controller.dataSource = dataSource
-                let results = Product.allProducts(clusterId: region.entityID)
-                results.bind(to: controller.tableView, cellType: BuyerProductCell.self, using: dataSource) {
-                    cell, results, indexPath in
-                    let prodObj = results[indexPath.row]
-                    cell.configure(prodObj)
-                }.dispose(in: controller.bag)
-            }else if let artisan = selectedArtisan {
-                controller.title = artisan.firstName ?? ""
-                if let tag = artisan.buyerCompanyDetails.first?.logo, artisan.buyerCompanyDetails.first?.logo != "" {
-                    let prodId = artisan.entityID
-                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                        controller.brandLogoImage.image = downloadedImage
-                    }else {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                            let service = BrandLogoService.init(client: client, userObject: selectedArtisan!)
-                            service.fetch().observeNext { (attachment) in
-                                DispatchQueue.main.async {
-                                    let tag = selectedArtisan?.buyerCompanyDetails.first?.logo ?? "name.jpg"
-                                    let prodId = selectedArtisan?.entityID ?? 0
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                    controller.brandLogoImage.image = UIImage.init(data: attachment)
-                                }
-                            }.dispose(in: self.bag)
-                        }catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                }
-                else if let tag = artisan.profilePic, artisan.profilePic != "" {
-                    let prodId = artisan.entityID
-                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                        controller.brandLogoImage.image = downloadedImage
-                    }else {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                            let service = UserProfilePicService.init(client: client, userObject: selectedArtisan!)
-                            service.fetch().observeNext { (attachment) in
-                                DispatchQueue.main.async {
-                                    let tag = artisan.profilePic ?? "name.jpg"
-                                    let prodId = artisan.entityID
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                    controller.brandLogoImage.image = UIImage.init(data: attachment)
-                                }
-                            }.dispose(in: self.bag)
-                        }catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                }
-                controller.dataSource = dataSource
-                let results = Product.allProducts(artisanId: artisan.entityID)
-                results.bind(to: controller.tableView, cellType: BuyerProductCell.self, using: dataSource) {
-                    cell, results, indexPath in
-                    let prodObj = results[indexPath.row]
-                    cell.configure(prodObj)
-                }.dispose(in: controller.bag)
-            }*/
         }
         
         return controller

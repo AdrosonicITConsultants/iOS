@@ -160,10 +160,38 @@ extension Product {
                         object.productImages.append(img)
                     }
                 }
-//                object.productCares.removeAll()
-//                object.productCares = productCares
-//                object.weaves.removeAll()
-//                object.weaves = weaves
+                
+                let careIdsToCheck = productCares.compactMap { $0.entityId }
+                var caresToDelete: [ProductCareType] = []
+                object.productCares .forEach { (obj) in
+                    if !careIdsToCheck.contains(obj.entityId) {
+                        caresToDelete.append(obj)
+                    }
+                }
+                realm.delete(caresToDelete)
+                
+                let existingCares = object.productCares.compactMap { $0.entityId }
+                productCares .forEach { (img) in
+                    if !existingCares.contains(img.entityId) {
+                        object.productCares.append(img)
+                    }
+                }
+                
+                let weaveIdsToCheck = weaves.compactMap { $0.entityId }
+                var weavesToDelete: [WeaveType] = []
+                object.weaves .forEach { (obj) in
+                    if !weaveIdsToCheck.contains(obj.entityId) {
+                        weavesToDelete.append(obj)
+                    }
+                }
+                realm.delete(weavesToDelete)
+                
+                let existingWeaves = object.weaves.compactMap { $0.entityId }
+                weaves .forEach { (img) in
+                    if !existingWeaves.contains(img.entityId) {
+                        object.weaves.append(img)
+                    }
+                }
             }
         } else {
             try? realm.write {
@@ -219,10 +247,10 @@ extension Product {
                         object.productImages.append(img)
                     }
                 }
-                object.productCares.removeAll()
-                object.productCares = productCares
-                object.weaves.removeAll()
-                object.weaves = weaves
+//                object.productCares.removeAll()
+//                object.productCares = productCares
+//                object.weaves.removeAll()
+//                object.weaves = weaves
             }
         }
 //        } else {
