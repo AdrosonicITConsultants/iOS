@@ -74,7 +74,7 @@ class UploadCustomProductController: FormViewController {
     var allYarns: Results<Yarn>?
     var allDye: Results<Dye>?
     var allReed: Results<ReedCount>?
-    var product: Product?
+    var product: CustomProduct?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -635,8 +635,8 @@ class UploadCustomProductController: FormViewController {
             }else {
                 do {
                     let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
-                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
+                    let service = CustomProductImageService.init(client: client, productObject: product!)
+                    service.fetchCustomImage(withName: tag ?? "name.jpg").observeNext { (attachment) in
                         DispatchQueue.main.async {
                             let tag = image.lable ?? "name.jpg"
                             let prodId = self.product?.entityID

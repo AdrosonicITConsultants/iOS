@@ -99,6 +99,25 @@ class SideMenuController: FormViewController {
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
+            <<< LabelRow() { row in
+                row.title = "Custom Design".localized
+              row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+              row.cell.imageView?.image = UIImage(named: "custom-design-icon")
+              row.cell.height = { 56.0 }
+            }.onCellSelection { (cell, row) in
+                  self.dismiss(animated: true, completion: {
+                    do {
+                      let client = try SafeClient(wrapping: CraftExchangeClient())
+                      let vc = CustomProductService(client: client).createScene()
+                        let nav = self.getNavBar()
+                        nav?.pushViewController(vc, animated: true)
+                    } catch let error {
+                      print("Unable to load view:\n\(error.localizedDescription)")
+                    }
+                  })
+              }.cellUpdate({ (str, row) in
+              row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
+            })
           <<< LabelRow() { row in
             row.title = "My Dashboard"
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
@@ -145,4 +164,18 @@ class SideMenuController: FormViewController {
     self.view.addSubview(view)
   }
   
+    func getNavBar() -> UINavigationController? {
+        var nav: UINavigationController?
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if let tab = appDelegate?.tabbar?.selectedViewController as? UINavigationController {
+            nav = tab
+        }else if let tab = appDelegate?.tabbar?.selectedViewController?.navigationController {
+              nav = tab
+        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController as? UINavigationController {
+            nav = tab
+        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController?.navigationController {
+            nav = tab
+        }
+        return nav
+    }
 }

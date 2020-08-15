@@ -33,10 +33,6 @@ class ProductImageService: BaseService<URL> {
         _object.value = try? Disk.retrieveURL("\(prodId)/\(withName)", from: .caches, as: Data.self)
     }
 
-//    override func update(_ object: URL?) {
-//        super.update(object)
-//    }
-
     func fetch() -> Signal<Data, Never> {
         return Product.fetchProductImage(with: productObject.entityID, imageName: name ?? productObject.productImages.first?.lable ?? "").response(using: client).debug()
     }

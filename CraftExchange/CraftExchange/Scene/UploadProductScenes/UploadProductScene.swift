@@ -109,7 +109,7 @@ extension UploadProductService {
         return vc
     }
     
-    func createCustomProductScene(productObject: Product?) -> UIViewController {
+    func createCustomProductScene(productObject: CustomProduct?) -> UIViewController {
     
         let vc = UploadCustomProductController.init(style: .plain)
         vc.product = productObject
