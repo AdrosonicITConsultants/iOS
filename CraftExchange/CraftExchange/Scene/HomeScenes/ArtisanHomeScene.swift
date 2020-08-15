@@ -29,117 +29,11 @@ extension HomeScreenService {
     vc.viewModel.viewDidLoad = {
         if vc.reachabilityManager?.connection != .unavailable {
 //            vc.showLoading()
-            self.fetchAllProductCategory().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-                do {
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if let array = json["data"] as? [[String: Any]] {
-                            let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
-                            try JSONDecoder().decode([ProductCategory].self, from: data) .forEach({ (cat) in
-                                cat.saveOrUpdate()
-                            })
-                      }
-                    }
-                }catch let error as NSError {
-                    print(error.description)
-                }
-            }.dispose(in: vc.bag)
+            self.fetchCategoryData(vc: vc)
+            self.fetchCountryData(vc: vc)
+            self.fetchClusterData(vc: vc)
+            self.fetchProductUploadData(vc: vc)
             
-            self.fetchProductUploadData().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-                do {
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if let dataDictionary = json["data"] as? [String: Any] {
-                            if let prodCatArray = dataDictionary["productCategories"] as? [[String: Any]] {
-                                let data = try JSONSerialization.data(withJSONObject: prodCatArray, options: .fragmentsAllowed)
-                                try JSONDecoder().decode([ProductCategory].self, from: data) .forEach({ (cat) in
-                                    cat.saveOrUpdate()
-                                })
-                            }
-                            if let weavesArray = dataDictionary["weaves"] as? [[String: Any]] {
-                                let data = try JSONSerialization.data(withJSONObject: weavesArray, options: .fragmentsAllowed)
-                                try JSONDecoder().decode([Weave].self, from: data) .forEach({ (obj) in
-                                    obj.saveOrUpdate()
-                                })
-                            }
-                            if let yarnsArray = dataDictionary["yarns"] as? [[String: Any]] {
-                                let data = try JSONSerialization.data(withJSONObject: yarnsArray, options: .fragmentsAllowed)
-                                try JSONDecoder().decode([Yarn].self, from: data) .forEach({ (obj) in
-                                    obj.saveOrUpdate()
-                                })
-                            }
-                            if let reedsArray = dataDictionary["reedCounts"] as? [[String: Any]] {
-                                let data = try JSONSerialization.data(withJSONObject: reedsArray, options: .fragmentsAllowed)
-                                try JSONDecoder().decode([ReedCount].self, from: data) .forEach({ (obj) in
-                                    obj.saveOrUpdate()
-                                })
-                            }
-                            if let dyesArray = dataDictionary["dyes"] as? [[String: Any]] {
-                                let data = try JSONSerialization.data(withJSONObject: dyesArray, options: .fragmentsAllowed)
-                                try JSONDecoder().decode([Dye].self, from: data) .forEach({ (obj) in
-                                    obj.saveOrUpdate()
-                                })
-                            }
-                            if let prodCareArray = dataDictionary["productCare"] as? [[String: Any]] {
-                                let data = try JSONSerialization.data(withJSONObject: prodCareArray, options: .fragmentsAllowed)
-                                try JSONDecoder().decode([ProductCare].self, from: data) .forEach({ (obj) in
-                                    obj.saveOrUpdate()
-                                })
-                            }
-                      }
-                    }
-                }catch let error as NSError {
-                    print(error.description)
-                }
-            }.dispose(in: vc.bag)
-            
-            self.fetchAllCountries().bind(to: vc, context: .global(qos: .background)) { (_, countryArray) in
-                do {
-                    if (countryArray.count > 0) {
-                        countryArray.forEach( {countryObj in
-                          countryObj.saveOrUpdate()
-                        }
-                      )
-                    }
-                }
-            }.dispose(in: vc.bag)
-            
-            self.fetchAllClusters().bind(to: vc, context: .global(qos: .background)) { (_, clusterArray) in
-                do {
-                    if (clusterArray.count > 0) {
-                        clusterArray.forEach( {clusterObj in
-                          clusterObj.saveOrUpdate()
-                        }
-                      )
-                    }
-                }
-            }.dispose(in: vc.bag)
-            /*
-            self.fetchAllArtisanProduct().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-                print(responseData)
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                  if let array = json["data"] as? [[String: Any]] {
-                      for obj in array {
-                          if let prodArray = obj["products"] as? [[String: Any]] {
-                            if let proddata = try? JSONSerialization.data(withJSONObject: prodArray, options: .fragmentsAllowed) {
-                                if let object = try? JSONDecoder().decode([Product].self, from: proddata) {
-                                    DispatchQueue.main.async {
-                                        object .forEach { (prodObj) in
-                                            prodObj.saveOrUpdate()
-                                            if prodObj == object.last {
-                                                vc.dataSource = Product().getAllProductCatForUser()
-                                                vc.refreshLayout()
-                                            }
-                                        }
-//                                        vc.dataSource = Product().getAllProductCatForUser()
-//                                        vc.viewWillLayoutSubviews()
-                                    }
-                                }
-                            }
-                          }
-                      }
-                  }
-                }
-            }.dispose(in: vc.bag)
-            */
             self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
               DispatchQueue.main.async {
                 vc.hideLoading()
@@ -218,6 +112,98 @@ extension HomeScreenService {
     return tab
   }
     
+    func fetchClusterData(vc: UIViewController) {
+        self.fetchAllClusters().bind(to: vc, context: .global(qos: .background)) { (_, clusterArray) in
+            do {
+                if (clusterArray.count > 0) {
+                    clusterArray.forEach( {clusterObj in
+                      clusterObj.saveOrUpdate()
+                    }
+                  )
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
+    func fetchCountryData(vc: UIViewController) {
+        self.fetchAllCountries().bind(to: vc, context: .global(qos: .background)) { (_, countryArray) in
+            do {
+                if (countryArray.count > 0) {
+                    countryArray.forEach( {countryObj in
+                      countryObj.saveOrUpdate()
+                    }
+                  )
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
+    func fetchCategoryData(vc: UIViewController) {
+        self.fetchAllProductCategory().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
+                        try JSONDecoder().decode([ProductCategory].self, from: data) .forEach({ (cat) in
+                            cat.saveOrUpdate()
+                        })
+                  }
+                }
+            }catch let error as NSError {
+                print(error.description)
+            }
+        }.dispose(in: vc.bag)
+    }
+    
+    func fetchProductUploadData(vc: UIViewController) {
+        self.fetchProductUploadData().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let dataDictionary = json["data"] as? [String: Any] {
+                        if let prodCatArray = dataDictionary["productCategories"] as? [[String: Any]] {
+                            let data = try JSONSerialization.data(withJSONObject: prodCatArray, options: .fragmentsAllowed)
+                            try JSONDecoder().decode([ProductCategory].self, from: data) .forEach({ (cat) in
+                                cat.saveOrUpdate()
+                            })
+                        }
+                        if let weavesArray = dataDictionary["weaves"] as? [[String: Any]] {
+                            let data = try JSONSerialization.data(withJSONObject: weavesArray, options: .fragmentsAllowed)
+                            try JSONDecoder().decode([Weave].self, from: data) .forEach({ (obj) in
+                                obj.saveOrUpdate()
+                            })
+                        }
+                        if let yarnsArray = dataDictionary["yarns"] as? [[String: Any]] {
+                            let data = try JSONSerialization.data(withJSONObject: yarnsArray, options: .fragmentsAllowed)
+                            try JSONDecoder().decode([Yarn].self, from: data) .forEach({ (obj) in
+                                obj.saveOrUpdate()
+                            })
+                        }
+                        if let reedsArray = dataDictionary["reedCounts"] as? [[String: Any]] {
+                            let data = try JSONSerialization.data(withJSONObject: reedsArray, options: .fragmentsAllowed)
+                            try JSONDecoder().decode([ReedCount].self, from: data) .forEach({ (obj) in
+                                obj.saveOrUpdate()
+                            })
+                        }
+                        if let dyesArray = dataDictionary["dyes"] as? [[String: Any]] {
+                            let data = try JSONSerialization.data(withJSONObject: dyesArray, options: .fragmentsAllowed)
+                            try JSONDecoder().decode([Dye].self, from: data) .forEach({ (obj) in
+                                obj.saveOrUpdate()
+                            })
+                        }
+                        if let prodCareArray = dataDictionary["productCare"] as? [[String: Any]] {
+                            let data = try JSONSerialization.data(withJSONObject: prodCareArray, options: .fragmentsAllowed)
+                            try JSONDecoder().decode([ProductCare].self, from: data) .forEach({ (obj) in
+                                obj.saveOrUpdate()
+                            })
+                        }
+                  }
+                }
+            }catch let error as NSError {
+                print(error.description)
+            }
+        }.dispose(in: vc.bag)
+    }
+    
     func createBuyerScene() -> UIViewController {
 
         let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
@@ -233,64 +219,12 @@ extension HomeScreenService {
         vc.viewModel.viewDidLoad = {
             if vc.reachabilityManager?.connection != .unavailable {
     //            vc.showLoading()
-                self.fetchAllProductCategory().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-                    do {
-                        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                            if let array = json["data"] as? [[String: Any]] {
-                                let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
-                                try JSONDecoder().decode([ProductCategory].self, from: data) .forEach({ (cat) in
-                                    cat.saveOrUpdate()
-                                })
-                          }
-                        }
-                    }catch let error as NSError {
-                        print(error.description)
-                    }
-                }.dispose(in: vc.bag)
                 
-                self.fetchAllCountries().bind(to: vc, context: .global(qos: .background)) { (_, countryArray) in
-                    do {
-                        if (countryArray.count > 0) {
-                            countryArray.forEach( {countryObj in
-                              countryObj.saveOrUpdate()
-                            }
-                          )
-                        }
-                    }
-                }.dispose(in: vc.bag)
+                self.fetchCategoryData(vc: vc)
+                self.fetchCountryData(vc: vc)
+                self.fetchClusterData(vc: vc)
+                self.fetchProductUploadData(vc: vc)
                 
-                self.fetchAllClusters().bind(to: vc, context: .global(qos: .background)) { (_, clusterArray) in
-                    do {
-                        if (clusterArray.count > 0) {
-                            clusterArray.forEach( {clusterObj in
-                              clusterObj.saveOrUpdate()
-                            }
-                          )
-                        }
-                    }
-                }.dispose(in: vc.bag)
-                /*
-                self.fetchAllProducts().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-                    print(responseData)
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                      if let array = json["data"] as? [[String: Any]] {
-                          for obj in array {
-                              if let prodArray = obj["products"] as? [[String: Any]] {
-                                if let proddata = try? JSONSerialization.data(withJSONObject: prodArray, options: .fragmentsAllowed) {
-                                    if let object = try? JSONDecoder().decode([Product].self, from: proddata) {
-                                        DispatchQueue.main.async {
-                                            object .forEach { (prodObj) in
-                                                prodObj.saveOrUpdate()
-                                            }
-                                        }
-                                    }
-                                }
-                              }
-                          }
-                      }
-                    }
-                }.dispose(in: vc.bag)*/
-
                 self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                   DispatchQueue.main.async {
                     vc.hideLoading()
