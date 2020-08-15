@@ -654,17 +654,24 @@ class UploadCustomProductController: FormViewController {
             }
         }
     }
-    
-    
+
     @objc func expandSectionSelected(sender: UIButton) {
         expandSection(tag: sender.tag)
     }
     
     @objc func expandSection(tag: Int) {
         if currentState?.rawValue != tag {
-            currentState = CustomProductState.init(rawValue: tag)
+            if tag == 6 {
+                if viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                    currentState = CustomProductState.init(rawValue: tag)
+                }else {
+                    currentState = CustomProductState.init(rawValue: tag+1)
+                }
+            }else {
+                currentState = CustomProductState.init(rawValue: tag)
+            }
             self.form.allSections .forEach { (section) in
-                if section.tag == "\(tag)" {
+                if section.tag == "\(currentState?.rawValue ?? 20)" {
                     section.allRows .forEach { (row) in
                         row.hidden = false
                         row.evaluateHidden()
@@ -675,19 +682,73 @@ class UploadCustomProductController: FormViewController {
                         row.evaluateHidden()
                     }
                 }
+                evaluateDot(section: section)
             }
         }else {
-            let section = self.form.sectionBy(tag: "\(tag)")
-            section?.allRows .forEach { (row) in
-                row.hidden = true
-                row.evaluateHidden()
+            if let section = self.form.sectionBy(tag: "\(tag)") {
+                section.allRows .forEach { (row) in
+                    row.hidden = true
+                    row.evaluateHidden()
+                }
+                currentState = nil
+                evaluateDot(section: section)
             }
-            currentState = nil
         }
     }
     
     func evaluateDot(section: Section) {
-
+        let headerView = section.header?.viewForSection(section, type: .header)
+        let circle = headerView?.viewWithTag(333)
+        let stepLbl = headerView?.viewWithTag(444) as! UILabel
+        if section.tag == "\(CustomProductState.addPhotos.rawValue)" {
+            //Photos
+            circle?.backgroundColor = self.viewModel.productImages.value?.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+        }else if section.tag == "\(CustomProductState.addGeneralDetails.rawValue)" {
+            //General info
+            if viewModel.prodCategory.value != nil && viewModel.prodType.value != nil {
+                circle?.backgroundColor = UIColor().CEGreen()
+            }else {
+                circle?.backgroundColor = .red
+            }
+        }else if section.tag == "\(CustomProductState.selectWeaveType.rawValue)" {
+            //weave types
+            circle?.backgroundColor = self.viewModel.prodWeaveType.value?.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+        }else if section.tag == "\(CustomProductState.selectWarpWeftYarn.rawValue)" {
+            //Warp X Weft X Yarn
+            if viewModel.warpYarn.value != nil && viewModel.warpDye.value != nil &&
+                (viewModel.warpYarnCnt.value != nil || (viewModel.custWarpYarnCnt.value != nil && viewModel.custWarpYarnCnt.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "")) &&
+                viewModel.weftYarn.value != nil && viewModel.weftDye.value != nil &&
+                (viewModel.weftYarnCnt.value != nil || (viewModel.custWeftYarnCnt.value != nil && viewModel.custWeftYarnCnt.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "")) {
+                circle?.backgroundColor = UIColor().CEGreen()
+            }else {
+                circle?.backgroundColor = .red
+            }
+        }else if section.tag == "\(CustomProductState.reedCount.rawValue)" {
+            //reed count
+            circle?.backgroundColor = viewModel.reedCount.value != nil ? UIColor().CEGreen() : .red
+        }else if section.tag == "\(CustomProductState.dimensions.rawValue)" {
+            //dimensions
+            if viewModel.prodLength.value != nil && viewModel.prodWidth.value != nil &&
+                viewModel.prodLength.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "" &&
+                viewModel.prodWidth.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                circle?.backgroundColor = UIColor().CEGreen()
+            }else {
+                circle?.backgroundColor = .red
+            }
+        }else if section.tag == "\(CustomProductState.gsm.rawValue)" {
+            //gsm
+            circle?.backgroundColor = (viewModel.gsm.value != nil &&
+            viewModel.gsm.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "") ? UIColor().CEGreen() : .red
+        }else if section.tag == "\(CustomProductState.addDescription.rawValue)" {
+            //prod description
+            if viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                stepLbl.text = "Step 8:".localized
+            }else {
+                stepLbl.text = "Step 7:".localized
+            }
+            circle?.backgroundColor = (viewModel.prodDescription.value != nil &&
+            viewModel.prodDescription.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "") ? UIColor().CEGreen() : .red
+        }
     }
     
     func createSectionView(forStep:Int, title:String) -> UIView {
@@ -699,13 +760,14 @@ class UploadCustomProductController: FormViewController {
         let dotView = UIView(frame: CGRect(x: 20, y: 15, width: 20, height: 20))
         dotView.backgroundColor = self.doneStates.contains(CustomProductState.addPhotos) ? UIColor().CEGreen() : .red
         dotView.layer.cornerRadius = 10
-        dotView.tag = 999
+        dotView.tag = 333
         view.addSubview(dotView)
         
         let stepLbl = UILabel.init(frame: CGRect(x: dotView.frame.origin.x + dotView.frame.size.width + 5, y: CGFloat(y), width: CGFloat(70), height: CGFloat(lblHt)))
         stepLbl.font = .systemFont(ofSize: 17, weight: .regular)
         stepLbl.textColor = .darkGray
         stepLbl.text = "Step \(forStep):".localized
+        stepLbl.tag = 444
         view.addSubview(stepLbl)
           
         let stepTitle = UILabel.init(frame: CGRect(x: stepLbl.frame.origin.x + stepLbl.frame.size.width + 5, y: CGFloat(y), width: CGFloat(250), height: CGFloat(lblHt)))
