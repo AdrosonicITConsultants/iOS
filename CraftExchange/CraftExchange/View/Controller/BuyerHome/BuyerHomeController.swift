@@ -50,10 +50,6 @@ class BuyerHomeController: UIViewController {
     }
   
     @IBAction func artisanSelfDesignSelected(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "DesignCollectionController") as! DesignCollectionController
-//        vc.madeByAntaran = false
-//        self.navigationController?.pushViewController(vc, animated: true)
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
             let vc = ProductCatalogService(client: client).createScene(madeByAntaran: false)
@@ -65,10 +61,6 @@ class BuyerHomeController: UIViewController {
     }
     
     @IBAction func antaranDesignSelected(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "DesignCollectionController") as! DesignCollectionController
-//        vc.madeByAntaran = true
-//        self.navigationController?.pushViewController(vc, animated: true)
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
             let vc = ProductCatalogService(client: client).createScene(madeByAntaran: true)
@@ -79,7 +71,17 @@ class BuyerHomeController: UIViewController {
         }
     }
     
-    
+    @IBAction func customDesignSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = UploadProductService(client: client).createCustomProductScene(productObject: nil)
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+
     func showVideo() {
     let path = Bundle.main.path(forResource: "video", ofType: "mp4")
     let url = NSURL(fileURLWithPath: path!)

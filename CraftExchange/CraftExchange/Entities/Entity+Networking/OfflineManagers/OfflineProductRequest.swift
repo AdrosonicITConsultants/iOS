@@ -12,6 +12,8 @@ import ReactiveKit
 enum ProductRequestType: String {
     case uploadProduct
     case editProduct
+    case uploadCustomProd
+    case editCustomProd
 }
 
 
@@ -35,6 +37,10 @@ class OfflineProductRequest: NSObject, OfflineRequest {
             self.request = Product.uploadProduct(json: json, imageData: imageData ?? [])
         case .editProduct:
             self.request = Product.editProduct(json: json, imageData: imageData ?? [])
+        case .uploadCustomProd:
+            self.request = Product.uploadCustomProduct(json: json, imageData: imageData ?? [])
+        case .editCustomProd:
+            self.request = Product.editCustomProduct(json: json, imageData: imageData ?? [])
         }
         super.init()
     }
