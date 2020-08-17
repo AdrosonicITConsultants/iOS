@@ -75,6 +75,7 @@ class UploadProductViewModel {
     var prodDescription = Observable<String?>(nil)
     
     var saveProductSelected: (() -> Void)?
+    var deleteProductSelected: (() -> Void)?
 }
 
 class UploadProductController: FormViewController {
@@ -105,6 +106,10 @@ class UploadProductController: FormViewController {
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         if let productObj = product {
+            let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
+            rightButtonItem.tintColor = .red
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+            
             viewModel.prodName.value = productObj.productTag
             viewModel.prodCode.value = productObj.code
             viewModel.prodType.value = ProductType.getProductType(searchId: productObj.productTypeId)
@@ -151,6 +156,9 @@ class UploadProductController: FormViewController {
             viewModel.gsm.value = productObj.gsm
             viewModel.prodDescription.value = productObj.productSpec
             downloadProdImages()
+        }else {
+            let rightButtonItem = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
+            self.navigationItem.rightBarButtonItem = rightButtonItem
         }
         
         form
@@ -842,6 +850,17 @@ class UploadProductController: FormViewController {
         }
     }
     
+    @objc func saveClicked() {
+        self.viewModel.saveProductSelected?()
+    }
+    
+    @objc func deleteClicked() {
+        self.confirmAction("Warning".localized, "Are you sure you want to delete this product?".localized, confirmedCallback: { (action) in
+            self.viewModel.deleteProductSelected?()
+        }) { (action) in
+            
+        }
+    }
 
     func downloadProdImages() {
         product?.productImages .forEach { (image) in

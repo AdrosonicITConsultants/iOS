@@ -16,4 +16,12 @@ class UploadProductService: BaseService<Data> {
     required init() {
         super.init()
     }
+    
+    func deleteBuyerCustomProduct(withId: Int) -> SafeSignal<Data> {
+      return CustomProduct.deleteCustomProduct(withId: withId).response(using: client).debug()
+    }
+    
+    func deleteArtisanProduct(withId: Int) -> SafeSignal<Data> {
+      return Product.deleteArtisanProduct(withId: withId).response(using: client).debug()
+    }
 }

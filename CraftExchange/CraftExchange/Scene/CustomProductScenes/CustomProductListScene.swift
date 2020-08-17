@@ -25,6 +25,7 @@ extension CustomProductService {
         }
         
         func performSync() {
+            CustomProduct.setAllBuyerProductsDeleteTrue()
             fetchAllBuyersCustomProduct().toLoadingSignal().consumeLoadingState(by: controller)
                 .bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -35,7 +36,8 @@ extension CustomProductService {
                                       object .forEach { (prodObj) in
                                           prodObj.saveOrUpdate()
                                           if prodObj == object.last {
-                                              controller.endRefresh()
+                                            controller.endRefresh()
+                                            CustomProduct.deleteAllBuyerProductsWithIsDeleteTrue()
                                           }
                                       }
                                   }

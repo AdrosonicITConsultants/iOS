@@ -26,7 +26,7 @@ class CustomProductImageService: BaseService<URL> {
     }
     
     func fetchCustomImage(withName: String?) -> Signal<Data, Never> {
-        return Product.fetchCustomProductImage(with: productObject.entityID, imageName: withName ?? productObject.productImages.first?.lable ?? "").response(using: client).debug()
+        return CustomProduct.fetchCustomProductImage(with: productObject.entityID, imageName: withName ?? productObject.productImages.first?.lable ?? "").response(using: client).debug()
     }
 }
 

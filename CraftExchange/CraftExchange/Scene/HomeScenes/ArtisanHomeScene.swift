@@ -83,6 +83,7 @@ extension HomeScreenService {
             }
         
         vc.viewModel.viewWillAppear = {
+            Product.setAllArtisanProductIsDeleteTrue()
             self.fetchAllArtisanProduct().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                 print(responseData)
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -97,6 +98,7 @@ extension HomeScreenService {
                                             if prodObj == object.last {
                                                 vc.dataSource = Product().getAllProductCatForUser()
                                                 vc.refreshLayout()
+                                                Product.deleteAllArtisanProductsWithIsDeleteTrue()
                                             }
                                         }
                                     }

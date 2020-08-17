@@ -24,13 +24,39 @@ extension CustomProduct {
             }
         }
         return Signal { observer in
-            if let results = realm?.objects(CustomProduct.self).filter("%K == %@", "buyerId", userId)
+            if let results = realm?.objects(CustomProduct.self).filter("%K == %@", "buyerId", userId).filter("%K == %@","isDeleted",false)
                 .sorted(byKeyPath: "modifiedOn", ascending: false) {
                 observer.receive(lastElement: results)
             } else {
                 observer.receive(completion: .finished)
             }
             return BlockDisposable {
+            }
+        }
+    }
+    
+    static func setAllBuyerProductsDeleteTrue() {
+        let realm = try? Realm()
+        guard let userId = KeychainManager.standard.userID else {
+            return
+        }
+        if let results = realm?.objects(CustomProduct.self).filter("%K == %@", "buyerId", userId) {
+            try? realm?.write {
+                results .forEach { (obj) in
+                    obj.isDeleted = true
+                }
+            }
+        }
+    }
+    
+    static func deleteAllBuyerProductsWithIsDeleteTrue() {
+        let realm = try? Realm()
+        guard let userId = KeychainManager.standard.userID else {
+            return
+        }
+        if let results = realm?.objects(CustomProduct.self).filter("%K == %@", "buyerId", userId).filter("%K == %@","isDeleted",true) {
+            try? realm?.write {
+                realm?.delete(results)
             }
         }
     }

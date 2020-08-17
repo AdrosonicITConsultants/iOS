@@ -38,9 +38,9 @@ class OfflineProductRequest: NSObject, OfflineRequest {
         case .editProduct:
             self.request = Product.editProduct(json: json, imageData: imageData ?? [])
         case .uploadCustomProd:
-            self.request = Product.uploadCustomProduct(json: json, imageData: imageData ?? [])
+            self.request = CustomProduct.uploadCustomProduct(json: json, imageData: imageData ?? [])
         case .editCustomProd:
-            self.request = Product.editCustomProduct(json: json, imageData: imageData ?? [])
+            self.request = CustomProduct.editCustomProduct(json: json, imageData: imageData ?? [])
         }
         super.init()
     }

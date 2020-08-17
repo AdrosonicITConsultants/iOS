@@ -16,7 +16,7 @@ extension Product {
     
     func getAllProductCatForUser() -> [ProductCategory] {
         let realm = try! Realm()
-        let objects = realm.objects(Product.self).filter("%K == %@", "artitionId", User.loggedIn()?.entityID ?? 0)
+        let objects = realm.objects(Product.self).filter("%K == %@", "artitionId", User.loggedIn()?.entityID ?? 0).filter("%K == %@","isDeleted",false)
         var catIds: [Int] = []
         var prodCat: [ProductCategory] = []
         objects.forEach { (prod) in
@@ -41,7 +41,7 @@ extension Product {
             }
         }
         return Signal { observer in
-            if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId).filter("%K == %@", "productCategoryId", categoryId)
+            if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId).filter("%K == %@", "productCategoryId", categoryId).filter("%K == %@","isDeleted",false)
                 .sorted(byKeyPath: "modifiedOn", ascending: false) {
                 observer.receive(lastElement: results)
             } else {
@@ -62,7 +62,7 @@ extension Product {
             }
         }
         return Signal { observer in
-            if let results = realm?.objects(Product.self).filter("%K == %@", "productCategoryId", categoryId).sorted(byKeyPath: "modifiedOn", ascending: false) {
+            if let results = realm?.objects(Product.self).filter("%K == %@", "productCategoryId", categoryId).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false) {
                 observer.receive(lastElement: results)
             } else {
                 observer.receive(completion: .finished)
@@ -82,7 +82,7 @@ extension Product {
             }
         }
         return Signal { observer in
-            if let results = realm?.objects(Product.self).filter("%K == %@", "clusterId", clusterId)
+            if let results = realm?.objects(Product.self).filter("%K == %@", "clusterId", clusterId).filter("%K == %@","isDeleted",false)
                 .sorted(byKeyPath: "modifiedOn", ascending: false) {
                 observer.receive(lastElement: results)
             } else {
@@ -103,7 +103,7 @@ extension Product {
             }
         }
         return Signal { observer in
-            if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", artisanId)
+            if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", artisanId).filter("%K == %@","isDeleted",false)
                 .sorted(byKeyPath: "modifiedOn", ascending: false) {
                 observer.receive(lastElement: results)
             } else {
@@ -200,73 +200,42 @@ extension Product {
         }
     }
     
-    func saveOrUpdate(reference: ThreadSafeReference<Product>) {
-        let realm = try! Realm()
-//        if let object = realm.objects(Product.self).filter("%K == %@", "entityID", self.entityID).first {
-        if let object = realm.resolve(reference) {
-            try? realm.write {
-                object.code = code
-                object.productSpec = productSpec
-                object.productDesc = productDesc
-                object.productTag = productTag
-                object.warpYarnId = warpYarnId
-                object.weftYarnId = weftYarnId
-                object.extraWeftYarnId = extraWeftYarnId
-                object.warpYarnCount = warpYarnCount
-                object.weftYarnCount = weftYarnCount
-                object.extraWeftYarnCount = extraWeftYarnCount
-                object.warpDyeId = warpDyeId
-                object.weftDyeId = weftDyeId
-                object.extraWeftDyeId = extraWeftDyeId
-                object.length = length
-                object.width = width
-                object.reedCountId = reedCountId
-                object.productStatusId = productStatusId
-                object.gsm = gsm
-                object.weight = weight
-                object.createdOn = createdOn
-                object.modifiedOn = modifiedOn
-                object.isDeleted = isDeleted
-                object.relatedProducts = relatedProducts
-                object.productCategoryId = productCategoryId
-                object.productTypeId = productTypeId
-                object.clusterId = clusterId
-                
-                let idsToCheck = productImages.compactMap { $0.entityID }
-                var imgsToDelete: [ProductImage] = []
-                object.productImages .forEach { (img) in
-                    if !idsToCheck.contains(img.entityID) {
-                        imgsToDelete.append(img)
-                    }
+    static func setAllArtisanProductIsDeleteTrue() {
+        let realm = try? Realm()
+        guard let userId = KeychainManager.standard.userID else {
+            return
+        }
+        if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId) {
+            try? realm?.write {
+                results .forEach { (obj) in
+                    obj.isDeleted = true
                 }
-                realm.delete(imgsToDelete)
-                
-                let existingImgs = object.productImages.compactMap { $0.entityID }
-                productImages .forEach { (img) in
-                    if !existingImgs.contains(img.entityID) {
-                        object.productImages.append(img)
-                    }
-                }
-//                object.productCares.removeAll()
-//                object.productCares = productCares
-//                object.weaves.removeAll()
-//                object.weaves = weaves
             }
         }
-//        } else {
-//            try? realm.write {
-//                realm.add(self, update: .modified)
-//            }
-//        }
     }
     
-    func addNew() {
+    static func deleteAllArtisanProductsWithIsDeleteTrue() {
         let realm = try? Realm()
-        try? realm?.write {
-            realm?.add(self, update: .modified)
+        guard let userId = KeychainManager.standard.userID else {
+            return
+        }
+        if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId).filter("%K == %@","isDeleted",true) {
+            try? realm?.write {
+                realm?.delete(results)
+            }
         }
     }
     
+    static func productIsDeleteTrue(forId: Int) {
+        let realm = try? Realm()
+        if let results = realm?.objects(Product.self).filter("%K == %@", "entityID", forId) {
+            try? realm?.write {
+                results .forEach { (obj) in
+                    obj.isDeleted = true
+                }
+            }
+        }
+    }
     
     func syncChanges() {
         let realm = try? Realm()

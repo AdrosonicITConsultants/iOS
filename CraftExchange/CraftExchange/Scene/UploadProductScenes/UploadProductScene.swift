@@ -106,6 +106,15 @@ extension UploadProductService {
             }
         }
         
+        vc.viewModel.deleteProductSelected = {
+            self.deleteArtisanProduct(withId: productObject?.entityID ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,response) in
+                DispatchQueue.main.async {
+                    Product.productIsDeleteTrue(forId: productObject?.entityID ?? 0)
+                    vc.navigationController?.popViewController(animated: true)
+                }
+            }.dispose(in: vc.bag)
+        }
+        
         return vc
     }
     
@@ -187,6 +196,14 @@ extension UploadProductService {
                     
                 }
             }
+        }
+        
+        vc.viewModel.deleteProductSelected = {
+            self.deleteBuyerCustomProduct(withId: productObject?.entityID ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,response) in
+                DispatchQueue.main.async {
+                    vc.navigationController?.popViewController(animated: true)
+                }
+            }.dispose(in: vc.bag)
         }
         
         return vc

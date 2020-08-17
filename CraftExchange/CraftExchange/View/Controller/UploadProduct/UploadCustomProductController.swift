@@ -63,6 +63,7 @@ class UploadCustProductViewModel {
     var prodDescription = Observable<String?>(nil)
     
     var saveProductSelected: (() -> Void)?
+    var deleteProductSelected: (() -> Void)?
 }
 
 class UploadCustomProductController: FormViewController {
@@ -90,6 +91,10 @@ class UploadCustomProductController: FormViewController {
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         if let productObj = product {
+            let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
+            rightButtonItem.tintColor = .red
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+            
             viewModel.prodType.value = ProductType.getProductType(searchId: productObj.productTypeId)
             viewModel.prodCategory.value = ProductCategory.getProductCat(catId: productObj.productCategoryId)
             productObj.weaves.forEach { (type) in
@@ -127,6 +132,10 @@ class UploadCustomProductController: FormViewController {
             viewModel.gsm.value = productObj.gsm
             viewModel.prodDescription.value = productObj.productSpec
             downloadProdImages()
+        }
+        else {
+            let rightButtonItem = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
+            self.navigationItem.rightBarButtonItem = rightButtonItem
         }
         
         form
@@ -784,6 +793,18 @@ class UploadCustomProductController: FormViewController {
         arrow.frame = CGRect(x: view.frame.width - 40, y: 15, width: 20, height: 20)
         view.addSubview(arrow)
         return view
+    }
+    
+    @objc func saveClicked() {
+        self.viewModel.saveProductSelected?()
+    }
+    
+    @objc func deleteClicked() {
+        self.confirmAction("Warning".localized, "Are you sure you want to delete this product?".localized, confirmedCallback: { (action) in
+            self.viewModel.deleteProductSelected?()
+        }) { (action) in
+            
+        }
     }
     
 }
