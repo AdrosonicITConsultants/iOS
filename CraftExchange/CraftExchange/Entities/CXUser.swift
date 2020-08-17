@@ -22,7 +22,7 @@ struct CXUser {
   var mobile: String?
   var pancard: String?
   var password: String?
-  var productCategoryIds : [Int]? = [0]
+  var productCategoryIds : [Int]? = []
   var refRoleId: Int = 0
   var socialMediaLink: String?
   var weaverId: String?
