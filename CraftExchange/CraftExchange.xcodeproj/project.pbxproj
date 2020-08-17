@@ -121,6 +121,8 @@
 		C0925798249F7009006C4C05 /* BuyerHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0925797249F7009006C4C05 /* BuyerHomeController.swift */; };
 		C092579A249F7235006C4C05 /* BuyerTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0925799249F7235006C4C05 /* BuyerTabbarController.swift */; };
 		C094288124B39E74005FDF93 /* Country+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094288024B39E74005FDF93 /* Country+Transaction.swift */; };
+		C097949C24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097949A24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift */; };
+		C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C097949B24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib */; };
 		C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */; };
 		C0995BF624C8C8A000EC4CC3 /* CategoryBrandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BF524C8C8A000EC4CC3 /* CategoryBrandCell.xib */; };
 		C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BF724C8CB8C00EC4CC3 /* RegionCell.swift */; };
@@ -355,6 +357,8 @@
 		C0925797249F7009006C4C05 /* BuyerHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerHomeController.swift; sourceTree = "<group>"; };
 		C0925799249F7235006C4C05 /* BuyerTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerTabbarController.swift; sourceTree = "<group>"; };
 		C094288024B39E74005FDF93 /* Country+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Transaction.swift"; sourceTree = "<group>"; };
+		C097949A24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerCustomProductCell.swift; sourceTree = "<group>"; };
+		C097949B24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BuyerCustomProductCell.xib; sourceTree = "<group>"; };
 		C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBrandCell.swift; sourceTree = "<group>"; };
 		C0995BF524C8C8A000EC4CC3 /* CategoryBrandCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryBrandCell.xib; sourceTree = "<group>"; };
 		C0995BF724C8CB8C00EC4CC3 /* RegionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCell.swift; sourceTree = "<group>"; };
@@ -901,6 +905,8 @@
 				C06DCAC624D33DD000F1435F /* lengthWidthRow.xib */,
 				C06DCAC824D346F100F1435F /* OrderAvailabilityCell.swift */,
 				C06DCACA24D3470F00F1435F /* OrderAvailabilityCell.xib */,
+				C097949A24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift */,
+				C097949B24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib */,
 			);
 			path = CustomAssets;
 			sourceTree = "<group>";
@@ -1208,6 +1214,7 @@
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
 				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
+				C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */,
 				C0A91094247CD8D000852695 /* Lato-ThinItalic.ttf in Resources */,
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
 				C06DCAC124D2EC2B00F1435F /* DimensionsCardCell.xib in Resources */,
@@ -1321,6 +1328,7 @@
 				C04842B424E7BB9D00D3207F /* CustomProductService.swift in Sources */,
 				C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */,
 				C0144AAD2483FC4B006FF4AB /* ResetPasswordScene.swift in Sources */,
+				C097949C24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift in Sources */,
 				C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */,
 				C071E22D247E810D0085805B /* Strings+Extensions.swift in Sources */,
 				C09B3F1524BA615900FBC115 /* Disk+Codable.swift in Sources */,

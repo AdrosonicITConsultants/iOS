@@ -23,7 +23,7 @@ class CustomProductListController: UITableViewController {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var deleteAllCustomProducts: (() -> ())?
-    var refreshCategory: ((_ catId: Int) -> ())?
+    var deleteProduct: ((_ prodId: Int) -> ())?
     
     override init(style: UITableView.Style) {
         super.init(style: style)
@@ -89,6 +89,12 @@ class CustomProductListController: UITableViewController {
         reachabilityManager?.stopNotifier()
         viewWillAppear = nil
         applicationEnteredForeground = nil
+    }
+}
+
+extension CustomProductListController: CustomProductCellProtocol {
+    func deleteCustomProduct(withId: Int) {
+        deleteProduct?(withId)
     }
 }
 

@@ -78,10 +78,11 @@ extension CustomProductService {
         let dataSource = TableViewRealmDataSource<Results<CustomProduct>>()
         controller.dataSource = dataSource
         let results = CustomProduct.allBuyerProducts()
-        results.bind(to: controller.tableView, cellType: BuyerProductCell.self, using: dataSource) {
+        results.bind(to: controller.tableView, cellType: BuyerCustomProductCell.self, using: dataSource) {
             cell, results, indexPath in
             let prodObj = results[indexPath.row]
             cell.configure(prodObj)
+            cell.delegate = controller as? CustomProductCellProtocol
         }.dispose(in: controller.bag)
         
         controller.tableView.reactive.selectedRowIndexPath
@@ -91,6 +92,16 @@ extension CustomProductService {
             vc.modalPresentationStyle = .fullScreen
             controller.navigationController?.pushViewController(vc, animated: true)
         }.dispose(in: controller.bag)
+        
+        controller.deleteProduct = { (prodId) in
+            
+            let service = UploadProductService.init(client: self.client)
+            service.deleteBuyerCustomProduct(withId: prodId).observeNext { (attachment) in
+                DispatchQueue.main.async {
+                    syncData()
+                }
+            }.dispose(in: controller.bag)
+        }
         
         return controller
     }
