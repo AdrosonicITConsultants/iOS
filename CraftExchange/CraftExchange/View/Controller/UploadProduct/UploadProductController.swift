@@ -432,9 +432,9 @@ class UploadProductController: FormViewController {
                 return header
               }()
         }
-        <<< LabelRow() {
-            $0.cell.height = { 150.0 }
-            $0.cell.imageView?.image = UIImage(named: "reed count")
+        <<< ImageViewRow() {
+            $0.cell.height = { 120.0 }
+            $0.cell.cellImage.image = UIImage(named: "reed count")
             $0.hidden = true
         }
         <<< RoundedActionSheetRow() {
@@ -485,9 +485,9 @@ class UploadProductController: FormViewController {
                 return header
               }()
         }
-        <<< LabelRow() {
-            $0.cell.height = { 150.0 }
-            $0.cell.imageView?.image = UIImage(named: "dimension icon")
+        <<< ImageViewRow() {
+            $0.cell.height = { 120.0 }
+            $0.cell.cellImage.image = UIImage(named: "dimension icon")
             $0.hidden = true
         }
         <<< lengthWidthRow() {
@@ -705,9 +705,9 @@ class UploadProductController: FormViewController {
                 return header
               }()
         }
-        <<< LabelRow() {
+        <<< ImageViewRow() {
             $0.cell.height = { 60.0 }
-            $0.cell.imageView?.image = UIImage(named: "Icon weight")
+            $0.cell.cellImage.image = UIImage(named: "Icon weight")
             $0.hidden = true
         }
         <<< TextRow() {
@@ -771,9 +771,9 @@ class UploadProductController: FormViewController {
                 section.hidden = true
             }
         }
-        <<< LabelRow() {
-            $0.cell.height = { 60.0 }
-            $0.cell.imageView?.image = UIImage(named: "GSM ")
+        <<< ImageViewRow() {
+            $0.cell.height = { 120.0 }
+            $0.cell.cellImage.image = UIImage(named: "GSM ")
             $0.hidden = true
         }.cellUpdate({ (cell, row) in
             if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {

@@ -123,6 +123,9 @@
 		C094288124B39E74005FDF93 /* Country+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C094288024B39E74005FDF93 /* Country+Transaction.swift */; };
 		C097949C24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C097949A24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift */; };
 		C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C097949B24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib */; };
+		C097949F24EAB23100C11AC7 /* ImageViewRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C097949E24EAB23100C11AC7 /* ImageViewRow.xib */; };
+		C09794A124EAB2A700C11AC7 /* ImageViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09794A024EAB2A700C11AC7 /* ImageViewRow.swift */; };
+		C09794A324EABB7900C11AC7 /* CustomProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09794A224EABB7900C11AC7 /* CustomProductImage.swift */; };
 		C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */; };
 		C0995BF624C8C8A000EC4CC3 /* CategoryBrandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BF524C8C8A000EC4CC3 /* CategoryBrandCell.xib */; };
 		C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BF724C8CB8C00EC4CC3 /* RegionCell.swift */; };
@@ -359,6 +362,9 @@
 		C094288024B39E74005FDF93 /* Country+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Transaction.swift"; sourceTree = "<group>"; };
 		C097949A24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerCustomProductCell.swift; sourceTree = "<group>"; };
 		C097949B24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BuyerCustomProductCell.xib; sourceTree = "<group>"; };
+		C097949E24EAB23100C11AC7 /* ImageViewRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewRow.xib; sourceTree = "<group>"; };
+		C09794A024EAB2A700C11AC7 /* ImageViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewRow.swift; sourceTree = "<group>"; };
+		C09794A224EABB7900C11AC7 /* CustomProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProductImage.swift; sourceTree = "<group>"; };
 		C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBrandCell.swift; sourceTree = "<group>"; };
 		C0995BF524C8C8A000EC4CC3 /* CategoryBrandCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryBrandCell.xib; sourceTree = "<group>"; };
 		C0995BF724C8CB8C00EC4CC3 /* RegionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCell.swift; sourceTree = "<group>"; };
@@ -656,6 +662,7 @@
 				C071E231247EAC0F0085805B /* ClusterDetails.swift */,
 				C071E233247EB6170085805B /* ProductCategory.swift */,
 				C05836BA24C887AC0027FF44 /* ProductImage.swift */,
+				C09794A224EABB7900C11AC7 /* CustomProductImage.swift */,
 				C071E235247EB69D0085805B /* Role.swift */,
 				C071E237247ED41A0085805B /* User.swift */,
 				C005BCB524C1AB2F00197519 /* Product.swift */,
@@ -907,6 +914,8 @@
 				C06DCACA24D3470F00F1435F /* OrderAvailabilityCell.xib */,
 				C097949A24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift */,
 				C097949B24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib */,
+				C09794A024EAB2A700C11AC7 /* ImageViewRow.swift */,
+				C097949E24EAB23100C11AC7 /* ImageViewRow.xib */,
 			);
 			path = CustomAssets;
 			sourceTree = "<group>";
@@ -1196,6 +1205,7 @@
 				C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */,
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
 				C06DB542249B59910009BCC1 /* Tabbar.storyboard in Resources */,
+				C097949F24EAB23100C11AC7 /* ImageViewRow.xib in Resources */,
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
 				C0A910A4247CD90B00852695 /* PlayfairDisplay-Medium.ttf in Resources */,
@@ -1390,6 +1400,7 @@
 				C05836B724C8567F0027FF44 /* CraftExchangeImageClient.swift in Sources */,
 				C09F214F24862B56001F2FCD /* REGArtisanDataScene.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
+				C09794A124EAB2A700C11AC7 /* ImageViewRow.swift in Sources */,
 				C0ACE9B02485BD0C00EFA4ED /* ClusterDetails+Request.swift in Sources */,
 				C09F214B24861C79001F2FCD /* RegisterArtisanDataController.swift in Sources */,
 				C0144AAF2483FCA5006FF4AB /* ForgotPasswordService.swift in Sources */,
@@ -1403,6 +1414,7 @@
 				C09F21542486312D001F2FCD /* ClusterDetails+Transaction.swift in Sources */,
 				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
 				C071E22B247E7F820085805B /* Address.swift in Sources */,
+				C09794A324EABB7900C11AC7 /* CustomProductImage.swift in Sources */,
 				C0917DF424D47361006B6664 /* Yarn+Transaction.swift in Sources */,
 				C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */,
 				C0ACE9A82485970100EFA4ED /* REGValidateUserEmailScene.swift in Sources */,

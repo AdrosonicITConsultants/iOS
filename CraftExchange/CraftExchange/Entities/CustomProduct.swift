@@ -35,7 +35,7 @@ class CustomProduct: Object, Decodable {
     @objc dynamic var productTypeId: Int = 0
     var relatedProducts = List<Product>()
     var weaves = List<WeaveType>()
-    var productImages = List<ProductImage>()
+    var productImages = List<CustomProductImage>()
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -124,7 +124,7 @@ class CustomProduct: Object, Decodable {
         if let list = try? values.decodeIfPresent([Product].self, forKey: .relProduct) {
            relatedProducts.append(objectsIn: list)
         }
-        if let list = try? values.decodeIfPresent([ProductImage].self, forKey: .productImages) {
+        if let list = try? values.decodeIfPresent([CustomProductImage].self, forKey: .productImages) {
            productImages.append(objectsIn: list)
         }
         if let list = try? values.decodeIfPresent(ProductCategory.self, forKey: .productCategory) {

@@ -85,10 +85,9 @@ extension CustomProduct {
                 object.relatedProducts = relatedProducts
                 object.productCategoryId = productCategoryId
                 object.productTypeId = productTypeId
-                object.productImages = productImages
-                /*
+                
                 let idsToCheck = productImages.compactMap { $0.entityID }
-                var imgsToDelete: [ProductImage] = []
+                var imgsToDelete: [CustomProductImage] = []
                 object.productImages .forEach { (img) in
                     if !idsToCheck.contains(img.entityID) {
                         imgsToDelete.append(img)
@@ -101,7 +100,7 @@ extension CustomProduct {
                     if !existingImgs.contains(img.entityID) {
                         object.productImages.append(img)
                     }
-                }*/
+                }
                 
                 let weaveIdsToCheck = weaves.compactMap { $0.entityId }
                 var weavesToDelete: [WeaveType] = []
