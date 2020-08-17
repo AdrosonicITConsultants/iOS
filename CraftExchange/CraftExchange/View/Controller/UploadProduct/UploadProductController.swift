@@ -108,7 +108,10 @@ class UploadProductController: FormViewController {
         if let productObj = product {
             let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
             rightButtonItem.tintColor = .red
-            self.navigationItem.rightBarButtonItem = rightButtonItem
+            
+            let rightButtonItem2 = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
+            
+            self.navigationItem.rightBarButtonItems = [rightButtonItem, rightButtonItem2]
             
             viewModel.prodName.value = productObj.productTag
             viewModel.prodCode.value = productObj.code

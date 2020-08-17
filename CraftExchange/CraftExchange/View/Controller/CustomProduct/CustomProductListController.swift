@@ -59,6 +59,7 @@ class CustomProductListController: UITableViewController {
         }
         
         let rightButtonItem = UIBarButtonItem.init(title: "Delete All".localized, style: .plain, target: self, action: #selector(deleteAllCustomProduct))
+        rightButtonItem.tintColor = .red
         self.navigationItem.rightBarButtonItem = rightButtonItem
     }
     
