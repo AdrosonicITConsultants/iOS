@@ -94,7 +94,6 @@ class CustomProductListController: UITableViewController {
 
 extension CustomProductListController: CustomProductCellProtocol {
     func deleteCustomProduct(withId: Int) {
-        deleteProduct?(withId)
     }
 }
 
@@ -103,3 +102,28 @@ extension CustomProductListController {
         return 180
     }
 }
+
+extension CustomProductListController {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        // Write action code for the trash
+        let viewEditAction = UIContextualAction(style: .normal, title:  "Delete".localized, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            let cell = tableView.cellForRow(at: indexPath) as? BuyerCustomProductCell
+            self.confirmAction("Warning".localized, "Are you sure you want to delete this product?".localized, confirmedCallback: { (action) in
+                self.deleteProduct?(cell?.deleteButton.tag ?? 0)
+            }) { (action) in
+                
+            }
+            success(true)
+        })
+        viewEditAction.image = UIImage.init(named: "bin")
+        viewEditAction.backgroundColor = .red
+
+        return UISwipeActionsConfiguration(actions: [viewEditAction])
+    }
+}
+

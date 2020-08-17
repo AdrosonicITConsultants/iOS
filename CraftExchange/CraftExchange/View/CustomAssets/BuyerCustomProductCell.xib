@@ -30,20 +30,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFj-kQ-guh">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFj-kQ-guh">
                                 <rect key="frame" x="258" y="8" width="21" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="CwV-vI-bMY"/>
                                     <constraint firstAttribute="width" constant="21" id="XjC-cf-F3U"/>
                                 </constraints>
-                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="bin.xmark" catalog="system">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="square.and.pencil" catalog="system">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="deleteCustomProdSelected:" destination="l7p-dA-x5X" eventType="touchUpInside" id="LdQ-6Z-OgN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSw-ji-VgN">
+                                <rect key="frame" x="8" y="56" width="268" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="RGg-Mb-8aQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3O2-lD-f0P">
                                 <rect key="frame" x="8" y="79" width="276" height="40"/>
                                 <constraints>
@@ -65,15 +74,13 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSw-ji-VgN">
-                                <rect key="frame" x="8" y="56" width="268" height="18"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="custom-design-icon" translatesAutoresizingMaskIntoConstraints="NO" id="3zp-rq-rwC">
+                                <rect key="frame" x="8" y="129.5" width="25" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="RGg-Mb-8aQ"/>
+                                    <constraint firstAttribute="height" constant="25" id="6sT-QH-dnW"/>
+                                    <constraint firstAttribute="width" constant="25" id="JWI-wk-8gU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -85,10 +92,12 @@
                             <constraint firstItem="LFj-kQ-guh" firstAttribute="top" secondItem="xPH-av-vjJ" secondAttribute="top" constant="8" id="OwO-5k-63i"/>
                             <constraint firstAttribute="trailing" secondItem="LFj-kQ-guh" secondAttribute="trailing" constant="5" id="P0U-AS-BSH"/>
                             <constraint firstItem="ZSw-ji-VgN" firstAttribute="top" secondItem="hXA-qd-3ua" secondAttribute="bottom" constant="4" id="PLG-Y4-Xbr"/>
+                            <constraint firstItem="3zp-rq-rwC" firstAttribute="leading" secondItem="xPH-av-vjJ" secondAttribute="leading" constant="8" id="Rl1-Y6-VaE"/>
                             <constraint firstAttribute="bottom" secondItem="lhR-cx-6Dc" secondAttribute="bottom" id="gZ2-Mn-xx5"/>
                             <constraint firstItem="hXA-qd-3ua" firstAttribute="leading" secondItem="xPH-av-vjJ" secondAttribute="leading" constant="8" id="hTn-mT-j9R"/>
                             <constraint firstItem="LFj-kQ-guh" firstAttribute="leading" secondItem="hXA-qd-3ua" secondAttribute="trailing" constant="20" id="kIo-bb-kkf"/>
                             <constraint firstAttribute="trailing" secondItem="3O2-lD-f0P" secondAttribute="trailing" id="nKN-6M-Z2J"/>
+                            <constraint firstItem="3zp-rq-rwC" firstAttribute="centerY" secondItem="lhR-cx-6Dc" secondAttribute="centerY" id="tto-D4-tjn"/>
                             <constraint firstItem="3O2-lD-f0P" firstAttribute="leading" secondItem="xPH-av-vjJ" secondAttribute="leading" constant="8" id="vZh-gw-AKV"/>
                             <constraint firstItem="lhR-cx-6Dc" firstAttribute="top" secondItem="3O2-lD-f0P" secondAttribute="bottom" constant="5" id="zth-ch-8xa"/>
                         </constraints>
@@ -119,6 +128,7 @@
     </objects>
     <resources>
         <image name="arrow.left" catalog="system" width="64" height="48"/>
-        <image name="bin.xmark" catalog="system" width="64" height="46"/>
+        <image name="custom-design-icon" width="31" height="22"/>
+        <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
 </document>
