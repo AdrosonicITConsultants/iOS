@@ -57,6 +57,7 @@ class BuyerProductCatalogController: UIViewController {
             brandLogoHtConstraint.constant = 80
             brandLogoImage.isHidden = true
             descriptionLabel.text = category.prodCatDescription
+            self.titleLabel.addImageWith(name: "ring _of_string-ios", behindText: ((self.titleLabel?.text) != nil))
         }else if let artisan = selectedArtisan {
             self.brandLogoImage.image = UIImage.init(named: "user")
             self.titleLabel.text = ""
