@@ -31,7 +31,7 @@ class BuyerProductCell: UITableViewCell {
         }
     }
     
-    func configure(_ productObj: Product) {
+    func configure(_ productObj: Product, byAntaran: Bool) {
         viewMoreButton.layer.borderColor = UIColor.lightGray.cgColor
         viewMoreButton.layer.borderWidth = 1
         productTag.text = productObj.productTag ?? ""
@@ -43,7 +43,7 @@ class BuyerProductCell: UITableViewCell {
             inStock.text = "Exclusively Made to order".localized
             inStock.textColor = .red
         }
-        if productObj.madeWithAnthran == 1 {
+        if byAntaran == true {
             designedByImage.image = UIImage.init(named: "iosAntaranSelfDesign")
             productImage.image = UIImage.init(named: "iosAntaranSelfDesign")
         }else {

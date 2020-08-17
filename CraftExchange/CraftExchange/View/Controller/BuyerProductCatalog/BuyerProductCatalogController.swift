@@ -268,7 +268,7 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
         print("\n**** product ID: \(product?.entityID) \n product madeWithAntaran: \(product?.madeWithAnthran) \n product productCategoryId \(product?.productCategoryId) \n product cluster \(product?.clusterId) \n product artisan \(product?.artitionId) \n****")
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! BuyerProductCell
         if let prod = product {
-            cell.configure(prod)
+            cell.configure(prod, byAntaran: madeByAntaran == 1 ? true : false)
         }
         return cell
     }
