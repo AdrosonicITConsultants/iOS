@@ -21,4 +21,8 @@ class CustomProductService: BaseService<Data> {
     func fetchAllBuyersCustomProduct() -> SafeSignal<Data> {
       return CustomProduct.getAllBuyersCustomProduct().response(using: client).debug()
     }
+    
+    func deleteAllBuyersCustomProduct() -> SafeSignal<Data> {
+      return CustomProduct.deleteAllCustomProducts().response(using: client).debug()
+    }
 }

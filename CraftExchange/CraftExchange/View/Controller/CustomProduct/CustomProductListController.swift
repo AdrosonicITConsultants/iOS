@@ -22,6 +22,7 @@ class CustomProductListController: UITableViewController {
     var applicationEnteredForeground: (() -> ())?
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
+    var deleteAllCustomProducts: (() -> ())?
     var refreshCategory: ((_ catId: Int) -> ())?
     
     override init(style: UITableView.Style) {
@@ -56,6 +57,9 @@ class CustomProductListController: UITableViewController {
         center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
             self.applicationEnteredForeground?()
         }
+        
+        let rightButtonItem = UIBarButtonItem.init(title: "Delete All".localized, style: .plain, target: self, action: #selector(deleteAllCustomProduct))
+        self.navigationItem.rightBarButtonItem = rightButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +75,10 @@ class CustomProductListController: UITableViewController {
         if let refreshControl = refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+    }
+    
+    @objc func deleteAllCustomProduct() {
+        deleteAllCustomProducts?()
     }
     
     deinit {

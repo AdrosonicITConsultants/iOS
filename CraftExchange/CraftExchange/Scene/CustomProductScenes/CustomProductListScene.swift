@@ -63,6 +63,16 @@ extension CustomProductService {
             syncData()
         }
         
+        controller.deleteAllCustomProducts = {
+            self.deleteAllBuyersCustomProduct().toLoadingSignal().consumeLoadingState(by: controller)
+            .bind(to: controller, context: .global(qos: .background)) { _, responseData in
+                DispatchQueue.main.async {
+                    CustomProduct.setAllBuyerProductsDeleteTrue()
+                    controller.navigationController?.popViewController(animated: true)
+                }
+            }.dispose(in: controller.bag)
+        }
+        
         controller.title = "Custom products".localized
         controller.dataSource = nil
         let dataSource = TableViewRealmDataSource<Results<CustomProduct>>()

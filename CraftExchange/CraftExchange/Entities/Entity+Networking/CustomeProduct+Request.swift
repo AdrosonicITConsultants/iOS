@@ -136,5 +136,19 @@ extension CustomProduct {
           needsAuthorization: true
       )
     }
+    
+    public static func deleteAllCustomProducts() -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "buyerCustomProduct/deleteAllProducts",
+          method: .delete,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "delete buyers custom product failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
 
 }
