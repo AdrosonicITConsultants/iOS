@@ -120,7 +120,7 @@ extension CustomProductListController {
             }
             success(true)
         })
-        viewEditAction.image = UIImage.init(named: "bin")
+        viewEditAction.image = UIImage.init(named: "delete")
         viewEditAction.backgroundColor = .red
 
         return UISwipeActionsConfiguration(actions: [viewEditAction])

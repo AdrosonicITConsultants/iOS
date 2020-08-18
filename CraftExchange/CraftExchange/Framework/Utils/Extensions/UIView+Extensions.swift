@@ -16,6 +16,17 @@ extension UIView {
     layer.shadowOffset = CGSize.zero
     layer.shadowRadius = 5
   }
+    
+    func heightForView(text:String, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 100
+        label.lineBreakMode = .byTruncatingTail
+        label.font = .systemFont(ofSize: 15)
+        label.text = text
+
+        label.sizeToFit()
+        return label.frame.height
+    }
   
   func addDashedBorder() {
       let shapeLayer = CAShapeLayer()

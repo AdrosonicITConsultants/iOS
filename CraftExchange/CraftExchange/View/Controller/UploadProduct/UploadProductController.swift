@@ -357,6 +357,7 @@ class UploadProductController: FormViewController {
             }
             row.hidden = true
         }.onChange({ (row) in
+            self.viewModel.prodWeaveType.value?.removeAll()
             row.value?.compactMap({$0}).forEach({ (str) in
                 if let selectedWeaveObj = self.allWeaves?.filter({ (obj) -> Bool in
                     obj.weaveDesc == str
@@ -610,10 +611,10 @@ class UploadProductController: FormViewController {
             row.options = allProdCare?.compactMap({$0.productCareDesc})
             if let selectedObjs = self.viewModel.prodCare.value?.compactMap({$0.productCareDesc}) {
                 row.value = Set(selectedObjs)
-                print("wash care instruction \(row.value?.compactMap({$0})) \n\n \(selectedObjs)")
             }
             row.hidden = true
         }.onChange({ (row) in
+            self.viewModel.prodCare.value?.removeAll()
             row.value?.compactMap({$0}).forEach({ (str) in
                 if let selectedObj = self.allProdCare?.filter({ (obj) -> Bool in
                     obj.productCareDesc == str
@@ -1073,7 +1074,7 @@ extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, 
             self.viewModel.warpYarnCnt.value = nil
         case 102:
             print("warp yarn")
-            self.viewModel.warpYarnCnt.value = searchYarnCntOptions(value: withValue)
+            self.viewModel.warpYarnCnt.value = searchYarnCntOptions(inYarn: self.viewModel.warpYarn.value, value: withValue)
         case 103:
             print("warp yarn")
             self.viewModel.warpDye.value = searchDyeOptions(value: withValue)
@@ -1083,7 +1084,7 @@ extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, 
             self.viewModel.weftYarnCnt.value = nil
         case 202:
             print("weft yarn")
-            self.viewModel.weftYarnCnt.value = searchYarnCntOptions(value: withValue)
+            self.viewModel.weftYarnCnt.value = searchYarnCntOptions(inYarn: self.viewModel.weftYarn.value, value: withValue)
         case 203:
             print("weft yarn")
             self.viewModel.weftDye.value = searchDyeOptions(value: withValue)
@@ -1093,7 +1094,7 @@ extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, 
             self.viewModel.exWeftYarnCnt.value = nil
         case 302:
             print("ex-weft yarn")
-            self.viewModel.exWeftYarnCnt.value = searchYarnCntOptions(value: withValue)
+            self.viewModel.exWeftYarnCnt.value = searchYarnCntOptions(inYarn: self.viewModel.exWeftYarn.value, value: withValue)
         case 303:
             print("ex-weft yarn")
             self.viewModel.exWeftDye.value = searchDyeOptions(value: withValue)
@@ -1109,8 +1110,8 @@ extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, 
         return selectedObj ?? nil
     }
     
-    func searchYarnCntOptions(value: String) -> YarnCount? {
-        let selectedObj = self.viewModel.warpYarn.value?.yarnType.first?.yarnCounts.filter({ (obj) -> Bool in
+    func searchYarnCntOptions(inYarn:Yarn?, value: String) -> YarnCount? {
+        let selectedObj = inYarn?.yarnType.first?.yarnCounts.filter({ (obj) -> Bool in
             obj.count == value
             }).first
         return selectedObj ?? nil

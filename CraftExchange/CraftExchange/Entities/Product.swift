@@ -80,6 +80,7 @@ class Product: Object, Decodable {
         case productCategory = "productCategory"
         case productWeaves = "productWeaves"
         case productCares = "productCares"
+        case productType = "productType"
     }
     
     override class func primaryKey() -> String? {
@@ -148,6 +149,9 @@ class Product: Object, Decodable {
         }
         if let list = try? values.decodeIfPresent(ProductCategory.self, forKey: .productCategory) {
             productCategoryId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(ProductType.self, forKey: .productType) {
+            productTypeId = list.entityID
         }
         if let list = try? values.decodeIfPresent([WeaveType].self, forKey: .productWeaves) {
             weaves.append(objectsIn:list)

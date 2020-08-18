@@ -77,7 +77,7 @@ class BuyerProductCatalogController: UIViewController {
         filterButton.layer.borderColor = UIColor.lightGray.cgColor
         filterButton.layer.borderWidth = 1.0
         filterButton.dropShadow()
-        descriptionHtConstraint.constant = heightForView(text: descriptionLabel.text ?? "", width: self.view.bounds.width)
+        descriptionHtConstraint.constant = UIView().heightForView(text: descriptionLabel.text ?? "", width: self.view.bounds.width)
         try? reachabilityManager?.startNotifier()
         
         definesPresentationContext = false
@@ -176,7 +176,7 @@ class BuyerProductCatalogController: UIViewController {
             }
         }
     }
-    
+    /*
     func heightForView(text:String, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 10
@@ -186,7 +186,7 @@ class BuyerProductCatalogController: UIViewController {
 
         label.sizeToFit()
         return label.frame.height
-    }
+    }*/
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -276,5 +276,13 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("*** object ***")
+        let vc = BuyerProductDetailController.init(style: .plain)
+        vc.product = allPorducts?[indexPath.row]
+        vc.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

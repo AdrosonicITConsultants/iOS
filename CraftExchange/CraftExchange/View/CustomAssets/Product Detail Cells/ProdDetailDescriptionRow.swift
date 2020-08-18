@@ -1,8 +1,8 @@
 //
-//  ImageViewRow.swift
+//  ProdDetailDescriptionRow.swift
 //  CraftExchange
 //
-//  Created by Preety Singh on 17/08/20.
+//  Created by Preety Singh on 18/08/20.
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
 
@@ -10,12 +10,9 @@ import Foundation
 import UIKit
 import Eureka
 
-class ImageViewRowView: Cell<String>, CellType {
+class ProdDetailDescriptionRowView: Cell<String>, CellType {
 
-    @IBOutlet weak var cellImage: UIImageView!
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var productCodeLbl: UILabel!
-    @IBOutlet weak var productCodeValue: UILabel!
+    @IBOutlet weak var productDescLbl: UILabel!
     
     public override func setup() {
         super.setup()
@@ -27,10 +24,10 @@ class ImageViewRowView: Cell<String>, CellType {
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value
-final class ImageViewRow: Row<ImageViewRowView>, RowType {
+final class ProdDetailDescriptionRow: Row<ProdDetailDescriptionRowView>, RowType {
     required public init(tag: String?) {
         super.init(tag: tag)
         // We set the cellProvider to load the .xib corresponding to our cell
-        cellProvider = CellProvider<ImageViewRowView>(nibName: "ImageViewRow")
+        cellProvider = CellProvider<ProdDetailDescriptionRowView>(nibName: "ProdDetailDescriptionRow")
     }
 }

@@ -74,7 +74,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="custom-design-icon" translatesAutoresizingMaskIntoConstraints="NO" id="3zp-rq-rwC">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="custom-design-black" translatesAutoresizingMaskIntoConstraints="NO" id="3zp-rq-rwC">
                                 <rect key="frame" x="8" y="129.5" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="6sT-QH-dnW"/>
@@ -128,7 +128,7 @@
     </objects>
     <resources>
         <image name="arrow.left" catalog="system" width="64" height="48"/>
-        <image name="custom-design-icon" width="31" height="22"/>
+        <image name="custom-design-black" width="23" height="21"/>
         <image name="square.and.pencil" catalog="system" width="64" height="58"/>
     </resources>
 </document>
