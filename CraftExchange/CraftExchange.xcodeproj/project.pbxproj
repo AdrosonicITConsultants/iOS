@@ -227,6 +227,10 @@
 		C0ACE9AC2485A54600EFA4ED /* RegisterArtisanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9AB2485A54600EFA4ED /* RegisterArtisanService.swift */; };
 		C0ACE9AE2485A5BB00EFA4ED /* RegisterArtisanScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9AD2485A5BB00EFA4ED /* RegisterArtisanScene.swift */; };
 		C0ACE9B02485BD0C00EFA4ED /* ClusterDetails+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */; };
+		C0AE9CF124ECDA2B0037ECB3 /* ProdDetailYarnRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AE9CF024ECDA2B0037ECB3 /* ProdDetailYarnRow.swift */; };
+		C0AE9CF324ECDB940037ECB3 /* ProdDetailYarnValueRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AE9CF224ECDB940037ECB3 /* ProdDetailYarnValueRow.swift */; };
+		C0AE9CF524ECE48D0037ECB3 /* ProdDetailRelatedRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AE9CF424ECE48D0037ECB3 /* ProdDetailRelatedRow.xib */; };
+		C0AE9CF724ED3E260037ECB3 /* ProdDetailsRelatedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AE9CF624ED3E260037ECB3 /* ProdDetailsRelatedRow.swift */; };
 		C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */; };
 		C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */; };
 		C0E212D62498D11C00EC2B80 /* REGBuyerAddressInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */; };
@@ -473,6 +477,10 @@
 		C0ACE9AB2485A54600EFA4ED /* RegisterArtisanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterArtisanService.swift; sourceTree = "<group>"; };
 		C0ACE9AD2485A5BB00EFA4ED /* RegisterArtisanScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterArtisanScene.swift; sourceTree = "<group>"; };
 		C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClusterDetails+Request.swift"; sourceTree = "<group>"; };
+		C0AE9CF024ECDA2B0037ECB3 /* ProdDetailYarnRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdDetailYarnRow.swift; sourceTree = "<group>"; };
+		C0AE9CF224ECDB940037ECB3 /* ProdDetailYarnValueRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdDetailYarnValueRow.swift; sourceTree = "<group>"; };
+		C0AE9CF424ECE48D0037ECB3 /* ProdDetailRelatedRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdDetailRelatedRow.xib; sourceTree = "<group>"; };
+		C0AE9CF624ED3E260037ECB3 /* ProdDetailsRelatedRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdDetailsRelatedRow.swift; sourceTree = "<group>"; };
 		C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailController.swift; sourceTree = "<group>"; };
 		C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoController.swift; sourceTree = "<group>"; };
@@ -1123,9 +1131,13 @@
 				C0E6D03A24EBD7D0008CFB1F /* ProductDetailInfoRow.xib */,
 				C0E6D04724EC17D2008CFB1F /* ProductDetailInfoRow.swift */,
 				C0E6D03C24EBDFD9008CFB1F /* ProdDetailYarnRow.xib */,
+				C0AE9CF024ECDA2B0037ECB3 /* ProdDetailYarnRow.swift */,
 				C0E6D03E24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib */,
+				C0AE9CF224ECDB940037ECB3 /* ProdDetailYarnValueRow.swift */,
 				C0E6D04324EC0888008CFB1F /* ProdDetailDescriptionRow.xib */,
 				C0E6D04524EC0984008CFB1F /* ProdDetailDescriptionRow.swift */,
+				C0AE9CF424ECE48D0037ECB3 /* ProdDetailRelatedRow.xib */,
+				C0AE9CF624ED3E260037ECB3 /* ProdDetailsRelatedRow.swift */,
 			);
 			path = "Product Detail Cells";
 			sourceTree = "<group>";
@@ -1260,6 +1272,7 @@
 				C0AAC392249272AC008C2047 /* RoundedTextFieldRow.xib in Resources */,
 				C0144AB924843D66006FF4AB /* ForgotPassword.storyboard in Resources */,
 				C0A910A5247CD90B00852695 /* PlayfairDisplay-BoldItalic.ttf in Resources */,
+				C0AE9CF524ECE48D0037ECB3 /* ProdDetailRelatedRow.xib in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
@@ -1411,6 +1424,7 @@
 				C0A9970F2483AD740035A33D /* LoginPasswordController.swift in Sources */,
 				C071E258247EE9940085805B /* APIClient.swift in Sources */,
 				C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */,
+				C0AE9CF724ED3E260037ECB3 /* ProdDetailsRelatedRow.swift in Sources */,
 				C0A5EB6A24A0F68500AD42EA /* UIColor+Extensions.swift in Sources */,
 				C0ACE9A62485966600EFA4ED /* REGValidateUserEmailService.swift in Sources */,
 				C0917DF624D473FA006B6664 /* ReedCount+Transaction.swift in Sources */,
@@ -1426,6 +1440,7 @@
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
 				C0ACE9A02485923F00EFA4ED /* RegisterArtisanController.swift in Sources */,
 				C08FBE042497FFB00065BB20 /* REGBuyerCompanyInfoController.swift in Sources */,
+				C0AE9CF324ECDB940037ECB3 /* ProdDetailYarnValueRow.swift in Sources */,
 				C0ACE9962485895600EFA4ED /* Country.swift in Sources */,
 				C0FBE35224C6F7CB0037347A /* ProductCatalogService.swift in Sources */,
 				C0A3F41724B7959C0071F7F8 /* BuyerProfileController.swift in Sources */,
@@ -1457,6 +1472,7 @@
 				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
 				C071E22B247E7F820085805B /* Address.swift in Sources */,
 				C09794A324EABB7900C11AC7 /* CustomProductImage.swift in Sources */,
+				C0AE9CF124ECDA2B0037ECB3 /* ProdDetailYarnRow.swift in Sources */,
 				C0917DF424D47361006B6664 /* Yarn+Transaction.swift in Sources */,
 				C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */,
 				C0ACE9A82485970100EFA4ED /* REGValidateUserEmailScene.swift in Sources */,

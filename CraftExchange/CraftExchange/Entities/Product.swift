@@ -81,6 +81,13 @@ class Product: Object, Decodable {
         case productWeaves = "productWeaves"
         case productCares = "productCares"
         case productType = "productType"
+        case warpYarn = "warpYarn"
+        case weftYarn = "weftYarn"
+        case extraWeftYarn = "extraWeftYarn"
+        case warpDye = "warpDye"
+        case weftDye = "weftDye"
+        case extraWeftDye = "extraWeftDye"
+        case reedCount = "reedCount"
     }
     
     override class func primaryKey() -> String? {
@@ -158,6 +165,27 @@ class Product: Object, Decodable {
         }
         if let list = try? values.decodeIfPresent([ProductCareType].self, forKey: .productCares) {
             productCares.append(objectsIn:list)
+        }
+        if let list = try? values.decodeIfPresent(Yarn.self, forKey: .warpYarn) {
+            warpYarnId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(Yarn.self, forKey: .weftYarn) {
+            weftYarnId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(Yarn.self, forKey: .extraWeftYarn) {
+            extraWeftYarnId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(Dye.self, forKey: .warpDye) {
+            warpDyeId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(Dye.self, forKey: .weftDye) {
+            weftDyeId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(Dye.self, forKey: .extraWeftDye) {
+            extraWeftDyeId = list.entityID
+        }
+        if let list = try? values.decodeIfPresent(ReedCount.self, forKey: .reedCount) {
+            reedCountId = list.entityID
         }
     }
 }

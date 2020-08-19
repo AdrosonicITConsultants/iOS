@@ -29,6 +29,25 @@ class BuyerProductDetailController: FormViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
+
+        let weaveTypeSection = Section() {
+            $0.hidden = "$weaveTypes == false"
+        }
+
+        let weaveTypeView = LabelRow("weaveTypes") {
+            $0.cell.height = { 30.0 }
+            $0.title = "Weave types used"
+        }
+        
+        let washSection = Section() {
+            $0.hidden = "$washTypes == false"
+        }
+
+        let washView = LabelRow("washTypes") {
+            $0.cell.height = { 30.0 }
+            $0.title = "Wash Care Instructions"
+        }
+
         form
         +++ Section()
             <<< ImageViewRow() {
@@ -46,7 +65,7 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.height = { 280.0 }
             }
             <<< LabelRow() {
-                $0.cell.height = { 40.0 }
+                $0.cell.height = { 30.0 }
                 $0.title = "Product Description"
             }
             <<< ProdDetailDescriptionRow() {
@@ -59,7 +78,7 @@ class BuyerProductDetailController: FormViewController {
             }
             <<< LabelRow() {
                 $0.cell.height = { 30.0 }
-                $0.title = "Product Details"
+                $0.title = "Product Details".localized
             }
             <<< ProductDetailInfoRow() {
                 $0.cell.height = { 100.0 }
@@ -71,6 +90,193 @@ class BuyerProductDetailController: FormViewController {
                     $0.cell.madeToOrderLbl.isHidden = true
                 }
             }
+            <<< weaveTypeView
+            +++ weaveTypeSection
+            +++ Section()
+            <<< LabelRow {
+                $0.cell.height = { 1.0 }
+                $0.cell.backgroundColor = .lightGray
+            }
+            <<< LabelRow() {
+                $0.cell.height = { 30.0 }
+                $0.title = "Weaves used".localized
+            }
+            <<< ProdDetailYarnRow {
+                $0.cell.height = { 100.0 }
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.rowImage.isHidden = true
+                $0.cell.rowImageWidthConstraint.constant = 0
+                $0.cell.titleLbl.text = " Yarn"
+                $0.cell.valueLbl1.text = Yarn.getYarn(searchId: product?.warpYarnId ?? 0)?.yarnDesc ?? "NA"
+                $0.cell.valueLbl2.text = Yarn.getYarn(searchId: product?.weftYarnId ?? 0)?.yarnDesc ?? "NA"
+                $0.cell.valueLbl3.text = Yarn.getYarn(searchId: product?.extraWeftYarnId ?? 0)?.yarnDesc ?? "NA"
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.titleLbl.text = " Yarn \n Count"
+                $0.cell.rowImage.isHidden = true
+                $0.cell.rowImageWidthConstraint.constant = 0
+                $0.cell.valueLbl1.text = product?.warpYarnCount ?? "NA"
+                $0.cell.valueLbl2.text = product?.weftYarnCount ?? "NA"
+                $0.cell.valueLbl3.text = product?.extraWeftYarnCount ?? "NA"
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.titleLbl.text = " Dye"
+                $0.cell.rowImage.isHidden = true
+                $0.cell.rowImageWidthConstraint.constant = 0
+                $0.cell.valueLbl1.text = Dye.getDyeType(searchId: product?.warpDyeId ?? 0)?.dyeDesc ?? "NA"
+                $0.cell.valueLbl2.text = Dye.getDyeType(searchId: product?.weftDyeId ?? 0)?.dyeDesc ?? "NA"
+                $0.cell.valueLbl3.text = Dye.getDyeType(searchId: product?.extraWeftDyeId ?? 0)?.dyeDesc ?? "NA"
+            }
+            <<< LabelRow {
+                $0.cell.height = { 1.0 }
+                $0.cell.backgroundColor = .lightGray
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.rowImage.isHidden = false
+                $0.cell.rowImage.image = UIImage.init(named: "reed count")
+                $0.cell.rowImageWidthConstraint.constant = 60
+                $0.cell.titleLbl.text = "Reed count"
+                $0.cell.titleLbl.textColor = .black
+                $0.cell.titleLbl.textAlignment = .center
+                $0.cell.valueLbl1.text = ""
+                $0.cell.valueLbl2.text = ReedCount.getReedCount(searchId: product?.reedCountId ?? 0)?.count ?? "NA"
+                $0.cell.valueLbl3.text = ""
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.rowImage.isHidden = false
+                $0.cell.rowImage.image = UIImage.init(named: "Icon weight")
+                $0.cell.rowImageWidthConstraint.constant = 60
+                $0.cell.titleLbl.text = "Weight"
+                $0.cell.titleLbl.textColor = .black
+                $0.cell.titleLbl.textAlignment = .center
+                $0.cell.valueLbl1.text = ""
+                $0.cell.valueLbl2.text = product?.weight ?? "NA"
+                $0.cell.valueLbl3.text = ""
+                if product?.relatedProducts.count ?? 0 > 0 {
+                    $0.hidden = true
+                }else {
+                    $0.hidden = false
+                }
+            }
+            <<< ProdDetailsRelatedRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.rowImage.isHidden = false
+                $0.cell.rowImage.image = UIImage.init(named: "Icon weight")
+                $0.cell.titleLbl.text = "Weight"
+                $0.cell.prodLbl.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.prodValueLbl.text = "\(product?.weight ?? "NA")"
+                $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
+                $0.cell.relatedProdValueLbl.text = "\(product?.relatedProducts.first?.weight ?? "NA")"
+                if product?.relatedProducts.count ?? 0 > 0 {
+                    $0.hidden = false
+                }else {
+                    $0.hidden = true
+                }
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.rowImage.isHidden = false
+                $0.cell.rowImage.image = UIImage.init(named: "dimension")
+                $0.cell.rowImageWidthConstraint.constant = 60
+                $0.cell.titleLbl.text = "Dimensions\nL X W"
+                $0.cell.titleLbl.textColor = .black
+                $0.cell.titleLbl.textAlignment = .center
+                $0.cell.titleLbl.font = .systemFont(ofSize: 14)
+                $0.cell.valueLbl1.text = ""
+                $0.cell.valueLbl2.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.valueLbl3.text = "\(product?.length ?? "NA") X \(product?.width ?? "NA")"
+                if product?.relatedProducts.count ?? 0 > 0 {
+                    $0.hidden = true
+                }else {
+                    $0.hidden = false
+                }
+            }
+            <<< ProdDetailsRelatedRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.rowImage.isHidden = false
+                $0.cell.rowImage.image = UIImage.init(named: "dimension")
+                $0.cell.titleLbl.text = "Dimensions\nL X W"
+                $0.cell.prodLbl.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.prodValueLbl.text = "\(product?.length ?? "NA") X \(product?.width ?? "NA")"
+                $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
+                $0.cell.relatedProdValueLbl.text = "\(product?.relatedProducts.first?.length ?? "NA") X \(product?.relatedProducts.first?.width ?? "NA")"
+                if product?.relatedProducts.count ?? 0 > 0 {
+                    $0.hidden = false
+                }else {
+                    $0.hidden = true
+                }
+            }
+            <<< LabelRow {
+                $0.cell.height = { 1.0 }
+                $0.cell.backgroundColor = .lightGray
+                let str = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
+                if str == "Fabric" {
+                    $0.hidden = false
+                }else {
+                    $0.hidden = true
+                }
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.cell.height = { 100.0 }
+                $0.cell.rowImage.isHidden = false
+                $0.cell.rowImage.image = UIImage.init(named: "GSM ")
+                $0.cell.rowImageWidthConstraint.constant = 60
+                $0.cell.titleLbl.text = "GSM\n(Gram per square meter)"
+                $0.cell.titleLbl.textColor = .black
+                $0.cell.titleLbl.textAlignment = .center
+                $0.cell.titleLbl.font = .systemFont(ofSize: 13)
+                $0.cell.valueLbl1.text = ""
+                $0.cell.valueLbl2.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.valueLbl3.text = product?.gsm ?? "NA"
+                if $0.cell.valueLbl2.text == "Fabric" {
+                    $0.hidden = false
+                }else {
+                    $0.hidden = true
+                }
+            }
+            <<< LabelRow {
+                $0.cell.height = { 1.0 }
+                $0.cell.backgroundColor = .lightGray
+            }
+            <<< washView
+            +++ washSection
+        
+        var strArr:[String] = []
+        product?.weaves .forEach({ (weave) in
+            strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+        })
+        let setWeave = Set(strArr)
+        setWeave.forEach({ (weave) in
+            weaveTypeSection <<< LabelRow() {
+                $0.cell.height = { 30.0 }
+                $0.title = weave
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = .darkGray
+                cell.textLabel?.font = .systemFont(ofSize: 15, weight: .light)
+            })
+        })
+        
+        var washArr:[String] = []
+        product?.productCares .forEach({ (obj) in
+            washArr.append("\(ProductCare.getCareType(searchId: obj.productCareId)?.productCareDesc ?? "")")
+        })
+        let setCare = Set(washArr)
+        setCare.forEach({ (obj) in
+            washSection <<< LabelRow() {
+                $0.cell.height = { 60.0 }
+                $0.title = obj
+            }.cellUpdate({ (cell, row) in
+                cell.imageView?.image = UIImage.init(named: obj)
+                cell.textLabel?.textColor = UIColor().washCareBlue()
+                cell.textLabel?.font = .systemFont(ofSize: 15, weight: .light)
+            })
+        })
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -15,6 +15,10 @@ extension UIColor {
       return colorWith(r: 67, g: 99, b: 210)
     }
     
+    func washCareBlue() -> UIColor {
+      return colorWith(r: 126, g: 162, b: 207)
+    }
+    
     func menuSelectorBlue() -> UIColor {
       return colorWith(r: 66, g: 125, b: 239)
     }
