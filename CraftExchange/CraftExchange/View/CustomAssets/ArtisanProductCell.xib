@@ -55,7 +55,7 @@
                             <constraint firstAttribute="width" constant="77" id="x65-2t-v9c"/>
                         </constraints>
                         <attributedString key="attributedText">
-                            <fragment content="Exclusive made to order">
+                            <fragment content="Exclusively made to order">
                                 <attributes>
                                     <color key="NSColor" red="0.63507056240000004" green="0.1503746212" blue="0.60003399850000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <font key="NSFont" metaFont="message" size="11"/>
