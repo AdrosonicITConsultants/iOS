@@ -109,27 +109,27 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.rowImage.isHidden = true
                 $0.cell.rowImageWidthConstraint.constant = 0
                 $0.cell.titleLbl.text = " Yarn"
-                $0.cell.valueLbl1.text = Yarn.getYarn(searchId: product?.warpYarnId ?? 0)?.yarnDesc ?? "NA"
-                $0.cell.valueLbl2.text = Yarn.getYarn(searchId: product?.weftYarnId ?? 0)?.yarnDesc ?? "NA"
-                $0.cell.valueLbl3.text = Yarn.getYarn(searchId: product?.extraWeftYarnId ?? 0)?.yarnDesc ?? "NA"
+                $0.cell.valueLbl1.text = Yarn.getYarn(searchId: product?.warpYarnId ?? 0)?.yarnDesc ?? "-"
+                $0.cell.valueLbl2.text = Yarn.getYarn(searchId: product?.weftYarnId ?? 0)?.yarnDesc ?? "-"
+                $0.cell.valueLbl3.text = Yarn.getYarn(searchId: product?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-"
             }
             <<< ProdDetailYarnValueRow {
                 $0.cell.height = { 100.0 }
                 $0.cell.titleLbl.text = " Yarn \n Count"
                 $0.cell.rowImage.isHidden = true
                 $0.cell.rowImageWidthConstraint.constant = 0
-                $0.cell.valueLbl1.text = product?.warpYarnCount ?? "NA"
-                $0.cell.valueLbl2.text = product?.weftYarnCount ?? "NA"
-                $0.cell.valueLbl3.text = product?.extraWeftYarnCount ?? "NA"
+                $0.cell.valueLbl1.text = product?.warpYarnCount ?? "-"
+                $0.cell.valueLbl2.text = product?.weftYarnCount ?? "-"
+                $0.cell.valueLbl3.text = product?.extraWeftYarnCount ?? "-"
             }
             <<< ProdDetailYarnValueRow {
                 $0.cell.height = { 100.0 }
                 $0.cell.titleLbl.text = " Dye"
                 $0.cell.rowImage.isHidden = true
                 $0.cell.rowImageWidthConstraint.constant = 0
-                $0.cell.valueLbl1.text = Dye.getDyeType(searchId: product?.warpDyeId ?? 0)?.dyeDesc ?? "NA"
-                $0.cell.valueLbl2.text = Dye.getDyeType(searchId: product?.weftDyeId ?? 0)?.dyeDesc ?? "NA"
-                $0.cell.valueLbl3.text = Dye.getDyeType(searchId: product?.extraWeftDyeId ?? 0)?.dyeDesc ?? "NA"
+                $0.cell.valueLbl1.text = Dye.getDyeType(searchId: product?.warpDyeId ?? 0)?.dyeDesc ?? "-"
+                $0.cell.valueLbl2.text = Dye.getDyeType(searchId: product?.weftDyeId ?? 0)?.dyeDesc ?? "-"
+                $0.cell.valueLbl3.text = Dye.getDyeType(searchId: product?.extraWeftDyeId ?? 0)?.dyeDesc ?? "-"
             }
             <<< LabelRow {
                 $0.cell.height = { 1.0 }
@@ -144,7 +144,7 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.titleLbl.textColor = .black
                 $0.cell.titleLbl.textAlignment = .center
                 $0.cell.valueLbl1.text = ""
-                $0.cell.valueLbl2.text = ReedCount.getReedCount(searchId: product?.reedCountId ?? 0)?.count ?? "NA"
+                $0.cell.valueLbl2.text = ReedCount.getReedCount(searchId: product?.reedCountId ?? 0)?.count ?? "-"
                 $0.cell.valueLbl3.text = ""
             }
             <<< ProdDetailYarnValueRow {
@@ -156,7 +156,7 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.titleLbl.textColor = .black
                 $0.cell.titleLbl.textAlignment = .center
                 $0.cell.valueLbl1.text = ""
-                $0.cell.valueLbl2.text = product?.weight ?? "NA"
+                $0.cell.valueLbl2.text = product?.weight ?? "-"
                 $0.cell.valueLbl3.text = ""
                 if product?.relatedProducts.count ?? 0 > 0 {
                     $0.hidden = true
@@ -170,9 +170,9 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.rowImage.image = UIImage.init(named: "Icon weight")
                 $0.cell.titleLbl.text = "Weight"
                 $0.cell.prodLbl.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.prodValueLbl.text = "\(product?.weight ?? "NA")"
+                $0.cell.prodValueLbl.text = "\(product?.weight ?? "-")"
                 $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
-                $0.cell.relatedProdValueLbl.text = "\(product?.relatedProducts.first?.weight ?? "NA")"
+                $0.cell.relatedProdValueLbl.text = "\(product?.relatedProducts.first?.weight ?? "-")"
                 if product?.relatedProducts.count ?? 0 > 0 {
                     $0.hidden = false
                 }else {
@@ -190,7 +190,7 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.titleLbl.font = .systemFont(ofSize: 14)
                 $0.cell.valueLbl1.text = ""
                 $0.cell.valueLbl2.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.valueLbl3.text = "\(product?.length ?? "NA") X \(product?.width ?? "NA")"
+                $0.cell.valueLbl3.text = "\(product?.length ?? "-") X \(product?.width ?? "-")"
                 if product?.relatedProducts.count ?? 0 > 0 {
                     $0.hidden = true
                 }else {
@@ -203,9 +203,9 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.rowImage.image = UIImage.init(named: "dimension")
                 $0.cell.titleLbl.text = "Dimensions\nL X W"
                 $0.cell.prodLbl.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.prodValueLbl.text = "\(product?.length ?? "NA") X \(product?.width ?? "NA")"
+                $0.cell.prodValueLbl.text = "\(product?.length ?? "-") X \(product?.width ?? "-")"
                 $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
-                $0.cell.relatedProdValueLbl.text = "\(product?.relatedProducts.first?.length ?? "NA") X \(product?.relatedProducts.first?.width ?? "NA")"
+                $0.cell.relatedProdValueLbl.text = "\(product?.relatedProducts.first?.length ?? "-") X \(product?.relatedProducts.first?.width ?? "-")"
                 if product?.relatedProducts.count ?? 0 > 0 {
                     $0.hidden = false
                 }else {
@@ -233,7 +233,7 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.titleLbl.font = .systemFont(ofSize: 13)
                 $0.cell.valueLbl1.text = ""
                 $0.cell.valueLbl2.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.valueLbl3.text = product?.gsm ?? "NA"
+                $0.cell.valueLbl3.text = product?.gsm ?? "-"
                 if $0.cell.valueLbl2.text == "Fabric" {
                     $0.hidden = false
                 }else {
