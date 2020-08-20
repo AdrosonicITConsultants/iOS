@@ -90,6 +90,19 @@ class UploadCustomProductController: FormViewController {
         allReed = realm.objects(ReedCount.self).sorted(byKeyPath: "entityID")
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
+        let weaveTypeSection = Section(){ section in
+            section.tag = "\(CustomProductState.selectWeaveType.rawValue)"
+            let ht: CGFloat = 60.0
+            section.header = {
+                var header = HeaderFooterView<UIView>(.callback({
+                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type")
+                  return view
+                }))
+                header.height = { ht }
+                return header
+              }()
+        }
+
         if let productObj = product {
             let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
             rightButtonItem.tintColor = .red
@@ -139,6 +152,33 @@ class UploadCustomProductController: FormViewController {
         else {
             let rightButtonItem = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
             self.navigationItem.rightBarButtonItem = rightButtonItem
+        }
+        
+        var strArr:[String] = []
+        if product != nil {
+            product?.weaves .forEach({ (weave) in
+                strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+            })
+        }
+        
+        if let setWeave = allWeaves?.compactMap({$0}) {
+            setWeave.forEach({ (weave) in
+                weaveTypeSection <<< ToggleOptionRow() {
+                    $0.cell.height = { 45.0 }
+                    $0.cell.titleLbl.text = weave.weaveDesc
+                    if strArr.contains(weave.weaveDesc ?? "") {
+                        $0.cell.titleLbl.textColor = UIColor().menuSelectorBlue()
+                        $0.cell.toggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
+                    }else {
+                        $0.cell.titleLbl.textColor = .lightGray
+                        $0.cell.toggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
+                    }
+                    $0.cell.washCare = false
+                    $0.cell.toggleDelegate = self
+                    $0.cell.toggleButton.tag = weave.entityID
+                    $0.hidden = true
+                }
+            })
         }
         
         form
@@ -282,6 +322,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.delegate = self
             $0.hidden = true
         }
+        /*
         +++ Section(){ section in
             section.tag = "\(CustomProductState.selectWeaveType.rawValue)"
             let ht: CGFloat = 60.0
@@ -316,7 +357,8 @@ class UploadCustomProductController: FormViewController {
                     }
                 }
             })
-        })
+        })*/
+        +++ weaveTypeSection
         <<< RoundedButtonViewRow("Next3") {
             $0.tag = "Next3"
             $0.cell.titleLabel.isHidden = true
@@ -813,7 +855,22 @@ class UploadCustomProductController: FormViewController {
     
 }
 
-extension UploadCustomProductController: ButtonActionProtocol, DimensionCellProtocol, LengthWidthCellProtocol {
+extension UploadCustomProductController: ButtonActionProtocol, DimensionCellProtocol, LengthWidthCellProtocol, ToggleButtonProtocol {
+    func toggleButtonSelected(tag: Int, forWashCare: Bool) {
+        if forWashCare == false {
+            //Weave Cell
+            if let weave = Weave.getWeaveType(searchId: tag) {
+                if self.viewModel.prodWeaveType.value?.contains(weave) ?? false {
+                    if let index = self.viewModel.prodWeaveType.value?.firstIndex(of: weave) {
+                        self.viewModel.prodWeaveType.value?.remove(at: index)
+                    }
+                }else {
+                    self.viewModel.prodWeaveType.value?.append(weave)
+                }
+            }
+        }
+    }
+    
     func lengthWidthSelected(tag: Int, withValue: String) {
         print("tag: \(tag)")
         switch tag {

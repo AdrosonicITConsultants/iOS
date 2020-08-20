@@ -103,7 +103,7 @@ extension CustomProduct {
                 }
                 
                 let weaveIdsToCheck = weaves.compactMap { $0.entityId }
-                var weavesToDelete: [WeaveType] = []
+                var weavesToDelete: [CustomWeaveType] = []
                 object.weaves .forEach { (obj) in
                     if !weaveIdsToCheck.contains(obj.entityId) {
                         weavesToDelete.append(obj)
