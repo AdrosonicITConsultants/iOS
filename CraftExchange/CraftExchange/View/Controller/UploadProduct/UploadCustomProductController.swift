@@ -177,7 +177,10 @@ class UploadCustomProductController: FormViewController {
                     $0.cell.toggleDelegate = self
                     $0.cell.toggleButton.tag = weave.entityID
                     $0.hidden = true
-                }
+                }.onCellSelection({ (cell, row) in
+                    cell.toggleButton.sendActions(for: .touchUpInside)
+                    cell.contentView.backgroundColor = .white
+                })
             })
         }
         

@@ -164,6 +164,9 @@ class UploadProductController: FormViewController {
             self.navigationItem.rightBarButtonItem = rightButtonItem
         }
         
+        let weaveTypeSection = createWeaveTypeSection()
+        let washCareTypeSection = createWashCareSection()
+        
         form
         +++ Section(){ section in
             section.tag = "\(NewProductState.addPhotos.rawValue)"
@@ -337,6 +340,8 @@ class UploadProductController: FormViewController {
             $0.cell.delegate = self
             $0.hidden = true
         }
+        +++ weaveTypeSection
+        /*
         +++ Section(){ section in
             section.tag = "\(NewProductState.selectWeaveType.rawValue)"
             let ht: CGFloat = 60.0
@@ -371,7 +376,7 @@ class UploadProductController: FormViewController {
                     }
                 }
             })
-        })
+        })*/
         <<< RoundedButtonViewRow("Next3") {
             $0.tag = "Next3"
             $0.cell.titleLabel.isHidden = true
@@ -594,6 +599,8 @@ class UploadProductController: FormViewController {
             $0.cell.delegate = self
             $0.hidden = true
         }
+        +++ washCareTypeSection
+        /*
         +++ Section(){ section in
             section.tag = "\(NewProductState.washCare.rawValue)"
             let ht: CGFloat = 60.0
@@ -632,7 +639,7 @@ class UploadProductController: FormViewController {
             if let selectedObjs = self.viewModel.prodCare.value?.compactMap({$0.productCareDesc}) {
                 row.value = Set(selectedObjs)
             }
-        })
+        })*/
         <<< RoundedButtonViewRow("Next7") {
             $0.tag = "Next7"
             $0.cell.titleLabel.isHidden = true
@@ -854,6 +861,100 @@ class UploadProductController: FormViewController {
         }
     }
     
+    func createWeaveTypeSection() -> Section {
+        let weaveTypeSection = Section(){ section in
+            section.tag = "\(CustomProductState.selectWeaveType.rawValue)"
+            let ht: CGFloat = 60.0
+            section.header = {
+                var header = HeaderFooterView<UIView>(.callback({
+                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type")
+                  return view
+                }))
+                header.height = { ht }
+                return header
+              }()
+        }
+        
+        var strArr:[String] = []
+        if product != nil {
+            product?.weaves .forEach({ (weave) in
+                strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+            })
+        }
+        
+        if let setWeave = allWeaves?.compactMap({$0}) {
+            setWeave.forEach({ (weave) in
+                weaveTypeSection <<< ToggleOptionRow() {
+                    $0.cell.height = { 45.0 }
+                    $0.cell.titleLbl.text = weave.weaveDesc
+                    if strArr.contains(weave.weaveDesc ?? "") {
+                        $0.cell.titleLbl.textColor = UIColor().menuSelectorBlue()
+                        $0.cell.toggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
+                    }else {
+                        $0.cell.titleLbl.textColor = .lightGray
+                        $0.cell.toggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
+                    }
+                    $0.cell.washCare = false
+                    $0.cell.toggleDelegate = self
+                    $0.cell.toggleButton.tag = weave.entityID
+                    $0.hidden = true
+                }.onCellSelection({ (cell, row) in
+                    cell.toggleButton.sendActions(for: .touchUpInside)
+                    cell.contentView.backgroundColor = .white
+                })
+            })
+        }
+        
+        return weaveTypeSection
+    }
+    
+    func createWashCareSection() -> Section {
+        let washCareSection = Section(){ section in
+            section.tag = "\(NewProductState.washCare.rawValue)"
+            let ht: CGFloat = 60.0
+            section.header = {
+                var header = HeaderFooterView<UIView>(.callback({
+                    let view = self.createSectionView(forStep: 7, title: "Enter the wash care instruction")
+                  return view
+                }))
+                header.height = { ht }
+                return header
+              }()
+        }
+        
+        var strArr:[String] = []
+        if product != nil {
+            product?.productCares .forEach({ (care) in
+                strArr.append("\(ProductCare.getCareType(searchId: care.productCareId)?.productCareDesc ?? "")")
+            })
+        }
+        
+        if let setCares = allProdCare?.compactMap({$0}) {
+            setCares.forEach({ (care) in
+                washCareSection <<< ToggleOptionRow() {
+                    $0.cell.height = { 45.0 }
+                    $0.cell.titleLbl.text = care.productCareDesc
+                    if strArr.contains(care.productCareDesc ?? "") {
+                        $0.cell.titleLbl.textColor = UIColor().menuSelectorBlue()
+                        $0.cell.toggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
+                    }else {
+                        $0.cell.titleLbl.textColor = .lightGray
+                        $0.cell.toggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
+                    }
+                    $0.cell.washCare = true
+                    $0.cell.toggleDelegate = self
+                    $0.cell.toggleButton.tag = care.entityID
+                    $0.hidden = true
+                }.onCellSelection({ (cell, row) in
+                    cell.toggleButton.sendActions(for: .touchUpInside)
+                    cell.contentView.backgroundColor = .white
+                })
+            })
+        }
+        
+        return washCareSection
+    }
+    
     @objc func saveClicked() {
         self.viewModel.saveProductSelected?()
     }
@@ -1007,7 +1108,7 @@ class UploadProductController: FormViewController {
         let y = 5
         let lblHt = 40
         let dotView = UIView(frame: CGRect(x: 20, y: 15, width: 20, height: 20))
-        dotView.backgroundColor = self.doneStates.contains(NewProductState.addPhotos) ? UIColor().CEGreen() : .red
+        dotView.backgroundColor = self.product != nil ? UIColor().CEGreen() : .red
         dotView.layer.cornerRadius = 10
         dotView.tag = 333
         view.addSubview(dotView)
@@ -1037,7 +1138,34 @@ class UploadProductController: FormViewController {
     
 }
 
-extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, LengthWidthCellProtocol, AvailabilityCellProtocol {
+extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, LengthWidthCellProtocol, AvailabilityCellProtocol, ToggleButtonProtocol {
+    
+    func toggleButtonSelected(tag: Int, forWashCare: Bool) {
+        if forWashCare == false {
+            //Weave Cell
+            if let weave = Weave.getWeaveType(searchId: tag) {
+                if self.viewModel.prodWeaveType.value?.contains(weave) ?? false {
+                    if let index = self.viewModel.prodWeaveType.value?.firstIndex(of: weave) {
+                        self.viewModel.prodWeaveType.value?.remove(at: index)
+                    }
+                }else {
+                    self.viewModel.prodWeaveType.value?.append(weave)
+                }
+            }
+        }else {
+            //Wash & Care Cell
+            if let care = ProductCare.getCareType(searchId: tag) {
+                if self.viewModel.prodCare.value?.contains(care) ?? false {
+                    if let index = self.viewModel.prodCare.value?.firstIndex(of: care) {
+                        self.viewModel.prodCare.value?.remove(at: index)
+                    }
+                }else {
+                    self.viewModel.prodCare.value?.append(care)
+                }
+            }
+        }
+    }
+    
     func lengthWidthSelected(tag: Int, withValue: String) {
         print("tag: \(tag)")
         switch tag {
