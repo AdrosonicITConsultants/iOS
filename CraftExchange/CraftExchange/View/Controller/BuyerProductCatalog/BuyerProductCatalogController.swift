@@ -22,6 +22,8 @@ class BuyerProductCatalogController: UIViewController {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var refreshFilter: ((_ catId: Int) -> ())?
+    var addToWishlist: ((_ prodId: Int) -> ())?
+    var removeFromWishlist: ((_ prodId: Int) -> ())?
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var brandLogoImage: UIImageView!
@@ -259,7 +261,7 @@ class BuyerProductCatalogController: UIViewController {
     }
 }
 
-extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSource {
+extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSource, WishlistProtocol {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allPorducts?.count ?? 0
     }
@@ -271,6 +273,7 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
         if let prod = product {
             cell.configure(prod, byAntaran: madeByAntaran == 1 ? true : false)
         }
+        cell.delegate = self
         return cell
     }
     
@@ -284,5 +287,13 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
         vc.product = allPorducts?[indexPath.row]
         vc.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func wishlistSelected(prodId: Int) {
+        addToWishlist?(prodId)
+    }
+    
+    func removeFromWishlist(prodId: Int) {
+        removeFromWishlist?(prodId)
     }
 }

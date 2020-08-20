@@ -88,6 +88,30 @@ extension ProductCatalogService {
             syncData()
         }
         
+        controller.addToWishlist = { (prodId) in
+            self.addProductToWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        KeychainManager.standard.wishlistIds?.append(prodId)
+                    }
+                }
+            }.dispose(in: controller.bag)
+        }
+        
+        controller.removeFromWishlist = { (prodId) in
+            self.removeProductFromWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        if let index = KeychainManager.standard.wishlistIds?.firstIndex(where: { (obj) -> Bool in
+                            obj as? Int == prodId
+                        }) {
+                            KeychainManager.standard.wishlistIds?.remove(at: index)
+                        }
+                    }
+                }
+            }.dispose(in: controller.bag)
+        }
+        
         return controller
     }
 }

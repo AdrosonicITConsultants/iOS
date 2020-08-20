@@ -42,6 +42,9 @@
                                 <state key="normal" image="tab-wishlist">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="wishlistSelected:" destination="l7p-dA-x5X" eventType="touchUpInside" id="F90-vI-rCg"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ArtisanSelfDesigniconiOS" translatesAutoresizingMaskIntoConstraints="NO" id="2bR-cJ-bq9">
                                 <rect key="frame" x="8" y="46" width="30" height="25"/>

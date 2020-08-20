@@ -37,4 +37,12 @@ class ProductCatalogService: BaseService<Data> {
     func fetchAllProducts(artisanId: Int) -> SafeSignal<[Product]> {
       return Product.getAllProducts(artisanId: artisanId).response(using: client).debug()
     }
+    
+    func addProductToWishlist(prodId: Int) -> SafeSignal<Data> {
+      return Product.addProductToWishlist(withId: prodId).response(using: client).debug()
+    }
+    
+    func removeProductFromWishlist(prodId: Int) -> SafeSignal<Data> {
+      return Product.deleteProductFromWishlist(withId: prodId).response(using: client).debug()
+    }
 }
