@@ -144,7 +144,7 @@ extension CustomProduct {
           path: "buyerCustomProduct/deleteAllProducts",
           method: .delete,
           headers: headers,
-          resource: {print(String(data: $0, encoding: .utf8) ?? "delete buyers custom product failed")
+          resource: {print(String(data: $0, encoding: .utf8) ?? "delete all buyers custom product failed")
           return $0},
           error: APIError.init,
           needsAuthorization: true

@@ -228,4 +228,75 @@ extension Product {
           needsAuthorization: true
       )
     }
+    
+    //Wishlist
+    public static func getAllProductsInWishlist() -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/getProductsInWishlist",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "failed to get all products of wishlist")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
+    
+    public static func getAllProductIdsInWishlist() -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/getProductIdsInWishlist",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "failed to get all products of wishlist")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
+    
+    public static func addProductToWishlist(withId: Int) -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/addToWishlist/\(withId)",
+          method: .post,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "failed to add product to wishlist")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
+    
+    public static func deleteProductFromWishlist(withId: Int) -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/deleteProductsInWishlist/\(withId)",
+          method: .delete,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "delete wishlist product failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
+    
+    public static func deleteAllProductsFromWishlist() -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/deleteAllProductsInWishlist",
+          method: .delete,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "delete all wishlist failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
 }

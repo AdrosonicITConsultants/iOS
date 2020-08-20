@@ -50,6 +50,13 @@ class BuyerProductCell: UITableViewCell {
             designedByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
             productImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
         }
+        if KeychainManager.standard.wishlistIds?.contains(where: { (obj) -> Bool in
+            (obj as? Int) == productObj.entityID
+        }) ?? false {
+            wishlistButton.setImage(UIImage.init(named: "red heart"), for: .normal)
+        }else {
+            wishlistButton.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
+        }
         if let tag = productObj.productImages.first?.lable {
             let prodId = productObj.entityID
             if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {

@@ -276,7 +276,18 @@ extension HomeScreenService {
                 }
             
             vc.viewModel.viewWillAppear = {
-                
+                self.fetchAllWishlistIds().bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                    do {
+                        if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
+                        {
+                            if let dataArray = jsonDict["data"] as? [Int] {
+                                KeychainManager.standard.wishlistIds = dataArray
+                            }
+                        }
+                    }catch let error as NSError {
+                        print(error)
+                    }
+                }.dispose(in: vc.bag)
             }
         }
         return tab
