@@ -160,21 +160,21 @@ class BuyerProductCatalogController: UIViewController {
     func setDatasource(withId: Int) {
         if let cluster = selectedCluster {
             if withId == 0 {
-                allPorducts = realm.objects(Product.self).filter("%K == %@", "clusterId", cluster.entityID).sorted(byKeyPath: "modifiedOn", ascending: false)
+                allPorducts = realm.objects(Product.self).filter("%K == %@", "clusterId", cluster.entityID).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false)
             }else {
-                allPorducts = realm.objects(Product.self).filter("%K == %@", "clusterId", cluster.entityID).filter("%K == %@", "productCategoryId", withId).sorted(byKeyPath: "modifiedOn", ascending: false)
+                allPorducts = realm.objects(Product.self).filter("%K == %@", "clusterId", cluster.entityID).filter("%K == %@","isDeleted",false).filter("%K == %@", "productCategoryId", withId).sorted(byKeyPath: "modifiedOn", ascending: false)
             }
         }else if let category = selectedCategory {
             if withId == 0 {
-                allPorducts = realm.objects(Product.self).filter("%K == %@", "productCategoryId", category.entityID).sorted(byKeyPath: "modifiedOn", ascending: false)
+                allPorducts = realm.objects(Product.self).filter("%K == %@", "productCategoryId", category.entityID).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false)
             }else {
-                allPorducts = realm.objects(Product.self).filter("%K == %@", "clusterId", withId).filter("%K == %@", "productCategoryId", category.entityID).sorted(byKeyPath: "modifiedOn", ascending: false)
+                allPorducts = realm.objects(Product.self).filter("%K == %@", "clusterId", withId).filter("%K == %@", "productCategoryId", category.entityID).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false)
             }
         }else if let artisan = selectedArtisan {
             if withId == 0 {
-                allPorducts = realm.objects(Product.self).filter("%K == %@", "artitionId", artisan.entityID).sorted(byKeyPath: "modifiedOn", ascending: false)
+                allPorducts = realm.objects(Product.self).filter("%K == %@", "artitionId", artisan.entityID).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false)
             }else {
-                allPorducts = realm.objects(Product.self).filter("%K == %@", "artitionId", artisan.entityID).filter("%K == %@", "productCategoryId", withId).sorted(byKeyPath: "modifiedOn", ascending: false)
+                allPorducts = realm.objects(Product.self).filter("%K == %@", "artitionId", artisan.entityID).filter("%K == %@", "productCategoryId", withId).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false)
             }
         }
     }

@@ -94,6 +94,9 @@
 		C071E264247F07930085805B /* ReactiveExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C071E263247F07930085805B /* ReactiveExtentions.swift */; };
 		C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07376BF247BD9020014C3CA /* ValidateUserScene.swift */; };
 		C074EE3424EE7FD700B0973B /* CustomWeaveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3324EE7FD700B0973B /* CustomWeaveType.swift */; };
+		C074EE3724EEC1A300B0973B /* WishlistScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3624EEC1A300B0973B /* WishlistScene.swift */; };
+		C074EE3A24EEC1DF00B0973B /* WishlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3924EEC1DF00B0973B /* WishlistController.swift */; };
+		C074EE3C24EEC3DD00B0973B /* WishlistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3B24EEC3DD00B0973B /* WishlistService.swift */; };
 		C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A12477EB8500B0B0FA /* RoundedButton.swift */; };
 		C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A52478394700B0B0FA /* RoundedTextField.swift */; };
 		C08FBDFC2497EF870065BB20 /* REGBuyerPersonalInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBDFB2497EF870065BB20 /* REGBuyerPersonalInfoController.swift */; };
@@ -346,6 +349,9 @@
 		C071E263247F07930085805B /* ReactiveExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactiveExtentions.swift; sourceTree = "<group>"; };
 		C07376BF247BD9020014C3CA /* ValidateUserScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateUserScene.swift; sourceTree = "<group>"; };
 		C074EE3324EE7FD700B0973B /* CustomWeaveType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWeaveType.swift; sourceTree = "<group>"; };
+		C074EE3624EEC1A300B0973B /* WishlistScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistScene.swift; sourceTree = "<group>"; };
+		C074EE3924EEC1DF00B0973B /* WishlistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistController.swift; sourceTree = "<group>"; };
+		C074EE3B24EEC3DD00B0973B /* WishlistService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistService.swift; sourceTree = "<group>"; };
 		C07D69A12477EB8500B0B0FA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C07D69A52478394700B0B0FA /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		C07D69AA247874BF00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -646,6 +652,7 @@
 		C03BD88F2476F83100279D7F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C074EE3524EEC18500B0973B /* WishlistScenes */,
 				C04842B524E7C29E00D3207F /* CustomProductScenes */,
 				C05E3AD824D1B38A00963FAA /* UploadProductScenes */,
 				C0FBE34D24C6F7160037347A /* ProductCatalogueScenes */,
@@ -909,6 +916,14 @@
 			path = "Offline Requests";
 			sourceTree = "<group>";
 		};
+		C074EE3524EEC18500B0973B /* WishlistScenes */ = {
+			isa = PBXGroup;
+			children = (
+				C074EE3624EEC1A300B0973B /* WishlistScene.swift */,
+			);
+			path = WishlistScenes;
+			sourceTree = "<group>";
+		};
 		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1164,6 +1179,7 @@
 			children = (
 				C0F4723224C9901900DB8F38 /* DesignCollectionController.swift */,
 				C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */,
+				C074EE3924EEC1DF00B0973B /* WishlistController.swift */,
 			);
 			path = BuyerProductCatalog;
 			sourceTree = "<group>";
@@ -1183,6 +1199,7 @@
 			children = (
 				C0FBE35124C6F7CB0037347A /* ProductCatalogService.swift */,
 				C05836B824C867B50027FF44 /* ProductImageService.swift */,
+				C074EE3B24EEC3DD00B0973B /* WishlistService.swift */,
 			);
 			path = ProductCatalogueServices;
 			sourceTree = "<group>";
@@ -1367,8 +1384,10 @@
 				C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */,
 				C0917DEA24D461FD006B6664 /* YarnCount.swift in Sources */,
 				C04F72D924C611D500E8122E /* ArtisanProductCell.swift in Sources */,
+				C074EE3724EEC1A300B0973B /* WishlistScene.swift in Sources */,
 				C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */,
 				C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */,
+				C074EE3C24EEC3DD00B0973B /* WishlistService.swift in Sources */,
 				C0917DE624D46099006B6664 /* Yarn.swift in Sources */,
 				C071E247247EE59E0085805B /* Result.swift in Sources */,
 				C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */,
@@ -1533,6 +1552,7 @@
 				C0285AA324CF58E00045623A /* BuyerProductCatalogScene.swift in Sources */,
 				C0A2A00424B8D22E00A49E56 /* User+Transaction.swift in Sources */,
 				C04842B724E7C2ED00D3207F /* CustomProductListScene.swift in Sources */,
+				C074EE3A24EEC1DF00B0973B /* WishlistController.swift in Sources */,
 				C09F214D24862987001F2FCD /* REGArtisanInfoInputService.swift in Sources */,
 				C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */,
 				C09980AF24D5A74500BE86D0 /* OfflineProductRequest.swift in Sources */,

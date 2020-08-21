@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var registerUser: CXUser?
     var tabbar: BuyerTabbarController?
     var artisanTabbar: ArtisanTabbarController?
-    
+    var wishlistIds: [Int]?
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     

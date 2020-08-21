@@ -14,8 +14,6 @@ import UIKit
 extension HomeScreenService {
     
   func createScene() -> UIViewController {
-//    let profileStoryboard = UIStoryboard.init(name: "ArtisanTabbar", bundle: Bundle.main)
-//    let vc = profileStoryboard.instantiateViewController(identifier: "ArtisanHomeController") as! ArtisanHomeController
     let storyboard = UIStoryboard(name: "ArtisanTabbar", bundle: nil)
     let tab = storyboard.instantiateViewController(withIdentifier: "ArtisanTabbarController") as! ArtisanTabbarController
     tab.modalPresentationStyle = .fullScreen
@@ -276,16 +274,30 @@ extension HomeScreenService {
                 }
             
             vc.viewModel.viewWillAppear = {
-                self.fetchAllWishlistIds().bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                    do {
-                        if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
-                        {
-                            if let dataArray = jsonDict["data"] as? [Int] {
-                                KeychainManager.standard.wishlistIds = dataArray
+                let service = WishlistService.init(client: self.client)
+                service.fetchAllWishlistProducts().observeNext { (attachment) in
+                    if let json = try? JSONSerialization.jsonObject(with: attachment, options: .allowFragments) as? [String: Any] {
+                      if let array = json["data"] as? [[String: Any]] {
+                        var finalArray: [Int] = []
+                        array.forEach { (dataDict) in
+                            if let prodDict = dataDict["product"] as? [String: Any] {
+                                if let proddata = try? JSONSerialization.data(withJSONObject: prodDict, options: .fragmentsAllowed) {
+                                    if let prodObj = try? JSONDecoder().decode(Product.self, from: proddata) {
+                                        DispatchQueue.main.async {
+                                            prodObj.saveOrUpdate()
+                                            finalArray.append(prodObj.entityID)
+                                            if finalArray.count == array.count {
+                                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                                    appDelegate.wishlistIds = finalArray
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
                             }
                         }
-                    }catch let error as NSError {
-                        print(error)
+                      }
                     }
                 }.dispose(in: vc.bag)
             }

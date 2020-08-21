@@ -21,21 +21,13 @@ class RoleViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
         guard let client = try? SafeClient(wrapping: CraftExchangeClient()) else {
-            let error = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
+            _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
             return
         }
         if KeychainManager.standard.userRoleId == 1 {
-//            let storyboard = UIStoryboard(name: "ArtisanTabbar", bundle: nil)
-//            let tab = storyboard.instantiateViewController(withIdentifier: "ArtisanTabbarController") as! ArtisanTabbarController
-//            tab.modalPresentationStyle = .fullScreen
-//            self.present(tab, animated: true, completion: nil)
             let controller = HomeScreenService(client: client).createScene()
             self.present(controller, animated: true, completion: nil)
         }else {
-//            let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-//            let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
-//            tab.modalPresentationStyle = .fullScreen
-//            self.present(tab, animated: true, completion: nil)
             let controller = HomeScreenService(client: client).createBuyerScene()
             self.present(controller, animated: true, completion: nil)
         }

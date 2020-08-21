@@ -14,6 +14,10 @@ import UIKit
     @objc optional func removeFromWishlist(prodId: Int)
 }
 
+@objc protocol WishlistScreenProtocol {
+    @objc optional func removeFromWishlistScreen(prodId: Int)
+}
+
 class BuyerProductCell: UITableViewCell {
     @IBOutlet weak var productTag: UILabel!
     @IBOutlet weak var productImage: UIImageView!
@@ -24,6 +28,8 @@ class BuyerProductCell: UITableViewCell {
     @IBOutlet weak var viewMoreButton: UIButton!
     @IBOutlet weak var generateEnquiryButton: UIButton!
     var delegate: WishlistProtocol?
+    var deleg: WishlistScreenProtocol?
+    var fromWishlist = false
     
     @IBOutlet
     weak var containerView: UIView! {
@@ -56,8 +62,9 @@ class BuyerProductCell: UITableViewCell {
             designedByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
             productImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
         }
-        if KeychainManager.standard.wishlistIds?.contains(where: { (obj) -> Bool in
-            (obj as? Int) == productObj.entityID
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
+            obj == productObj.entityID
         }) ?? false {
             wishlistButton.setImage(UIImage.init(named: "red heart"), for: .normal)
         }else {
@@ -87,14 +94,19 @@ class BuyerProductCell: UITableViewCell {
     }
     
     @IBAction func wishlistSelected(_ sender: Any) {
-        if KeychainManager.standard.wishlistIds?.contains(where: { (obj) -> Bool in
-            (obj as? Int) == wishlistButton.tag
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
+            obj == wishlistButton.tag
         }) ?? false {
-            wishlistButton.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
-            delegate?.removeFromWishlist?(prodId: wishlistButton.tag)
+            if fromWishlist {
+                self.deleg?.removeFromWishlistScreen?(prodId: wishlistButton.tag)
+            }else {
+                wishlistButton.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
+                self.delegate?.removeFromWishlist?(prodId: wishlistButton.tag)
+            }
         }else {
             wishlistButton.setImage(UIImage.init(named: "red heart"), for: .normal)
-            delegate?.wishlistSelected?(prodId: wishlistButton.tag)
+            self.delegate?.wishlistSelected?(prodId: wishlistButton.tag)
         }
     }
 }

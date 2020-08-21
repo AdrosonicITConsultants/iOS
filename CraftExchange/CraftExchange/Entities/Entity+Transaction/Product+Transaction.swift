@@ -14,6 +14,21 @@ import ReactiveKit
 
 extension Product {
     
+    static public func getWishlistProducts() -> Results<Product>? {
+        let realm = try? Realm()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let objects = realm?.objects(Product.self).filter("%K IN %@", "entityID",appDelegate?.wishlistIds ?? [0])
+        return objects
+    }
+    
+    static func getProduct(searchId: Int) -> Product? {
+        let realm = try! Realm()
+        if let object = realm.objects(Product.self).filter("%K == %@", "entityID", searchId).first {
+            return object
+        }
+        return nil
+    }
+    
     func getAllProductCatForUser() -> [ProductCategory] {
         let realm = try! Realm()
         let objects = realm.objects(Product.self).filter("%K == %@", "artitionId", User.loggedIn()?.entityID ?? 0).filter("%K == %@","isDeleted",false)

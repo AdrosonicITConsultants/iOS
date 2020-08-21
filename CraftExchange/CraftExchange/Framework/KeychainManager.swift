@@ -117,17 +117,4 @@ class KeychainManager {
             }
         }
   }
-    
-    var wishlistIds: [Any]? {
-          get {
-              defaults.array(forKey: "wishlistIds")
-          }
-          set {
-              if let newValue = newValue {
-                  defaults.set(newValue, forKey: "wishlistIds")
-              } else {
-                  defaults.removeObject(forKey: "wishlistIds")
-              }
-          }
-    }
 }

@@ -101,15 +101,15 @@ class SideMenuController: FormViewController {
           })
             <<< LabelRow() { row in
                 row.title = "Custom Design".localized
-              row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
-              row.cell.imageView?.image = UIImage(named: "custom-design-icon")
-              row.cell.height = { 56.0 }
+                row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+                row.cell.imageView?.image = UIImage(named: "custom-design-icon")
+                row.cell.height = { 56.0 }
                 row.hidden = KeychainManager.standard.userRoleId == 1 ? true : false
             }.onCellSelection { (cell, row) in
                   self.dismiss(animated: true, completion: {
                     do {
-                      let client = try SafeClient(wrapping: CraftExchangeClient())
-                      let vc = CustomProductService(client: client).createScene()
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        let vc = CustomProductService(client: client).createScene()
                         let nav = self.getNavBar()
                         nav?.pushViewController(vc, animated: true)
                     } catch let error {

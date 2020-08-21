@@ -92,7 +92,10 @@ extension ProductCatalogService {
             self.addProductToWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool == true {
-                        KeychainManager.standard.wishlistIds?.append(prodId)
+                        DispatchQueue.main.async {
+                            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                            appDelegate?.wishlistIds?.append(prodId)
+                        }
                     }
                 }
             }.dispose(in: controller.bag)
@@ -102,10 +105,13 @@ extension ProductCatalogService {
             self.removeProductFromWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool == true {
-                        if let index = KeychainManager.standard.wishlistIds?.firstIndex(where: { (obj) -> Bool in
-                            obj as? Int == prodId
-                        }) {
-                            KeychainManager.standard.wishlistIds?.remove(at: index)
+                        DispatchQueue.main.async {
+                            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                            if let index = appDelegate?.wishlistIds?.firstIndex(where: { (obj) -> Bool in
+                                obj == prodId
+                            }) {
+                                appDelegate?.wishlistIds?.remove(at: index)
+                            }
                         }
                     }
                 }
