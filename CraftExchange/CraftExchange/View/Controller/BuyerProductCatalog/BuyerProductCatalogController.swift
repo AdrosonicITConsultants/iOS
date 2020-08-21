@@ -296,4 +296,11 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
     func removeFromWishlist(prodId: Int) {
         removeFromWishlist?(prodId)
     }
+    
+    func loadProduct(prodId: Int) {
+        let vc = BuyerProductDetailController.init(style: .plain)
+        vc.product = Product.getProduct(searchId: prodId)
+        vc.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

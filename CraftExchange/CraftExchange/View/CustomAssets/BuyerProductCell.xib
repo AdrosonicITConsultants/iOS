@@ -81,6 +81,9 @@
                                 <state key="normal" title="View More">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="viewMoreSelected:" destination="l7p-dA-x5X" eventType="touchUpInside" id="pnf-tC-7Nm"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lhR-cx-6Dc">
                                 <rect key="frame" x="142" y="124" width="142" height="36"/>

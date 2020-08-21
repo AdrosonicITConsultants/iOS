@@ -12,6 +12,7 @@ import UIKit
 @objc protocol WishlistProtocol {
     @objc optional func wishlistSelected(prodId: Int)
     @objc optional func removeFromWishlist(prodId: Int)
+    @objc optional func loadProduct(prodId: Int)
 }
 
 @objc protocol WishlistScreenProtocol {
@@ -108,6 +109,10 @@ class BuyerProductCell: UITableViewCell {
             wishlistButton.setImage(UIImage.init(named: "red heart"), for: .normal)
             self.delegate?.wishlistSelected?(prodId: wishlistButton.tag)
         }
+    }
+    
+    @IBAction func viewMoreSelected(_ sender: Any) {
+        self.delegate?.loadProduct?(prodId: wishlistButton.tag)
     }
 }
 
