@@ -140,22 +140,68 @@ extension UIViewController {
 }
 
 extension UIViewController {
-  func setupSideMenu() {
-    let menu = UIBarButtonItem(image: UIImage(named: "Ios-menu"), style: .done, target: self, action: nil)
-    menu.tintColor = .darkGray
-    navigationItem.leftBarButtonItem = menu
-    menu.reactive.tap.observeNext {
-        let menuController = SideMenuController(style: .plain)
-        let menu = SideMenuNavigationController(rootViewController: menuController)
-        menu.setToolbarHidden(false, animated: false)
-        menu.leftSide = true
-        menu.statusBarEndAlpha = 0
-        let style = SideMenuPresentationStyle.menuSlideIn
-        style.onTopShadowOpacity = 0.8
-        style.presentingScaleFactor = 0.90
-        menu.settings.presentationStyle = style
-        menu.settings.menuWidth = min(self.view.frame.width, self.view.frame.height) * CGFloat(0.80)
-        self.present(menu, animated: true, completion: nil)
-    }.dispose(in: bag)
+    func setupSideMenu(_ withBack: Bool) {
+        let menu = UIBarButtonItem(image: UIImage(named: "Ios-menu"), style: .done, target: self, action: nil)
+        menu.tintColor = .darkGray
+        navigationItem.leftBarButtonItem = menu
+        
+        if withBack {
+            let back = UIBarButtonItem(image: UIImage.init(systemName: "arrow.left"), style: .done, target: self, action: nil)
+            back.tintColor = .darkGray
+            navigationItem.leftBarButtonItems = [menu, back]
+            
+            back.reactive.tap.observeNext {
+                self.navigationController?.popViewController(animated: true)
+            }.dispose(in: bag)
+        }else {
+            navigationItem.leftBarButtonItem = menu
+        }
+        
+        menu.reactive.tap.observeNext {
+            let menuController = SideMenuController(style: .plain)
+            let menu = SideMenuNavigationController(rootViewController: menuController)
+            menu.setToolbarHidden(false, animated: false)
+            menu.leftSide = true
+            menu.statusBarEndAlpha = 0
+            let style = SideMenuPresentationStyle.menuSlideIn
+            style.onTopShadowOpacity = 0.8
+            style.presentingScaleFactor = 0.90
+            menu.settings.presentationStyle = style
+            menu.settings.menuWidth = min(self.view.frame.width, self.view.frame.height) * CGFloat(0.80)
+            self.present(menu, animated: true, completion: nil)
+        }.dispose(in: bag)
+    
+    }
+    
+    func setupSearch() {
+      let resultsTableController = UITableViewController(style: .plain)
+      
+      resultsTableController.tableView.delegate = self as? UITableViewDelegate
+      
+      let searchController = UISearchController(searchResultsController: resultsTableController)
+      // searchController.searchResultsUpdater = self
+      
+      searchController.searchBar.autocapitalizationType = .none
+      if #available(iOS 11.0, *) {
+          // For iOS 11 and later, place the search bar in the navigation bar.
+          navigationItem.searchController = searchController
+          
+          // Make the search bar always visible.
+          navigationItem.hidesSearchBarWhenScrolling = false
+      }
+      
+      // searchController.delegate = self
+      searchController.obscuresBackgroundDuringPresentation = false // The default is true.
+      // searchController.searchBar.delegate = self // Monitor when the search button is tapped.
+      
+      /** Search presents a view controller by applying normal view controller presentation semantics.
+       This means that the presentation moves up the view controller hierarchy until it finds the root
+       view controller or one that defines a presentation context.
+       */
+      
+      /** Specify that this view controller determines how the search controller is presented.
+       The search controller should be presented modally and match the physical size of this view controller.
+       */
+      definesPresentationContext = true
   }
 }

@@ -36,7 +36,7 @@ class ArtisanHomeController: UIViewController {
   override func viewDidLoad() {
 
     loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
-    self.setupSideMenu()
+    self.setupSideMenu(false)
     let app = UIApplication.shared.delegate as? AppDelegate
     if app?.showDemoVideo ?? false {
       app?.showDemoVideo = false

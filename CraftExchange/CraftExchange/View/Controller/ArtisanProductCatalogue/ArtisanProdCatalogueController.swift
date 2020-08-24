@@ -49,7 +49,7 @@ class ArtisanProdCatalogueController: UITableViewController {
         refreshControl?.beginRefreshing()
         refreshControl?.sendActions(for: .valueChanged)
         try? reachabilityManager?.startNotifier()
-        
+        self.setupSideMenu(true)
         definesPresentationContext = false
         
         let center = NotificationCenter.default
