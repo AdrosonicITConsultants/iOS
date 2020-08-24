@@ -24,7 +24,10 @@ class BuyerProductDetailController: FormViewController {
 
     var product: Product?
     var productImages: [UIImage]? = []
-        
+    var showMoreProduct: Int = -1
+    var addProdDetailToWishlist: ((_ prodId: Int) -> ())?
+    var deleteProdDetailToWishlist: ((_ prodId: Int) -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -51,13 +54,26 @@ class BuyerProductDetailController: FormViewController {
         form
         +++ Section()
             <<< ImageViewRow() {
+                $0.tag = "ProductNameRow"
                 $0.cell.height = { 130.0 }
                 $0.cell.title.text = product?.productTag ?? ""
                 $0.cell.productCodeValue.text = product?.code ?? ""
                 $0.cell.title.isHidden = false
                 $0.cell.productCodeValue.isHidden = false
                 $0.cell.productCodeLbl.isHidden = false
-            }
+                $0.cell.wishlistBtn.isHidden = false
+                $0.cell.wishlistBtn.tag = product?.entityID ?? 0
+                $0.cell.delegate = self
+            }.cellUpdate({ (cell, row) in
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
+                    obj == self.product?.entityID
+                }) ?? false {
+                    cell.wishlistBtn.setImage(UIImage.init(named: "red heart"), for: .normal)
+                }else {
+                    cell.wishlistBtn.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
+                }
+            })
             <<< CollectionViewRow() {
                 $0.tag = "PhotoRow"
                 $0.cell.collectionView.register(UINib(nibName: "ImageSelectorCell", bundle: nil), forCellWithReuseIdentifier: "ImageSelectorCell")
@@ -84,11 +100,34 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.height = { 100.0 }
                 $0.cell.productCatLbl.text = ProductCategory.getProductCat(catId: product?.productCategoryId ?? 0)?.prodCatDescription
                 $0.cell.productTypeLbl.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc
+                $0.cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: product?.clusterId ?? 0)?.clusterDescription ?? "-"
                 if product?.productStatusId != 2 {
                     $0.cell.productAvailabilityLbl.text = "In Stock"
                     $0.cell.productAvailabilityLbl.textColor = UIColor().CEGreen()
                     $0.cell.madeToOrderLbl.isHidden = true
                 }
+            }
+            <<< LabelRow {
+                $0.cell.height = { 1.0 }
+                $0.cell.backgroundColor = .lightGray
+            }
+            <<< LabelRow() {
+                $0.cell.height = { 30.0 }
+                $0.title = "Artisan brand".localized
+            }
+            <<< ProdDetailYarnValueRow {
+                $0.tag = "ArtisanBrandRow"
+                $0.cell.height = { 80.0 }
+                $0.cell.titleLbl.isHidden = true
+                $0.cell.rowImage.isHidden = false
+                $0.cell.rowImageWidthConstraint.constant = 60
+                $0.cell.valueLbl1.text = "      "
+                $0.cell.valueLbl2.text = "      "
+                $0.cell.valueLbl3.text = "      "
+            }
+            <<< LabelRow {
+                $0.cell.height = { 1.0 }
+                $0.cell.backgroundColor = .lightGray
             }
             <<< weaveTypeView
             +++ weaveTypeSection
@@ -246,6 +285,17 @@ class BuyerProductDetailController: FormViewController {
             }
             <<< washView
             +++ washSection
+            +++ Section()
+            <<< ImageViewRow() {
+                $0.cell.height = { 80.0 }
+                $0.cell.cellImage.image = UIImage.init(named: "like_it")
+            }
+            <<< ButtonRow() {
+                $0.title = "Genrate Enquiry"
+            }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = .black
+                cell.tintColor = .white
+            })
         
         var strArr:[String] = []
         product?.weaves .forEach({ (weave) in
@@ -281,8 +331,21 @@ class BuyerProductDetailController: FormViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         downloadProdImages()
+        downloadArtisanBrandLogo()
     }
     
+}
+
+extension BuyerProductDetailController: ProdDetailWishlistProtocol {
+    func addToWishlist(prodId: Int) {
+        print("add to wishlist")
+        addProdDetailToWishlist?(prodId)
+    }
+    
+    func deleteProdWishlist(prodId: Int) {
+        print("delete from wishlist")
+        deleteProdDetailToWishlist?(prodId)
+    }
 }
 
 extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -346,5 +409,57 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
                 }
             }
         }
+    }
+    
+    func downloadArtisanBrandLogo() {
+        let artist = User.getUser(userId: product?.artitionId ?? 0)
+        if let tag = artist?.buyerCompanyDetails.first?.logo, artist?.buyerCompanyDetails.first?.logo != "" {
+            let prodId = artist?.entityID ?? 0
+            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.updateArtistLogo(image: downloadedImage)
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = BrandLogoService.init(client: client, userObject: (artist)!)
+                    service.fetch().observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            let tag = artist?.buyerCompanyDetails.first?.logo ?? "name.jpg"
+                            let prodId = artist?.entityID ?? 0
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                            self.updateArtistLogo(image:UIImage.init(data: attachment) ?? UIImage.init(named: "person_icon")!)
+                        }
+                    }.dispose(in: self.bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        else if let tag = artist?.profilePic, artist?.profilePic != "" {
+            let prodId = artist?.entityID ?? 0
+            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.updateArtistLogo(image: downloadedImage)
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = UserProfilePicService.init(client: client, userObject: (artist)!)
+                    service.fetch().observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            let tag = artist?.profilePic ?? "name.jpg"
+                            let prodId = artist?.entityID ?? 0
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                            self.updateArtistLogo(image:UIImage.init(data: attachment) ?? UIImage.init(named: "person_icon")!)
+                        }
+                    }.dispose(in: self.bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func updateArtistLogo(image: UIImage) {
+        let row = form.rowBy(tag: "ArtisanBrandRow") as? ProdDetailYarnValueRow
+        row?.cell.rowImage.image = image
+        row?.updateCell()
     }
 }

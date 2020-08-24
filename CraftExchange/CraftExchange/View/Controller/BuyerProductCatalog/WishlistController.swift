@@ -116,10 +116,14 @@ extension WishlistController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("*** object ***")
-        let vc = BuyerProductDetailController.init(style: .plain)
-        vc.product = allProducts?[indexPath.row]
-        vc.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(vc, animated: true)
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: allProducts?[indexPath.row])
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
     }
 }
 

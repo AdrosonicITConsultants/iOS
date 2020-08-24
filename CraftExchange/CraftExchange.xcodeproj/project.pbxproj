@@ -99,6 +99,7 @@
 		C074EE3C24EEC3DD00B0973B /* WishlistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3B24EEC3DD00B0973B /* WishlistService.swift */; };
 		C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A12477EB8500B0B0FA /* RoundedButton.swift */; };
 		C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A52478394700B0B0FA /* RoundedTextField.swift */; };
+		C08C168C24F4431500D3100A /* BuyerProductDetailsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08C168B24F4431500D3100A /* BuyerProductDetailsScene.swift */; };
 		C08FBDFC2497EF870065BB20 /* REGBuyerPersonalInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBDFB2497EF870065BB20 /* REGBuyerPersonalInfoController.swift */; };
 		C08FBDFE2497F2DA0065BB20 /* REGBuyerPersonalInfoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBDFD2497F2DA0065BB20 /* REGBuyerPersonalInfoScene.swift */; };
 		C08FBE002497F31B0065BB20 /* REGBuyerPersonalInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBDFF2497F31B0065BB20 /* REGBuyerPersonalInfoService.swift */; };
@@ -355,6 +356,7 @@
 		C07D69A12477EB8500B0B0FA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C07D69A52478394700B0B0FA /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		C07D69AA247874BF00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		C08C168B24F4431500D3100A /* BuyerProductDetailsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductDetailsScene.swift; sourceTree = "<group>"; };
 		C08FBDFB2497EF870065BB20 /* REGBuyerPersonalInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerPersonalInfoController.swift; sourceTree = "<group>"; };
 		C08FBDFD2497F2DA0065BB20 /* REGBuyerPersonalInfoScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerPersonalInfoScene.swift; sourceTree = "<group>"; };
 		C08FBDFF2497F31B0065BB20 /* REGBuyerPersonalInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerPersonalInfoService.swift; sourceTree = "<group>"; };
@@ -1190,6 +1192,7 @@
 				C0FBE34E24C6F7420037347A /* ArtisanProductCatalogueScene.swift */,
 				C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */,
 				C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */,
+				C08C168B24F4431500D3100A /* BuyerProductDetailsScene.swift */,
 			);
 			path = ProductCatalogueScenes;
 			sourceTree = "<group>";
@@ -1412,6 +1415,7 @@
 				C0FBE34C24C6B6560037347A /* RealmChanges.swift in Sources */,
 				C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */,
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
+				C08C168C24F4431500D3100A /* BuyerProductDetailsScene.swift in Sources */,
 				C092579A249F7235006C4C05 /* BuyerTabbarController.swift in Sources */,
 				C0917DF024D4660E006B6664 /* ProductCare.swift in Sources */,
 				C04842BE24E7D46200D3207F /* CustomProduct+Transaction.swift in Sources */,
