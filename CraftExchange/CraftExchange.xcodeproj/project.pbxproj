@@ -28,6 +28,11 @@
 		C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */; };
 		C0285AA124CF4E4F0045623A /* BuyerProductCatalogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */; };
 		C0285AA324CF58E00045623A /* BuyerProductCatalogScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */; };
+		C02DC55024F4F02B00805C98 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DC54F24F4F02B00805C98 /* SearchTableViewController.swift */; };
+		C02DC55224F4F0AE00805C98 /* Searchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DC55124F4F0AE00805C98 /* Searchable.swift */; };
+		C02DC55524F4F1D000805C98 /* SearchScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DC55424F4F1D000805C98 /* SearchScene.swift */; };
+		C02DC55724F4F26C00805C98 /* Product+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DC55624F4F26C00805C98 /* Product+Search.swift */; };
+		C02DC55A24F4F30800805C98 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DC55924F4F30800805C98 /* SearchService.swift */; };
 		C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */; };
 		C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */; };
 		C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87A2476F0BC00279D7F /* AppDelegate.swift */; };
@@ -240,6 +245,8 @@
 		C0AE9CFB24ED842F0037ECB3 /* ToggleOptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AE9CFA24ED842F0037ECB3 /* ToggleOptionRow.swift */; };
 		C0B08AE124787DB400BDEDE5 /* LoginEmailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */; };
 		C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */; };
+		C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6CF6224F518AE00287D7A /* LabelCell.xib */; };
+		C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6CF6624F51D8200287D7A /* LabelCell.swift */; };
 		C0E212D62498D11C00EC2B80 /* REGBuyerAddressInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */; };
 		C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D72498D13700EC2B80 /* REGBuyerAddressInfoService.swift */; };
 		C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D92498D17300EC2B80 /* REGBuyerAddressInfoScene.swift */; };
@@ -280,6 +287,11 @@
 		C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePicService.swift; sourceTree = "<group>"; };
 		C0285AA024CF4E4F0045623A /* BuyerProductCatalogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatalogController.swift; sourceTree = "<group>"; };
 		C0285AA224CF58E00045623A /* BuyerProductCatalogScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatalogScene.swift; sourceTree = "<group>"; };
+		C02DC54F24F4F02B00805C98 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		C02DC55124F4F0AE00805C98 /* Searchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Searchable.swift; path = CraftExchange/Framework/Searchable.swift; sourceTree = SOURCE_ROOT; };
+		C02DC55424F4F1D000805C98 /* SearchScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScene.swift; sourceTree = "<group>"; };
+		C02DC55624F4F26C00805C98 /* Product+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Search.swift"; sourceTree = "<group>"; };
+		C02DC55924F4F30800805C98 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductType+Transaction.swift"; sourceTree = "<group>"; };
 		C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YarnCount+Transaction.swift"; sourceTree = "<group>"; };
 		C03BD8772476F0BC00279D7F /* CraftExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CraftExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -497,6 +509,8 @@
 		C0AE9CFA24ED842F0037ECB3 /* ToggleOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleOptionRow.swift; sourceTree = "<group>"; };
 		C0B08AE024787DB400BDEDE5 /* LoginEmailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailController.swift; sourceTree = "<group>"; };
 		C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		C0D6CF6224F518AE00287D7A /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
+		C0D6CF6624F51D8200287D7A /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoController.swift; sourceTree = "<group>"; };
 		C0E212D72498D13700EC2B80 /* REGBuyerAddressInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoService.swift; sourceTree = "<group>"; };
 		C0E212D92498D17300EC2B80 /* REGBuyerAddressInfoScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoScene.swift; sourceTree = "<group>"; };
@@ -603,6 +617,30 @@
 			path = ForgotPasswordScenes;
 			sourceTree = "<group>";
 		};
+		C02DC54E24F4F00900805C98 /* SearchController */ = {
+			isa = PBXGroup;
+			children = (
+				C02DC54F24F4F02B00805C98 /* SearchTableViewController.swift */,
+			);
+			path = SearchController;
+			sourceTree = "<group>";
+		};
+		C02DC55324F4F1BA00805C98 /* SearchScene */ = {
+			isa = PBXGroup;
+			children = (
+				C02DC55424F4F1D000805C98 /* SearchScene.swift */,
+			);
+			path = SearchScene;
+			sourceTree = "<group>";
+		};
+		C02DC55824F4F2F600805C98 /* SearchService */ = {
+			isa = PBXGroup;
+			children = (
+				C02DC55924F4F30800805C98 /* SearchService.swift */,
+			);
+			path = SearchService;
+			sourceTree = "<group>";
+		};
 		C03BD86E2476F0BC00279D7F = {
 			isa = PBXGroup;
 			children = (
@@ -654,6 +692,7 @@
 		C03BD88F2476F83100279D7F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C02DC55324F4F1BA00805C98 /* SearchScene */,
 				C074EE3524EEC18500B0973B /* WishlistScenes */,
 				C04842B524E7C29E00D3207F /* CustomProductScenes */,
 				C05E3AD824D1B38A00963FAA /* UploadProductScenes */,
@@ -670,6 +709,7 @@
 		C03BD8902476F83B00279D7F /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C02DC55824F4F2F600805C98 /* SearchService */,
 				C04842B224E7BB7F00D3207F /* CustomProductService */,
 				C071E25E247EFAAB0085805B /* BaseService.swift */,
 				C005BCB024C16EF100197519 /* HomeScreenService.swift */,
@@ -737,6 +777,7 @@
 		C03BD8932476F87E00279D7F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C02DC54E24F4F00900805C98 /* SearchController */,
 				C0E6D04024EBF828008CFB1F /* ProductDetail */,
 				C04842B824E7C32700D3207F /* CustomProduct */,
 				C05E3AD224D177AF00963FAA /* UploadProduct */,
@@ -837,6 +878,7 @@
 			isa = PBXGroup;
 			children = (
 				C0FBE34B24C6B6560037347A /* RealmChanges.swift */,
+				C02DC55124F4F0AE00805C98 /* Searchable.swift */,
 				C09B3F0124BA615800FBC115 /* Disk */,
 				C071E23D247EE50C0085805B /* Extensions */,
 			);
@@ -906,6 +948,7 @@
 				C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */,
 				C005BCB724C1DC9F00197519 /* Product+Request.swift */,
 				C04842B024E7BB0F00D3207F /* CustomeProduct+Request.swift */,
+				C02DC55624F4F26C00805C98 /* Product+Search.swift */,
 			);
 			path = "Entity+Networking";
 			sourceTree = "<group>";
@@ -966,6 +1009,8 @@
 				C0E6D03924EBD799008CFB1F /* Product Detail Cells */,
 				C0AE9CF824ED7E970037ECB3 /* ToggleOptionRow.xib */,
 				C0AE9CFA24ED842F0037ECB3 /* ToggleOptionRow.swift */,
+				C0D6CF6224F518AE00287D7A /* LabelCell.xib */,
+				C0D6CF6624F51D8200287D7A /* LabelCell.swift */,
 			);
 			path = CustomAssets;
 			sourceTree = "<group>";
@@ -1281,6 +1326,7 @@
 				C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */,
 				C0A9108E247CD8D000852695 /* Lato-Black.ttf in Resources */,
 				C0E6D03D24EBDFD9008CFB1F /* ProdDetailYarnRow.xib in Resources */,
+				C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */,
 				C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */,
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
 				C06DB542249B59910009BCC1 /* Tabbar.storyboard in Resources */,
@@ -1385,6 +1431,7 @@
 				C09B3F0D24BA615900FBC115 /* Disk+InternalHelpers.swift in Sources */,
 				C08FBE002497F31B0065BB20 /* REGBuyerPersonalInfoService.swift in Sources */,
 				C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */,
+				C02DC55524F4F1D000805C98 /* SearchScene.swift in Sources */,
 				C0917DEA24D461FD006B6664 /* YarnCount.swift in Sources */,
 				C04F72D924C611D500E8122E /* ArtisanProductCell.swift in Sources */,
 				C074EE3724EEC1A300B0973B /* WishlistScene.swift in Sources */,
@@ -1406,6 +1453,7 @@
 				C09B3F0F24BA615900FBC115 /* Disk+Data.swift in Sources */,
 				C071E24B247EE59E0085805B /* RequestParameters.swift in Sources */,
 				C071E264247F07930085805B /* ReactiveExtentions.swift in Sources */,
+				C02DC55724F4F26C00805C98 /* Product+Search.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
 				C08FBE06249801CD0065BB20 /* REGBuyerCompanyInfoService.swift in Sources */,
 				C06DCAC924D346F100F1435F /* OrderAvailabilityCell.swift in Sources */,
@@ -1413,6 +1461,8 @@
 				C0925798249F7009006C4C05 /* BuyerHomeController.swift in Sources */,
 				C005BCB624C1AB2F00197519 /* Product.swift in Sources */,
 				C0FBE34C24C6B6560037347A /* RealmChanges.swift in Sources */,
+				C02DC55A24F4F30800805C98 /* SearchService.swift in Sources */,
+				C02DC55224F4F0AE00805C98 /* Searchable.swift in Sources */,
 				C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */,
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
 				C08C168C24F4431500D3100A /* BuyerProductDetailsScene.swift in Sources */,
@@ -1507,6 +1557,7 @@
 				C071E22B247E7F820085805B /* Address.swift in Sources */,
 				C09794A324EABB7900C11AC7 /* CustomProductImage.swift in Sources */,
 				C0AE9CF124ECDA2B0037ECB3 /* ProdDetailYarnRow.swift in Sources */,
+				C02DC55024F4F02B00805C98 /* SearchTableViewController.swift in Sources */,
 				C0917DF424D47361006B6664 /* Yarn+Transaction.swift in Sources */,
 				C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */,
 				C0ACE9A82485970100EFA4ED /* REGValidateUserEmailScene.swift in Sources */,
@@ -1553,6 +1604,7 @@
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C05498D524995914005D5E57 /* RegisterBuyerController.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
+				C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */,
 				C0285AA324CF58E00045623A /* BuyerProductCatalogScene.swift in Sources */,
 				C0A2A00424B8D22E00A49E56 /* User+Transaction.swift in Sources */,
 				C04842B724E7C2ED00D3207F /* CustomProductListScene.swift in Sources */,

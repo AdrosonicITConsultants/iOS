@@ -117,6 +117,17 @@ class ArtisanHomeController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+    @IBAction func searchSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = SearchService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataSource {

@@ -89,4 +89,39 @@ extension ProductCatalogService {
         
         return controller
     }
+    
+    func createScene(for searchString: String) -> UIViewController {
+        let controller = ArtisanProdCatalogueController.init(style: .plain)
+        controller.fromFilter = true
+        
+        controller.title = "\"\(searchString)\" Results"
+        controller.dataSource = nil
+        let dataSource = TableViewRealmDataSource<Results<Product>>()
+        controller.dataSource = dataSource
+        let results = Product.allArtisanProducts(for: searchString, madeWithAntaran: 0)
+        results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
+            cell, results, indexPath in
+            let prodObj = results[indexPath.row]
+            cell.configure(prodObj)
+        }.dispose(in: controller.bag)
+
+        controller.refreshCategory = { (catId) in
+            let results = Product.allArtisanProducts(for: searchString, madeWithAntaran: catId)
+            results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
+                cell, results, indexPath in
+                let prodObj = results[indexPath.row]
+                cell.configure(prodObj)
+            }.dispose(in: controller.bag)
+        }
+
+        controller.tableView.reactive.selectedRowIndexPath
+        .bind(to: controller, context: .immediateOnMain) { _, indexPath in
+            guard let object = dataSource.changeset?[indexPath.row] else { return }
+            let vc = UploadProductService(client: self.client).createScene(productObject: object)
+            vc.modalPresentationStyle = .fullScreen
+            controller.navigationController?.pushViewController(vc, animated: true)
+        }.dispose(in: controller.bag)
+        
+        return controller
+    }
 }

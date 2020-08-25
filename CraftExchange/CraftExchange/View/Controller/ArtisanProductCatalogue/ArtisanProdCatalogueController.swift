@@ -23,6 +23,7 @@ class ArtisanProdCatalogueController: UITableViewController {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var refreshCategory: ((_ catId: Int) -> ())?
+    var fromFilter: Bool = false
     
     override init(style: UITableView.Style) {
         super.init(style: style)
@@ -56,11 +57,13 @@ class ArtisanProdCatalogueController: UITableViewController {
         center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
             self.applicationEnteredForeground?()
         }
-        
-        
-        let rightButtonItem = UIBarButtonItem.init(title: "Change Category", style: .plain, target: self, action: #selector(showCategory))
-        self.navigationItem.rightBarButtonItem = rightButtonItem
-        
+        if fromFilter {
+            let rightButtonItem = UIBarButtonItem.init(title: "Filter by Collection", style: .plain, target: self, action: #selector(showCreatorOptions))
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }else {
+            let rightButtonItem = UIBarButtonItem.init(title: "Change Category", style: .plain, target: self, action: #selector(showCategory))
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +89,29 @@ class ArtisanProdCatalogueController: UITableViewController {
                 self.title = option.prodCatDescription
                 self.refreshCategory?(option.entityID)
                 
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func showCreatorOptions() {
+        let textArray = ["Show Both", "Artisan Self Design Collection","Antaran Co-Design Collection"]
+        let alert = UIAlertController.init(title: "Please select", message: "", preferredStyle: .actionSheet)
+        for option in textArray {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                if let index = textArray.firstIndex(of: option) {
+                    if index == 2 {
+                        self.refreshCategory?(1)
+                    }else {
+                        self.refreshCategory?(0)
+                    }
+                }else {
+                    self.refreshCategory?(0)
+                }
           }
           alert.addAction(action)
         }

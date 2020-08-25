@@ -67,6 +67,63 @@ extension Product {
         }
     }
     
+    static func allArtisanProducts(for searchString: String, madeWithAntaran: Int) -> SafeSignal<Results<Product>> {
+        let realm = try? Realm()
+        guard let userId = KeychainManager.standard.userID else {
+            return Signal { observer in
+                observer.receive(completion: .finished)
+                return BlockDisposable {
+                }
+            }
+        }
+        if madeWithAntaran == 0 {
+            return Signal { observer in
+                if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId) {
+                    let query = NSCompoundPredicate(type: .or, subpredicates:
+                        [NSPredicate(format: "code contains[c] %@",searchString),
+                         NSPredicate(format: "productTag contains[c] %@",searchString)])
+                    let finalResults = results.filter(query)
+                    observer.receive(lastElement: finalResults)
+                }else {
+                    observer.receive(completion: .finished)
+                }
+                return BlockDisposable {
+                }
+            }
+        }else {
+            return Signal { observer in
+                if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId).filter("%K == %@","madeWithAnthran", madeWithAntaran) {
+                    let query = NSCompoundPredicate(type: .or, subpredicates:
+                        [NSPredicate(format: "code contains[c] %@",searchString),
+                         NSPredicate(format: "productTag contains[c] %@",searchString)])
+                    let finalResults = results.filter(query)
+                    observer.receive(lastElement: finalResults)
+                }else {
+                    observer.receive(completion: .finished)
+                }
+                return BlockDisposable {
+                }
+            }
+        }
+        /*
+         
+         products = realm.where(ArtisanProducts::class.java)
+         .equalTo("madeWithAntaran",isMadeWithAntaran).findAll()
+         .where()
+         .contains("productCode", searchFilter, Case.INSENSITIVE)
+         .or()
+         .contains("productCategoryDesc", searchFilter, Case.INSENSITIVE)
+         .or()
+         .contains("productTypeDesc", searchFilter, Case.INSENSITIVE)
+         .or()
+         .contains("productTag",searchFilter, Case.INSENSITIVE)
+
+         //                    .or()
+         //                    .contains("product_spe",searchFilter,Case.INSENSITIVE) TODO : Search Weave type
+         .findAll()
+         */
+    }
+    
     static func allProducts(categoryId: Int) -> SafeSignal<Results<Product>> {
         let realm = try? Realm()
         guard KeychainManager.standard.userID != nil else {
