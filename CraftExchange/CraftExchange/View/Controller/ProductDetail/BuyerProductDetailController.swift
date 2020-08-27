@@ -19,6 +19,7 @@ import JGProgressHUD
 import RealmSwift
 import Realm
 import ViewRow
+import WebKit
 
 class BuyerProductDetailController: FormViewController {
 
@@ -383,11 +384,11 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageSelectorCell",
                                                       for: indexPath) as! ImageSelectorCell
-        
+        cell.addImageButton.tag = 500+indexPath.row
+        cell.addImageButton.isUserInteractionEnabled = true
+        cell.delegate = self
         if collectionView.tag == 2002 {
-            cell.delegate = self
             cell.addImageButton.tag = indexPath.row
-            cell.addImageButton.isUserInteractionEnabled = true
             if let productObj = suggestedProdArray?[indexPath.row] {
                 if let tag = productObj.productImages.first?.lable {
                     let prodId = productObj.entityID
@@ -413,7 +414,6 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
             }
         }else {
             cell.addImageButton.setImage(self.productImages?[indexPath.row], for: .normal)
-            cell.addImageButton.isUserInteractionEnabled = false
         }
 
         cell.deleteImageButton.isHidden = true
@@ -427,13 +427,18 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
     }
     
     func addImageSelected(atIndex: Int) {
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: suggestedProdArray?[atIndex])
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
-            print(error.localizedDescription)
+        if atIndex >= 500 {
+            let finalIndex = atIndex - 500
+            loadWebView(index: finalIndex)
+        }else {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: suggestedProdArray?[atIndex])
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -531,4 +536,45 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
         row?.cell.rowImage.image = image
         row?.updateCell()
     }
+    
+    func loadWebView(index: Int) {
+        let webView = UIView.init(frame: CGRect.init(x: 0, y: 70, width: self.view.frame.size.width, height: self.view.frame.size.height - 70))
+        webView.tag = 333
+        
+        let wkwebView = WKWebView.init(frame: CGRect.init(x: 0, y: 20, width: self.view.frame.size.width, height: webView.frame.size.height - 20))
+        wkwebView.navigationDelegate = self
+        wkwebView.uiDelegate = self
+
+        if let image = productImages?[index],
+            let data = image.pngData() {
+            let base64 = data.base64EncodedString(options: [])
+            let url = "data:application/png;base64," + base64
+            let html = "<html><body><img src='\(url)'><meta name=\"viewport\" content=\"width=device-width, shrink-to-fit=YES\"></body></html>"
+            wkwebView.loadHTMLString(html, baseURL: URL(fileURLWithPath: ""))
+        }
+        wkwebView.contentMode = .scaleAspectFill
+        webView.addSubview(wkwebView)
+        
+        let closeBtn = UIButton.init(type: .custom)
+        closeBtn.frame = CGRect.init(x: 20, y: 40, width: 80, height: 30)
+        closeBtn.tintColor = .white
+        closeBtn.setImage(UIImage.init(systemName: "xmark"), for: .normal)
+        closeBtn.setTitle(" Close", for: .normal)
+        closeBtn.setTitleColor(.white, for: .normal)
+        closeBtn.backgroundColor = .black
+        closeBtn.addTarget(self, action: #selector(closeSelected), for: .touchUpInside)
+        webView.addSubview(closeBtn)
+        
+        self.view.addSubview(webView)
+        self.view.bringSubviewToFront(webView)
+    }
+    
+    @objc func closeSelected() {
+        let view = self.view.viewWithTag(333)
+        view?.removeFromSuperview()
+    }
+}
+
+extension BuyerProductDetailController: WKNavigationDelegate, WKUIDelegate {
+    
 }
