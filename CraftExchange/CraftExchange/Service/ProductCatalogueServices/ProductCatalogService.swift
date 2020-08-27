@@ -45,4 +45,8 @@ class ProductCatalogService: BaseService<Data> {
     func removeProductFromWishlist(prodId: Int) -> SafeSignal<Data> {
       return Product.deleteProductFromWishlist(withId: prodId).response(using: client).debug()
     }
+    
+    func searchArtisan(page:Int, suggestion: String, suggestionType: Int) -> SafeSignal<Data> {
+      return Product.searchArtisanProduct(page: page, searchString: suggestion, suggectionType: suggestionType).response(using: client).debug()
+    }
 }

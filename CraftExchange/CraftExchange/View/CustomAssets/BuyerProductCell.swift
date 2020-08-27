@@ -49,7 +49,7 @@ class BuyerProductCell: UITableViewCell {
         wishlistButton.tag = productObj.entityID
         productTag.text = productObj.productTag ?? ""
         productDesc.text = productObj.productDesc ?? productObj.productSpec ?? ""
-        if productObj.productStatusId == 1 {
+        if productObj.productStatusId == 2 {
             inStock.text = "Available in stock".localized
             inStock.textColor = UIColor().CEGreen()
         }else {

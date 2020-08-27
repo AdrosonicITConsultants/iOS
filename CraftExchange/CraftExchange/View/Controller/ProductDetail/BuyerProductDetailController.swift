@@ -27,6 +27,7 @@ class BuyerProductDetailController: FormViewController {
     var showMoreProduct: Int = -1
     var addProdDetailToWishlist: ((_ prodId: Int) -> ())?
     var deleteProdDetailToWishlist: ((_ prodId: Int) -> ())?
+    var suggestedProdArray: Results<Product>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -290,6 +291,20 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.height = { 80.0 }
                 $0.cell.cellImage.image = UIImage.init(named: "like_it")
             }
+            <<< LabelRow() {
+                $0.title = "More \(ProductCategory.getProductCat(catId: product?.productCategoryId ?? 0)?.prodCatDescription ?? "Items") from \(ClusterDetails.getCluster(clusterId: product?.clusterId ?? 0)?.clusterDescription ?? "-")"
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textAlignment = .center
+                cell.textLabel?.textColor = .lightGray
+            })
+            <<< CollectionViewRow() {
+                $0.tag = "SuggestionRow"
+                
+                $0.cell.collectionView.register(UINib(nibName: "ImageSelectorCell", bundle: nil), forCellWithReuseIdentifier: "ImageSelectorCell")
+                $0.cell.collectionDelegate = self
+                $0.cell.collectionView.tag = 2002
+                $0.cell.height = { 280.0 }
+            }
             <<< ButtonRow() {
                 $0.title = "Genrate Enquiry"
             }.cellUpdate({ (cell, row) in
@@ -330,8 +345,16 @@ class BuyerProductDetailController: FormViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        downloadProdImages()
+        if productImages?.count ?? 0 == 0 {
+            downloadProdImages()
+        }
         downloadArtisanBrandLogo()
+        if let prodObj = product {
+            suggestedProdArray = Product.getSuggestedProduct(forProdId: prodObj.entityID, catId: prodObj.productCategoryId, clusterID: prodObj.clusterId)
+            let row = self.form.rowBy(tag: "SuggestionRow") as? CollectionViewRow
+            row?.reload()
+            row?.cell.collectionView.reloadData()
+        }
     }
     
 }
@@ -348,28 +371,74 @@ extension BuyerProductDetailController: ProdDetailWishlistProtocol {
     }
 }
 
-extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionViewDataSource, AddImageProtocol {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView.tag == 2002 {
+            return ((suggestedProdArray?.count ?? 0) > 5) ? 5 : suggestedProdArray?.count ?? 0
+        }
         return self.productImages?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageSelectorCell",
                                                       for: indexPath) as! ImageSelectorCell
-        cell.addImageButton.setImage(self.productImages?[indexPath.row], for: .normal)
-        cell.addImageButton.isUserInteractionEnabled = false
+        
+        if collectionView.tag == 2002 {
+            cell.delegate = self
+            cell.addImageButton.tag = indexPath.row
+            cell.addImageButton.isUserInteractionEnabled = true
+            if let productObj = suggestedProdArray?[indexPath.row] {
+                if let tag = productObj.productImages.first?.lable {
+                    let prodId = productObj.entityID
+                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                        cell.addImageButton.setImage(downloadedImage, for: .normal)
+                    }else {
+                        do {
+                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                            let service = ProductImageService.init(client: client, productObject: productObj)
+                            service.fetch().observeNext { (attachment) in
+                                DispatchQueue.main.async {
+                                    let tag = productObj.productImages.first?.lable ?? "name.jpg"
+                                    let prodId = productObj.entityID
+                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                    cell.addImageButton.setImage(UIImage.init(data: attachment), for: .normal)
+                                }
+                            }.dispose(in: self.bag)
+                        }catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }else {
+            cell.addImageButton.setImage(self.productImages?[indexPath.row], for: .normal)
+            cell.addImageButton.isUserInteractionEnabled = false
+        }
+
         cell.deleteImageButton.isHidden = true
         cell.deleteImageButton.isUserInteractionEnabled = false
-        cell.deleteImageButton.tag = indexPath.row
         cell.editImageButton.isHidden = true
         cell.editImageButton.isUserInteractionEnabled = false
         cell.lineView.isHidden = true
         cell.contentView.backgroundColor = .white
+        
         return cell
     }
     
-    @objc func addImageSelected() {
-        self.showImagePickerAlert()
+    func addImageSelected(atIndex: Int) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: suggestedProdArray?[atIndex])
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteImageSelected(atIndex: Int) {
+        
     }
     
     func reloadAddPhotoRow() {

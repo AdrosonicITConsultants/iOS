@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol AddImageProtocol {
-    func addImageSelected()
+    func addImageSelected(atIndex: Int)
     func deleteImageSelected(atIndex: Int)
 }
 
@@ -23,7 +23,8 @@ class ImageSelectorCell: UICollectionViewCell {
     var delegate: AddImageProtocol?
     
     @IBAction func addProductSelected(_ sender: Any) {
-        delegate?.addImageSelected()
+        let btn = sender as! UIButton
+        delegate?.addImageSelected(atIndex: btn.tag)
     }
     
     @IBAction func deleteProductSelected(_ sender: Any) {

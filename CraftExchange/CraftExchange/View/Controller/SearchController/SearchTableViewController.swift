@@ -67,19 +67,19 @@ extension SearchTableViewController {
         let selectedSuggestion = suggestionArray?[indexPath.row]
         if selectedSuggestion?["suggestionType"] as? String == "Global" {
             if let selectedString = searchController?.searchBar.text {
-                listSearchProduct(searchString: selectedString)
+                listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
             }
         }else {
             if let selectedString = selectedSuggestion?["suggestion"] as? String {
-                listSearchProduct(searchString: selectedString)
+                listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
             }
         }
     }
     
-    func listSearchProduct(searchString: String) {
+    func listSearchProduct(searchString: String, type: Int) {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = ProductCatalogService(client: client).createScene(for: searchString)
+            let vc = ProductCatalogService(client: client).createScene(for: searchString, suggestionType: type)
             vc.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc, animated: true)
         }catch {
@@ -87,11 +87,18 @@ extension SearchTableViewController {
         }
     }
     
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let footer = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
-//        
-//        return footer
-//    }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footer = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
+        footer.textAlignment = .center
+        footer.textColor = .lightGray
+        footer.font = .systemFont(ofSize: 10)
+        footer.text = "CRAFT EXCHANGE. An initiative by TATA TRUSTS."
+        return footer
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 30
+    }
 }
 
 extension SearchTableViewController: UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate {

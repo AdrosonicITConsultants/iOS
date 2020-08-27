@@ -21,7 +21,7 @@ class ArtisanProductCell: UITableViewCell {
     func configure(_ productObj: Product) {
         productTag.text = productObj.productTag ?? ""
         productDesc.text = productObj.productSpec ?? productObj.productDesc ?? ""
-        if productObj.productStatusId == 1 {
+        if productObj.productStatusId == 2 {
             inStock.isHidden = true
             exclusive.isHidden = false
         }else {

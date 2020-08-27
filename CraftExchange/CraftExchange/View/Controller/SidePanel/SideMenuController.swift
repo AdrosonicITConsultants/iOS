@@ -145,6 +145,9 @@ class SideMenuController: FormViewController {
             row.cell.imageView?.image = UIImage(named: "ios_logout")
             row.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.tabbar = nil
+            appDelegate?.artisanTabbar = nil
             KeychainManager.standard.deleteAll()
             self.showLoading()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

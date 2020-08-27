@@ -20,5 +20,13 @@ extension ProductType {
         }
         return nil
     }
+    
+    static func getProductType(searchString: String) -> [Int]? {
+        let realm = try? Realm()
+        if let object = realm?.objects(ProductType.self).filter("%K == %@", "productDesc", searchString) {
+            return object.compactMap({ $0.entityID })
+        }
+        return nil
+    }
 }
 

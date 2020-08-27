@@ -81,7 +81,16 @@ extension HomeScreenService {
             }
         
         vc.viewModel.viewWillAppear = {
+            guard vc.reachabilityManager?.connection != .unavailable else {
+                DispatchQueue.main.async {
+                    vc.dataSource = Product().getAllProductCatForUser()
+                    vc.refreshLayout()
+                }
+                return
+            }
             Product.setAllArtisanProductIsDeleteTrue()
+//            vc.dataSource = Product().getAllProductCatForUser()
+//            vc.refreshLayout()
             self.fetchAllArtisanProduct().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                 print(responseData)
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -91,6 +100,7 @@ extension HomeScreenService {
                             if let proddata = try? JSONSerialization.data(withJSONObject: prodArray, options: .fragmentsAllowed) {
                                 if let object = try? JSONDecoder().decode([Product].self, from: proddata) {
                                     DispatchQueue.main.async {
+//                                        Product.setAllArtisanProductIsDeleteTrue()
                                         object .forEach { (prodObj) in
                                             prodObj.saveOrUpdate()
                                             if prodObj == object.last {
@@ -104,7 +114,15 @@ extension HomeScreenService {
                             }
                           }
                       }
-                  }
+                  }else {
+                    Product.setAllArtisanProductIsDeleteFalse()
+                    vc.dataSource = Product().getAllProductCatForUser()
+                    vc.refreshLayout()
+                }
+                }else {
+                    Product.setAllArtisanProductIsDeleteFalse()
+                    vc.dataSource = Product().getAllProductCatForUser()
+                    vc.refreshLayout()
                 }
             }.dispose(in: vc.bag)
         }

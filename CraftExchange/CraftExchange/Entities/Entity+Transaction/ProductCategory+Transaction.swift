@@ -19,6 +19,14 @@ extension ProductCategory {
         }
         return nil
     }
+    
+    static func getProductCat(searchString: String) -> [Int]? {
+        let realm = try? Realm()
+        if let object = realm?.objects(ProductCategory.self).filter("%K == %@", "prodCatDescription", searchString) {
+            return object.compactMap({ $0.entityID })
+        }
+        return nil
+    }
 
     func saveOrUpdate() {
       let realm = try! Realm()

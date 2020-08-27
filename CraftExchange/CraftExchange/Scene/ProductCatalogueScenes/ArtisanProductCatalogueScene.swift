@@ -90,7 +90,7 @@ extension ProductCatalogService {
         return controller
     }
     
-    func createScene(for searchString: String) -> UIViewController {
+    func createScene(for searchString: String, suggestionType: Int) -> UIViewController {
         let controller = ArtisanProdCatalogueController.init(style: .plain)
         controller.fromFilter = true
         
@@ -114,6 +114,20 @@ extension ProductCatalogService {
             }.dispose(in: controller.bag)
         }
 
+        controller.viewWillAppear = {
+            self.searchArtisan(page: 1, suggestion: searchString, suggestionType: suggestionType).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        for obj in array {
+                            if let proddata = try? JSONSerialization.data(withJSONObject: obj, options: .fragmentsAllowed) {
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
         controller.tableView.reactive.selectedRowIndexPath
         .bind(to: controller, context: .immediateOnMain) { _, indexPath in
             guard let object = dataSource.changeset?[indexPath.row] else { return }

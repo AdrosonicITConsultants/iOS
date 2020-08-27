@@ -226,7 +226,7 @@ class UploadProductController: FormViewController {
             cell.valueTextField.text = self.viewModel.prodName.value ?? ""
         })
         <<< RoundedTextFieldRow() {
-//            $0.cell.titleLabel.text = "Product Code"
+            $0.cell.titleLabel.text = "Product Code"
             $0.tag = "ProdCodeRow"
             $0.cell.height = { 80.0 }
             $0.cell.compulsoryIcon.isHidden = true
@@ -1405,7 +1405,7 @@ extension UploadProductController: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
     
-    @objc func addImageSelected() {
+    @objc func addImageSelected(atIndex: Int) {
         self.showImagePickerAlert()
     }
     

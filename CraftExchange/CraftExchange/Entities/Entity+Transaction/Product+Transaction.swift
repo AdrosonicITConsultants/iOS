@@ -14,6 +14,12 @@ import ReactiveKit
 
 extension Product {
     
+    static func getSuggestedProduct(forProdId: Int, catId: Int, clusterID: Int) -> Results<Product>? {
+        let realm = try? Realm()
+        let objects = realm?.objects(Product.self).filter("%K != %@", "entityID",forProdId).filter("%K == %@","productCategoryId",catId).filter("%K == %@", "clusterId",clusterID)
+        return objects
+    }
+    
     static public func getWishlistProducts() -> Results<Product>? {
         let realm = try? Realm()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -79,10 +85,9 @@ extension Product {
         if madeWithAntaran == 0 {
             return Signal { observer in
                 if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId) {
-                    let query = NSCompoundPredicate(type: .or, subpredicates:
-                        [NSPredicate(format: "code contains[c] %@",searchString),
-                         NSPredicate(format: "productTag contains[c] %@",searchString)])
+                    let query = getQuery(searchString: searchString)
                     let finalResults = results.filter(query)
+                    
                     observer.receive(lastElement: finalResults)
                 }else {
                     observer.receive(completion: .finished)
@@ -93,10 +98,8 @@ extension Product {
         }else {
             return Signal { observer in
                 if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId).filter("%K == %@","madeWithAnthran", madeWithAntaran) {
-                    let query = NSCompoundPredicate(type: .or, subpredicates:
-                        [NSPredicate(format: "code contains[c] %@",searchString),
-                         NSPredicate(format: "productTag contains[c] %@",searchString)])
-                    let finalResults = results.filter(query)
+                    let finalQuery = getQuery(searchString: searchString)
+                    let finalResults = results.filter(finalQuery)
                     observer.receive(lastElement: finalResults)
                 }else {
                     observer.receive(completion: .finished)
@@ -105,23 +108,26 @@ extension Product {
                 }
             }
         }
-        /*
-         
-         products = realm.where(ArtisanProducts::class.java)
-         .equalTo("madeWithAntaran",isMadeWithAntaran).findAll()
-         .where()
-         .contains("productCode", searchFilter, Case.INSENSITIVE)
-         .or()
-         .contains("productCategoryDesc", searchFilter, Case.INSENSITIVE)
-         .or()
-         .contains("productTypeDesc", searchFilter, Case.INSENSITIVE)
-         .or()
-         .contains("productTag",searchFilter, Case.INSENSITIVE)
-
-         //                    .or()
-         //                    .contains("product_spe",searchFilter,Case.INSENSITIVE) TODO : Search Weave type
-         .findAll()
-         */
+    }
+    
+    static func getQuery(searchString: String) -> NSCompoundPredicate {
+        let prodTypeIds = ProductType.getProductType(searchString: searchString)
+        let prodCatIds = ProductCategory.getProductCat(searchString: searchString)
+        var finalQuery: NSCompoundPredicate
+        let query = NSCompoundPredicate(type: .or, subpredicates:
+            [NSPredicate(format: "code contains[c] %@",searchString),
+             NSPredicate(format: "productTag contains[c] %@",searchString)])
+        finalQuery = query
+        if prodTypeIds?.count ?? 0 > 0 {
+            let newQuery = NSCompoundPredicate(type: .or, subpredicates: [query,NSPredicate(format: "productTypeId IN %@", prodTypeIds!)])
+            finalQuery = newQuery
+        }
+        if prodCatIds?.count ?? 0 > 0 {
+            let newQuery = NSCompoundPredicate(type: .or, subpredicates: [finalQuery,NSPredicate(format: "productCategoryId IN %@", prodCatIds!)])
+            finalQuery = newQuery
+        }
+        
+        return finalQuery
     }
     
     static func allProducts(categoryId: Int) -> SafeSignal<Results<Product>> {
@@ -281,6 +287,20 @@ extension Product {
             try? realm?.write {
                 results .forEach { (obj) in
                     obj.isDeleted = true
+                }
+            }
+        }
+    }
+    
+    static func setAllArtisanProductIsDeleteFalse() {
+        let realm = try? Realm()
+        guard let userId = KeychainManager.standard.userID else {
+            return
+        }
+        if let results = realm?.objects(Product.self).filter("%K == %@", "artitionId", userId) {
+            try? realm?.write {
+                results .forEach { (obj) in
+                    obj.isDeleted = false
                 }
             }
         }

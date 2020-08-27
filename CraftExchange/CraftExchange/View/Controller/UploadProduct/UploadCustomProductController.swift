@@ -1109,7 +1109,7 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
         return cell
     }
     
-    @objc func addImageSelected() {
+    @objc func addImageSelected(atIndex: Int) {
         self.showImagePickerAlert()
     }
     

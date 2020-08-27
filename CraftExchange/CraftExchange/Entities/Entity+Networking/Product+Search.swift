@@ -20,4 +20,19 @@ extension Product {
             needsAuthorization: false
         )
     }
+    
+    public static func searchArtisanProduct(page: Int, searchString: String, suggectionType: Int) -> Request<Data, APIError> {
+      let parameters: [String: Any] = ["pageNo":page,
+                                       "searchString": searchString,
+                                       "searchType":suggectionType]
+        return Request(
+            path: "search/searchArtisanProducts",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "searchArtisanProduct failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }
