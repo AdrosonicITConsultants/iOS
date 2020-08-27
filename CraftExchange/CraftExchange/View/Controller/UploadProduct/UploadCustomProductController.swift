@@ -327,42 +327,6 @@ class UploadCustomProductController: FormViewController {
             $0.cell.delegate = self
             $0.hidden = true
         }
-        /*
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.selectWeaveType.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< MultipleSelectorRow<String>() {row in
-            row.title = "Weave Types"
-            row.options = allWeaves?.compactMap { $0.weaveDesc }
-            if let selectedWeaves = self.viewModel.prodWeaveType.value?.compactMap({$0.weaveDesc}) {
-                row.value = Set(selectedWeaves)
-            }
-            row.hidden = true
-        }.onChange({ (row) in
-            self.viewModel.prodWeaveType.value?.removeAll()
-            row.value?.compactMap({$0}).forEach({ (str) in
-                if let selectedWeaveObj = self.allWeaves?.filter({ (obj) -> Bool in
-                    obj.weaveDesc == str
-                }).first {
-                    if !(self.viewModel.prodWeaveType.value?.contains(selectedWeaveObj) ?? false) {
-                        self.viewModel.prodWeaveType.value?.append(selectedWeaveObj)
-                    }else {
-                        if let index = self.viewModel.prodWeaveType.value?.firstIndex(of: selectedWeaveObj) {
-                            self.viewModel.prodWeaveType.value?.remove(at: index)
-                        }
-                    }
-                }
-            })
-        })*/
         +++ weaveTypeSection
         <<< RoundedButtonViewRow("Next3") {
             $0.tag = "Next3"
@@ -624,6 +588,7 @@ class UploadCustomProductController: FormViewController {
             self.viewModel.gsm.value = $0.cell.valueTextField.text
         }.cellUpdate({ (cell, row) in
             self.viewModel.gsm.value = cell.valueTextField.text
+            cell.valueTextField.maxLength = 10
             if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
                 cell.height = { 80.0 }
             }else {
@@ -665,6 +630,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.textView.text = self.viewModel.prodDescription.value ?? ""
             $0.value = self.viewModel.prodDescription.value ?? ""
         }.cellUpdate({ (cell, row) in
+            cell.textView.delegate = self
             self.viewModel.prodDescription.value = cell.textView.text
         })
         <<< RoundedButtonViewRow("Next8") {
@@ -858,6 +824,18 @@ class UploadCustomProductController: FormViewController {
         }
     }
     
+}
+
+extension UploadCustomProductController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let maxLength = 500
+        let typeCasteToStringFirst = textView.text as NSString?
+        if let newRange = textView.selectedRange {
+            let newString = typeCasteToStringFirst?.replacingCharacters(in: newRange, with: text)
+            return newString?.count ?? 0 <= maxLength
+        }
+        return true
+    }
 }
 
 extension UploadCustomProductController: ButtonActionProtocol, DimensionCellProtocol, LengthWidthCellProtocol, ToggleButtonProtocol {

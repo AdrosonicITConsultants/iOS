@@ -18,6 +18,7 @@ class RoundedTextFieldView: Cell<String>, CellType {
     
     public override func setup() {
         super.setup()
+        valueTextField.delegate = self
     }
 
     public override func update() {
@@ -25,6 +26,17 @@ class RoundedTextFieldView: Cell<String>, CellType {
         //backgroundColor = (row.value ?? false) ? .white : .black
     }
     
+}
+
+extension RoundedTextFieldView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let typeCasteToStringFirst = textField.text as NSString?
+        if let newRange = textField.selectedRange {
+            let newString = typeCasteToStringFirst?.replacingCharacters(in: newRange, with: string)
+            return newString?.count ?? 0 <= valueTextField.maxLength
+        }
+        return true
+    }
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value

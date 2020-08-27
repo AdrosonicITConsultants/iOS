@@ -12,7 +12,7 @@ import Bond
 import ReactiveKit
 
 @IBDesignable
-class RoundedTextField: UITextField {
+class RoundedTextField: UITextField, UITextFieldDelegate {
 
     // Provides left padding for images
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
@@ -32,8 +32,9 @@ class RoundedTextField: UITextField {
             updateView()
         }
     }
-
+    
     @IBInspectable var leftPadding: CGFloat = 0
+    @IBInspectable var maxLength: Int = 500
 
     @IBInspectable var color: UIColor = UIColor.black {
         didSet {
@@ -82,4 +83,23 @@ class RoundedTextField: UITextField {
       button.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
     }
   }
+    
+    override func shouldChangeText(in range: UITextRange, replacementText text: String) -> Bool {
+        let typeCasteToStringFirst = self.text as NSString?
+        if let newRange = self.selectedRange {
+            let newString = typeCasteToStringFirst?.replacingCharacters(in: newRange, with: text)
+            return newString?.count ?? 0 <= maxLength
+        }
+        return true
+    }
+
+}
+
+extension UITextInput {
+    var selectedRange: NSRange? {
+        guard let range = selectedTextRange else { return nil }
+        let location = offset(from: beginningOfDocument, to: range.start)
+        let length = offset(from: range.start, to: range.end)
+        return NSRange(location: location, length: length)
+    }
 }

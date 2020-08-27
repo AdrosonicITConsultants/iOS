@@ -216,13 +216,14 @@ class UploadProductController: FormViewController {
         }
         <<< RoundedTextFieldRow() {
             $0.tag = "ProdNameRow"
-            $0.cell.titleLabel.text = "Name of the product(50 characters)"
+            $0.cell.titleLabel.text = "Name of the product(40 characters)"
             $0.cell.height = { 80.0 }
             self.viewModel.prodName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             $0.cell.valueTextField.text = self.viewModel.prodName.value ?? ""
             self.viewModel.prodName.value = $0.cell.valueTextField.text
             $0.hidden = true
         }.cellUpdate({ (cell, row) in
+            cell.valueTextField.maxLength = 40
             cell.valueTextField.text = self.viewModel.prodName.value ?? ""
         })
         <<< RoundedTextFieldRow() {
@@ -341,42 +342,6 @@ class UploadProductController: FormViewController {
             $0.hidden = true
         }
         +++ weaveTypeSection
-        /*
-        +++ Section(){ section in
-            section.tag = "\(NewProductState.selectWeaveType.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< MultipleSelectorRow<String>() {row in
-            row.title = "Weave Types"
-            row.options = allWeaves?.compactMap { $0.weaveDesc }
-            if let selectedWeaves = self.viewModel.prodWeaveType.value?.compactMap({$0.weaveDesc}) {
-                row.value = Set(selectedWeaves)
-            }
-            row.hidden = true
-        }.onChange({ (row) in
-            self.viewModel.prodWeaveType.value?.removeAll()
-            row.value?.compactMap({$0}).forEach({ (str) in
-                if let selectedWeaveObj = self.allWeaves?.filter({ (obj) -> Bool in
-                    obj.weaveDesc == str
-                }).first {
-                    if !(self.viewModel.prodWeaveType.value?.contains(selectedWeaveObj) ?? false) {
-                        self.viewModel.prodWeaveType.value?.append(selectedWeaveObj)
-                    }else {
-                        if let index = self.viewModel.prodWeaveType.value?.firstIndex(of: selectedWeaveObj) {
-                            self.viewModel.prodWeaveType.value?.remove(at: index)
-                        }
-                    }
-                }
-            })
-        })*/
         <<< RoundedButtonViewRow("Next3") {
             $0.tag = "Next3"
             $0.cell.titleLabel.isHidden = true
@@ -600,46 +565,6 @@ class UploadProductController: FormViewController {
             $0.hidden = true
         }
         +++ washCareTypeSection
-        /*
-        +++ Section(){ section in
-            section.tag = "\(NewProductState.washCare.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 7, title: "Enter the wash care instruction")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< MultipleSelectorRow<String>() {row in
-            row.title = "Wash care instruction"
-            row.options = allProdCare?.compactMap({$0.productCareDesc})
-            if let selectedObjs = self.viewModel.prodCare.value?.compactMap({$0.productCareDesc}) {
-                row.value = Set(selectedObjs)
-            }
-            row.hidden = true
-        }.onChange({ (row) in
-            self.viewModel.prodCare.value?.removeAll()
-            row.value?.compactMap({$0}).forEach({ (str) in
-                if let selectedObj = self.allProdCare?.filter({ (obj) -> Bool in
-                    obj.productCareDesc == str
-                }).first {
-                    if !(self.viewModel.prodCare.value?.contains(selectedObj) ?? false) {
-                        self.viewModel.prodCare.value?.append(selectedObj)
-                    }else {
-                        if let index = self.viewModel.prodCare.value?.firstIndex(of: selectedObj) {
-                            self.viewModel.prodCare.value?.remove(at: index)
-                        }
-                    }
-                }
-            })
-        }).cellSetup({ (cell, row) in
-            if let selectedObjs = self.viewModel.prodCare.value?.compactMap({$0.productCareDesc}) {
-                row.value = Set(selectedObjs)
-            }
-        })*/
         <<< RoundedButtonViewRow("Next7") {
             $0.tag = "Next7"
             $0.cell.titleLabel.isHidden = true
@@ -799,6 +724,7 @@ class UploadProductController: FormViewController {
             $0.cell.valueTextField.text = self.viewModel.gsm.value
             self.viewModel.gsm.value = $0.cell.valueTextField.text
         }.cellUpdate({ (cell, row) in
+            cell.valueTextField.maxLength = 10
             self.viewModel.gsm.value = cell.valueTextField.text
             if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
                 cell.height = { 80.0 }
@@ -841,6 +767,7 @@ class UploadProductController: FormViewController {
             $0.cell.textView.text = self.viewModel.prodDescription.value ?? ""
             $0.value = self.viewModel.prodDescription.value ?? ""
         }.cellUpdate({ (cell, row) in
+            cell.textView.delegate = self
             self.viewModel.prodDescription.value = cell.textView.text
         })
         <<< RoundedButtonViewRow("Next11") {
@@ -1136,6 +1063,18 @@ class UploadProductController: FormViewController {
         return view
     }
     
+}
+
+extension UploadProductController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let maxLength = 500
+        let typeCasteToStringFirst = textView.text as NSString?
+        if let newRange = textView.selectedRange {
+            let newString = typeCasteToStringFirst?.replacingCharacters(in: newRange, with: text)
+            return newString?.count ?? 0 <= maxLength
+        }
+        return true
+    }
 }
 
 extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, LengthWidthCellProtocol, AvailabilityCellProtocol, ToggleButtonProtocol {
