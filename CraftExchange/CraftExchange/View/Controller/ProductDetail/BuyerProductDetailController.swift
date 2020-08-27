@@ -28,6 +28,7 @@ class BuyerProductDetailController: FormViewController {
     var showMoreProduct: Int = -1
     var addProdDetailToWishlist: ((_ prodId: Int) -> ())?
     var deleteProdDetailToWishlist: ((_ prodId: Int) -> ())?
+    var viewWillAppear: (() -> ())?
     var suggestedProdArray: Results<Product>?
     
     override func viewDidLoad() {
@@ -52,7 +53,9 @@ class BuyerProductDetailController: FormViewController {
             $0.cell.height = { 30.0 }
             $0.title = "Wash Care Instructions"
         }
-
+        
+        viewWillAppear?()
+        
         form
         +++ Section()
             <<< ImageViewRow() {
@@ -343,6 +346,10 @@ class BuyerProductDetailController: FormViewController {
                 cell.textLabel?.font = .systemFont(ofSize: 15, weight: .light)
             })
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewWillAppear?()
     }
     
     override func viewDidAppear(_ animated: Bool) {

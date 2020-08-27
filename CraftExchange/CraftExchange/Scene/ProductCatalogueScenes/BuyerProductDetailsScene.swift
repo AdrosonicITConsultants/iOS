@@ -19,6 +19,29 @@ extension ProductCatalogService {
         let vc = BuyerProductDetailController.init(style: .plain)
         vc.product = forProduct
         
+        vc.viewWillAppear = {
+            vc.showLoading()
+            self.getProductDetails(prodId: forProduct?.entityID ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        if let prodDictionary = json["data"] as? [String: Any] {
+                            if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
+                                if let object = try? JSONDecoder().decode(Product.self, from: proddata) {
+                                    DispatchQueue.main.async {
+                                        object.saveOrUpdate()
+                                        vc.hideLoading()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                }
+            }.dispose(in: vc.bag)
+        }
+        
         vc.addProdDetailToWishlist = { (prodId) in
 //            let service = ProductCatalogService.init(client: self.client)
             self.addProductToWishlist(prodId: prodId).bind(to: vc, context: .global(qos: .background)) {_,responseData in

@@ -76,6 +76,7 @@ class UploadCustomProductController: FormViewController {
     var allDye: Results<Dye>?
     var allReed: Results<ReedCount>?
     var product: CustomProduct?
+    var viewWillAppear: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +105,7 @@ class UploadCustomProductController: FormViewController {
         }
 
         if let productObj = product {
+            viewWillAppear?()
             let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
             rightButtonItem.tintColor = .red
             

@@ -134,6 +134,20 @@ extension Product {
       )
     }
     
+    public static func getProductDetails(prodId: Int) -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/getProduct/\(prodId)",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "get product details failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
+    
     public static func uploadProduct(json: [String: Any], imageData: [(String,Data)]) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         var str = json.jsonString

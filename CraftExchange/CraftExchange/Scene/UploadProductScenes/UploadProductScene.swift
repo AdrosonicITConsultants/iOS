@@ -122,6 +122,30 @@ extension UploadProductService {
     
         let vc = UploadCustomProductController.init(style: .plain)
         vc.product = productObject
+        
+        vc.viewWillAppear = {
+            vc.showLoading()
+            self.getCustomProductDetails(withId: productObject?.entityID ?? 0).bind(to: vc, context: .global(qos: .userInteractive)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        if let prodDictionary = json["data"] as? [String: Any] {
+                            if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
+                                if let object = try? JSONDecoder().decode(CustomProduct.self, from: proddata) {
+                                    DispatchQueue.main.async {
+                                        object.saveOrUpdate()
+                                        vc.hideLoading()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                }
+            }.dispose(in: vc.bag)
+        }
+        
         vc.viewModel.saveProductSelected = {
             if let productCategoryId = vc.viewModel.prodCategory.value?.entityID,
                 let productTypeId = vc.viewModel.prodType.value?.entityID,
@@ -182,10 +206,14 @@ extension UploadProductService {
                     })
                 }
                 if let existingProduct = vc.product {
+                    vc.showLoading()
                     newProductObj.id = existingProduct.entityID
                     let request = OfflineProductRequest(type: .editCustomProd, imageData: imgData, json: newProductObj.editJSON())
                     OfflineRequestManager.defaultManager.queueRequest(request)
-                    vc.navigationController?.popViewController(animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        vc.hideLoading()
+                        vc.navigationController?.popViewController(animated: true)
+                    }
                 }else {
                     let request = OfflineProductRequest(type: .uploadCustomProd, imageData: imgData, json: newProductObj.toJSON())
                     OfflineRequestManager.defaultManager.queueRequest(request)

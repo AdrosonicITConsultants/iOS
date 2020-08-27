@@ -24,4 +24,8 @@ class UploadProductService: BaseService<Data> {
     func deleteArtisanProduct(withId: Int) -> SafeSignal<Data> {
       return Product.deleteArtisanProduct(withId: withId).response(using: client).debug()
     }
+    
+    func getCustomProductDetails(withId: Int) -> SafeSignal<Data> {
+      return CustomProduct.getCustomProductDetails(custProdId: withId).response(using: client).debug()
+    }
 }

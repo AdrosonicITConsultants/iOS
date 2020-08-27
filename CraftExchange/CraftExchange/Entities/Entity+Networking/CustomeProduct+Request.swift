@@ -27,6 +27,20 @@ extension CustomProduct {
             needsAuthorization: true
         )
       }
+    
+    public static func getCustomProductDetails(custProdId: Int) -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "buyerCustomProduct/getProduct/\(custProdId)",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "get custom product details failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
 
     static func fetchCustomProductImage(with productId: Int, imageName: String) -> Request<Data, APIError> {
         var str = "CustomProduct/\(productId)/\(imageName)"
