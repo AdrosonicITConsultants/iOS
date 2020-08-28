@@ -14,8 +14,8 @@
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
-        <array key="TimesNewRoman.ttf">
-            <string>.SFUI-Regular</string>
+        <array key="PlayfairDisplay-SemiBold.ttf">
+            <string>PlayfairDisplay-SemiBold</string>
         </array>
     </customFonts>
     <scenes>
@@ -707,7 +707,7 @@
                                     <constraint firstAttribute="height" constant="50" id="M40-Lq-jFF"/>
                                     <constraint firstAttribute="width" constant="250" id="mxN-hs-xge"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="24"/>
+                                <fontDescription key="fontDescription" name="PlayfairDisplay-SemiBold" family="Playfair Display" pointSize="24"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
