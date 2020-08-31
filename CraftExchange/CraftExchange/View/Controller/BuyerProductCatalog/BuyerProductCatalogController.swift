@@ -52,7 +52,7 @@ class BuyerProductCatalogController: UIViewController {
         if let cluster = selectedCluster {
             self.titleLabel.text = cluster.clusterDescription
             self.titleLabel.isHidden = false
-            filterButton.setTitle("Filter by category".localized, for: .normal)
+            filterButton.setTitle("  Filter by category".localized, for: .normal)
             brandLogoHtConstraint.constant = 80
             brandLogoImage.isHidden = true
             descriptionLabel.text = getClusterDescription()//cluster.adjective
@@ -60,7 +60,7 @@ class BuyerProductCatalogController: UIViewController {
         }else if let category = selectedCategory {
             self.titleLabel.text = category.prodCatDescription
             self.titleLabel.isHidden = false
-            filterButton.setTitle("Filter by region".localized, for: .normal)
+            filterButton.setTitle("  Filter by region".localized, for: .normal)
             brandLogoHtConstraint.constant = 80
             brandLogoImage.isHidden = true
             descriptionLabel.text = category.prodCatDescription
@@ -77,13 +77,13 @@ class BuyerProductCatalogController: UIViewController {
                 self.title = artisan.firstName
             }
             descriptionLabel.text = "By \(artisan.firstName ?? "") \(artisan.lastName ?? "") from \(artisan.cluster?.clusterDescription ?? "")"
-            filterButton.setTitle("Filter by category".localized, for: .normal)
+            filterButton.setTitle("  Filter by category".localized, for: .normal)
             setBrandLogo()
         }else {
             self.titleLabel.text = ""
             brandLogoHtConstraint.constant = 0
             titleHtConstraint.constant = 0
-            filterButton.setTitle("Filter by collection".localized, for: .normal)
+            filterButton.setTitle("  Filter items by collection".localized, for: .normal)
             descriptionLabel.text = ""
             descriptionHtConstraint.constant = 0
             self.titleLabel.isHidden = true
@@ -218,9 +218,9 @@ class BuyerProductCatalogController: UIViewController {
         let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
         let all = UIAlertAction.init(title: "All".localized, style: .default) { (action) in
             if self.selectedCategory != nil {
-                self.filterButton.setTitle("Filter by region".localized, for: .normal)
+                self.filterButton.setTitle("  Filter by region".localized, for: .normal)
             }else if self.selectedCluster != nil || self.selectedArtisan != nil {
-                self.filterButton.setTitle("Filter by category".localized, for: .normal)
+                self.filterButton.setTitle("  Filter by category".localized, for: .normal)
             }
             self.setDatasource(withId: 0)
             self.tableView.reloadData()
@@ -235,7 +235,7 @@ class BuyerProductCatalogController: UIViewController {
             let catgories = realm.objects(ClusterDetails.self)
             for option in catgories {
                 let action = UIAlertAction.init(title: option.clusterDescription ?? "", style: .default) { (action) in
-                    self.filterButton.setTitle(option.clusterDescription, for: .normal)
+                    self.filterButton.setTitle("  \(option.clusterDescription ?? "")", for: .normal)
                     self.setDatasource(withId: option.entityID)
                     self.tableView.reloadData()
                     
@@ -248,7 +248,7 @@ class BuyerProductCatalogController: UIViewController {
             let catgories = realm.objects(ProductCategory.self)
             for option in catgories {
                 let action = UIAlertAction.init(title: option.prodCatDescription ?? "", style: .default) { (action) in
-                    self.filterButton.setTitle(option.prodCatDescription, for: .normal)
+                    self.filterButton.setTitle("  \(option.prodCatDescription ?? "")", for: .normal)
                     self.setDatasource(withId: option.entityID)
                     self.tableView.reloadData()
                     
@@ -261,7 +261,7 @@ class BuyerProductCatalogController: UIViewController {
             for option in textArray {
                 let action = UIAlertAction.init(title: option, style: .default) { (action) in
                     if let index = textArray.firstIndex(of: option) {
-                        self.filterButton.setTitle(option, for: .normal)
+                        self.filterButton.setTitle("  \(option)", for: .normal)
                         if index == 2 {
                             self.setDatasource(withId: 1)
                         }else {
