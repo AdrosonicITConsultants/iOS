@@ -29,6 +29,7 @@ class SearchTableViewController: UITableViewController, Searchable {
         tableView.register(UINib.init(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         searchController = UISearchController(searchResultsController: nil)
         searchController?.obscuresBackgroundDuringPresentation = false
+        searchController?.searchBar.placeholder = "Search products, codes, product type, weaves"
         searchController?.searchBar.delegate = self
         searchController?.searchBar.sizeToFit()
         definesPresentationContext = true
@@ -106,6 +107,25 @@ extension SearchTableViewController {
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 30
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let labelView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        let header = UILabel.init(frame: CGRect.init(x: 20, y: 0, width: tableView.frame.size.width-40, height: 60))
+        header.textAlignment = .left
+        header.textColor = .lightGray
+        header.font = .systemFont(ofSize: 16)
+        header.numberOfLines = 2
+        header.text = "No suggestions for this keyword. Try searching \"saree\", \"fabric\", \"ikat\""
+        labelView.addSubview(header)
+        return labelView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if searchController?.searchBar.text != nil && searchController?.searchBar.text?.count ?? 0 > 2 && dataArray.count == 0 {
+            return 60
+        }
+        return 0
     }
 }
 
