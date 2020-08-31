@@ -148,4 +148,26 @@ extension ArtisanProdCatalogueController {
 
         return UISwipeActionsConfiguration(actions: [viewEditAction])
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        header.backgroundColor = .black
+        header.textColor = .white
+        if dataSource?.changeset?.count == 1 {
+            header.text = " Found \(dataSource?.changeset?.count ?? 0) item"
+        }else if dataSource?.changeset?.count ?? 0 > 0 {
+            header.text = " Found \(dataSource?.changeset?.count ?? 0) items"
+        }else {
+            header.text = " No Results Found!"
+        }
+        header.font = .systemFont(ofSize: 15)
+        return header
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if fromFilter {
+            return 50
+        }
+        return 0
+    }
 }
