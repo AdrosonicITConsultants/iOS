@@ -88,6 +88,10 @@ extension ProductCatalogService {
             syncData()
         }
         
+        controller.productSelected = { (prodId) in
+            self.showSelectedProduct(for: controller, prodId: prodId)
+        }
+        
         controller.addToWishlist = { (prodId) in
             self.addProductToWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -168,6 +172,10 @@ extension ProductCatalogService {
             controller.viewWillAppear = {
                 syncData()
             }
+        
+        controller.productSelected = { (prodId) in
+            self.showSelectedProduct(for: controller, prodId: prodId)
+        }
             
             controller.addToWishlist = { (prodId) in
                 self.addProductToWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
@@ -201,5 +209,36 @@ extension ProductCatalogService {
             
             return controller
         }
+    
+    func showSelectedProduct(for controller: UIViewController, prodId: Int) {
+        controller.showLoading()
+        self.getProductDetails(prodId: prodId).bind(to: controller, context: .global(qos: .background)){ (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    if let prodDictionary = json["data"] as? [String: Any] {
+                        if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
+                            if let object = try? JSONDecoder().decode(Product.self, from: proddata) {
+                                DispatchQueue.main.async {
+                                    object.saveOrUpdate()
+                                    controller.hideLoading()
+                                    do {
+                                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                                        let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: Product.getProduct(searchId: prodId))
+                                        vc.modalPresentationStyle = .fullScreen
+                                        controller.navigationController?.pushViewController(vc, animated: true)
+                                    }catch {
+                                        print(error.localizedDescription)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                controller.hideLoading()
+            }
+        }.dispose(in: controller.bag)
+    }
 }
 

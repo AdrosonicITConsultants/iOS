@@ -24,6 +24,7 @@ class BuyerProductCatalogController: UIViewController {
     var refreshFilter: ((_ catId: Int) -> ())?
     var addToWishlist: ((_ prodId: Int) -> ())?
     var removeFromWishlist: ((_ prodId: Int) -> ())?
+    var productSelected: ((_ prodId: Int) -> ())?
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var brandLogoImage: UIImageView!
@@ -310,14 +311,7 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("*** object ***")
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: allPorducts?[indexPath.row])
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
-            print(error.localizedDescription)
-        }
+        self.productSelected?(allPorducts?[indexPath.row].entityID ?? 0)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -351,13 +345,6 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
     }
     
     func loadProduct(prodId: Int) {
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: Product.getProduct(searchId: prodId))
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
-            print(error.localizedDescription)
-        }
+        self.productSelected?(prodId)
     }
 }
