@@ -25,6 +25,7 @@ class BuyerProductCatalogController: UIViewController {
     var addToWishlist: ((_ prodId: Int) -> ())?
     var removeFromWishlist: ((_ prodId: Int) -> ())?
     var productSelected: ((_ prodId: Int) -> ())?
+    var refreshSearchResult: ((_ loadPage: Int) -> ())?
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var brandLogoImage: UIImageView!
@@ -41,6 +42,8 @@ class BuyerProductCatalogController: UIViewController {
     var madeByAntaran: Int = 0
     var searchIds: [Int] = []
     let realm = try! Realm()
+    var loadedPage = 1
+    var searchLimitReached = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -218,13 +221,13 @@ class BuyerProductCatalogController: UIViewController {
                 self.filterButton.setTitle("Filter by region".localized, for: .normal)
             }else if self.selectedCluster != nil || self.selectedArtisan != nil {
                 self.filterButton.setTitle("Filter by category".localized, for: .normal)
-            }else {
-                self.filterButton.setTitle("Filter by collection".localized, for: .normal)
             }
             self.setDatasource(withId: 0)
             self.tableView.reloadData()
         }
-        alert.addAction(all)
+        if searchIds.count == 0 {
+            alert.addAction(all)
+        }
         
         if selectedCategory != nil {
             //Show Region Filter Options
@@ -334,6 +337,16 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
             return 50
         }
         return 0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if searchIds.count > 0 && searchLimitReached == false {
+            let lastElement = (allPorducts?.count ?? 0) - 1
+            if indexPath.row == lastElement {
+                loadedPage += 1
+                self.refreshSearchResult?(loadedPage)
+            }
+        }
     }
     
     func wishlistSelected(prodId: Int) {

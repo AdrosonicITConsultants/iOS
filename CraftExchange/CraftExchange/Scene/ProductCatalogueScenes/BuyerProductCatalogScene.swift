@@ -126,89 +126,98 @@ extension ProductCatalogService {
     }
     
     func createScene(forBuyer searchString: String, suggestionType: Int) -> UIViewController {
-            let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "BuyerProductCatalogController") as! BuyerProductCatalogController
-            controller.title = "Search Results"
-        
-            func setupRefreshActions() {
-                syncData()
-            }
+        let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "BuyerProductCatalogController") as! BuyerProductCatalogController
+        controller.title = "Search Results"
+    
+        func setupRefreshActions() {
+            syncData()
+        }
 
-            func performSync() {
-                if controller.reachabilityManager?.connection != .unavailable {
-                    self.searchBuyerProducts(page: 1, suggestion: searchString, suggestionType: suggestionType).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
-                        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                            if let array = json["data"] as? [[String: Any]] {
-                                if let prodData = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
-                                    if let searchedProducts = try? JSONDecoder().decode([Product].self, from: prodData) {
-                                        DispatchQueue.main.async {
-                                            for obj in searchedProducts {
-                                                controller.searchIds.append(obj.entityID)
-                                                obj.partialSaveOrUpdate()
-                                            }
-                                            DispatchQueue.main.async {
-                                                controller.endRefresh()
-                                            }
-                                        }
+        func performSync() {
+            if controller.reachabilityManager?.connection != .unavailable {
+                searchBy(page: 1)
+            }
+        }
+        
+        func searchBy(page: Int) {
+            self.searchBuyerProducts(page: page, suggestion: searchString, suggestionType: suggestionType).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        if let prodData = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                            if let searchedProducts = try? JSONDecoder().decode([Product].self, from: prodData) {
+                                DispatchQueue.main.async {
+                                    for obj in searchedProducts {
+                                        controller.searchIds.append(obj.entityID)
+                                        obj.partialSaveOrUpdate()
                                     }
+                                    if searchedProducts.count == 0{
+                                        controller.searchLimitReached = true
+                                    }
+                                    controller.endRefresh()
                                 }
                             }
                         }
                     }
                 }
             }
+        }
             
-            func syncData() {
-                guard !controller.isEditing else { return }
-                guard controller.reachabilityManager?.connection != .unavailable else {
-                    DispatchQueue.main.async {
-                        controller.endRefresh()
-                    }
-                    return
+        func syncData() {
+            guard !controller.isEditing else { return }
+            guard controller.reachabilityManager?.connection != .unavailable else {
+                DispatchQueue.main.async {
+                    controller.endRefresh()
                 }
-                performSync()
+                return
             }
-            
-            controller.viewWillAppear = {
-                syncData()
-            }
+            performSync()
+        }
+        
+        controller.viewWillAppear = {
+            syncData()
+        }
         
         controller.productSelected = { (prodId) in
             self.showSelectedProduct(for: controller, prodId: prodId)
         }
-            
-            controller.addToWishlist = { (prodId) in
-                self.addProductToWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if json["valid"] as? Bool == true {
-                            DispatchQueue.main.async {
-                                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                                appDelegate?.wishlistIds?.append(prodId)
-                            }
-                        }
-                    }
-                }.dispose(in: controller.bag)
-            }
-            
-            controller.removeFromWishlist = { (prodId) in
-                self.removeProductFromWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if json["valid"] as? Bool == true {
-                            DispatchQueue.main.async {
-                                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                                if let index = appDelegate?.wishlistIds?.firstIndex(where: { (obj) -> Bool in
-                                    obj == prodId
-                                }) {
-                                    appDelegate?.wishlistIds?.remove(at: index)
-                                }
-                            }
-                        }
-                    }
-                }.dispose(in: controller.bag)
-            }
-            
-            return controller
+        
+        controller.refreshSearchResult = { (loadPage) in
+            searchBy(page: loadPage)
         }
+            
+        controller.addToWishlist = { (prodId) in
+            self.addProductToWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        DispatchQueue.main.async {
+                            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                            appDelegate?.wishlistIds?.append(prodId)
+                        }
+                    }
+                }
+            }.dispose(in: controller.bag)
+        }
+            
+        controller.removeFromWishlist = { (prodId) in
+            self.removeProductFromWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        DispatchQueue.main.async {
+                            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                            if let index = appDelegate?.wishlistIds?.firstIndex(where: { (obj) -> Bool in
+                                obj == prodId
+                            }) {
+                                appDelegate?.wishlistIds?.remove(at: index)
+                            }
+                        }
+                    }
+                }
+            }.dispose(in: controller.bag)
+        }
+        
+        return controller
+    }
     
     func showSelectedProduct(for controller: UIViewController, prodId: Int) {
         controller.showLoading()
