@@ -24,7 +24,10 @@ class ArtisanProdCatalogueController: UITableViewController {
     var viewDidAppear: (() -> ())?
     var refreshCategory: ((_ catId: Int) -> ())?
     var fromFilter: Bool = false
-    
+    var loadPage = 1
+    var searchLimitReached = false
+    var refreshSearchResult: ((_ loadPage: Int) -> ())?
+
     override init(style: UITableView.Style) {
         super.init(style: style)
         initTable()
@@ -169,5 +172,15 @@ extension ArtisanProdCatalogueController {
             return 50
         }
         return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if fromFilter && searchLimitReached == false {
+            let lastElement = (dataSource?.changeset?.count ?? 0) - 1
+            if indexPath.row == lastElement {
+                loadPage += 1
+                self.refreshSearchResult?(loadPage)
+            }
+        }
     }
 }

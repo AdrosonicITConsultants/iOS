@@ -128,22 +128,30 @@ extension ProductCatalogService {
 
         controller.viewWillAppear = {
             if controller.reachabilityManager?.connection != .unavailable {
-                self.searchArtisan(page: 1, suggestion: searchString, suggestionType: suggestionType).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if let array = json["data"] as? [[String: Any]] {
-                            if let prodData = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
-                                if let searchedProducts = try? JSONDecoder().decode([Product].self, from: prodData) {
-                                    DispatchQueue.main.async {
-                                        for obj in searchedProducts {
-                                            searchIds.append(obj.entityID)
-                                            obj.partialSaveOrUpdate()
-                                        }
+                searchBy(page: 1)
+            }
+        }
+        
+        func searchBy(page: Int) {
+            self.searchArtisan(page: page, suggestion: searchString, suggestionType: suggestionType).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        if let prodData = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                            if let searchedProducts = try? JSONDecoder().decode([Product].self, from: prodData) {
+                                DispatchQueue.main.async {
+                                    for obj in searchedProducts {
+                                        searchIds.append(obj.entityID)
+                                        obj.partialSaveOrUpdate()
+                                    }
+                                    if searchedProducts.count != 0 {
                                         let results = Product.getSearchProducts(idList: searchIds, madeWithAntaran: 0)
                                         results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
                                             cell, results, indexPath in
                                             let prodObj = results[indexPath.row]
                                             cell.configure(prodObj)
                                         }.dispose(in: controller.bag)
+                                    }else {
+                                        controller.searchLimitReached = true
                                     }
                                 }
                             }
@@ -151,6 +159,10 @@ extension ProductCatalogService {
                     }
                 }
             }
+        }
+        
+        controller.refreshSearchResult = { (loadPage) in
+            searchBy(page: loadPage)
         }
         
         controller.tableView.reactive.selectedRowIndexPath

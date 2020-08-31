@@ -304,9 +304,15 @@ extension Product {
         let realm = try! Realm()
         if let object = realm.objects(Product.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                object.code = code
-                object.productSpec = productSpec
-                object.productDesc = productDesc
+                if code != nil && code != "" {
+                    object.code = code
+                }
+                if productSpec != nil && productSpec != "" {
+                    object.productSpec = productSpec
+                }
+                if productDesc != nil && productDesc != "" {
+                    object.productDesc = productDesc
+                }
                 object.productTag = productTag
                 object.productStatusId = productStatusId
                 object.madeWithAnthran = madeWithAnthran
