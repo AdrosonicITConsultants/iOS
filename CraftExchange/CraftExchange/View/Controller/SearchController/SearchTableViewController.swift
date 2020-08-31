@@ -26,21 +26,15 @@ class SearchTableViewController: UITableViewController, Searchable {
     override func viewDidLoad() {
         suggestionArray = []
         dataArray = []
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = SearchService(client: client).createScene()
-            tableView.register(UINib.init(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
-            searchController = UISearchController(searchResultsController: nil)
-            searchController?.obscuresBackgroundDuringPresentation = false
-            searchController?.searchBar.delegate = self
-            searchController?.searchBar.sizeToFit()
-            definesPresentationContext = true
-            searchController?.searchResultsUpdater = self
-            searchController?.delegate = self
-            setup(with: searchController, and: tableView)
-        }catch {
-            print(error.localizedDescription)
-        }
+        tableView.register(UINib.init(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.obscuresBackgroundDuringPresentation = false
+        searchController?.searchBar.delegate = self
+        searchController?.searchBar.sizeToFit()
+        definesPresentationContext = true
+        searchController?.searchResultsUpdater = self
+        searchController?.delegate = self
+        setup(with: searchController, and: tableView)
     }
     
 }
@@ -65,15 +59,16 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchController?.resignFirstResponder()
         let selectedSuggestion = suggestionArray?[indexPath.row]
-        if selectedSuggestion?["suggestionType"] as? String == "Global" {
+//        if selectedSuggestion?["suggestionType"] as? String == "Global" {
             if let selectedString = searchController?.searchBar.text {
                 listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
             }
-        }else {
-            if let selectedString = selectedSuggestion?["suggestion"] as? String {
-                listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
-            }
-        }
+//        }else {
+//
+//            if let selectedString = selectedSuggestion?["suggestion"] as? String {
+//                listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
+//            }
+//        }
     }
     
     func listSearchProduct(searchString: String, type: Int) {

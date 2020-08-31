@@ -27,6 +27,28 @@ extension Product {
         return objects
     }
     
+    static public func getSearchProducts(idList: [Int], madeWithAntaran: Int) -> SafeSignal<Results<Product>> {
+        let realm = try? Realm()
+        return Signal { observer in
+            if madeWithAntaran == 0 {
+                if let results = realm?.objects(Product.self).filter("%K IN %@", "entityID",idList) {
+                    observer.receive(lastElement: results)
+                } else {
+                    observer.receive(completion: .finished)
+                }
+            }else {
+                if let results = realm?.objects(Product.self).filter("%K IN %@", "entityID",idList).filter("%K == %@","madeWithAnthran", madeWithAntaran) {
+                    observer.receive(lastElement: results)
+                } else {
+                    observer.receive(completion: .finished)
+                }
+            }
+            
+            return BlockDisposable {
+            }
+        }
+    }
+    
     static func getProduct(searchId: Int) -> Product? {
         let realm = try! Realm()
         if let object = realm.objects(Product.self).filter("%K == %@", "entityID", searchId).first {
@@ -270,6 +292,22 @@ extension Product {
                         object.weaves.append(img)
                     }
                 }
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+    
+    func partialSaveOrUpdate() {
+        let realm = try! Realm()
+        if let object = realm.objects(Product.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.code = code
+                object.productSpec = productSpec
+                object.productDesc = productDesc
+                object.productTag = productTag
             }
         } else {
             try? realm.write {

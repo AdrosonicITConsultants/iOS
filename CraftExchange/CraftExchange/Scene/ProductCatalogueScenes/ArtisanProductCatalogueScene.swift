@@ -93,34 +93,62 @@ extension ProductCatalogService {
     func createScene(for searchString: String, suggestionType: Int) -> UIViewController {
         let controller = ArtisanProdCatalogueController.init(style: .plain)
         controller.fromFilter = true
-        
-        controller.title = "\"\(searchString)\" Results"
+        var searchIds: [Int] = []
+        controller.title = "Search Results"
         controller.dataSource = nil
         let dataSource = TableViewRealmDataSource<Results<Product>>()
         controller.dataSource = dataSource
-        let results = Product.allArtisanProducts(for: searchString, madeWithAntaran: 0)
-        results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
-            cell, results, indexPath in
-            let prodObj = results[indexPath.row]
-            cell.configure(prodObj)
-        }.dispose(in: controller.bag)
-
-        controller.refreshCategory = { (catId) in
-            let results = Product.allArtisanProducts(for: searchString, madeWithAntaran: catId)
+        if controller.reachabilityManager?.connection == .unavailable {
+            let results = Product.allArtisanProducts(for: searchString, madeWithAntaran: 0)
             results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
                 cell, results, indexPath in
                 let prodObj = results[indexPath.row]
                 cell.configure(prodObj)
             }.dispose(in: controller.bag)
         }
+        
+
+        controller.refreshCategory = { (catId) in
+            if controller.reachabilityManager?.connection == .unavailable {
+                let results = Product.allArtisanProducts(for: searchString, madeWithAntaran: catId)
+                results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
+                    cell, results, indexPath in
+                    let prodObj = results[indexPath.row]
+                    cell.configure(prodObj)
+                }.dispose(in: controller.bag)
+            }else if searchIds.count > 0 {
+                let results = Product.getSearchProducts(idList: searchIds, madeWithAntaran: catId)
+                results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
+                    cell, results, indexPath in
+                    let prodObj = results[indexPath.row]
+                    cell.configure(prodObj)
+                }.dispose(in: controller.bag)
+            }
+        }
 
         controller.viewWillAppear = {
-            self.searchArtisan(page: 1, suggestion: searchString, suggestionType: suggestionType).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if let array = json["data"] as? [[String: Any]] {
-                        for obj in array {
-                            if let proddata = try? JSONSerialization.data(withJSONObject: obj, options: .fragmentsAllowed) {
-                                
+            if controller.reachabilityManager?.connection != .unavailable {
+                self.searchArtisan(page: 1, suggestion: searchString, suggestionType: suggestionType).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            if let prodData = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                                if let searchedProducts = try? JSONDecoder().decode([Product].self, from: prodData) {
+                                    DispatchQueue.main.async {
+                                        for obj in searchedProducts {
+                                            searchIds.append(obj.entityID)
+                                            obj.partialSaveOrUpdate()
+                                        }
+//                                        controller.dataSource = nil
+//                                        let dataSource = TableViewRealmDataSource<Results<Product>>()
+//                                        controller.dataSource = dataSource
+                                        let results = Product.getSearchProducts(idList: searchIds, madeWithAntaran: 0)
+                                        results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
+                                            cell, results, indexPath in
+                                            let prodObj = results[indexPath.row]
+                                            cell.configure(prodObj)
+                                        }.dispose(in: controller.bag)
+                                    }
+                                }
                             }
                         }
                     }
