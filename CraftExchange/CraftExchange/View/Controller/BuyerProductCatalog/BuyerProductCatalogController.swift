@@ -31,13 +31,14 @@ class BuyerProductCatalogController: UIViewController {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var brandLogoHtConstraint: NSLayoutConstraint!
     @IBOutlet weak var descriptionHtConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleHtConstraint: NSLayoutConstraint!
     
     var allPorducts: Results<Product>?
     var selectedCluster: ClusterDetails?
     var selectedCategory: ProductCategory?
     var selectedArtisan: User?
     var madeByAntaran: Int = 0
-    
+    var searchIds: [Int] = []
     let realm = try! Realm()
     
     override func viewDidLoad() {
@@ -74,6 +75,16 @@ class BuyerProductCatalogController: UIViewController {
             descriptionLabel.text = "By \(artisan.firstName ?? "") \(artisan.lastName ?? "") from \(artisan.cluster?.clusterDescription ?? "")"
             filterButton.setTitle("Filter by category".localized, for: .normal)
             setBrandLogo()
+        }else {
+            self.titleLabel.text = ""
+            brandLogoHtConstraint.constant = 0
+            titleHtConstraint.constant = 0
+            filterButton.setTitle("Filter by collection".localized, for: .normal)
+            descriptionLabel.text = ""
+            descriptionHtConstraint.constant = 0
+            self.titleLabel.isHidden = true
+            descriptionLabel.isHidden = true
+            brandLogoImage.isHidden = true
         }
         
         filterButton.layer.borderColor = UIColor.lightGray.cgColor
@@ -176,19 +187,14 @@ class BuyerProductCatalogController: UIViewController {
             }else {
                 allPorducts = realm.objects(Product.self).filter("%K == %@", "artitionId", artisan.entityID).filter("%K == %@", "productCategoryId", withId).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false)
             }
+        }else if searchIds.count > 0 {
+            if withId == 0 {
+                allPorducts = realm.objects(Product.self).filter("%K IN %@", "entityID",searchIds)
+            }else {
+                allPorducts = realm.objects(Product.self).filter("%K IN %@", "entityID",searchIds).filter("%K == %@","madeWithAnthran", withId)
+            }
         }
     }
-    /*
-    func heightForView(text:String, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = 10
-        label.lineBreakMode = .byTruncatingTail
-        label.font = .systemFont(ofSize: 15)
-        label.text = text
-
-        label.sizeToFit()
-        return label.frame.height
-    }*/
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -209,8 +215,10 @@ class BuyerProductCatalogController: UIViewController {
         let all = UIAlertAction.init(title: "All".localized, style: .default) { (action) in
             if self.selectedCategory != nil {
                 self.filterButton.setTitle("Filter by region".localized, for: .normal)
-            }else {
+            }else if self.selectedCluster != nil || self.selectedArtisan != nil {
                 self.filterButton.setTitle("Filter by category".localized, for: .normal)
+            }else {
+                self.filterButton.setTitle("Filter by collection".localized, for: .normal)
             }
             self.setDatasource(withId: 0)
             self.tableView.reloadData()
@@ -230,7 +238,7 @@ class BuyerProductCatalogController: UIViewController {
               }
               alert.addAction(action)
             }
-        }else {
+        }else if self.selectedCluster != nil || self.selectedArtisan != nil {
             //Show Category Filter Options
             alert.title = "Select Category".localized
             let catgories = realm.objects(ProductCategory.self)
@@ -240,6 +248,25 @@ class BuyerProductCatalogController: UIViewController {
                     self.setDatasource(withId: option.entityID)
                     self.tableView.reloadData()
                     
+              }
+              alert.addAction(action)
+            }
+        }else {
+            let textArray = ["Show Both", "Artisan Self Design Collection","Antaran Co-Design Collection"]
+            alert.title = "Please Select".localized
+            for option in textArray {
+                let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                    if let index = textArray.firstIndex(of: option) {
+                        self.filterButton.setTitle(option, for: .normal)
+                        if index == 2 {
+                            self.setDatasource(withId: 1)
+                        }else {
+                            self.setDatasource(withId: 0)
+                        }
+                        self.tableView.reloadData()
+                    }else {
+                        self.setDatasource(withId: 0)
+                    }
               }
               alert.addAction(action)
             }
@@ -291,6 +318,28 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
         }catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        header.backgroundColor = .black
+        header.textColor = .white
+        if allPorducts?.count == 1 {
+            header.text = " Found \(allPorducts?.count ?? 0) item"
+        }else if allPorducts?.count ?? 0 > 0 {
+            header.text = " Found \(allPorducts?.count ?? 0) items"
+        }else {
+            header.text = " No Results Found!"
+        }
+        header.font = .systemFont(ofSize: 15)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if searchIds.count > 0 {
+            return 50
+        }
+        return 0
     }
     
     func wishlistSelected(prodId: Int) {

@@ -21,4 +21,8 @@ class SearchService: BaseService<Data> {
     func artisanSearch(withString: String) -> SafeSignal<Data> {
       return Product.searchArtisanString(with: withString).response(using: client).debug()
     }
+    
+    func buyerSearch(withString: String) -> SafeSignal<Data> {
+      return Product.searchBuyerString(with: withString).response(using: client).debug()
+    }
 }

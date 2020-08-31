@@ -308,6 +308,8 @@ extension Product {
                 object.productSpec = productSpec
                 object.productDesc = productDesc
                 object.productTag = productTag
+                object.productStatusId = productStatusId
+                object.madeWithAnthran = madeWithAnthran
             }
         } else {
             try? realm.write {

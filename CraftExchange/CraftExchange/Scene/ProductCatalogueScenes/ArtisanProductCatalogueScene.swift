@@ -138,9 +138,6 @@ extension ProductCatalogService {
                                             searchIds.append(obj.entityID)
                                             obj.partialSaveOrUpdate()
                                         }
-//                                        controller.dataSource = nil
-//                                        let dataSource = TableViewRealmDataSource<Results<Product>>()
-//                                        controller.dataSource = dataSource
                                         let results = Product.getSearchProducts(idList: searchIds, madeWithAntaran: 0)
                                         results.bind(to: controller.tableView, cellType: ArtisanProductCell.self, using: dataSource) {
                                             cell, results, indexPath in

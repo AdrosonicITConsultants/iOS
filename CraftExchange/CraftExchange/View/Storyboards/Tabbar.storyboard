@@ -38,7 +38,7 @@
         <!--Wishlist Controller-->
         <scene sceneID="QjV-nc-QV3">
             <objects>
-                <viewController storyboardIdentifier="WishlistController" id="BY1-Au-wlF" customClass="WishlistController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WishlistController" id="BY1-Au-wlF" customClass="WishlistController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DEi-nM-s2q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +151,7 @@
         <!--Buyer Home Controller-->
         <scene sceneID="uUx-U7-ogb">
             <objects>
-                <viewController storyboardIdentifier="BuyerHomeController" id="7z9-L7-4Bz" customClass="BuyerHomeController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BuyerHomeController" id="7z9-L7-4Bz" customClass="BuyerHomeController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rIN-PO-eyg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -312,7 +312,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lcj-dI-h1s" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lcj-dI-h1s" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
                                         <rect key="frame" x="57" y="58" width="300" height="40"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -394,6 +394,9 @@
                             </barButtonItem>
                             <barButtonItem title="Item" image="ios_search" id="VRO-Fh-yWu">
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="searchSelected:" destination="7z9-L7-4Bz" id="aqX-AI-BbJ"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -430,7 +433,7 @@
         <!--Buyer Tabbar Controller-->
         <scene sceneID="Wat-YD-eFE">
             <objects>
-                <tabBarController storyboardIdentifier="BuyerTabbarController" id="xYw-dU-WQl" customClass="BuyerTabbarController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="BuyerTabbarController" id="xYw-dU-WQl" customClass="BuyerTabbarController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8dv-VN-qWU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -497,7 +500,7 @@
         <!--Design Collection Controller-->
         <scene sceneID="U1j-P7-l1d">
             <objects>
-                <viewController storyboardIdentifier="DesignCollectionController" id="Uka-tn-9Lt" customClass="DesignCollectionController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DesignCollectionController" id="Uka-tn-9Lt" customClass="DesignCollectionController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GkJ-Bf-vqY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -648,7 +651,7 @@
         <!--Buyer Product Catalog Controller-->
         <scene sceneID="tRi-IG-QJD">
             <objects>
-                <viewController storyboardIdentifier="BuyerProductCatalogController" id="vGY-f9-K4o" customClass="BuyerProductCatalogController" customModule="CraftExchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BuyerProductCatalogController" id="vGY-f9-K4o" customClass="BuyerProductCatalogController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nEn-6R-3Oh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -745,6 +748,7 @@
                         <outlet property="descriptionLabel" destination="EJU-RT-fCX" id="7cP-1s-kqu"/>
                         <outlet property="filterButton" destination="zRT-pH-an9" id="rJr-ZR-8nO"/>
                         <outlet property="tableView" destination="Xib-ci-E86" id="HqM-KD-VWk"/>
+                        <outlet property="titleHtConstraint" destination="M40-Lq-jFF" id="CYz-lj-ZWU"/>
                         <outlet property="titleLabel" destination="Kc4-Qe-NoT" id="7iS-MU-S6c"/>
                     </connections>
                 </viewController>

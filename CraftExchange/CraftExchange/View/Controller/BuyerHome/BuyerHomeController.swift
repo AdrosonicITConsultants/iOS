@@ -81,6 +81,17 @@ class BuyerHomeController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+    @IBAction func searchSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = SearchService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 
     func showVideo() {
     let path = Bundle.main.path(forResource: "video", ofType: "mp4")

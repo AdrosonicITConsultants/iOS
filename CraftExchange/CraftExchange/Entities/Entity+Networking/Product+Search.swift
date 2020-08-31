@@ -21,6 +21,18 @@ extension Product {
         )
     }
     
+    static func searchBuyerString(with searchString: String) -> Request<Data, APIError> {
+        var str = "search/getSuggestions?str=\(searchString)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
     public static func searchArtisanProduct(page: Int, searchString: String, suggectionType: Int) -> Request<Data, APIError> {
       let parameters: [String: Any] = ["pageNo":page,
                                        "searchString": searchString,
@@ -30,6 +42,21 @@ extension Product {
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "searchArtisanProduct failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func searchBuyerProduct(page: Int, searchString: String, suggectionType: Int) -> Request<Data, APIError> {
+      let parameters: [String: Any] = ["pageNo":page,
+                                       "searchString": searchString,
+                                       "searchType":suggectionType]
+        return Request(
+            path: "search/searchProducts",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "searchProducts failed")
               return $0},
             error: APIError.init,
             needsAuthorization: false

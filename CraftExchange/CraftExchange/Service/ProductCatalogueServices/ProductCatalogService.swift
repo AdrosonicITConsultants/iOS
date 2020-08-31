@@ -50,6 +50,10 @@ class ProductCatalogService: BaseService<Data> {
       return Product.searchArtisanProduct(page: page, searchString: suggestion, suggectionType: suggestionType).response(using: client).debug()
     }
     
+    func searchBuyerProducts(page:Int, suggestion: String, suggestionType: Int) -> SafeSignal<Data> {
+      return Product.searchBuyerProduct(page: page, searchString: suggestion, suggectionType: suggestionType).response(using: client).debug()
+    }
+    
     func getProductDetails(prodId: Int) -> SafeSignal<Data> {
       return Product.getProductDetails(prodId: prodId).response(using: client).debug()
     }
