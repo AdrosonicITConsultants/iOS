@@ -73,7 +73,7 @@ extension UIView {
             initiationView?.delegate = controller as? EnquiryExistsViewProtocol
             initiationView?.tag = 124
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 60, width: self.frame.width, height: self.frame.height)
+            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
             self.bringSubviewToFront(initiationView!)
         }
     }
@@ -96,7 +96,7 @@ extension UIView {
             initiationView?.delegate = controller as? EnquiryGeneratedViewProtocol
             initiationView?.tag = 125
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 60, width: self.frame.width, height: self.frame.height)
+            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
             self.bringSubviewToFront(initiationView!)
         }
     }

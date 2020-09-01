@@ -11,6 +11,7 @@ import UIKit
 
 protocol CustomProductCellProtocol {
     func deleteCustomProduct(withId: Int)
+    func generateCustomProdEnquiry(prodId: Int)
 }
 
 class BuyerCustomProductCell: UITableViewCell {
@@ -78,6 +79,10 @@ class BuyerCustomProductCell: UITableViewCell {
     
     @IBAction func deleteCustomProdSelected(_ sender: Any) {
         delegate?.deleteCustomProduct(withId: (sender as? UIButton)?.tag ?? 0)
+    }
+    
+    @IBAction func enquireNowSelected(_ sender: Any) {
+        delegate?.generateCustomProdEnquiry(prodId: deleteButton.tag)
     }
 }
 

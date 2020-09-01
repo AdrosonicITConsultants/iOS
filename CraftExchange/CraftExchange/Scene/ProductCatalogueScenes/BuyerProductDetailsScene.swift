@@ -76,12 +76,12 @@ extension ProductCatalogService {
         
         vc.checkEnquiry = { (prodId) in
             let service = ProductCatalogService.init(client: self.client)
-            service.checkEnquiryExists(for: vc, prodId: prodId)
+            service.checkEnquiryExists(for: vc, prodId: prodId, isCustom: false)
         }
         
         vc.generateNewEnquiry = { (prodId) in
             let service = ProductCatalogService.init(client: self.client)
-            service.generateNewEnquiry(controller: vc, prodId: prodId)
+            service.generateNewEnquiry(controller: vc, prodId: prodId, isCustom: false)
         }
         
         return vc

@@ -106,12 +106,12 @@ extension WishlistService {
         
         controller.checkEnquiry = { (prodId) in
             let service = ProductCatalogService.init(client: self.client)
-            service.checkEnquiryExists(for: controller, prodId: prodId)
+            service.checkEnquiryExists(for: controller, prodId: prodId, isCustom: false)
         }
         
         controller.generateNewEnquiry = { (prodId) in
             let service = ProductCatalogService.init(client: self.client)
-            service.generateNewEnquiry(controller: controller, prodId: prodId)
+            service.generateNewEnquiry(controller: controller, prodId: prodId, isCustom: false)
         }
         
         return controller

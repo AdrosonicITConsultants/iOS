@@ -24,6 +24,8 @@ class CustomProductListController: UITableViewController {
     var viewDidAppear: (() -> ())?
     var deleteAllCustomProducts: (() -> ())?
     var deleteProduct: ((_ prodId: Int) -> ())?
+    var checkCustomProdEnquiry: ((_ prodId: Int) -> ())?
+    var generateNewCustomProdEnquiry: ((_ prodId: Int) -> ())?
     
     override init(style: UITableView.Style) {
         super.init(style: style)
@@ -93,6 +95,10 @@ class CustomProductListController: UITableViewController {
 }
 
 extension CustomProductListController: CustomProductCellProtocol {
+    func generateCustomProdEnquiry(prodId: Int) {
+        self.checkCustomProdEnquiry?(prodId)
+    }
+    
     func deleteCustomProduct(withId: Int) {
     }
 }
@@ -127,3 +133,25 @@ extension CustomProductListController {
     }
 }
 
+extension CustomProductListController: EnquiryExistsViewProtocol, EnquiryGeneratedViewProtocol {
+    func closeButtonSelected() {
+        self.view.hideEnquiryGenerateView()
+    }
+    
+    func viewEnquiryButtonSelected(enquiryId: Int) {
+        self.view.hideEnquiryGenerateView()
+    }
+    
+    func cancelButtonSelected() {
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func viewEnquiryButtonSelected() {
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func generateEnquiryButtonSelected(prodId: Int) {
+        self.generateNewCustomProdEnquiry?(prodId)
+        self.view.hideEnquiryExistsView()
+    }
+}

@@ -103,6 +103,16 @@ extension CustomProductService {
             }.dispose(in: controller.bag)
         }
         
+        controller.checkCustomProdEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.checkEnquiryExists(for: controller, prodId: prodId, isCustom: true)
+        }
+        
+        controller.generateNewCustomProdEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.generateNewEnquiry(controller: controller, prodId: prodId, isCustom: true)
+        }
+        
         return controller
     }
 }
