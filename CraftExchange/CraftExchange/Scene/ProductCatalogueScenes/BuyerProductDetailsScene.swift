@@ -74,6 +74,16 @@ extension ProductCatalogService {
             }.dispose(in: vc.bag)
         }
         
+        vc.checkEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.checkEnquiryExists(for: vc, prodId: prodId)
+        }
+        
+        vc.generateNewEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.generateNewEnquiry(controller: vc, prodId: prodId)
+        }
+        
         return vc
     }
 }

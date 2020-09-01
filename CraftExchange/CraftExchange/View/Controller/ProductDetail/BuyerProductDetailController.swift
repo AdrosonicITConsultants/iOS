@@ -30,7 +30,8 @@ class BuyerProductDetailController: FormViewController {
     var deleteProdDetailToWishlist: ((_ prodId: Int) -> ())?
     var viewWillAppear: (() -> ())?
     var suggestedProdArray: Results<Product>?
-    
+    var checkEnquiry: ((_ prodId: Int) -> ())?
+    var generateNewEnquiry: ((_ prodId: Int) -> ())?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -314,6 +315,8 @@ class BuyerProductDetailController: FormViewController {
             }.cellUpdate({ (cell, row) in
                 cell.backgroundColor = .black
                 cell.tintColor = .white
+            }).onCellSelection({ (cell, row) in
+                self.checkEnquiry?(self.product?.entityID ?? 0)
             })
         
         var strArr:[String] = []
@@ -584,4 +587,27 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
 
 extension BuyerProductDetailController: WKNavigationDelegate, WKUIDelegate {
     
+}
+
+extension BuyerProductDetailController: EnquiryExistsViewProtocol, EnquiryGeneratedViewProtocol {
+    func closeButtonSelected() {
+        self.view.hideEnquiryGenerateView()
+    }
+    
+    func viewEnquiryButtonSelected(enquiryId: Int) {
+        self.view.hideEnquiryGenerateView()
+    }
+    
+    func cancelButtonSelected() {
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func viewEnquiryButtonSelected() {
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func generateEnquiryButtonSelected(prodId: Int) {
+        self.generateNewEnquiry?(prodId)
+        self.view.hideEnquiryExistsView()
+    }
 }
