@@ -23,6 +23,7 @@
 		C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */; };
 		C0144AB424843D4A006FF4AB /* RegisterArtisan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0144AB624843D4A006FF4AB /* RegisterArtisan.storyboard */; };
 		C0144AB924843D66006FF4AB /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0144ABB24843D66006FF4AB /* ForgotPassword.storyboard */; };
+		C01AA7BF24FD739F00F66A62 /* Enquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01AA7BE24FD739F00F66A62 /* Enquiry.swift */; };
 		C0285A9B24CEDE8F0045623A /* BuyerProductCatagoryScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */; };
 		C0285A9D24CF22CB0045623A /* BrandLogoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9C24CF22CB0045623A /* BrandLogoService.swift */; };
 		C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */; };
@@ -143,6 +144,7 @@
 		C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0995BFB24C8CE5900EC4CC3 /* BuyerProductCell.xib */; };
 		C0995BFE24C8D15F00EC4CC3 /* BuyerProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BFD24C8D15F00EC4CC3 /* BuyerProductCell.swift */; };
 		C09980AF24D5A74500BE86D0 /* OfflineProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09980AE24D5A74500BE86D0 /* OfflineProductRequest.swift */; };
+		C099E3EA24FE1BDF003B6E3B /* Enquiry+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C099E3E924FE1BDF003B6E3B /* Enquiry+Request.swift */; };
 		C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */; };
 		C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */; };
 		C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */; };
@@ -283,6 +285,7 @@
 		C0144AB824843D54006FF4AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RegisterArtisan.strings; sourceTree = "<group>"; };
 		C0144ABA24843D66006FF4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ForgotPassword.storyboard; sourceTree = "<group>"; };
 		C0144ABD24843D72006FF4AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ForgotPassword.strings; sourceTree = "<group>"; };
+		C01AA7BE24FD739F00F66A62 /* Enquiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enquiry.swift; sourceTree = "<group>"; };
 		C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatagoryScene.swift; sourceTree = "<group>"; };
 		C0285A9C24CF22CB0045623A /* BrandLogoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandLogoService.swift; sourceTree = "<group>"; };
 		C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePicService.swift; sourceTree = "<group>"; };
@@ -408,6 +411,7 @@
 		C0995BFB24C8CE5900EC4CC3 /* BuyerProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyerProductCell.xib; sourceTree = "<group>"; };
 		C0995BFD24C8D15F00EC4CC3 /* BuyerProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCell.swift; sourceTree = "<group>"; };
 		C09980AE24D5A74500BE86D0 /* OfflineProductRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineProductRequest.swift; sourceTree = "<group>"; };
+		C099E3E924FE1BDF003B6E3B /* Enquiry+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enquiry+Request.swift"; sourceTree = "<group>"; };
 		C09B3EF724BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompanyPointOfContact+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EF924BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BuyerCompanyDetails+Transaction.swift"; sourceTree = "<group>"; };
 		C09B3EFB24BA38B500FBC115 /* UserProductCategories+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProductCategories+Transaction.swift"; sourceTree = "<group>"; };
@@ -733,6 +737,7 @@
 				C09F215024862EF5001F2FCD /* Entity+Transaction */,
 				C071E259247EF5AD0085805B /* Entity+Networking */,
 				C071E22A247E7F820085805B /* Address.swift */,
+				C01AA7BE24FD739F00F66A62 /* Enquiry.swift */,
 				C0ACE9952485895600EFA4ED /* Country.swift */,
 				C0A29FFF24B8B7A900A49E56 /* AddressType.swift */,
 				C071E22F247EAB300085805B /* BuyerCompanyDetails.swift */,
@@ -952,6 +957,7 @@
 				C005BCB724C1DC9F00197519 /* Product+Request.swift */,
 				C04842B024E7BB0F00D3207F /* CustomeProduct+Request.swift */,
 				C02DC55624F4F26C00805C98 /* Product+Search.swift */,
+				C099E3E924FE1BDF003B6E3B /* Enquiry+Request.swift */,
 			);
 			path = "Entity+Networking";
 			sourceTree = "<group>";
@@ -1472,6 +1478,7 @@
 				C08C168C24F4431500D3100A /* BuyerProductDetailsScene.swift in Sources */,
 				C092579A249F7235006C4C05 /* BuyerTabbarController.swift in Sources */,
 				C0917DF024D4660E006B6664 /* ProductCare.swift in Sources */,
+				C01AA7BF24FD739F00F66A62 /* Enquiry.swift in Sources */,
 				C04842BE24E7D46200D3207F /* CustomProduct+Transaction.swift in Sources */,
 				C0ACE9AE2485A5BB00EFA4ED /* RegisterArtisanScene.swift in Sources */,
 				C09C970024B908C500FD97E9 /* MyProfileService.swift in Sources */,
@@ -1579,6 +1586,7 @@
 				C0A3F41924B7A7EF0071F7F8 /* BuyerGeneralInfo.swift in Sources */,
 				C0AE9CFB24ED842F0037ECB3 /* ToggleOptionRow.swift in Sources */,
 				C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */,
+				C099E3EA24FE1BDF003B6E3B /* Enquiry+Request.swift in Sources */,
 				C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */,
 				C0ACE9982485900F00EFA4ED /* REGValidateArtisanController.swift in Sources */,
 				C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */,
