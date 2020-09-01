@@ -60,16 +60,9 @@ extension SearchTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchController?.resignFirstResponder()
         let selectedSuggestion = suggestionArray?[indexPath.row]
-//        if selectedSuggestion?["suggestionType"] as? String == "Global" {
-            if let selectedString = searchController?.searchBar.text {
-                listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
-            }
-//        }else {
-//
-//            if let selectedString = selectedSuggestion?["suggestion"] as? String {
-//                listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
-//            }
-//        }
+        if let selectedString = selectedSuggestion?["suggestion"] as? String {
+            listSearchProduct(searchString: selectedString, type: selectedSuggestion?["suggestionTypeId"] as? Int ?? 5)
+        }
     }
     
     func listSearchProduct(searchString: String, type: Int) {
@@ -132,7 +125,16 @@ extension SearchTableViewController {
 extension SearchTableViewController: UISearchBarDelegate, UISearchResultsUpdating, UISearchControllerDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        dismiss(animated: true, completion: nil)
+        searchController?.resignFirstResponder()
+        guard let searchText = searchController?.searchBar.text else { return }
+        if searchText.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty {
+            return
+        } else {
+            if searchText.count > 2 {
+                listSearchProduct(searchString: searchText, type: 5)
+            }
+            return
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -150,10 +152,10 @@ extension SearchTableViewController: UISearchBarDelegate, UISearchResultsUpdatin
         if searchText.trimmingCharacters(in: CharacterSet.whitespaces).isEmpty {
             return
         } else {
-            if searchText.count < 3 {
-                return
+            if searchText.count > 2 || searchText == "%" {
+                self.searchWithSearchString?(searchText)
             }
-            self.searchWithSearchString?(searchText)
+            return
         }
     }
     

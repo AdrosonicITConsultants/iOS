@@ -13,6 +13,7 @@ import UIKit
     @objc optional func wishlistSelected(prodId: Int)
     @objc optional func removeFromWishlist(prodId: Int)
     @objc optional func loadProduct(prodId: Int)
+    @objc optional func generateEnquiryForProduct(prodId: Int)
 }
 
 @objc protocol WishlistScreenProtocol {
@@ -113,6 +114,10 @@ class BuyerProductCell: UITableViewCell {
     
     @IBAction func viewMoreSelected(_ sender: Any) {
         self.delegate?.loadProduct?(prodId: wishlistButton.tag)
+    }
+    
+    @IBAction func generateEnquirySelected(_ sender: Any) {
+        self.delegate?.generateEnquiryForProduct?(prodId: wishlistButton.tag)
     }
 }
 

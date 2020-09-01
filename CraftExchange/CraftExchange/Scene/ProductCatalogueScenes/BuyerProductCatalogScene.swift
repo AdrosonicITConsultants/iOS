@@ -92,6 +92,10 @@ extension ProductCatalogService {
             self.showSelectedProduct(for: controller, prodId: prodId)
         }
         
+        controller.generateEnquiry = { (prodId) in
+            self.generateEnquiry(for: controller, prodId: prodId)
+        }
+        
         controller.addToWishlist = { (prodId) in
             self.addProductToWishlist(prodId: prodId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -129,7 +133,8 @@ extension ProductCatalogService {
         let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "BuyerProductCatalogController") as! BuyerProductCatalogController
         controller.title = "Search Results"
-    
+        controller.searchType = 5
+        
         func setupRefreshActions() {
             syncData()
         }
@@ -182,6 +187,10 @@ extension ProductCatalogService {
             self.showSelectedProduct(for: controller, prodId: prodId)
         }
         
+        controller.generateEnquiry = { (prodId) in
+            self.generateEnquiry(for: controller, prodId: prodId)
+        }
+        
         controller.refreshSearchResult = { (loadPage) in
             searchBy(page: loadPage)
         }
@@ -217,6 +226,10 @@ extension ProductCatalogService {
         }
         
         return controller
+    }
+    
+    func generateEnquiry(for controller: UIViewController, prodId: Int) {
+
     }
     
     func showSelectedProduct(for controller: UIViewController, prodId: Int) {

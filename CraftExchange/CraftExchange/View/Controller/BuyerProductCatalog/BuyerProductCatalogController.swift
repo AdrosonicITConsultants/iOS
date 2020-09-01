@@ -26,6 +26,7 @@ class BuyerProductCatalogController: UIViewController {
     var removeFromWishlist: ((_ prodId: Int) -> ())?
     var productSelected: ((_ prodId: Int) -> ())?
     var refreshSearchResult: ((_ loadPage: Int) -> ())?
+    var generateEnquiry: ((_ prodId: Int) -> ())?
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var brandLogoImage: UIImageView!
@@ -44,6 +45,7 @@ class BuyerProductCatalogController: UIViewController {
     let realm = try! Realm()
     var loadedPage = 1
     var searchLimitReached = false
+    var searchType = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -191,7 +193,7 @@ class BuyerProductCatalogController: UIViewController {
             }else {
                 allPorducts = realm.objects(Product.self).filter("%K == %@", "artitionId", artisan.entityID).filter("%K == %@", "productCategoryId", withId).filter("%K == %@","isDeleted",false).sorted(byKeyPath: "modifiedOn", ascending: false)
             }
-        }else if searchIds.count > 0 {
+        }else if searchType > 0 {
             if withId == 0 {
                 allPorducts = realm.objects(Product.self).filter("%K IN %@", "entityID",searchIds)
             }else {
@@ -225,7 +227,7 @@ class BuyerProductCatalogController: UIViewController {
             self.setDatasource(withId: 0)
             self.tableView.reloadData()
         }
-        if searchIds.count == 0 {
+        if searchType == -1 {
             alert.addAction(all)
         }
         
@@ -333,7 +335,7 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if searchIds.count > 0 {
+        if searchType > 0 {
             return 50
         }
         return 0
@@ -359,5 +361,9 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
     
     func loadProduct(prodId: Int) {
         self.productSelected?(prodId)
+    }
+    
+    func generateEnquiryForProduct(prodId: Int) {
+        self.generateEnquiry?(prodId)
     }
 }
