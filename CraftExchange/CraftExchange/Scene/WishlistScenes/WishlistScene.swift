@@ -68,7 +68,7 @@ extension WishlistService {
         controller.viewWillAppear = {
             syncData()
         }
-        
+ 
         controller.removeAllWishlistProducts = {
             self.deleteAllWishlistProducts().toLoadingSignal().consumeLoadingState(by: controller)
             .bind(to: controller, context: .global(qos: .background)) { _, responseData in
@@ -102,6 +102,16 @@ extension WishlistService {
                     controller.endRefresh()
                 }
             }.dispose(in: controller.bag)
+        }
+        
+        controller.checkEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.checkEnquiryExists(for: controller, prodId: prodId)
+        }
+        
+        controller.generateNewEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.generateNewEnquiry(controller: controller, prodId: prodId)
         }
         
         return controller

@@ -236,7 +236,7 @@ extension ProductCatalogService {
         return controller
     }
     
-    func checkEnquiryExists(for controller: UIViewController, prodId: Int) {
+    public func checkEnquiryExists(for controller: UIViewController, prodId: Int) {
         controller.view.showEnquiryInitiationView()
         self.checkIfEnquiryExists(prodId: prodId, isCustom: false).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -257,7 +257,7 @@ extension ProductCatalogService {
         }.dispose(in: controller.bag)
     }
     
-    func generateNewEnquiry(controller: UIViewController, prodId: Int) {
+    public func generateNewEnquiry(controller: UIViewController, prodId: Int) {
         DispatchQueue.main.async {
             controller.view.showEnquiryInitiationView()
         }

@@ -23,6 +23,8 @@ class WishlistController: UIViewController {
     var viewDidAppear: (() -> ())?
     var removeAllWishlistProducts: (() -> ())?
     var deleteWishlistProduct: ((_ prodId: Int) -> ())?
+    var checkEnquiry: ((_ prodId: Int) -> ())?
+    var generateNewEnquiry: ((_ prodId: Int) -> ())?
     var allProducts: [Product]?
     let realm = try! Realm()
     @IBOutlet weak var tableView: UITableView!
@@ -89,6 +91,10 @@ extension WishlistController: WishlistScreenProtocol {
     func removeFromWishlistScreen(prodId: Int) {
         self.deleteWishlistProduct?(prodId)
     }
+    
+    func generateEnquiryForProduct(prodId: Int) {
+        self.checkEnquiry?(prodId)
+    }
 }
 
 extension WishlistController: UITableViewDataSource, UITableViewDelegate {
@@ -124,6 +130,29 @@ extension WishlistController: UITableViewDataSource, UITableViewDelegate {
         }catch {
             print(error.localizedDescription)
         }
+    }
+}
+
+extension WishlistController: EnquiryExistsViewProtocol, EnquiryGeneratedViewProtocol {
+    func closeButtonSelected() {
+        self.view.hideEnquiryGenerateView()
+    }
+    
+    func viewEnquiryButtonSelected(enquiryId: Int) {
+        self.view.hideEnquiryGenerateView()
+    }
+    
+    func cancelButtonSelected() {
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func viewEnquiryButtonSelected() {
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func generateEnquiryButtonSelected(prodId: Int) {
+        self.generateNewEnquiry?(prodId)
+        self.view.hideEnquiryExistsView()
     }
 }
 
