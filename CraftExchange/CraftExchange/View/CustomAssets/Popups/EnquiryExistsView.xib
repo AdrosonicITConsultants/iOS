@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="PlayfairDisplay-Regular.ttf">
+            <string>PlayfairDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="EnquiryExistsView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enquiry for this product has been already generated!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4th-Av-G46">
+                    <rect key="frame" x="20" y="144" width="374" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="nSA-Q7-8SS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="20"/>
+                    <color key="textColor" red="0.7158244252" green="0.67390471699999999" blue="0.21944218870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGu-oF-167">
+                    <rect key="frame" x="20" y="212" width="374" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="ddV-n5-0UY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="24"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With Enquiry Id " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toy-b4-zMI">
+                    <rect key="frame" x="20" y="262" width="374" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="uwm-8O-4uJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3B-iC-1M0" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                    <rect key="frame" x="100" y="307" width="75" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="75" id="UWd-Go-7tu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="cancelButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="tCe-K2-Yh8"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbg-4d-tAU" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                    <rect key="frame" x="223" y="307" width="171" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="171" id="Bi0-J5-RGb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                    <color key="tintColor" red="0.16425496340000001" green="0.38961789009999998" blue="0.80396610499999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <state key="normal" title="View Existing Enquiry">
+                        <color key="titleColor" red="0.31079620120000001" green="0.48468869920000002" blue="0.9059293866" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                            <color key="value" red="0.16392844919999999" green="0.3858891129" blue="0.79612255099999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="viewEnquiryButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="98S-b7-Kmx"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="———————— Or ————————" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BKK-FZ-aBn">
+                    <rect key="frame" x="20" y="352" width="374" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="yzW-fM-CBl"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You want to generate a new enquiry?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zs9-n0-5Wk">
+                    <rect key="frame" x="20" y="385" width="374" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="jZH-qL-V2n"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="30"/>
+                    <color key="textColor" red="0.7158244252" green="0.67390471699999999" blue="0.21944218870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEa-jY-Al6" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                    <rect key="frame" x="114.5" y="515" width="185" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="185" id="Swc-Pl-4Qd"/>
+                        <constraint firstAttribute="height" constant="30" id="lCE-yY-h6g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Generate new enquiry">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="generateEnquiryButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="qBv-KJ-MYn"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Zs9-n0-5Wk" secondAttribute="trailing" constant="20" id="1aG-fg-xRT"/>
+                <constraint firstItem="iEa-jY-Al6" firstAttribute="top" secondItem="Zs9-n0-5Wk" secondAttribute="bottom" constant="30" id="2DC-9b-nK0"/>
+                <constraint firstItem="Zs9-n0-5Wk" firstAttribute="top" secondItem="BKK-FZ-aBn" secondAttribute="bottom" constant="15" id="3Wz-1m-hIM"/>
+                <constraint firstItem="W3B-iC-1M0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="100" id="DN5-D9-yi9"/>
+                <constraint firstItem="Vbg-4d-tAU" firstAttribute="leading" secondItem="W3B-iC-1M0" secondAttribute="trailing" constant="48" id="HNN-cf-klz"/>
+                <constraint firstItem="XGu-oF-167" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="M2N-kQ-SBx"/>
+                <constraint firstItem="BKK-FZ-aBn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Msv-u9-ysL"/>
+                <constraint firstItem="BKK-FZ-aBn" firstAttribute="top" secondItem="W3B-iC-1M0" secondAttribute="bottom" constant="15" id="Nfb-LG-VxX"/>
+                <constraint firstItem="4th-Av-G46" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="100" id="Q3z-p3-3e3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4th-Av-G46" secondAttribute="trailing" constant="20" id="WUY-gg-xvV"/>
+                <constraint firstItem="toy-b4-zMI" firstAttribute="top" secondItem="XGu-oF-167" secondAttribute="bottom" constant="15" id="ZAA-P2-Dgz"/>
+                <constraint firstItem="toy-b4-zMI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="awo-ym-Ke8"/>
+                <constraint firstItem="XGu-oF-167" firstAttribute="top" secondItem="4th-Av-G46" secondAttribute="bottom" constant="8" id="bRz-pP-1by"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="toy-b4-zMI" secondAttribute="trailing" constant="20" id="caV-op-0U4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BKK-FZ-aBn" secondAttribute="trailing" constant="20" id="f3P-kj-82w"/>
+                <constraint firstItem="W3B-iC-1M0" firstAttribute="baseline" secondItem="Vbg-4d-tAU" secondAttribute="baseline" id="jnM-dj-rbU"/>
+                <constraint firstItem="iEa-jY-Al6" firstAttribute="centerX" secondItem="Zs9-n0-5Wk" secondAttribute="centerX" id="lu1-OF-PRY"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XGu-oF-167" secondAttribute="trailing" constant="20" id="rMY-lw-qWH"/>
+                <constraint firstItem="4th-Av-G46" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="vCG-nV-JYf"/>
+                <constraint firstItem="W3B-iC-1M0" firstAttribute="top" secondItem="toy-b4-zMI" secondAttribute="bottom" constant="20" id="wCV-He-8Fn"/>
+                <constraint firstItem="Zs9-n0-5Wk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="wnL-IR-CRl"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancelBtn" destination="W3B-iC-1M0" id="93H-Sw-Glr"/>
+                <outlet property="enquiryIdLabel" destination="toy-b4-zMI" id="Qzp-xN-JsK"/>
+                <outlet property="generateEnquiryBtn" destination="iEa-jY-Al6" id="CgW-Bo-plH"/>
+                <outlet property="productLabel" destination="XGu-oF-167" id="h3U-F8-8Mt"/>
+                <outlet property="viewEnquiryBtn" destination="Vbg-4d-tAU" id="Lpc-VR-Y5y"/>
+            </connections>
+            <point key="canvasLocation" x="-88.405797101449281" y="0.0"/>
+        </view>
+    </objects>
+</document>

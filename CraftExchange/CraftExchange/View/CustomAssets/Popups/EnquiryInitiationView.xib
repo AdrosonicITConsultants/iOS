@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="PlayfairDisplay-Regular.ttf">
+            <string>PlayfairDisplay-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios_Thead behind" translatesAutoresizingMaskIntoConstraints="NO" id="aRI-0M-d6q">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enquiry is being generated" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKh-Sy-NeC">
+                    <rect key="frame" x="20" y="377" width="374" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="kL8-qn-5Ex"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="30"/>
+                    <color key="textColor" red="0.7158244252" green="0.67390471699999999" blue="0.21944218870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..........." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9GN-Kc-yE1">
+                    <rect key="frame" x="20" y="497" width="374" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="Azy-eo-DDa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                    <color key="textColor" red="0.7158244252" green="0.67390471699999999" blue="0.21944218870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold on!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwi-hJ-HvR">
+                    <rect key="frame" x="20" y="552" width="374" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="T69-iI-fwZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="25"/>
+                    <color key="textColor" red="0.7158244252" green="0.67390471699999999" blue="0.21944218870000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9GN-Kc-yE1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="00N-qw-kqd"/>
+                <constraint firstAttribute="bottom" secondItem="aRI-0M-d6q" secondAttribute="bottom" id="5ag-Gb-G5I"/>
+                <constraint firstItem="hwi-hJ-HvR" firstAttribute="top" secondItem="9GN-Kc-yE1" secondAttribute="bottom" constant="20" id="KZm-ID-Gcf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9GN-Kc-yE1" secondAttribute="trailing" constant="20" id="Po1-bM-PXj"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="iKh-Sy-NeC" secondAttribute="trailing" constant="20" id="ahl-He-nKH"/>
+                <constraint firstItem="aRI-0M-d6q" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="au5-06-uTo"/>
+                <constraint firstItem="aRI-0M-d6q" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="c2Z-2q-eeY"/>
+                <constraint firstItem="hwi-hJ-HvR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="g8s-s0-rMD"/>
+                <constraint firstItem="aRI-0M-d6q" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="iGY-Kq-rZ6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="hwi-hJ-HvR" secondAttribute="trailing" constant="20" id="o4o-km-o24"/>
+                <constraint firstItem="9GN-Kc-yE1" firstAttribute="top" secondItem="iKh-Sy-NeC" secondAttribute="bottom" constant="20" id="pLG-IP-mOF"/>
+                <constraint firstItem="iKh-Sy-NeC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="333" id="rZX-Om-RMC"/>
+                <constraint firstItem="iKh-Sy-NeC" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="ruV-b1-jZA"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="128.57142857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ios_Thead behind" width="226" height="212"/>
+    </resources>
+</document>

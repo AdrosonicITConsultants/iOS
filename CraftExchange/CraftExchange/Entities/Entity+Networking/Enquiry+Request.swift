@@ -26,11 +26,14 @@ extension Enquiry {
       let parameters: [String: Any] = ["productId":productId,
                                        "isCustom": isCustom,
                                        "deviceName":"IOS"]
+        var str = "enquiry/generateEnquiry/\(productId)/\(isCustom)/IOS"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
-            path: "enquiry/generateEnquiry/{productId}/{isCustom}/{deviceName}",
+            path: str,
             method: .post,
             parameters: JSONParameters(parameters),
-            resource: {print(String(data: $0, encoding: .utf8) ?? "generateEnquiry failed")
+            resource: {
+                print(String(data: $0, encoding: .utf8) ?? "generateEnquiry failed")
               return $0},
             error: APIError.init,
             needsAuthorization: false

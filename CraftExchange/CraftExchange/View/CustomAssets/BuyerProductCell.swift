@@ -18,6 +18,7 @@ import UIKit
 
 @objc protocol WishlistScreenProtocol {
     @objc optional func removeFromWishlistScreen(prodId: Int)
+    @objc optional func generateEnquiryForProduct(prodId: Int)
 }
 
 class BuyerProductCell: UITableViewCell {
@@ -117,7 +118,11 @@ class BuyerProductCell: UITableViewCell {
     }
     
     @IBAction func generateEnquirySelected(_ sender: Any) {
-        self.delegate?.generateEnquiryForProduct?(prodId: wishlistButton.tag)
+        if fromWishlist {
+            self.deleg?.generateEnquiryForProduct?(prodId: wishlistButton.tag)
+        }else {
+            self.delegate?.generateEnquiryForProduct?(prodId: wishlistButton.tag)
+        }
     }
 }
 

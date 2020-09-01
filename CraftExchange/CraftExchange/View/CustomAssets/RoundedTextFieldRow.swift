@@ -14,7 +14,7 @@ class RoundedTextFieldView: Cell<String>, CellType {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var valueTextField: RoundedTextField!
-  @IBOutlet var compulsoryIcon: UIImageView!
+    @IBOutlet var compulsoryIcon: UIImageView!
     
     public override func setup() {
         super.setup()

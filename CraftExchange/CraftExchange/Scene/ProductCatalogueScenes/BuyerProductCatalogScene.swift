@@ -93,7 +93,11 @@ extension ProductCatalogService {
         }
         
         controller.generateEnquiry = { (prodId) in
-            self.generateEnquiry(for: controller, prodId: prodId)
+            self.checkEnquiryExists(for: controller, prodId: prodId)
+        }
+        
+        controller.generateNewEnquiry = { (prodId) in
+            self.generateNewEnquiry(controller: controller, prodId: prodId)
         }
         
         controller.addToWishlist = { (prodId) in
@@ -188,7 +192,11 @@ extension ProductCatalogService {
         }
         
         controller.generateEnquiry = { (prodId) in
-            self.generateEnquiry(for: controller, prodId: prodId)
+            self.checkEnquiryExists(for: controller, prodId: prodId)
+        }
+        
+        controller.generateNewEnquiry = { (prodId) in
+            self.generateNewEnquiry(controller: controller, prodId: prodId)
         }
         
         controller.refreshSearchResult = { (loadPage) in
@@ -228,8 +236,46 @@ extension ProductCatalogService {
         return controller
     }
     
-    func generateEnquiry(for controller: UIViewController, prodId: Int) {
-
+    func checkEnquiryExists(for controller: UIViewController, prodId: Int) {
+        controller.view.showEnquiryInitiationView()
+        self.checkIfEnquiryExists(prodId: prodId, isCustom: false).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    print(json)
+                    if let responseDictionary = json["data"] as? [String: Any] {
+                        if responseDictionary["ifExists"] as? Int == 0 {
+                            self.generateNewEnquiry(controller: controller, prodId: prodId)
+                        }else {
+                            DispatchQueue.main.async {
+                                controller.view.hideEnquiryInitiationView()
+                                controller.view.showEnquiryExistsView(controller: controller, prodName: responseDictionary["productName"] as? String ?? "", enquiryId: responseDictionary["code"] as? String ?? "", prodId: prodId)
+                            }
+                        }
+                    }
+                }
+            }
+        }.dispose(in: controller.bag)
+    }
+    
+    func generateNewEnquiry(controller: UIViewController, prodId: Int) {
+        DispatchQueue.main.async {
+            controller.view.showEnquiryInitiationView()
+        }
+        self.generateEnquiry(prodId: prodId, isCustom: false).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    if let responseDictionary = json["data"] as? [String: Any] {
+                        if let enquiryDictionary = responseDictionary["enquiry"] as? [String: Any] {
+                            print(json)
+                            DispatchQueue.main.async {
+                                controller.view.hideEnquiryInitiationView()
+                                controller.view.showEnquiryGenerateView(controller: controller, enquiryId: enquiryDictionary["id"] as? Int ?? 0, enquiryCode: enquiryDictionary["code"] as? String ?? "")
+                            }
+                        }
+                    }
+                }
+            }
+        }.dispose(in: controller.bag)
     }
     
     func showSelectedProduct(for controller: UIViewController, prodId: Int) {
