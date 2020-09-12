@@ -49,8 +49,8 @@ class BuyerCustomProductCell: UITableViewCell {
         }
         productTag.text = nameLbl
         productDesc.text = productObj.productSpec ?? ""
-        let formatter = Date.ttceFormatter
-        createdBy.text = "Created On: \(formatter.string(from: productObj.createdOn ?? Date()))"
+        let formatter = Date().ttceFormatter(isoDate: "\(productObj.createdOn ?? Date())")
+        createdBy.text = "Created On: \(formatter)"
         createdBy.textColor = UIColor().CEGreen()
         productImage.image = UIImage.init(named: "iosAntaranSelfDesign")
         if let tag = productObj.productImages.first?.lable {

@@ -1,0 +1,64 @@
+//
+//  BuyerEnquiryCell.swift
+//  CraftExchange
+//
+//  Created by Preety Singh on 04/09/20.
+//  Copyright © 2020 Adrosonic. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+class BuyerEnquiryCell: UITableViewCell {
+    @IBOutlet weak var enquiryCodeLabel: UILabel!
+    @IBOutlet weak var prodDetailLabel: UILabel!
+    @IBOutlet weak var brandLabel: UILabel!
+    @IBOutlet weak var availabilityLabel: UILabel!
+    @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var statusDot: UIView!
+    @IBOutlet weak var prodImage: UIImageView!
+    
+    func configure(_ enquiryObj: Enquiry) {
+        enquiryCodeLabel.text = enquiryObj.enquiryCode
+        prodDetailLabel.text = "\(ProductCategory.getProductCat(catId: enquiryObj.productCategoryId)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObj.warpYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObj.weftYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObj.extraWeftYarnId)?.yarnDesc ?? "-")"
+        if enquiryObj.productType == "Custom Product" {
+            brandLabel.text = "Requested Custom Design"
+        }else {
+            brandLabel.text = enquiryObj.brandName
+        }
+        if enquiryObj.productStatusId == 2 {
+            availabilityLabel.text = "Available in stock"
+        }else {
+            availabilityLabel.text = "Make to order"
+        }
+        costLabel.text = enquiryObj.totalAmount != 0 ? "\(enquiryObj.totalAmount)" : "NA"
+        dateLabel.text = "Updated on: \(enquiryObj.lastUpdated?.split(separator: "T").first ?? "")"
+        statusLabel.text = "\(EnquiryStages.getStageType(searchId: enquiryObj.enquiryStageId)?.stageDescription ?? "-")"
+        if enquiryObj.enquiryStageId < 5 {
+            statusLabel.textColor = .black
+            statusDot.backgroundColor = .black
+        }else if enquiryObj.enquiryStageId < 9 {
+            statusLabel.textColor = .systemYellow
+            statusDot.backgroundColor = .systemYellow
+        }else {
+            statusLabel.textColor = UIColor().CEGreen()
+            statusDot.backgroundColor = UIColor().CEGreen()
+        }
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeImageClient())
+            let service = ProductImageService.init(client: client)
+            service.fetch(withId: enquiryObj.productId, withName: enquiryObj.productImages?.components(separatedBy: ",").first ?? "name").observeNext { (attachment) in
+                DispatchQueue.main.async {
+                    let tag = enquiryObj.productImages?.components(separatedBy: ",").first ?? "name.jpg"
+                    let prodId = enquiryObj.productId
+                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                    self.prodImage.image = UIImage.init(data: attachment)
+                }
+            }.dispose(in: bag)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+}

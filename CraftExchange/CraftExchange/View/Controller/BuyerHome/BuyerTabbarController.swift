@@ -22,11 +22,20 @@ class BuyerTabbarController: UITabBarController {
 
 extension BuyerTabbarController {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if self.selectedIndex == 2 {
+        if item.title == "Wishlist" {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = WishlistService(client: client).createScene()
                 let nav = self.customizableViewControllers?[2] as! UINavigationController
+                nav.setViewControllers([vc], animated: false)
+            } catch let error {
+              print("Unable to load view:\n\(error.localizedDescription)")
+            }
+        }else if item.title == "Enquiries" {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = EnquiryListService(client: client).createScene()
+                let nav = self.customizableViewControllers?[1] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
               print("Unable to load view:\n\(error.localizedDescription)")

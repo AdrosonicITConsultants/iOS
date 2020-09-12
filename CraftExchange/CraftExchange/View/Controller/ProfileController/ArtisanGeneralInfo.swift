@@ -33,6 +33,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
     var editEnabled = false
     var viewModel = ArtisanGeneralInfoViewModel()
     var allCountries: Results<Country>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .red

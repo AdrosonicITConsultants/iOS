@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios_Thead behind" translatesAutoresizingMaskIntoConstraints="NO" id="aRI-0M-d6q">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zig zag thread" translatesAutoresizingMaskIntoConstraints="NO" id="aRI-0M-d6q">
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enquiry is being generated" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKh-Sy-NeC">
@@ -70,6 +70,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ios_Thead behind" width="226" height="212"/>
+        <image name="zig zag thread" width="756" height="434"/>
     </resources>
 </document>

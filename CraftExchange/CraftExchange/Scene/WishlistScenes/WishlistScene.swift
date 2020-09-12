@@ -65,11 +65,11 @@ extension WishlistService {
             performSync()
         }
         
-        controller.viewWillAppear = {
+        controller.viewModel.viewWillAppear = {
             syncData()
         }
  
-        controller.removeAllWishlistProducts = {
+        controller.viewModel.removeAllWishlistProducts = {
             self.deleteAllWishlistProducts().toLoadingSignal().consumeLoadingState(by: controller)
             .bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 DispatchQueue.main.async {
@@ -88,7 +88,7 @@ extension WishlistService {
         
         controller.title = "Your Wish list".localized
         
-        controller.deleteWishlistProduct = { (prodId) in
+        controller.viewModel.deleteWishlistProduct = { (prodId) in
             let service = ProductCatalogService.init(client: self.client)
             service.removeProductFromWishlist(prodId: prodId).observeNext { (attachment) in
                 DispatchQueue.main.async {
@@ -104,12 +104,12 @@ extension WishlistService {
             }.dispose(in: controller.bag)
         }
         
-        controller.checkEnquiry = { (prodId) in
+        controller.viewModel.checkEnquiry = { (prodId) in
             let service = ProductCatalogService.init(client: self.client)
             service.checkEnquiryExists(for: controller, prodId: prodId, isCustom: false)
         }
         
-        controller.generateNewEnquiry = { (prodId) in
+        controller.viewModel.generateNewEnquiry = { (prodId) in
             let service = ProductCatalogService.init(client: self.client)
             service.generateNewEnquiry(controller: controller, prodId: prodId, isCustom: false)
         }

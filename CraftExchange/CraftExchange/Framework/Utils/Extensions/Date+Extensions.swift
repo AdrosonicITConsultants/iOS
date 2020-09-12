@@ -9,9 +9,15 @@
 import Foundation
 
 extension Date {
-    static var ttceFormatter: DateFormatter {
+    func ttceFormatter(isoDate: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        
+        let date = dateFormatter.date(from:isoDate)
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
+        formatter.dateFormat = "dd-MM-yyyy"
+        return formatter.string(from: date ?? Date())
     }
 }

@@ -32,6 +32,7 @@ class BuyerProductDetailController: FormViewController {
     var suggestedProdArray: Results<Product>?
     var checkEnquiry: ((_ prodId: Int) -> ())?
     var generateNewEnquiry: ((_ prodId: Int) -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white

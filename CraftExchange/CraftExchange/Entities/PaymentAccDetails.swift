@@ -18,7 +18,7 @@ class PaymentAccDetails: Object, Decodable {
     @objc dynamic var bankName: String?
     @objc dynamic var branchName: String?
     @objc dynamic var ifsc: String?
-    var accType = List<AccountType>()
+    @objc dynamic var accType: Int = 0
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -45,7 +45,7 @@ class PaymentAccDetails: Object, Decodable {
         branchName = try? values.decodeIfPresent(String.self, forKey: .branchName)
         ifsc = try? values.decodeIfPresent(String.self, forKey: .ifsc)
         if let list = try? values.decodeIfPresent(AccountType.self, forKey: .accType) {
-            accType.append(list)
+            accType = list.entityID
         }
     }
 }

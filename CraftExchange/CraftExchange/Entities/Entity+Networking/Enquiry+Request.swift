@@ -39,4 +39,64 @@ extension Enquiry {
             needsAuthorization: false
         )
     }
+    
+    static func getEnquiryStages() -> Request<Data, APIError> {
+        var str = "enquiry/getAllEnquiryStages"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getOpenEnquiries() -> Request<Data, APIError> {
+        var str = "enquiry/getOpenEnquiries"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getOpenEnquiryDetails(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getEnquiry/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getClosedEnquiries() -> Request<Data, APIError> {
+        var str = "enquiry/getClosedEnquiries"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getClosedEnquiryDetails(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getClosedEnquiry/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }

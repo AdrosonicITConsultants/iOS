@@ -41,7 +41,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         var addressString = ""
         User.loggedIn()?.paymentAccountList .forEach({ (account) in
-            if account.accType.first?.entityID == 1 {
+            if account.accType == 1 {
                 addressString = account.AccNoUpiMobile ?? ""
             }
         })
@@ -63,7 +63,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType.first?.entityID == 1 {
+                    if account.accType == 1 {
                         valueString = account.AccNoUpiMobile ?? ""
                     }
                 })
@@ -96,7 +96,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType.first?.entityID == 1 {
+                    if account.accType == 1 {
                         valueString = account.bankName ?? ""
                     }
                 })
@@ -129,7 +129,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType.first?.entityID == 1 {
+                    if account.accType == 1 {
                         valueString = account.name ?? ""
                     }
                 })
@@ -162,7 +162,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType.first?.entityID == 1 {
+                    if account.accType == 1 {
                         valueString = account.branchName ?? ""
                     }
                 })
@@ -195,7 +195,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 $0.cell.valueTextField.textColor = .black
                 var valueString = ""
                 User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                    if account.accType.first?.entityID == 1 {
+                    if account.accType == 1 {
                         valueString = account.ifsc ?? ""
                     }
                 })
@@ -245,7 +245,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     cell.textField.layer.borderColor = UIColor.white.cgColor
                     var valueString = ""
                     User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                        if account.accType.first?.entityID == 2 {
+                        if account.accType == 2 {
                             valueString = account.AccNoUpiMobile ?? ""
                         }
                     })
@@ -271,7 +271,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     cell.textField.layer.borderColor = UIColor.white.cgColor
                     var valueString = ""
                     User.loggedIn()?.paymentAccountList .forEach({ (account) in
-                        if account.accType.first?.entityID == 4 {
+                        if account.accType == 4 {
                             valueString = account.AccNoUpiMobile ?? ""
                         }
                     })
