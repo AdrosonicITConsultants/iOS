@@ -19,6 +19,7 @@ class PaymentAccDetails: Object, Decodable {
     @objc dynamic var branchName: String?
     @objc dynamic var ifsc: String?
     @objc dynamic var accType: Int = 0
+    @objc dynamic var userId: Int = 0
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -28,6 +29,7 @@ class PaymentAccDetails: Object, Decodable {
         case branchName = "branch"
         case ifsc = "ifsc"
         case accType = "accountType"
+        case userId = "userId"
     }
     
     override class func primaryKey() -> String? {
@@ -47,6 +49,7 @@ class PaymentAccDetails: Object, Decodable {
         if let list = try? values.decodeIfPresent(AccountType.self, forKey: .accType) {
             accType = list.entityID
         }
+        userId = try (values.decodeIfPresent(Int.self, forKey: .userId) ?? 0)
     }
 }
 

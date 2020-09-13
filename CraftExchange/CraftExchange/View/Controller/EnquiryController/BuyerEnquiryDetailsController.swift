@@ -108,7 +108,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check artisan's details"
-                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.companyName ?? "NA")"
+                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.brandName ?? "NA")"
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBlueText()
                 $0.cell.valueLbl.textColor = UIColor().EQBlueText()

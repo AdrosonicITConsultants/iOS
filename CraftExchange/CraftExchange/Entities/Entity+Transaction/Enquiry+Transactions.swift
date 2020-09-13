@@ -25,29 +25,20 @@ extension Enquiry {
         }
     }
     
-    func updateArtistDetails(blue: Bool, user: Int, accDetails: [PaymentAccDetails], catIds:[Int]) {
+    func updateArtistDetails(blue: Bool, user: Int, accDetails: [PaymentAccDetails], catIds:[Int], cluster: String) {
         let realm = try! Realm()
         if let object = realm.objects(Enquiry.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                object.userID = user
+                object.userId = user
                 object.isBlue = blue
                 object.productCategories = catIds
-                object.paymentAccountList = paymentAccountList
-                /*let idsToCheck = accDetails.compactMap { $0.entityID }
-                var idsToDelete: [PaymentAccDetails] = []
-                object.paymentAccountList .forEach { (obj) in
-                    if !idsToCheck.contains(obj.entityID) {
-                        idsToDelete.append(obj)
+                object.clusterName = cluster
+                accDetails .forEach { (acc) in
+                    if let _ = realm.objects(PaymentAccDetails.self).filter("%K == %@", "entityID", acc.entityID).first {
+                    }else {
+                        object.paymentAccountList.append(acc)
                     }
                 }
-                realm.delete(idsToDelete)
-                
-                let existingIds = object.paymentAccountList.compactMap { $0.entityID }
-                accDetails .forEach { (obj) in
-                    if !existingIds.contains(obj.entityID) {
-                        object.paymentAccountList.append(obj)
-                    }
-                }*/
             }
         }
     }

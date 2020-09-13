@@ -40,7 +40,7 @@ extension EnquiryDetailsService {
                                 if let catArray = eqObj["productCategories"] as? [[String: Any]]{
                                 if let catdata = try? JSONSerialization.data(withJSONObject: catArray, options: .fragmentsAllowed) {
                                 if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
-                                    enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }))
+                                    enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
                                     vc.reloadFormData()
                                     vc.hideLoading()
                                 }

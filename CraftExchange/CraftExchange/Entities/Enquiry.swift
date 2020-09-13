@@ -13,7 +13,6 @@ import RealmSwift
 class Enquiry: Object, Decodable {
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
-    @objc dynamic var userID: Int = 0
     @objc dynamic var enquiryStageId: Int = 0
     @objc dynamic var mobile: String?
     @objc dynamic var logo: String?
@@ -79,6 +78,7 @@ class Enquiry: Object, Decodable {
     @objc dynamic var orderReceiveDate: String?
     @objc dynamic var profilePic: String?
     @objc dynamic var userId: Int = 0
+    @objc dynamic var clusterName: String?
     var paymentAccountList = List<PaymentAccDetails>()
     var productCategories: [Int] = []
     
@@ -148,6 +148,7 @@ class Enquiry: Object, Decodable {
         case profilePic = "profilePic"
         case paymentAccountDetails = "paymentAccountDetails"
         case productCategories = "productCategories"
+        case clusterName = "clusterName"
     }
     
     override class func primaryKey() -> String? {
@@ -226,6 +227,7 @@ class Enquiry: Object, Decodable {
         if let list = try? values.decodeIfPresent([UserProductCategory].self, forKey: .productCategories) {
             productCategories.append(contentsOf: list.compactMap({ $0.productCategoryId }))
         }
+        clusterName = try? values.decodeIfPresent(String.self, forKey: .clusterName)
     }
 }
 
