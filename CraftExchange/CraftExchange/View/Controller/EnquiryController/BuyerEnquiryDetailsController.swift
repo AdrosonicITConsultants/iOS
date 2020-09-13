@@ -28,6 +28,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var showProductDetails: (() -> ())?
     var showHistoryProductDetails: (() -> ())?
     let realm = try? Realm()
+    var isClosed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +46,11 @@ class BuyerEnquiryDetailsController: FormViewController {
                 shouldShowOption = true
             }
         }
-        if shouldShowOption {
+        if shouldShowOption && isClosed == false {
             let rightButtonItem = UIBarButtonItem.init(title: "Options".localized, style: .plain, target: self, action: #selector(showOptions(_:)))
             rightButtonItem.tintColor = .darkGray
             self.navigationItem.rightBarButtonItem = rightButtonItem
-        }else {
+        }else if isClosed == false {
             let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
             rightButtonItem.image = UIImage.init(named: "ios magenta chat")
             rightButtonItem.tintColor = UIColor().CEMagenda()

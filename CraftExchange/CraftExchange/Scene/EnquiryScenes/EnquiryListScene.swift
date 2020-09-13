@@ -28,28 +28,46 @@ extension EnquiryListService {
             let service = HomeScreenService.init(client: client)
             service.fetchEnquiryStateData(vc: controller)
             
-            getOngoingEnquiries().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if let array = json["data"] as? [[String: Any]] {
-                        array.forEach { (dataDict) in
-                            if let prodDict = dataDict["openEnquiriesResponse"] as? [String: Any] {
-                                if let proddata = try? JSONSerialization.data(withJSONObject: prodDict, options: .fragmentsAllowed) {
-                                    if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: proddata) {
-                                        DispatchQueue.main.async {
-                                            enquiryObj.saveRecord()
-                                            enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false)
-                                            if !(controller.ongoingEnquiries.contains(enquiryObj.entityID) ) {
-                                                controller.ongoingEnquiries.append(enquiryObj.entityID)
-                                            }
-                                            controller.endRefresh()
+            if controller.segmentView.selectedSegmentIndex == 0 {
+                getOngoingEnquiries().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        parseEnquiry(json: json, isOngoing: true)
+                    }
+                }.dispose(in: controller.bag)
+            }else {
+                getClosedEnquiries().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        parseEnquiry(json: json, isOngoing: false)
+                    }
+                }.dispose(in: controller.bag)
+            }
+        }
+        
+        func parseEnquiry(json: [String: Any], isOngoing: Bool) {
+            if let array = json["data"] as? [[String: Any]] {
+                array.forEach { (dataDict) in
+                    if let prodDict = dataDict["openEnquiriesResponse"] as? [String: Any] {
+                        if let proddata = try? JSONSerialization.data(withJSONObject: prodDict, options: .fragmentsAllowed) {
+                            if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: proddata) {
+                                DispatchQueue.main.async {
+                                    enquiryObj.saveRecord()
+                                    enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false)
+                                    if isOngoing {
+                                        if !(controller.ongoingEnquiries.contains(enquiryObj.entityID) ) {
+                                            controller.ongoingEnquiries.append(enquiryObj.entityID)
+                                        }
+                                    }else {
+                                        if !(controller.closedEnquiries.contains(enquiryObj.entityID) ) {
+                                            controller.closedEnquiries.append(enquiryObj.entityID)
                                         }
                                     }
+                                    controller.endRefresh()
                                 }
                             }
                         }
                     }
                 }
-            }.dispose(in: controller.bag)
+            }
         }
         
         func syncData() {

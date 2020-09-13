@@ -22,6 +22,7 @@ class BuyerEnquiryListController: UIViewController {
     var applicationEnteredForeground: (() -> ())?
     var allEnquiries: [Enquiry]?
     var ongoingEnquiries: [Int] = []
+    var closedEnquiries: [Int] = []
     let realm = try? Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentView: WMSegment!
@@ -43,11 +44,23 @@ class BuyerEnquiryListController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+        segmentView.bottomBarHeight = 5
+        segmentView.type = .normal
+        segmentView.selectorType = .bottomBar
     }
     
     func endRefresh() {
-        allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ?? [0]).compactMap({$0})
+        if segmentView.selectedSegmentIndex == 0 {
+            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).compactMap({$0})
+        }else {
+            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).compactMap({$0})
+        }
+        
         self.tableView.reloadData()
+    }
+    
+    @IBAction func segmentValueChanged(_ sender: Any) {
+        viewWillAppear?()
     }
 }
 
@@ -72,8 +85,13 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
         print("*** object ***")
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row])
+            let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row]) as! BuyerEnquiryDetailsController
             vc.modalPresentationStyle = .fullScreen
+            if segmentView.selectedSegmentIndex == 0 {
+                vc.isClosed = false
+            }else {
+                vc.isClosed = true
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }catch {
             print(error.localizedDescription)

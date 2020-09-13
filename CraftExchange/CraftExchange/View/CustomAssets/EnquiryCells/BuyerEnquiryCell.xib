@@ -88,9 +88,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBg-FC-Oh9">
-                        <rect key="frame" x="98" y="15" width="120" height="15"/>
+                        <rect key="frame" x="98" y="15" width="150" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="120" id="Jxz-Az-uub"/>
+                            <constraint firstAttribute="width" constant="150" id="Jxz-Az-uub"/>
                             <constraint firstAttribute="height" constant="15" id="hCY-q3-9iK"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
