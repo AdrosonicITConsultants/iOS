@@ -29,6 +29,12 @@ class EnquiryArtisanDetailsController: FormViewController {
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         let realm = try? Realm()
         let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? 0)
+        
+        let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
+        rightButtonItem.image = UIImage.init(named: "ios magenta chat")
+        rightButtonItem.tintColor = UIColor().CEMagenda()
+        self.navigationItem.rightBarButtonItem = rightButtonItem
+        
         form +++
         Section()
             <<< ProfileImageRow() {
@@ -453,5 +459,9 @@ class EnquiryArtisanDetailsController: FormViewController {
                     cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                     cell.valueTextField.leftPadding = 0
                 })
+    }
+    
+    @objc func goToChat() {
+        
     }
 }

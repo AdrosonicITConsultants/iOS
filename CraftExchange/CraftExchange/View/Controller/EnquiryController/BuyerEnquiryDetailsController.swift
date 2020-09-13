@@ -33,7 +33,29 @@ class BuyerEnquiryDetailsController: FormViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+        
+        var shouldShowOption = false
+        
+        if User.loggedIn()?.refRoleId == "1" {
+            shouldShowOption = false
+        }else {
+            if enquiryObject?.enquiryStageId ?? 0 > 3 {
+                shouldShowOption = false
+            }else {
+                shouldShowOption = true
+            }
+        }
+        if shouldShowOption {
+            let rightButtonItem = UIBarButtonItem.init(title: "Options".localized, style: .plain, target: self, action: #selector(showOptions(_:)))
+            rightButtonItem.tintColor = .darkGray
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }else {
+            let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
+            rightButtonItem.image = UIImage.init(named: "ios magenta chat")
+            rightButtonItem.tintColor = UIColor().CEMagenda()
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }
+        
         form
         +++ Section()
             <<< EnquiryDetailsRow(){
@@ -226,6 +248,28 @@ class BuyerEnquiryDetailsController: FormViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+    }
+    
+    @objc func showOptions(_ sender: UIButton) {
+        let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
+        
+        let chat = UIAlertAction.init(title: "Chat", style: .default) { (action) in
+            self.goToChat()
+        }
+        alert.addAction(chat)
+        
+        let closeEnquiry = UIAlertAction.init(title: "Close Enquiry", style: .default) { (action) in
+        }
+        alert.addAction(closeEnquiry)
+        
+        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func goToChat() {
+        
     }
     
     func reloadFormData() {
