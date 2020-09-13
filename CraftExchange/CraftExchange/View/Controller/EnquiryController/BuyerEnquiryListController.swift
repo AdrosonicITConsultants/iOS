@@ -99,7 +99,6 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        //170, 39, 92
         return segmentView.selectedSegmentIndex == 0 ? true : false
     }
     

@@ -96,6 +96,8 @@ class CustomProductListController: UITableViewController {
 
 extension CustomProductListController: CustomProductCellProtocol {
     func generateCustomProdEnquiry(prodId: Int) {
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = false
         self.checkCustomProdEnquiry?(prodId)
     }
     
@@ -136,18 +138,26 @@ extension CustomProductListController {
 extension CustomProductListController: EnquiryExistsViewProtocol, EnquiryGeneratedViewProtocol {
     func closeButtonSelected() {
         self.view.hideEnquiryGenerateView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
         self.view.hideEnquiryGenerateView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func cancelButtonSelected() {
         self.view.hideEnquiryExistsView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func viewEnquiryButtonSelected() {
         self.view.hideEnquiryExistsView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func generateEnquiryButtonSelected(prodId: Int) {

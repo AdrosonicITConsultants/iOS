@@ -98,6 +98,8 @@ extension WishlistController: WishlistScreenProtocol {
     
     func generateEnquiryForProduct(prodId: Int) {
         self.viewModel.checkEnquiry?(prodId)
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = false
     }
 }
 
@@ -140,18 +142,26 @@ extension WishlistController: UITableViewDataSource, UITableViewDelegate {
 extension WishlistController: EnquiryExistsViewProtocol, EnquiryGeneratedViewProtocol {
     func closeButtonSelected() {
         self.view.hideEnquiryGenerateView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
         self.view.hideEnquiryGenerateView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func cancelButtonSelected() {
         self.view.hideEnquiryExistsView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func viewEnquiryButtonSelected() {
         self.view.hideEnquiryExistsView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func generateEnquiryButtonSelected(prodId: Int) {
