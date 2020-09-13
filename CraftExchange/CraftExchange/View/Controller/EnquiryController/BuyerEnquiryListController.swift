@@ -26,7 +26,7 @@ class BuyerEnquiryListController: UIViewController {
     let realm = try? Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentView: WMSegment!
-    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyView: UIImageView!
     var viewWillAppear: (() -> ())?
     
     override func viewDidLoad() {
@@ -55,7 +55,7 @@ class BuyerEnquiryListController: UIViewController {
         }else {
             allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).compactMap({$0})
         }
-        
+        emptyView.isHidden = allEnquiries?.count == 0 ? false : true
         self.tableView.reloadData()
     }
     
