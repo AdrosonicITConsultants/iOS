@@ -34,7 +34,7 @@ class BuyerEnquiryListController: UIViewController {
         try? reachabilityManager?.startNotifier()
         allEnquiries = []
         definesPresentationContext = false
-        
+        self.setupSideMenu(false)
         let center = NotificationCenter.default
         center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
             self.applicationEnteredForeground?()
@@ -70,10 +70,6 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("*** object ***")
-//        let vc = BuyerEnquiryDetailsController.init(style: .plain)
-//        vc.enquiryObject = allEnquiries?[indexPath.row]
-//        vc.modalPresentationStyle = .fullScreen
-//        self.navigationController?.pushViewController(vc, animated: true)
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
             let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row])

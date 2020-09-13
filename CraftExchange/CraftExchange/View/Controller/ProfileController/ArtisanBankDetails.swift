@@ -28,6 +28,7 @@ class ArtisanBankDetailsViewModel {
     var ifsc = Observable<String?>(nil)
     var gpayId = Observable<String?>(nil)
     var paytm = Observable<String?>(nil)
+    var phonePay = Observable<String?>(nil)
 }
 
 class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
@@ -278,6 +279,32 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     cell.textField.text = valueString
                 }
             })
+            <<< TextRow() {
+                $0.tag = "phonepay"
+                $0.cell.height = { 60.0 }
+                $0.title = "Phone Pay".localized
+                $0.cell.imageView?.image = UIImage.init(named: "phone-pe")
+                self.viewModel.phonePay.value = $0.cell.textField.text
+                self.viewModel.phonePay.bidirectionalBind(to: $0.cell.textField.reactive.text)
+            }.cellUpdate({ (cell, row) in
+                self.viewModel.phonePay.value = cell.textField.text
+                if self.isEditable {
+                    cell.isUserInteractionEnabled = true
+                    cell.textField.isUserInteractionEnabled = true
+                    cell.textField.layer.borderColor = UIColor.black.cgColor
+                }else {
+                    cell.isUserInteractionEnabled = false
+                    cell.textField.isUserInteractionEnabled = false
+                    cell.textField.layer.borderColor = UIColor.white.cgColor
+                    var valueString = ""
+                    User.loggedIn()?.paymentAccountList .forEach({ (account) in
+                        if account.accType == 3 {
+                            valueString = account.AccNoUpiMobile ?? ""
+                        }
+                    })
+                    cell.textField.text = valueString
+                }
+            })
             <<< RoundedButtonViewRow("EditArtisanBankDetails") {
                 $0.tag = "EditArtisanBankDetails"
                 $0.cell.titleLabel.isHidden = true
@@ -320,6 +347,10 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 }
                 if self.viewModel.paytm.value != "" {
                     let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.paytm.value, accType: (accId: 4, accDesc: "paytm"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
+                    finalJson?.append(newBankDetails.toJSON())
+                }
+                if self.viewModel.phonePay.value != "" {
+                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.phonePay.value, accType: (accId: 3, accDesc: "phonp"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
                 }
                 if let _ = finalJson {

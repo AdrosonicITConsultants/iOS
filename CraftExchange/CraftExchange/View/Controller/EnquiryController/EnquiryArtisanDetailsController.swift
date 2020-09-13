@@ -57,13 +57,25 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.title = enquiryObject?.brandName
             }
             <<< LabelRow() {
-                $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? "")"
+                if User.loggedIn()?.refRoleId == "2" {
+                    $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? "")"
+                }else {
+                    $0.title = "\(enquiryObject?.firstName ?? "") \(enquiryObject?.lastName ?? "")"
+                }
             }
             <<< LabelRow() {
-                $0.title = "\(enquiryObject?.firstName ?? "") \(enquiryObject?.lastName ?? "")"
+                if User.loggedIn()?.refRoleId == "2" {
+                    $0.title = "\(enquiryObject?.firstName ?? "") \(enquiryObject?.lastName ?? "")"
+                }else {
+                    $0.title = enquiryObject?.email ?? ""
+                }
             }
             <<< LabelRow() {
-                $0.title = enquiryObject?.eqDescription
+                if User.loggedIn()?.refRoleId == "2" {
+                    $0.title = enquiryObject?.eqDescription
+                }else {
+                    $0.title = enquiryObject?.mobile
+                }
             }
             <<< LabelRow() {
                 $0.title = "Specialist in"
@@ -76,40 +88,85 @@ class EnquiryArtisanDetailsController: FormViewController {
                     }
                 })
                 $0.value = lbl
-            }
-            <<< SegmentedRow() { row in
-                row.options = ["Bank Details", "Digital Payment Details"]
-            }.onChange({ (row) in
-                let digitalSection = self.form.sectionBy(tag: "DigitalPaymentSection")
-                let bankSection = self.form.sectionBy(tag: "BankSection")
-                if row.value == "Bank Details" {
-                    digitalSection?.hidden = true
-                    digitalSection?.allRows .forEach({ (row) in
-                        row.hidden = true
-                        row.evaluateHidden()
-                    })
-                    bankSection?.hidden = false
-                    bankSection?.allRows .forEach({ (row) in
-                        row.hidden = false
-                        row.evaluateHidden()
-                    })
-                }else if row.value == "Digital Payment Details" {
-                    digitalSection?.hidden = false
-                    digitalSection?.allRows .forEach({ (row) in
-                        row.hidden = false
-                        row.evaluateHidden()
-                    })
-                    bankSection?.hidden = true
-                    bankSection?.allRows .forEach({ (row) in
-                        row.hidden = true
-                        row.evaluateHidden()
-                    })
+                if User.loggedIn()?.refRoleId == "1" {
+                    $0.hidden = true
                 }
-                digitalSection?.evaluateHidden()
-                bankSection?.evaluateHidden()
+            }
+            <<< SegmentedRow<String>() { row in
+                row.title = ""
+                if User.loggedIn()?.refRoleId == "1" {
+                    row.options = ["Address Details", "Other Details"]
+                }else {
+                    row.options = ["Bank Details", "Digital Payment Details"]
+                }
+            }.onChange({ (row) in
+                if User.loggedIn()?.refRoleId == "1" {
+                    //Show Buyers Address and Other Details
+
+                    let digitalSection = self.form.sectionBy(tag: "DeliveryAddress")
+                    let bankSection = self.form.sectionBy(tag: "OtherDetails")
+                    if row.value == "Other Details" {
+                        digitalSection?.hidden = true
+                        digitalSection?.allRows .forEach({ (row) in
+                            row.hidden = true
+                            row.evaluateHidden()
+                        })
+                        bankSection?.hidden = false
+                        bankSection?.allRows .forEach({ (row) in
+                            row.hidden = false
+                            row.evaluateHidden()
+                        })
+                    }else if row.value == "Address Details" {
+                        digitalSection?.hidden = false
+                        digitalSection?.allRows .forEach({ (row) in
+                            row.hidden = false
+                            row.evaluateHidden()
+                        })
+                        bankSection?.hidden = true
+                        bankSection?.allRows .forEach({ (row) in
+                            row.hidden = true
+                            row.evaluateHidden()
+                        })
+                    }
+                    digitalSection?.evaluateHidden()
+                    bankSection?.evaluateHidden()
+                }else {
+                    //Show Artisans Bank Details
+                    let digitalSection = self.form.sectionBy(tag: "DigitalPaymentSection")
+                    let bankSection = self.form.sectionBy(tag: "BankSection")
+                    if row.value == "Bank Details" {
+                        digitalSection?.hidden = true
+                        digitalSection?.allRows .forEach({ (row) in
+                            row.hidden = true
+                            row.evaluateHidden()
+                        })
+                        bankSection?.hidden = false
+                        bankSection?.allRows .forEach({ (row) in
+                            row.hidden = false
+                            row.evaluateHidden()
+                        })
+                    }else if row.value == "Digital Payment Details" {
+                        digitalSection?.hidden = false
+                        digitalSection?.allRows .forEach({ (row) in
+                            row.hidden = false
+                            row.evaluateHidden()
+                        })
+                        bankSection?.hidden = true
+                        bankSection?.allRows .forEach({ (row) in
+                            row.hidden = true
+                            row.evaluateHidden()
+                        })
+                    }
+                    digitalSection?.evaluateHidden()
+                    bankSection?.evaluateHidden()
+                }
+                
             })
             +++ Section() {section in
                 section.tag = "BankSection"
+                if User.loggedIn()?.refRoleId == "1" {
+                    section.hidden = true
+                }
             }
             <<< RoundedTextFieldRow() {
                 $0.tag = "AccNo"
@@ -229,7 +286,7 @@ class EnquiryArtisanDetailsController: FormViewController {
             +++ Section(){ section in
                 section.tag = "DigitalPaymentSection"
                 section.hidden = true
-        }
+            }
             <<< TextRow() {
                 $0.tag = "gpay"
                 $0.cell.height = { 60.0 }
@@ -284,5 +341,117 @@ class EnquiryArtisanDetailsController: FormViewController {
                 })
                 cell.textField.text = valueString
             })
+            +++ Section() {
+                $0.tag = "DeliveryAddress"
+                if User.loggedIn()?.refRoleId == "2" {
+                    $0.hidden = true
+                }
+            }
+            <<< LabelRow() {
+                $0.cell.height = { 80.0 }
+                $0.title = "Delivery Address".localized
+            }.cellUpdate({ (cell, row) in
+                var finalString = ""
+                if self.enquiryObject?.line1 != nil && self.enquiryObject?.line1 != "" {
+                    finalString.append(self.enquiryObject?.line1 ?? "")
+                }
+                if self.enquiryObject?.line2 != nil && self.enquiryObject?.line2 != "" {
+                    finalString.append(" \(self.enquiryObject?.line2 ?? "")")
+                }
+                if self.enquiryObject?.street != nil && self.enquiryObject?.street != "" {
+                    finalString.append(", \(self.enquiryObject?.street ?? "")")
+                }
+                if self.enquiryObject?.city != nil && self.enquiryObject?.city != "" {
+                    finalString.append(self.enquiryObject?.city ?? "")
+                }
+                if self.enquiryObject?.district != nil && self.enquiryObject?.district != "" {
+                    finalString.append(" \(self.enquiryObject?.district ?? "")")
+                }
+                if self.enquiryObject?.state != nil && self.enquiryObject?.state != "" {
+                    finalString.append(", \(self.enquiryObject?.state ?? "")")
+                }
+                if self.enquiryObject?.pincode != nil && self.enquiryObject?.pincode != "" {
+                    finalString.append(", \(self.enquiryObject?.pincode ?? "")")
+                }
+                if self.enquiryObject?.country != nil && self.enquiryObject?.country != "" {
+                    finalString.append("\n \(self.enquiryObject?.country ?? "")")
+                }
+                cell.detailTextLabel?.text = finalString
+                cell.detailTextLabel?.numberOfLines = 10
+                cell.detailTextLabel?.font = .systemFont(ofSize: 10)
+            })
+            +++ Section() {
+                $0.tag = "OtherDetails"
+                $0.hidden = true
+            }
+            <<< RoundedTextFieldRow() {
+                $0.tag = "GST"
+                $0.cell.titleLabel.text = "GST Number".localized
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.text = enquiryObject?.gst ?? ""
+                $0.cell.valueTextField.textColor = .darkGray
+                $0.cell.height = { 80.0 }
+                }.cellUpdate({ (cell, row) in
+                    cell.isUserInteractionEnabled = false
+                    cell.valueTextField.isUserInteractionEnabled = false
+                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                    cell.valueTextField.leftPadding = 0
+                })
+            <<< LabelRow() {
+                $0.cell.height = { 60.0 }
+                $0.title = "Details for Point of Contact".localized
+                $0.cell.isUserInteractionEnabled = false
+            }
+            <<< RoundedTextFieldRow() {
+                $0.tag = "PocName"
+                $0.cell.titleLabel.text = "Name".localized
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.text = "\(enquiryObject?.pocFirstName ?? "") \(enquiryObject?.pocLastName ?? "")"
+                $0.cell.valueTextField.textColor = .darkGray
+                $0.cell.height = { 80.0 }
+                }.cellUpdate({ (cell, row) in
+                    cell.isUserInteractionEnabled = false
+                    cell.valueTextField.isUserInteractionEnabled = false
+                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                    cell.valueTextField.leftPadding = 0
+                })
+            <<< RoundedTextFieldRow() {
+                $0.tag = "PocMobile"
+                $0.cell.titleLabel.text = "Mobile Number".localized
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.backgroundColor = .white
+                $0.cell.height = { 80.0 }
+                $0.cell.valueTextField.text = enquiryObject?.pocContact ?? ""
+                $0.cell.valueTextField.textColor = .darkGray
+                }.cellUpdate({ (cell, row) in
+                    cell.isUserInteractionEnabled = false
+                    cell.valueTextField.isUserInteractionEnabled = false
+                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                    cell.valueTextField.leftPadding = 0
+                })
+            <<< RoundedTextFieldRow() {
+                $0.tag = "PocEmail"
+                $0.cell.titleLabel.text = "Email Id".localized
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.backgroundColor = .white
+                $0.cell.valueTextField.text = enquiryObject?.pocEmail ?? ""
+                $0.cell.valueTextField.textColor = .darkGray
+                $0.cell.height = { 80.0 }
+                }.cellUpdate({ (cell, row) in
+                    cell.isUserInteractionEnabled = false
+                    cell.valueTextField.isUserInteractionEnabled = false
+                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                    cell.valueTextField.leftPadding = 0
+                })
     }
 }

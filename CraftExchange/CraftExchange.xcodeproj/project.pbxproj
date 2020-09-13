@@ -13,6 +13,8 @@
 		C005BCB624C1AB2F00197519 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB524C1AB2F00197519 /* Product.swift */; };
 		C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB724C1DC9F00197519 /* Product+Request.swift */; };
 		C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB924C2335400197519 /* Product+Transaction.swift */; };
+		C006B3AF250E4FAC00882C4A /* ProFormaInvoiceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */; };
+		C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */; };
 		C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */; };
 		C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */; };
 		C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */; };
@@ -302,6 +304,8 @@
 		C005BCB524C1AB2F00197519 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		C005BCB724C1DC9F00197519 /* Product+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Request.swift"; sourceTree = "<group>"; };
 		C005BCB924C2335400197519 /* Product+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Transaction.swift"; sourceTree = "<group>"; };
+		C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProFormaInvoiceRow.xib; sourceTree = "<group>"; };
+		C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFormaInvoiceRow.swift; sourceTree = "<group>"; };
 		C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
 		C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
@@ -1198,6 +1202,8 @@
 				C0930D3E2506231100DC9274 /* MOQSectionTitle.swift */,
 				C06AA3A1250550D200EF4B10 /* MOQValueRow.xib */,
 				C0930D402506237400DC9274 /* MOQValueRow.swift */,
+				C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */,
+				C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -1505,6 +1511,7 @@
 				C0144AB424843D4A006FF4AB /* RegisterArtisan.storyboard in Resources */,
 				C099E3F324FEC31C003B6E3B /* EnquiryGeneratedView.xib in Resources */,
 				C0995BF624C8C8A000EC4CC3 /* CategoryBrandCell.xib in Resources */,
+				C006B3AF250E4FAC00882C4A /* ProFormaInvoiceRow.xib in Resources */,
 				C0A9108F247CD8D000852695 /* Lato-Regular.ttf in Resources */,
 				C06DCAC724D33DD000F1435F /* lengthWidthRow.xib in Resources */,
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
@@ -1584,6 +1591,7 @@
 				C04F72D924C611D500E8122E /* ArtisanProductCell.swift in Sources */,
 				C074EE3724EEC1A300B0973B /* WishlistScene.swift in Sources */,
 				C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */,
+				C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */,
 				C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */,
 				C074EE3C24EEC3DD00B0973B /* WishlistService.swift in Sources */,
 				C0917DE624D46099006B6664 /* Yarn.swift in Sources */,

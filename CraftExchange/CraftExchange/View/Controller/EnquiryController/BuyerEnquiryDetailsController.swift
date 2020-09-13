@@ -104,10 +104,28 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.hidden = true
                 }
+                if User.loggedIn()?.refRoleId == "1" {
+                    $0.hidden = true
+                }
+            }
+            <<< ProFormaInvoiceRow() {
+                $0.cell.height = { 150.0 }
+                if (enquiryObject?.enquiryStageId == 2 || enquiryObject?.enquiryStageId == 7){
+                    $0.hidden = false
+                }else {
+                    $0.hidden = true
+                }
+                if User.loggedIn()?.refRoleId == "2" {
+                    $0.hidden = true
+                }
             }
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check artisan's details"
+                if User.loggedIn()?.refRoleId == "2" {
+                    $0.cell.titleLbl.text = "Check artisan's details"
+                }else {
+                    $0.cell.titleLbl.text = "Check buyer's details"
+                }
                 $0.cell.valueLbl.text = "Brand: \(enquiryObject?.brandName ?? "NA")"
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBlueText()
@@ -116,14 +134,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                 let vc = EnquiryArtisanDetailsController.init(style: .plain)
                 vc.enquiryObject = self.enquiryObject
                 self.navigationController?.pushViewController(vc, animated: true)
-                /*do {
-                    let client = try SafeClient(wrapping: CraftExchangeClient())
-                    let vc = MyProfileService(client: client).createScene() as! BuyerProfileController
-                    vc.loadArtisan = true
-                    self.navigationController?.pushViewController(vc, animated: true)
-                } catch let error {
-                  print("Unable to load view:\n\(error.localizedDescription)")
-                }*/
             })
             <<< MOQSectionTitleRow() {
                 $0.cell.height = { 44.0 }

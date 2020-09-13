@@ -50,12 +50,24 @@
                             <constraint firstAttribute="width" constant="40" id="Up7-Hi-b9S"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next Steps: -----------------&gt; Upload adavance payment receipt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpp-G1-yoT">
+                        <rect key="frame" x="20" y="2" width="374" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="fxx-Hd-mPy"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="2PA-gq-DgA" firstAttribute="leading" secondItem="QtB-Ty-4Ub" secondAttribute="trailing" constant="2" id="21T-IZ-69t"/>
                     <constraint firstItem="lfE-8d-ah3" firstAttribute="centerX" secondItem="VdY-Nm-7c9" secondAttribute="centerX" id="DvX-dc-vo5"/>
                     <constraint firstAttribute="trailing" secondItem="2PA-gq-DgA" secondAttribute="trailing" constant="154" id="EY2-bL-6Yg"/>
                     <constraint firstItem="lfE-8d-ah3" firstAttribute="top" secondItem="QtB-Ty-4Ub" secondAttribute="bottom" constant="5" id="HsE-j3-Da9"/>
+                    <constraint firstItem="lpp-G1-yoT" firstAttribute="leading" secondItem="VdY-Nm-7c9" secondAttribute="leading" constant="20" id="KWL-pv-Kki"/>
+                    <constraint firstAttribute="trailing" secondItem="lpp-G1-yoT" secondAttribute="trailing" constant="20" id="cbF-Qa-GgG"/>
+                    <constraint firstItem="lpp-G1-yoT" firstAttribute="top" secondItem="VdY-Nm-7c9" secondAttribute="top" constant="2" id="q6q-IL-hyI"/>
                     <constraint firstItem="2PA-gq-DgA" firstAttribute="top" secondItem="QtB-Ty-4Ub" secondAttribute="top" id="saY-Q2-wSz"/>
                     <constraint firstItem="lfE-8d-ah3" firstAttribute="bottom" secondItem="VdY-Nm-7c9" secondAttribute="bottomMargin" id="xJL-EQ-6tD"/>
                 </constraints>

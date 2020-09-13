@@ -80,6 +80,9 @@ class BuyerProductDetailController: FormViewController {
                 }else {
                     cell.wishlistBtn.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
                 }
+                if User.loggedIn()?.refRoleId == "1" {
+                    cell.wishlistBtn.isHidden = true
+                }
             })
             <<< CollectionViewRow() {
                 $0.tag = "PhotoRow"
@@ -313,6 +316,9 @@ class BuyerProductDetailController: FormViewController {
             }
             <<< ButtonRow() {
                 $0.title = "Genrate Enquiry"
+                if User.loggedIn()?.refRoleId == "1" {
+                    $0.hidden = true
+                }
             }.cellUpdate({ (cell, row) in
                 cell.backgroundColor = .black
                 cell.tintColor = .white
