@@ -45,23 +45,25 @@ extension EnquiryListService {
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
             if let array = json["data"] as? [[String: Any]] {
+                var i = 0
+                var eqArray: [Int] = []
                 array.forEach { (dataDict) in
+                    i+=1
                     if let prodDict = dataDict["openEnquiriesResponse"] as? [String: Any] {
                         if let proddata = try? JSONSerialization.data(withJSONObject: prodDict, options: .fragmentsAllowed) {
                             if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: proddata) {
                                 DispatchQueue.main.async {
                                     enquiryObj.saveRecord()
                                     enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false)
-                                    if isOngoing {
-                                        if !(controller.ongoingEnquiries.contains(enquiryObj.entityID) ) {
-                                            controller.ongoingEnquiries.append(enquiryObj.entityID)
+                                    eqArray.append(enquiryObj.entityID)
+                                    if i == array.count {
+                                        if isOngoing {
+                                            controller.ongoingEnquiries = eqArray
+                                        }else {
+                                            controller.closedEnquiries = eqArray
                                         }
-                                    }else {
-                                        if !(controller.closedEnquiries.contains(enquiryObj.entityID) ) {
-                                            controller.closedEnquiries.append(enquiryObj.entityID)
-                                        }
+                                        controller.endRefresh()
                                     }
-                                    controller.endRefresh()
                                 }
                             }
                         }

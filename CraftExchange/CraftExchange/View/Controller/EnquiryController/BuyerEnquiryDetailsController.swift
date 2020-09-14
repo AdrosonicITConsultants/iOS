@@ -27,6 +27,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
     var showHistoryProductDetails: (() -> ())?
+    var closeEnquiry: ((_ enquiryId: Int) -> ())?
     let realm = try? Realm()
     var isClosed = false
     
@@ -276,6 +277,11 @@ class BuyerEnquiryDetailsController: FormViewController {
         alert.addAction(chat)
         
         let closeEnquiry = UIAlertAction.init(title: "Close Enquiry", style: .default) { (action) in
+            self.confirmAction("Warning".localized, "Are you sure you want to close this enquiry?".localized, confirmedCallback: { (action) in
+                self.closeEnquiry?(self.enquiryObject?.entityID ?? 0)
+            }) { (action) in
+                
+            }
         }
         alert.addAction(closeEnquiry)
         

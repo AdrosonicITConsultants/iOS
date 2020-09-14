@@ -99,4 +99,17 @@ extension Enquiry {
             needsAuthorization: false
         )
     }
+    
+    public static func closeEnquiry(enquiryId: Int) -> Request<Data, APIError> {
+      let parameters: [String: Any] = ["enquiryId":enquiryId]
+        return Request(
+            path: "enquiry/markEnquiryCompleted/\(enquiryId)",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "markEnquiryCompleted failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }

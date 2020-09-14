@@ -21,4 +21,8 @@ class EnquiryDetailsService: BaseService<Data> {
     func getOpenEnquiryDetails(enquiryId: Int) -> SafeSignal<Data> {
       return Enquiry.getOpenEnquiryDetails(enquiryId: enquiryId).response(using: client).debug()
     }
+    
+    func closeEnquiry(enquiryId: Int) -> SafeSignal<Data> {
+      return Enquiry.closeEnquiry(enquiryId: enquiryId).response(using: client).debug()
+    }
 }

@@ -92,6 +92,14 @@ extension EnquiryDetailsService {
             vc.hideLoading()
         }
         
+        vc.closeEnquiry = { (enquiryId) in
+            self.closeEnquiry(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                DispatchQueue.main.async {
+                    vc.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+        
         return vc
     }
 }
