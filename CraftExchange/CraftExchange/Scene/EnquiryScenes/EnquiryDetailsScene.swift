@@ -72,7 +72,8 @@ extension EnquiryDetailsService {
                 vc.hideLoading()
                 let realm = try? Realm()
                 if let object = realm?.objects(CustomProduct.self).filter("%K == %@", "entityID", forEnquiry?.productId ?? 0).first {
-                    let newVC = UploadProductService(client: self.client).createCustomProductScene(productObject: object)
+                    let newVC = UploadProductService(client: self.client).createCustomProductScene(productObject: object) as! UploadCustomProductController
+                    newVC.fromEnquiry = true
                     newVC.modalPresentationStyle = .fullScreen
                     vc.navigationController?.pushViewController(newVC, animated: true)
                 }
