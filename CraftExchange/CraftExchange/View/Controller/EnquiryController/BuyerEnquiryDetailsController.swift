@@ -118,6 +118,22 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.cell.actionLbl.text = ""
                 }
+                if isClosed {
+                    $0.hidden = true
+                }
+            }
+            <<< EnquiryClosedRow() {
+                $0.cell.height = { 110.0 }
+                if enquiryObject?.enquiryStageId == 10 {
+                    $0.cell.dotView.backgroundColor = UIColor().CEGreen()
+                    $0.cell.enquiryLabel.text = "Enquiry Completed".localized
+                    $0.cell.enquiryLabel.textColor = UIColor().CEGreen()
+                }else {
+                    $0.cell.dotView.backgroundColor = .red
+                    $0.cell.enquiryLabel.text = "Enquiry Closed".localized
+                    $0.cell.enquiryLabel.textColor = .red
+                }
+                $0.hidden = isClosed == true ? false : true
             }
             <<< TransactionReceiptRow() {
                 $0.cell.height = { 110.0 }
@@ -127,7 +143,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.hidden = true
                 }
-                if User.loggedIn()?.refRoleId == "1" {
+                if User.loggedIn()?.refRoleId == "1" || isClosed {
                     $0.hidden = true
                 }
             }
@@ -138,7 +154,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.hidden = true
                 }
-                if User.loggedIn()?.refRoleId == "2" {
+                if User.loggedIn()?.refRoleId == "2" || isClosed {
                     $0.hidden = true
                 }
             }

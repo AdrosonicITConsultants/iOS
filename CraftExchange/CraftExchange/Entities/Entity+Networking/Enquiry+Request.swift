@@ -11,7 +11,7 @@ import Foundation
 extension Enquiry {
     
     static func checkIfEnquiryExists(for prodId: Int, isCustom: Bool) -> Request<Data, APIError> {
-        var str = "enquiry/ifEnquiryExists/{productId}/{isCustom}?productId=\(prodId)&isCustom=\(isCustom)"
+        var str = "enquiry/ifEnquiryExists/\(prodId)/\(isCustom)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,

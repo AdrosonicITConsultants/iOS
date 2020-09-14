@@ -250,6 +250,8 @@
 		C0AAC3962492BBA2008C2047 /* RoundedActionSheetRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */; };
 		C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC755C249402C00011B7D3 /* RoundedButtonViewRow.swift */; };
 		C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AC755E249403380011B7D3 /* RoundedButtonViewRow.xib */; };
+		C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ACA1C4250F32D400978CEA /* EnquiryClosedRow.xib */; };
+		C0ACA1C7250F33B300978CEA /* EnquiryClosedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACA1C6250F33B300978CEA /* EnquiryClosedRow.swift */; };
 		C0ACE9902484EF0D00EFA4ED /* User+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */; };
 		C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9912484EF3800EFA4ED /* Country+Request.swift */; };
 		C0ACE99424852A5B00EFA4ED /* CXUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE99324852A5B00EFA4ED /* CXUser.swift */; };
@@ -548,6 +550,8 @@
 		C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedActionSheetRow.xib; sourceTree = "<group>"; };
 		C0AC755C249402C00011B7D3 /* RoundedButtonViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButtonViewRow.swift; sourceTree = "<group>"; };
 		C0AC755E249403380011B7D3 /* RoundedButtonViewRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedButtonViewRow.xib; sourceTree = "<group>"; };
+		C0ACA1C4250F32D400978CEA /* EnquiryClosedRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnquiryClosedRow.xib; sourceTree = "<group>"; };
+		C0ACA1C6250F33B300978CEA /* EnquiryClosedRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryClosedRow.swift; sourceTree = "<group>"; };
 		C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Register.swift"; sourceTree = "<group>"; };
 		C0ACE9912484EF3800EFA4ED /* Country+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Request.swift"; sourceTree = "<group>"; };
 		C0ACE99324852A5B00EFA4ED /* CXUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CXUser.swift; sourceTree = "<group>"; };
@@ -1204,6 +1208,8 @@
 				C0930D402506237400DC9274 /* MOQValueRow.swift */,
 				C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */,
 				C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */,
+				C0ACA1C4250F32D400978CEA /* EnquiryClosedRow.xib */,
+				C0ACA1C6250F33B300978CEA /* EnquiryClosedRow.swift */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -1478,6 +1484,7 @@
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
 				C099E3ED24FE8F0C003B6E3B /* EnquiryInitiationView.xib in Resources */,
+				C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */,
 				C0A910A4247CD90B00852695 /* PlayfairDisplay-Medium.ttf in Resources */,
 				C09B3F0024BA56AD00FBC115 /* ProfileImageRow.xib in Resources */,
 				C0A910AC247CD90B00852695 /* PlayfairDisplay-BlackItalic.ttf in Resources */,
@@ -1659,6 +1666,7 @@
 				C0ACE99A2485908E00EFA4ED /* REGValidateUserEmailController.swift in Sources */,
 				C09C8C21250CBDBC00950526 /* Enquiry+Transactions.swift in Sources */,
 				C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */,
+				C0ACA1C7250F33B300978CEA /* EnquiryClosedRow.swift in Sources */,
 				C0FBE34F24C6F7420037347A /* ArtisanProductCatalogueScene.swift in Sources */,
 				C0917DE824D460D2006B6664 /* YarnType.swift in Sources */,
 				C071E256247EE6CD0085805B /* KeychainManager.swift in Sources */,
