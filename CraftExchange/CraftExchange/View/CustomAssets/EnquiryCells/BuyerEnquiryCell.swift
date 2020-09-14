@@ -19,6 +19,7 @@ class BuyerEnquiryCell: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var statusDot: UIView!
     @IBOutlet weak var prodImage: UIImageView!
+    @IBOutlet weak var requestMOQLabel: UILabel!
     
     func configure(_ enquiryObj: Enquiry) {
         enquiryCodeLabel.text = enquiryObj.enquiryCode
@@ -45,6 +46,11 @@ class BuyerEnquiryCell: UITableViewCell {
         }else {
             statusLabel.textColor = UIColor().CEGreen()
             statusDot.backgroundColor = UIColor().CEGreen()
+        }
+        if User.loggedIn()?.refRoleId == "1" && enquiryObj.enquiryStageId == 1 && enquiryObj.isMoqSend == 0 {
+            requestMOQLabel.isHidden = false
+        }else {
+            requestMOQLabel.isHidden = true
         }
         do {
             let client = try SafeClient(wrapping: CraftExchangeImageClient())

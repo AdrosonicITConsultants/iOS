@@ -73,12 +73,24 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! BuyerEnquiryCell
         if let obj = allEnquiries?[indexPath.row] {
             cell.configure(obj)
+            if segmentView.selectedSegmentIndex == 1 {
+                if obj.enquiryStageId == 10 {
+                    cell.statusLabel.textColor = UIColor().CEGreen()
+                    cell.statusLabel.text = "Enquiry Completed"
+                    cell.statusDot.backgroundColor = UIColor().CEGreen()
+                }else {
+                    cell.statusLabel.textColor = .red
+                    cell.statusLabel.text = "Enquiry Closed"
+                    cell.statusDot.backgroundColor = .red
+                }
+                cell.requestMOQLabel.isHidden = true
+            }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 110
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
