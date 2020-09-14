@@ -114,7 +114,61 @@ extension WishlistService {
             service.generateNewEnquiry(controller: controller, prodId: prodId, isCustom: false)
         }
         
+        controller.viewModel.openNewEnquiry = { (enquiryId) in
+            self.showEnquiry(enquiryId: enquiryId, controller: controller)
+        }
+        
         return controller
+    }
+    
+    public func showEnquiry(enquiryId: Int, controller: UIViewController) {
+        let service = EnquiryDetailsService.init(client: self.client)
+        service.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: controller, context: .global(qos: .background)) {(_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    if let eqArray = json["data"] as? [[String: Any]] {
+                    if let eqObj = eqArray.first {
+                    if let eqDictionary = eqObj["openEnquiriesResponse"] {
+                    if let eqdata = try? JSONSerialization.data(withJSONObject: eqDictionary, options: .fragmentsAllowed) {
+                        if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: eqdata) {
+                        DispatchQueue.main.async {
+                        enquiryObj.saveOrUpdate()
+                            
+                        //Get Artisan Payment Account Details
+                        if let accArray = eqObj["paymentAccountDetails"] as? [[String: Any]]{
+                        if let accdata = try? JSONSerialization.data(withJSONObject: accArray, options: .fragmentsAllowed) {
+                        if let parsedAccList = try? JSONDecoder().decode([PaymentAccDetails].self, from: accdata) {
+                            //Get Artisan Product Categories
+                            if let catArray = eqObj["productCategories"] as? [[String: Any]]{
+                            if let catdata = try? JSONSerialization.data(withJSONObject: catArray, options: .fragmentsAllowed) {
+                            if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
+                                enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
+                                controller.hideLoading()
+                                let realm = try? Realm()
+                                let obj = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryId).first
+                                let new = service.createEnquiryDetailScene(forEnquiry: obj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
+                                new.modalPresentationStyle = .fullScreen
+                                controller.navigationController?.pushViewController(new, animated: true)
+                            }
+                            }
+                            }
+                        }
+                        }
+                        }
+                        }
+                        }
+                    }
+                    }
+                    }
+                        
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                controller.hideLoading()
+            }
+            
+        }.dispose(in: controller.bag)
     }
 }
 

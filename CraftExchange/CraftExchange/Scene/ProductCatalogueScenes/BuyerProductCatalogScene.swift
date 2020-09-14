@@ -130,6 +130,11 @@ extension ProductCatalogService {
             }.dispose(in: controller.bag)
         }
         
+        controller.showNewEnquiry = { (enquiryId) in
+            let service = WishlistService.init(client: self.client)
+            service.showEnquiry(enquiryId: enquiryId, controller: controller)
+        }
+        
         return controller
     }
     
@@ -248,7 +253,7 @@ extension ProductCatalogService {
                         }else {
                             DispatchQueue.main.async {
                                 controller.view.hideEnquiryInitiationView()
-                                controller.view.showEnquiryExistsView(controller: controller, prodName: responseDictionary["productName"] as? String ?? "", enquiryId: responseDictionary["code"] as? String ?? "", prodId: prodId)
+                                controller.view.showEnquiryExistsView(controller: controller, prodName: responseDictionary["productName"] as? String ?? "", enquiryCode: responseDictionary["code"] as? String ?? "", enquiryId: responseDictionary["enquiryId"] as? Int ?? 0, prodId: prodId)
                             }
                         }
                     }

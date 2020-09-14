@@ -28,6 +28,8 @@ class BuyerProductCatalogController: UIViewController {
     var refreshSearchResult: ((_ loadPage: Int) -> ())?
     var generateEnquiry: ((_ prodId: Int) -> ())?
     var generateNewEnquiry: ((_ prodId: Int) -> ())?
+    var showNewEnquiry: ((_ enquiryId: Int) -> ())?
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var brandLogoImage: UIImageView!
@@ -375,19 +377,25 @@ extension BuyerProductCatalogController: EnquiryExistsViewProtocol, EnquiryGener
     }
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
-        self.view.hideEnquiryGenerateView()
+        goToEnquiry(enquiryId: enquiryId)
     }
     
     func cancelButtonSelected() {
         self.view.hideEnquiryExistsView()
     }
     
-    func viewEnquiryButtonSelected() {
-        self.view.hideEnquiryExistsView()
+    func viewEnquiryButtonSelected(eqId: Int) {
+        goToEnquiry(enquiryId: eqId)
     }
     
     func generateEnquiryButtonSelected(prodId: Int) {
         self.generateNewEnquiry?(prodId)
         self.view.hideEnquiryExistsView()
+    }
+    
+    func goToEnquiry(enquiryId: Int) {
+        self.view.hideEnquiryGenerateView()
+        self.view.hideEnquiryExistsView()
+        self.showNewEnquiry?(enquiryId)
     }
 }

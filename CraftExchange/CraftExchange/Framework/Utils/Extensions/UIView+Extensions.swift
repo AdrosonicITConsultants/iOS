@@ -61,15 +61,16 @@ extension UIView {
         }
     }
     
-    func showEnquiryExistsView(controller: UIViewController, prodName: String, enquiryId: String, prodId: Int) {
+    func showEnquiryExistsView(controller: UIViewController, prodName: String, enquiryCode: String, enquiryId: Int, prodId: Int) {
         if let _ = self.viewWithTag(124) {
             print("do nothing")
         }else {
             let initiationView = Bundle.main.loadNibNamed("EnquiryExistsView", owner:
             self, options: nil)?.first as? EnquiryExistsView
-            initiationView?.enquiryIdLabel.text = "With Enquiry Id \(enquiryId)"
+            initiationView?.enquiryIdLabel.text = "With Enquiry Id \(enquiryCode)"
             initiationView?.productLabel.text = prodName
             initiationView?.productId = prodId
+            initiationView?.enquiryId = enquiryId
             initiationView?.delegate = controller as? EnquiryExistsViewProtocol
             initiationView?.tag = 124
             self.addSubview(initiationView!)

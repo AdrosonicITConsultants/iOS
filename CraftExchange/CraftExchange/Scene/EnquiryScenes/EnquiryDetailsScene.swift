@@ -15,13 +15,13 @@ import RealmSwift
 import UIKit
 
 extension EnquiryDetailsService {
-    func createEnquiryDetailScene(forEnquiry: Enquiry?) -> UIViewController {
+    func createEnquiryDetailScene(forEnquiry: Enquiry?, enquiryId: Int) -> UIViewController {
         let vc = BuyerEnquiryDetailsController.init(style: .plain)
         vc.enquiryObject = forEnquiry
         
         vc.viewWillAppear = {
             vc.showLoading()
-            self.getOpenEnquiryDetails(enquiryId: forEnquiry?.enquiryId ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+            self.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool == true {
                         if let eqArray = json["data"] as? [[String: Any]] {

@@ -97,14 +97,16 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
         print("*** object ***")
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row]) as! BuyerEnquiryDetailsController
-            vc.modalPresentationStyle = .fullScreen
-            if segmentView.selectedSegmentIndex == 0 {
-                vc.isClosed = false
-            }else {
-                vc.isClosed = true
+            if let obj = allEnquiries?[indexPath.row] {
+                let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row], enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
+                vc.modalPresentationStyle = .fullScreen
+                if segmentView.selectedSegmentIndex == 0 {
+                    vc.isClosed = false
+                }else {
+                    vc.isClosed = true
+                }
+                self.navigationController?.pushViewController(vc, animated: true)
             }
-            self.navigationController?.pushViewController(vc, animated: true)
         }catch {
             print(error.localizedDescription)
         }

@@ -21,6 +21,7 @@ class WishlistViewModel {
     var deleteWishlistProduct: ((_ prodId: Int) -> ())?
     var checkEnquiry: ((_ prodId: Int) -> ())?
     var generateNewEnquiry: ((_ prodId: Int) -> ())?
+    var openNewEnquiry: ((_ enquiryId: Int) -> ())?
 }
 
 class WishlistController: UIViewController {
@@ -147,9 +148,12 @@ extension WishlistController: EnquiryExistsViewProtocol, EnquiryGeneratedViewPro
     }
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
+//       goToEnquiry(enquiryId: enquiryId)
         self.view.hideEnquiryGenerateView()
+        self.view.hideEnquiryExistsView()
         let item = self.navigationItem.rightBarButtonItem
         item?.isEnabled = true
+        self.viewModel.openNewEnquiry?(enquiryId)
     }
     
     func cancelButtonSelected() {
@@ -158,10 +162,13 @@ extension WishlistController: EnquiryExistsViewProtocol, EnquiryGeneratedViewPro
         item?.isEnabled = true
     }
     
-    func viewEnquiryButtonSelected() {
+    func viewEnquiryButtonSelected(eqId: Int) {
+//        goToEnquiry(enquiryId: eqId)
+        self.view.hideEnquiryGenerateView()
         self.view.hideEnquiryExistsView()
         let item = self.navigationItem.rightBarButtonItem
         item?.isEnabled = true
+        self.viewModel.openNewEnquiry?(eqId)
     }
     
     func generateEnquiryButtonSelected(prodId: Int) {

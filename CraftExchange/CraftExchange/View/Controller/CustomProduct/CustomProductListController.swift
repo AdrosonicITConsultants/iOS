@@ -26,6 +26,7 @@ class CustomProductListController: UITableViewController {
     var deleteProduct: ((_ prodId: Int) -> ())?
     var checkCustomProdEnquiry: ((_ prodId: Int) -> ())?
     var generateNewCustomProdEnquiry: ((_ prodId: Int) -> ())?
+    var showNewEnquiry: ((_ enquiryId: Int) -> ())?
     
     override init(style: UITableView.Style) {
         super.init(style: style)
@@ -144,8 +145,10 @@ extension CustomProductListController: EnquiryExistsViewProtocol, EnquiryGenerat
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
         self.view.hideEnquiryGenerateView()
+        self.view.hideEnquiryExistsView()
         let item = self.navigationItem.rightBarButtonItem
         item?.isEnabled = true
+        showNewEnquiry?(enquiryId)
     }
     
     func cancelButtonSelected() {
@@ -154,10 +157,12 @@ extension CustomProductListController: EnquiryExistsViewProtocol, EnquiryGenerat
         item?.isEnabled = true
     }
     
-    func viewEnquiryButtonSelected() {
+    func viewEnquiryButtonSelected(eqId: Int) {
+        self.view.hideEnquiryGenerateView()
         self.view.hideEnquiryExistsView()
         let item = self.navigationItem.rightBarButtonItem
         item?.isEnabled = true
+        showNewEnquiry?(eqId)
     }
     
     func generateEnquiryButtonSelected(prodId: Int) {

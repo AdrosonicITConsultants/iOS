@@ -24,6 +24,7 @@ import WebKit
 class BuyerProductDetailController: FormViewController {
 
     var product: Product?
+    var customProduct: CustomProduct?
     var productImages: [UIImage]? = []
     var showMoreProduct: Int = -1
     var addProdDetailToWishlist: ((_ prodId: Int) -> ())?
@@ -32,6 +33,7 @@ class BuyerProductDetailController: FormViewController {
     var suggestedProdArray: Results<Product>?
     var checkEnquiry: ((_ prodId: Int) -> ())?
     var generateNewEnquiry: ((_ prodId: Int) -> ())?
+    var showNewEnquiry: ((_ enquiryId: Int) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -602,19 +604,25 @@ extension BuyerProductDetailController: EnquiryExistsViewProtocol, EnquiryGenera
     }
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
-        self.view.hideEnquiryGenerateView()
+        goToEnquiry(enquiryId: enquiryId)
     }
     
     func cancelButtonSelected() {
         self.view.hideEnquiryExistsView()
     }
     
-    func viewEnquiryButtonSelected() {
-        self.view.hideEnquiryExistsView()
+    func viewEnquiryButtonSelected(eqId: Int) {
+        goToEnquiry(enquiryId: eqId)
     }
     
     func generateEnquiryButtonSelected(prodId: Int) {
         self.generateNewEnquiry?(prodId)
         self.view.hideEnquiryExistsView()
+    }
+    
+    func goToEnquiry(enquiryId: Int) {
+        self.view.hideEnquiryGenerateView()
+        self.view.hideEnquiryExistsView()
+        showNewEnquiry?(enquiryId)
     }
 }
