@@ -11,7 +11,7 @@ import UIKit
 
 protocol EnquiryExistsViewProtocol {
     func cancelButtonSelected()
-    func viewEnquiryButtonSelected()
+    func viewEnquiryButtonSelected(eqId: Int)
     func generateEnquiryButtonSelected(prodId: Int)
 }
 
@@ -23,13 +23,14 @@ class EnquiryExistsView: UIView {
     @IBOutlet var generateEnquiryBtn: RoundedButton!
     var delegate: EnquiryExistsViewProtocol?
     var productId: Int?
+    var enquiryId: Int?
 
     @IBAction func cancelButtonSelected(_ sender: Any) {
       delegate?.cancelButtonSelected()
     }
     
     @IBAction func viewEnquiryButtonSelected(_ sender: Any) {
-      delegate?.viewEnquiryButtonSelected()
+      delegate?.viewEnquiryButtonSelected(eqId: enquiryId ?? 0)
     }
     
     @IBAction func generateEnquiryButtonSelected(_ sender: Any) {

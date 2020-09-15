@@ -84,6 +84,11 @@ extension ProductCatalogService {
             service.generateNewEnquiry(controller: vc, prodId: prodId, isCustom: false)
         }
         
+        vc.showNewEnquiry = { (enquiryId) in
+            let service = WishlistService.init(client: self.client)
+            service.showEnquiry(enquiryId: enquiryId, controller: vc)
+        }
+        
         return vc
     }
 }

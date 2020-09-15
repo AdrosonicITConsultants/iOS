@@ -14,22 +14,27 @@ import Realm
 import Bond
 import Reachability
 
-class WishlistController: UIViewController {
-    
-    let reuseIdentifier = "BuyerProductCell"
-    var reachabilityManager = try? Reachability()
-    var applicationEnteredForeground: (() -> ())?
+class WishlistViewModel {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var removeAllWishlistProducts: (() -> ())?
     var deleteWishlistProduct: ((_ prodId: Int) -> ())?
     var checkEnquiry: ((_ prodId: Int) -> ())?
     var generateNewEnquiry: ((_ prodId: Int) -> ())?
+    var openNewEnquiry: ((_ enquiryId: Int) -> ())?
+}
+
+class WishlistController: UIViewController {
+    
+    let reuseIdentifier = "BuyerProductCell"
+    var reachabilityManager = try? Reachability()
+    var applicationEnteredForeground: (() -> ())?
     var allProducts: [Product]?
     let realm = try! Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
-
+    lazy var viewModel = WishlistViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
@@ -50,11 +55,11 @@ class WishlistController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewWillAppear?()
+        viewModel.viewWillAppear?()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        viewDidAppear?()
+        viewModel.viewDidAppear?()
     }
     
     func endRefresh() {
@@ -71,7 +76,7 @@ class WishlistController: UIViewController {
     
     @objc func deleteAllCustomProduct() {
         self.confirmAction("Warning".localized, "Are you sure you want to remove?".localized, confirmedCallback: { (action) in
-            self.removeAllWishlistProducts?()
+            self.viewModel.removeAllWishlistProducts?()
         }) { (action) in
             
         }
@@ -82,18 +87,20 @@ class WishlistController: UIViewController {
         reachabilityManager?.whenReachable = nil
         reachabilityManager?.whenUnreachable = nil
         reachabilityManager?.stopNotifier()
-        viewWillAppear = nil
+        viewModel.viewWillAppear = nil
         applicationEnteredForeground = nil
     }
 }
 
 extension WishlistController: WishlistScreenProtocol {
     func removeFromWishlistScreen(prodId: Int) {
-        self.deleteWishlistProduct?(prodId)
+        self.viewModel.deleteWishlistProduct?(prodId)
     }
     
     func generateEnquiryForProduct(prodId: Int) {
-        self.checkEnquiry?(prodId)
+        self.viewModel.checkEnquiry?(prodId)
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = false
     }
 }
 
@@ -107,12 +114,12 @@ extension WishlistController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! BuyerProductCell
         if let prod = Product.getProduct(searchId: product?.entityID ?? 0) {
             cell.configure(prod, byAntaran: prod.madeWithAnthran == 1 ? true : false)
+            cell.fromWishlist = true
+            cell.deleg = self
             cell.wishlistButton.setImage(UIImage.init(named: "ios-remove from wishlist"), for: .normal)
             cell.viewMoreButton.isHidden = true
             cell.generateEnquiryButton.setTitle("Enquire Now  ", for: .normal)
         }
-        cell.fromWishlist = true
-        cell.deleg = self
         return cell
     }
     
@@ -136,22 +143,36 @@ extension WishlistController: UITableViewDataSource, UITableViewDelegate {
 extension WishlistController: EnquiryExistsViewProtocol, EnquiryGeneratedViewProtocol {
     func closeButtonSelected() {
         self.view.hideEnquiryGenerateView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
+//       goToEnquiry(enquiryId: enquiryId)
         self.view.hideEnquiryGenerateView()
+        self.view.hideEnquiryExistsView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
+        self.viewModel.openNewEnquiry?(enquiryId)
     }
     
     func cancelButtonSelected() {
         self.view.hideEnquiryExistsView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
     }
     
-    func viewEnquiryButtonSelected() {
+    func viewEnquiryButtonSelected(eqId: Int) {
+//        goToEnquiry(enquiryId: eqId)
+        self.view.hideEnquiryGenerateView()
         self.view.hideEnquiryExistsView()
+        let item = self.navigationItem.rightBarButtonItem
+        item?.isEnabled = true
+        self.viewModel.openNewEnquiry?(eqId)
     }
     
     func generateEnquiryButtonSelected(prodId: Int) {
-        self.generateNewEnquiry?(prodId)
+        self.viewModel.generateNewEnquiry?(prodId)
         self.view.hideEnquiryExistsView()
     }
 }

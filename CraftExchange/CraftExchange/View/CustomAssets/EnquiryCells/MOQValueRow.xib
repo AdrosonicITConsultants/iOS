@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="59" id="DF6-FC-EA3" customClass="MOQValueRowView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DF6-FC-EA3" id="mC7-us-QP0">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgA-eI-b9p">
+                        <rect key="frame" x="20" y="8" width="374" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="W4s-9O-5Xx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0uf-eq-bir">
+                        <rect key="frame" x="20" y="31" width="374" height="21"/>
+                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
+                        <color key="textColor" red="0.16425496340000001" green="0.38961789009999998" blue="0.80396610499999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="0uf-eq-bir" secondAttribute="bottom" constant="8" id="A6f-E1-eZG"/>
+                    <constraint firstAttribute="trailing" secondItem="0uf-eq-bir" secondAttribute="trailing" constant="20" id="Dgf-Ao-eyp"/>
+                    <constraint firstItem="AgA-eI-b9p" firstAttribute="leading" secondItem="mC7-us-QP0" secondAttribute="leading" constant="20" id="T6v-51-nEs"/>
+                    <constraint firstItem="0uf-eq-bir" firstAttribute="leading" secondItem="mC7-us-QP0" secondAttribute="leading" constant="20" id="uhC-dC-jKU"/>
+                    <constraint firstItem="AgA-eI-b9p" firstAttribute="top" secondItem="mC7-us-QP0" secondAttribute="top" constant="8" id="uxN-A9-cA4"/>
+                    <constraint firstAttribute="trailing" secondItem="AgA-eI-b9p" secondAttribute="trailing" constant="20" id="wY0-tD-ZaM"/>
+                    <constraint firstItem="0uf-eq-bir" firstAttribute="top" secondItem="AgA-eI-b9p" secondAttribute="bottom" constant="8" id="xmd-Gi-crT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="unitLbl" destination="AgA-eI-b9p" id="kmk-Tr-SQY"/>
+                <outlet property="valueLbl" destination="0uf-eq-bir" id="LWs-e8-ocL"/>
+            </connections>
+            <point key="canvasLocation" x="115.94202898550725" y="94.419642857142847"/>
+        </tableViewCell>
+    </objects>
+</document>

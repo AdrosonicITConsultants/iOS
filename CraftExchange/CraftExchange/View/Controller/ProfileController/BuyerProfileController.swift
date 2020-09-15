@@ -69,6 +69,7 @@ class BuyerProfileController: UIViewController {
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var buttonView: UIView!
     var allCountries: Results<Country>?
+    var loadArtisan: Bool = false
     
     private lazy var GeneralInfoViewController: BuyerGeneralInfo = {
         var viewController = BuyerGeneralInfo.init()
@@ -115,7 +116,7 @@ class BuyerProfileController: UIViewController {
         allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
         setupSegmentTitle()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
-        if KeychainManager.standard.userRole == "Artisan" {
+        if KeychainManager.standard.userRole == "Artisan" || loadArtisan {
             self.navigationItem.title = "Hello \(User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? "")"
             if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
                 constraint.constant = 0.0

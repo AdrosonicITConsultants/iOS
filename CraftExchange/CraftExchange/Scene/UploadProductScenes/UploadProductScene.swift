@@ -125,25 +125,7 @@ extension UploadProductService {
         
         vc.viewWillAppear = {
             vc.showLoading()
-            self.getCustomProductDetails(withId: productObject?.entityID ?? 0).bind(to: vc, context: .global(qos: .userInteractive)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        if let prodDictionary = json["data"] as? [String: Any] {
-                            if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
-                                if let object = try? JSONDecoder().decode(CustomProduct.self, from: proddata) {
-                                    DispatchQueue.main.async {
-                                        object.saveOrUpdate()
-                                        vc.hideLoading()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                }
-            }.dispose(in: vc.bag)
+            self.getCustomProductDetails(prodId: productObject?.entityID ?? 0, vc: vc)
         }
         
         vc.viewModel.saveProductSelected = {
@@ -235,5 +217,27 @@ extension UploadProductService {
         }
         
         return vc
+    }
+    
+    func getCustomProductDetails(prodId: Int, vc: UIViewController) {
+        self.getCustomProductDetails(withId: prodId).bind(to: vc, context: .global(qos: .userInteractive)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    if let prodDictionary = json["data"] as? [String: Any] {
+                        if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
+                            if let object = try? JSONDecoder().decode(CustomProduct.self, from: proddata) {
+                                DispatchQueue.main.async {
+                                    object.saveOrUpdate()
+                                    vc.hideLoading()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                vc.hideLoading()
+            }
+        }.dispose(in: vc.bag)
     }
 }

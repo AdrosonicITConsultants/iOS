@@ -20,6 +20,21 @@ class ArtisanTabbarController: UITabBarController {
   }
 }
 
+extension ArtisanTabbarController {
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.title == "Enquiries" {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = EnquiryListService(client: client).createScene()
+                let nav = self.customizableViewControllers?[1] as! UINavigationController
+                nav.setViewControllers([vc], animated: false)
+            } catch let error {
+              print("Unable to load view:\n\(error.localizedDescription)")
+            }
+        }
+    }
+}
+
 extension ArtisanTabbarController: OfflineRequestManagerDelegate {
     
     func offlineRequest(withDictionary dictionary: [String : Any]) -> OfflineRequest? {

@@ -113,6 +113,11 @@ extension CustomProductService {
             service.generateNewEnquiry(controller: controller, prodId: prodId, isCustom: true)
         }
         
+        controller.showNewEnquiry = { (enquiryId) in
+            let service = WishlistService.init(client: self.client)
+            service.showEnquiry(enquiryId: enquiryId, controller: controller)
+        }
+        
         return controller
     }
 }

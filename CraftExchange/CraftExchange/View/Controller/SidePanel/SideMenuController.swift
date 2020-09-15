@@ -55,8 +55,6 @@ class SideMenuController: FormViewController {
             $0.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
               self.dismiss(animated: true, completion: {
-//                  let profileStoryboard = UIStoryboard.init(name: "MyProfile", bundle: Bundle.main)
-//                  let vc = profileStoryboard.instantiateViewController(identifier: "BuyerProfileController")
                 do {
                   let client = try SafeClient(wrapping: CraftExchangeClient())
                   let vc = MyProfileService(client: client).createScene()
