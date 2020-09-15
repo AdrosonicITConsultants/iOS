@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
-		309598822510FB2B00491E33 /* BuyerDashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309598812510FB2B00491E33 /* BuyerDashboardController.swift */; };
+		309598822510FB2B00491E33 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309598812510FB2B00491E33 /* DashboardController.swift */; };
 		309598842510FB5700491E33 /* MyDashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309598832510FB5700491E33 /* MyDashboard.storyboard */; };
 		309598862510FC8100491E33 /* OrderAvailabilityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309598852510FC8100491E33 /* OrderAvailabilityCell.xib */; };
-		309598882511021E00491E33 /* ArtisanDashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309598872511021E00491E33 /* ArtisanDashboardController.swift */; };
 		C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB024C16EF100197519 /* HomeScreenService.swift */; };
 		C005BCB424C1778D00197519 /* ArtisanHomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */; };
 		C005BCB624C1AB2F00197519 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB524C1AB2F00197519 /* Product.swift */; };
@@ -313,10 +312,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		309598812510FB2B00491E33 /* BuyerDashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerDashboardController.swift; sourceTree = "<group>"; };
+		309598812510FB2B00491E33 /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		309598832510FB5700491E33 /* MyDashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyDashboard.storyboard; sourceTree = "<group>"; };
 		309598852510FC8100491E33 /* OrderAvailabilityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderAvailabilityCell.xib; sourceTree = "<group>"; };
-		309598872511021E00491E33 /* ArtisanDashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanDashboardController.swift; sourceTree = "<group>"; };
 		C005BCB024C16EF100197519 /* HomeScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenService.swift; sourceTree = "<group>"; };
 		C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanHomeScene.swift; sourceTree = "<group>"; };
 		C005BCB524C1AB2F00197519 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -652,8 +650,7 @@
 		309598802510FAE200491E33 /* DashboardController */ = {
 			isa = PBXGroup;
 			children = (
-				309598812510FB2B00491E33 /* BuyerDashboardController.swift */,
-				309598872511021E00491E33 /* ArtisanDashboardController.swift */,
+				309598812510FB2B00491E33 /* DashboardController.swift */,
 			);
 			path = DashboardController;
 			sourceTree = "<group>";
@@ -1863,7 +1860,7 @@
 				C06DCABF24D2EBED00F1435F /* DimensionsCardCell.swift in Sources */,
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C05498D524995914005D5E57 /* RegisterBuyerController.swift in Sources */,
-				309598822510FB2B00491E33 /* BuyerDashboardController.swift in Sources */,
+				309598822510FB2B00491E33 /* DashboardController.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
 				C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */,
 				C016EC182510D3280039B7AF /* NotificationController.swift in Sources */,
@@ -1878,7 +1875,6 @@
 				C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */,
 				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,
 				C08FBE022497FF920065BB20 /* REGBuyerCompanyInfoScene.swift in Sources */,
-				309598882511021E00491E33 /* ArtisanDashboardController.swift in Sources */,
 				C09C970924B919FC00FD97E9 /* ArtisanBankDetails.swift in Sources */,
 				C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */,
 				C0A0D76324BD7B360089CC47 /* PaymentAccDetails+Transaction.swift in Sources */,

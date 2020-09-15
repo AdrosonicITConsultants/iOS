@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Buyer Dashboard Controller-->
+        <!--Dashboard Controller-->
         <scene sceneID="r1C-uC-bUR">
             <objects>
-                <viewController storyboardIdentifier="BuyerDashboardController" id="7r4-Ud-DO7" customClass="BuyerDashboardController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DashboardController" id="7r4-Ud-DO7" customClass="DashboardController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vo5-4M-fv6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,46 +34,12 @@
                         <viewLayoutGuide key="safeArea" id="0DW-S8-Yfu"/>
                     </view>
                     <connections>
-                        <outlet property="buyerDashboardView" destination="jhx-Tk-FXH" id="NZg-3u-hYl"/>
+                        <outlet property="dashboardView" destination="jhx-Tk-FXH" id="O0t-PS-Xgi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grc-vJ-FEd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-66.666666666666671" y="15.401785714285714"/>
-        </scene>
-        <!--Artisan Dashboard Controller-->
-        <scene sceneID="hbE-TZ-WeK">
-            <objects>
-                <viewController storyboardIdentifier="ArtisanDashboardController" id="3Zj-Yf-zbo" customClass="ArtisanDashboardController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dYF-Nw-2Ij">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D8G-y2-Xvm">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="D8G-y2-Xvm" firstAttribute="bottom" secondItem="TLS-Q7-D1d" secondAttribute="bottom" id="IOn-UY-ogw"/>
-                            <constraint firstItem="D8G-y2-Xvm" firstAttribute="trailing" secondItem="TLS-Q7-D1d" secondAttribute="trailing" id="MP8-w1-DXu"/>
-                            <constraint firstItem="D8G-y2-Xvm" firstAttribute="leading" secondItem="TLS-Q7-D1d" secondAttribute="leading" id="P06-bH-5Oo"/>
-                            <constraint firstItem="D8G-y2-Xvm" firstAttribute="top" secondItem="TLS-Q7-D1d" secondAttribute="top" id="sA9-dR-DVg"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="TLS-Q7-D1d"/>
-                    </view>
-                    <connections>
-                        <outlet property="artisanDashboardView" destination="D8G-y2-Xvm" id="rJH-5P-7xy"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bDX-me-I1a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="975" y="15"/>
         </scene>
     </scenes>
 </document>

@@ -128,8 +128,8 @@ class SideMenuController: FormViewController {
            do {
               
               let dashboardStoryboard = UIStoryboard.init(name: "MyDashboard", bundle: Bundle.main)
-              let vcb = dashboardStoryboard.instantiateViewController(withIdentifier: "BuyerDashboardController") as! BuyerDashboardController
-            let vca = dashboardStoryboard.instantiateViewController(withIdentifier: "ArtisanDashboardController") as! ArtisanDashboardController
+              let vc = dashboardStoryboard.instantiateViewController(withIdentifier: "DashboardController") as! DashboardController
+        
                   let appDelegate = UIApplication.shared.delegate as? AppDelegate
                 var nav: UINavigationController?
                 if let tab = appDelegate?.tabbar?.selectedViewController as? UINavigationController {
@@ -142,8 +142,8 @@ class SideMenuController: FormViewController {
                 }else if let tab = appDelegate?.artisanTabbar?.selectedViewController?.navigationController {
                       nav = tab
                 }
-                nav?.pushViewController(vcb, animated: true)
-                 nav?.pushViewController(vca, animated: true)
+                nav?.pushViewController(vc, animated: true)
+                
             }
             catch let error {
               print("Unable to load view:\n\(error.localizedDescription)")
