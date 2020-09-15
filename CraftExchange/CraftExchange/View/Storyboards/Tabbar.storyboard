@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -148,7 +148,7 @@
             </objects>
             <point key="canvasLocation" x="3762.3188405797105" y="821.65178571428567"/>
         </scene>
-        <!--Notifications-->
+        <!--Notification Controller-->
         <scene sceneID="XbT-Mi-b0m">
             <objects>
                 <viewController storyboardIdentifier="BuyerNotificationController" id="P9z-MQ-Ier" customClass="NotificationController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
@@ -157,51 +157,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cyu-pB-cJz">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="142" width="414" height="720"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="UVQ-mG-nNk">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ks-Px-Epg">
-                                            <rect key="frame" x="20" y="0.0" width="229" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qif-mx-DT5">
-                                            <rect key="frame" x="284" y="5" width="120" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="120" id="EJ3-86-NQI"/>
-                                                <constraint firstAttribute="height" constant="40" id="U1J-ln-Zwq"/>
-                                            </constraints>
-                                            <state key="normal" title="Mark all as read">
-                                                <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="markAllAsReadAction:" destination="P9z-MQ-Ier" eventType="touchUpInside" id="UMo-qc-g0Y"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="qif-mx-DT5" secondAttribute="trailing" constant="10" id="1k3-35-jdZ"/>
-                                        <constraint firstItem="qif-mx-DT5" firstAttribute="top" secondItem="UVQ-mG-nNk" secondAttribute="top" constant="5" id="ots-ak-zc9"/>
-                                    </constraints>
-                                </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="P9z-MQ-Ier" id="5ng-Wb-FwV"/>
+                                    <outlet property="delegate" destination="P9z-MQ-Ier" id="Yyq-Fc-amH"/>
+                                </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" id="UVQ-mG-nNk">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qif-mx-DT5">
+                                        <rect key="frame" x="284" y="2" width="120" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="7kM-Ol-w1z"/>
+                                            <constraint firstAttribute="width" constant="120" id="aMj-uh-CZb"/>
+                                        </constraints>
+                                        <state key="normal" title="Mark all as read">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="markAllAsReadAction:" destination="P9z-MQ-Ier" eventType="touchUpInside" id="UMo-qc-g0Y"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ks-Px-Epg">
+                                        <rect key="frame" x="20" y="2" width="229" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="qif-mx-DT5" secondAttribute="bottom" constant="2" id="6Ne-tj-vzs"/>
+                                    <constraint firstAttribute="trailing" secondItem="qif-mx-DT5" secondAttribute="trailing" constant="10" id="8Su-J7-IWH"/>
+                                    <constraint firstItem="qif-mx-DT5" firstAttribute="top" secondItem="UVQ-mG-nNk" secondAttribute="top" constant="2" id="AfP-Yb-uHz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Cyu-pB-cJz" firstAttribute="top" secondItem="3M1-Zr-JS9" secondAttribute="top" id="5gc-r3-lhc"/>
-                            <constraint firstItem="Cyu-pB-cJz" firstAttribute="trailing" secondItem="3M1-Zr-JS9" secondAttribute="trailing" id="E4N-zi-iTC"/>
-                            <constraint firstItem="3M1-Zr-JS9" firstAttribute="bottom" secondItem="Cyu-pB-cJz" secondAttribute="bottom" id="Ipu-J6-e8u"/>
-                            <constraint firstItem="Cyu-pB-cJz" firstAttribute="leading" secondItem="3M1-Zr-JS9" secondAttribute="leading" id="J3t-up-FPF"/>
+                            <constraint firstItem="Cyu-pB-cJz" firstAttribute="leading" secondItem="3M1-Zr-JS9" secondAttribute="leading" id="OVz-UG-GpA"/>
+                            <constraint firstItem="Cyu-pB-cJz" firstAttribute="trailing" secondItem="3M1-Zr-JS9" secondAttribute="trailing" id="Pkg-GC-kNK"/>
+                            <constraint firstItem="Cyu-pB-cJz" firstAttribute="top" secondItem="UVQ-mG-nNk" secondAttribute="bottom" constant="10" id="Rxg-Uu-i1g"/>
+                            <constraint firstItem="Cyu-pB-cJz" firstAttribute="bottom" secondItem="3M1-Zr-JS9" secondAttribute="bottom" id="vwl-qv-c1M"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3M1-Zr-JS9"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" image="bell" catalog="system" id="xZG-v9-EgZ"/>
+                    <navigationItem key="navigationItem" id="wJq-Ra-RTT"/>
                     <connections>
                         <outlet property="markAllAsRead" destination="qif-mx-DT5" id="UOD-k2-R2P"/>
                         <outlet property="notificationsLabel" destination="4ks-Px-Epg" id="e4l-nD-30e"/>
@@ -210,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JOZ-W6-DHo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1042.0289855072465" y="1534.1517857142856"/>
+            <point key="canvasLocation" x="1952.1739130434785" y="1534.1517857142856"/>
         </scene>
         <!--Buyer Home Controller-->
         <scene sceneID="uUx-U7-ogb">
@@ -851,6 +856,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bV4-cC-ttA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1897.1014492753625" y="821.65178571428567"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="Fvi-QO-d07">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2do-vX-2CS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Notifications" image="bell" catalog="system" id="xZG-v9-EgZ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0rU-CZ-3iE">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="P9z-MQ-Ier" kind="relationship" relationship="rootViewController" id="FF7-5s-pfs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JqZ-7c-MuB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="1534.1517857142856"/>
         </scene>
     </scenes>
     <resources>

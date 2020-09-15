@@ -22,16 +22,14 @@ class NotificationController: UIViewController {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var notificationCount: Int = 0
-    let reuseIdentifier = "BuyerNotificationCell"
+    let reuseIdentifier = "NotificationCell"
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var notificationsLabel: UILabel!
     @IBOutlet weak var markAllAsRead: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-   OfflineRequestManager.defaultManager.delegate = self
+        OfflineRequestManager.defaultManager.delegate = self
        
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
@@ -68,17 +66,18 @@ class NotificationController: UIViewController {
 }
 
 extension NotificationController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allNotifications?.count ?? 0
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let notification = allNotifications?[indexPath.row]
-        
-        
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NotificationCell
         cell.enquiryId.text = "Enquiry Id: \(notification?.code ?? "")"
        
@@ -92,6 +91,7 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
         cell.productDesc.text = notification?.productDesc
         return cell
     }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let markAsRead = UIContextualAction(style: .normal, title: "\u{2713}\u{2713}\n Mark as read") { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let notification = self.allNotifications?[indexPath.row]
