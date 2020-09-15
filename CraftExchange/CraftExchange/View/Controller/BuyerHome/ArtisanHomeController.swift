@@ -27,12 +27,22 @@ class ArtisanHomeController: UIViewController {
     @IBOutlet weak var artisanBrand: UIImageView!
     @IBOutlet weak var customDesignButton: RoundedButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var notificationButton: UIBarButtonItem!
     private let reuseIdentifier = "ProductCategoryCell"
     var dataSource: [ProductCategory]?
     let realm = try? Realm()
     lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
-    
+    @IBAction func notificationButtonSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = NotificationService(client: client).createArtisanScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
   override func viewDidLoad() {
 
     loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"

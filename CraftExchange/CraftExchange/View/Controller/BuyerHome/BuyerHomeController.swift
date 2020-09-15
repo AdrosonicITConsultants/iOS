@@ -22,10 +22,22 @@ class BuyerHomeController: UIViewController {
     @IBOutlet weak var antaranDesignView: UIView!
     @IBOutlet weak var customDesignButton: RoundedButton!
   
+    @IBOutlet weak var notificationButton: UIBarButtonItem!
+    
     lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
     
-  override func viewDidLoad() {
+    @IBAction func notificationButtonSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = NotificationService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+    override func viewDidLoad() {
 
     selfDesignView.dropShadow()
     antaranDesignView.dropShadow()
