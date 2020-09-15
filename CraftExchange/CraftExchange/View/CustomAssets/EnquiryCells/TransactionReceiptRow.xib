@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="96" id="pzu-uG-HGb" customClass="TransactionReceiptRowView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pzu-uG-HGb" id="VdY-Nm-7c9">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2PA-gq-DgA">
+                        <rect key="frame" x="220" y="14" width="40" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="aM2-uJ-P3L"/>
+                            <constraint firstAttribute="height" constant="50" id="kzo-9A-1BL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <state key="normal" title="View Invoice"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfE-8d-ah3">
+                        <rect key="frame" x="117" y="69" width="180" height="30"/>
+                        <color key="backgroundColor" red="0.16425496340000001" green="0.38961789009999998" blue="0.80396610499999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="3Y2-Bi-xhO"/>
+                            <constraint firstAttribute="width" constant="180" id="NYI-eF-yfn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Upload transaction receipt  " image="arrow.left" catalog="system">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list.dash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QtB-Ty-4Ub">
+                        <rect key="frame" x="178" y="17" width="40" height="44"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="48h-pX-UUJ"/>
+                            <constraint firstAttribute="width" constant="40" id="Up7-Hi-b9S"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next Steps: -----------------&gt; Upload adavance payment receipt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpp-G1-yoT">
+                        <rect key="frame" x="20" y="2" width="374" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="fxx-Hd-mPy"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="2PA-gq-DgA" firstAttribute="leading" secondItem="QtB-Ty-4Ub" secondAttribute="trailing" constant="2" id="21T-IZ-69t"/>
+                    <constraint firstItem="lfE-8d-ah3" firstAttribute="centerX" secondItem="VdY-Nm-7c9" secondAttribute="centerX" id="DvX-dc-vo5"/>
+                    <constraint firstAttribute="trailing" secondItem="2PA-gq-DgA" secondAttribute="trailing" constant="154" id="EY2-bL-6Yg"/>
+                    <constraint firstItem="lfE-8d-ah3" firstAttribute="top" secondItem="QtB-Ty-4Ub" secondAttribute="bottom" constant="5" id="HsE-j3-Da9"/>
+                    <constraint firstItem="lpp-G1-yoT" firstAttribute="leading" secondItem="VdY-Nm-7c9" secondAttribute="leading" constant="20" id="KWL-pv-Kki"/>
+                    <constraint firstAttribute="trailing" secondItem="lpp-G1-yoT" secondAttribute="trailing" constant="20" id="cbF-Qa-GgG"/>
+                    <constraint firstItem="lpp-G1-yoT" firstAttribute="top" secondItem="VdY-Nm-7c9" secondAttribute="top" constant="2" id="q6q-IL-hyI"/>
+                    <constraint firstItem="2PA-gq-DgA" firstAttribute="top" secondItem="QtB-Ty-4Ub" secondAttribute="top" id="saY-Q2-wSz"/>
+                    <constraint firstItem="lfE-8d-ah3" firstAttribute="bottom" secondItem="VdY-Nm-7c9" secondAttribute="bottomMargin" id="xJL-EQ-6tD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="invoiceImageView" destination="QtB-Ty-4Ub" id="iai-ZN-CSf"/>
+                <outlet property="uploadReceiptBtn" destination="lfE-8d-ah3" id="7TK-Q5-GOj"/>
+                <outlet property="viewProformaInvoiceBtn" destination="2PA-gq-DgA" id="FJv-eu-tpi"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="92.410714285714278"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrow.left" catalog="system" width="64" height="48"/>
+        <image name="list.dash" catalog="system" width="64" height="42"/>
+    </resources>
+</document>

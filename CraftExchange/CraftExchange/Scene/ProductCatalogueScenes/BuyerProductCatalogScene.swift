@@ -130,6 +130,11 @@ extension ProductCatalogService {
             }.dispose(in: controller.bag)
         }
         
+        controller.showNewEnquiry = { (enquiryId) in
+            let service = WishlistService.init(client: self.client)
+            service.showEnquiry(enquiryId: enquiryId, controller: controller)
+        }
+        
         return controller
     }
     
@@ -248,7 +253,7 @@ extension ProductCatalogService {
                         }else {
                             DispatchQueue.main.async {
                                 controller.view.hideEnquiryInitiationView()
-                                controller.view.showEnquiryExistsView(controller: controller, prodName: responseDictionary["productName"] as? String ?? "", enquiryId: responseDictionary["code"] as? String ?? "", prodId: prodId)
+                                controller.view.showEnquiryExistsView(controller: controller, prodName: responseDictionary["productName"] as? String ?? "", enquiryCode: responseDictionary["code"] as? String ?? "", enquiryId: responseDictionary["enquiryId"] as? Int ?? 0, prodId: prodId)
                             }
                         }
                     }
@@ -292,6 +297,37 @@ extension ProductCatalogService {
                                     do {
                                         let client = try SafeClient(wrapping: CraftExchangeClient())
                                         let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: Product.getProduct(searchId: prodId))
+                                        vc.modalPresentationStyle = .fullScreen
+                                        controller.navigationController?.pushViewController(vc, animated: true)
+                                    }catch {
+                                        print(error.localizedDescription)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                controller.hideLoading()
+            }
+        }.dispose(in: controller.bag)
+    }
+    
+    func showSelectedHistoryProduct(for controller: UIViewController, prodId: Int) {
+        controller.showLoading()
+        self.getHistoryProductDetails(prodId: prodId).bind(to: controller, context: .global(qos: .background)){ (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    if let prodDictionary = json["data"] as? [String: Any] {
+                        if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
+                            if let object = try? JSONDecoder().decode(Product.self, from: proddata) {
+                                DispatchQueue.main.async {
+//                                    object.saveOrUpdate()
+                                    controller.hideLoading()
+                                    do {
+                                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                                        let vc = ProductCatalogService(client: client).createProdDetailScene(forProduct: object)
                                         vc.modalPresentationStyle = .fullScreen
                                         controller.navigationController?.pushViewController(vc, animated: true)
                                     }catch {

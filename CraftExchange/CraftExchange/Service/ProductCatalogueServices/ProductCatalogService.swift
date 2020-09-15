@@ -65,4 +65,8 @@ class ProductCatalogService: BaseService<Data> {
     func generateEnquiry(prodId: Int, isCustom: Bool) -> SafeSignal<Data> {
         return Enquiry.generateEnquiry(productId: prodId, isCustom: isCustom).response(using: client).debug()
     }
+    
+    func getHistoryProductDetails(prodId: Int) -> SafeSignal<Data> {
+      return Product.getHistoryProductDetails(prodId: prodId).response(using: client).debug()
+    }
 }

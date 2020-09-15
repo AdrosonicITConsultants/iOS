@@ -77,6 +77,7 @@ class UploadCustomProductController: FormViewController {
     var allReed: Results<ReedCount>?
     var product: CustomProduct?
     var viewWillAppear: (() -> ())?
+    var fromEnquiry = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,12 +107,14 @@ class UploadCustomProductController: FormViewController {
 
         if let productObj = product {
             viewWillAppear?()
-            let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
-            rightButtonItem.tintColor = .red
-            
-            let rightButtonItem2 = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
-            
-            self.navigationItem.rightBarButtonItems = [rightButtonItem, rightButtonItem2]
+            if fromEnquiry == false {
+                let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
+                rightButtonItem.tintColor = .red
+                
+                let rightButtonItem2 = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
+                
+                self.navigationItem.rightBarButtonItems = [rightButtonItem, rightButtonItem2]
+            }
             
             viewModel.prodType.value = ProductType.getProductType(searchId: productObj.productTypeId)
             viewModel.prodCategory.value = ProductCategory.getProductCat(catId: productObj.productCategoryId)
@@ -179,6 +182,9 @@ class UploadCustomProductController: FormViewController {
                     $0.cell.toggleDelegate = self
                     $0.cell.toggleButton.tag = weave.entityID
                     $0.hidden = true
+                    if fromEnquiry {
+                        $0.cell.isUserInteractionEnabled = false
+                    }
                 }.onCellSelection({ (cell, row) in
                     cell.toggleButton.sendActions(for: .touchUpInside)
                     cell.contentView.backgroundColor = .white
@@ -246,6 +252,9 @@ class UploadCustomProductController: FormViewController {
             $0.cell.delegate = self
             $0.cell.height = { 80.0 }
             $0.hidden = true
+            if fromEnquiry {
+                $0.cell.isUserInteractionEnabled = false
+            }
         }.onChange({ (row) in
           print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
             let selectedClusterObj = self.allCategories?.filter({ (obj) -> Bool in
@@ -280,6 +289,9 @@ class UploadCustomProductController: FormViewController {
             $0.cell.delegate = self
             $0.cell.height = { 80.0 }
             $0.hidden = true
+            if fromEnquiry {
+                $0.cell.isUserInteractionEnabled = false
+            }
         }.onChange({ (row) in
           print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
             let selectedTypeObj = self.viewModel.prodCategory.value?.productTypes.filter({ (obj) -> Bool in
@@ -407,6 +419,9 @@ class UploadCustomProductController: FormViewController {
             $0.cell.delegate = self
             $0.cell.height = { 80.0 }
             $0.hidden = true
+            if fromEnquiry {
+                $0.cell.isUserInteractionEnabled = false
+            }
         }.onChange({ (row) in
           print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
             row.cell.options = self.allReed?.compactMap { $0.count }
@@ -459,6 +474,9 @@ class UploadCustomProductController: FormViewController {
             $0.cell.lengthTextField.text = self.viewModel.prodLength.value ?? ""
             self.viewModel.prodWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
             $0.cell.widthTextField.text = self.viewModel.prodWidth.value ?? ""
+            if fromEnquiry {
+                $0.cell.isUserInteractionEnabled = false
+            }
         }.cellUpdate({ (cell, row) in
             cell.productTitle.text = self.viewModel.prodType.value?.productDesc ?? ""
             cell.option1 = self.viewModel.prodType.value?.productLengths.compactMap({$0.length})
@@ -500,6 +518,9 @@ class UploadCustomProductController: FormViewController {
             self.viewModel.relatedProdWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
             $0.cell.widthTextField.text = self.viewModel.relatedProdWidth.value ?? ""
             self.viewModel.relatedProdWidth.value = $0.cell.widthTextField.text
+            if fromEnquiry {
+                $0.cell.isUserInteractionEnabled = false
+            }
         }.cellUpdate({ (cell, row) in
             cell.productTitle.text = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
             if self.viewModel.prodType.value?.relatedProductTypes.count ?? 0 > 0 {
@@ -586,6 +607,9 @@ class UploadCustomProductController: FormViewController {
             self.viewModel.gsm.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             $0.cell.valueTextField.text = self.viewModel.gsm.value
             self.viewModel.gsm.value = $0.cell.valueTextField.text
+            if fromEnquiry {
+                $0.cell.isUserInteractionEnabled = false
+            }
         }.cellUpdate({ (cell, row) in
             self.viewModel.gsm.value = cell.valueTextField.text
             cell.valueTextField.maxLength = 10
@@ -629,6 +653,9 @@ class UploadCustomProductController: FormViewController {
             self.viewModel.prodDescription.bidirectionalBind(to: $0.cell.textView.reactive.text)
             $0.cell.textView.text = self.viewModel.prodDescription.value ?? ""
             $0.value = self.viewModel.prodDescription.value ?? ""
+            if fromEnquiry {
+                $0.cell.isUserInteractionEnabled = false
+            }
         }.cellUpdate({ (cell, row) in
             cell.textView.delegate = self
             self.viewModel.prodDescription.value = cell.textView.text
@@ -701,6 +728,10 @@ class UploadCustomProductController: FormViewController {
                     section.allRows .forEach { (row) in
                         row.hidden = false
                         row.evaluateHidden()
+                        if fromEnquiry && row.tag == "Next8" {
+                            row.hidden = true
+                            row.evaluateHidden()
+                        }
                     }
                 }else {
                     section.allRows .forEach { (row) in
@@ -950,6 +981,9 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
             if count == 3 {
                 return 3
             }else {
+                if fromEnquiry {
+                    return count
+                }
                 return count+1
             }
         }
@@ -1049,6 +1083,9 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
             default:
                 print("")
             }
+            if fromEnquiry {
+                cell.isUserInteractionEnabled = false
+            }
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageSelectorCell",
@@ -1086,6 +1123,12 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
             cell.lineView.isHidden = false
         }
         cell.delegate = self
+        if fromEnquiry {
+            cell.isUserInteractionEnabled = false
+            cell.deleteImageButton.isHidden = true
+            cell.editImageButton.isHidden = true
+            cell.lineView.isHidden = true
+        }
         return cell
     }
     

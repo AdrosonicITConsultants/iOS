@@ -313,4 +313,18 @@ extension Product {
           needsAuthorization: true
       )
     }
+    
+    public static func getHistoryProductDetails(prodId: Int) -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "product/getProductHistory/\(prodId)",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "get product details failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
 }

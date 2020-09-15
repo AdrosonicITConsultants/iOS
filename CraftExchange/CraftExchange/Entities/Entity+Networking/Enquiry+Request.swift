@@ -11,7 +11,7 @@ import Foundation
 extension Enquiry {
     
     static func checkIfEnquiryExists(for prodId: Int, isCustom: Bool) -> Request<Data, APIError> {
-        var str = "enquiry/ifEnquiryExists/{productId}/{isCustom}?productId=\(prodId)&isCustom=\(isCustom)"
+        var str = "enquiry/ifEnquiryExists/\(prodId)/\(isCustom)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,
@@ -34,6 +34,79 @@ extension Enquiry {
             parameters: JSONParameters(parameters),
             resource: {
                 print(String(data: $0, encoding: .utf8) ?? "generateEnquiry failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getEnquiryStages() -> Request<Data, APIError> {
+        var str = "enquiry/getAllEnquiryStages"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getOpenEnquiries() -> Request<Data, APIError> {
+        var str = "enquiry/getOpenEnquiries"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getOpenEnquiryDetails(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getEnquiry/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getClosedEnquiries() -> Request<Data, APIError> {
+        var str = "enquiry/getClosedEnquiries"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getClosedEnquiryDetails(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getClosedEnquiry/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func closeEnquiry(enquiryId: Int) -> Request<Data, APIError> {
+      let parameters: [String: Any] = ["enquiryId":enquiryId]
+        return Request(
+            path: "enquiry/markEnquiryCompleted/\(enquiryId)",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "markEnquiryCompleted failed")
               return $0},
             error: APIError.init,
             needsAuthorization: false

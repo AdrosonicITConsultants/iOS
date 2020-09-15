@@ -81,11 +81,11 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NotificationCell
         cell.enquiryId.text = "Enquiry Id: \(notification?.code ?? "")"
        
-        let formatter = Date.ttceFormatter
-        let date = formatter.string(from: notification?.createdOn as? Date ?? Date())
+//        let formatter = Date.ttceFormatter
+//        let date = formatter.string(from: notification?.createdOn as? Date ?? Date())
 //        let myDate = dateToString(notification!.createdOn!)
 //        let date = notification?.createdOn as! Date
-        cell.createdOn.text = date
+        cell.createdOn.text = Date().ttceFormatter(isoDate: "\(notification?.createdOn ?? "")")
         cell.companyName.text = notification?.companyName
         cell.type.text = notification?.type
         cell.productDesc.text = notification?.productDesc
