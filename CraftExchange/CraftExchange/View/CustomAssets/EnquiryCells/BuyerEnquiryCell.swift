@@ -34,7 +34,7 @@ class BuyerEnquiryCell: UITableViewCell {
         }else {
             availabilityLabel.text = "Make to order"
         }
-        costLabel.text = enquiryObj.totalAmount != 0 ? "\(enquiryObj.totalAmount)" : "NA"
+        costLabel.text = enquiryObj.totalAmount != 0 ? "₹ \(enquiryObj.totalAmount)" : "NA"
         dateLabel.text = "Updated on: \(enquiryObj.lastUpdated?.split(separator: "T").first ?? "")"
         statusLabel.text = "\(EnquiryStages.getStageType(searchId: enquiryObj.enquiryStageId)?.stageDescription ?? "-")"
         if enquiryObj.enquiryStageId < 5 {

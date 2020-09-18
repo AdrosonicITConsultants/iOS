@@ -69,7 +69,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.cell.designByLbl.text = enquiryObject?.brandName
                 }
-                $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
+                $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "₹ \(enquiryObject?.totalAmount ?? 0)" : "NA"
                 $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
                 if enquiryObject?.enquiryStageId ?? 0 < 5 {
                     $0.cell.statusLbl.textColor = .black
@@ -179,7 +179,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check MOQ"
                 $0.cell.noOfUnitLbl.text = "70 pcs"
-                $0.cell.costLbl.text = "Rs 1000"
+                $0.cell.costLbl.text = "₹ 1000"
                 $0.cell.etaLbl.text = "100 days"
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
@@ -220,14 +220,14 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 60.0 }
                 $0.tag = "MOQ2"
                 $0.cell.unitLbl.text = "Price/unit(or m)"
-                $0.cell.valueLbl.text = "Rs 1000"
+                $0.cell.valueLbl.text = "₹ 1000"
                 $0.hidden = true
             }
             <<< MOQValueRow() {
                 $0.cell.height = { 60.0 }
                 $0.tag = "MOQ3"
                 $0.cell.unitLbl.text = "Price/unit(or m)"
-                $0.cell.valueLbl.text = "Rs 1000"
+                $0.cell.valueLbl.text = "₹ 1000"
                 $0.hidden = true
             }
             <<< BuyerEnquirySectionViewRow() {
