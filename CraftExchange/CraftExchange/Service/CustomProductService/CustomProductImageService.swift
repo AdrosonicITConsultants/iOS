@@ -13,7 +13,7 @@ import Realm
 import RealmSwift
 
 class CustomProductImageService: BaseService<URL> {
-    var productObject: CustomProduct!
+    var productObject: CustomProduct?
     var name: String?
     
     convenience init(client: SafeClient, productObject: CustomProduct) {
@@ -26,7 +26,11 @@ class CustomProductImageService: BaseService<URL> {
     }
     
     func fetchCustomImage(withName: String?) -> Signal<Data, Never> {
-        return CustomProduct.fetchCustomProductImage(with: productObject.entityID, imageName: withName ?? productObject.productImages.first?.lable ?? "").response(using: client).debug()
+        return CustomProduct.fetchCustomProductImage(with: productObject?.entityID ?? 0, imageName: withName ?? productObject?.productImages.first?.lable ?? "").response(using: client).debug()
+    }
+    
+    func fetchCustomImage(withName: String, prodId: Int) -> Signal<Data, Never> {
+        return CustomProduct.fetchCustomProductImage(with: prodId, imageName: withName).response(using: client).debug()
     }
 }
 

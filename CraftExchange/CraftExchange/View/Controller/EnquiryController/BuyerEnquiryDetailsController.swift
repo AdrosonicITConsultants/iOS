@@ -88,21 +88,37 @@ class BuyerEnquiryDetailsController: FormViewController {
                     if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
                         $0.cell.productImage.image = downloadedImage
                     }else {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                            let service = ProductImageService.init(client: client)
-                            service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
-                                DispatchQueue.main.async {
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                    let row = self.form.rowBy(tag: "EnquiryDetailsRow") as! EnquiryDetailsRow
-                                    row.cell.productImage.image = UIImage.init(data: attachment)
-                                    row.reload()
-                                }
-                            }.dispose(in: bag)
-                        }catch {
-                            print(error.localizedDescription)
+                        if self.enquiryObject?.productType == "Custom Product" {
+                            do {
+                                let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                                let service = CustomProductImageService.init(client: client)
+                                service.fetchCustomImage(withName: tag, prodId: prodId).observeNext { (attachment) in
+                                    DispatchQueue.main.async {
+                                        _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                        let row = self.form.rowBy(tag: "EnquiryDetailsRow") as! EnquiryDetailsRow
+                                        row.cell.productImage.image = UIImage.init(data: attachment)
+                                        row.reload()
+                                    }
+                                }.dispose(in: self.bag)
+                            }catch {
+                                print(error.localizedDescription)
+                            }
+                        }else {
+                            do {
+                                let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                                let service = ProductImageService.init(client: client)
+                                service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
+                                    DispatchQueue.main.async {
+                                        _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                        let row = self.form.rowBy(tag: "EnquiryDetailsRow") as! EnquiryDetailsRow
+                                        row.cell.productImage.image = UIImage.init(data: attachment)
+                                        row.reload()
+                                    }
+                                }.dispose(in: bag)
+                            }catch {
+                                print(error.localizedDescription)
+                            }
                         }
-
                     }
                 }
             }

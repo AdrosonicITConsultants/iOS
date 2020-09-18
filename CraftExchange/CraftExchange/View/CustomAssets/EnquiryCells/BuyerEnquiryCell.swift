@@ -52,19 +52,40 @@ class BuyerEnquiryCell: UITableViewCell {
         }else {
             requestMOQLabel.isHidden = true
         }
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-            let service = ProductImageService.init(client: client)
-            service.fetch(withId: enquiryObj.productId, withName: enquiryObj.productImages?.components(separatedBy: ",").first ?? "name").observeNext { (attachment) in
-                DispatchQueue.main.async {
-                    let tag = enquiryObj.productImages?.components(separatedBy: ",").first ?? "name.jpg"
-                    let prodId = enquiryObj.productId
-                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                    self.prodImage.image = UIImage.init(data: attachment)
+        
+        
+        if let tag = enquiryObj.productImages?.components(separatedBy: ",").first {
+            if let downloadedImage = try? Disk.retrieve("\(enquiryObj.productId)/\(tag)", from: .caches, as: UIImage.self) {
+            self.prodImage.image = downloadedImage
+        }else {
+            if enquiryObj.productType == "Custom Product" {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = CustomProductImageService.init(client: client)
+                    service.fetchCustomImage(withName: enquiryObj.productImages?.components(separatedBy: ",").first ?? "name", prodId: enquiryObj.productId).observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(enquiryObj.productId)/\(tag)")
+                            self.prodImage.image = UIImage.init(data: attachment)
+                        }
+                    }.dispose(in: bag)
+                }catch {
+                    print(error.localizedDescription)
                 }
-            }.dispose(in: bag)
-        }catch {
-            print(error.localizedDescription)
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = ProductImageService.init(client: client)
+                    service.fetch(withId: enquiryObj.productId, withName: enquiryObj.productImages?.components(separatedBy: ",").first ?? "name").observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(enquiryObj.productId)/\(tag)")
+                            self.prodImage.image = UIImage.init(data: attachment)
+                        }
+                    }.dispose(in: bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
         }
     }
 }
