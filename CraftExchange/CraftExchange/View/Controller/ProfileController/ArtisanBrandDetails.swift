@@ -31,6 +31,7 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
     
     var isEditable = false
     var viewModel = ArtisanBrandDetailsViewModel()
+    var allCategories: Results<ProductCategory>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,49 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
         NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
         self.view.backgroundColor = .white
         let parentVC = self.parent as? BuyerProfileController
+        let realm = try! Realm()
+        allCategories = realm.objects(ProductCategory.self).sorted(byKeyPath: "entityID")
+        let catTypeSection = Section(){ section in
+            section.tag = "CategorySection"
+            section.header?.title = "Product Category".localized
+        }
+        
+        var strArr:[String] = []
+        self.viewModel.productCatIds.value = []
+        User.loggedIn()?.userProductCategories .forEach({ (cat) in
+            strArr.append("\(ProductCategory.getProductCat(catId: cat.productCategoryId)?.prodCatDescription ?? "")")
+            self.viewModel.productCatIds.value?.append(cat.productCategoryId)
+        })
+        
+        if let setWeave = allCategories?.compactMap({$0}) {
+            setWeave.forEach({ (cat) in
+                catTypeSection <<< ToggleOptionRow() {
+                    $0.cell.height = { 45.0 }
+                    $0.cell.titleLbl.text = cat.prodCatDescription ?? ""
+                    if strArr.contains(cat.prodCatDescription ?? "") {
+                        $0.cell.titleLbl.textColor = UIColor().menuSelectorBlue()
+                        $0.cell.toggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
+                    }else {
+                        $0.cell.titleLbl.textColor = .lightGray
+                        $0.cell.toggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
+                    }
+                    $0.cell.washCare = false
+                    $0.cell.toggleDelegate = self
+                    $0.cell.toggleButton.tag = cat.entityID
+                    }.cellUpdate({ (cell, row) in
+                        if self.isEditable {
+                            cell.isUserInteractionEnabled = true
+                            cell.toggleButton.isUserInteractionEnabled = true
+                        }else {
+                            cell.isUserInteractionEnabled = false
+                            cell.toggleButton.isUserInteractionEnabled = false
+                        }
+                    }).onCellSelection({ (cell, row) in
+                    cell.toggleButton.sendActions(for: .touchUpInside)
+                    cell.contentView.backgroundColor = .white
+                })
+            })
+        }
         
         form +++
             Section()
@@ -115,7 +159,7 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                 cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
                 cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
             })
-            <<< RoundedTextFieldRow() {
+            /*<<< RoundedTextFieldRow() {
                 $0.tag = "Product Category"
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
@@ -129,14 +173,16 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                 cell.titleLabel.text = "Product Category".localized
                 cell.titleLabel.textColor = .black
                 cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
-                cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
-                var finalString = ""
-                User.loggedIn()?.userProductCategories .forEach({ (cat) in
-                    finalString.append("\(cat.categoryString) ")
-                })
-                print("final string \n\n \(finalString) \(User.loggedIn()?.userProductCategories.count ?? 0)")
-                cell.valueTextField.text = finalString
-            })
+//                cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
+//                var finalString = ""
+//                User.loggedIn()?.userProductCategories .forEach({ (cat) in
+//                    finalString.append("\(cat.categoryString) ")
+//                })
+//                print("final string \n\n \(finalString) \(User.loggedIn()?.userProductCategories.count ?? 0)")
+//                cell.valueTextField.text = finalString
+            })*/
+            +++ catTypeSection
+            +++ Section()
             <<< RoundedTextFieldRow() {
                 $0.tag = "Description"
                 $0.cell.height = { 80.0 }
@@ -216,10 +262,17 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {
                 let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: self.viewModel.companyName.value, cin: nil, contact: nil, gstNo: nil, logo: nil, compDesc: self.viewModel.compDesc.value)
-                if self.viewModel.imageData.value != nil {
-                    parentVC.viewModel.updateArtisanBrandDetails?(newCompDetails.toJSON(), self.viewModel.imageData.value?.0, self.viewModel.imageData.value?.1)
+                var finalJson: [String : Any]?
+                if let ids = self.viewModel.productCatIds.value {
+                    let json = ["companyDetails" : newCompDetails.toJSON(),"productCategories" : ids as Any]
+                    finalJson = json
                 }else {
-                    parentVC.viewModel.updateArtisanBrandDetails?(newCompDetails.toJSON(), nil, nil)
+                    finalJson = ["companyDetails" : newCompDetails.toJSON()]
+                }
+                if self.viewModel.imageData.value != nil {
+                    parentVC.viewModel.updateArtisanBrandDetails?(finalJson ?? ["" : ""], self.viewModel.imageData.value?.0, self.viewModel.imageData.value?.1)
+                }else {
+                    parentVC.viewModel.updateArtisanBrandDetails?(finalJson ?? ["" : ""], nil, nil)
                 }
                 
             }
@@ -229,6 +282,10 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                 row.updateCell()
             }
         }
+        let section = self.form.sectionBy(tag: "CategorySection")
+        section?.allRows .forEach({ (row) in
+            row.updateCell()
+        })
     }
     
     @objc func updateLogoPic() {
@@ -243,6 +300,23 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
         }
     }
     
+}
+
+extension ArtisanBrandDetails: ToggleButtonProtocol {
+    func toggleButtonSelected(tag: Int, forWashCare: Bool) {
+        if forWashCare == false {
+            //Cat Cell
+            if let cat = ProductCategory.getProductCat(catId: tag) {
+                if self.viewModel.productCatIds.value?.contains(cat.entityID) ?? false {
+                    if let index = self.viewModel.productCatIds.value?.firstIndex(of: cat.entityID) {
+                        self.viewModel.productCatIds.value?.remove(at: index)
+                    }
+                }else {
+                    self.viewModel.productCatIds.value?.append(cat.entityID)
+                }
+            }
+        }
+    }
 }
 
 extension ArtisanBrandDetails: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -278,5 +352,3 @@ extension ArtisanBrandDetails: UIImagePickerControllerDelegate, UINavigationCont
         picker.dismiss(animated: true, completion: nil)
     }
 }
-
-

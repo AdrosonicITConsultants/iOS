@@ -57,6 +57,12 @@ extension HomeScreenService {
                 loggedInUser?.paymentAccountList .forEach({ (addr) in
                     addr.saveOrUpdate()
                 })
+                if let categoryData = dataDict["userProductCategories"] as? [[String:Any]] {
+                    let catData = try JSONSerialization.data(withJSONObject: categoryData, options: .prettyPrinted)
+                    if let userCategories = try? JSONDecoder().decode([UserProductCategory].self, from: catData) {
+                        loggedInUser?.saveOrUpdateUserCategory(catArr: userCategories)
+                    }
+                }
                 DispatchQueue.main.async {
                     vc.loggedInUserName.text = User.loggedIn()?.firstName ?? ""
                 }
