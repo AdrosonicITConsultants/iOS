@@ -228,7 +228,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="coverImage" translatesAutoresizingMaskIntoConstraints="NO" id="bE3-oy-alz">
-                                <rect key="frame" x="20" y="159" width="374" height="120"/>
+                                <rect key="frame" x="20" y="159" width="374.00000000000006" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="N6q-3c-ZUB"/>
                                 </constraints>
@@ -240,20 +240,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="352"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgx-zE-xrF">
-                                        <rect key="frame" x="20" y="40" width="177" height="309"/>
+                                        <rect key="frame" x="20" y="40" width="177" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-artist-self-design" translatesAutoresizingMaskIntoConstraints="NO" id="xva-Ze-XaK">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
                                                 <gestureRecognizers/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artisan Self Design" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XjW-dz-hQv">
-                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcb-iM-Ra2">
-                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="ZKR-Fj-nNP"/>
                                                     <constraint firstAttribute="height" constant="15" id="m12-4Z-Irr"/>
@@ -267,19 +261,29 @@
                                                     <action selector="artisanSelfDesignSelected:" destination="7z9-L7-4Bz" eventType="touchUpInside" id="OQG-G7-gVQ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7A-JW-g3T">
+                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" title="Artisan Self Design">
+                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="artisanSelfDesignSelected:" destination="7z9-L7-4Bz" eventType="touchUpInside" id="otP-ea-x2P"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstItem="XjW-dz-hQv" firstAttribute="top" secondItem="xva-Ze-XaK" secondAttribute="bottom" id="8yX-re-lKg"/>
+                                            <constraint firstItem="wcb-iM-Ra2" firstAttribute="top" secondItem="l7A-JW-g3T" secondAttribute="bottom" id="4Ec-60-pfC"/>
+                                            <constraint firstItem="l7A-JW-g3T" firstAttribute="height" secondItem="xva-Ze-XaK" secondAttribute="height" id="6kc-YV-YN2"/>
                                             <constraint firstItem="xva-Ze-XaK" firstAttribute="leading" secondItem="mgx-zE-xrF" secondAttribute="leading" id="AQT-qF-Nbz"/>
-                                            <constraint firstItem="XjW-dz-hQv" firstAttribute="height" secondItem="xva-Ze-XaK" secondAttribute="height" id="Hl0-4j-OYO"/>
                                             <constraint firstItem="xva-Ze-XaK" firstAttribute="top" secondItem="mgx-zE-xrF" secondAttribute="top" id="JEb-Xy-ags"/>
                                             <constraint firstAttribute="trailing" secondItem="xva-Ze-XaK" secondAttribute="trailing" id="JZc-P7-Ff4"/>
                                             <constraint firstAttribute="trailing" secondItem="wcb-iM-Ra2" secondAttribute="trailing" constant="10" id="LYb-Gy-4DL"/>
-                                            <constraint firstItem="wcb-iM-Ra2" firstAttribute="top" secondItem="XjW-dz-hQv" secondAttribute="bottom" id="RDy-a9-2am"/>
+                                            <constraint firstItem="l7A-JW-g3T" firstAttribute="leading" secondItem="mgx-zE-xrF" secondAttribute="leading" constant="15" id="Whs-33-Zjy"/>
+                                            <constraint firstItem="l7A-JW-g3T" firstAttribute="top" secondItem="xva-Ze-XaK" secondAttribute="bottom" id="bQG-3w-rcJ"/>
                                             <constraint firstAttribute="bottom" secondItem="wcb-iM-Ra2" secondAttribute="bottom" constant="10" id="nRx-0b-vyO"/>
-                                            <constraint firstAttribute="trailing" secondItem="XjW-dz-hQv" secondAttribute="trailing" constant="15" id="o4A-tX-DR0"/>
-                                            <constraint firstItem="XjW-dz-hQv" firstAttribute="leading" secondItem="mgx-zE-xrF" secondAttribute="leading" constant="15" id="rZh-nZ-cs6"/>
+                                            <constraint firstAttribute="trailing" secondItem="l7A-JW-g3T" secondAttribute="trailing" constant="15" id="tBK-fp-Fdb"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose from" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WiI-iy-Mr9">
@@ -292,20 +296,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-Eu-hdm">
-                                        <rect key="frame" x="217" y="40" width="177" height="309"/>
+                                        <rect key="frame" x="217" y="40" width="177" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-antaran-design" translatesAutoresizingMaskIntoConstraints="NO" id="jEi-z8-Xys">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
                                                 <gestureRecognizers/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Antaran co-design collection" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrs-a5-f3F">
-                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-xP-551">
-                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="eir-EC-szw"/>
                                                     <constraint firstAttribute="height" constant="15" id="rI2-cj-RH4"/>
@@ -319,19 +317,29 @@
                                                     <action selector="antaranDesignSelected:" destination="7z9-L7-4Bz" eventType="touchUpInside" id="SVR-1M-Is1"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Cq6-bf-nZ4">
+                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" title="Antaran co-design collection">
+                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="antaranDesignSelected:" destination="7z9-L7-4Bz" eventType="touchUpInside" id="40o-d3-7dX"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstItem="Cq6-bf-nZ4" firstAttribute="height" secondItem="jEi-z8-Xys" secondAttribute="height" id="0cM-v4-wY9"/>
                                             <constraint firstItem="jEi-z8-Xys" firstAttribute="leading" secondItem="SMV-Eu-hdm" secondAttribute="leading" id="4QK-qO-EHj"/>
                                             <constraint firstAttribute="trailing" secondItem="tiK-xP-551" secondAttribute="trailing" constant="10" id="8ut-97-Isp"/>
-                                            <constraint firstAttribute="trailing" secondItem="mrs-a5-f3F" secondAttribute="trailing" constant="15" id="Amq-jx-rUr"/>
-                                            <constraint firstItem="mrs-a5-f3F" firstAttribute="leading" secondItem="SMV-Eu-hdm" secondAttribute="leading" constant="15" id="Ba4-f4-0J7"/>
+                                            <constraint firstItem="Cq6-bf-nZ4" firstAttribute="leading" secondItem="SMV-Eu-hdm" secondAttribute="leading" constant="15" id="ANd-1o-hDj"/>
+                                            <constraint firstItem="Cq6-bf-nZ4" firstAttribute="top" secondItem="jEi-z8-Xys" secondAttribute="bottom" id="FuG-5t-3Bx"/>
                                             <constraint firstAttribute="trailing" secondItem="jEi-z8-Xys" secondAttribute="trailing" id="Md3-Pd-LDW"/>
                                             <constraint firstAttribute="bottom" secondItem="tiK-xP-551" secondAttribute="bottom" constant="10" id="T03-0P-Yje"/>
-                                            <constraint firstItem="mrs-a5-f3F" firstAttribute="top" secondItem="jEi-z8-Xys" secondAttribute="bottom" id="YfJ-EW-EjC"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cq6-bf-nZ4" secondAttribute="trailing" constant="15" id="U9Y-ef-yaO"/>
+                                            <constraint firstItem="tiK-xP-551" firstAttribute="top" secondItem="Cq6-bf-nZ4" secondAttribute="bottom" id="oTe-a3-Xrv"/>
                                             <constraint firstItem="jEi-z8-Xys" firstAttribute="top" secondItem="SMV-Eu-hdm" secondAttribute="top" id="sFQ-DH-Yr2"/>
-                                            <constraint firstItem="mrs-a5-f3F" firstAttribute="height" secondItem="jEi-z8-Xys" secondAttribute="height" id="vgc-Nh-ISH"/>
-                                            <constraint firstItem="tiK-xP-551" firstAttribute="top" secondItem="mrs-a5-f3F" secondAttribute="bottom" id="zMU-cw-akx"/>
                                         </constraints>
                                     </view>
                                 </subviews>
