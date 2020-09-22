@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1133A51F2514EC9F00834D70 /* Invoice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1133A51E2514EC9E00834D70 /* Invoice.storyboard */; };
+		1133A5212514F1BD00834D70 /* InvoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1133A5202514F1BD00834D70 /* InvoiceController.swift */; };
+		1133A54825173C6E00834D70 /* InvoiceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1133A54625173C6E00834D70 /* InvoiceTextField.swift */; };
+		1133A54925173C6E00834D70 /* InvoiceTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1133A54725173C6E00834D70 /* InvoiceTextField.xib */; };
+		1133A54B2518A79500834D70 /* InvoicePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1133A54A2518A79500834D70 /* InvoicePreviewController.swift */; };
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
 		309598822510FB2B00491E33 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309598812510FB2B00491E33 /* DashboardController.swift */; };
 		309598842510FB5700491E33 /* MyDashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309598832510FB5700491E33 /* MyDashboard.storyboard */; };
@@ -312,6 +317,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1133A51E2514EC9E00834D70 /* Invoice.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invoice.storyboard; sourceTree = "<group>"; };
+		1133A5202514F1BD00834D70 /* InvoiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceController.swift; sourceTree = "<group>"; };
+		1133A54625173C6E00834D70 /* InvoiceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceTextField.swift; sourceTree = "<group>"; };
+		1133A54725173C6E00834D70 /* InvoiceTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvoiceTextField.xib; sourceTree = "<group>"; };
+		1133A54A2518A79500834D70 /* InvoicePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePreviewController.swift; sourceTree = "<group>"; };
 		309598812510FB2B00491E33 /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		309598832510FB5700491E33 /* MyDashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyDashboard.storyboard; sourceTree = "<group>"; };
 		309598852510FC8100491E33 /* OrderAvailabilityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderAvailabilityCell.xib; sourceTree = "<group>"; };
@@ -940,6 +950,7 @@
 				C0A8EE9A24C095A60074C620 /* ArtisanTabbar.storyboard */,
 				C09D002424B7379C0039F805 /* MyProfile.storyboard */,
 				309598832510FB5700491E33 /* MyDashboard.storyboard */,
+				1133A51E2514EC9E00834D70 /* Invoice.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1018,6 +1029,8 @@
 				C06AA395250240A500EF4B10 /* BuyerEnquiryListController.swift */,
 				C0930D3425061A2F00DC9274 /* BuyerEnquiryDetailsController.swift */,
 				C09C8C28250D7A7000950526 /* EnquiryArtisanDetailsController.swift */,
+				1133A54A2518A79500834D70 /* InvoicePreviewController.swift */,
+				1133A5202514F1BD00834D70 /* InvoiceController.swift */,
 			);
 			path = EnquiryController;
 			sourceTree = "<group>";
@@ -1189,6 +1202,8 @@
 				C099E3EE24FE9252003B6E3B /* EnquiryExistsView.xib */,
 				C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */,
 				C099E3F224FEC31C003B6E3B /* EnquiryGeneratedView.xib */,
+				1133A54625173C6E00834D70 /* InvoiceTextField.swift */,
+				1133A54725173C6E00834D70 /* InvoiceTextField.xib */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -1540,6 +1555,7 @@
 				C0A9108E247CD8D000852695 /* Lato-Black.ttf in Resources */,
 				C0E6D03D24EBDFD9008CFB1F /* ProdDetailYarnRow.xib in Resources */,
 				C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */,
+				1133A54925173C6E00834D70 /* InvoiceTextField.xib in Resources */,
 				C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */,
 				C016EC1C2510D3590039B7AF /* NotificationCell.xib in Resources */,
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
@@ -1573,6 +1589,7 @@
 				C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
+				1133A51F2514EC9F00834D70 /* Invoice.storyboard in Resources */,
 				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
 				C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */,
 				C0A91094247CD8D000852695 /* Lato-ThinItalic.ttf in Resources */,
@@ -1690,6 +1707,7 @@
 				C071E264247F07930085805B /* ReactiveExtentions.swift in Sources */,
 				C02DC55724F4F26C00805C98 /* Product+Search.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
+				1133A5212514F1BD00834D70 /* InvoiceController.swift in Sources */,
 				C08FBE06249801CD0065BB20 /* REGBuyerCompanyInfoService.swift in Sources */,
 				C06DCAC924D346F100F1435F /* OrderAvailabilityCell.swift in Sources */,
 				C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */,
@@ -1768,6 +1786,7 @@
 				C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */,
 				C0930D3F2506231100DC9274 /* MOQSectionTitle.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
+				1133A54B2518A79500834D70 /* InvoicePreviewController.swift in Sources */,
 				C09B3F0E24BA615900FBC115 /* Disk+[Data].swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
 				C0ACE9A02485923F00EFA4ED /* RegisterArtisanController.swift in Sources */,
@@ -1861,6 +1880,7 @@
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C05498D524995914005D5E57 /* RegisterBuyerController.swift in Sources */,
 				309598822510FB2B00491E33 /* DashboardController.swift in Sources */,
+				1133A54825173C6E00834D70 /* InvoiceTextField.swift in Sources */,
 				C071E254247EE5C80085805B /* SafeClient.swift in Sources */,
 				C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */,
 				C016EC182510D3280039B7AF /* NotificationController.swift in Sources */,

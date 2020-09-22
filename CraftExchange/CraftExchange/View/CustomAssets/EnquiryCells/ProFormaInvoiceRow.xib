@@ -43,6 +43,9 @@
                         <state key="normal" title="Create &amp; Send Pro Forma Invoice">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
+                        <connections>
+                            <action selector="createSendInvoiceBtnSelected:" destination="-1" eventType="touchUpInside" id="cQo-MS-eai"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beL-uw-qqH">
                         <rect key="frame" x="40" y="81" width="334" height="30"/>

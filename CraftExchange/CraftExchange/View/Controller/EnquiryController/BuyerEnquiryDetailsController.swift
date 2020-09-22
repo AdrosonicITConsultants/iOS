@@ -150,6 +150,9 @@ class BuyerEnquiryDetailsController: FormViewController {
             }
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 150.0 }
+                $0.cell.delegate = self
+                $0.tag = "CreatePI"
+                $0.cell.tag = 1
                 if (enquiryObject?.enquiryStageId == 2 || enquiryObject?.enquiryStageId == 7){
                     $0.hidden = false
                 }else {
@@ -301,4 +304,25 @@ class BuyerEnquiryDetailsController: FormViewController {
             row.reload()
         }
     }
+}
+extension BuyerEnquiryDetailsController: InvoiceButtonProtocol {
+    func createSendInvoiceBtnSelected(tag: Int) {
+        switch tag{
+        case 1:
+            let row1 = self.form.rowBy(tag: "CreatePI")
+            row1?.hidden = true
+            print(row1?.hidden)
+            let storyboard = UIStoryboard(name: "Invoice", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "InvoiceController") as? InvoiceController
+            vc?.enquiryObject = self.enquiryObject
+            vc?.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc!, animated: true)
+            print("createSendInvoiceBtnSelected WORKING")
+        default:
+            print("NOt Working PI")
+        }
+    }
+    
+    
+    
 }
