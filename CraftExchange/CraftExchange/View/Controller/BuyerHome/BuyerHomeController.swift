@@ -54,7 +54,10 @@ class BuyerHomeController: UIViewController {
     }
     
     super.viewDidLoad()
-    viewModel.viewDidLoad?()
+        viewModel.viewDidLoad?()
+        let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
+        let rightBarButtomItem2 = self.searchBarButton()
+        navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
   }
     
     override func viewWillAppear(_ animated: Bool) {

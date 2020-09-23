@@ -77,6 +77,63 @@ extension UIViewController {
     rightButtonItem.tintColor = .darkGray
     return rightButtonItem
   }
+    
+    func notificationBarButton() -> UIButton {
+        let badgeCount = UILabel(frame: CGRect(x: 10, y: -05, width: 15, height: 15))
+        badgeCount.layer.borderColor = UIColor.clear.cgColor
+        badgeCount.layer.borderWidth = 2
+        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height / 2
+        badgeCount.textAlignment = .center
+        badgeCount.layer.masksToBounds = true
+        badgeCount.textColor = .white
+        badgeCount.font = badgeCount.font.withSize(10)
+        badgeCount.backgroundColor = .red
+        badgeCount.text = "0"
+        badgeCount.tag = 666
+
+
+        let rightBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        rightBarButton.tintColor = .lightGray
+        rightBarButton.setBackgroundImage(UIImage(named: "ios_bell"), for: .normal)
+        rightBarButton.addTarget(self, action: #selector(self.notificationButtonSelected), for: .touchUpInside)
+        rightBarButton.addSubview(badgeCount)
+        
+        return rightBarButton
+    }
+    
+    @objc func notificationButtonSelected() {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = NotificationService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func searchBarButton() -> UIBarButtonItem {
+        let rightButtonItem = UIBarButtonItem.init(
+          image: UIImage(named: "ios_search"),
+          style: .plain,
+          target: self,
+          action: #selector(self.searchSelected)
+        )
+        rightButtonItem.tintColor = .darkGray
+        rightButtonItem.image = UIImage(named: "ios_search")
+      return rightButtonItem
+    }
+    
+    @objc func searchSelected() {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = SearchService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension UIViewController: LoadingStateListener {
