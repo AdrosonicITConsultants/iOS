@@ -72,11 +72,17 @@ class KeychainManager {
     }
 
     var baseURL: String {
-        return "http://101.53.153.96:8090"
+        //UAT
+        return "http://164.52.192.15:8090"
+        //Dev
+//        return "http://101.53.153.96:8090"
     }
     
     var imageBaseURL: String {
-        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+        //UAT
+        return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
+        //Dev
+//        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
     }
   
     var userRole: String? {
