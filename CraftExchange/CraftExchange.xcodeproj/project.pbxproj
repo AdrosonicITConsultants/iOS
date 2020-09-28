@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1103FB2B251B1C6F00510A95 /* InvoiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1103FB2A251B1C6E00510A95 /* InvoiceScene.swift */; };
 		1133A51F2514EC9F00834D70 /* Invoice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1133A51E2514EC9E00834D70 /* Invoice.storyboard */; };
 		1133A5212514F1BD00834D70 /* InvoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1133A5202514F1BD00834D70 /* InvoiceController.swift */; };
 		1133A54825173C6E00834D70 /* InvoiceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1133A54625173C6E00834D70 /* InvoiceTextField.swift */; };
 		1133A54925173C6E00834D70 /* InvoiceTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1133A54725173C6E00834D70 /* InvoiceTextField.xib */; };
 		1133A54B2518A79500834D70 /* InvoicePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1133A54A2518A79500834D70 /* InvoicePreviewController.swift */; };
+		11FAA1CD251CCB0C000EBB86 /* SwipeInvoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FAA1CB251CCB0C000EBB86 /* SwipeInvoiceCell.swift */; };
+		11FAA1CE251CCB0C000EBB86 /* SwipeInvoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11FAA1CC251CCB0C000EBB86 /* SwipeInvoiceCell.xib */; };
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
 		309598822510FB2B00491E33 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309598812510FB2B00491E33 /* DashboardController.swift */; };
 		309598842510FB5700491E33 /* MyDashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 309598832510FB5700491E33 /* MyDashboard.storyboard */; };
@@ -317,11 +320,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1103FB2A251B1C6E00510A95 /* InvoiceScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceScene.swift; sourceTree = "<group>"; };
 		1133A51E2514EC9E00834D70 /* Invoice.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invoice.storyboard; sourceTree = "<group>"; };
 		1133A5202514F1BD00834D70 /* InvoiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceController.swift; sourceTree = "<group>"; };
 		1133A54625173C6E00834D70 /* InvoiceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceTextField.swift; sourceTree = "<group>"; };
 		1133A54725173C6E00834D70 /* InvoiceTextField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvoiceTextField.xib; sourceTree = "<group>"; };
 		1133A54A2518A79500834D70 /* InvoicePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoicePreviewController.swift; sourceTree = "<group>"; };
+		11FAA1CB251CCB0C000EBB86 /* SwipeInvoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeInvoiceCell.swift; sourceTree = "<group>"; };
+		11FAA1CC251CCB0C000EBB86 /* SwipeInvoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeInvoiceCell.xib; sourceTree = "<group>"; };
 		309598812510FB2B00491E33 /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		309598832510FB5700491E33 /* MyDashboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyDashboard.storyboard; sourceTree = "<group>"; };
 		309598852510FC8100491E33 /* OrderAvailabilityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderAvailabilityCell.xib; sourceTree = "<group>"; };
@@ -1289,6 +1295,8 @@
 				C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */,
 				C0ACA1C4250F32D400978CEA /* EnquiryClosedRow.xib */,
 				C0ACA1C6250F33B300978CEA /* EnquiryClosedRow.swift */,
+				11FAA1CB251CCB0C000EBB86 /* SwipeInvoiceCell.swift */,
+				11FAA1CC251CCB0C000EBB86 /* SwipeInvoiceCell.xib */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -1420,6 +1428,7 @@
 			children = (
 				C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */,
 				C09C8C24250D496700950526 /* EnquiryDetailsScene.swift */,
+				1103FB2A251B1C6E00510A95 /* InvoiceScene.swift */,
 			);
 			path = EnquiryScenes;
 			sourceTree = "<group>";
@@ -1549,6 +1558,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0A910A2247CD90B00852695 /* PlayfairDisplay-Bold.ttf in Resources */,
+				11FAA1CE251CCB0C000EBB86 /* SwipeInvoiceCell.xib in Resources */,
 				C0A910A6247CD90B00852695 /* PlayfairDisplay-ExtraBoldItalic.ttf in Resources */,
 				C0995BFA24C8CB9900EC4CC3 /* RegionCell.xib in Resources */,
 				C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */,
@@ -1696,6 +1706,7 @@
 				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
 				C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */,
 				C0A0AC5E24E6A98B00F7492E /* UploadCustomProductController.swift in Sources */,
+				11FAA1CD251CCB0C000EBB86 /* SwipeInvoiceCell.swift in Sources */,
 				C0917DE024D43355006B6664 /* ProductLength.swift in Sources */,
 				C016EC0F2510D16D0039B7AF /* BuyerNotificationScene.swift in Sources */,
 				C016EC202510D4FF0039B7AF /* OfflineNotificationRequest.swift in Sources */,
@@ -1715,6 +1726,7 @@
 				C005BCB624C1AB2F00197519 /* Product.swift in Sources */,
 				C0FBE34C24C6B6560037347A /* RealmChanges.swift in Sources */,
 				C02DC55A24F4F30800805C98 /* SearchService.swift in Sources */,
+				1103FB2B251B1C6F00510A95 /* InvoiceScene.swift in Sources */,
 				C02DC55224F4F0AE00805C98 /* Searchable.swift in Sources */,
 				C09C8C25250D496700950526 /* EnquiryDetailsScene.swift in Sources */,
 				C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */,

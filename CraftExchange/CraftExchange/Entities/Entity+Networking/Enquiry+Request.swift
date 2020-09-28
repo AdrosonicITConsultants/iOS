@@ -23,9 +23,9 @@ extension Enquiry {
     }
     
     public static func generateEnquiry(productId: Int, isCustom: Bool) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["productId":productId,
-                                       "isCustom": isCustom,
-                                       "deviceName":"IOS"]
+        let parameters: [String: Any] = ["productId":productId,
+                                         "isCustom": isCustom,
+                                         "deviceName":"IOS"]
         var str = "enquiry/generateEnquiry/\(productId)/\(isCustom)/IOS"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
@@ -34,7 +34,7 @@ extension Enquiry {
             parameters: JSONParameters(parameters),
             resource: {
                 print(String(data: $0, encoding: .utf8) ?? "generateEnquiry failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )
@@ -75,7 +75,65 @@ extension Enquiry {
             needsAuthorization: false
         )
     }
-    
+    static func getPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    public static func savePI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int,  ppu: Int, quantity: Int,sgst: Int) -> Request<Data, APIError> {
+        
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "cgst": cgst,
+                                         "expectedDateOfDelivery": expectedDateOfDelivery,
+                                         "hsn": hsn,
+                                         "ppu": ppu,
+                                         "quantity": quantity,
+                                         "sgst": sgst]
+        var str = "enquiry/savePi/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            
+            path: str,
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "markInvoiceCompleted failed")
+            return $0},
+            error: APIError.init,
+            needsAuthorization: false
+            
+        )
+        
+    }
+    public static func sendPI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int,  ppu: Int, quantity: Int,sgst: Int) -> Request<Data, APIError> {
+        
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "cgst": cgst,
+                                         "expectedDateOfDelivery": expectedDateOfDelivery,
+                                         "hsn": hsn,
+                                         "ppu": ppu,
+                                         "quantity": quantity,
+                                         "sgst": sgst]
+        var str = "enquiry/sendPi/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            
+            path: str,
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "sendingPI failed")
+            return $0},
+            error: APIError.init,
+            needsAuthorization: false
+            
+        )
+        
+    }
     static func getClosedEnquiries() -> Request<Data, APIError> {
         var str = "enquiry/getClosedEnquiries"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -101,13 +159,13 @@ extension Enquiry {
     }
     
     public static func closeEnquiry(enquiryId: Int) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["enquiryId":enquiryId]
+        let parameters: [String: Any] = ["enquiryId":enquiryId]
         return Request(
             path: "enquiry/markEnquiryCompleted/\(enquiryId)",
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "markEnquiryCompleted failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )

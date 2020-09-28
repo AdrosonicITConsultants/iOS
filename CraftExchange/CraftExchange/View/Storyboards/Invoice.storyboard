@@ -14,17 +14,6 @@
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="InvoiceController" id="1l1-An-sUR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UYo-hN-OdQ">
-                                <rect key="frame" x="0.0" y="39" width="414" height="818"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="rUG-qF-v9L"/>
                     </view>
@@ -34,19 +23,95 @@
             <point key="canvasLocation" x="131" y="85"/>
         </scene>
         <!--Invoice Preview Controller-->
-        <scene sceneID="vSy-ec-N1g">
+        <scene sceneID="Zv1-ik-fBG">
             <objects>
-                <viewController storyboardIdentifier="InvoicePreviewController" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5rT-Iu-gbv" customClass="InvoicePreviewController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" restorationIdentifier="InvoicePreviewController" id="nOF-mG-y7n">
+                <viewController storyboardIdentifier="InvoicePreviewController" id="QG0-6x-EyB" customClass="InvoicePreviewController" customModule="Craft_Xchange" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YxU-IW-nKu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Note that it is Preview:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tw6-9I-SwP">
+                                <rect key="frame" x="1" y="97" width="165" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="DHq-tX-ksz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgd-OC-ss7">
+                                <rect key="frame" x="187" y="96" width="159" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Download this invoice in pdf">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <wkWebView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CXN-Ea-ZNQ">
+                                <rect key="frame" x="1" y="198" width="412" height="597"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4C-wy-seg">
+                                <rect key="frame" x="80" y="750" width="250" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.40447123539008489" blue="0.83855488578680204" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <state key="normal" title="Swipe to Send PI">
+                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendPIBtn:" destination="QG0-6x-EyB" eventType="touchUpInside" id="JwI-OL-fWm"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EFP-cD-pmZ">
+                                <rect key="frame" x="363" y="110" width="36" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="yUm-T8-yQ1"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZ8-ve-5zZ">
+                                <rect key="frame" x="18" y="80" width="182" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="JzW-2s-Ndw"/>
+                        <constraints>
+                            <constraint firstItem="tw6-9I-SwP" firstAttribute="bottom" secondItem="jgd-OC-ss7" secondAttribute="bottom" id="4Jb-Ow-hqb"/>
+                            <constraint firstItem="tw6-9I-SwP" firstAttribute="centerY" secondItem="jgd-OC-ss7" secondAttribute="centerY" id="5M7-iA-IQK"/>
+                            <constraint firstItem="tw6-9I-SwP" firstAttribute="top" secondItem="fZ8-ve-5zZ" secondAttribute="bottom" constant="0.5" id="AkN-oS-ATF"/>
+                            <constraint firstItem="fZ8-ve-5zZ" firstAttribute="leading" secondItem="b4c-yY-NOn" secondAttribute="leading" constant="27" id="G4L-1w-XZc"/>
+                            <constraint firstItem="CXN-Ea-ZNQ" firstAttribute="top" secondItem="EFP-cD-pmZ" secondAttribute="bottom" constant="66" id="GxR-OW-v0g"/>
+                            <constraint firstItem="fZ8-ve-5zZ" firstAttribute="top" secondItem="b4c-yY-NOn" secondAttribute="top" constant="32" id="ISQ-DK-BvY"/>
+                            <constraint firstItem="CXN-Ea-ZNQ" firstAttribute="leading" secondItem="b4c-yY-NOn" secondAttribute="leading" id="Lrn-Hy-Wf3"/>
+                            <constraint firstItem="jgd-OC-ss7" firstAttribute="leading" secondItem="fZ8-ve-5zZ" secondAttribute="trailing" constant="8" id="Pvg-Ta-vrw"/>
+                            <constraint firstItem="EFP-cD-pmZ" firstAttribute="top" secondItem="b4c-yY-NOn" secondAttribute="top" constant="66" id="RqT-Ar-a35"/>
+                            <constraint firstItem="jgd-OC-ss7" firstAttribute="leading" secondItem="tw6-9I-SwP" secondAttribute="trailing" constant="21" id="SX0-5H-Mgo"/>
+                            <constraint firstItem="b4c-yY-NOn" firstAttribute="trailing" secondItem="EFP-cD-pmZ" secondAttribute="trailing" constant="15" id="T5N-dD-jZd"/>
+                            <constraint firstItem="CXN-Ea-ZNQ" firstAttribute="top" secondItem="jgd-OC-ss7" secondAttribute="bottom" constant="56" id="TbG-Qo-Rra"/>
+                            <constraint firstItem="b4c-yY-NOn" firstAttribute="trailing" secondItem="CXN-Ea-ZNQ" secondAttribute="trailing" constant="2" id="Wqi-F8-034"/>
+                            <constraint firstItem="b4c-yY-NOn" firstAttribute="trailing" secondItem="fZ8-ve-5zZ" secondAttribute="trailing" constant="235" id="bKM-Oa-qvK"/>
+                            <constraint firstItem="b4c-yY-NOn" firstAttribute="bottom" secondItem="CXN-Ea-ZNQ" secondAttribute="bottom" constant="137" id="eMK-uC-fVA"/>
+                            <constraint firstItem="tw6-9I-SwP" firstAttribute="leading" secondItem="CXN-Ea-ZNQ" secondAttribute="leading" id="iS9-v6-aGy"/>
+                            <constraint firstItem="EFP-cD-pmZ" firstAttribute="leading" secondItem="jgd-OC-ss7" secondAttribute="trailing" constant="17" id="jaG-ks-5QK"/>
+                            <constraint firstItem="jgd-OC-ss7" firstAttribute="top" secondItem="b4c-yY-NOn" secondAttribute="top" constant="52" id="ljJ-G5-U0E"/>
+                            <constraint firstItem="tw6-9I-SwP" firstAttribute="leading" secondItem="b4c-yY-NOn" secondAttribute="leading" constant="1" id="ts5-na-paU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="b4c-yY-NOn"/>
                     </view>
+                    <connections>
+                        <outlet property="DownloadImg" destination="EFP-cD-pmZ" id="rQn-mY-eSx"/>
+                        <outlet property="idLabel" destination="fZ8-ve-5zZ" id="Kg9-FX-ldA"/>
+                        <outlet property="pdfView" destination="CXN-Ea-ZNQ" id="xtY-4B-ATg"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jnO-rh-SSN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aLF-PF-iUY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="874" y="84"/>
+            <point key="canvasLocation" x="930.43478260869574" y="84.375"/>
         </scene>
     </scenes>
 </document>

@@ -309,14 +309,13 @@ extension BuyerEnquiryDetailsController: InvoiceButtonProtocol {
     func createSendInvoiceBtnSelected(tag: Int) {
         switch tag{
         case 1:
-            let row1 = self.form.rowBy(tag: "CreatePI")
-            row1?.hidden = true
-            print(row1?.hidden)
-            let storyboard = UIStoryboard(name: "Invoice", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "InvoiceController") as? InvoiceController
-            vc?.enquiryObject = self.enquiryObject
-            vc?.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc!, animated: true)
+            
+            let client = try! SafeClient(wrapping: CraftExchangeClient())
+            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.enquiryObject!.enquiryId) as! InvoiceController
+            vc1.modalPresentationStyle = .fullScreen
+            vc1.enquiryObject = self.enquiryObject
+            print("PI WORKING")
+            self.navigationController?.pushViewController(vc1, animated: true)
             print("createSendInvoiceBtnSelected WORKING")
         default:
             print("NOt Working PI")
