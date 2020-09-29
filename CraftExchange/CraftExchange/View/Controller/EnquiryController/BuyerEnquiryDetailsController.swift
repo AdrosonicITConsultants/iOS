@@ -621,7 +621,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                     <<< MOQSelectedDetailsRow() {
                         $0.cell.height = { 100.0 }
                         $0.cell.delegate = self as MOQButtonActionProtocol
-                        $0.cell.tag = 100
+                        $0.cell.tag = obj.artisanId
                         $0.hidden = true
                         $0.tag = "\(obj.artisanId)"
                         let date = Date().ttceFormatter(isoDate: "\(obj.moq!.modifiedOn!)")
@@ -735,14 +735,22 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     }
     
     func detailsButtonSelected(tag: Int) {
-        switch tag {
-        case 100:
-            let vc = EnquiryArtisanDetailsController.init(style: .plain)
-            vc.enquiryObject = self.enquiryObject
-            self.navigationController?.pushViewController(vc, animated: true)
-        default:
-            print("do nothing")
-        }
+        let showMOQ = listMOQs!
+        showMOQ.forEach({ (obj) in
+            switch tag {
+              
+            case obj.artisanId :
+                let vc = CustomMOQArtisanDetailsController.init(style: .plain)
+                vc.enquiryObject = self.enquiryObject
+                vc.getMOs = obj
+                self.navigationController?.pushViewController(vc, animated: true)
+                print(obj.artisanId)
+            default:
+                print("do nothing")
+            }
+            
+        })
+        
     }
     
     func quantityButtonSelected(tag: Int) {
