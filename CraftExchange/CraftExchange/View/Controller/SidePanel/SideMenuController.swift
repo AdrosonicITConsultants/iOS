@@ -186,9 +186,17 @@ class SideMenuController: FormViewController {
     
     
     let view = UIImageView.init(image: UIImage(named: "ios_logo_ham menu"))
-    let ht: CGFloat = 180.0
+    let ht: CGFloat = 140.0
     view.frame = CGRect(x: 0, y: self.view.frame.height-ht, width: min(self.view.frame.width, self.view.frame.height) * CGFloat(0.80), height: ht)
     view.contentMode = .center
+    
+    let lbl = UILabel.init(frame: CGRect(x: 0, y: self.view.frame.size.height-30, width: view.frame.size.width, height: 20))
+    lbl.font = .systemFont(ofSize: 10)
+    lbl.textColor = .lightGray
+    lbl.textAlignment = .center
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    lbl.text = "23-09-2020 V\(appVersion ?? "1.0")"
+    self.view.addSubview(lbl)
     self.view.addSubview(view)
   }
   

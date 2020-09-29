@@ -10,6 +10,7 @@ import Foundation
 import Bond
 import ReactiveKit
 import UIKit
+import Eureka
 
 extension MyProfileService {
     
@@ -61,58 +62,78 @@ extension MyProfileService {
                 }
             }.dispose(in: vc.bag)
             
-            self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
-              DispatchQueue.main.async {
-                vc.hideLoading()
-              }
-                do {
-                if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
-                {
-                if let dataDict = jsonDict["data"] as? Dictionary<String,Any> {
-                print("logged In User: \(jsonDict)")
-                guard let userObj = dataDict["user"] as? Dictionary<String,Any> else {
-                    DispatchQueue.main.async {
-                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Unable to update Profile".localized)")
-                    }
-                    return
-                }
-                let userData = try JSONSerialization.data(withJSONObject: userObj, options: .prettyPrinted)
-                let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
-                loggedInUser?.saveOrUpdate()
-                loggedInUser?.addressList .forEach({ (addr) in
-                    addr.saveOrUpdate()
-                })
-                loggedInUser?.paymentAccountList .forEach({ (addr) in
-                    addr.saveOrUpdate()
-                })
-                DispatchQueue.main.async {
-                    vc.buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
-                    vc.companyName.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName
-                    vc.ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
-                    vc.segmentControl.setSelectedIndex(0)
-                    vc.segmentControl.sendActions(for: .valueChanged)
-                }
-                }else {
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                    vc.alert("\(jsonDict["errorMessage"] as? String ?? "Unable to update Profile".localized)")
-                }
-                }
-                } else {
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                    vc.alert("Unable to update Profile".localized)
-                }
-                }
-                } catch let error as NSError {
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                    vc.alert("\(error.description)")
-                }
-                }
-            }.dispose(in: vc.bag)
+            refreshProfile()
             }
     }
+    
+    vc.refreshProfile = {
+        if vc.reachabilityManager?.connection != .unavailable {
+            DispatchQueue.main.async {
+                vc.showLoading()
+            }
+            refreshProfile()
+        }
+    }
+    
+    func refreshProfile() {
+        self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          DispatchQueue.main.async {
+            vc.hideLoading()
+          }
+            do {
+            if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
+            {
+            if let dataDict = jsonDict["data"] as? Dictionary<String,Any> {
+            print("logged In User: \(jsonDict)")
+            guard let userObj = dataDict["user"] as? Dictionary<String,Any> else {
+                DispatchQueue.main.async {
+                    vc.alert("\(jsonDict["errorMessage"] as? String ?? "Unable to update Profile".localized)")
+                }
+                return
+            }
+            let userData = try JSONSerialization.data(withJSONObject: userObj, options: .prettyPrinted)
+            let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
+            loggedInUser?.saveOrUpdate()
+            loggedInUser?.addressList .forEach({ (addr) in
+                addr.saveOrUpdate()
+            })
+            loggedInUser?.paymentAccountList .forEach({ (addr) in
+                addr.saveOrUpdate()
+            })
+            if let categoryData = dataDict["userProductCategories"] as? [[String:Any]] {
+                let catData = try JSONSerialization.data(withJSONObject: categoryData, options: .prettyPrinted)
+                if let userCategories = try? JSONDecoder().decode([UserProductCategory].self, from: catData) {
+                    loggedInUser?.saveOrUpdateUserCategory(catArr: userCategories)
+                }
+            }
+            DispatchQueue.main.async {
+                vc.buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
+                vc.companyName.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName
+                vc.ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
+                vc.segmentControl.setSelectedIndex(0)
+                vc.segmentControl.sendActions(for: .valueChanged)
+            }
+            }else {
+            DispatchQueue.main.async {
+                vc.hideLoading()
+                vc.alert("\(jsonDict["errorMessage"] as? String ?? "Unable to update Profile".localized)")
+            }
+            }
+            } else {
+            DispatchQueue.main.async {
+                vc.hideLoading()
+                vc.alert("Unable to update Profile".localized)
+            }
+            }
+            } catch let error as NSError {
+            DispatchQueue.main.async {
+                vc.hideLoading()
+                vc.alert("\(error.description)")
+            }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
     return vc
   }
 }

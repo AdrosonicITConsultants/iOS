@@ -244,7 +244,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
     
     func updateArtisanProfilePic() {
         if let name = User.loggedIn()?.profilePic, let userID = User.loggedIn()?.entityID {
-            let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/ProfilePics/\(name)")
+            let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/ProfilePics/\(name)")
             URLSession.shared.dataTask(with: url!) { data, response, error in
                 // do your stuff here...
                 DispatchQueue.main.async {

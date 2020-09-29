@@ -32,6 +32,7 @@ extension HomeScreenService {
             self.fetchClusterData(vc: vc)
             self.fetchProductUploadData(vc: vc)
             self.fetchEnquiryStateData(vc: vc)
+            self.fetchNotification(vc: vc)
             
             self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
               DispatchQueue.main.async {
@@ -57,6 +58,12 @@ extension HomeScreenService {
                 loggedInUser?.paymentAccountList .forEach({ (addr) in
                     addr.saveOrUpdate()
                 })
+                if let categoryData = dataDict["userProductCategories"] as? [[String:Any]] {
+                    let catData = try JSONSerialization.data(withJSONObject: categoryData, options: .prettyPrinted)
+                    if let userCategories = try? JSONDecoder().decode([UserProductCategory].self, from: catData) {
+                        loggedInUser?.saveOrUpdateUserCategory(catArr: userCategories)
+                    }
+                }
                 DispatchQueue.main.async {
                     vc.loggedInUserName.text = User.loggedIn()?.firstName ?? ""
                 }
@@ -223,6 +230,30 @@ extension HomeScreenService {
         }.dispose(in: vc.bag)
     }
     
+    func fetchNotification(vc: UIViewController) {
+        let service = NotificationService.init(client: client)
+        service.getAllTheNotifications().toLoadingSignal().consumeLoadingState(by: vc)
+            .bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let dataDict = json["data"] as? Dictionary<String,Any>
+                    {
+                        guard let notiObj = dataDict["getAllNotifications"] as? [[String: Any]] else {
+                            return
+                        }
+                        if let notidata = try? JSONSerialization.data(withJSONObject: notiObj, options: .fragmentsAllowed) {
+                            if  let notiBuyer = try? JSONDecoder().decode([Notifications].self, from: notidata) {
+                                DispatchQueue.main.async {
+                                    if let lbl = vc.navigationController?.view.viewWithTag(666) as? UILabel {
+                                        lbl.text = "\(notiBuyer.count)"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        }.dispose(in: vc.bag)
+    }
+    
     func fetchEnquiryStateData(vc: UIViewController) {
         let service = EnquiryListService.init(client: client)
         service.getEnquiryStages().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
@@ -263,6 +294,7 @@ extension HomeScreenService {
                 self.fetchClusterData(vc: vc)
                 self.fetchProductUploadData(vc: vc)
                 self.fetchEnquiryStateData(vc: vc)
+                self.fetchNotification(vc: vc)
                 
                 self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                   DispatchQueue.main.async {

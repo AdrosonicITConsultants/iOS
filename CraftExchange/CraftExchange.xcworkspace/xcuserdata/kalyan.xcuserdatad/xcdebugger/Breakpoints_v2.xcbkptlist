@@ -30,8 +30,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/EnquiryDetailsScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "createEnquiryDetailScene(forEnquiry:enquiryId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -204,8 +204,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/EnquiryDetailsScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "createEnquiryDetailScene(forEnquiry:enquiryId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -220,8 +220,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/EnquiryDetailsScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "createEnquiryDetailScene(forEnquiry:enquiryId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -395,10 +395,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/EnquiryArtisanDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
+            startingLineNumber = "520"
+            endingLineNumber = "520">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

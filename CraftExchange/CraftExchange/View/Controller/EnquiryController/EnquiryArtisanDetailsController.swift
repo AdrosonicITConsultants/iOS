@@ -44,7 +44,7 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.isUserInteractionEnabled = false
                 $0.cell.actionButton.isUserInteractionEnabled = false
                 if let name = self.enquiryObject?.logo, let userID = self.enquiryObject?.userId {
-                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
+                    let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/CompanyDetails/Logo/\(name)")
                     URLSession.shared.dataTask(with: url!) { data, response, error in
                         // do your stuff here...
                         DispatchQueue.main.async {

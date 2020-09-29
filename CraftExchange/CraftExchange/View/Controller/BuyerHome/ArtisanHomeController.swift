@@ -55,6 +55,9 @@ class ArtisanHomeController: UIViewController {
     super.viewDidLoad()
     
     viewModel.viewDidLoad?()
+    let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
+    let rightBarButtomItem2 = self.searchBarButton()
+    navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
     
     loggedInUserName.text = User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? ""
     if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
@@ -89,7 +92,7 @@ class ArtisanHomeController: UIViewController {
     
     func refreshBrandLogo() {
         if let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
-            let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
+            let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/CompanyDetails/Logo/\(name)")
             URLSession.shared.dataTask(with: url!) { data, response, error in
                 // do your stuff here...
                 DispatchQueue.main.async {

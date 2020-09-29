@@ -21,41 +21,22 @@ extension EnquiryDetailsService {
         
         vc.viewWillAppear = {
             vc.showLoading()
+            if vc.isClosed {
+                self.getClosedEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            pasrseEnquiryJson(json: json)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                    }
+                }.dispose(in: vc.bag)
+            }
             self.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool == true {
-                        if let eqArray = json["data"] as? [[String: Any]] {
-                            if let eqObj = eqArray.first {
-                                if let eqDictionary = eqObj["openEnquiriesResponse"] {
-                                    if let eqdata = try? JSONSerialization.data(withJSONObject: eqDictionary, options: .fragmentsAllowed) {
-                                        if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: eqdata) {
-                                            DispatchQueue.main.async {
-                                                enquiryObj.saveOrUpdate()
-                                                
-                                                //Get Artisan Payment Account Details
-                                                if let accArray = eqObj["paymentAccountDetails"] as? [[String: Any]]{
-                                                    if let accdata = try? JSONSerialization.data(withJSONObject: accArray, options: .fragmentsAllowed) {
-                                                        if let parsedAccList = try? JSONDecoder().decode([PaymentAccDetails].self, from: accdata) {
-                                                            //Get Artisan Product Categories
-                                                            if let catArray = eqObj["productCategories"] as? [[String: Any]]{
-                                                                if let catdata = try? JSONSerialization.data(withJSONObject: catArray, options: .fragmentsAllowed) {
-                                                                    if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
-                                                                        enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
-                                                                        vc.reloadFormData()
-                                                                        vc.hideLoading()
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            
-                        }
+                        pasrseEnquiryJson(json: json)
                     }
                 }
                 DispatchQueue.main.async {
@@ -64,6 +45,41 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)
             
             
+        }
+        
+        func pasrseEnquiryJson(json: [String: Any]) {
+            if let eqArray = json["data"] as? [[String: Any]] {
+            if let eqObj = eqArray.first {
+            if let eqDictionary = eqObj["openEnquiriesResponse"] {
+            if let eqdata = try? JSONSerialization.data(withJSONObject: eqDictionary, options: .fragmentsAllowed) {
+                if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: eqdata) {
+                DispatchQueue.main.async {
+                enquiryObj.saveOrUpdate()
+                    
+                //Get Artisan Payment Account Details
+                if let accArray = eqObj["paymentAccountDetails"] as? [[String: Any]]{
+                if let accdata = try? JSONSerialization.data(withJSONObject: accArray, options: .fragmentsAllowed) {
+                if let parsedAccList = try? JSONDecoder().decode([PaymentAccDetails].self, from: accdata) {
+                    //Get Artisan Product Categories
+                    if let catArray = eqObj["productCategories"] as? [[String: Any]]{
+                    if let catdata = try? JSONSerialization.data(withJSONObject: catArray, options: .fragmentsAllowed) {
+                    if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
+                        enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
+                        vc.reloadFormData()
+                        vc.hideLoading()
+                    }
+                    }
+                    }
+                }
+                }
+                }
+                }
+                }
+            }
+            }
+            }
+                
+            }
         }
         
         vc.showCustomProduct = {
