@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MOQSortButtonsRowView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KA4-aD-Cdy">
+                        <rect key="frame" x="20" y="0.0" width="364" height="30"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCA-5o-7jf">
+                                <rect key="frame" x="0.0" y="0.0" width="91" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Sort By">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYg-mA-2d7">
+                                <rect key="frame" x="91" y="0.0" width="91" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Qnty  ">
+                                    <color key="titleColor" red="0.22352941176470587" green="0.36862745098039218" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iu0-EU-eqZ">
+                                <rect key="frame" x="182" y="0.0" width="91" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Price">
+                                    <color key="titleColor" red="0.22352941179999999" green="0.36862745099999999" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G36-hn-cwU">
+                                <rect key="frame" x="273" y="0.0" width="91" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="ETA">
+                                    <color key="titleColor" red="0.22352941179999999" green="0.36862745099999999" blue="0.12549019610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="uCA-5o-7jf" firstAttribute="width" secondItem="iu0-EU-eqZ" secondAttribute="width" id="00p-Si-Hgz"/>
+                            <constraint firstItem="uCA-5o-7jf" firstAttribute="width" secondItem="G36-hn-cwU" secondAttribute="width" id="JJY-Dt-vWe"/>
+                            <constraint firstItem="uCA-5o-7jf" firstAttribute="width" secondItem="VYg-mA-2d7" secondAttribute="width" id="iB0-77-dxA"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="KA4-aD-Cdy" secondAttribute="trailing" constant="30" id="SN4-eK-5p8"/>
+                    <constraint firstItem="KA4-aD-Cdy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="e5l-fT-oTe"/>
+                    <constraint firstAttribute="bottom" secondItem="KA4-aD-Cdy" secondAttribute="bottom" id="l6M-u2-nFV"/>
+                    <constraint firstItem="KA4-aD-Cdy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="obV-WF-nOp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="ETAButton" destination="G36-hn-cwU" id="7Qz-7C-Pdv"/>
+                <outlet property="priceButton" destination="iu0-EU-eqZ" id="ssB-rY-9bt"/>
+                <outlet property="quantityButton" destination="VYg-mA-2d7" id="L1v-JJ-DTv"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="103.79464285714285"/>
+        </tableViewCell>
+    </objects>
+</document>

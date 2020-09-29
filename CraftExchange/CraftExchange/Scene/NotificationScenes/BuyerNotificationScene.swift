@@ -16,9 +16,18 @@ import UIKit
 
 extension NotificationService {
     func createScene() -> UIViewController {
-        let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "BuyerNotificationController") as! NotificationController
+        let roleId = KeychainManager.standard.userRoleId!
+        var storyboard: UIStoryboard
+        var controller: NotificationController
         
+        if roleId == 1{
+            storyboard = UIStoryboard(name: "ArtisanTabbar", bundle: nil)
+            controller = storyboard.instantiateViewController(withIdentifier: "ArtisanNotificationController") as! NotificationController
+        }else {
+            storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+            controller = storyboard.instantiateViewController(withIdentifier: "BuyerNotificationController") as! NotificationController
+        }
+       
         func performSync()   {
             getAllTheNotifications().toLoadingSignal().consumeLoadingState(by: controller)
                 .bind(to: controller, context: .global(qos: .background)) { _, responseData in
@@ -68,17 +77,6 @@ extension NotificationService {
                 }
             }
             
-//            self.markAsReadNotification(notificationId: notificationId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
-//                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-//                    if json["valid"] as? Bool == true {
-//                        DispatchQueue.main.async {
-//                        controller.allNotifications?.remove(at: index)
-//                           controller.tableView.reloadData()
-//                        }
-//                    }
-//                }
-//            }.dispose(in: controller.bag)
-            
         }
         
         
@@ -91,16 +89,6 @@ extension NotificationService {
                 controller.notificationCount -= 0
                 controller.notificationsLabel?.text = "No new notifications"
             }
-            
-//            self.markAsAllRead().bind(to: controller, context: .global(qos: .background)) {_,responseData in
-//                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-//                    if json["valid"] as? Bool == true {
-//                        DispatchQueue.main.async {
-//                            controller.viewDidLoad()
-//                        }
-//                    }
-//                }
-//            }.dispose(in: controller.bag)
             
         }
         

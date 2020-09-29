@@ -22,6 +22,10 @@ class EnquiryListService: BaseService<Data> {
       return Enquiry.getEnquiryStages().response(using: client).debug()
     }
     
+    func getMOQDeliveryTimes() -> SafeSignal<Data>  {
+        return Enquiry.getMOQDeliveryTimes().response(using: client).debug()
+    }
+    
     func getOngoingEnquiries() -> SafeSignal<Data> {
       return Enquiry.getOpenEnquiries().response(using: client).debug()
     }
@@ -29,4 +33,5 @@ class EnquiryListService: BaseService<Data> {
     func getClosedEnquiries() -> SafeSignal<Data> {
       return Enquiry.getClosedEnquiries().response(using: client).debug()
     }
+    
 }

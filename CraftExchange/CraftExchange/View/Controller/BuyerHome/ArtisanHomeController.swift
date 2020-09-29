@@ -36,7 +36,7 @@ class ArtisanHomeController: UIViewController {
     @IBAction func notificationButtonSelected(_ sender: Any) {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = NotificationService(client: client).createArtisanScene()
+            let vc = NotificationService(client: client).createScene()
             vc.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc, animated: true)
         }catch {

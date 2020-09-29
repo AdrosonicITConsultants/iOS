@@ -29,6 +29,12 @@ extension String {
       let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
       return phoneTest.evaluate(with: self)
   }
+    
+  var isValidNumber: Bool {
+      let numberRegex = "^[0-9]{1,6}$"
+      let numberTest = NSPredicate(format: "SELF MATCHES %@", numberRegex)
+      return numberTest.evaluate(with: self)
+  }
   
   var isValidPincode: Bool {
     let pincodeRegEx = "^[1-9][0-9]{5}$"

@@ -108,4 +108,54 @@ extension UIView {
             initialView.removeFromSuperview()
         }
     }
+    
+    func showAcceptMOQView(controller: UIViewController, getMOQs: GetMOQs) {
+           if let _ = self.viewWithTag(126) {
+               print("do nothing")
+           }else {
+               let initiationView = Bundle.main.loadNibNamed("MOQAcceptView", owner:
+               self, options: nil)?.first as? MOQAcceptView
+            initiationView?.brandClusterText.text = getMOQs.brand! + " from " + getMOQs.clusterName!
+            initiationView?.moqText.text = "\(getMOQs.moq!.moq) pcs"
+            initiationView?.pricePerUnitText.text = "₹ " + getMOQs.moq!.ppu!
+            initiationView?.ETADaysText.text = "\(EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getMOQs.moq!.deliveryTimeId)!.days) days"
+            
+               initiationView?.delegate = controller as? MOQAcceptViewProtocol
+               initiationView?.tag = 126
+               self.addSubview(initiationView!)
+               initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+               self.bringSubviewToFront(initiationView!)
+           }
+       }
+    func hideAcceptMOQView() {
+           if let initialView = self.viewWithTag(126) {
+               self.sendSubviewToBack(initialView)
+               initialView.removeFromSuperview()
+           }
+       }
+    
+    func showAcceptedMOQView(controller: UIViewController, getMOQs: GetMOQs) {
+           if let _ = self.viewWithTag(127) {
+               print("do nothing")
+           }else {
+               let initiationView = Bundle.main.loadNibNamed("MOQAcceptedView", owner:
+               self, options: nil)?.first as? MOQAcceptedView
+            initiationView?.brandClusterText.text = getMOQs.brand! + " from " + getMOQs.clusterName!
+            initiationView?.moqText.text = "\(getMOQs.moq!.moq) pcs"
+            initiationView?.pricePerUnitText.text = "₹ " + getMOQs.moq!.ppu!
+            initiationView?.ETADaysText.text = "\(EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getMOQs.moq!.deliveryTimeId)!.days) days"
+            
+               initiationView?.delegate = controller as? MOQAcceptedViewProtocol
+               initiationView?.tag = 127
+               self.addSubview(initiationView!)
+               initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+               self.bringSubviewToFront(initiationView!)
+           }
+       }
+    func hideAcceptedMOQView() {
+           if let initialView = self.viewWithTag(127) {
+               self.sendSubviewToBack(initialView)
+               initialView.removeFromSuperview()
+           }
+       }
 }

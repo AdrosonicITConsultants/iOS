@@ -20,6 +20,7 @@ class BuyerEnquiryListController: UIViewController {
     let reuseIdentifier = "BuyerEnquiryCell"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
+    var getDeliveryTimes: (() -> ())?
     var allEnquiries: [Enquiry]?
     var ongoingEnquiries: [Int] = []
     var closedEnquiries: [Int] = []
@@ -31,6 +32,7 @@ class BuyerEnquiryListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getDeliveryTimes?()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
         allEnquiries = []
