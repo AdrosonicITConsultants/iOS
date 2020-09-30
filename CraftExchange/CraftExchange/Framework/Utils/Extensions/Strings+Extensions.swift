@@ -31,7 +31,7 @@ extension String {
   }
     
   var isValidNumber: Bool {
-      let numberRegex = "^[0-9]{1,6}$"
+      let numberRegex = "^[0-9]{1,8}$"
       let numberTest = NSPredicate(format: "SELF MATCHES %@", numberRegex)
       return numberTest.evaluate(with: self)
   }

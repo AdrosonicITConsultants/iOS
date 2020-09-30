@@ -10,13 +10,24 @@ import Foundation
 import UIKit
 import Eureka
 
+protocol InvoiceButtonProtocol {
+    func createSendInvoiceBtnSelected(tag: Int)
+}
+
 class ProFormaInvoiceRowView: Cell<String>, CellType {
 
 
     @IBOutlet weak var createSendInvoiceBtn: UIButton!
     
+    var delegate: InvoiceButtonProtocol?
+    
+    @IBAction func createSendInvoiceBtnSelected(_ sender: Any) {
+delegate?.createSendInvoiceBtnSelected(tag: tag)
+       }
     public override func setup() {
         super.setup()
+        createSendInvoiceBtn.addTarget(self, action: #selector(createSendInvoiceBtnSelected(_:)), for: .touchUpInside)
+
     }
 
     public override func update() {
@@ -32,4 +43,7 @@ final class ProFormaInvoiceRow: Row<ProFormaInvoiceRowView>, RowType {
         cellProvider = CellProvider<ProFormaInvoiceRowView>(nibName: "ProFormaInvoiceRow")
     }
 }
+
+
+
 

@@ -39,15 +39,31 @@ extension EnquiryListService {
                                 }
                             }
                         }
-                        
-                        
-                        
                     }
                 }
-                
-                
             }.dispose(in: controller.bag)
         }
+        
+        controller.getCurrencySigns = {
+            self.getCurrencySigns().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { (_, responseData) in
+                
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        if let data = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                            if let object =  try? JSONDecoder().decode([CurrencySigns].self, from: data) {
+                                DispatchQueue.main.async {
+                                    for obj in object {
+                                        obj.saveOrUpdate()
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }.dispose(in: controller.bag)
+        }
+        
         func performSync() {
             let service = HomeScreenService.init(client: client)
             service.fetchEnquiryStateData(vc: controller)

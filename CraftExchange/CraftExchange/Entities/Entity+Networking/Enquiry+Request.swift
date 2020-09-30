@@ -23,9 +23,9 @@ extension Enquiry {
     }
     
     public static func generateEnquiry(productId: Int, isCustom: Bool) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["productId":productId,
-                                       "isCustom": isCustom,
-                                       "deviceName":"IOS"]
+        let parameters: [String: Any] = ["productId":productId,
+                                         "isCustom": isCustom,
+                                         "deviceName":"IOS"]
         var str = "enquiry/generateEnquiry/\(productId)/\(isCustom)/IOS"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
@@ -34,7 +34,7 @@ extension Enquiry {
             parameters: JSONParameters(parameters),
             resource: {
                 print(String(data: $0, encoding: .utf8) ?? "generateEnquiry failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )
@@ -101,84 +101,137 @@ extension Enquiry {
     }
     
     public static func closeEnquiry(enquiryId: Int) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["enquiryId":enquiryId]
+        let parameters: [String: Any] = ["enquiryId":enquiryId]
         return Request(
             path: "enquiry/markEnquiryCompleted/\(enquiryId)",
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "markEnquiryCompleted failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )
     }
     
     public static func sendMOQ(enquiryId: Int, additionalInfo: String, deliveryTimeId: Int, moq: Int, ppu: String) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["enquiryId":enquiryId,
-        "additionalInfo": additionalInfo,
-        "deliveryTimeId": deliveryTimeId,
-        "moq": moq,
-        "ppu": ppu]
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "additionalInfo": additionalInfo,
+                                         "deliveryTimeId": deliveryTimeId,
+                                         "moq": moq,
+                                         "ppu": ppu]
         return Request(
             path: "enquiry/sendMoq/\(enquiryId)",
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "send MOQ failed")
-              return $0},
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func savePI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int ) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "cgst": cgst,
+                                         "expectedDateOfDelivery": expectedDateOfDelivery,
+                                         "hsn": hsn,
+                                         "ppu": ppu,
+                                         "quantity": quantity,
+                                         "sgst": sgst]
+        return Request(
+            path: "enquiry/savePi/\(enquiryId)",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "save PI failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func sendPI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int ) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "cgst": cgst,
+                                         "expectedDateOfDelivery": expectedDateOfDelivery,
+                                         "hsn": hsn,
+                                         "ppu": ppu,
+                                         "quantity": quantity,
+                                         "sgst": sgst]
+        return Request(
+            path: "enquiry/sendPi/\(enquiryId)",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "save PI failed")
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )
     }
     
     public static func acceptMOQ(enquiryId: Int, moqId: Int, artisanId: Int) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["enquiryId":enquiryId,
-        "moqId": moqId,
-        "artisanId": artisanId]
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "moqId": moqId,
+                                         "artisanId": artisanId]
         return Request(
             path: "enquiry/MoqSelected/\(enquiryId)/\(moqId)/\(artisanId)",
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "accept MOQ failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )
     }
-
+    
     
     public static func getMOQs(enquiryId: Int) -> Request<Data, APIError> {
-    let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-           var str = "enquiry/getMoqs/\(enquiryId)"
-           str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-           return Request(
-               path: str,
-               method: .get,
-               headers: headers,
-               resource: {print(String(data: $0, encoding: .utf8) ?? "get MOQs failed")
-               
-               return $0},
-               error: APIError.init,
-               needsAuthorization: true
-           )
-       }
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "enquiry/getMoqs/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get MOQs failed")
+                
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
     
-  public static func getMOQ(enquiryId: Int) -> Request<Data, APIError> {
-       let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-              var str = "enquiry/getMoq/\(enquiryId)"
-              str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-              return Request(
-                  path: str,
-                  method: .get,
-                  headers: headers,
-                  resource: {print(String(data: $0, encoding: .utf8) ?? "get MOQ failed")
-                  
-                  return $0},
-                  error: APIError.init,
-                  needsAuthorization: true
-              )
-          }
+    public static func getMOQ(enquiryId: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "enquiry/getMoq/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get MOQ failed")
+                
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
     
-  public  static func getMOQDeliveryTimes() -> Request<Data, APIError> {
+    public static func getPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
+        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get preview PI failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public  static func getMOQDeliveryTimes() -> Request<Data, APIError> {
         var str = "enquiry/getMoqDeliveryTimes"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
@@ -189,5 +242,17 @@ extension Enquiry {
             needsAuthorization: false
         )
     }
-   
+    
+    public  static func getCurrencySigns() -> Request<Data, APIError> {
+        var str = "enquiry/getCurrencySigns"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
 }
