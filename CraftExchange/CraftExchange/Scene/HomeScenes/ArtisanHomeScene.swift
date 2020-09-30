@@ -33,6 +33,7 @@ extension HomeScreenService {
             self.fetchProductUploadData(vc: vc)
             self.fetchEnquiryStateData(vc: vc)
             self.fetchNotification(vc: vc)
+            self.handlePushNotification(vc: vc)
             
             self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
               DispatchQueue.main.async {
@@ -232,8 +233,7 @@ extension HomeScreenService {
     
     func fetchNotification(vc: UIViewController) {
         let service = NotificationService.init(client: client)
-        service.getAllTheNotifications().toLoadingSignal().consumeLoadingState(by: vc)
-            .bind(to: vc, context: .global(qos: .background)) { _, responseData in
+        service.getAllTheNotifications().bind(to: vc, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
                     if let dataDict = json["data"] as? Dictionary<String,Any>
                     {
@@ -245,6 +245,7 @@ extension HomeScreenService {
                                 DispatchQueue.main.async {
                                     if let lbl = vc.navigationController?.view.viewWithTag(666) as? UILabel {
                                         lbl.text = "\(notiBuyer.count)"
+                                        UIApplication.shared.applicationIconBadgeNumber = notiBuyer.count
                                     }
                                 }
                             }
@@ -252,6 +253,14 @@ extension HomeScreenService {
                     }
                 }
         }.dispose(in: vc.bag)
+    }
+    
+    func handlePushNotification(vc: UIViewController) {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.requestPushNotificationAccess()
+        if let object = delegate?.notificationObject {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ShowNotification"), object: object)
+        }
     }
     
     func fetchEnquiryStateData(vc: UIViewController) {
@@ -295,6 +304,7 @@ extension HomeScreenService {
                 self.fetchProductUploadData(vc: vc)
                 self.fetchEnquiryStateData(vc: vc)
                 self.fetchNotification(vc: vc)
+                self.handlePushNotification(vc: vc)
                 
                 self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                   DispatchQueue.main.async {

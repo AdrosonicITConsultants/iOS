@@ -173,6 +173,8 @@ class SideMenuController: FormViewController {
             appDelegate?.tabbar = nil
             appDelegate?.artisanTabbar = nil
             KeychainManager.standard.deleteAll()
+            UIApplication.shared.unregisterForRemoteNotifications()
+            UIApplication.shared.applicationIconBadgeNumber = 0
             self.showLoading()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController

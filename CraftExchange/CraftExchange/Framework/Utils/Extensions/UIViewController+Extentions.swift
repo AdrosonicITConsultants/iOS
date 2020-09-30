@@ -10,6 +10,7 @@ import UIKit
 import JGProgressHUD
 import ReactiveKit
 import SideMenu
+import AVKit
 
 // Makes UIViewController a LoadingStateListener. That means that we can pass an instance of UIViewController
 // to `consumeLoadingState` operator of a LoadingSignal to convert it into regular SafeSignal.
@@ -63,6 +64,18 @@ extension UIViewController {
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showVideo() {
+        let path = Bundle.main.path(forResource: "video", ofType: "mp4")
+        let url = NSURL(fileURLWithPath: path!)
+        let player = AVPlayer(url: url as URL)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+
+        present(playerViewController, animated: true, completion: {
+            playerViewController.player!.play()
+        })
     }
 }
 

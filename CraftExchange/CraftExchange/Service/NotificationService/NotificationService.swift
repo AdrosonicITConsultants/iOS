@@ -18,14 +18,15 @@ class NotificationService: BaseService<Data> {
         super.init()
     }
     func getAllTheNotifications() -> SafeSignal<Data> {
-      return Notifications.getAllNotifications().response(using: client).debug()
-       
+        return Notifications.getAllNotifications().response(using: client).debug()
     }
     func markAsReadNotification(notificationId: Int) -> SafeSignal<Data> {
-         return Notifications.markAsReadNotification(withId: notificationId).response(using: client).debug()
-       }
-    func markAsAllRead() -> SafeSignal<Data> {
-      return Notifications.markAsAllReadNotification().response(using: client).debug()
+        return Notifications.markAsReadNotification(withId: notificationId).response(using: client).debug()
     }
-    
+    func markAsAllRead() -> SafeSignal<Data> {
+        return Notifications.markAsAllReadNotification().response(using: client).debug()
+    }
+    func savePushNotificationToken(deviceId: String, token: String) -> SafeSignal<Data> {
+        return Notifications.saveDeviceToken(deviceId: deviceId, token: token).response(using: client).debug()
+    }
 }
