@@ -31,10 +31,10 @@ class BuyerEnquiryDetailsController: FormViewController {
     var checkMOQs: (() -> ())?
     lazy var viewModel = CreateMOQModel()
     var allDeliveryTimes: Results<EnquiryMOQDeliveryTimes>?
-    // var sendMOQ: ((_ enquiryId: Int, _ additionalInfo: String, _ deliveryTimeId: Int, _ moq: Int, _ ppu: String) -> ())?
     var sendMOQ: (() -> ())?
     var acceptMOQ: (() -> ())?
     var sentMOQ: Int = 0
+    var viewPI: (() -> ())?
     var isMOQNeedToAccept: Int = 0
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
@@ -151,6 +151,50 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
                 $0.hidden = isClosed == true ? false : true
             }
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Check PI"
+                if let date = enquiryObject?.lastUpdated {
+                    $0.cell.valueLbl.text = "Received: \(Date().ttceFormatter(isoDate: date))"
+                }
+                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
+                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
+                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
+                if User.loggedIn()?.refRoleId == "1"  {
+                    $0.hidden = true
+                }else if ( enquiryObject?.isPiSend == 1 || enquiryObject?.enquiryStageId == 3  || enquiryObject?.enquiryStageId == 7 ){
+                    $0.hidden = false
+                }
+                    else {
+                    $0.hidden = true
+                }
+            }.onCellSelection({ (cell, row) in
+                let row = self.form.rowBy(tag: "Show PI")
+                 if row?.isHidden == true {
+                    row?.hidden = false
+                 }else {
+                    row?.hidden = true
+                }
+                row?.evaluateHidden()
+                self.form.allSections.first?.reload(with: .none)
+
+            })
+            
+            <<< AcceptedInvoiceRow() {
+                $0.cell.height = { 90.0 }
+                $0.cell.delegate = self
+                $0.cell.tag = 100
+                $0.tag = "Show PI"
+                if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 3 {
+                     $0.hidden = false
+                }
+                else{
+                     $0.hidden = true
+                }
+               
+
+            }
+            
             <<< TransactionReceiptRow() {
                 $0.cell.height = { 110.0 }
                 $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
@@ -163,17 +207,23 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.hidden = true
                 }
             }
+            
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 150.0 }
+                $0.cell.delegate = self
+                $0.tag = "CreatePI"
+                $0.cell.tag = 100
                 if (enquiryObject?.enquiryStageId == 2 || enquiryObject?.enquiryStageId == 7){
                     $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
-                if User.loggedIn()?.refRoleId == "2" || isClosed {
+              
+                if User.loggedIn()?.refRoleId == "2" || isClosed || enquiryObject?.isPiSend == 1{
                     $0.hidden = true
                 }
             }
+            
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 if User.loggedIn()?.refRoleId == "2" {
@@ -197,7 +247,8 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.valueLbl.text = ""
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
-                if (User.loggedIn()?.refRoleId == "2"){
+                if User.loggedIn()?.refRoleId == "2" || isClosed
+                {
                     $0.hidden = true
                 }else {
                     $0.hidden = false
@@ -279,10 +330,11 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
                 $0.cell.valueTextField.placeholder = "123456"
+                $0.cell.valueTextField.textColor = .darkGray
                 self.viewModel.pricePerUnit.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.pricePerUnit.value ?? ""
                 self.viewModel.pricePerUnit.value = $0.cell.valueTextField.text
-                $0.cell.valueTextField.textColor = .darkGray
+                
             }.cellUpdate({ (cell, row) in
                 if self.sentMOQ == 1{
                     cell.isUserInteractionEnabled = false
@@ -297,6 +349,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< RoundedActionSheetRow() {
                 $0.tag = "createMOQ4"
                 $0.cell.titleLabel.text = "Estimated Days"
+                $0.cell.titleLabel.textColor = .black
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.options = allDeliveryTimes?.compactMap { $0.deliveryDesc }
                 self.viewModel.estimatedDays.value = EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getMOQ?.deliveryTimeId ?? 1)
@@ -345,7 +398,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                     cell.isUserInteractionEnabled = false
                     cell.valueTextField.isUserInteractionEnabled = false
                 }
-                cell.valueTextField.maxLength = 40
+                cell.valueTextField.maxLength = 500
                 cell.valueTextField.text = self.viewModel.additionalNote.value ?? ""
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
@@ -447,22 +500,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                     cell.valueLbl.text = "\(ETAdays) days"
                 }
             })
-            
-            <<< BuyerEnquirySectionViewRow() {
-                $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check PI"
-                if let date = enquiryObject?.lastUpdated {
-                    $0.cell.valueLbl.text = "Received: \(Date().ttceFormatter(isoDate: date))"
-                }
-                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
-                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
-                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
-                if (enquiryObject?.isPiSend == 1){
-                    $0.hidden = false
-                }else {
-                    $0.hidden = true
-                }
-            }
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
@@ -722,7 +759,32 @@ class CreateMOQModel {
     var acceptMOQInfo = Observable<GetMOQs?>(nil)
 }
 
-extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonActionProtocol, MOQSortButtonsActionProtocol {
+extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonActionProtocol, MOQSortButtonsActionProtocol, InvoiceButtonProtocol, AcceptedInvoiceRowProtocol {
+    func viewInvoiceButtonSelected(tag: Int) {
+        switch tag{
+        case 100:
+            self.showLoading()
+            self.viewPI?()
+        default:
+            print("do nothing")
+        }
+    }
+    
+    
+   func createSendInvoiceBtnSelected(tag: Int) {
+        switch tag{
+        case 100:
+            let client = try! SafeClient(wrapping: CraftExchangeClient())
+            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.enquiryObject!.enquiryId) as! InvoiceController
+            vc1.modalPresentationStyle = .fullScreen
+            vc1.enquiryObject = self.enquiryObject
+            print("PI WORKING")
+            self.navigationController?.pushViewController(vc1, animated: true)
+            print("createSendInvoiceBtnSelected WORKING")
+        default:
+            print("NOt Working PI")
+        }
+    }
     
     func singleButtonSelected(tag: Int) {
         switch tag {
@@ -781,7 +843,15 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     }
     
 }
-extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol  {
+extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol  {
+    func backButtonSelected() {
+        self.view.hideAcceptedPIView()
+    }
+    
+    func downloadButtonSelected() {
+        print("do nothing")
+    }
+    
     
     func cancelButtonSelected() {
         self.view.hideAcceptMOQView()

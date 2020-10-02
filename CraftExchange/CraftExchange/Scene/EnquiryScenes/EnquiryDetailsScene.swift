@@ -49,35 +49,35 @@ extension EnquiryDetailsService {
         
         func pasrseEnquiryJson(json: [String: Any]) {
             if let eqArray = json["data"] as? [[String: Any]] {
-            if let eqObj = eqArray.first {
-            if let eqDictionary = eqObj["openEnquiriesResponse"] {
-            if let eqdata = try? JSONSerialization.data(withJSONObject: eqDictionary, options: .fragmentsAllowed) {
-                if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: eqdata) {
-                DispatchQueue.main.async {
-                enquiryObj.saveOrUpdate()
-                    
-                //Get Artisan Payment Account Details
-                if let accArray = eqObj["paymentAccountDetails"] as? [[String: Any]]{
-                if let accdata = try? JSONSerialization.data(withJSONObject: accArray, options: .fragmentsAllowed) {
-                if let parsedAccList = try? JSONDecoder().decode([PaymentAccDetails].self, from: accdata) {
-                    //Get Artisan Product Categories
-                    if let catArray = eqObj["productCategories"] as? [[String: Any]]{
-                    if let catdata = try? JSONSerialization.data(withJSONObject: catArray, options: .fragmentsAllowed) {
-                    if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
-                        enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
-                        vc.reloadFormData()
-                        vc.hideLoading()
+                if let eqObj = eqArray.first {
+                    if let eqDictionary = eqObj["openEnquiriesResponse"] {
+                        if let eqdata = try? JSONSerialization.data(withJSONObject: eqDictionary, options: .fragmentsAllowed) {
+                            if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: eqdata) {
+                                DispatchQueue.main.async {
+                                    enquiryObj.saveOrUpdate()
+                                    
+                                    //Get Artisan Payment Account Details
+                                    if let accArray = eqObj["paymentAccountDetails"] as? [[String: Any]]{
+                                        if let accdata = try? JSONSerialization.data(withJSONObject: accArray, options: .fragmentsAllowed) {
+                                            if let parsedAccList = try? JSONDecoder().decode([PaymentAccDetails].self, from: accdata) {
+                                                //Get Artisan Product Categories
+                                                if let catArray = eqObj["productCategories"] as? [[String: Any]]{
+                                                    if let catdata = try? JSONSerialization.data(withJSONObject: catArray, options: .fragmentsAllowed) {
+                                                        if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
+                                                            enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
+                                                            vc.reloadFormData()
+                                                            vc.hideLoading()
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                    }
-                    }
                 }
-                }
-                }
-                }
-                }
-            }
-            }
-            }
                 
             }
         }
@@ -163,7 +163,7 @@ extension EnquiryDetailsService {
                                                     vc.getMOQs = enquiryObj
                                                     i = 1
                                                     vc.isMOQNeedToAccept = 1
-                                                     vc.reloadBuyerMOQ()
+                                                    vc.reloadBuyerMOQ()
                                                 }
                                                 //     vc.form.sectionBy(tag: <#T##String#>)
                                                 
@@ -173,7 +173,7 @@ extension EnquiryDetailsService {
                                     }
                                 }
                                 DispatchQueue.main.async {
-                                   
+                                    
                                     if i == 0{
                                         vc.listMOQs = object
                                         vc.listMOQsFunc()
@@ -243,7 +243,7 @@ extension EnquiryDetailsService {
                             vc.form.rowBy(tag: "Check MOQs")?.hidden = true
                             vc.form.rowBy(tag: "Check MOQs")?.evaluateHidden()
                             vc.checkMOQs?()
-                           // vc.reloadBuyerMOQ()
+                            // vc.reloadBuyerMOQ()
                             vc.view.hideAcceptMOQView()
                             vc.view.showAcceptedMOQView(controller: vc, getMOQs: vc.viewModel.acceptMOQInfo.value!)
                         }
@@ -256,6 +256,18 @@ extension EnquiryDetailsService {
                 }
             }.dispose(in: vc.bag)
         }
+        
+        vc.viewPI = {
+            
+        self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                   DispatchQueue.main.async {
+                    let object = String(data: responseData, encoding: .utf8) ?? ""
+                    let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
+                    vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: date , data: object)
+                       vc.hideLoading()
+                   }
+               }.dispose(in: vc.bag)
+           }
         
         return vc
     }
