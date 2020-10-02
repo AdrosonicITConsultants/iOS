@@ -77,6 +77,22 @@ extension UIViewController {
             playerViewController.player!.play()
         })
     }
+    
+    func sharePdf(path:URL) {
+
+        let fileManager = FileManager.default
+
+        if fileManager.fileExists(atPath: path.path) {
+            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [path], applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+            print("document was not found")
+            self.alert("Error", "Document was not found") { (action) in
+                
+            }
+        }
+    }
 }
 
 extension UIViewController {

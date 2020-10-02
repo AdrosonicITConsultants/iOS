@@ -269,6 +269,10 @@ extension EnquiryDetailsService {
                }.dispose(in: vc.bag)
            }
         
+        vc.downloadPI = {
+            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
+        }
+        
         return vc
     }
 }
