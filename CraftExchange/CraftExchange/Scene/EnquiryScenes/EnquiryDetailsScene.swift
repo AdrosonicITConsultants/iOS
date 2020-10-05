@@ -191,13 +191,13 @@ extension EnquiryDetailsService {
         }
         
         vc.sendMOQ = {
-            if vc.viewModel.minimumQuantity.value != nil && vc.viewModel.minimumQuantity.value?.isNotBlank ?? false && vc.viewModel.pricePerUnit.value != nil && vc.viewModel.pricePerUnit.value?.isNotBlank ?? false && vc.viewModel.additionalNote.value != nil && vc.viewModel.additionalNote.value?.isNotBlank ?? false  && vc.viewModel.estimatedDays.value != nil {
+            if vc.viewModel.minimumQuantity.value != nil && vc.viewModel.minimumQuantity.value?.isNotBlank ?? false && vc.viewModel.pricePerUnit.value != nil && vc.viewModel.pricePerUnit.value?.isNotBlank ?? false &&  vc.viewModel.estimatedDays.value != nil {
                 
                 let minimumQuantity = vc.viewModel.minimumQuantity.value ?? ""
                 let pricePerUnit = vc.viewModel.pricePerUnit.value ?? ""
                 if minimumQuantity.isValidNumber && Int(vc.viewModel.minimumQuantity.value!)! > 0 {
                     if pricePerUnit.isValidNumber && Int(vc.viewModel.pricePerUnit.value!)! > 0{
-                        self.sendMOQ(enquiryId: enquiryId, additionalInfo: vc.viewModel.additionalNote.value!, deliveryTimeId: vc.viewModel.estimatedDays.value!.entityID , moq: Int(vc.viewModel.minimumQuantity.value!)!, ppu: vc.viewModel.pricePerUnit.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                        self.sendMOQ(enquiryId: enquiryId, additionalInfo: vc.viewModel.additionalNote.value ?? "", deliveryTimeId: vc.viewModel.estimatedDays.value!.entityID , moq: Int(vc.viewModel.minimumQuantity.value!)!, ppu: vc.viewModel.pricePerUnit.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                                 if json["valid"] as? Bool == true {
                                     DispatchQueue.main.async {

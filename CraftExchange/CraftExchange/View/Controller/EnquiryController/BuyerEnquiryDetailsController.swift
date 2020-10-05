@@ -299,7 +299,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.tag = "createMOQ2"
                 $0.hidden = true
                 $0.cell.titleLabel.text = "Minimum Quantity"
-                //  $0.cell.valueTextField.keyboardType = .numberPad
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -325,6 +325,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.tag = "createMOQ3"
                 $0.hidden = true
                 $0.cell.titleLabel.text = "Price per unit"
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
