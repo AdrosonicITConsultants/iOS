@@ -695,7 +695,7 @@ class UploadCustomProductController: FormViewController {
                         DispatchQueue.main.async {
                             let tag = image.lable ?? "name.jpg"
                             let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId ?? 0)/\(tag)")
                             self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
                         }
                     }.dispose(in: self.bag)

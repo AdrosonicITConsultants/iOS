@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -616,10 +616,11 @@
                             <outlet property="delegate" destination="Dzp-Pd-BTT" id="tHm-uD-oaq"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="pIR-qE-5tu"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ekn-GU-Vhz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-465" y="-115"/>
+            <point key="canvasLocation" x="322" y="-115"/>
         </scene>
         <!--Buyer Tabbar Controller-->
         <scene sceneID="Wat-YD-eFE">
@@ -639,7 +640,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3v0-QI-ALK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="472" y="-115"/>
+            <point key="canvasLocation" x="1381.1594202898552" y="-115.17857142857142"/>
         </scene>
         <!--BuyerNotificationController-->
         <scene sceneID="wan-gT-TD9">
@@ -668,7 +669,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmf-Fs-AZu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1464" y="-103"/>
+            <point key="canvasLocation" x="2373.913043478261" y="-103.125"/>
         </scene>
         <!--Home-->
         <scene sceneID="2lQ-gx-Vir">

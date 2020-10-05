@@ -12,7 +12,7 @@ import RealmSwift
 
 class CurrencySigns: Object, Decodable {
     @objc dynamic var id: String?
-     @objc dynamic var entityID: Int = 0
+    @objc dynamic var entityID: Int = 0
     @objc dynamic var sign: String?
 
     enum CodingKeys: String, CodingKey {

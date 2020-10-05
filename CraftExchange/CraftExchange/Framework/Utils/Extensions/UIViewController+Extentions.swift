@@ -117,7 +117,7 @@ extension UIViewController {
         badgeCount.textColor = .white
         badgeCount.font = badgeCount.font.withSize(10)
         badgeCount.backgroundColor = .red
-        badgeCount.text = "0"
+        badgeCount.text = "\(UIApplication.shared.applicationIconBadgeNumber)"
         badgeCount.tag = 666
 
 

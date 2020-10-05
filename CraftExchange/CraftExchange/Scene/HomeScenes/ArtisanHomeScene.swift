@@ -34,6 +34,7 @@ extension HomeScreenService {
             self.fetchEnquiryStateData(vc: vc)
             self.fetchNotification(vc: vc)
             self.handlePushNotification(vc: vc)
+            self.fetchTransactionStatus(vc: vc)
             
             self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
               DispatchQueue.main.async {
@@ -182,6 +183,24 @@ extension HomeScreenService {
         }.dispose(in: vc.bag)
     }
     
+    func fetchTransactionStatus(vc: UIViewController) {
+        let service = TransactionService.init(client: client)
+        service.getTransactionStatus().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
+                        try JSONDecoder().decode([TransactionStatus].self, from: data) .forEach({ (cat) in
+                            cat.saveOrUpdate()
+                        })
+                  }
+                }
+            }catch let error as NSError {
+                print(error.description)
+            }
+        }.dispose(in: vc.bag)
+    }
+    
     func fetchProductUploadData(vc: UIViewController) {
         self.fetchProductUploadData().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
@@ -305,6 +324,7 @@ extension HomeScreenService {
                 self.fetchEnquiryStateData(vc: vc)
                 self.fetchNotification(vc: vc)
                 self.handlePushNotification(vc: vc)
+                self.fetchTransactionStatus(vc: vc)
                 
                 self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                   DispatchQueue.main.async {
