@@ -35,6 +35,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var acceptMOQ: (() -> ())?
     var sentMOQ: Int = 0
     var viewPI: (() -> ())?
+    var downloadPI: (() -> ())?
     var isMOQNeedToAccept: Int = 0
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
@@ -850,7 +851,7 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
     }
     
     func downloadButtonSelected() {
-        print("do nothing")
+        self.downloadPI?()
     }
     
     

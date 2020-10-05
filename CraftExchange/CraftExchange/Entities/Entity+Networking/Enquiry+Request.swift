@@ -231,6 +231,21 @@ extension Enquiry {
         )
     }
     
+    public static func downloadPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "application/pdf"]
+        var str = "enquiry/getPreviewPiPDF?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "download preview PI failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
     public  static func getMOQDeliveryTimes() -> Request<Data, APIError> {
         var str = "enquiry/getMoqDeliveryTimes"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!

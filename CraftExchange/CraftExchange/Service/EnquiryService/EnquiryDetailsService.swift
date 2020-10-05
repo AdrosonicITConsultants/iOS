@@ -50,6 +50,10 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.getPreviewPI(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func downloadPI(enquiryId: Int) -> SafeSignal<Data>{
+        return Enquiry.downloadPreviewPI(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
     func savePI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int )-> SafeSignal<Data>  {
         return Enquiry.savePI(enquiryId: enquiryId, cgst: cgst, expectedDateOfDelivery: expectedDateOfDelivery, hsn: hsn, ppu: ppu, quantity: quantity, sgst: sgst).response(using: client).debug()
     }

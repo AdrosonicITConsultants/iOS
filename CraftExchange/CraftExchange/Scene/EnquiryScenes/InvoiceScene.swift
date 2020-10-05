@@ -67,15 +67,20 @@ extension EnquiryDetailsService {
         }
         
         vc.previewPI = {
-                   vc.showLoading()
+            vc.showLoading()
             self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                       DispatchQueue.main.async {
-                        let object = String(data: responseData, encoding: .utf8) ?? ""
-                        vc.view.showPreviewPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: vc.viewModel.expectedDateOfDelivery.value!, data: object)
-                           vc.hideLoading()
-                       }
-                   }.dispose(in: vc.bag)
+               DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                vc.view.showPreviewPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: vc.viewModel.expectedDateOfDelivery.value!, data: object)
+                vc.hideLoading()
                }
+            }.dispose(in: vc.bag)
+        }
+        
+        vc.viewModel.downloadPI = {
+            vc.showLoading()
+            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
+        }
         
         vc.viewModel.sendPI = {
                    
@@ -99,5 +104,16 @@ extension EnquiryDetailsService {
                    }.dispose(in: vc.bag)
                }
         return vc
+    }
+    
+    func downloadAndSharePI(vc:UIViewController, enquiryId: Int) {
+        self.downloadPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+           DispatchQueue.main.async {
+            vc.hideLoading()
+            if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/pdfFile.pdf") {
+                vc.sharePdf(path: url)
+            }
+           }
+        }.dispose(in: vc.bag)
     }
 }

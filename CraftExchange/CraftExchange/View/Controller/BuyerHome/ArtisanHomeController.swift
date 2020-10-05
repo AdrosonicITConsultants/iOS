@@ -33,49 +33,42 @@ class ArtisanHomeController: UIViewController {
     let realm = try? Realm()
     lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
-    @IBAction func notificationButtonSelected(_ sender: Any) {
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = NotificationService(client: client).createScene()
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
-            print(error.localizedDescription)
-        }
-    }
-  override func viewDidLoad() {
+    
+    override func viewDidLoad() {
 
-    loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
-    self.setupSideMenu(false)
-    let app = UIApplication.shared.delegate as? AppDelegate
-    if app?.showDemoVideo ?? false {
-      app?.showDemoVideo = false
-      self.showVideo()
-    }
-    super.viewDidLoad()
-    
-    viewModel.viewDidLoad?()
-    let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
-    let rightBarButtomItem2 = self.searchBarButton()
-    navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
-    
-    loggedInUserName.text = User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? ""
-    if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
-        do {
-            let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
-            artisanBrand.image = downloadedImage
-        }catch {
-            print(error)
+        loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
+        self.setupSideMenu(false)
+        let app = UIApplication.shared.delegate as? AppDelegate
+        if app?.showDemoVideo ?? false {
+          app?.showDemoVideo = false
+          showVideo()
         }
-        if self.reachabilityManager?.connection != .unavailable {
+        super.viewDidLoad()
+        
+        viewModel.viewDidLoad?()
+        let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
+        let rightBarButtomItem2 = self.searchBarButton()
+        navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
+    
+        loggedInUserName.text = User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? ""
+        if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
+            do {
+                let downloadedImage = try Disk.retrieve("\(User.loggedIn()?.entityID ?? 84)/\(name)", from: .caches, as: UIImage.self)
+                artisanBrand.image = downloadedImage
+            }catch {
+                print(error)
+            }
+            if self.reachabilityManager?.connection != .unavailable {
+                refreshBrandLogo()
+            }
+        } else if self.reachabilityManager?.connection != .unavailable {
             refreshBrandLogo()
+        } else {
+            artisanBrand.image = UIImage.init(named: "user")
         }
-    } else if self.reachabilityManager?.connection != .unavailable {
-        refreshBrandLogo()
-    } else {
-        artisanBrand.image = UIImage.init(named: "user")
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationButtonSelected(_:)), name: NSNotification.Name(rawValue: "ShowNotification"), object: nil)
     }
-  }
     
     func refreshLayout() {
         self.collectionView.reloadData()
@@ -107,18 +100,6 @@ class ArtisanHomeController: UIViewController {
             }.resume()
         }
     }
-
-  func showVideo() {
-    let path = Bundle.main.path(forResource: "video", ofType: "mp4")
-    let url = NSURL(fileURLWithPath: path!)
-    let player = AVPlayer(url: url as URL)
-    let playerViewController = AVPlayerViewController()
-    playerViewController.player = player
-
-    present(playerViewController, animated: true, completion: {
-        playerViewController.player!.play()
-    })
-  }
     
     @IBAction func addProductSelected(_ sender: Any) {
         do {
@@ -135,6 +116,17 @@ class ArtisanHomeController: UIViewController {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
             let vc = SearchService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    @IBAction func notificationButtonSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = NotificationService(client: client).createScene()
             vc.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc, animated: true)
         }catch {

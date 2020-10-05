@@ -29,6 +29,7 @@ class InvoiceViewModel {
     var currency = Observable<CurrencySigns?>(nil)
     var savePI: (() -> ())?
     var sendPI: (() -> ())?
+    var downloadPI: (() -> ())?
 }
 
 class InvoiceController: FormViewController{
@@ -321,7 +322,7 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol 
     }
     
     func downloadButtonSelected() {
-        print("do nothing")
+        self.viewModel.downloadPI?()
     }
     
     func sendButtonClicked() {
