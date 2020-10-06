@@ -49,7 +49,6 @@ extension TransactionService {
                                         }
                                     }
                                 }
-                                
                             }
                         }
                       }
@@ -70,6 +69,22 @@ extension TransactionService {
         
         controller.viewModel.viewWillAppear = {
             syncData()
+        }
+        
+        controller.viewModel.viewTransactionReceipt = { (transaction) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            service.getPreviewPI(enquiryId: transaction.enquiryId).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+               DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                controller.view.showAcceptedPIView(controller: controller, entityId: transaction.enquiryCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object)
+                   controller.hideLoading()
+               }
+            }.dispose(in: controller.bag)
+        }
+        
+        controller.viewModel.downloadPI = { (enquiryId) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            service.downloadAndSharePI(vc: controller, enquiryId: enquiryId)
         }
         
         return controller

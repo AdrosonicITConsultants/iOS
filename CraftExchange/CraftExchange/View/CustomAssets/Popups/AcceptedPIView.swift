@@ -17,7 +17,7 @@ protocol AcceptedPIViewProtocol {
 
 class AcceptedPIView: UIView, WKUIDelegate {
 
-   @IBOutlet weak var entityIdLabel: UILabel!
+    @IBOutlet weak var entityIdLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var downloadButton: UIButton!

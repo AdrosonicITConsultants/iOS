@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
+@objc protocol TransactionListProtocol {
+    @objc optional func viewTransactionReceipt(tag: Int)
+}
+
 class TransactionDetailRow: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var invoiceButton: UIButton!
     let invoiceStateArray = [1,2,3,4,5,12,13]
-    var delegate: UIViewController!
+    var delegate: TransactionListProtocol?
     
     func configure(_ transaction: TransactionObject) {
         amountLabel.text = "₹ \(transaction.totalAmount)"
@@ -31,7 +35,8 @@ class TransactionDetailRow: UITableViewCell {
     }
     
     @IBAction func invoiceSelected(_ sender: Any) {
-        
+        let btn = sender as! UIButton
+        delegate?.viewTransactionReceipt?(tag: btn.tag)
     }
 }
 

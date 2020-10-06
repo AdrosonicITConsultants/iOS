@@ -258,16 +258,15 @@ extension EnquiryDetailsService {
         }
         
         vc.viewPI = {
-            
-        self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                   DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
-                    vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: date , data: object)
-                       vc.hideLoading()
-                   }
-               }.dispose(in: vc.bag)
-           }
+            self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+               DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
+                vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: date , data: object)
+                   vc.hideLoading()
+               }
+            }.dispose(in: vc.bag)
+        }
         
         vc.downloadPI = {
             self.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
