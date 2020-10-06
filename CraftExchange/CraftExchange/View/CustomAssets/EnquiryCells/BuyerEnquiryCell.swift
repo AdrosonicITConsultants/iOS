@@ -26,8 +26,10 @@ class BuyerEnquiryCell: UITableViewCell {
         prodDetailLabel.text = "\(ProductCategory.getProductCat(catId: enquiryObj.productCategoryId)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObj.warpYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObj.weftYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObj.extraWeftYarnId)?.yarnDesc ?? "-")"
         if enquiryObj.productType == "Custom Product" {
             brandLabel.text = "Requested Custom Design"
+            availabilityLabel.isHidden = true
         }else {
             brandLabel.text = enquiryObj.brandName
+            availabilityLabel.isHidden = false
         }
         if enquiryObj.productStatusId == 2 {
             availabilityLabel.text = "Available in stock"
