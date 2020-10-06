@@ -31,10 +31,12 @@ class TransactionListController: UIViewController {
     let realm = try! Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var transactionSearchBar: UISearchBar!
 //    @IBOutlet weak var emptyView: UIView!
     lazy var viewModel = TransactionListViewModel()
     var mySection: Int = -1
     var selectedFilter: Int = 0
+    var searchText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +87,9 @@ class TransactionListController: UIViewController {
                 //Challan ID
                 allTransactions = allTransactions?.filter("%K != 0", "challanId").sorted(byKeyPath: "modifiedOn", ascending: false)
             }
+        }
+        if searchText != "" {
+            allTransactions = allTransactions?.filter("%K contains[c] %@", "enquiryCode",searchText).sorted(byKeyPath: "modifiedOn", ascending: false)
         }
     }
     
@@ -182,5 +187,31 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
                 self.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .none)
             }
         }
+    }
+}
+
+extension TransactionListController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchBar.text ?? ""
+        setData()
+        self.tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        searchBar.text = ""
+        searchText = ""
+        setData()
+        self.tableView.reloadData()
+        searchBar.resignFirstResponder()
     }
 }
