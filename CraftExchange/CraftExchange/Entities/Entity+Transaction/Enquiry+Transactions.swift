@@ -14,6 +14,14 @@ import ReactiveKit
 
 extension Enquiry {
     
+    func searchEnquiry(searchId: Int) -> Enquiry? {
+        let realm = try! Realm()
+        if let object = realm.objects(Enquiry.self).filter("%K == %@", "entityID", searchId).first {
+            return object
+        }
+        return nil
+    }
+    
     func updateAddonDetails(blue: Bool, name: String, moqRejected: Bool) {
         let realm = try! Realm()
         if let object = realm.objects(Enquiry.self).filter("%K == %@", "entityID", self.entityID).first {

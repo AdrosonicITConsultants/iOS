@@ -19,6 +19,8 @@ class TransactionListViewModel {
     var viewDidAppear: (() -> ())?
     var viewTransactionReceipt: ((_ transactionObj: TransactionObject) -> ())?
     var downloadPI: ((_ enquiryId: Int) -> ())?
+    var goToEnquiry: ((_ enquiryId: Int) -> ())?
+    var downloadEnquiry: ((_ enquiryId: Int) -> ())?
 }
 
 class TransactionListController: UIViewController {
@@ -208,6 +210,13 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
                 mySection = indexPath.section
                 setData()
                 self.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .none)
+            }
+        }else if User.loggedIn()?.refRoleId == "1" {
+            let transaction = allTransactions?[indexPath.section]
+            if let obj = Enquiry().searchEnquiry(searchId: transaction?.enquiryId ?? 0) {
+                self.viewModel.goToEnquiry?(obj.enquiryId)
+            }else {
+                self.viewModel.downloadEnquiry?(transaction?.enquiryId ?? 0)
             }
         }
     }

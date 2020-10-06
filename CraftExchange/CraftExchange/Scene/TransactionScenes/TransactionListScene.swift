@@ -87,6 +87,29 @@ extension TransactionService {
             service.downloadAndSharePI(vc: controller, enquiryId: enquiryId)
         }
         
+        controller.viewModel.downloadEnquiry = { (enquiryId) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            service.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        service.pasrseEnquiryJson(json: json, vc: controller)
+                    }
+                }
+                DispatchQueue.main.async {
+                    controller.hideLoading()
+                }
+            }.dispose(in: controller.bag)
+        }
+        
+        controller.viewModel.goToEnquiry = { (enquiryId) in
+            if let obj = Enquiry().searchEnquiry(searchId: enquiryId ) {
+                let vc = EnquiryDetailsService(client: self.client).createEnquiryDetailScene(forEnquiry: obj, enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
+                vc.modalPresentationStyle = .fullScreen
+                vc.isClosed = false
+                controller.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
         return controller
     }
 }
