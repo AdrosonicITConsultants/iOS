@@ -24,6 +24,7 @@ class TransactionListViewModel {
 class TransactionListController: UIViewController {
     
     let reuseIdentifier = "TransactionTitleRow"
+    let detailRowIdentifier = "TransactionDetailRow"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
     var allTransactions: Results<TransactionObject>?
@@ -38,6 +39,7 @@ class TransactionListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(UINib(nibName: detailRowIdentifier, bundle: nil), forCellReuseIdentifier: detailRowIdentifier)
         try? reachabilityManager?.startNotifier()
         self.setupSideMenu(false)
         uniqueEnquiryIds = []
@@ -111,7 +113,7 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
             }
             return cell
         }else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! TransactionTitleRow
+            let cell = tableView.dequeueReusableCell(withIdentifier: detailRowIdentifier, for: indexPath) as! TransactionDetailRow
             if let transaction = selectedTransactions?[indexPath.row-1] {
                 cell.configure(transaction)
             }
@@ -120,7 +122,7 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 60
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

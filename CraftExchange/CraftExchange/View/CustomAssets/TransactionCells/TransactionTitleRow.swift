@@ -16,7 +16,6 @@ class TransactionTitleRow: UITableViewCell {
     @IBOutlet weak var currentStateText: UILabel!
     @IBOutlet weak var upcomingStateText: UILabel!
     @IBOutlet weak var arrowImageView: UIImageView!
-    let invoiceStateArray = [1,2,3,4,5,12,13]
     var delegate: UIViewController!
     
     func configure(_ transaction: TransactionObject) {

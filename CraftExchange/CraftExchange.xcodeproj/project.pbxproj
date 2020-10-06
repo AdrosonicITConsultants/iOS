@@ -243,6 +243,8 @@
 		C09C970724B919EE00FD97E9 /* ArtisanBrandDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C970624B919EE00FD97E9 /* ArtisanBrandDetails.swift */; };
 		C09C970924B919FC00FD97E9 /* ArtisanBankDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09C970824B919FC00FD97E9 /* ArtisanBankDetails.swift */; };
 		C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09D002424B7379C0039F805 /* MyProfile.storyboard */; };
+		C09EE6FC252C2AE60030A5C1 /* TransactionDetailRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C09EE6FB252C2AE60030A5C1 /* TransactionDetailRow.xib */; };
+		C09EE6FE252C2E3E0030A5C1 /* TransactionDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09EE6FD252C2E3E0030A5C1 /* TransactionDetailRow.swift */; };
 		C09F214B24861C79001F2FCD /* RegisterArtisanDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F214A24861C79001F2FCD /* RegisterArtisanDataController.swift */; };
 		C09F214D24862987001F2FCD /* REGArtisanInfoInputService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F214C24862987001F2FCD /* REGArtisanInfoInputService.swift */; };
 		C09F214F24862B56001F2FCD /* REGArtisanDataScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F214E24862B56001F2FCD /* REGArtisanDataScene.swift */; };
@@ -594,6 +596,8 @@
 		C09C970624B919EE00FD97E9 /* ArtisanBrandDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanBrandDetails.swift; sourceTree = "<group>"; };
 		C09C970824B919FC00FD97E9 /* ArtisanBankDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanBankDetails.swift; sourceTree = "<group>"; };
 		C09D002424B7379C0039F805 /* MyProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
+		C09EE6FB252C2AE60030A5C1 /* TransactionDetailRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionDetailRow.xib; sourceTree = "<group>"; };
+		C09EE6FD252C2E3E0030A5C1 /* TransactionDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailRow.swift; sourceTree = "<group>"; };
 		C09F214A24861C79001F2FCD /* RegisterArtisanDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterArtisanDataController.swift; sourceTree = "<group>"; };
 		C09F214C24862987001F2FCD /* REGArtisanInfoInputService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGArtisanInfoInputService.swift; sourceTree = "<group>"; };
 		C09F214E24862B56001F2FCD /* REGArtisanDataScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGArtisanDataScene.swift; sourceTree = "<group>"; };
@@ -1109,6 +1113,8 @@
 			children = (
 				C06570A8252B9128001140C7 /* TransactionTitleRow.xib */,
 				C06570AA252B958F001140C7 /* TransactionTitleRow.swift */,
+				C09EE6FB252C2AE60030A5C1 /* TransactionDetailRow.xib */,
+				C09EE6FD252C2E3E0030A5C1 /* TransactionDetailRow.swift */,
 			);
 			path = TransactionCells;
 			sourceTree = "<group>";
@@ -1727,6 +1733,7 @@
 				C06AA3A025054FB200EF4B10 /* MOQSectionTitle.xib in Resources */,
 				C0AE9CF524ECE48D0037ECB3 /* ProdDetailRelatedRow.xib in Resources */,
 				3097877D252461BC00F9B608 /* Invoice.storyboard in Resources */,
+				C09EE6FC252C2AE60030A5C1 /* TransactionDetailRow.xib in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C06AA3A2250550D200EF4B10 /* MOQValueRow.xib in Resources */,
 				309598862510FC8100491E33 /* OrderAvailabilityCell.xib in Resources */,
@@ -2023,6 +2030,7 @@
 				C0ACE9902484EF0D00EFA4ED /* User+Register.swift in Sources */,
 				C0285A9B24CEDE8F0045623A /* BuyerProductCatagoryScene.swift in Sources */,
 				C06570A2252B86A7001140C7 /* Transaction.swift in Sources */,
+				C09EE6FE252C2E3E0030A5C1 /* TransactionDetailRow.swift in Sources */,
 				C0F0653724BCC4C8004B5138 /* AccountType.swift in Sources */,
 				309787892524CEAE00F9B608 /* CurrencySigns+Transaction.swift in Sources */,
 				C071E25F247EFAAB0085805B /* BaseService.swift in Sources */,
