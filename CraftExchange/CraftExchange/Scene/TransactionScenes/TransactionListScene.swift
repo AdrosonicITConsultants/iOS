@@ -44,7 +44,6 @@ extension TransactionService {
                                             transactionObj.saveOrUpdate()
                                             finalArray.append(transactionObj.enquiryId)
                                             if finalArray.count == array.count {
-                                                controller.uniqueEnquiryIds = Array(Set(finalArray))
                                                 controller.endRefresh()
                                             }
                                         }

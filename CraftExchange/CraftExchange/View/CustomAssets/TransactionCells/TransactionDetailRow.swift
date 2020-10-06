@@ -19,7 +19,7 @@ class TransactionDetailRow: UITableViewCell {
     func configure(_ transaction: TransactionObject) {
         amountLabel.text = "₹ \(transaction.totalAmount)"
         if let date = transaction.modifiedOn {
-            dateLabel.text = Date().ttceFormatter(isoDate: "\(date)")
+            dateLabel.text = Date().ttceISOString(isoDate: date)
         }
         if invoiceStateArray.contains(transaction.accomplishedStatus) {
             invoiceButton.setImage(UIImage.init(named: "invoice"), for: .normal)

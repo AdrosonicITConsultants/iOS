@@ -28,21 +28,20 @@ class TransactionListController: UIViewController {
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
     var allTransactions: Results<TransactionObject>?
-    var selectedTransactions: Results<TransactionObject>?
-    var uniqueEnquiryIds: [Int]?
     let realm = try! Realm()
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var filterButton: UIButton!
 //    @IBOutlet weak var emptyView: UIView!
     lazy var viewModel = TransactionListViewModel()
     var mySection: Int = -1
+    var selectedFilter: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         tableView.register(UINib(nibName: detailRowIdentifier, bundle: nil), forCellReuseIdentifier: detailRowIdentifier)
         try? reachabilityManager?.startNotifier()
-        self.setupSideMenu(false)
-        uniqueEnquiryIds = []
+        self.setupSideMenu(true)
         definesPresentationContext = false
         
         let center = NotificationCenter.default
@@ -71,11 +70,52 @@ class TransactionListController: UIViewController {
     }
     
     func setData() {
-        if mySection == -1 {
-            allTransactions = TransactionObject.getAllTransactionObjects()
-        }else {
-            selectedTransactions = TransactionObject.getTransactionObjects(searchId: uniqueEnquiryIds?[mySection] ?? 0)
+        allTransactions = TransactionObject.getAllTransactionObjects().sorted(byKeyPath: "modifiedOn", ascending: false)
+        if selectedFilter != 0{
+            if selectedFilter == 1 {
+                //P ID
+                allTransactions = allTransactions?.filter("%K != 0 OR %K != 0", "piId","piHistoryId").sorted(byKeyPath: "modifiedOn", ascending: false)
+            }else if selectedFilter == 2 {
+                //Payment ID
+                allTransactions = allTransactions?.filter("%K != 0", "paymentId").sorted(byKeyPath: "modifiedOn", ascending: false)
+            }else if selectedFilter == 3 {
+                //Tax Invoice ID
+                allTransactions = allTransactions?.filter("%K != 0", "taxInvoiceId").sorted(byKeyPath: "modifiedOn", ascending: false)
+            }else if selectedFilter == 4 {
+                //Challan ID
+                allTransactions = allTransactions?.filter("%K != 0", "challanId").sorted(byKeyPath: "modifiedOn", ascending: false)
+            }
         }
+    }
+    
+    @IBAction func filterSelected(_ sender: Any) {
+        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let all = UIAlertAction.init(title: "All".localized, style: .default) { (action) in
+            self.filterButton.setTitle("  Filter".localized, for: .normal)
+            self.selectedFilter = 0
+            self.setData()
+            self.tableView.reloadData()
+        }
+        alert.addAction(all)
+        let textArray = ["P ID", "Payment ID","Tax Invoice ID", "Challan ID"]
+        alert.title = "Please Select".localized
+        for option in textArray {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                if let index = textArray.firstIndex(of: option) {
+                    self.filterButton.setTitle("  \(option)", for: .normal)
+                    self.selectedFilter = index + 1
+                    self.setData()
+                    self.tableView.reloadData()
+                }else {
+                    self.setData()
+                }
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     deinit {
@@ -91,15 +131,15 @@ class TransactionListController: UIViewController {
 extension TransactionListController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return uniqueEnquiryIds?.count ?? 0
+        return allTransactions?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (mySection == section) {
-            ///we want the number of people plus the header cell
-            return TransactionObject.getTransactionObjects(searchId: uniqueEnquiryIds?[section] ?? 0).count+1
+            //transaction title + details
+            return 2
         } else {
-            ///we just want the header cell
+            //transaction title
             return 1
         }
     }
@@ -108,13 +148,13 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
 
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! TransactionTitleRow
-            if let transaction = TransactionObject.getTransactionObjects(searchId: uniqueEnquiryIds?[indexPath.section] ?? 0).first {
+            if let transaction = allTransactions?[indexPath.section] {
                 cell.configure(transaction)
             }
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: detailRowIdentifier, for: indexPath) as! TransactionDetailRow
-            if let transaction = selectedTransactions?[indexPath.row-1] {
+            if let transaction = allTransactions?[indexPath.section] {
                 cell.configure(transaction)
             }
             return cell

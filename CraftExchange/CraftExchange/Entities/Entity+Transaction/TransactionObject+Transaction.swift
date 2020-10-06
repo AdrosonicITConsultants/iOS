@@ -16,7 +16,7 @@ extension TransactionObject {
     
     static func getAllTransactionObjects() -> Results<TransactionObject> {
         let realm = try! Realm()
-        let object = realm.objects(TransactionObject.self).sorted(byKeyPath: "modifiedOn")
+        let object = realm.objects(TransactionObject.self)
         return object
     }
     

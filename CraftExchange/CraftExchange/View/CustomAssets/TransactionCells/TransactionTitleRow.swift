@@ -37,7 +37,7 @@ class TransactionTitleRow: UITableViewCell {
             upcomingStateText.attributedText = TransactionStatus.getTransactionStatusType(searchId: transaction.upcomingStatus)?.buyerText?.htmlToAttributedString
         }
         if let date = transaction.modifiedOn {
-            dateLabel.text = Date().ttceFormatter(isoDate: "\(date)")
+            dateLabel.text = Date().ttceISOString(isoDate: date)
         }
         enquiryCode.text = transaction.enquiryCode ?? transaction.orderCode ?? ""
     }

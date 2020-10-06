@@ -70,10 +70,14 @@ class TransactionObject: Object, Decodable {
         accomplishedStatus = try (values.decodeIfPresent(Int.self, forKey: .accomplishedStatus) ?? 0)
         challanId = try (values.decodeIfPresent(Int.self, forKey: .challanId) ?? 0)
         enquiryId = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)
-        completedOn = try? values.decodeIfPresent(Date.self, forKey: .completedOn)
+        if let dateString = try? values.decodeIfPresent(String.self, forKey: .completedOn) {
+            completedOn = Date().ttceISODate(isoDate: dateString)
+        }
         isActionCompleted = try (values.decodeIfPresent(Int.self, forKey: .isActionCompleted) ?? 0)
         isActive = try (values.decodeIfPresent(Int.self, forKey: .isActive) ?? 0)
-        modifiedOn = try? values.decodeIfPresent(Date.self, forKey: .modifiedOn)
+        if let dateString = try? values.decodeIfPresent(String.self, forKey: .modifiedOn) {
+            modifiedOn = Date().ttceISODate(isoDate: dateString)
+        }
         paidAmount = try (values.decodeIfPresent(Int.self, forKey: .paidAmount) ?? 0)
         paymentId = try (values.decodeIfPresent(Int.self, forKey: .paymentId) ?? 0)
         percentage = try (values.decodeIfPresent(Int.self, forKey: .percentage) ?? 0)
@@ -82,7 +86,9 @@ class TransactionObject: Object, Decodable {
         receiptId = try (values.decodeIfPresent(Int.self, forKey: .receiptId) ?? 0)
         taxInvoiceId = try (values.decodeIfPresent(Int.self, forKey: .taxInvoiceId) ?? 0)
         totalAmount = try (values.decodeIfPresent(Int.self, forKey: .totalAmount) ?? 0)
-        transactionOn = try? values.decodeIfPresent(Date.self, forKey: .transactionOn)
+        if let dateString = try? values.decodeIfPresent(String.self, forKey: .transactionOn) {
+            transactionOn = Date().ttceISODate(isoDate: dateString)
+        }
         upcomingStatus = try (values.decodeIfPresent(Int.self, forKey: .upcomingStatus) ?? 0)
         enquiryCode = try? values.decodeIfPresent(String.self, forKey: .enquiryCode)
         orderCode = try? values.decodeIfPresent(String.self, forKey: .orderCode)
