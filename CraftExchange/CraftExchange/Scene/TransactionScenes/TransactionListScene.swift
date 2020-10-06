@@ -110,6 +110,12 @@ extension TransactionService {
             }
         }
         
+        controller.viewModel.downloadAdvReceipt = { (enquiryId) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            controller.showLoading()
+            service.downloadAndViewReceipt(vc: controller, enquiryId: enquiryId)
+        }
+        
         return controller
     }
 }

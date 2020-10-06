@@ -47,39 +47,50 @@ extension EnquiryDetailsService {
         }
         
         vc.imageReciept = {
-            self.ImgReceit(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+            self.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId)
+        }
+        
+        return vc
+    }
+    
+    func downloadAndViewReceipt(vc: UIViewController, enquiryId: Int) {
+        self.ImgReceit(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+            
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
                 
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
-                    
-                    if let dataDict = json["data"] as? Dictionary<String,Any>
-                    {
-                        if let recieptdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                if let dataDict = json["data"] as? Dictionary<String,Any>
+                {
+                    if let recieptdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                        
+                        if  let object = try? JSONDecoder().decode(PaymentArtist.self, from: recieptdata) {
+                            DispatchQueue.main.async {
+                                print("hey:\(object)")
+                                if let controller = vc as? PaymentUploadController {
+                                    controller.receipt = object
+                                }
+                                let name = object.label
+                                let paymentID = object.paymentId
                             
-                            if  let object = try? JSONDecoder().decode(PaymentArtist.self, from: recieptdata) {
-                                DispatchQueue.main.async {
-                                    print("hey:\(object)")
-                                    vc.receipt = object
-                                    let name = object.label
-                                    let paymentID = object.paymentId
-                                
-                                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/AdvancedPayment/\(paymentID)/" + name!)
-                                    URLSession.shared.dataTask(with: url!) { data, response, error in
-                                        DispatchQueue.main.async {
-                                            if error == nil {
-                                                if let finalData = data {
-                                                    vc.data = finalData
+                                let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/AdvancedPayment/\(paymentID)/" + name!)
+                                URLSession.shared.dataTask(with: url!) { data, response, error in
+                                    DispatchQueue.main.async {
+                                        if error == nil {
+                                            if let finalData = data {
+                                                if let controller = vc as? PaymentUploadController {
+                                                    controller.data = finalData
+                                                }else if let controller = vc as? TransactionListController {
+                                                    controller.hideLoading()
+                                                    controller.view.showTransactionReceiptView(controller: controller, data: finalData)
                                                 }
                                             }
                                         }
-                                    }.resume()
-                                }
+                                    }
+                                }.resume()
                             }
                         }
                     }
                 }
             }
         }
-        
-        return vc
     }
 }

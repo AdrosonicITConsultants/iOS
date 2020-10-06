@@ -21,6 +21,7 @@ class TransactionListViewModel {
     var downloadPI: ((_ enquiryId: Int) -> ())?
     var goToEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadEnquiry: ((_ enquiryId: Int) -> ())?
+    var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
 }
 
 class TransactionListController: UIViewController {
@@ -135,12 +136,14 @@ class TransactionListController: UIViewController {
     }
 }
 
-extension TransactionListController: TransactionListProtocol, AcceptedPIViewProtocol {
+extension TransactionListController: TransactionListProtocol, AcceptedPIViewProtocol, TransactionReceiptViewProtocol {
     func viewTransactionReceipt(tag: Int) {
         if let transaction = allTransactions?[tag] {
             let invoiceStateArray = [1,2,3,4,5,12,13]
             if invoiceStateArray.contains(transaction.accomplishedStatus) {
                 self.viewModel.viewTransactionReceipt?(transaction)
+            }else {
+                self.viewModel.downloadAdvReceipt?(transaction.enquiryId)
             }
         }
     }
@@ -153,6 +156,10 @@ extension TransactionListController: TransactionListProtocol, AcceptedPIViewProt
         let view = self.view.viewWithTag(129) as! AcceptedPIView
         let entityId = view.entityIdLabel.text?.components(separatedBy: "-").last ?? "0"
         self.viewModel.downloadPI?(Int(entityId) ?? 0)
+    }
+    
+    func cancelBtnSelected() {
+        self.view.hideTransactionReceiptView()
     }
 }
 
