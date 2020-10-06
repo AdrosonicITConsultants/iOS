@@ -216,6 +216,22 @@ extension Enquiry {
         )
     }
     
+    public static func getPI(enquiryId: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "enquiry/getPi/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get PI failed")
+                
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
     public static func getPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
         var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)"
@@ -261,6 +277,48 @@ extension Enquiry {
     public  static func getCurrencySigns() -> Request<Data, APIError> {
         var str = "enquiry/getCurrencySigns"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?) -> Request<Data, APIError> {
+
+        let json = ["enquiryId": enquiryId, "type": type, "paidAmount": paidAmount, "percentage": percentage, "pid": pid, "totalAmount": totalAmount]
+        var str = json.jsonString
+        
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let content = imageData
+        let filename = filename
+            let boundary = "\(UUID().uuidString)"
+        let dataLength = content!.count
+            let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")", "accept": "application/json","Content-Type": "multipart/form-data; boundary=\(boundary)",
+            "Content-Length": String(dataLength) ]
+
+        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content!, mimeType: "application/octet-stream", filename: filename!, param: "file")
+
+            return Request(
+                path: "enquiry/Payment?payment=\(str)",
+                method: .post,
+                parameters: DataParameter(finalData),
+                headers: headers,
+                resource: {
+                    print(String(data: $0, encoding: .utf8) ?? "uploading transaction failed")
+                    return $0},
+                error: APIError.init,
+                needsAuthorization: true
+            )
+        
+    }
+   public static func ReceivedReceit(enquiryId: Int) -> Request<Data, APIError> {
+
+        var str = "enquiry/getAdvancedPaymentReceipt/\(enquiryId)?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    
         return Request(
             path: str,
             method: .get,

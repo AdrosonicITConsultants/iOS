@@ -161,6 +161,7 @@ class InvoiceController: FormViewController{
                 $0.tag = "Quantity"
                 $0.cell.height = { 80.0 }
                 $0.cell.titleLabel.text =  "Quantity"
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -234,6 +235,7 @@ class InvoiceController: FormViewController{
             <<< RoundedTextFieldRow() {
                 $0.tag = "Price Per Unit/m"
                 $0.cell.titleLabel.text =  "Price Per Unit/m"
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -254,6 +256,7 @@ class InvoiceController: FormViewController{
             <<< RoundedTextFieldRow() {
                 $0.tag = "HSNCodeInvoice"
                 $0.cell.titleLabel.text =  "HSN Code"
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
