@@ -29,6 +29,8 @@ class BuyerEnquiryDetailsController: FormViewController {
     var viewWillAppear: (() -> ())?
     var checkMOQ: (() -> ())?
     var checkMOQs: (() -> ())?
+    var getPI: (() -> ())?
+    var PI: GetPI?
     lazy var viewModel = CreateMOQModel()
     var allDeliveryTimes: Results<EnquiryMOQDeliveryTimes>?
     var sendMOQ: (() -> ())?
@@ -51,7 +53,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         allDeliveryTimes = realm!.objects(EnquiryMOQDeliveryTimes.self).sorted(byKeyPath: "entityID")
         checkMOQ?()
         checkMOQs?()
-        
+        getPI?()
         var shouldShowOption = false
         
         if User.loggedIn()?.refRoleId == "1" {
@@ -130,7 +132,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
                 $0.cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
                 $0.cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
-                if (enquiryObject?.isBlue ?? false == true) && (enquiryObject?.enquiryStageId == 4 || enquiryObject?.enquiryStageId == 9){
+                if (enquiryObject?.isBlue ?? false == true) && (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 9){
                     $0.cell.actionLbl.text = "Advance payment Awaiting"
                 }else {
                     $0.cell.actionLbl.text = ""
@@ -192,22 +194,23 @@ class BuyerEnquiryDetailsController: FormViewController {
                 else{
                      $0.hidden = true
                 }
-               
-
             }
             
-            <<< TransactionReceiptRow() {
-                $0.cell.height = { 110.0 }
-                $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
-                if (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 8){
-                    $0.hidden = false
-                }else {
-                    $0.hidden = true
-                }
+             <<< TransactionReceiptRow() {
+                           $0.cell.height = { 110.0 }
+                           $0.cell.delegate = self
+                           $0.tag = "UploadReceipt"
+                           $0.cell.tag = 100
+                           $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
+                           if (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 8){
+                               $0.hidden = false
+                           }else {
+                               $0.hidden = true
+                           }
                 if User.loggedIn()?.refRoleId == "1" || isClosed {
-                    $0.hidden = true
-                }
-            }
+                               $0.hidden = true
+                           }
+                       }
             
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 150.0 }
@@ -224,6 +227,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.hidden = true
                 }
             }
+            
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
@@ -300,7 +304,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.tag = "createMOQ2"
                 $0.hidden = true
                 $0.cell.titleLabel.text = "Minimum Quantity"
-                //  $0.cell.valueTextField.keyboardType = .numberPad
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -326,6 +330,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.tag = "createMOQ3"
                 $0.hidden = true
                 $0.cell.titleLabel.text = "Price per unit"
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -844,7 +849,31 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     }
     
 }
-extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol  {
+extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
+    func paymentBtnSelected(tag: Int) {
+        switch tag{
+        case 100:
+            if self.enquiryObject!.isBlue{
+                let client = try? SafeClient(wrapping: CraftExchangeClient())
+                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
+                vc1.enquiryObject = self.enquiryObject
+                vc1.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc1, animated: true)
+            }
+            else{
+            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
+            vc1.enquiryObject = self.enquiryObject
+            vc1.PI = self.PI
+            vc1.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc1, animated: true)
+            print("uploadReceiptBtnSelected")
+            }
+        default:
+            print("uploadReceiptBtnSelected Not WORKING")
+        }
+    }
+    
     func backButtonSelected() {
         self.view.hideAcceptedPIView()
     }

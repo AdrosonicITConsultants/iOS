@@ -55,9 +55,9 @@ class BuyerEnquiryListController: UIViewController {
     
     func endRefresh() {
         if segmentView.selectedSegmentIndex == 0 {
-            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).compactMap({$0})
+            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {
-            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).compactMap({$0})
+            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }
         emptyView.isHidden = allEnquiries?.count == 0 ? false : true
         self.tableView.reloadData()

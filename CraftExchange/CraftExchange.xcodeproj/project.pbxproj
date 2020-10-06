@@ -18,6 +18,20 @@
 		301B7EE925223FDC0008DE3A /* MOQSortButtonsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */; };
 		301B7EEA25223FDC0008DE3A /* MOQSortButtonsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */; };
 		301B7EEC25235B6C0008DE3A /* GetPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EEB25235B6C0008DE3A /* GetPI.swift */; };
+		307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B397C252C24DD000028AC /* AdvancePaymentScene.swift */; };
+		307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B3980252C73EE000028AC /* TransactionReceiptView.xib */; };
+		307B3983252C8602000028AC /* PaymentArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3982252C8602000028AC /* PaymentArtist.swift */; };
+		307B3985252C917D000028AC /* TransactionReceiptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3984252C917D000028AC /* TransactionReceiptView.swift */; };
+		3089DED0252B319D003184FA /* PaymentModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DECF252B319D003184FA /* PaymentModeView.swift */; };
+		3089DED2252B31A7003184FA /* PaymentModeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED1252B31A6003184FA /* PaymentModeView.xib */; };
+		3089DED4252B31B0003184FA /* PercentPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DED3252B31B0003184FA /* PercentPayment.swift */; };
+		3089DED6252B31B9003184FA /* PercentPayment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED5252B31B8003184FA /* PercentPayment.xib */; };
+		3089DED8252B31C2003184FA /* uploadRecieptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED7252B31C1003184FA /* uploadRecieptView.xib */; };
+		3089DEDA252B31CC003184FA /* uploadRecieptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DED9252B31CC003184FA /* uploadRecieptView.swift */; };
+		3089DEDC252B3213003184FA /* UploadSuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */; };
+		3089DEDE252B3220003184FA /* UploadSuccessfulView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DEDD252B3220003184FA /* UploadSuccessfulView.xib */; };
+		3089DEE0252B3276003184FA /* PaymentBuyerOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DEDF252B3276003184FA /* PaymentBuyerOne.swift */; };
+		3089DEE2252B327E003184FA /* PaymentUploadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DEE1252B327E003184FA /* PaymentUploadController.swift */; };
 		308B6A5F2518FDCD00075095 /* GetMOQs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308B6A5E2518FDCD00075095 /* GetMOQs.swift */; };
 		308D5F652514C59C00CA5152 /* EnquiryMOQDeliveryTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D5F642514C59C00CA5152 /* EnquiryMOQDeliveryTimes.swift */; };
 		308D5F672514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308D5F662514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift */; };
@@ -39,6 +53,7 @@
 		309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309BFD29251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib */; };
 		309BFD34251C8452001FAC7F /* SingleButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BFD32251C8452001FAC7F /* SingleButtonRow.swift */; };
 		309BFD35251C8452001FAC7F /* SingleButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309BFD33251C8452001FAC7F /* SingleButtonRow.xib */; };
+		30E3C63A252B340600AB95E5 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E3C639252B340600AB95E5 /* Payment.storyboard */; };
 		C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB024C16EF100197519 /* HomeScreenService.swift */; };
 		C005BCB424C1778D00197519 /* ArtisanHomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */; };
 		C005BCB624C1AB2F00197519 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB524C1AB2F00197519 /* Product.swift */; };
@@ -364,6 +379,20 @@
 		301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQSortButtonsRow.swift; sourceTree = "<group>"; };
 		301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSortButtonsRow.xib; sourceTree = "<group>"; };
 		301B7EEB25235B6C0008DE3A /* GetPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPI.swift; sourceTree = "<group>"; };
+		307B397C252C24DD000028AC /* AdvancePaymentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancePaymentScene.swift; sourceTree = "<group>"; };
+		307B3980252C73EE000028AC /* TransactionReceiptView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionReceiptView.xib; sourceTree = "<group>"; };
+		307B3982252C8602000028AC /* PaymentArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentArtist.swift; sourceTree = "<group>"; };
+		307B3984252C917D000028AC /* TransactionReceiptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptView.swift; sourceTree = "<group>"; };
+		3089DECF252B319D003184FA /* PaymentModeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentModeView.swift; sourceTree = "<group>"; };
+		3089DED1252B31A6003184FA /* PaymentModeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentModeView.xib; sourceTree = "<group>"; };
+		3089DED3252B31B0003184FA /* PercentPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentPayment.swift; sourceTree = "<group>"; };
+		3089DED5252B31B8003184FA /* PercentPayment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PercentPayment.xib; sourceTree = "<group>"; };
+		3089DED7252B31C1003184FA /* uploadRecieptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = uploadRecieptView.xib; sourceTree = "<group>"; };
+		3089DED9252B31CC003184FA /* uploadRecieptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uploadRecieptView.swift; sourceTree = "<group>"; };
+		3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSuccessfulView.swift; sourceTree = "<group>"; };
+		3089DEDD252B3220003184FA /* UploadSuccessfulView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadSuccessfulView.xib; sourceTree = "<group>"; };
+		3089DEDF252B3276003184FA /* PaymentBuyerOne.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentBuyerOne.swift; sourceTree = "<group>"; };
+		3089DEE1252B327E003184FA /* PaymentUploadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentUploadController.swift; sourceTree = "<group>"; };
 		308B6A5E2518FDCD00075095 /* GetMOQs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMOQs.swift; sourceTree = "<group>"; };
 		308D5F642514C59C00CA5152 /* EnquiryMOQDeliveryTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryMOQDeliveryTimes.swift; sourceTree = "<group>"; };
 		308D5F662514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOQDeliveryTimes+Transaction.swift"; sourceTree = "<group>"; };
@@ -385,6 +414,7 @@
 		309BFD29251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSelectedDetailsRow.xib; sourceTree = "<group>"; };
 		309BFD32251C8452001FAC7F /* SingleButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleButtonRow.swift; sourceTree = "<group>"; };
 		309BFD33251C8452001FAC7F /* SingleButtonRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleButtonRow.xib; sourceTree = "<group>"; };
+		30E3C639252B340600AB95E5 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
 		C005BCB024C16EF100197519 /* HomeScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenService.swift; sourceTree = "<group>"; };
 		C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanHomeScene.swift; sourceTree = "<group>"; };
 		C005BCB524C1AB2F00197519 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -987,6 +1017,7 @@
 				C065709D252B5FB4001140C7 /* TransactionStatus.swift */,
 				C06570A1252B86A7001140C7 /* Transaction.swift */,
 				C06570A3252B86B8001140C7 /* TransactionObject.swift */,
+				307B3982252C8602000028AC /* PaymentArtist.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1036,6 +1067,7 @@
 				309598832510FB5700491E33 /* MyDashboard.storyboard */,
 				3097877C252461BC00F9B608 /* Invoice.storyboard */,
 				C06570B0252BA839001140C7 /* Transaction.storyboard */,
+				30E3C639252B340600AB95E5 /* Payment.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1150,6 +1182,8 @@
 				C0930D3425061A2F00DC9274 /* BuyerEnquiryDetailsController.swift */,
 				3097877A2524616E00F9B608 /* InvoiceController.swift */,
 				C09C8C28250D7A7000950526 /* EnquiryArtisanDetailsController.swift */,
+				3089DEDF252B3276003184FA /* PaymentBuyerOne.swift */,
+				3089DEE1252B327E003184FA /* PaymentUploadController.swift */,
 			);
 			path = EnquiryController;
 			sourceTree = "<group>";
@@ -1332,6 +1366,8 @@
 				309787782524136000F9B608 /* PreviewPIView.xib */,
 				309787842524B40C00F9B608 /* AcceptedPIView.swift */,
 				309787822524AE5300F9B608 /* AcceptedPIView.xib */,
+				307B3984252C917D000028AC /* TransactionReceiptView.swift */,
+				307B3980252C73EE000028AC /* TransactionReceiptView.xib */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -1431,6 +1467,14 @@
 				301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */,
 				3097878A2524D9BD00F9B608 /* AcceptedInvoiceRow.swift */,
 				3097878B2524D9BD00F9B608 /* AcceptedInvoiceRow.xib */,
+				3089DECF252B319D003184FA /* PaymentModeView.swift */,
+				3089DED1252B31A6003184FA /* PaymentModeView.xib */,
+				3089DED3252B31B0003184FA /* PercentPayment.swift */,
+				3089DED5252B31B8003184FA /* PercentPayment.xib */,
+				3089DED9252B31CC003184FA /* uploadRecieptView.swift */,
+				3089DED7252B31C1003184FA /* uploadRecieptView.xib */,
+				3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */,
+				3089DEDD252B3220003184FA /* UploadSuccessfulView.xib */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -1563,6 +1607,7 @@
 				C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */,
 				C09C8C24250D496700950526 /* EnquiryDetailsScene.swift */,
 				3097877E252461EF00F9B608 /* InvoiceScene.swift */,
+				307B397C252C24DD000028AC /* AdvancePaymentScene.swift */,
 			);
 			path = EnquiryScenes;
 			sourceTree = "<group>";
@@ -1694,6 +1739,7 @@
 				C0A910A2247CD90B00852695 /* PlayfairDisplay-Bold.ttf in Resources */,
 				C0A910A6247CD90B00852695 /* PlayfairDisplay-ExtraBoldItalic.ttf in Resources */,
 				3005D1EF2521C79300BF22C0 /* SingleLabelRow.xib in Resources */,
+				3089DEDE252B3220003184FA /* UploadSuccessfulView.xib in Resources */,
 				3097878D2524D9BD00F9B608 /* AcceptedInvoiceRow.xib in Resources */,
 				C0995BFA24C8CB9900EC4CC3 /* RegionCell.xib in Resources */,
 				C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */,
@@ -1704,6 +1750,7 @@
 				C016EC1C2510D3590039B7AF /* NotificationCell.xib in Resources */,
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
 				C06DB542249B59910009BCC1 /* Tabbar.storyboard in Resources */,
+				3089DED2252B31A7003184FA /* PaymentModeView.xib in Resources */,
 				C06AA39C250547E300EF4B10 /* TransactionReceiptRow.xib in Resources */,
 				C097949F24EAB23100C11AC7 /* ImageViewRow.xib in Resources */,
 				C09F97DF25021C100076F917 /* BuyerEnquiryCell.xib in Resources */,
@@ -1742,6 +1789,7 @@
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
 				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
 				C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */,
+				3089DED6252B31B9003184FA /* PercentPayment.xib in Resources */,
 				C0A91094247CD8D000852695 /* Lato-ThinItalic.ttf in Resources */,
 				C0AE9CF924ED7E970037ECB3 /* ToggleOptionRow.xib in Resources */,
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
@@ -1758,9 +1806,11 @@
 				C06DCAC724D33DD000F1435F /* lengthWidthRow.xib in Resources */,
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
+				307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */,
 				C099E3EF24FE9252003B6E3B /* EnquiryExistsView.xib in Resources */,
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
 				C06570A9252B9128001140C7 /* TransactionTitleRow.xib in Resources */,
+				3089DED8252B31C2003184FA /* uploadRecieptView.xib in Resources */,
 				C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */,
 				309787792524136000F9B608 /* PreviewPIView.xib in Resources */,
 				C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */,
@@ -1772,6 +1822,7 @@
 				C06AA39A25052FA200EF4B10 /* StatusRow.xib in Resources */,
 				C0A91093247CD8D000852695 /* Lato-Light.ttf in Resources */,
 				309598842510FB5700491E33 /* MyDashboard.storyboard in Resources */,
+				30E3C63A252B340600AB95E5 /* Payment.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1837,6 +1888,7 @@
 				C04F72D924C611D500E8122E /* ArtisanProductCell.swift in Sources */,
 				C074EE3724EEC1A300B0973B /* WishlistScene.swift in Sources */,
 				C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */,
+				307B3983252C8602000028AC /* PaymentArtist.swift in Sources */,
 				301B7EE925223FDC0008DE3A /* MOQSortButtonsRow.swift in Sources */,
 				C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */,
 				C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */,
@@ -1908,6 +1960,7 @@
 				309787872524CCE000F9B608 /* CurrencySigns.swift in Sources */,
 				C06570AF252B9F72001140C7 /* TransactionObject+Transaction.swift in Sources */,
 				C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */,
+				307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */,
 				C071E25D247EF9280085805B /* ValidateUserService.swift in Sources */,
 				309BFD2A251C6FF3001FAC7F /* MOQSelectedDetailsRow.swift in Sources */,
 				C0285AA124CF4E4F0045623A /* BuyerProductCatalogController.swift in Sources */,
@@ -1974,6 +2027,7 @@
 				C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */,
 				C0A2A00624B8D89800A49E56 /* Address+Transaction.swift in Sources */,
 				C0D218B124FEC67A0071896E /* EnquiryGeneratedView.swift in Sources */,
+				3089DEDC252B3213003184FA /* UploadSuccessfulView.swift in Sources */,
 				C05836B724C8567F0027FF44 /* CraftExchangeImageClient.swift in Sources */,
 				C09F214F24862B56001F2FCD /* REGArtisanDataScene.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
@@ -2001,6 +2055,7 @@
 				C0917DF424D47361006B6664 /* Yarn+Transaction.swift in Sources */,
 				C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */,
 				C0ACE9A82485970100EFA4ED /* REGValidateUserEmailScene.swift in Sources */,
+				307B3985252C917D000028AC /* TransactionReceiptView.swift in Sources */,
 				C06DCAC324D33A9E00F1435F /* ButtonWithImage.swift in Sources */,
 				C09B3F1024BA615900FBC115 /* Disk+Errors.swift in Sources */,
 				C08FBDFC2497EF870065BB20 /* REGBuyerPersonalInfoController.swift in Sources */,
@@ -2035,6 +2090,7 @@
 				309787892524CEAE00F9B608 /* CurrencySigns+Transaction.swift in Sources */,
 				C071E25F247EFAAB0085805B /* BaseService.swift in Sources */,
 				C0A8EEA124C0EF680074C620 /* ArtisanTabbarController.swift in Sources */,
+				3089DEDA252B31CC003184FA /* uploadRecieptView.swift in Sources */,
 				C0917DF224D472C1006B6664 /* Weave+Transaction.swift in Sources */,
 				C0A8EE9D24C095D20074C620 /* ArtisanHomeController.swift in Sources */,
 				301B7EEC25235B6C0008DE3A /* GetPI.swift in Sources */,
@@ -2048,6 +2104,7 @@
 				C05E3AE724D283F700963FAA /* CollectionViewRow.swift in Sources */,
 				309787852524B40C00F9B608 /* AcceptedPIView.swift in Sources */,
 				C0285A9D24CF22CB0045623A /* BrandLogoService.swift in Sources */,
+				3089DED0252B319D003184FA /* PaymentModeView.swift in Sources */,
 				C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */,
 				C09B3F1924BA6DF500FBC115 /* UIImageView+Extensions.swift in Sources */,
 				C09F97DC25021BD80076F917 /* BuyerEnquiryCell.swift in Sources */,
@@ -2056,6 +2113,7 @@
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,
 				C0F4723324C9901900DB8F38 /* DesignCollectionController.swift in Sources */,
 				C06DCABF24D2EBED00F1435F /* DimensionsCardCell.swift in Sources */,
+				3089DEE2252B327E003184FA /* PaymentUploadController.swift in Sources */,
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
 				C05498D524995914005D5E57 /* RegisterBuyerController.swift in Sources */,
 				309BFD34251C8452001FAC7F /* SingleButtonRow.swift in Sources */,
@@ -2080,7 +2138,9 @@
 				C0E6D04824EC17D2008CFB1F /* ProductDetailInfoRow.swift in Sources */,
 				308B6A5F2518FDCD00075095 /* GetMOQs.swift in Sources */,
 				C06AA396250240A500EF4B10 /* BuyerEnquiryListController.swift in Sources */,
+				3089DEE0252B3276003184FA /* PaymentBuyerOne.swift in Sources */,
 				C0917DF824D47485006B6664 /* Dye+Transaction.swift in Sources */,
+				3089DED4252B31B0003184FA /* PercentPayment.swift in Sources */,
 				C05E3ADC24D1EEA500963FAA /* ImageSelectorCell.swift in Sources */,
 				C04842B124E7BB0F00D3207F /* CustomeProduct+Request.swift in Sources */,
 				C0917DE224D43446006B6664 /* ProductWidth.swift in Sources */,

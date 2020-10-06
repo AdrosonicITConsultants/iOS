@@ -89,13 +89,11 @@ extension EnquiryDetailsService {
                            if json["valid"] as? Bool == true {
                                DispatchQueue.main.async {
                                 print("PI sent successfully")
-                                  let client = try! SafeClient(wrapping: CraftExchangeClient())
-                                  
-                                let vc1 = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: vc.enquiryObject, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
-                                       vc1.modalPresentationStyle = .fullScreen
-                                       
-                                   vc.navigationController?.popViewController(animated: true)
-                                   vc.hideLoading()
+                                       let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: "BuyerEnquiryListController") as! BuyerEnquiryListController
+                                vc.hideLoading()
+                                controller.viewWillAppear?()
+                                vc.popBack(toControllerType: BuyerEnquiryListController.self)
                                }
                            }
                            else {

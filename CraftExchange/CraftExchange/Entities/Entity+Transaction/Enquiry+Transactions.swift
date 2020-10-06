@@ -74,6 +74,7 @@ extension Enquiry {
                 object.weftYarnId = weftYarnId
                 object.extraWeftYarnId = extraWeftYarnId
                 
+                object.isBlue = isBlue
                 object.city = city
                 object.comment = comment
                 object.companyName = companyName

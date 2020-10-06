@@ -154,13 +154,13 @@ extension EnquiryDetailsService {
         }
         
         vc.sendMOQ = {
-            if vc.viewModel.minimumQuantity.value != nil && vc.viewModel.minimumQuantity.value?.isNotBlank ?? false && vc.viewModel.pricePerUnit.value != nil && vc.viewModel.pricePerUnit.value?.isNotBlank ?? false && vc.viewModel.additionalNote.value != nil && vc.viewModel.additionalNote.value?.isNotBlank ?? false  && vc.viewModel.estimatedDays.value != nil {
+            if vc.viewModel.minimumQuantity.value != nil && vc.viewModel.minimumQuantity.value?.isNotBlank ?? false && vc.viewModel.pricePerUnit.value != nil && vc.viewModel.pricePerUnit.value?.isNotBlank ?? false &&  vc.viewModel.estimatedDays.value != nil {
                 
                 let minimumQuantity = vc.viewModel.minimumQuantity.value ?? ""
                 let pricePerUnit = vc.viewModel.pricePerUnit.value ?? ""
                 if minimumQuantity.isValidNumber && Int(vc.viewModel.minimumQuantity.value!)! > 0 {
                     if pricePerUnit.isValidNumber && Int(vc.viewModel.pricePerUnit.value!)! > 0{
-                        self.sendMOQ(enquiryId: enquiryId, additionalInfo: vc.viewModel.additionalNote.value!, deliveryTimeId: vc.viewModel.estimatedDays.value!.entityID , moq: Int(vc.viewModel.minimumQuantity.value!)!, ppu: vc.viewModel.pricePerUnit.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                        self.sendMOQ(enquiryId: enquiryId, additionalInfo: vc.viewModel.additionalNote.value ?? "", deliveryTimeId: vc.viewModel.estimatedDays.value!.entityID , moq: Int(vc.viewModel.minimumQuantity.value!)!, ppu: vc.viewModel.pricePerUnit.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                                 if json["valid"] as? Bool == true {
                                     DispatchQueue.main.async {
@@ -221,18 +221,37 @@ extension EnquiryDetailsService {
         }
         
         vc.viewPI = {
+            
             self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-               DispatchQueue.main.async {
-                let object = String(data: responseData, encoding: .utf8) ?? ""
-                let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
-                vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: date , data: object)
-                   vc.hideLoading()
-               }
+                DispatchQueue.main.async {
+                    let object = String(data: responseData, encoding: .utf8) ?? ""
+                    let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
+                    vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: date , data: object)
+                    vc.hideLoading()
+                }
             }.dispose(in: vc.bag)
         }
         
         vc.downloadPI = {
             self.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
+        }
+        
+        vc.getPI = {
+            self.getPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let dataDict = json["data"] as? Dictionary<String,Any>
+                    {
+                        if let moqdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                            if  let object = try? JSONDecoder().decode(GetPI.self, from: moqdata) {
+                                DispatchQueue.main.async {
+                                    vc.PI = object
+                                    print("hey: \(object)")
+                                }
+                            }
+                        }
+                    }
+                }
+            }.dispose(in: vc.bag)
         }
         
         return vc
@@ -258,8 +277,10 @@ extension EnquiryDetailsService {
                                                         enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
                                                         if let controller = vc as? BuyerEnquiryDetailsController {
                                                             controller.reloadFormData()
-                                                        }else if let controller = vc as? TransactionListController { controller.viewModel.goToEnquiry?(enquiryObj.enquiryId)
+                                                        }else if let controller = vc as? TransactionListController {
+                                                            controller.viewModel.goToEnquiry?(enquiryObj.enquiryId)
                                                         }
+                                                        
                                                         vc.hideLoading()
                                                     }
                                                 }

@@ -204,4 +204,25 @@ extension UIView {
             initialView.removeFromSuperview()
         }
     }
+    
+    func showTransactionReceiptView(controller: UIViewController, data: Data) {
+        if let _ = self.viewWithTag(130) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("TransactionReceiptView", owner:
+                self, options: nil)?.first as? TransactionReceiptView
+            initiationView?.receiptImage.image = UIImage(data: data)
+            initiationView?.delegate = controller as? TransactionReceiptViewProtocol
+            initiationView?.tag = 130
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    func hideTransactionReceiptView() {
+        if let initialView = self.viewWithTag(130) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+    }
 }

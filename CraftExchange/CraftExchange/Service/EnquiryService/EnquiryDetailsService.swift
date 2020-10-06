@@ -34,6 +34,10 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.getMOQs(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func getPI(enquiryId: Int) -> SafeSignal<Data>{
+        return Enquiry.getPI(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
     func getMOQ(enquiryId: Int) -> SafeSignal<Data>{
         return Enquiry.getMOQ(enquiryId: enquiryId).response(using: client).debug()
     }
@@ -62,5 +66,12 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.sendPI(enquiryId: enquiryId, cgst: cgst, expectedDateOfDelivery: expectedDateOfDelivery, hsn: hsn, ppu: ppu, quantity: quantity, sgst: sgst).response(using: client).debug()
     }
     
+    func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?)-> SafeSignal<Data>  {
+        return Enquiry.uploadReceipt(enquiryId: enquiryId, type: type, paidAmount: paidAmount, percentage: percentage, pid: pid, totalAmount: totalAmount, imageData: imageData, filename: filename).response(using: client).debug()
+    }
+    
+    func ImgReceit(enquiryId: Int)-> SafeSignal<Data>  {
+        return Enquiry.ReceivedReceit(enquiryId: enquiryId).response(using: client).debug()
+    }
     
 }
