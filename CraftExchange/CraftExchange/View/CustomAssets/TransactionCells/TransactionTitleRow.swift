@@ -21,13 +21,37 @@ class TransactionTitleRow: UITableViewCell {
     func configure(_ transaction: TransactionObject) {
         if transaction.accomplishedStatus == 1 || transaction.accomplishedStatus == 4 {
             // PI
-            icon.image = UIImage.init(named: "Group 1834")
+            icon.image = UIImage.init(named: "Group 1837")
         }else if transaction.accomplishedStatus == 6 {
-            // Advance Payment
+            //PI & Advance Payment
+            icon.image = UIImage.init(named: "Group 1853")
+        }else if transaction.accomplishedStatus == 12 || transaction.accomplishedStatus == 14 {
+            //Tax Invoice received & Tax Invoice receipt Upload
             icon.image = UIImage.init(named: "Group 1834")
+        }else if transaction.accomplishedStatus == 8 || transaction.accomplishedStatus == 10 {
+            //Advance Payment
+            if(transaction.upcomingStatus == 11){
+                icon.image = UIImage.init(named: "Group 1833")
+            }else{
+                icon.image = UIImage.init(named: "Group 1832")
+            }
+        }else if transaction.accomplishedStatus == 16 || transaction.accomplishedStatus == 18 {
+            //Final Payment
+            if(transaction.upcomingStatus == 17){
+                icon.image = UIImage.init(named: "Group 1834")
+            }else{
+                icon.image = UIImage.init(named: "Group 1840")
+            }
+        }else if transaction.accomplishedStatus == 20 || transaction.accomplishedStatus == 22 {
+             //Delivery Challan Upload
+            icon.image = UIImage.init(named: "Group 1835")
+        }else if transaction.accomplishedStatus == 23 {
+            //Order Delivered
+            icon.image = UIImage.init(named: "Group 1860")
         }else {
             icon.image = UIImage.init(named: "Group 1834")
         }
+        
         if User.loggedIn()?.refRoleId == "1" {
             //Artisan
             currentStateText.attributedText = TransactionStatus.getTransactionStatusType(searchId: transaction.accomplishedStatus)?.artisanText?.htmlToAttributedString
