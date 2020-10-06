@@ -21,7 +21,7 @@ class TransactionDetailRow: UITableViewCell {
     var delegate: TransactionListProtocol?
     
     func configure(_ transaction: TransactionObject) {
-        amountLabel.text = "₹ \(transaction.totalAmount)"
+        amountLabel.text = transaction.totalAmount == 0 ? "₹ \(transaction.paidAmount)" : "₹ \(transaction.totalAmount)"
         if let date = transaction.modifiedOn {
             dateLabel.text = Date().ttceISOString(isoDate: date)
         }
