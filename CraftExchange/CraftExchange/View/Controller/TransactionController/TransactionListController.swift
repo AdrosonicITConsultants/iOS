@@ -218,7 +218,7 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
                 setData()
                 self.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .none)
             }
-        }else if User.loggedIn()?.refRoleId == "1" {
+        }else {
             let transaction = allTransactions?[indexPath.section]
             if let obj = Enquiry().searchEnquiry(searchId: transaction?.enquiryId ?? 0) {
                 self.viewModel.goToEnquiry?(obj.enquiryId)
