@@ -44,6 +44,12 @@ class BuyerEnquiryListController: UIViewController {
         center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
             self.applicationEnteredForeground?()
         }
+        if tableView.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            tableView.refreshControl = refreshControl
+        }
+        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +59,14 @@ class BuyerEnquiryListController: UIViewController {
         segmentView.selectorType = .bottomBar
     }
     
+    @objc func pullToRefresh() {
+        viewWillAppear?()
+    }
+    
     func endRefresh() {
+        if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
         if segmentView.selectedSegmentIndex == 0 {
             allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {

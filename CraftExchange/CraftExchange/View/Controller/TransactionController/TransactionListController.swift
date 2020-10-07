@@ -58,6 +58,12 @@ class TransactionListController: UIViewController {
         let rightBarButtomItem2 = self.searchBarButton()
         navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
         setData()
+        if tableView.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            tableView.refreshControl = refreshControl
+        }
+        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +75,14 @@ class TransactionListController: UIViewController {
         viewModel.viewDidAppear?()
     }
     
+    @objc func pullToRefresh() {
+        viewModel.viewWillAppear?()
+    }
+    
     func endRefresh() {
+        if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
         self.setData()
         self.tableView.reloadData()
     }

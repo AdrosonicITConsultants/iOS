@@ -125,7 +125,6 @@ extension Enquiry {
                 object.productImages = productImages
                 object.productName = productName
                 object.productStatusHistoryId = productStatusHistoryId
-                object.productStatusId = productStatusId
                 
                 object.productType = productType
                 object.profilePic = profilePic
