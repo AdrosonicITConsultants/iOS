@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import AVKit
 import RealmSwift
 import Realm
 import Bond
@@ -21,40 +20,33 @@ class BuyerHomeController: UIViewController {
     @IBOutlet weak var selfDesignView: UIView!
     @IBOutlet weak var antaranDesignView: UIView!
     @IBOutlet weak var customDesignButton: RoundedButton!
-  
     @IBOutlet weak var notificationButton: UIBarButtonItem!
-    
     lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
     
-    @IBAction func notificationButtonSelected(_ sender: Any) {
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = NotificationService(client: client).createScene()
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
-            print(error.localizedDescription)
-        }
-    }
     override func viewDidLoad() {
 
-    selfDesignView.dropShadow()
-    antaranDesignView.dropShadow()
-    self.selfDesignView.layer.cornerRadius = 5
-    self.antaranDesignView.layer.cornerRadius = 5
+        selfDesignView.dropShadow()
+        antaranDesignView.dropShadow()
+        self.selfDesignView.layer.cornerRadius = 5
+        self.antaranDesignView.layer.cornerRadius = 5
+        
+        loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
+        
+        self.setupSideMenu(false)
+        let app = UIApplication.shared.delegate as? AppDelegate
+        if app?.showDemoVideo ?? false {
+          app?.showDemoVideo = false
+          showVideo()
+        }
     
-    loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
-    
-    self.setupSideMenu(false)
-    let app = UIApplication.shared.delegate as? AppDelegate
-    if app?.showDemoVideo ?? false {
-      app?.showDemoVideo = false
-      self.showVideo()
-    }
-    
-    super.viewDidLoad()
-    viewModel.viewDidLoad?()
+        super.viewDidLoad()
+        viewModel.viewDidLoad?()
+        let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
+        let rightBarButtomItem2 = self.searchBarButton()
+        navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationButtonSelected(_:)), name: NSNotification.Name(rawValue: "ShowNotification"), object: nil)
   }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,16 +96,15 @@ class BuyerHomeController: UIViewController {
             print(error.localizedDescription)
         }
     }
-
-    func showVideo() {
-    let path = Bundle.main.path(forResource: "video", ofType: "mp4")
-    let url = NSURL(fileURLWithPath: path!)
-    let player = AVPlayer(url: url as URL)
-    let playerViewController = AVPlayerViewController()
-    playerViewController.player = player
-
-    present(playerViewController, animated: true, completion: {
-        playerViewController.player!.play()
-    })
-  }
+    
+    @IBAction func notificationButtonSelected(_ sender: Any) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = NotificationService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }

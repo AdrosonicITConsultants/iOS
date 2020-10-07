@@ -32,6 +32,9 @@ extension HomeScreenService {
             self.fetchClusterData(vc: vc)
             self.fetchProductUploadData(vc: vc)
             self.fetchEnquiryStateData(vc: vc)
+            self.fetchNotification(vc: vc)
+            self.handlePushNotification(vc: vc)
+            self.fetchTransactionStatus(vc: vc)
             
             self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
               DispatchQueue.main.async {
@@ -57,6 +60,12 @@ extension HomeScreenService {
                 loggedInUser?.paymentAccountList .forEach({ (addr) in
                     addr.saveOrUpdate()
                 })
+                if let categoryData = dataDict["userProductCategories"] as? [[String:Any]] {
+                    let catData = try JSONSerialization.data(withJSONObject: categoryData, options: .prettyPrinted)
+                    if let userCategories = try? JSONDecoder().decode([UserProductCategory].self, from: catData) {
+                        loggedInUser?.saveOrUpdateUserCategory(catArr: userCategories)
+                    }
+                }
                 DispatchQueue.main.async {
                     vc.loggedInUserName.text = User.loggedIn()?.firstName ?? ""
                 }
@@ -174,6 +183,24 @@ extension HomeScreenService {
         }.dispose(in: vc.bag)
     }
     
+    func fetchTransactionStatus(vc: UIViewController) {
+        let service = TransactionService.init(client: client)
+        service.getTransactionStatus().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
+                        try JSONDecoder().decode([TransactionStatus].self, from: data) .forEach({ (cat) in
+                            cat.saveOrUpdate()
+                        })
+                  }
+                }
+            }catch let error as NSError {
+                print(error.description)
+            }
+        }.dispose(in: vc.bag)
+    }
+    
     func fetchProductUploadData(vc: UIViewController) {
         self.fetchProductUploadData().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
@@ -223,6 +250,38 @@ extension HomeScreenService {
         }.dispose(in: vc.bag)
     }
     
+    func fetchNotification(vc: UIViewController) {
+        let service = NotificationService.init(client: client)
+        service.getAllTheNotifications().bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let dataDict = json["data"] as? Dictionary<String,Any>
+                    {
+                        guard let notiObj = dataDict["getAllNotifications"] as? [[String: Any]] else {
+                            return
+                        }
+                        if let notidata = try? JSONSerialization.data(withJSONObject: notiObj, options: .fragmentsAllowed) {
+                            if  let notiBuyer = try? JSONDecoder().decode([Notifications].self, from: notidata) {
+                                DispatchQueue.main.async {
+                                    if let lbl = vc.navigationController?.view.viewWithTag(666) as? UILabel {
+                                        lbl.text = "\(notiBuyer.count)"
+                                        UIApplication.shared.applicationIconBadgeNumber = notiBuyer.count
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        }.dispose(in: vc.bag)
+    }
+    
+    func handlePushNotification(vc: UIViewController) {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.requestPushNotificationAccess()
+        if let object = delegate?.notificationObject {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ShowNotification"), object: object)
+        }
+    }
+    
     func fetchEnquiryStateData(vc: UIViewController) {
         let service = EnquiryListService.init(client: client)
         service.getEnquiryStages().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
@@ -263,6 +322,9 @@ extension HomeScreenService {
                 self.fetchClusterData(vc: vc)
                 self.fetchProductUploadData(vc: vc)
                 self.fetchEnquiryStateData(vc: vc)
+                self.fetchNotification(vc: vc)
+                self.handlePushNotification(vc: vc)
+                self.fetchTransactionStatus(vc: vc)
                 
                 self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                   DispatchQueue.main.async {

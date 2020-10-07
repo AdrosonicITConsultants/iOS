@@ -83,7 +83,16 @@ class SideMenuController: FormViewController {
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
             row.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
-              self.dismiss(animated: true, completion: nil)
+              self.dismiss(animated: true, completion: {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = TransactionService(client: client).createScene()
+                    let nav = self.getNavBar()
+                    nav?.pushViewController(vc, animated: true)
+                } catch let error {
+                  print("Unable to load view:\n\(error.localizedDescription)")
+                }
+              })
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
@@ -173,6 +182,8 @@ class SideMenuController: FormViewController {
             appDelegate?.tabbar = nil
             appDelegate?.artisanTabbar = nil
             KeychainManager.standard.deleteAll()
+            UIApplication.shared.unregisterForRemoteNotifications()
+            UIApplication.shared.applicationIconBadgeNumber = 0
             self.showLoading()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
@@ -186,9 +197,17 @@ class SideMenuController: FormViewController {
     
     
     let view = UIImageView.init(image: UIImage(named: "ios_logo_ham menu"))
-    let ht: CGFloat = 180.0
+    let ht: CGFloat = 140.0
     view.frame = CGRect(x: 0, y: self.view.frame.height-ht, width: min(self.view.frame.width, self.view.frame.height) * CGFloat(0.80), height: ht)
     view.contentMode = .center
+    
+    let lbl = UILabel.init(frame: CGRect(x: 0, y: self.view.frame.size.height-30, width: view.frame.size.width, height: 20))
+    lbl.font = .systemFont(ofSize: 10)
+    lbl.textColor = .lightGray
+    lbl.textAlignment = .center
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    lbl.text = "23-09-2020 V\(appVersion ?? "1.0")"
+    self.view.addSubview(lbl)
     self.view.addSubview(view)
   }
   

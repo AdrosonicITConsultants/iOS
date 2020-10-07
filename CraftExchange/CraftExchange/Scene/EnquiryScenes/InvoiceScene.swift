@@ -21,55 +21,99 @@ extension EnquiryDetailsService {
         
         
         vc.viewModel.savePI = {
-            print("\(vc.viewModel.ppu.value),\(vc.viewModel.cgst.value),\(vc.viewModel.expectedDateOfDelivery.value),\(vc.viewModel.hsn.value),\(vc.viewModel.quantity.value)\(vc.viewModel.sgst.value)")
-            self.savePI(enquiryId: enquiryId, cgst: Int(vc.viewModel.cgst.value!)!, expectedDateOfDelivery: String(vc.viewModel.expectedDateOfDelivery.value!), hsn: Int(vc.viewModel.hsn.value!)!, ppu: Int(vc.viewModel.ppu.value!)! , quantity: Int(vc.viewModel.quantity.value!)!, sgst: Int(vc.viewModel.sgst.value!)!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        DispatchQueue.main.async {
-                            vc.saveInvoice = 1
-                            print("saveInvoice PI")
-//                            let storyboard = UIStoryboard(name: "Invoice", bundle: nil)
-//                            let vc1 = storyboard.instantiateViewController(withIdentifier: "InvoicePreviewController") as! InvoicePreviewController
-//                            print("PreviewPI WORKING")
-//                            vc1.modalPresentationStyle = .fullScreen
-//                            vc.navigationController?.pushViewController(vc1, animated: true)
-                            print("createSendInvoiceBtnSelected WORKING")
-                            
-                        }
-                    }
-                }
-            }.dispose(in: vc.bag)
             
-        }
-        return vc
-    }
-}
-extension  EnquiryDetailsService {
-   func piSend(enquiryId: Int) -> UIViewController {
-    let storyboard = UIStoryboard(name: "Invoice", bundle: nil)
-           let vc = storyboard.instantiateViewController(withIdentifier: "InvoicePreviewController") as! InvoicePreviewController
-    vc.viewModel.sendPI = {
-               print("SEENND PIII \(vc.viewModel.ppu.value),\(vc.viewModel.cgst.value),\(vc.viewModel.expectedDateOfDelivery.value),\(vc.viewModel.hsn.value),\(vc.viewModel.quantity.value)\(vc.viewModel.sgst.value)")
-               self.sendPI(enquiryId: enquiryId, cgst: Int(vc.viewModel.cgst.value!)!, expectedDateOfDelivery: String(vc.viewModel.expectedDateOfDelivery.value!), hsn: Int(vc.viewModel.hsn.value!)!, ppu: Int(vc.viewModel.ppu.value!)! , quantity: Int(vc.viewModel.quantity.value!)!, sgst: Int(vc.viewModel.sgst.value!)!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                   if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                       if json["valid"] as? Bool == true {
-                           DispatchQueue.main.async {
-                               vc.sendInvoice = 1
-                               print("sendInvoice PI")
-//                               let storyboard = UIStoryboard(name: "Invoice", bundle: nil)
-//                               let vc1 = storyboard.instantiateViewController(withIdentifier: "InvoicePreviewController") as! InvoicePreviewController
-//                               print("PreviewPI WORKING")
-//                               vc1.modalPresentationStyle = .fullScreen
-//                               vc.navigationController?.pushViewController(vc1, animated: true)
-//                               print("createSendInvoiceBtnSelected WORKING")
+            if vc.viewModel.quantity.value != nil && vc.viewModel.quantity.value?.isNotBlank ?? false && vc.viewModel.pricePerUnitPI.value != nil && vc.viewModel.pricePerUnitPI.value?.isNotBlank ?? false &&  vc.viewModel.hsn.value != nil && vc.viewModel.hsn.value?.isNotBlank ?? false && vc.viewModel.expectedDateOfDelivery.value != nil && vc.viewModel.expectedDateOfDelivery.value?.isNotBlank ?? false  {
+                
+                let quantity = vc.viewModel.quantity.value ?? ""
+                let pricePerUnitPI = vc.viewModel.pricePerUnitPI.value ?? ""
+                let hsn = vc.viewModel.hsn.value ?? ""
+                
+                if quantity.isValidNumber && Int(vc.viewModel.quantity.value!)! > 0 {
+                    if pricePerUnitPI.isValidNumber && Int(vc.viewModel.pricePerUnitPI.value!)! > 0{
+                        if hsn.isValidNumber {
+                            
+                                    self.savePI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(hsn)!, ppu: Int(pricePerUnitPI)!, quantity: Int(quantity)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                                        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                                            if json["valid"] as? Bool == true {
+                                                DispatchQueue.main.async {
+                                          print("PI saved successfully")
+                                                    vc.previewPI?()
+                                                  
+                                                }
+                                            }
+                                            else {
+                                                vc.alert("Save PI failed, please try again later")
+                                                vc.hideLoading()
+                                            }
+                                        }
+                                    }.dispose(in: vc.bag)
                                
+                        }else {
+                            vc.alert("Please enter valid hsn")
+                            vc.hideLoading()
+                        }
+                    }else {
+                        vc.alert("Please enter valid price per unit")
+                        vc.hideLoading()
+                    }
+                }else {
+                    vc.alert("Please enter valid quantity")
+                    vc.hideLoading()
+                }
+            }else {
+                vc.alert("Please enter all mandatory fields")
+                vc.hideLoading()
+            }
+        }
+        
+        vc.previewPI = {
+            vc.showLoading()
+            self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+               DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                vc.view.showPreviewPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: vc.viewModel.expectedDateOfDelivery.value!, data: object)
+                vc.hideLoading()
+               }
+            }.dispose(in: vc.bag)
+        }
+        
+        vc.viewModel.downloadPI = {
+            vc.showLoading()
+            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
+        }
+        
+        vc.viewModel.sendPI = {
+                   
+                   self.sendPI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(vc.viewModel.hsn.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                       if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                           if json["valid"] as? Bool == true {
+                               DispatchQueue.main.async {
+                                print("PI sent successfully")
+                                       let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
+                                let controller = storyboard.instantiateViewController(withIdentifier: "BuyerEnquiryListController") as! BuyerEnquiryListController
+                                vc.hideLoading()
+                                controller.viewWillAppear?()
+                                vc.popBack(toControllerType: BuyerEnquiryListController.self)
+                               }
+                           }
+                           else {
+                               vc.alert("Send PI failed, please try again later")
+                               vc.hideLoading()
                            }
                        }
-                   }
-               }.dispose(in: vc.bag)
-               
+                   }.dispose(in: vc.bag)
+               }
+        return vc
+    }
+    
+    func downloadAndSharePI(vc:UIViewController, enquiryId: Int) {
+        self.downloadPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+           DispatchQueue.main.async {
+            vc.hideLoading()
+            if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/pdfFile.pdf") {
+                vc.sharePdf(path: url)
+            }
            }
-           return vc
-       }
+        }.dispose(in: vc.bag)
+    }
 }
-

@@ -43,6 +43,7 @@ extension Notifications {
           needsAuthorization: true
       )
     }
+    
     public static func markAsAllReadNotification() -> Request<Data, APIError> {
     
       let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
@@ -57,6 +58,19 @@ extension Notifications {
       )
     }
     
+    public static func saveDeviceToken(deviceId: String, token: String) -> Request<Data, APIError> {
+      //
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "user/saveDeviceToken/\(deviceId)/iOS/\(token)",
+          method: .post,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "failed to save notification token")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
 }
 
 

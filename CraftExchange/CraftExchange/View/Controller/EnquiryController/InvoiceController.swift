@@ -22,15 +22,14 @@ import ImageRow
 import ViewRow
 import WebKit
 class InvoiceViewModel {
-    var cgst = Observable<String?>(nil)
     var expectedDateOfDelivery = Observable<String?>(nil)
     var hsn = Observable<String?>(nil)
-    var ppu = Observable<String?>(nil)
+    var pricePerUnitPI = Observable<String?>(nil)
     var quantity = Observable<String?>(nil)
-    var sgst = Observable<String?>(nil)
-    var currency = Observable<String?>(nil)
-    //    var deleteProductSelected: (() -> Void)?
+    var currency = Observable<CurrencySigns?>(nil)
     var savePI: (() -> ())?
+    var sendPI: (() -> ())?
+    var downloadPI: (() -> ())?
 }
 
 class InvoiceController: FormViewController{
@@ -40,18 +39,18 @@ class InvoiceController: FormViewController{
     var showProductDetails: (() -> ())?
     var showHistoryProductDetails: (() -> ())?
     var closeEnquiry: ((_ enquiryId: Int) -> ())?
-    
+    var previewPI: (() -> ())?
     var saveInvoice: Int = 0
-    
     let realm = try? Realm()
     var isClosed = false
     var viewModel = InvoiceViewModel()
+    var allCurrencySigns: Results<CurrencySigns>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
+        allCurrencySigns = realm!.objects(CurrencySigns.self).sorted(byKeyPath: "entityID")
         var shouldShowOption = false
         
         if User.loggedIn()?.refRoleId == "1" {
@@ -125,7 +124,6 @@ class InvoiceController: FormViewController{
                 $0.title = "Proforma Invoice"
             }
             
-            
             <<< EnquiryClosedRow() {
                 $0.cell.height = { 110.0 }
                 if enquiryObject?.enquiryStageId == 10 {
@@ -139,6 +137,7 @@ class InvoiceController: FormViewController{
                 }
                 $0.hidden = isClosed == true ? false : true
             }
+            
             <<< TransactionReceiptRow() {
                 $0.cell.height = { 110.0 }
                 $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
@@ -151,166 +150,140 @@ class InvoiceController: FormViewController{
                     $0.hidden = true
                 }
             }
+            
             <<< LabelRow(){
                 $0.title = "Fill in the Details"
-            }
-            
-            
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = .darkGray
+            })
             
             <<< RoundedTextFieldRow() {
                 $0.tag = "Quantity"
                 $0.cell.height = { 80.0 }
                 $0.cell.titleLabel.text =  "Quantity"
+                $0.cell.valueTextField.keyboardType = .numberPad
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
+                $0.cell.valueTextField.placeholder = "12"
+                $0.cell.valueTextField.textColor = .darkGray
                 self.viewModel.quantity.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.quantity.value ?? ""
                 self.viewModel.quantity.value = $0.cell.valueTextField.text
-                $0.hidden = false
-                
             }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 40
-                //                cell.valueTextField.text = self.viewModel.quantity.value ?? ""
-            })
-            <<< RoundedTextFieldRow() {
-                $0.tag = "date"
-                $0.cell.height = { 80.0 }
-                $0.cell.titleLabel.text =  "Expected Date of Delivery"
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
-                
-                $0.hidden = false
-                
-                self.viewModel.expectedDateOfDelivery.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.expectedDateOfDelivery.value ?? ""
-                self.viewModel.expectedDateOfDelivery.value = $0.cell.valueTextField.text
-                
-            }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 40
-                cell.valueTextField.text = self.viewModel.expectedDateOfDelivery.value ?? ""
-                
+                cell.valueTextField.maxLength = 2
+                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                cell.valueTextField.leftPadding = 0
             })
             
+            <<< DateRow(){
+                $0.title = "Expected Date of Delivery"
+                $0.cell.height = { 60.0 }
+                $0.minimumDate = Date()
+                $0.value = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let date = dateFormatter.string(from: $0.value!)
+                self.viewModel.expectedDateOfDelivery.value = date
+            }.onChange({ (row) in
+                if let value = row.value {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let date = dateFormatter.string(from: value)
+                    self.viewModel.expectedDateOfDelivery.value = date
+                }
+            }).cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = .black
+                cell.textLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+            })
             
-            
-            //            <<< DateRow(){
-            //                $0.title = "Expected Date of Delivery"
-            //                $0.cell.height = { 80.0 }
-            //                $0.value = Date(timeIntervalSinceReferenceDate: 0)
-            ////                self.viewModel.expectedDateOfDelivery.bidirectionalBind(to: $0.cell.value as? String)
-            ////                $0.value as! String = self.viewModel.expectedDateOfDelivery.value ?? ""
-            //                 self.viewModel.expectedDateOfDelivery.value = $0.value as? String
-            //                print( "\(self.viewModel.expectedDateOfDelivery.value)")
-            //
-            //            }
-            
-            <<< RoundedTextFieldRow() {
+            <<< RoundedActionSheetRow() {
                 $0.tag = "Currency"
-                $0.cell.titleLabel.text =  "Currency"
-                $0.cell.height = { 80.0 }
+                $0.cell.titleLabel.text = "Currency"
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
-                self.viewModel.currency.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.currency.value ?? ""
-                self.viewModel.currency.value = $0.cell.valueTextField.text
+                $0.cell.options = allCurrencySigns?.compactMap {
+                    $0.sign
+                }
+                self.viewModel.currency.value = CurrencySigns.getCurrencyType(CurrencyId: 1)
+                if let selectedCurrency = self.viewModel.currency.value {
+                    $0.cell.selectedVal = selectedCurrency.sign
+                    $0.value = selectedCurrency.sign
+                }
+                $0.cell.actionButton.setTitle($0.value, for: .normal)
+                $0.cell.delegate = self
+                $0.cell.height = { 80.0 }
                 
-                $0.hidden = false
+            }.onChange({ (row) in
+                print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
+                let selectedCurrencyObj = self.allCurrencySigns?.filter({ (obj) -> Bool in
+                    obj.sign == row.value
+                }).first
+                self.viewModel.currency.value = selectedCurrencyObj
+            }).cellUpdate({ (cell, row) in
                 
-            }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 40
-                //                cell.valueTextField.text = self.viewModel.currency.value ?? ""
+                if let selectedCurrency = self.viewModel.currency.value {
+                    cell.selectedVal = selectedCurrency.sign
+                    cell.row.value = selectedCurrency.sign
+                }
+                cell.actionButton.setTitle(cell.row.value, for: .normal)
                 
             })
+            
             <<< RoundedTextFieldRow() {
                 $0.tag = "Price Per Unit/m"
                 $0.cell.titleLabel.text =  "Price Per Unit/m"
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
-                self.viewModel.ppu.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.ppu.value ?? ""
-                self.viewModel.ppu.value = $0.cell.valueTextField.text
-                
-                $0.hidden = false
-                
+                $0.cell.valueTextField.placeholder = "123456"
+                $0.cell.valueTextField.textColor = .darkGray
+                self.viewModel.pricePerUnitPI.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+                $0.cell.valueTextField.text = self.viewModel.pricePerUnitPI.value ?? ""
+                self.viewModel.pricePerUnitPI.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 40
-                //                cell.valueTextField.text = self.viewModel.ppu.value ?? ""
+                cell.valueTextField.maxLength = 6
+                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                cell.valueTextField.leftPadding = 0
                 
             })
+            
             <<< RoundedTextFieldRow() {
                 $0.tag = "HSNCodeInvoice"
                 $0.cell.titleLabel.text =  "HSN Code"
+                $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
+                $0.cell.titleLabel.textColor = .black
+                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
+                $0.cell.valueTextField.placeholder = "12345678"
+                $0.cell.valueTextField.textColor = .darkGray
                 self.viewModel.hsn.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.hsn.value ?? ""
                 self.viewModel.hsn.value = $0.cell.valueTextField.text
-                
-                $0.hidden = false
-                
             }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 40
-                //                cell.valueTextField.text = self.viewModel.hsn.value ?? ""
-            })
-            <<< RoundedTextFieldRow() {
-                $0.tag = "SGST"
-                $0.cell.titleLabel.text =  "SGST"
-                $0.cell.height = { 80.0 }
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
-                self.viewModel.sgst.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.sgst.value ?? ""
-                self.viewModel.sgst.value = $0.cell.valueTextField.text
-                
-                $0.hidden = false
-                
-            }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 40
-                //                cell.valueTextField.text = self.viewModel.sgst.value ?? ""
-                
-            })
-            <<< RoundedTextFieldRow() {
-                $0.tag = "CGST"
-                $0.cell.titleLabel.text =  "CGST"
-                $0.cell.height = { 80.0 }
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
-                self.viewModel.cgst.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.cgst.value ?? ""
-                self.viewModel.cgst.value = $0.cell.valueTextField.text
-                
-                $0.hidden = false
-                
-            }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 40
-                //                cell.valueTextField.text = self.viewModel.cgst.value ?? ""
+                cell.valueTextField.maxLength = 8
+                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                cell.valueTextField.leftPadding = 0
             })
             
-            //            <<< ProFormaInvoiceRow() {
-            //                $0.cell.height = { 150.0 }
-            //                $0.cell.delegate = self
-            //                $0.tag = "CreatePreviewPI"
-            //                $0.cell.tag = 2
-            //        }
-            
-            <<< SwipeInvoiceRow() {
-                $0.cell.height = { 80.0 }
-                $0.cell.delegate = self
+            <<< SingleButtonRow() {
                 $0.tag = "CreatePreviewPI"
-                $0.cell.tag = 2
+                $0.cell.singleButton.backgroundColor = .blue
+                $0.cell.singleButton.setTitleColor(.white, for: .normal)
+                $0.cell.singleButton.setTitle("Save and Preview PI", for: .normal)
+                $0.cell.height = { 50.0 }
+                $0.cell.delegate = self as SingleButtonActionProtocol
+                $0.cell.tag = 101
         }
         
     }
-    
     
     @objc func showOptions(_ sender: UIButton) {
         let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
@@ -345,30 +318,30 @@ class InvoiceController: FormViewController{
         }
     }
 }
-extension InvoiceController: SwipeButtonProtocol {
-    func swipeInvoiceBtnSelected(tag: Int){
-        switch tag{
-        case 2:
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            
-            print("\(viewModel.ppu.value),\(viewModel.cgst.value),\(viewModel.currency.value),\(viewModel.expectedDateOfDelivery.value),\(viewModel.hsn.value),\(viewModel.quantity.value)\(viewModel.sgst.value)")
-            self.viewModel.savePI?()
-            
-            let vc1 = EnquiryDetailsService(client: client).piSend(enquiryId: self.enquiryObject!.enquiryId) as! InvoicePreviewController
-            vc1.modalPresentationStyle = .fullScreen
-            vc1.enquiryObject = self.enquiryObject
-            
-            print("PI WORKING")
-            
-            self.navigationController?.pushViewController(vc1, animated: true)
-            
-        default:
-            print("NOt Working SavePI")
-        }
+
+extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol {
+    func backButtonSelected() {
+        self.view.hidePreviewPIView()
     }
     
+    func downloadButtonSelected() {
+        self.viewModel.downloadPI?()
+    }
     
-    
+    func sendButtonClicked() {
+        self.showLoading()
+        self.viewModel.sendPI?()
+    }
+    // save PI Button
+    func singleButtonSelected(tag: Int) {
+        switch tag{
+        case 101:
+            self.showLoading()
+            self.viewModel.savePI?()
+        default:
+            print("do nothing")
+        }
+    }
 }
 
 

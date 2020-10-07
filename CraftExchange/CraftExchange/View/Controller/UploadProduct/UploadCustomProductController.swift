@@ -152,7 +152,7 @@ class UploadCustomProductController: FormViewController {
             viewModel.relatedProdWidth.value = productObj.relatedProducts.first?.width
             viewModel.gsm.value = productObj.gsm
             viewModel.prodDescription.value = productObj.productSpec
-            downloadProdImages()
+//            downloadProdImages()
         }
         else {
             let rightButtonItem = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
@@ -684,7 +684,9 @@ class UploadCustomProductController: FormViewController {
             let tag = image.lable
             let prodId = product?.entityID
             if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                viewModel.productImages.value?.append(downloadedImage)
+                if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                    viewModel.productImages.value?.append(downloadedImage)
+                }
             }else {
                 do {
                     let client = try SafeClient(wrapping: CraftExchangeImageClient())
@@ -693,7 +695,7 @@ class UploadCustomProductController: FormViewController {
                         DispatchQueue.main.async {
                             let tag = image.lable ?? "name.jpg"
                             let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId ?? 0)/\(tag)")
                             self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
                         }
                     }.dispose(in: self.bag)
@@ -977,7 +979,13 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
         if currentState == CustomProductState.selectWarpWeftYarn {
             return 3
         }
-        if let count = viewModel.productImages.value?.count {
+        var cnt: Int?
+        if let _ = product {
+            cnt = product?.productImages.count
+        }else {
+            cnt = viewModel.productImages.value?.count
+        }
+        if let count = cnt {
             if count == 3 {
                 return 3
             }else {
@@ -1091,7 +1099,13 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageSelectorCell",
                                                       for: indexPath) as! ImageSelectorCell
         var showDefaultCell = false
-        if let count = viewModel.productImages.value?.count, viewModel.productImages.value?.count ?? 0 > 0 {
+        var cnt: Int?
+        if let _ = product {
+            cnt = product?.productImages.count
+        }else {
+            cnt = viewModel.productImages.value?.count
+        }
+        if let count = cnt, cnt ?? 0 > 0 {
             if count == 3 {
                 showDefaultCell = false
             }else {
@@ -1113,7 +1127,39 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
             cell.editImageButton.isUserInteractionEnabled = false
             cell.lineView.isHidden = true
         }else {
-            cell.addImageButton.setImage(viewModel.productImages.value?[indexPath.row], for: .normal)
+            cell.addImageButton.setImage(UIImage.init(named: "loading-indicator"), for: .normal)
+            if viewModel.productImages.value?.count ?? 0 > indexPath.row {
+                if let image = viewModel.productImages.value?[indexPath.row] {
+                    cell.addImageButton.setImage(image, for: .normal)
+                }
+            }
+            else {
+                let tag = product?.productImages[indexPath.row].lable
+                let prodId = product?.entityID
+                if let downloadedImage = try? Disk.retrieve("\(prodId ?? 0)/\(tag ?? "name.png")", from: .caches, as: UIImage.self) {
+                    if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                        viewModel.productImages.value?.append(downloadedImage)
+                    }
+                    if let image = viewModel.productImages.value?[indexPath.row] {
+                        cell.addImageButton.setImage(image, for: .normal)
+                    }
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = CustomProductImageService.init(client: client, productObject: product!)
+                        service.fetchCustomImage(withName: tag ?? "name.jpg").observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId ?? 0)/\(tag ?? "name.png")")
+                                self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
+                                cell.addImageButton.setImage(UIImage.init(data: attachment) ?? UIImage.init(named: "loading-indicator"), for: .normal)
+                            }
+                        }.dispose(in: self.bag)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            
             cell.addImageButton.isUserInteractionEnabled = false
             cell.deleteImageButton.isHidden = false
             cell.deleteImageButton.isUserInteractionEnabled = true

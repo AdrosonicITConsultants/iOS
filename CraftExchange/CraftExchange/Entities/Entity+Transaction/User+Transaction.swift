@@ -59,6 +59,49 @@ extension User {
                 object.paymentAccountList = self.paymentAccountList
                 object.userProductCategories = self.userProductCategories
                 object.addressList = addressList
+                
+                let idsToCheck = userProductCategories.compactMap { $0.entityID }
+                var idsToDelete: [UserProductCategory] = []
+                object.userProductCategories .forEach { (obj) in
+                    if !idsToCheck.contains(obj.entityID) {
+                        idsToDelete.append(obj)
+                    }
+                }
+                realm.delete(idsToDelete)
+                
+                let existingIds = object.userProductCategories.compactMap { $0.entityID }
+                userProductCategories .forEach { (img) in
+                    if !existingIds.contains(img.entityID) {
+                        object.userProductCategories.append(img)
+                    }
+                }
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+    
+    func saveOrUpdateUserCategory(catArr: [UserProductCategory]) {
+        let realm = try! Realm()
+        if let object = realm.objects(User.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                let idsToCheck = catArr.compactMap { $0.entityID }
+                var idsToDelete: [UserProductCategory] = []
+                object.userProductCategories .forEach { (obj) in
+                    if !idsToCheck.contains(obj.entityID) {
+                        idsToDelete.append(obj)
+                    }
+                }
+                realm.delete(idsToDelete)
+                
+                let existingIds = object.userProductCategories.compactMap { $0.entityID }
+                catArr .forEach { (img) in
+                    if !existingIds.contains(img.entityID) {
+                        object.userProductCategories.append(img)
+                    }
+                }
             }
         } else {
             try? realm.write {

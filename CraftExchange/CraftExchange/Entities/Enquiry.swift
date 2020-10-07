@@ -149,6 +149,7 @@ class Enquiry: Object, Decodable {
         case paymentAccountDetails = "paymentAccountDetails"
         case productCategories = "productCategories"
         case clusterName = "clusterName"
+        case isBlue = "isBlue"
     }
     
     override class func primaryKey() -> String? {
@@ -221,6 +222,9 @@ class Enquiry: Object, Decodable {
         warpYarnId = try (values.decodeIfPresent(Int.self, forKey: .warpYarnId) ?? 0)
         weftYarnHistoryId = try (values.decodeIfPresent(Int.self, forKey: .weftYarnHistoryId) ?? 0)
         weftYarnId = try (values.decodeIfPresent(Int.self, forKey: .weftYarnId) ?? 0)
+       if let blue = try (values.decodeIfPresent(Int.self, forKey: .isBlue)) {
+            isBlue = blue == 1 ? true : false
+        }
         if let list = try? values.decodeIfPresent([PaymentAccDetails].self, forKey: .paymentAccountDetails) {
             paymentAccountList.append(objectsIn: list)
         }

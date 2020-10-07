@@ -16,12 +16,24 @@ extension UserProductCategory {
     
     var categoryString: String {
         var finalString = ""
-        if let prodCatId = productCategoryId {
-            let realm = try? Realm()
-            let result = realm?.objects(ProductCategory.self).filter("%K == %@", "entityID", prodCatId).first
-            print("\n cat found \(result?.prodCatDescription ?? "Nope")")
-            finalString = result?.prodCatDescription ?? ""
-        }
+        let realm = try? Realm()
+        let result = realm?.objects(ProductCategory.self).filter("%K == %@", "entityID", productCategoryId).first
+        print("\n cat found \(result?.prodCatDescription ?? "Nope")")
+        finalString = result?.prodCatDescription ?? ""
         return finalString
+    }
+    
+    func saveOrUpdate() {
+        let realm = try! Realm()
+        if let object = realm.objects(UserProductCategory.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.userId = userId
+                object.productCategoryId = productCategoryId
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
     }
 }

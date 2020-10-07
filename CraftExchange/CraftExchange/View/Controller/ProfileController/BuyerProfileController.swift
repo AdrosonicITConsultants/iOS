@@ -70,6 +70,7 @@ class BuyerProfileController: UIViewController {
     @IBOutlet weak var buttonView: UIView!
     var allCountries: Results<Country>?
     var loadArtisan: Bool = false
+    var refreshProfile: (() -> ())?
     
     private lazy var GeneralInfoViewController: BuyerGeneralInfo = {
         var viewController = BuyerGeneralInfo.init()
@@ -116,6 +117,7 @@ class BuyerProfileController: UIViewController {
         allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
         setupSegmentTitle()
         NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
+        OfflineRequestManager.defaultManager.delegate = self
         if KeychainManager.standard.userRole == "Artisan" || loadArtisan {
             self.navigationItem.title = "Hello \(User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? "")"
             if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
@@ -152,7 +154,7 @@ class BuyerProfileController: UIViewController {
     
     func refreshProfileImage() {
         if let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID  {
-            let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
+            let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/CompanyDetails/Logo/\(name)")
             URLSession.shared.dataTask(with: url!) { data, response, error in
                 // do your stuff here...
                 DispatchQueue.main.async {
@@ -369,6 +371,28 @@ extension BuyerProfileController: UIImagePickerControllerDelegate, UINavigationC
         self.viewModel.imageData.value = (imgdata, "logo.jpg") as? (Data, String)
         
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension BuyerProfileController: OfflineRequestManagerDelegate {
+    func offlineRequest(withDictionary dictionary: [String : Any]) -> OfflineRequest? {
+        return OfflineNotificationRequest(dictionary: dictionary)
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, shouldAttemptRequest request: OfflineRequest) -> Bool {
+        return true
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, didUpdateConnectionStatus connected: Bool) {
+        
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, didFinishRequest request: OfflineRequest) {
+        self.refreshProfile?()
+    }
+    
+    func offlineRequestManager(_ manager: OfflineRequestManager, requestDidFail request: OfflineRequest, withError error: Error) {
+        
     }
 }
 

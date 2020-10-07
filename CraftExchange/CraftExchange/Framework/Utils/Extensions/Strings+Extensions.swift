@@ -29,6 +29,12 @@ extension String {
       let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
       return phoneTest.evaluate(with: self)
   }
+    
+  var isValidNumber: Bool {
+      let numberRegex = "^[0-9]{1,8}$"
+      let numberTest = NSPredicate(format: "SELF MATCHES %@", numberRegex)
+      return numberTest.evaluate(with: self)
+  }
   
   var isValidPincode: Bool {
     let pincodeRegEx = "^[1-9][0-9]{5}$"
@@ -60,5 +66,18 @@ extension String {
     
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
+    }
+    
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return nil }
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return nil
+        }
+    }
+    
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? ""
     }
 }

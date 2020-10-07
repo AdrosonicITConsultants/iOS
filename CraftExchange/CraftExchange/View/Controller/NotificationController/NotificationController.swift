@@ -33,9 +33,7 @@ class NotificationController: UIViewController {
        
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-//        allNotifications = []
         viewWillAppear?()
-//        setData()
     }
     override func viewWillAppear(_ animated: Bool) {
            super.viewWillAppear(animated)
@@ -51,18 +49,6 @@ class NotificationController: UIViewController {
         markAsReadAllActions?()
         
     }
-    
-//    func setData() {
-//        if let list = BuyerNotifications.allBuyerNotifications() {
-//            allNotifications = list.compactMap({$0})
-//                    }
-//    }
-//    func dateToString(_ myDate: Date)-> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd/MM/yyyy"
-//        return dateFormatter.string(from: myDate)
-//    }
-    
 }
 
 extension NotificationController: UITableViewDataSource, UITableViewDelegate {
@@ -80,15 +66,30 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NotificationCell
         cell.enquiryId.text = "Enquiry Id: \(notification?.code ?? "")"
-       
-//        let formatter = Date.ttceFormatter
-//        let date = formatter.string(from: notification?.createdOn as? Date ?? Date())
-//        let myDate = dateToString(notification!.createdOn!)
-//        let date = notification?.createdOn as! Date
         cell.createdOn.text = Date().ttceFormatter(isoDate: "\(notification?.createdOn ?? "")")
         cell.companyName.text = notification?.companyName
         cell.type.text = notification?.type
         cell.productDesc.text = notification?.productDesc
+        
+        let notificationType = notification?.type
+        var enquiryImage: UIImage!
+        
+        switch notificationType {
+            case "Enquiry Generated", "Enquiry Closed":
+            enquiryImage = #imageLiteral(resourceName: "Enquiry.pdf")
+            case "Moq Received","Moq accepted":
+            enquiryImage = #imageLiteral(resourceName: "MOQ.pdf")
+            case "Pi finalized", "Tax Invoice Raised","Delivery Challan Uploaded","Order Received":
+            enquiryImage = #imageLiteral(resourceName: "Pi.pdf")
+            case "Advance Payment Received", "Advanced Payment Accepted":
+            enquiryImage = #imageLiteral(resourceName: "AdvancePayment.pdf")
+            case "Change Requested Initiated","Change Requested Accepted":
+            enquiryImage = #imageLiteral(resourceName: "ChnageRequest.pdf")
+            default:
+        enquiryImage = #imageLiteral(resourceName: "Enquiry.pdf")
+        }
+        cell.enquiryIcon.image = enquiryImage
+        
         return cell
     }
     

@@ -88,6 +88,7 @@ class Product: Object, Decodable {
         case weftDye = "weftDye"
         case extraWeftDye = "extraWeftDye"
         case reedCount = "reedCount"
+        case status = "status"
     }
     
     override class func primaryKey() -> String? {
@@ -126,6 +127,10 @@ class Product: Object, Decodable {
         width = try? values.decodeIfPresent(String.self, forKey: .width)
         reedCountId = try (values.decodeIfPresent(Int.self, forKey: .reedCountId) ?? 0)
         productStatusId = try (values.decodeIfPresent(Int.self, forKey: .productStatusId) ?? 0)
+        let prodStatus = try (values.decodeIfPresent(Int.self, forKey: .status) ?? 0)
+        if prodStatus != 0 {
+            productStatusId = prodStatus
+        }
         gsm = try? values.decodeIfPresent(String.self, forKey: .gsm)
         weight = try? values.decodeIfPresent(String.self, forKey: .weight)
         createdOn = try? values.decodeIfPresent(Date.self, forKey: .createdOn)

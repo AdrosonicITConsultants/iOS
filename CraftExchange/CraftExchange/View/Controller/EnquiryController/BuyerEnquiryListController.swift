@@ -20,6 +20,8 @@ class BuyerEnquiryListController: UIViewController {
     let reuseIdentifier = "BuyerEnquiryCell"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
+    var getDeliveryTimes: (() -> ())?
+    var getCurrencySigns: (() -> ())?
     var allEnquiries: [Enquiry]?
     var ongoingEnquiries: [Int] = []
     var closedEnquiries: [Int] = []
@@ -31,6 +33,8 @@ class BuyerEnquiryListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getDeliveryTimes?()
+        getCurrencySigns?()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
         allEnquiries = []
@@ -51,9 +55,9 @@ class BuyerEnquiryListController: UIViewController {
     
     func endRefresh() {
         if segmentView.selectedSegmentIndex == 0 {
-            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).compactMap({$0})
+            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {
-            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).compactMap({$0})
+            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }
         emptyView.isHidden = allEnquiries?.count == 0 ? false : true
         self.tableView.reloadData()

@@ -22,11 +22,11 @@ class ArtisanProductCell: UITableViewCell {
         productTag.text = productObj.productTag ?? ""
         productDesc.text = productObj.productSpec ?? productObj.productDesc ?? ""
         if productObj.productStatusId == 2 {
-            inStock.isHidden = true
-            exclusive.isHidden = false
-        }else {
             inStock.isHidden = false
             exclusive.isHidden = true
+        }else {
+            inStock.isHidden = true
+            exclusive.isHidden = false
         }
         if productObj.madeWithAnthran == 1 {
             designedByImage.image = UIImage.init(named: "iosAntaranSelfDesign")

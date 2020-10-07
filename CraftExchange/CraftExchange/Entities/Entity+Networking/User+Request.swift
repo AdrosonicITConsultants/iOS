@@ -176,7 +176,7 @@ extension User {
     }
     
     public static func updateArtisanBrandDetails(json: [String: Any], imageData: Data?, filename: String?) -> Request<Data, APIError> {
-        let finalJson = ["companyDetails" : json]
+        let finalJson = json//["companyDetails" : json]
         var str = finalJson.jsonString
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         if let content = imageData, let filename = filename  {

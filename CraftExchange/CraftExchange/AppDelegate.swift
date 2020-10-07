@@ -10,13 +10,17 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
-  var showDemoVideo: Bool = false
-  var registerUser: CXUser?
+  
+    var window: UIWindow?
+    var showDemoVideo: Bool = false
+    var registerUser: CXUser?
     var tabbar: BuyerTabbarController?
     var artisanTabbar: ArtisanTabbarController?
     var wishlistIds: [Int]?
+    var notificationToken: String?
+    var notificationObject: [AnyHashable: Any]?
+    var logStatement = ""
+    
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     
@@ -28,6 +32,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.makeKeyAndVisible()
     let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
     print(paths[0])
+    
+    if let remoteNotification = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as! [AnyHashable: Any]? {
+      if (remoteNotification["email"] as? NSDictionary) != nil {
+        notificationObject = remoteNotification
+        logStatement = logStatement.appending("\n didFinishLaunchingWithOptions: remoteNotification[email]")
+      }else {
+        notificationObject = nil
+        logStatement = logStatement.appending("\n didFinishLaunchingWithOptions: Nil")
+      }
+    }else {
+      notificationObject = nil
+      logStatement = logStatement.appending("\n didFinishLaunchingWithOptions: App Icon Launch")
+    }
+    
     return true
   }
 
@@ -45,6 +63,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
   }
 
-
+    // MARK: - Apple Push Notification Service Delegate methods
+    
+    func requestPushNotificationAccess() {
+        DispatchQueue.main.async {
+            UIApplication.shared.applicationIconBadgeNumber = 0
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+                guard granted else { return }
+                UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+                    guard settings.authorizationStatus == .authorized else { return }
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                }
+            }
+        }
+    }
+    
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        let defaults = UserDefaults.standard
+        defaults.set(token, forKey: "notification_token")
+        defaults.set(true, forKey: "device_enabled")
+        defaults.synchronize()
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = NotificationService.init(client: client)
+            service.savePushNotificationToken(deviceId: UIDevice.current.identifierForVendor?.uuidString ?? "", token: token).bind(to: application, context: .global(qos: .background)) { _, responseData in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                        print(json)
+                    }
+            }.dispose(in: self.bag)
+        }
+        debugPrint("Generated device token: \(token)")
+    }
+    
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        debugPrint("Failed to Register device token for notification")
+    }
+    
+    // MARK: - Remote Notification
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        /// Perform background fetch  when new notification is received
+        logStatement = logStatement.appending("\n didReceiveRemoteNotification: \(userInfo)")
+    }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 import JGProgressHUD
 import ReactiveKit
 import SideMenu
+import AVKit
 
 // Makes UIViewController a LoadingStateListener. That means that we can pass an instance of UIViewController
 // to `consumeLoadingState` operator of a LoadingSignal to convert it into regular SafeSignal.
@@ -64,6 +65,34 @@ extension UIViewController {
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func showVideo() {
+        let path = Bundle.main.path(forResource: "video", ofType: "mp4")
+        let url = NSURL(fileURLWithPath: path!)
+        let player = AVPlayer(url: url as URL)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+
+        present(playerViewController, animated: true, completion: {
+            playerViewController.player!.play()
+        })
+    }
+    
+    func sharePdf(path:URL) {
+
+        let fileManager = FileManager.default
+
+        if fileManager.fileExists(atPath: path.path) {
+            let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [path], applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+        } else {
+            print("document was not found")
+            self.alert("Error", "Document was not found") { (action) in
+                
+            }
+        }
+    }
 }
 
 extension UIViewController {
@@ -77,6 +106,63 @@ extension UIViewController {
     rightButtonItem.tintColor = .darkGray
     return rightButtonItem
   }
+    
+    func notificationBarButton() -> UIButton {
+        let badgeCount = UILabel(frame: CGRect(x: 10, y: -05, width: 15, height: 15))
+        badgeCount.layer.borderColor = UIColor.clear.cgColor
+        badgeCount.layer.borderWidth = 2
+        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height / 2
+        badgeCount.textAlignment = .center
+        badgeCount.layer.masksToBounds = true
+        badgeCount.textColor = .white
+        badgeCount.font = badgeCount.font.withSize(10)
+        badgeCount.backgroundColor = .red
+        badgeCount.text = "\(UIApplication.shared.applicationIconBadgeNumber)"
+        badgeCount.tag = 666
+
+
+        let rightBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        rightBarButton.tintColor = .lightGray
+        rightBarButton.setBackgroundImage(UIImage(named: "ios_bell"), for: .normal)
+        rightBarButton.addTarget(self, action: #selector(self.notificationButtonSelected), for: .touchUpInside)
+        rightBarButton.addSubview(badgeCount)
+        
+        return rightBarButton
+    }
+    
+    @objc func notificationButtonSelected() {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = NotificationService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func searchBarButton() -> UIBarButtonItem {
+        let rightButtonItem = UIBarButtonItem.init(
+          image: UIImage(named: "ios_search"),
+          style: .plain,
+          target: self,
+          action: #selector(self.searchSelected)
+        )
+        rightButtonItem.tintColor = .darkGray
+        rightButtonItem.image = UIImage(named: "ios_search")
+      return rightButtonItem
+    }
+    
+    @objc func searchSelected() {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = SearchService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension UIViewController: LoadingStateListener {
@@ -204,4 +290,17 @@ extension UIViewController {
        */
       definesPresentationContext = true
   }
+    
+    /// pop back to specific viewcontroller
+    func popBack<T: UIViewController>(toControllerType: T.Type) {
+        if var viewControllers: [UIViewController] = self.navigationController?.viewControllers {
+            viewControllers = viewControllers.reversed()
+            for currentViewController in viewControllers {
+                if currentViewController .isKind(of: toControllerType) {
+                    self.navigationController?.popToViewController(currentViewController, animated: true)
+                    break
+                }
+            }
+        }
+    }
 }

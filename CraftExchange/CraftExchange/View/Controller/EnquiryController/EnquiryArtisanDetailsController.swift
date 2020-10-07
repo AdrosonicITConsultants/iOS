@@ -44,7 +44,7 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.isUserInteractionEnabled = false
                 $0.cell.actionButton.isUserInteractionEnabled = false
                 if let name = self.enquiryObject?.logo, let userID = self.enquiryObject?.userId {
-                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
+                    let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/CompanyDetails/Logo/\(name)")
                     URLSession.shared.dataTask(with: url!) { data, response, error in
                         // do your stuff here...
                         DispatchQueue.main.async {
@@ -459,6 +459,58 @@ class EnquiryArtisanDetailsController: FormViewController {
                     cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                     cell.valueTextField.leftPadding = 0
                 })
+    }
+    
+    @objc func goToChat() {
+        
+    }
+}
+
+class CustomMOQArtisanDetailsController: FormViewController {
+    
+     var getMOs: GetMOQs?
+     var enquiryObject: Enquiry?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .red
+        self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
+        let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
+        rightButtonItem.image = UIImage.init(named: "ios magenta chat")
+        rightButtonItem.tintColor = UIColor().CEMagenda()
+        self.navigationItem.rightBarButtonItem = rightButtonItem
+        
+        form +++
+        Section()
+            <<< ProfileImageRow() {
+                $0.cell.height = { 180.0 }
+                $0.cell.delegate = self
+                $0.tag = "ProfileView"
+                $0.cell.isUserInteractionEnabled = false
+                $0.cell.actionButton.isUserInteractionEnabled = false
+                if let name = self.getMOs?.logo, let userID = self.getMOs?.artisanId {
+                    let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/User/\(userID)/CompanyDetails/Logo/\(name)")
+                    URLSession.shared.dataTask(with: url!) { data, response, error in
+                        // do your stuff here...
+                        DispatchQueue.main.async {
+                            // do something on the main queue
+                            if error == nil {
+                                if let finalData = data {
+                                    let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+                                    row?.cell.actionButton.setImage(UIImage.init(data: finalData), for: .normal)
+                                }
+                            }
+                        }
+                    }.resume()
+                }
+            }
+            <<< LabelRow() {
+                $0.title = getMOs?.brand
+            }
+            <<< LabelRow() {
+                    $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? "")"
+            }
+            
     }
     
     @objc func goToChat() {

@@ -113,7 +113,7 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.productCatLbl.text = ProductCategory.getProductCat(catId: product?.productCategoryId ?? 0)?.prodCatDescription
                 $0.cell.productTypeLbl.text = ProductType.getProductType(searchId: product?.productTypeId ?? 0)?.productDesc
                 $0.cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: product?.clusterId ?? 0)?.clusterDescription ?? "-"
-                if product?.productStatusId != 2 {
+                if product?.productStatusId == 2 {
                     $0.cell.productAvailabilityLbl.text = "In Stock"
                     $0.cell.productAvailabilityLbl.textColor = UIColor().CEGreen()
                     $0.cell.madeToOrderLbl.isHidden = true

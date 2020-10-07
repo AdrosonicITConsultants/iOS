@@ -48,24 +48,15 @@ extension LoginUserService {
                     let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
                     loggedInUser?.saveOrUpdate()
                     DispatchQueue.main.async {
-//                      vc.alert("User Logged In Successfully")
                       KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
                       KeychainManager.standard.userID = userObj["id"] as? Int ?? 0
                       KeychainManager.standard.username = userObj["firstName"] as? String ?? ""
                       let app = UIApplication.shared.delegate as? AppDelegate
                       app?.showDemoVideo = true
                         if KeychainManager.standard.userRole == "Artisan" {
-//                            let storyboard = UIStoryboard(name: "ArtisanTabbar", bundle: nil)
-//                            let tab = storyboard.instantiateViewController(withIdentifier: "ArtisanTabbarController") as! ArtisanTabbarController
-//                            tab.modalPresentationStyle = .fullScreen
-//                            vc.present(tab, animated: true, completion: nil)
                             let controller = HomeScreenService(client: self.client).createScene()
                             vc.present(controller, animated: true, completion: nil)
                         }else {
-//                            let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-//                            let tab = storyboard.instantiateViewController(withIdentifier: "BuyerTabbarController") as! BuyerTabbarController
-//                            tab.modalPresentationStyle = .fullScreen
-//                            vc.present(tab, animated: true, completion: nil)
                             let controller = HomeScreenService(client: self.client).createBuyerScene()
                             vc.present(controller, animated: true, completion: nil)
                         }
