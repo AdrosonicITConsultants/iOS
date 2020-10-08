@@ -90,20 +90,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.cell.designByLbl.text = enquiryObject?.brandName
                 }
                 $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
-                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if enquiryObject?.enquiryStageId ?? 0 < 5 {
-                    $0.cell.statusLbl.textColor = .black
-                    $0.cell.statusDotView.backgroundColor = .black
-                }else if enquiryObject?.enquiryStageId ?? 0 < 9 {
-                    $0.cell.statusLbl.textColor = .systemYellow
-                    $0.cell.statusDotView.backgroundColor = .systemYellow
-                }else {
-                    $0.cell.statusLbl.textColor = UIColor().CEGreen()
-                    $0.cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
-                if let date = enquiryObject?.lastUpdated {
-                    $0.cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
-                }
                 if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId {
                     if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
                         $0.cell.productImage.image = downloadedImage
@@ -125,35 +111,51 @@ class BuyerEnquiryDetailsController: FormViewController {
                         
                     }
                 }
-            }
+            }.cellUpdate({ (cell, row) in
+                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+                if self.enquiryObject?.enquiryStageId ?? 0 < 5 {
+                    cell.statusLbl.textColor = .black
+                    cell.statusDotView.backgroundColor = .black
+                }else if self.enquiryObject?.enquiryStageId ?? 0 < 9 {
+                    cell.statusLbl.textColor = .systemYellow
+                    cell.statusDotView.backgroundColor = .systemYellow
+                }else {
+                    cell.statusLbl.textColor = UIColor().CEGreen()
+                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
+                }
+                if let date = self.enquiryObject?.lastUpdated {
+                    cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
+                }
+            })
             <<< LabelRow(){
                 $0.title = "Enquiry Details"
             }
             <<< StatusRow() {
                 $0.cell.height = { 110.0 }
-                $0.cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
-                if enquiryObject?.enquiryStageId == 5 && enquiryObject!.innerEnquiryStageId >= 2{
-                $0.cell.previousStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (enquiryObject?.innerEnquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
+            }.cellUpdate({ (cell, row) in
+                cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
+                if self.enquiryObject?.enquiryStageId == 5 && self.enquiryObject!.innerEnquiryStageId >= 2{
+                cell.previousStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.enquiryObject?.innerEnquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
                 }
-                $0.cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
-                if enquiryObject?.enquiryStageId == 5{
-                    $0.cell.currentStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: enquiryObject?.innerEnquiryStageId ?? 0)?.stageDescription ?? "NA")"
+                cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
+                if self.enquiryObject?.enquiryStageId == 5{
+                    cell.currentStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: self.enquiryObject?.innerEnquiryStageId ?? 0)?.stageDescription ?? "NA")"
 
                 }
-                $0.cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
-                if enquiryObject?.enquiryStageId == 5 && enquiryObject!.innerEnquiryStageId <= 4{
-                    $0.cell.nextStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (enquiryObject?.innerEnquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+                cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+                if self.enquiryObject?.enquiryStageId == 5 && self.enquiryObject!.innerEnquiryStageId <= 4{
+                    cell.nextStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.enquiryObject?.innerEnquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
 
                 }
-                if (enquiryObject?.isBlue ?? false == true) && (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 9){
-                    $0.cell.actionLbl.text = "Advance payment Awaiting"
+                if (self.enquiryObject?.isBlue ?? false == true) && (self.enquiryObject?.enquiryStageId == 3 || self.enquiryObject?.enquiryStageId == 9){
+                    cell.actionLbl.text = "Advance payment Awaiting"
                 }else {
-                    $0.cell.actionLbl.text = ""
+                    cell.actionLbl.text = ""
                 }
-                if isClosed {
-                    $0.hidden = true
+                if self.isClosed {
+                    row.hidden = true
                 }
-            }
+            })
             <<< EnquiryClosedRow() {
                 $0.cell.height = { 110.0 }
                 if enquiryObject?.enquiryStageId == 10 {
@@ -602,10 +604,19 @@ class BuyerEnquiryDetailsController: FormViewController {
                 section.tag = "list MOQs"
         }
         
-        
+        if tableView.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            tableView.refreshControl = refreshControl
+        }
+        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        viewWillAppear?()
+    }
+    
+    @objc func pullToRefresh() {
         viewWillAppear?()
     }
     
@@ -640,6 +651,9 @@ class BuyerEnquiryDetailsController: FormViewController {
         enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
         form.allRows .forEach { (row) in
             row.reload()
+        }
+        if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
         }
     }
     func listMOQsFunc() {

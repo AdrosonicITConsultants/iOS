@@ -156,10 +156,10 @@ extension EnquiryDetailsService {
             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                 if json["valid"] as? Bool == true {
                     DispatchQueue.main.async {
-//                    if let controller = vc as? BuyerEnquiryDetailsController {
-//                        controller.viewWillAppear!()
-//                        }
                         vc.hideLoading()
+                        if let controller = vc as? BuyerEnquiryDetailsController {
+                            controller.viewWillAppear?()
+                        }
                     }
                 }
             }
