@@ -93,7 +93,7 @@ extension EnquiryListService {
                         if let proddata = try? JSONSerialization.data(withJSONObject: prodDict, options: .fragmentsAllowed) {
                             if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: proddata) {
                                 DispatchQueue.main.async {
-                                    enquiryObj.saveRecord()
+                                    enquiryObj.saveOrUpdate()
                                     enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false)
                                     eqArray.append(enquiryObj.entityID)
                                     if i == array.count {

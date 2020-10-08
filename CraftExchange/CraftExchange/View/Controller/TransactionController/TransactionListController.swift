@@ -58,6 +58,12 @@ class TransactionListController: UIViewController {
         let rightBarButtomItem2 = self.searchBarButton()
         navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
         setData()
+        if tableView.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            tableView.refreshControl = refreshControl
+        }
+        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +75,14 @@ class TransactionListController: UIViewController {
         viewModel.viewDidAppear?()
     }
     
+    @objc func pullToRefresh() {
+        viewModel.viewWillAppear?()
+    }
+    
     func endRefresh() {
+        if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
         self.setData()
         self.tableView.reloadData()
     }
@@ -218,7 +231,7 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
                 setData()
                 self.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .none)
             }
-        }else if User.loggedIn()?.refRoleId == "1" {
+        }else {
             let transaction = allTransactions?[indexPath.section]
             if let obj = Enquiry().searchEnquiry(searchId: transaction?.enquiryId ?? 0) {
                 self.viewModel.goToEnquiry?(obj.enquiryId)
