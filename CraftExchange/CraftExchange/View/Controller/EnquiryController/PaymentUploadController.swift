@@ -51,17 +51,6 @@ class PaymentUploadController: FormViewController{
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? 0)
         
-        var shouldShowOption = false
-        
-        if User.loggedIn()?.refRoleId == "1" {
-            shouldShowOption = false
-        }else {
-            if enquiryObject?.enquiryStageId ?? 0 > 3 {
-                shouldShowOption = false
-            }else {
-                shouldShowOption = false
-            }
-        }
         form
             +++ Section()
             <<< EnquiryDetailsRow(){
@@ -226,7 +215,7 @@ class PaymentUploadController: FormViewController{
                 $0.cell.height = { 375.0 }
                 $0.tag = "uploadReceipt"
                 $0.cell.delegate = self
-                if enquiryObject!.isBlue {
+                if enquiryObject!.isBlue || enquiryObject!.enquiryStageId >= 4{
                     $0.hidden = true
                 }
             }
@@ -239,7 +228,7 @@ class PaymentUploadController: FormViewController{
                 $0.cell.Tick.layer.borderColor = #colorLiteral(red: 0.2589518452, green: 0.5749325825, blue: 0.166714282, alpha: 1)
                 $0.cell.Tick.layer.borderWidth = 2
                 $0.hidden = true
-                if enquiryObject!.isBlue {
+                if enquiryObject!.isBlue || enquiryObject!.enquiryStageId >= 4{
                     $0.hidden = false
                 }
         }
@@ -261,7 +250,10 @@ extension PaymentUploadController: uploadtransactionProtocol, uploadSuccessProto
     func ViewTransactionBtnSelected(tag: Int) {
         showLoading()
         imageReciept?()
-        self.view.showTransactionReceiptView(controller: self, data: self.data!)
+        if self.data != nil{
+             self.view.showTransactionReceiptView(controller: self, data: self.data!)
+        }
+       
        self.hideLoading()
     }
     

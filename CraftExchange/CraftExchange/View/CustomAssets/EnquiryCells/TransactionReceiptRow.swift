@@ -12,6 +12,7 @@ import Eureka
 
 protocol paymentButtonProtocol {
     func paymentBtnSelected(tag: Int)
+    func viewProformaInvoiceBtnSelected(tag: Int)
 }
 
 class TransactionReceiptRowView: Cell<String>, CellType {
@@ -29,10 +30,18 @@ class TransactionReceiptRowView: Cell<String>, CellType {
           print("uploadReceiptBtnSelected")
 
     }
+    @IBAction func viewProformaInvoiceBtnSelected(_ sender: Any) {
+
+           delegate?.viewProformaInvoiceBtnSelected(tag: tag)
+
+             print("uploadReceiptBtnSelected")
+
+       }
     
     public override func setup() {
         super.setup()
         uploadReceiptBtn.addTarget(self, action: #selector(paymentBtnSelected(_:)), for: .touchUpInside)
+        viewProformaInvoiceBtn.addTarget(self, action: #selector(viewProformaInvoiceBtnSelected(_:)), for: .touchUpInside)
     }
 
     public override func update() {

@@ -12,6 +12,7 @@ import Eureka
 
 protocol AcceptedInvoiceRowProtocol {
     func viewInvoiceButtonSelected(tag: Int)
+    func approvePaymentButtonSelected(tag: Int)
 }
 
 class AcceptedInvoiceRowView: Cell<String>, CellType {
@@ -19,10 +20,12 @@ class AcceptedInvoiceRowView: Cell<String>, CellType {
       var delegate: AcceptedInvoiceRowProtocol?
     @IBOutlet weak var invoiceButton: UIButton!
     
+    @IBOutlet weak var approvePaymentButton: UIButton!
     public override func setup() {
       super.setup()
       
       invoiceButton.addTarget(self, action: #selector(viewInvoiceButtonSelected(_:)), for: .touchUpInside)
+        approvePaymentButton.addTarget(self, action: #selector(approvePaymentButtonSelected(_:)), for: .touchUpInside)
        }
 
     
@@ -31,6 +34,9 @@ class AcceptedInvoiceRowView: Cell<String>, CellType {
      }
  @IBAction func viewInvoiceButtonSelected(_ sender: Any) {
       delegate?.viewInvoiceButtonSelected(tag: tag)
+    }
+    @IBAction func approvePaymentButtonSelected(_ sender: Any) {
+      delegate?.approvePaymentButtonSelected(tag: tag)
     }
    
 }

@@ -1,8 +1,8 @@
 //
-//  PaymentBuyerOneController.swift
+//  PaymentArtistController.swift
 //  CraftExchange
 //
-//  Created by Kiran Songire on 18/09/20.
+//  Created by Kiran Songire on 01/10/20.
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
 
@@ -22,17 +22,26 @@ import ImageRow
 import ViewRow
 import WebKit
 
-class PaymentBuyerOneController: FormViewController{
-    var enquiryObject: Enquiry?
-    var viewWillAppear: (() -> ())?
-    let realm = try? Realm()
-    var percent = false
-    var value = 30
-    var PI: GetPI?
+class PaymentArtistController: FormViewController{
+var enquiryObject: Enquiry?
+var viewWillAppear: (() -> ())?
+var showCustomProduct: (() -> ())?
+var showProductDetails: (() -> ())?
+var showHistoryProductDetails: (() -> ())?
+var closeEnquiry: ((_ enquiryId: Int) -> ())?
+let realm = try? Realm()
+    var status: Int?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
+        service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject!.enquiryId)
+        service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject!.enquiryId)
         
         form
             +++ Section()
@@ -47,10 +56,10 @@ class PaymentBuyerOneController: FormViewController{
                 }
                 $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
                 $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if enquiryObject?.enquiryStageId ?? 0 < 2{
+                if enquiryObject?.enquiryStageId ?? 0 < 5 {
                     $0.cell.statusLbl.textColor = .black
                     $0.cell.statusDotView.backgroundColor = .black
-                }else if enquiryObject?.enquiryStageId ?? 0 < 3{
+                }else if enquiryObject?.enquiryStageId ?? 0 < 9 {
                     $0.cell.statusLbl.textColor = .systemYellow
                     $0.cell.statusDotView.backgroundColor = .systemYellow
                 }else {
@@ -82,73 +91,54 @@ class PaymentBuyerOneController: FormViewController{
                     }
                 }
             }
-            <<< PercentPaymentRow(){
-                $0.tag = "TransactionBuyer"
-                $0.cell.height = { 425.0 }
-                $0.cell.thirtyBtn.tag = 100
-                $0.cell.fiftyPercent.tag = 100
-                $0.cell.tag = 100
-                $0.cell.delegate = self
-                $0.cell.TransactionBtn.setTitle("proceed with 30 percent ", for: .normal)
-                $0.cell.ActualAmount.text = "₹ \(Double(self.enquiryObject!.totalAmount) * 0.3)"
-                $0.cell.thirtyBtn.layer.borderWidth = 2.0
-                $0.cell.thirtyBtn.layer.borderColor = UIColor.green.cgColor
-                $0.cell.ActualAmount.layer.borderColor = UIColor.blue.cgColor
-                $0.cell.ActualAmount.layer.borderWidth = 2.0
-               
-            }.cellUpdate({ (cell, row) in
-                if self.value == 30 {
-                     cell.TransactionBtn.setTitle("proceed with 30 percent ", for: .normal)
-                    cell.ActualAmount.text = "₹ \(Double(self.enquiryObject!.totalAmount) * 0.30)"
-                }
-                else if self.value == 50 {
-                     cell.TransactionBtn.setTitle("proceed with 50 percent ", for: .normal)
-                    cell.ActualAmount.text = "₹ \(Double(self.enquiryObject!.totalAmount) * 0.50)"
-                }
-                else{
-                    cell.TransactionBtn.setTitle("proceed with 30 percent ", for: .normal)
-                    cell.ActualAmount.text = "₹ \(Double(self.enquiryObject!.totalAmount) * 0.30)"
-                }
-            })
-    }
-}
-extension PaymentBuyerOneController: BTransactionButtonProtocol {
-    func TransactionBtnSelected(tag: Int) {
-         switch tag{
-                case 100:
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
-                vc1.enquiryObject = self.enquiryObject
-                vc1.viewModel.totalAmount.value = "\(enquiryObject!.totalAmount)"
-                vc1.viewModel.percentage.value = "\(self.value)"
-                vc1.viewModel.paidAmount.value = "\(self.enquiryObject!.totalAmount * self.value / 100 )"
-                vc1.viewModel.pid.value = "\(self.PI!.id)"
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-
-                default:
-                    print("Transaction Not working")
-                }
-    }
-    
-    func ThirtyBtnSelected(tag: Int) {
-        self.value = 30
-       
-                     let row = self.form.rowBy(tag: "TransactionBuyer")
-                     row?.updateCell()
-        row?.reload()
+            <<< LabelRow(){
+                $0.title = "Payment Receipt: "
+            }
+        <<< ArtistReceitImgRow(){
+            $0.cell.height = { 325.0 }
+//               $0.cell.delegate = self
+               $0.tag = "PaymentArtist-1"
+               $0.cell.tag = 4
+        }
+            
+        <<< ApprovePaymentRow() {
+            $0.cell.height = { 150.0}
+            $0.cell.ApproveBTn.tag = 5
+            $0.tag = "PaymentArtist-2"
+            $0.cell.tag = 5
+            $0.cell.delegate = self
+            if enquiryObject!.enquiryStageId >= 4{
+                $0.hidden = true
+            }
+            
+        }
         
+}
+}
+extension PaymentArtistController: ApproveButtonProtocol {
+    func RejectBtnSelected(tag: Int) {
+       switch tag{
+        case 5:
+            self.status = 2
+             self.showLoading()
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
+            service.validateadvancePaymentFunc(vc: self,enquiryObj: self.enquiryObject!, enquiryId: self.enquiryObject!.enquiryId, status: self.status!)
+        default:
+            print("do nothing")
+        }
     }
     
-    func FiftyBtnSelected(tag: Int) {
-        self.value = 50
-              
-                      let row = self.form.rowBy(tag: "TransactionBuyer")
-                      row?.updateCell()
-        row?.reload()
-              
-                
+    func ApproveBtnSelected(tag: Int) {
+        switch tag{
+        case 5:
+            self.status = 1
+            self.showLoading()
+            let client = try! SafeClient(wrapping: CraftExchangeClient())
+            let service = EnquiryDetailsService.init(client: client)
+            service.validateadvancePaymentFunc(vc: self,enquiryObj: self.enquiryObject!, enquiryId: self.enquiryObject!.enquiryId, status: self.status!)
+        default:
+             print("do nothing")
+        }
     }
-    
-    
 }

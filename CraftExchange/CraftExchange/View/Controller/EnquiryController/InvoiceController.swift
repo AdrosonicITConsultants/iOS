@@ -138,19 +138,6 @@ class InvoiceController: FormViewController{
                 $0.hidden = isClosed == true ? false : true
             }
             
-            <<< TransactionReceiptRow() {
-                $0.cell.height = { 110.0 }
-                $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
-                if (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 8){
-                    $0.hidden = false
-                }else {
-                    $0.hidden = true
-                }
-                if User.loggedIn()?.refRoleId == "1" || isClosed {
-                    $0.hidden = true
-                }
-            }
-            
             <<< LabelRow(){
                 $0.title = "Fill in the Details"
             }.cellUpdate({ (cell, row) in

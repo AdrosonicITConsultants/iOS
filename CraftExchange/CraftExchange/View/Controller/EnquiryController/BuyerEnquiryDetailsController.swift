@@ -33,6 +33,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var PI: GetPI?
     lazy var viewModel = CreateMOQModel()
     var allDeliveryTimes: Results<EnquiryMOQDeliveryTimes>?
+    var innerStages: Results<EnquiryInnerStages>?
     var sendMOQ: (() -> ())?
     var acceptMOQ: (() -> ())?
     var sentMOQ: Int = 0
@@ -51,6 +52,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         allDeliveryTimes = realm!.objects(EnquiryMOQDeliveryTimes.self).sorted(byKeyPath: "entityID")
+        innerStages = realm!.objects(EnquiryInnerStages.self).sorted(byKeyPath: "entityID")
         checkMOQ?()
         checkMOQs?()
         getPI?()
@@ -130,8 +132,19 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< StatusRow() {
                 $0.cell.height = { 110.0 }
                 $0.cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
+                if enquiryObject?.enquiryStageId == 5 && enquiryObject!.innerEnquiryStageId >= 2{
+                $0.cell.previousStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (enquiryObject?.innerEnquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
+                }
                 $0.cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
+                if enquiryObject?.enquiryStageId == 5{
+                    $0.cell.currentStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: enquiryObject?.innerEnquiryStageId ?? 0)?.stageDescription ?? "NA")"
+
+                }
                 $0.cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+                if enquiryObject?.enquiryStageId == 5 && enquiryObject!.innerEnquiryStageId <= 4{
+                    $0.cell.nextStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (enquiryObject?.innerEnquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+
+                }
                 if (enquiryObject?.isBlue ?? false == true) && (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 9){
                     $0.cell.actionLbl.text = "Advance payment Awaiting"
                 }else {
@@ -156,61 +169,92 @@ class BuyerEnquiryDetailsController: FormViewController {
             }
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check PI"
-                if let date = enquiryObject?.lastUpdated {
-                    $0.cell.valueLbl.text = "Received: \(Date().ttceFormatter(isoDate: date))"
-                }
+                $0.cell.titleLbl.text = "Check advance Payment receipt"
+                $0.cell.valueLbl.text = "View"
+                
                 $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
                 $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
+                if User.loggedIn()?.refRoleId == "1" && enquiryObject!.enquiryStageId >= 5  {
+                    $0.hidden = false
+                }
+                else {
+                    $0.hidden = true
+                }
+            }.onCellSelection({ (cell, row) in
+                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+                           let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
+                           vc1.enquiryObject = self.enquiryObject
+                           vc1.modalPresentationStyle = .fullScreen
+                           self.navigationController?.pushViewController(vc1, animated: true)
+            })
+            
+            <<< AcceptedInvoiceRow() {
+                $0.cell.height = { 120.0 }
+                if User.loggedIn()?.refRoleId == "2"  {
+                                   $0.hidden = true
+                               }else if ( enquiryObject?.isPiSend == 1 || enquiryObject?.enquiryStageId == 3  || enquiryObject?.enquiryStageId == 7 ){
+                                   $0.hidden = false
+                               }
+                               else {
+                                   $0.hidden = true
+                               }
+                $0.cell.tag = 3
+                 $0.cell.delegate = self
+                
+                if (enquiryObject!.isBlue){
+                    $0.cell.approvePaymentButton.isHidden = false
+                }
+                else {
+                    $0.cell.approvePaymentButton.isHidden = true
+                    $0.cell.height = { 90.0 }
+                }
+            }
+                    <<< StartStageViewRow()
+                        {
+                            $0.cell.height = { 90.0 }
+                            $0.cell.tag = 6
+                            $0.cell.delegate = self
+                            if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 4{
+                                $0.hidden = false
+                            }
+                            else{
+                                $0.hidden = true
+                            }
+            
+            
+                    }
+            
+                    <<< MarkCompleteAndNextRow()
+                        {
+                            $0.cell.height = { 125.0 }
+                            $0.cell.tag = 7
+                            $0.cell.MarkProgress.layer.borderColor = UIColor(red: 83.0/255.0, green: 186.0/255.0, blue: 183.0/255.0, alpha: 1.0).cgColor
+                            $0.cell.MarkProgress.layer.borderWidth = 2.0
+                             $0.cell.delegate = self
+                            if User.loggedIn()?.refRoleId == "1" && enquiryObject!.innerEnquiryStageId >= 1{
+                                $0.hidden = false
+                            }
+                            else{
+                                $0.hidden = true
+                            }
+                    }
+            
+            <<< TransactionReceiptRow() {
+                $0.cell.height = { 120.0 }
+                $0.cell.delegate = self
+                $0.tag = "UploadReceipt"
+                $0.cell.tag = 100
+                $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
                 if User.loggedIn()?.refRoleId == "1"  {
                     $0.hidden = true
                 }else if ( enquiryObject?.isPiSend == 1 || enquiryObject?.enquiryStageId == 3  || enquiryObject?.enquiryStageId == 7 ){
                     $0.hidden = false
                 }
-                    else {
+                else {
                     $0.hidden = true
                 }
-            }.onCellSelection({ (cell, row) in
-                let row = self.form.rowBy(tag: "Show PI")
-                 if row?.isHidden == true {
-                    row?.hidden = false
-                 }else {
-                    row?.hidden = true
-                }
-                row?.evaluateHidden()
-                self.form.allSections.first?.reload(with: .none)
-
-            })
-            
-            <<< AcceptedInvoiceRow() {
-                $0.cell.height = { 90.0 }
-                $0.cell.delegate = self
-                $0.cell.tag = 100
-                $0.tag = "Show PI"
-                if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 3 {
-                     $0.hidden = false
-                }
-                else{
-                     $0.hidden = true
-                }
             }
-            
-             <<< TransactionReceiptRow() {
-                           $0.cell.height = { 110.0 }
-                           $0.cell.delegate = self
-                           $0.tag = "UploadReceipt"
-                           $0.cell.tag = 100
-                           $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
-                           if (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 8){
-                               $0.hidden = false
-                           }else {
-                               $0.hidden = true
-                           }
-                if User.loggedIn()?.refRoleId == "1" || isClosed {
-                               $0.hidden = true
-                           }
-                       }
             
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 150.0 }
@@ -222,7 +266,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.hidden = true
                 }
-              
+                
                 if User.loggedIn()?.refRoleId == "2" || isClosed || enquiryObject?.isPiSend == 1{
                     $0.hidden = true
                 }
@@ -766,9 +810,23 @@ class CreateMOQModel {
 }
 
 extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonActionProtocol, MOQSortButtonsActionProtocol, InvoiceButtonProtocol, AcceptedInvoiceRowProtocol {
+    func approvePaymentButtonSelected(tag: Int) {
+        switch tag{
+        case 3:
+            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
+            vc1.enquiryObject = self.enquiryObject
+            vc1.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc1, animated: true)
+            
+        default:
+            print("PaymentArtistBtnSelected Not WORKING")
+        }
+    }
+    
     func viewInvoiceButtonSelected(tag: Int) {
         switch tag{
-        case 100:
+        case 3:
             self.showLoading()
             self.viewPI?()
         default:
@@ -777,7 +835,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     }
     
     
-   func createSendInvoiceBtnSelected(tag: Int) {
+    func createSendInvoiceBtnSelected(tag: Int) {
         switch tag{
         case 100:
             let client = try! SafeClient(wrapping: CraftExchangeClient())
@@ -806,7 +864,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
         let showMOQ = listMOQs!
         showMOQ.forEach({ (obj) in
             switch tag {
-              
+                
             case obj.artisanId :
                 let vc = CustomMOQArtisanDetailsController.init(style: .plain)
                 vc.enquiryObject = self.enquiryObject
@@ -850,10 +908,19 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     
 }
 extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
+    func viewProformaInvoiceBtnSelected(tag: Int) {
+        self.showLoading()
+        self.viewPI?()
+    }
+    
+    func RejectBtnSelected(tag: Int) {
+        print("do nothing")
+    }
+    
     func paymentBtnSelected(tag: Int) {
         switch tag{
         case 100:
-            if self.enquiryObject!.isBlue{
+            if self.enquiryObject!.isBlue || self.enquiryObject!.enquiryStageId >= 4{
                 let client = try? SafeClient(wrapping: CraftExchangeClient())
                 let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
                 vc1.enquiryObject = self.enquiryObject
@@ -861,13 +928,13 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
                 self.navigationController?.pushViewController(vc1, animated: true)
             }
             else{
-            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
-            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
-            vc1.enquiryObject = self.enquiryObject
-            vc1.PI = self.PI
-            vc1.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc1, animated: true)
-            print("uploadReceiptBtnSelected")
+                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
+                vc1.enquiryObject = self.enquiryObject
+                vc1.PI = self.PI
+                vc1.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc1, animated: true)
+                print("uploadReceiptBtnSelected")
             }
         default:
             print("uploadReceiptBtnSelected Not WORKING")
@@ -901,5 +968,38 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
         self.form.allSections.first?.reload(with: .none)
         self.view.hideAcceptedMOQView()
     }
+    
+}
+
+extension BuyerEnquiryDetailsController: MarkCompleteAndNextProtocol, StartstageProtocol {
+   
+    
+    func MarkProgressSelected(tag: Int) {
+        self.showLoading()
+    let client = try! SafeClient(wrapping: CraftExchangeClient())
+    let service = EnquiryDetailsService.init(client: client)
+        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId)
+    }
+    
+    func MarkCompleteNextSelected(tag: Int) {
+         self.showLoading()
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
+        if enquiryObject!.innerEnquiryStageId == 5{
+            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 6, innerStageId: 0)
+        }
+        else{
+             service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId + 1)
+        }
+       
+    }
+    
+    func StartstageBtnSelected(tag: Int) {
+         self.showLoading()
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
+        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 5, innerStageId: 1)
+    }
+    
     
 }

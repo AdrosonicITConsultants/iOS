@@ -34,3 +34,26 @@ extension EnquiryStages {
         }
     }
 }
+
+extension EnquiryInnerStages {
+    static func getStageType(searchId: Int) -> EnquiryInnerStages? {
+        let realm = try! Realm()
+        if let object = realm.objects(EnquiryInnerStages.self).filter("%K == %@", "entityID", searchId).first {
+            return object
+        }
+        return nil
+    }
+    
+    func saveOrUpdate() {
+        let realm = try! Realm()
+        if let object = realm.objects(EnquiryInnerStages.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.stageDescription = stageDescription
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+}

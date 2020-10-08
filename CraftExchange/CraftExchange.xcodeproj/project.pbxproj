@@ -22,6 +22,16 @@
 		307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B3980252C73EE000028AC /* TransactionReceiptView.xib */; };
 		307B3983252C8602000028AC /* PaymentArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3982252C8602000028AC /* PaymentArtist.swift */; };
 		307B3985252C917D000028AC /* TransactionReceiptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3984252C917D000028AC /* TransactionReceiptView.swift */; };
+		307B3987252D8BFC000028AC /* PaymentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3986252D8BFC000028AC /* PaymentStatus.swift */; };
+		307B3989252D8C1E000028AC /* PaymentArtistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3988252D8C1D000028AC /* PaymentArtistController.swift */; };
+		307B398E252D8C67000028AC /* ApprovePaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B398A252D8C66000028AC /* ApprovePaymentView.swift */; };
+		307B398F252D8C67000028AC /* ArtistReceitImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B398B252D8C66000028AC /* ArtistReceitImg.swift */; };
+		307B3990252D8C67000028AC /* ArtistReceitImg.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B398C252D8C66000028AC /* ArtistReceitImg.xib */; };
+		307B3991252D8C67000028AC /* ApprovePaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B398D252D8C66000028AC /* ApprovePaymentView.xib */; };
+		30873467252F26BD004E5A72 /* StartStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30873466252F26BD004E5A72 /* StartStageView.swift */; };
+		3087346B252F26CC004E5A72 /* MarkCompleteAndNext.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */; };
+		3087346C252F26CC004E5A72 /* MarkCompleteAndNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */; };
+		3087346D252F26CC004E5A72 /* StartStageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3087346A252F26CC004E5A72 /* StartStageView.xib */; };
 		3089DED0252B319D003184FA /* PaymentModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DECF252B319D003184FA /* PaymentModeView.swift */; };
 		3089DED2252B31A7003184FA /* PaymentModeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED1252B31A6003184FA /* PaymentModeView.xib */; };
 		3089DED4252B31B0003184FA /* PercentPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DED3252B31B0003184FA /* PercentPayment.swift */; };
@@ -383,6 +393,16 @@
 		307B3980252C73EE000028AC /* TransactionReceiptView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionReceiptView.xib; sourceTree = "<group>"; };
 		307B3982252C8602000028AC /* PaymentArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentArtist.swift; sourceTree = "<group>"; };
 		307B3984252C917D000028AC /* TransactionReceiptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionReceiptView.swift; sourceTree = "<group>"; };
+		307B3986252D8BFC000028AC /* PaymentStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentStatus.swift; sourceTree = "<group>"; };
+		307B3988252D8C1D000028AC /* PaymentArtistController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentArtistController.swift; sourceTree = "<group>"; };
+		307B398A252D8C66000028AC /* ApprovePaymentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApprovePaymentView.swift; sourceTree = "<group>"; };
+		307B398B252D8C66000028AC /* ArtistReceitImg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistReceitImg.swift; sourceTree = "<group>"; };
+		307B398C252D8C66000028AC /* ArtistReceitImg.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArtistReceitImg.xib; sourceTree = "<group>"; };
+		307B398D252D8C66000028AC /* ApprovePaymentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ApprovePaymentView.xib; sourceTree = "<group>"; };
+		30873466252F26BD004E5A72 /* StartStageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartStageView.swift; sourceTree = "<group>"; };
+		30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkCompleteAndNext.xib; sourceTree = "<group>"; };
+		30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkCompleteAndNext.swift; sourceTree = "<group>"; };
+		3087346A252F26CC004E5A72 /* StartStageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartStageView.xib; sourceTree = "<group>"; };
 		3089DECF252B319D003184FA /* PaymentModeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentModeView.swift; sourceTree = "<group>"; };
 		3089DED1252B31A6003184FA /* PaymentModeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentModeView.xib; sourceTree = "<group>"; };
 		3089DED3252B31B0003184FA /* PercentPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentPayment.swift; sourceTree = "<group>"; };
@@ -1018,6 +1038,7 @@
 				C06570A1252B86A7001140C7 /* Transaction.swift */,
 				C06570A3252B86B8001140C7 /* TransactionObject.swift */,
 				307B3982252C8602000028AC /* PaymentArtist.swift */,
+				307B3986252D8BFC000028AC /* PaymentStatus.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1184,6 +1205,7 @@
 				C09C8C28250D7A7000950526 /* EnquiryArtisanDetailsController.swift */,
 				3089DEDF252B3276003184FA /* PaymentBuyerOne.swift */,
 				3089DEE1252B327E003184FA /* PaymentUploadController.swift */,
+				307B3988252D8C1D000028AC /* PaymentArtistController.swift */,
 			);
 			path = EnquiryController;
 			sourceTree = "<group>";
@@ -1475,6 +1497,14 @@
 				3089DED7252B31C1003184FA /* uploadRecieptView.xib */,
 				3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */,
 				3089DEDD252B3220003184FA /* UploadSuccessfulView.xib */,
+				307B398A252D8C66000028AC /* ApprovePaymentView.swift */,
+				307B398D252D8C66000028AC /* ApprovePaymentView.xib */,
+				307B398B252D8C66000028AC /* ArtistReceitImg.swift */,
+				307B398C252D8C66000028AC /* ArtistReceitImg.xib */,
+				30873466252F26BD004E5A72 /* StartStageView.swift */,
+				3087346A252F26CC004E5A72 /* StartStageView.xib */,
+				30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */,
+				30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -1736,9 +1766,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3087346B252F26CC004E5A72 /* MarkCompleteAndNext.xib in Resources */,
 				C0A910A2247CD90B00852695 /* PlayfairDisplay-Bold.ttf in Resources */,
 				C0A910A6247CD90B00852695 /* PlayfairDisplay-ExtraBoldItalic.ttf in Resources */,
 				3005D1EF2521C79300BF22C0 /* SingleLabelRow.xib in Resources */,
+				307B3991252D8C67000028AC /* ApprovePaymentView.xib in Resources */,
 				3089DEDE252B3220003184FA /* UploadSuccessfulView.xib in Resources */,
 				3097878D2524D9BD00F9B608 /* AcceptedInvoiceRow.xib in Resources */,
 				C0995BFA24C8CB9900EC4CC3 /* RegionCell.xib in Resources */,
@@ -1748,6 +1780,7 @@
 				C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */,
 				C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */,
 				C016EC1C2510D3590039B7AF /* NotificationCell.xib in Resources */,
+				307B3990252D8C67000028AC /* ArtistReceitImg.xib in Resources */,
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
 				C06DB542249B59910009BCC1 /* Tabbar.storyboard in Resources */,
 				3089DED2252B31A7003184FA /* PaymentModeView.xib in Resources */,
@@ -1817,6 +1850,7 @@
 				C04F72DB24C611E700E8122E /* ArtisanProductCell.xib in Resources */,
 				C0A9108D247CD8D000852695 /* Lato-Bold.ttf in Resources */,
 				C0A91092247CD8D000852695 /* Lato-BoldItalic.ttf in Resources */,
+				3087346D252F26CC004E5A72 /* StartStageView.xib in Resources */,
 				C05E3AE524D2839E00963FAA /* CollectionViewRow.xib in Resources */,
 				C0AAC3962492BBA2008C2047 /* RoundedActionSheetRow.xib in Resources */,
 				C06AA39A25052FA200EF4B10 /* StatusRow.xib in Resources */,
@@ -1952,13 +1986,16 @@
 				C016EC1E2510D4F20039B7AF /* Notification+Request.swift in Sources */,
 				C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
+				307B398E252D8C67000028AC /* ApprovePaymentView.swift in Sources */,
 				C09B3F1224BA615900FBC115 /* Disk+VolumeInformation.swift in Sources */,
 				C091894E248038BB0058501C /* RoleViewController.swift in Sources */,
+				307B3989252D8C1E000028AC /* PaymentArtistController.swift in Sources */,
 				C0AAC3942492BB8A008C2047 /* RoundedActionSheetRow.swift in Sources */,
 				C071E23A247EDDB20085805B /* UserProductCategory.swift in Sources */,
 				C0E212D62498D11C00EC2B80 /* REGBuyerAddressInfoController.swift in Sources */,
 				309787872524CCE000F9B608 /* CurrencySigns.swift in Sources */,
 				C06570AF252B9F72001140C7 /* TransactionObject+Transaction.swift in Sources */,
+				3087346C252F26CC004E5A72 /* MarkCompleteAndNext.swift in Sources */,
 				C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */,
 				307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */,
 				C071E25D247EF9280085805B /* ValidateUserService.swift in Sources */,
@@ -1971,6 +2008,7 @@
 				C0ACE99A2485908E00EFA4ED /* REGValidateUserEmailController.swift in Sources */,
 				C09C8C21250CBDBC00950526 /* Enquiry+Transactions.swift in Sources */,
 				C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */,
+				307B3987252D8BFC000028AC /* PaymentStatus.swift in Sources */,
 				C0ACA1C7250F33B300978CEA /* EnquiryClosedRow.swift in Sources */,
 				C0FBE34F24C6F7420037347A /* ArtisanProductCatalogueScene.swift in Sources */,
 				C0917DE824D460D2006B6664 /* YarnType.swift in Sources */,
@@ -2010,6 +2048,7 @@
 				C06570A6252B8E87001140C7 /* TransactionObject+Request.swift in Sources */,
 				C08FBE042497FFB00065BB20 /* REGBuyerCompanyInfoController.swift in Sources */,
 				C0AE9CF324ECDB940037ECB3 /* ProdDetailYarnValueRow.swift in Sources */,
+				307B398F252D8C67000028AC /* ArtistReceitImg.swift in Sources */,
 				C074EE3424EE7FD700B0973B /* CustomWeaveType.swift in Sources */,
 				C0ACE9962485895600EFA4ED /* Country.swift in Sources */,
 				C0930D3925061F7C00DC9274 /* StatusRow.swift in Sources */,
@@ -2131,6 +2170,7 @@
 				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,
 				C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */,
 				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,
+				30873467252F26BD004E5A72 /* StartStageView.swift in Sources */,
 				C08FBE022497FF920065BB20 /* REGBuyerCompanyInfoScene.swift in Sources */,
 				C09C970924B919FC00FD97E9 /* ArtisanBankDetails.swift in Sources */,
 				C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */,

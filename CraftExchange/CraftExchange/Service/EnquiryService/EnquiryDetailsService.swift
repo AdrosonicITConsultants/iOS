@@ -74,4 +74,16 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.ReceivedReceit(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func getAdvancePaymentStatus(enquiryId: Int)-> SafeSignal<Data>  {
+        return Enquiry.getAdvancePaymentStatus(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
+    func validateAdvancePayment(enquiryId: Int, status: Int)-> SafeSignal<Data>  {
+        return Enquiry.validateAdvancePayment(enquiryId: enquiryId, status: status).response(using: client).debug()
+    }
+    
+    func changeInnerStage(enquiryId: Int, stageId: Int, innerStageId: Int)-> SafeSignal<Data>  {
+    return Enquiry.changeInnerStage(enquiryId: enquiryId, stageId: stageId, innerStageId: innerStageId).response(using: client).debug()
+    }
+    
 }

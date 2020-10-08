@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Light.ttf">
+            <string>Lato-Light</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="125" id="KGk-i7-Jjw" customClass="MarkCompleteAndNext" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="441" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="441" height="125"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you have to update the status every 8 hrs to avoid escalation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RwX-ef-EKr">
+                        <rect key="frame" x="20" y="107" width="401" height="12"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhA-qr-X5Y">
+                        <rect key="frame" x="120.5" y="2" width="200" height="35"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="ioW-5g-9Ie"/>
+                            <constraint firstAttribute="width" constant="200" id="w1h-6h-ogm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="15"/>
+                        <state key="normal" title="Mark as still in Progress">
+                            <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrO-PQ-hqM">
+                        <rect key="frame" x="60.5" y="52" width="320" height="35"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="320" id="go9-3F-vZK"/>
+                            <constraint firstAttribute="height" constant="35" id="lfB-bk-TyM"/>
+                        </constraints>
+                        <state key="normal" title="Mark as complete and move to next stage">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="QhA-qr-X5Y" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="95v-HH-fdP"/>
+                    <constraint firstItem="QhA-qr-X5Y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="9nw-0s-Gdm"/>
+                    <constraint firstItem="RwX-ef-EKr" firstAttribute="top" secondItem="lrO-PQ-hqM" secondAttribute="bottom" constant="20" id="Flt-XN-sj6"/>
+                    <constraint firstItem="RwX-ef-EKr" firstAttribute="top" secondItem="lrO-PQ-hqM" secondAttribute="bottom" constant="20" id="HQA-9F-lR5"/>
+                    <constraint firstItem="lrO-PQ-hqM" firstAttribute="top" secondItem="QhA-qr-X5Y" secondAttribute="bottom" constant="15" id="Lwh-la-eBe"/>
+                    <constraint firstItem="RwX-ef-EKr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="YF0-f1-EPb"/>
+                    <constraint firstAttribute="trailing" secondItem="RwX-ef-EKr" secondAttribute="trailing" constant="20" id="b1M-CM-ni3"/>
+                    <constraint firstItem="lrO-PQ-hqM" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="kP9-0a-hww"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="BottomLabel" destination="RwX-ef-EKr" id="rkd-51-0jk"/>
+                <outlet property="MarkCompleteNext" destination="lrO-PQ-hqM" id="ofr-LY-W6c"/>
+                <outlet property="MarkProgress" destination="QhA-qr-X5Y" id="pbf-sp-Rt3"/>
+            </connections>
+            <point key="canvasLocation" x="157.24637681159422" y="90.066964285714278"/>
+        </tableViewCell>
+    </objects>
+</document>

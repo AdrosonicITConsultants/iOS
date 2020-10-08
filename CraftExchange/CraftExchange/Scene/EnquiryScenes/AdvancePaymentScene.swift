@@ -81,6 +81,12 @@ extension EnquiryDetailsService {
                                                 }else if let controller = vc as? TransactionListController {
                                                     controller.hideLoading()
                                                     controller.view.showTransactionReceiptView(controller: controller, data: finalData)
+                                                }else if let controller = vc as? PaymentArtistController{
+                                                    //controller.hideLoading()
+                                                    let row = controller.form.rowBy(tag: "PaymentArtist-1") as? ArtistReceitImgRow
+                                                                        row?.cell.ImageReceit.image = UIImage(data: finalData)
+                                                   //  controller.hideLoading()
+                                                  
                                                 }
                                             }
                                         }
@@ -93,4 +99,71 @@ extension EnquiryDetailsService {
             }
         }
     }
+    
+    func advancePaymentStatus(vc: UIViewController, enquiryId: Int) {
+        self.getAdvancePaymentStatus(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+        
+        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+            
+            if let dataDict = json["data"] as? Dictionary<String,Any>
+            {
+                if let paymentdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                    
+                    if  let object = try? JSONDecoder().decode(PaymentStatus.self, from: paymentdata) {
+                                DispatchQueue.main.async {
+                                    print("hey:\(object)")
+                                    if let controller = vc as? PaymentArtistController{
+                                       // controller.hideLoading()
+                                        let row = controller.form.rowBy(tag: "PaymentArtist-1") as? ArtistReceitImgRow
+                                        row?.cell.AmountLabel.text = "Amount to be Paid as per PI: \(object.paidAmount)"
+                                       
+                                      
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+            }
+            
+        }.dispose(in: vc.bag)
+    }
+    
+    func validateadvancePaymentFunc(vc: UIViewController,enquiryObj: Enquiry, enquiryId: Int, status: Int) {
+        self.validateAdvancePayment(enquiryId: enquiryId, status: status).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+                        let client = try! SafeClient(wrapping: CraftExchangeClient())
+                        let vc1 = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: enquiryObj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
+                        vc1.modalPresentationStyle = .fullScreen
+                        vc.hideLoading()
+                        vc1.viewWillAppear?()
+                        vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
+
+                        
+                    }
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
+    func changeInnerStageFunc(vc: UIViewController, enquiryId: Int, stageId: Int, innerStageId: Int) {
+        self.changeInnerStage(enquiryId: enquiryId, stageId: stageId, innerStageId: innerStageId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+//                    if let controller = vc as? BuyerEnquiryDetailsController {
+//                        controller.viewWillAppear!()
+//                        }
+                        vc.hideLoading()
+                    }
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
 }

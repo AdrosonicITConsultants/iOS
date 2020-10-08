@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="KGk-i7-Jjw" customClass="ApprovePaymentView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duz-PS-fA5">
+                        <rect key="frame" x="82" y="15" width="250" height="35"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="250" id="Qpv-qS-8IE"/>
+                            <constraint firstAttribute="height" constant="35" id="n1c-sG-ElV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="15"/>
+                        <state key="normal" title="Approve Advance Payment by Buyer">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUn-el-kOf">
+                        <rect key="frame" x="132" y="65" width="150" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="5LI-dE-fYm"/>
+                            <constraint firstAttribute="height" constant="35" id="vhT-hM-v8p"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                        <state key="normal" title="Reject Payment">
+                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntV-LP-ntY">
+                        <rect key="frame" x="20" y="105" width="374" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="ARf-PJ-lva"/>
+                        </constraints>
+                        <string key="text">Once you approved it,the product stage cannot be reverted.Kindly make sure to check your account balance is refelcted with amount.Best practice is to check with your bank or in bank statementfrom authorised bank sources.</string>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="XUn-el-kOf" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="7Th-x3-dui"/>
+                    <constraint firstItem="ntV-LP-ntY" firstAttribute="top" secondItem="XUn-el-kOf" secondAttribute="bottom" constant="5" id="A6q-5V-S4q"/>
+                    <constraint firstItem="duz-PS-fA5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="IrF-Ub-dLH"/>
+                    <constraint firstItem="duz-PS-fA5" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="RQj-Iw-5Ut"/>
+                    <constraint firstItem="XUn-el-kOf" firstAttribute="top" secondItem="duz-PS-fA5" secondAttribute="bottom" constant="15" id="XeM-Jo-eVR"/>
+                    <constraint firstItem="ntV-LP-ntY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="eqJ-0E-M5h"/>
+                    <constraint firstItem="ntV-LP-ntY" firstAttribute="top" secondItem="XUn-el-kOf" secondAttribute="bottom" constant="5" id="hRO-85-kzB"/>
+                    <constraint firstAttribute="trailing" secondItem="ntV-LP-ntY" secondAttribute="trailing" constant="20" id="ody-V7-aOq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="ApproveBTn" destination="duz-PS-fA5" id="p1J-YQ-6hK"/>
+                <outlet property="NoteLabel" destination="ntV-LP-ntY" id="A0m-sR-OzV"/>
+                <outlet property="RejectBtn" destination="XUn-el-kOf" id="GUT-5i-pTf"/>
+            </connections>
+            <point key="canvasLocation" x="155.07246376811597" y="18.415178571428569"/>
+        </tableViewCell>
+    </objects>
+</document>
