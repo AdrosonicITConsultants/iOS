@@ -32,6 +32,7 @@
 		3087346B252F26CC004E5A72 /* MarkCompleteAndNext.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */; };
 		3087346C252F26CC004E5A72 /* MarkCompleteAndNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */; };
 		3087346D252F26CC004E5A72 /* StartStageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3087346A252F26CC004E5A72 /* StartStageView.xib */; };
+		3087346F253043B4004E5A72 /* CMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3087346E253043B3004E5A72 /* CMS.swift */; };
 		3089DED0252B319D003184FA /* PaymentModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DECF252B319D003184FA /* PaymentModeView.swift */; };
 		3089DED2252B31A7003184FA /* PaymentModeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED1252B31A6003184FA /* PaymentModeView.xib */; };
 		3089DED4252B31B0003184FA /* PercentPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DED3252B31B0003184FA /* PercentPayment.swift */; };
@@ -63,6 +64,7 @@
 		309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309BFD29251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib */; };
 		309BFD34251C8452001FAC7F /* SingleButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BFD32251C8452001FAC7F /* SingleButtonRow.swift */; };
 		309BFD35251C8452001FAC7F /* SingleButtonRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309BFD33251C8452001FAC7F /* SingleButtonRow.xib */; };
+		309F24F425340DA50015DED4 /* CMS+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309F24F325340DA50015DED4 /* CMS+Transaction.swift */; };
 		30E3C63A252B340600AB95E5 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E3C639252B340600AB95E5 /* Payment.storyboard */; };
 		C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB024C16EF100197519 /* HomeScreenService.swift */; };
 		C005BCB424C1778D00197519 /* ArtisanHomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */; };
@@ -403,6 +405,7 @@
 		30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkCompleteAndNext.xib; sourceTree = "<group>"; };
 		30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkCompleteAndNext.swift; sourceTree = "<group>"; };
 		3087346A252F26CC004E5A72 /* StartStageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartStageView.xib; sourceTree = "<group>"; };
+		3087346E253043B3004E5A72 /* CMS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMS.swift; sourceTree = "<group>"; };
 		3089DECF252B319D003184FA /* PaymentModeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentModeView.swift; sourceTree = "<group>"; };
 		3089DED1252B31A6003184FA /* PaymentModeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentModeView.xib; sourceTree = "<group>"; };
 		3089DED3252B31B0003184FA /* PercentPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentPayment.swift; sourceTree = "<group>"; };
@@ -434,6 +437,7 @@
 		309BFD29251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSelectedDetailsRow.xib; sourceTree = "<group>"; };
 		309BFD32251C8452001FAC7F /* SingleButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleButtonRow.swift; sourceTree = "<group>"; };
 		309BFD33251C8452001FAC7F /* SingleButtonRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleButtonRow.xib; sourceTree = "<group>"; };
+		309F24F325340DA50015DED4 /* CMS+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMS+Transaction.swift"; sourceTree = "<group>"; };
 		30E3C639252B340600AB95E5 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
 		C005BCB024C16EF100197519 /* HomeScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenService.swift; sourceTree = "<group>"; };
 		C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanHomeScene.swift; sourceTree = "<group>"; };
@@ -1039,6 +1043,7 @@
 				C06570A3252B86B8001140C7 /* TransactionObject.swift */,
 				307B3982252C8602000028AC /* PaymentArtist.swift */,
 				307B3986252D8BFC000028AC /* PaymentStatus.swift */,
+				3087346E253043B3004E5A72 /* CMS.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1454,6 +1459,7 @@
 				309787882524CEAE00F9B608 /* CurrencySigns+Transaction.swift */,
 				C06570AC252B9B25001140C7 /* TransactionStatus+Transaction.swift */,
 				C06570AE252B9F72001140C7 /* TransactionObject+Transaction.swift */,
+				309F24F325340DA50015DED4 /* CMS+Transaction.swift */,
 			);
 			path = "Entity+Transaction";
 			sourceTree = "<group>";
@@ -1943,6 +1949,7 @@
 				C016EC0F2510D16D0039B7AF /* BuyerNotificationScene.swift in Sources */,
 				C016EC202510D4FF0039B7AF /* OfflineNotificationRequest.swift in Sources */,
 				C0C4CD85250BCD7100017889 /* EnquiryListService.swift in Sources */,
+				309F24F425340DA50015DED4 /* CMS+Transaction.swift in Sources */,
 				C09C8C23250CF37F00950526 /* EnquiryStages+Transactions.swift in Sources */,
 				C071E253247EE5C80085805B /* CraftExchangeClient.swift in Sources */,
 				C09B3F0F24BA615900FBC115 /* Disk+Data.swift in Sources */,
@@ -2016,6 +2023,7 @@
 				C0144AB12483FCB5006FF4AB /* ResetPasswordService.swift in Sources */,
 				3005D1EE2521C79300BF22C0 /* SingleLabelRow.swift in Sources */,
 				C04842C224E7E70A00D3207F /* Date+Extensions.swift in Sources */,
+				3087346F253043B4004E5A72 /* CMS.swift in Sources */,
 				C071E238247ED41A0085805B /* User.swift in Sources */,
 				C0A3F41B24B7A8090071F7F8 /* BuyerCompanyProfileInfo.swift in Sources */,
 				C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */,

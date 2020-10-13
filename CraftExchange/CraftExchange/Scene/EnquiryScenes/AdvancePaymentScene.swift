@@ -71,7 +71,7 @@ extension EnquiryDetailsService {
                                 let name = object.label
                                 let paymentID = object.paymentId
                             
-                                let url = URL(string: "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net/AdvancedPayment/\(paymentID)/" + name!)
+                                let url = URL(string: KeychainManager.standard.imageBaseURL + "/AdvancedPayment/\(paymentID)/" + name!)
                                 URLSession.shared.dataTask(with: url!) { data, response, error in
                                     DispatchQueue.main.async {
                                         if error == nil {

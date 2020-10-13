@@ -66,10 +66,10 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func showVideo() {
-        let path = Bundle.main.path(forResource: "video", ofType: "mp4")
-        let url = NSURL(fileURLWithPath: path!)
-        let player = AVPlayer(url: url as URL)
+    func showVideo(path: String) {
+        let path = path
+        let url = NSURL(string: path)
+        let player = AVPlayer(url: url! as URL)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
 

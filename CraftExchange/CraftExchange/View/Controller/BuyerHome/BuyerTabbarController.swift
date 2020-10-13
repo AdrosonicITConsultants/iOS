@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MessageUI
 
 class BuyerTabbarController: UITabBarController {
     let actionsManager = OfflineRequestManager.defaultManager

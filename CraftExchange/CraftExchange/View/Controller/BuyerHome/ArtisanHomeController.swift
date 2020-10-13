@@ -35,14 +35,19 @@ class ArtisanHomeController: UIViewController {
     var reachabilityManager = try? Reachability()
     
     override func viewDidLoad() {
-
+        
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = HomeScreenService.init(client: client)
+        service.getDemoVideo(vc: self)
+        service.getCMSCatImages()
+        service.getCMSRegionImages()
         loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
         self.setupSideMenu(false)
-        let app = UIApplication.shared.delegate as? AppDelegate
-        if app?.showDemoVideo ?? false {
-          app?.showDemoVideo = false
-          showVideo()
-        }
+//        let app = UIApplication.shared.delegate as? AppDelegate
+//        if app?.showDemoVideo ?? false {
+//          app?.showDemoVideo = false
+//            showVideo(path: self.path)
+//        }
         super.viewDidLoad()
         
         viewModel.viewDidLoad?()

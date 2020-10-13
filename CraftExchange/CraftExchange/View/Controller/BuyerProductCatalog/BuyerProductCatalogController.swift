@@ -49,10 +49,13 @@ class BuyerProductCatalogController: UIViewController {
     var loadedPage = 1
     var searchLimitReached = false
     var searchType = -1
+    var categoryData: Results<CMSCategoryACF>?
+    var regionData: Results<CMSRegionACF>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        categoryData = realm.objects(CMSCategoryACF.self).sorted(byKeyPath: "entityID")
+        regionData =  realm.objects(CMSRegionACF.self).sorted(byKeyPath: "entityID")
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         if let cluster = selectedCluster {
             self.titleLabel.text = cluster.clusterDescription
@@ -68,7 +71,7 @@ class BuyerProductCatalogController: UIViewController {
             filterButton.setTitle("  Filter by region".localized, for: .normal)
             brandLogoHtConstraint.constant = 80
             brandLogoImage.isHidden = true
-            descriptionLabel.text = category.prodCatDescription
+            descriptionLabel.text = getCategoryDescription()
             self.titleLabel.addImageWith(name: "ring _of_string-ios", behindText: ((self.titleLabel?.text) != nil))
         }else if let artisan = selectedArtisan {
             self.brandLogoImage.image = UIImage.init(named: "user")
@@ -112,21 +115,24 @@ class BuyerProductCatalogController: UIViewController {
     }
     
     func getClusterDescription() -> String {
+        
         switch selectedCluster?.entityID {
-        case 1:
-            return "Maniabandha in Cuttack is known for single weft ikat weaving - particularly the “khandua patta” woven for Lord Jagnath."
-        case 2:
-            return "A coastal village of Odisha, on banks of Brahmani river, Gopalpur is a Tussar weave cluster."
-        case 3:
-            return "Part of Nellore district of Andhra, Venktagiri  is famous for fine handloom cotton and silk saris, dupattas."
-        case 4:
-            return "A district in Assam, on the banks of Brahmaputra river, Kamrup is the leading eri silk cluster of India."
-        case 5:
-            return "Situated on north bank of Brahmaputra in Assam, Nalbari specialises in weave of mulberry silk; while cotton, eri and zari yarns are also used."
-        case 6:
-            return "Dimapur, Phek region weavers now weave contemporary textiles in thick cotton for home textiles, jackets, bags."
+        case selectedCluster?.entityID:
+            return CMSRegionACF.getRegionType(ClusterId: selectedCluster!.entityID)!.regDescription!
+
         default:
             return selectedCluster?.adjective ?? ""
+        }
+    }
+    
+    func getCategoryDescription() -> String {
+        
+        switch selectedCategory?.entityID {
+        case selectedCategory?.entityID:
+            return CMSCategoryACF.getCategoryType(CategoryId: selectedCategory!.entityID)!.catDescription!
+
+        default:
+            return selectedCategory?.description ?? ""
         }
     }
     

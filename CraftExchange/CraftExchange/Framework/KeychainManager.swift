@@ -85,6 +85,13 @@ class KeychainManager {
         return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
     }
   
+    var cmsBaseURL: String {
+        //UAT
+        //
+    // Dev
+        return "http://101.53.158.227/wordpress/index.php/wp-json/wp/v2"
+    }
+    
     var userRole: String? {
         get {
             defaults.string(forKey: "cx_user_role")

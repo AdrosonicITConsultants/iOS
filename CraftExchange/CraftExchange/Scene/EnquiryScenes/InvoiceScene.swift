@@ -15,7 +15,7 @@ import RealmSwift
 import UIKit
 
 extension EnquiryDetailsService {
-    func piCreate(enquiryId: Int) -> UIViewController {
+    func piCreate(enquiryId: Int, enquiryObj: Enquiry) -> UIViewController {
         let storyboard = UIStoryboard(name: "Invoice", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "InvoiceController") as! InvoiceController
         
@@ -89,11 +89,13 @@ extension EnquiryDetailsService {
                            if json["valid"] as? Bool == true {
                                DispatchQueue.main.async {
                                 print("PI sent successfully")
-                                       let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
-                                let controller = storyboard.instantiateViewController(withIdentifier: "BuyerEnquiryListController") as! BuyerEnquiryListController
-                                vc.hideLoading()
-                                controller.viewWillAppear?()
-                                vc.popBack(toControllerType: BuyerEnquiryListController.self)
+                                      let client = try! SafeClient(wrapping: CraftExchangeClient())
+                                      let vc1 = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: enquiryObj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
+                                      vc1.modalPresentationStyle = .fullScreen
+                                      vc.hideLoading()
+                                      vc1.viewWillAppear?()
+                                      vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
+
                                }
                            }
                            else {

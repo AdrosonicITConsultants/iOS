@@ -23,6 +23,7 @@ class BuyerHomeController: UIViewController {
     @IBOutlet weak var notificationButton: UIBarButtonItem!
     lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
+    var path: String = ""
     
     override func viewDidLoad() {
 
@@ -30,15 +31,22 @@ class BuyerHomeController: UIViewController {
         antaranDesignView.dropShadow()
         self.selfDesignView.layer.cornerRadius = 5
         self.antaranDesignView.layer.cornerRadius = 5
-        
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = HomeScreenService.init(client: client)
+        service.getDemoVideo(vc: self)
+        service.getCMSCatImages()
+        service.getCMSRegionImages()
         loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
         
         self.setupSideMenu(false)
-        let app = UIApplication.shared.delegate as? AppDelegate
-        if app?.showDemoVideo ?? false {
-          app?.showDemoVideo = false
-          showVideo()
-        }
+//        let app = UIApplication.shared.delegate as? AppDelegate
+//        if app?.showDemoVideo ?? false {
+//          app?.showDemoVideo = false
+//            if self.path != ""{
+//                showVideo(path: self.path)
+//            }
+//            
+//        }
     
         super.viewDidLoad()
         viewModel.viewDidLoad?()

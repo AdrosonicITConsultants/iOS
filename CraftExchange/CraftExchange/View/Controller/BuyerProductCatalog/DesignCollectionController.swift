@@ -37,6 +37,8 @@ class DesignCollectionController: UIViewController {
     var madeByAntaran: Bool = false
     var allRegions: Results<ClusterDetails>?
     var allCategories: Results<ProductCategory>?
+    var categoryData: Results<CMSCategoryACF>?
+    var regionData: Results<CMSRegionACF>?
     var allArtisanBrands: [User]?
     let realm = try! Realm()
     
@@ -45,7 +47,9 @@ class DesignCollectionController: UIViewController {
         allRegions = realm.objects(ClusterDetails.self).sorted(byKeyPath: "entityID")
         allCategories = realm.objects(ProductCategory.self).sorted(byKeyPath: "entityID")
         allArtisanBrands = realm.objects(User.self).filter("%K == %@", "refRoleId", "1").compactMap{$0}
-
+        categoryData = realm.objects(CMSCategoryACF.self).sorted(byKeyPath: "entityID")
+        regionData =  realm.objects(CMSRegionACF.self).sorted(byKeyPath: "entityID")
+        
         categoryCollection.register(UINib(nibName: "RegionCell", bundle: nil), forCellWithReuseIdentifier: "RegionCell")
         categoryCollection.register(UINib(nibName: "CategoryBrandCell", bundle: nil), forCellWithReuseIdentifier: "CategoryBrandCell")
         
@@ -143,15 +147,15 @@ class DesignCollectionController: UIViewController {
 extension DesignCollectionController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionSegment.selectedSegmentIndex {
-            case 0:
-                return allRegions?.count ?? 0
-            case 1:
-                return allCategories?.count ?? 0
-            case 2:
-                return allArtisanBrands?.count ?? 0
-            default:
-                return 0
-            }
+        case 0:
+            return allRegions?.count ?? 0
+        case 1:
+            return allCategories?.count ?? 0
+        case 2:
+            return allArtisanBrands?.count ?? 0
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -161,6 +165,21 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             cell.titleLabel.text = allRegions?.compactMap{$0}[indexPath.row].clusterDescription
             cell.adjectiveLabel.text = allRegions?[indexPath.row].adjective
             cell.logoImage.image = UIImage.init(named: "coverImage")
+            if let image = CMSRegionACF.getRegionType(ClusterId: (allRegions?[indexPath.row].entityID) ?? 0)?.image, CMSRegionACF.getRegionType(ClusterId: ((allRegions?[indexPath.row].entityID)!))!.image != "" {
+                      
+                           let url = URL(string: image)
+                       URLSession.shared.dataTask(with: url!) { data, response, error in
+                           // do your stuff here...
+                           DispatchQueue.main.async {
+                               if error == nil {
+                                   if let finalData = data {
+                                       // do something on the main queue
+                                       cell.logoImage.image = UIImage.init(data: finalData)
+                                   }
+                               }
+                           }
+                       }.resume()
+                       }
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.shadowColor = UIColor.lightGray.cgColor
@@ -172,6 +191,22 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryBrandCell", for: indexPath) as! CategoryBrandCell
             cell.titleLabel.text = allCategories?[indexPath.row].prodCatDescription
             cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "Saree")
+            if let image = CMSCategoryACF.getCategoryType(CategoryId: (allCategories?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((allCategories?[indexPath.row].entityID)!))!.image != "" {
+           
+                let url = URL(string: image)
+            URLSession.shared.dataTask(with: url!) { data, response, error in
+                // do your stuff here...
+                DispatchQueue.main.async {
+                    if error == nil {
+                        if let finalData = data {
+                            // do something on the main queue
+                            cell.logoImage.image = UIImage.init(data: finalData)
+                        }
+                    }
+                }
+            }.resume()
+            }
+
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.shadowColor = UIColor.lightGray.cgColor
