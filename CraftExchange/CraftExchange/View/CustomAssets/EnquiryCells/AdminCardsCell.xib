@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AdminCardsCell" rowHeight="136" id="KGk-i7-Jjw" customClass="AdminCardsCell" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="613" height="185"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="613" height="185"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2e9-Pv-1nH">
+                        <rect key="frame" x="0.0" y="-34" width="613" height="253"/>
+                        <subviews>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69l-JN-hVY">
+                                <rect key="frame" x="8" y="19" width="613" height="190"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="rOf-V2-o9a" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="39" width="126" height="140"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="0.4335847478" blue="0.8989133883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal">
+                                            <string key="title"> Micro enterprise 
+ business
+ summary</string>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="QvL-hT-1ZK" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+                                        <rect key="frame" x="302" y="39" width="130" height="140"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.42100994559999999" green="0.96297985409999998" blue="0.40930315169999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal">
+                                            <string key="title">  Open 
+  enquiry 
+  summary</string>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Xk8-nH-HeO" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+                                        <rect key="frame" x="452" y="43" width="141" height="133"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.94353491067886353" green="0.95877832174301147" blue="0.18982550501823425" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal">
+                                            <string key="title"> other reports 
+ for order</string>
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vls-UA-NQu">
+                                        <rect key="frame" x="91" y="139" width="38" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMt-bd-H7c">
+                                        <rect key="frame" x="227" y="142" width="38" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zD9-8q-aqs">
+                                        <rect key="frame" x="386" y="142" width="36" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFw-dk-Ijm">
+                                        <rect key="frame" x="545" y="142" width="37" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dt8-xD-NfH">
+                                        <rect key="frame" x="18" y="139" width="21" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon open-graph"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13V-5l-cOc">
+                                        <rect key="frame" x="168" y="142" width="21" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon open-graph"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2l-9w-2oQ">
+                                        <rect key="frame" x="315" y="142" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon open-graph"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nc-Xh-mn9">
+                                        <rect key="frame" x="466" y="142" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon open-graph"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CMr-yk-fbd" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+                                        <rect key="frame" x="155" y="39" width="129" height="140"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal">
+                                            <string key="title">  Micro enterprise 
+  revenue</string>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="190" id="ZW6-HA-N7B"/>
+                                    <constraint firstAttribute="width" constant="613" id="yoY-P5-wBM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="69l-JN-hVY" secondAttribute="trailing" constant="-8" id="NkN-1I-fUc"/>
+                            <constraint firstItem="69l-JN-hVY" firstAttribute="leading" secondItem="2e9-Pv-1nH" secondAttribute="leadingMargin" id="qFr-mp-Dwl"/>
+                            <constraint firstAttribute="bottom" secondItem="69l-JN-hVY" secondAttribute="bottom" constant="-44" id="skS-FX-O30"/>
+                            <constraint firstItem="69l-JN-hVY" firstAttribute="top" secondItem="Knk-44-Y2c" secondAttribute="top" constant="19" id="ud5-Yx-33Q"/>
+                        </constraints>
+                        <viewLayoutGuide key="contentLayoutGuide" id="hhW-87-hSV"/>
+                        <viewLayoutGuide key="frameLayoutGuide" id="Knk-44-Y2c"/>
+                    </scrollView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="2e9-Pv-1nH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-20" id="La4-3P-10Y"/>
+                    <constraint firstItem="2e9-Pv-1nH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Mpb-sn-05a"/>
+                    <constraint firstItem="2e9-Pv-1nH" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Rb9-3w-2ib"/>
+                    <constraint firstItem="2e9-Pv-1nH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-45" id="joI-gL-1KE"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="B1" destination="rOf-V2-o9a" id="7CP-bk-rnG"/>
+                <outlet property="Lb1" destination="Dt8-xD-NfH" id="6gc-bn-qUU"/>
+                <outlet property="Lb2" destination="13V-5l-cOc" id="33j-t8-AU6"/>
+                <outlet property="Lb3" destination="b2l-9w-2oQ" id="aSx-4u-TqH"/>
+                <outlet property="Lb4" destination="6nc-Xh-mn9" id="QTV-aQ-d55"/>
+                <outlet property="Rb1" destination="vls-UA-NQu" id="Stg-Pe-eDK"/>
+                <outlet property="Rb2" destination="YMt-bd-H7c" id="Bxr-l0-hAh"/>
+                <outlet property="Rb3" destination="zD9-8q-aqs" id="FbV-yu-FLe"/>
+                <outlet property="Rb4" destination="LFw-dk-Ijm" id="4ER-7l-1UD"/>
+                <outlet property="Scrollview" destination="2e9-Pv-1nH" id="e9p-Ak-pet"/>
+                <outlet property="b2" destination="CMr-yk-fbd" id="bcg-0g-pAD"/>
+                <outlet property="b3" destination="QvL-hT-1ZK" id="VAa-hM-9uw"/>
+                <outlet property="b4" destination="Xk8-nH-HeO" id="53Y-U9-KiG"/>
+            </connections>
+            <point key="canvasLocation" x="57.24637681159421" y="120.20089285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Icon awesome-long-arrow-alt-right" width="22" height="11"/>
+        <image name="Icon open-graph" width="17" height="17"/>
+    </resources>
+</document>

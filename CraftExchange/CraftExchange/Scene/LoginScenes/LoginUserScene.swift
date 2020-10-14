@@ -15,7 +15,7 @@ extension LoginUserService {
   
   func createScene(username:String) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewController(withIdentifier: "LoginPasswordController") as! LoginPasswordController
+    let vc = storyboard.instantiateViewController(withIdentifier: "LoginMarketController") as! LoginMarketController
     vc.viewModel.username.value = username
     
     client.errors.bind(to: vc.reactive.userErrors)
