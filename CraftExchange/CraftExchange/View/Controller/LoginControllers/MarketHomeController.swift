@@ -35,7 +35,7 @@ class MarketHomeController: FormViewController {
                 {
                     $0.tag = "HorizonatalAdmin0"
                     $0.cell.backgroundColor = UIColor.black
-                    $0.cell.Logo.image = UIImage(named: "AppIcon")
+                    $0.cell.Logo.image = UIImage(named: "cx")
                     $0.cell.height = { 100.0 }
             }
             <<< AdminLabelRow(){
@@ -58,7 +58,8 @@ class MarketHomeController: FormViewController {
                 $0.tag = "HorizonatalAdmin1"
                 $0.cell.backgroundColor = UIColor.black
                 $0.cell.ActionBtn.backgroundColor = UIColor.red
-                $0.cell.ActionLabel.text = "Fault and Escalations 3454"
+                $0.cell.ActionLabel.text = "Fault and Escalations"
+                $0.cell.LowerActionLabel.text = "3454"
                 $0.cell.ActionImg.image = UIImage(named: "AppIcon")
                 $0.cell.height = { 80.0 }
             }
@@ -66,16 +67,19 @@ class MarketHomeController: FormViewController {
                 $0.tag = "HorizonatalAdmin2"
                 $0.cell.backgroundColor = UIColor.black
                 $0.cell.ActionBtn.backgroundColor = UIColor.systemYellow
-                $0.cell.ActionLabel.text = "Add a Product to Antaran Co Design"
-                $0.cell.ActionImg.image = UIImage(named: "AppIcon")
+                $0.cell.ActionLabel.text = "Add a Product"
+                $0.cell.LowerActionLabel.text = " to Antaran Co Design"
+
+                $0.cell.ActionImg.image = UIImage(named: "Groupicon")
                 $0.cell.height = { 80.0 }
             }
             <<< MarketActionsRow() {
                 $0.tag = "HorizonatalAdmin3"
                 $0.cell.backgroundColor = UIColor.black
                 $0.cell.ActionBtn.backgroundColor = UIColor.gray
-                $0.cell.ActionLabel.text = "Redirect Custom enquiries awaiting MOQs"
-                $0.cell.ActionImg.image = UIImage(named: "Groupicon")
+                $0.cell.ActionLabel.text = "Redirect Custom enquiries"
+                $0.cell.LowerActionLabel.text = "awaiting MOQs"
+                $0.cell.ActionImg.image = UIImage(named: "Icon awesome-route")
                 $0.cell.height = { 80.0 }
             }
             <<< AdminHomeBottomRow() {

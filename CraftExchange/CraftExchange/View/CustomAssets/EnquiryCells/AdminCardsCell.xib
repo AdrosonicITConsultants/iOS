@@ -76,11 +76,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMt-bd-H7c">
-                                        <rect key="frame" x="227" y="142" width="38" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zD9-8q-aqs">
                                         <rect key="frame" x="386" y="142" width="36" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -96,11 +91,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Icon open-graph"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13V-5l-cOc">
-                                        <rect key="frame" x="168" y="142" width="21" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Icon open-graph"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2l-9w-2oQ">
                                         <rect key="frame" x="315" y="142" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -112,7 +102,7 @@
                                         <state key="normal" image="Icon open-graph"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="CMr-yk-fbd" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
-                                        <rect key="frame" x="155" y="39" width="129" height="140"/>
+                                        <rect key="frame" x="152" y="36" width="129" height="140"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
@@ -126,6 +116,16 @@
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haX-5Y-7n7">
+                                        <rect key="frame" x="234" y="139" width="40" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zp5-a0-BNA">
+                                        <rect key="frame" x="159" y="134" width="49" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="Icon open-graph"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -156,11 +156,9 @@
             <connections>
                 <outlet property="B1" destination="rOf-V2-o9a" id="7CP-bk-rnG"/>
                 <outlet property="Lb1" destination="Dt8-xD-NfH" id="6gc-bn-qUU"/>
-                <outlet property="Lb2" destination="13V-5l-cOc" id="33j-t8-AU6"/>
                 <outlet property="Lb3" destination="b2l-9w-2oQ" id="aSx-4u-TqH"/>
                 <outlet property="Lb4" destination="6nc-Xh-mn9" id="QTV-aQ-d55"/>
                 <outlet property="Rb1" destination="vls-UA-NQu" id="Stg-Pe-eDK"/>
-                <outlet property="Rb2" destination="YMt-bd-H7c" id="Bxr-l0-hAh"/>
                 <outlet property="Rb3" destination="zD9-8q-aqs" id="FbV-yu-FLe"/>
                 <outlet property="Rb4" destination="LFw-dk-Ijm" id="4ER-7l-1UD"/>
                 <outlet property="Scrollview" destination="2e9-Pv-1nH" id="e9p-Ak-pet"/>
