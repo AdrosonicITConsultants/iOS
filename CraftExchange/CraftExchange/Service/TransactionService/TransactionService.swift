@@ -17,11 +17,17 @@ class TransactionService: BaseService<Data> {
     required init() {
         super.init()
     }
+    
     func getAllOngoingTransactions() -> SafeSignal<Data> {
         return TransactionObject.getAllOngoingTransaction().response(using: client).debug()
     }
+    
     func getTransactionStatus() -> SafeSignal<Data> {
         return TransactionStatus.getTransactionStatus().response(using: client).debug()
+    }
+    
+    func getAllTransactionsForEnquiry(enquiryId: Int) -> SafeSignal<Data> {
+        return TransactionObject.getAllTransactionForEnquiry(enquiryId: enquiryId).response(using: client).debug()
     }
 }
 

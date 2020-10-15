@@ -15,7 +15,7 @@ import RealmSwift
 import UIKit
 
 extension EnquiryDetailsService {
-    func piCreate(enquiryId: Int, enquiryObj: Enquiry) -> UIViewController {
+    func piCreate(enquiryId: Int, enquiryObj: Enquiry?, orderObj: Order?) -> UIViewController {
         let storyboard = UIStoryboard(name: "Invoice", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "InvoiceController") as! InvoiceController
         
@@ -89,13 +89,14 @@ extension EnquiryDetailsService {
                            if json["valid"] as? Bool == true {
                                DispatchQueue.main.async {
                                 print("PI sent successfully")
-                                      let client = try! SafeClient(wrapping: CraftExchangeClient())
-                                      let vc1 = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: enquiryObj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
-                                      vc1.modalPresentationStyle = .fullScreen
-                                      vc.hideLoading()
-                                      vc1.viewWillAppear?()
-                                      vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
-
+                                let client = try! SafeClient(wrapping: CraftExchangeClient())
+                                if enquiryObj != nil {
+                                    let vc1 = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: enquiryObj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
+                                    vc1.modalPresentationStyle = .fullScreen
+                                    vc.hideLoading()
+                                    vc1.viewWillAppear?()
+                                    vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
+                                }
                                }
                            }
                            else {

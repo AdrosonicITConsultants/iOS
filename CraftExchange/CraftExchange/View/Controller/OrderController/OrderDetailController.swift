@@ -1,8 +1,8 @@
 //
-//  BuyerEnquiryDetailsController.swift
+//  OrderDetailController.swift
 //  CraftExchange
 //
-//  Created by Preety Singh on 07/09/20.
+//  Created by Preety Singh on 15/10/20.
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
 
@@ -21,14 +21,16 @@ import Realm
 import ViewRow
 import WebKit
 
-class BuyerEnquiryDetailsController: FormViewController {
-    var enquiryObject: Enquiry?
+class OrderDetailController: FormViewController {
+    var orderObject: Order?
     var getMOQ: GetMOQ?
     var getMOQs: GetMOQ?
     var listMOQs: [GetMOQs]?
+    var listTransactions: [TransactionObject]?
     var viewWillAppear: (() -> ())?
     var checkMOQ: (() -> ())?
     var checkMOQs: (() -> ())?
+    var checkTransactions: (() -> ())?
     var getPI: (() -> ())?
     var PI: GetPI?
     lazy var viewModel = CreateMOQModel()
@@ -56,12 +58,13 @@ class BuyerEnquiryDetailsController: FormViewController {
         checkMOQ?()
         checkMOQs?()
         getPI?()
+        checkTransactions?()
         var shouldShowOption = false
         
         if User.loggedIn()?.refRoleId == "1" {
             shouldShowOption = false
         }else {
-            if enquiryObject?.enquiryStageId ?? 0 > 3 {
+            if orderObject?.enquiryStageId ?? 0 > 3 {
                 shouldShowOption = false
             }else {
                 shouldShowOption = true
@@ -83,14 +86,14 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
-                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
-                if enquiryObject?.productType == "Custom Product" {
+                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
+                if orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
                 }else {
-                    $0.cell.designByLbl.text = enquiryObject?.brandName
+                    $0.cell.designByLbl.text = orderObject?.brandName
                 }
-                $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
-                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId {
+                $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
+                if let tag = orderObject?.productImages?.components(separatedBy: ",").first, let prodId = orderObject?.productId {
                     if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
                         $0.cell.productImage.image = downloadedImage
                     }else {
@@ -112,19 +115,19 @@ class BuyerEnquiryDetailsController: FormViewController {
                     }
                 }
             }.cellUpdate({ (cell, row) in
-                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if self.enquiryObject?.enquiryStageId ?? 0 < 5 {
+                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+                if self.orderObject?.enquiryStageId ?? 0 < 5 {
                     cell.statusLbl.textColor = .black
                     cell.statusDotView.backgroundColor = .black
-                }else if self.enquiryObject?.enquiryStageId ?? 0 < 9 {
+                }else if self.orderObject?.enquiryStageId ?? 0 < 9 {
                     cell.statusLbl.textColor = .systemYellow
                     cell.statusDotView.backgroundColor = .systemYellow
                 }else {
                     cell.statusLbl.textColor = UIColor().CEGreen()
                     cell.statusDotView.backgroundColor = UIColor().CEGreen()
                 }
-                if let date = self.enquiryObject?.lastUpdated {
-                    cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
+                if let date = self.orderObject?.lastUpdated {
+                    cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
                 }
             })
             
@@ -135,21 +138,21 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< StatusRow() {
                 $0.cell.height = { 110.0 }
             }.cellUpdate({ (cell, row) in
-                cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
-                if self.enquiryObject?.enquiryStageId == 5 && self.enquiryObject!.innerEnquiryStageId >= 2{
-                    cell.previousStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.enquiryObject?.innerEnquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
+                cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.orderObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
+                if self.orderObject?.enquiryStageId == 5 && self.orderObject!.innerEnquiryStageId >= 2{
+                    cell.previousStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.orderObject?.innerEnquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
                 }
-                cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
-                if self.enquiryObject?.enquiryStageId == 5{
-                    cell.currentStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: self.enquiryObject?.innerEnquiryStageId ?? 0)?.stageDescription ?? "NA")"
+                cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: self.orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
+                if self.orderObject?.enquiryStageId == 5{
+                    cell.currentStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: self.orderObject?.innerEnquiryStageId ?? 0)?.stageDescription ?? "NA")"
                     
                 }
-                cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
-                if self.enquiryObject?.enquiryStageId == 5 && self.enquiryObject!.innerEnquiryStageId <= 4{
-                    cell.nextStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.enquiryObject?.innerEnquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+                cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.orderObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+                if self.orderObject?.enquiryStageId == 5 && self.orderObject!.innerEnquiryStageId <= 4{
+                    cell.nextStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.orderObject?.innerEnquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
                     
                 }
-                if (self.enquiryObject?.isBlue ?? false == true) && (self.enquiryObject?.enquiryStageId == 3 || self.enquiryObject?.enquiryStageId == 9){
+                if (self.orderObject?.isBlue ?? false == true) && (self.orderObject?.enquiryStageId == 3 || self.orderObject?.enquiryStageId == 9){
                     cell.actionLbl.text = "Advance payment Awaiting"
                 }else {
                     cell.actionLbl.text = ""
@@ -159,9 +162,11 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
             })
             
+            
+            
             <<< EnquiryClosedRow() {
                 $0.cell.height = { 110.0 }
-                if enquiryObject?.enquiryStageId == 10 {
+                if orderObject?.enquiryStageId == 10 {
                     $0.cell.dotView.backgroundColor = UIColor().CEGreen()
                     $0.cell.enquiryLabel.text = "Enquiry Completed".localized
                     $0.cell.enquiryLabel.textColor = UIColor().CEGreen()
@@ -177,7 +182,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< AcceptedInvoiceRow() {
                 $0.cell.height = { 120.0 }
                 $0.tag = "View Invoice & Approve Advance Payment"
-                if User.loggedIn()?.refRoleId == "1"  && enquiryObject!.enquiryStageId >= 3{
+                if User.loggedIn()?.refRoleId == "1"  && orderObject!.enquiryStageId >= 3{
                     $0.hidden = false
                 }
                 else {
@@ -186,7 +191,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.tag = 3
                 $0.cell.delegate = self
                 
-                if (enquiryObject!.isBlue){
+                if (orderObject!.isBlue){
                     $0.cell.approvePaymentButton.isHidden = false
                 }
                 else {
@@ -194,14 +199,14 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.cell.height = { 90.0 }
                 }
             }.cellUpdate({ (cell, row) in
-                if self.enquiryObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
+                if self.orderObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
                     cell.row.hidden = false
                 }
                 else{
                     cell.row.hidden = true
                 }
                 
-                if (self.enquiryObject!.isBlue){
+                if (self.orderObject!.isBlue){
                     cell.approvePaymentButton.isHidden = false
                 }
                 else {
@@ -216,14 +221,14 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.cell.tag = 6
                     $0.tag = "Start Production Stage"
                     $0.cell.delegate = self
-                    if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 4 && isClosed == false {
+                    if User.loggedIn()?.refRoleId == "1" && orderObject?.enquiryStageId == 4 && isClosed == false {
                         $0.hidden = false
                     }
                     else{
                         $0.hidden = true
                     }
             }.cellUpdate({ (cell, row) in
-                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 4 && self.isClosed == false {
+                if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 4 && self.isClosed == false {
                     cell.row.hidden = false
                     cell.height = { 90.0 }
                 }
@@ -241,14 +246,14 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.cell.MarkProgress.layer.borderColor = UIColor(red: 83.0/255.0, green: 186.0/255.0, blue: 183.0/255.0, alpha: 1.0).cgColor
                     $0.cell.MarkProgress.layer.borderWidth = 2.0
                     $0.cell.delegate = self
-                    if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && isClosed == false {
+                    if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 5 && isClosed == false {
                         $0.hidden = false
                     }
                     else{
                         $0.hidden = true
                     }
             }.cellUpdate({ (cell, row) in
-                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && self.isClosed == false {
+                if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 5 && self.isClosed == false {
                     cell.row.hidden = false
                     cell.height = { 125.0 }
                     
@@ -267,7 +272,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
                 $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
-                if User.loggedIn()?.refRoleId == "1" && enquiryObject!.enquiryStageId >= 4  {
+                if User.loggedIn()?.refRoleId == "1" && orderObject!.enquiryStageId >= 4  {
                     $0.hidden = false
                 }
                 else {
@@ -276,11 +281,11 @@ class BuyerEnquiryDetailsController: FormViewController {
             }.onCellSelection({ (cell, row) in
                 let storyboard = UIStoryboard(name: "Payment", bundle: nil)
                 let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
-                vc1.enquiryObject = self.enquiryObject
+                vc1.orderObject = self.orderObject
                 vc1.modalPresentationStyle = .fullScreen
                 self.navigationController?.pushViewController(vc1, animated: true)
             }).cellUpdate({ (cell, row) in
-                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {
+                if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 4  {
                     cell.row.hidden = false
                 }
                 else {
@@ -296,7 +301,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
                 if User.loggedIn()?.refRoleId == "1"  {
                     $0.hidden = true
-                }else if ( enquiryObject?.isPiSend == 1 || enquiryObject?.enquiryStageId == 3){
+                }else if ( orderObject?.isPiSend == 1 || orderObject?.enquiryStageId == 3){
                     $0.hidden = false
                 }
                 else {
@@ -309,18 +314,18 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "CreatePI"
                 $0.cell.tag = 100
-                if (enquiryObject?.enquiryStageId == 2 || enquiryObject?.enquiryStageId == 7){
+                if (orderObject?.enquiryStageId == 2 || orderObject?.enquiryStageId == 7){
                     $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
                 
-                if User.loggedIn()?.refRoleId == "2" || isClosed || enquiryObject?.isPiSend == 1{
+                if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
                     $0.hidden = true
                 }
             }.cellUpdate({ (cell, row) in
                 
-                if self.enquiryObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
+                if self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
                     cell.row.hidden = false
                 }
                 else{
@@ -329,7 +334,54 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
             })
             
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Quality Check".localized
+                $0.cell.valueLbl.text = ""
+                $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
+                $0.cell.titleLbl.textColor = UIColor().EQGreenText()
+                $0.cell.valueLbl.textColor = UIColor().EQGreenText()
+            }
             
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Change Request".localized
+                $0.cell.valueLbl.text = ""
+                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
+                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
+                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
+            }
+            
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Tax Invoice".localized
+                $0.cell.valueLbl.text = ""
+                $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
+                $0.cell.titleLbl.textColor = UIColor().EQBrownText()
+                $0.cell.valueLbl.textColor = UIColor().EQBrownText()
+            }
+            
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Your Transactions".localized
+                $0.cell.valueLbl.text = ""
+                $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
+                $0.cell.titleLbl.textColor = UIColor().EQPinkText()
+                $0.cell.valueLbl.textColor = UIColor().EQPinkText()
+            }.onCellSelection({ (cell, row) in
+                let section = self.form.sectionBy(tag: "list Transactions")
+                if section?.isEmpty == true {
+                    self.listTransactionsFunc()
+                }else {
+                    section?.removeAll()
+                }
+                section?.reload()
+                
+            })
+            +++ Section(){ section in
+                    section.tag = "list Transactions"
+            }
+            +++ Section()
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 if User.loggedIn()?.refRoleId == "2" {
@@ -337,13 +389,13 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.cell.titleLbl.text = "Check buyer's details"
                 }
-                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.brandName ?? "NA")"
+                $0.cell.valueLbl.text = "Brand: \(orderObject?.brandName ?? "NA")"
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBlueText()
                 $0.cell.valueLbl.textColor = UIColor().EQBlueText()
             }.onCellSelection({ (cell, row) in
                 let vc = EnquiryArtisanDetailsController.init(style: .plain)
-                vc.enquiryObject = self.enquiryObject
+                vc.orderObject = self.orderObject
                 self.navigationController?.pushViewController(vc, animated: true)
             })
             
@@ -393,7 +445,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 60.0 }
                 $0.tag = "createMOQ1"
                 $0.hidden = true
-                if self.enquiryObject?.productType == "Custom Product" {
+                if self.orderObject?.productType == "Custom Product" {
                     $0.title = "Fill in MOQ to bid for this enquiry"
                 }else{
                     $0.title = "MOQ Details"
@@ -539,7 +591,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.noOfUnitLbl.textColor = UIColor().EQGreenText()
                 $0.cell.costLbl.textColor = UIColor().EQGreenText()
                 $0.cell.etaLbl.textColor = UIColor().EQGreenText()
-                if (enquiryObject?.isMoqSend == 1 && User.loggedIn()?.refRoleId == "2"){
+                if (orderObject?.isMoqSend == 1 && User.loggedIn()?.refRoleId == "2"){
                     $0.hidden = false
                 }else {
                     $0.hidden = true
@@ -562,7 +614,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 row3?.evaluateHidden()
                 self.form.allSections.first?.reload(with: .none)
             }).cellUpdate({ (cell, row) in
-                if (self.enquiryObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "2"){
+                if (self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "2"){
                     cell.row.hidden = false
                 }else {
                     cell.row.hidden = true
@@ -616,14 +668,14 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check Product Details"
-                $0.cell.valueLbl.text = "\(enquiryObject?.productName ?? "Design By")"
+                $0.cell.valueLbl.text = "\(orderObject?.productName ?? "Design By")"
                 $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBrownText()
                 $0.cell.valueLbl.textColor = UIColor().EQBrownText()
             }.onCellSelection({ (cell, row) in
-                if self.enquiryObject?.productType == "Custom Product" {
+                if self.orderObject?.productType == "Custom Product" {
                     self.showCustomProduct?()
-                }else if self.enquiryObject?.historyProductId != 0 {
+                }else if self.orderObject?.historyProductId != 0 {
                     self.showHistoryProductDetails?()
                 }
                 else {
@@ -638,7 +690,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.valueLbl.text = ""
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
-                if (enquiryObject?.isMoqSend == 1 || User.loggedIn()?.refRoleId == "1"){
+                if (orderObject?.isMoqSend == 1 || User.loggedIn()?.refRoleId == "1"){
                     $0.hidden = true
                 }else {
                     $0.hidden = false
@@ -653,7 +705,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 section?.reload()
                 
             }).cellUpdate({ (cell, row) in
-                if (self.enquiryObject?.isMoqSend == 1 || User.loggedIn()?.refRoleId == "1"){
+                if (self.orderObject?.isMoqSend == 1 || User.loggedIn()?.refRoleId == "1"){
                     cell.isHidden = true
                 }else {
                     cell.isHidden = false
@@ -690,7 +742,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         
         let closeEnquiry = UIAlertAction.init(title: "Close Enquiry", style: .default) { (action) in
             self.confirmAction("Warning".localized, "Are you sure you want to close this enquiry?".localized, confirmedCallback: { (action) in
-                self.closeEnquiry?(self.enquiryObject?.entityID ?? 0)
+                self.closeEnquiry?(self.orderObject?.entityID ?? 0)
             }) { (action) in
                 
             }
@@ -708,39 +760,39 @@ class BuyerEnquiryDetailsController: FormViewController {
     }
     
     func reloadFormData() {
-        enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
+        orderObject = realm?.objects(Order.self).filter("%K == %@","entityID",orderObject?.entityID ?? 0).first
         
-        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {
+        if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 4  {
             let row = form.rowBy(tag: "Check advance Payment receipt")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-        if self.enquiryObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
+        if self.orderObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
             let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 4{
+        if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 4{
             let row = form.rowBy(tag: "Start Production Stage")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 {
+        if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 5 {
            let row = form.rowBy(tag: "Production Stages Progrees")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-        if self.enquiryObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
+        if self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
             let row = form.rowBy(tag: "CreatePI")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-        if (self.enquiryObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "2"){
+        if (self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "2"){
             let row = form.rowBy(tag: "Check MOQ Buyer")
             row?.hidden = false
             row?.evaluateHidden()
@@ -756,15 +808,45 @@ class BuyerEnquiryDetailsController: FormViewController {
             refreshControl.endRefreshing()
         }
     }
+    
+    func listTransactionsFunc() {
+        let listMOQSection = self.form.sectionBy(tag: "list Transactions")!
+        let showTransactions = listTransactions!
+        showTransactions.forEach({ (obj) in
+            listMOQSection <<< TransactionTitleRowView() {
+                $0.cell.height = { 60.0 }
+                $0.cell.configure(obj)
+            }.onCellSelection({ (cell, row) in
+                let row = self.form.rowBy(tag: "\(obj.entityID)")
+                if row?.isHidden == true {
+                    row?.hidden = false
+                }else {
+                    row?.hidden = true
+                }
+                row?.evaluateHidden()
+                listMOQSection.reload()
+            })
+                
+            <<< TransactionDetailRowView() {
+                $0.cell.height = { 60.0 }
+                $0.cell.configure(obj)
+                $0.cell.tag = obj.entityID
+                $0.hidden = true
+                $0.tag = "\(obj.entityID)"
+            }
+        })
+        self.form.sectionBy(tag: "list Transactions")?.reload()
+    }
+    
     func listMOQsFunc() {
         if listMOQs != [] &&  User.loggedIn()?.refRoleId == "2" {
             
-            let  listMOQSection = self.form.sectionBy(tag: "list MOQs")!
+            let listMOQSection = self.form.sectionBy(tag: "list MOQs")!
             
             listMOQSection <<< LabelRow() {
                 $0.cell.height = { 25.0 }
                 $0.tag = "list MOQs label"
-                if self.enquiryObject?.productType == "Custom Product" {
+                if self.orderObject?.productType == "Custom Product" {
                     $0.title = "Accept MOQ from this list"
                 }else{
                     $0.title = "Accept MOQ"
@@ -772,7 +854,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.isUserInteractionEnabled = false
             }
             
-            if self.enquiryObject?.productType == "Custom Product" {
+            if self.orderObject?.productType == "Custom Product" {
                 listMOQSection <<< MOQSortButtonsRow() {
                     //   $0.hidden = true
                     $0.cell.height = { 30.0 }
@@ -915,21 +997,13 @@ class BuyerEnquiryDetailsController: FormViewController {
     }
 }
 
-class CreateMOQModel {
-    var minimumQuantity = Observable<String?>(nil)
-    var pricePerUnit = Observable<String?>(nil)
-    var estimatedDays = Observable<EnquiryMOQDeliveryTimes?>(nil)
-    var additionalNote = Observable<String?>(nil)
-    var acceptMOQInfo = Observable<GetMOQs?>(nil)
-}
-
-extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonActionProtocol, MOQSortButtonsActionProtocol, InvoiceButtonProtocol, AcceptedInvoiceRowProtocol {
+extension OrderDetailController:  MOQButtonActionProtocol, SingleButtonActionProtocol, MOQSortButtonsActionProtocol, InvoiceButtonProtocol, AcceptedInvoiceRowProtocol {
     func approvePaymentButtonSelected(tag: Int) {
         switch tag{
         case 3:
             let storyboard = UIStoryboard(name: "Payment", bundle: nil)
             let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
-            vc1.enquiryObject = self.enquiryObject
+            vc1.orderObject = self.orderObject
             vc1.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc1, animated: true)
             
@@ -953,9 +1027,9 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
         switch tag{
         case 100:
             let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.enquiryObject!.enquiryId, enquiryObj: self.enquiryObject!, orderObj: nil) as! InvoiceController
+            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject!.enquiryId, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
-            vc1.enquiryObject = self.enquiryObject
+            vc1.orderObject = self.orderObject
             print("PI WORKING")
             self.navigationController?.pushViewController(vc1, animated: true)
             print("createSendInvoiceBtnSelected WORKING")
@@ -981,7 +1055,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
                 
             case obj.artisanId :
                 let vc = CustomMOQArtisanDetailsController.init(style: .plain)
-                vc.enquiryObject = self.enquiryObject
+                vc.orderObject = self.orderObject
                 vc.getMOs = obj
                 self.navigationController?.pushViewController(vc, animated: true)
                 print(obj.artisanId)
@@ -1021,7 +1095,8 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     }
     
 }
-extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
+
+extension OrderDetailController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
     func viewProformaInvoiceBtnSelected(tag: Int) {
         self.showLoading()
         self.viewPI?()
@@ -1034,17 +1109,17 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
     func paymentBtnSelected(tag: Int) {
         switch tag{
         case 100:
-            if self.enquiryObject!.isBlue || self.enquiryObject!.enquiryStageId >= 4{
+            if self.orderObject?.isBlue ?? false || self.orderObject?.enquiryStageId ?? 0 >= 4{
                 let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
-                vc1.enquiryObject = self.enquiryObject
+                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject!.enquiryId) as! PaymentUploadController
+                vc1.orderObject = self.orderObject
                 vc1.modalPresentationStyle = .fullScreen
                 self.navigationController?.pushViewController(vc1, animated: true)
             }
             else{
                 let storyboard = UIStoryboard(name: "Payment", bundle: nil)
                 let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
-                vc1.enquiryObject = self.enquiryObject
+                vc1.orderObject = self.orderObject
                 vc1.PI = self.PI
                 vc1.modalPresentationStyle = .fullScreen
                 self.navigationController?.pushViewController(vc1, animated: true)
@@ -1086,25 +1161,25 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
     
 }
 
-extension BuyerEnquiryDetailsController: MarkCompleteAndNextProtocol, StartstageProtocol {
+extension OrderDetailController: MarkCompleteAndNextProtocol, StartstageProtocol {
     
     
     func MarkProgressSelected(tag: Int) {
         self.showLoading()
         let client = try! SafeClient(wrapping: CraftExchangeClient())
         let service = EnquiryDetailsService.init(client: client)
-        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId)
+        service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: orderObject?.innerEnquiryStageId ?? 0)
     }
     
     func MarkCompleteNextSelected(tag: Int) {
         self.showLoading()
         let client = try! SafeClient(wrapping: CraftExchangeClient())
         let service = EnquiryDetailsService.init(client: client)
-        if enquiryObject!.innerEnquiryStageId == 5{
-            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 6, innerStageId: 0)
+        if orderObject?.innerEnquiryStageId == 5 {
+            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 6, innerStageId: 0)
         }
         else{
-            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId + 1)
+            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: orderObject?.innerEnquiryStageId ?? 0 + 1)
         }
         
     }
@@ -1113,8 +1188,9 @@ extension BuyerEnquiryDetailsController: MarkCompleteAndNextProtocol, Startstage
         self.showLoading()
         let client = try! SafeClient(wrapping: CraftExchangeClient())
         let service = EnquiryDetailsService.init(client: client)
-        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 5, innerStageId: 1)
+        service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 5, innerStageId: 1)
     }
     
     
 }
+

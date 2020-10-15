@@ -22,13 +22,14 @@ import ImageRow
 class EnquiryArtisanDetailsController: FormViewController {
     
     var enquiryObject: Enquiry?
+    var orderObject: Order?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .red
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         let realm = try? Realm()
-        let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? 0)
+        let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? orderObject?.userId ?? 0)
         
         let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
         rightButtonItem.image = UIImage.init(named: "ios magenta chat")
@@ -43,7 +44,7 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.tag = "ProfileView"
                 $0.cell.isUserInteractionEnabled = false
                 $0.cell.actionButton.isUserInteractionEnabled = false
-                if let name = self.enquiryObject?.logo, let userID = self.enquiryObject?.userId {
+                if let name = self.enquiryObject?.logo ?? self.orderObject?.logo, let userID = self.enquiryObject?.userId ?? self.orderObject?.userId{
                     let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/CompanyDetails/Logo/\(name)")
                     URLSession.shared.dataTask(with: url!) { data, response, error in
                         // do your stuff here...
@@ -60,27 +61,27 @@ class EnquiryArtisanDetailsController: FormViewController {
                 }
             }
             <<< LabelRow() {
-                $0.title = enquiryObject?.brandName
+                $0.title = enquiryObject?.brandName ?? orderObject?.brandName
             }
             <<< LabelRow() {
                 if User.loggedIn()?.refRoleId == "2" {
-                    $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? "")"
+                    $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? orderObject?.productCategoryId ?? orderObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? orderObject?.clusterName ?? "")"
                 }else {
-                    $0.title = "\(enquiryObject?.firstName ?? "") \(enquiryObject?.lastName ?? "")"
+                    $0.title = "\(enquiryObject?.firstName ?? orderObject?.firstName ?? "") \(enquiryObject?.lastName ?? orderObject?.lastName ?? "")"
                 }
             }
             <<< LabelRow() {
                 if User.loggedIn()?.refRoleId == "2" {
-                    $0.title = "\(enquiryObject?.firstName ?? "") \(enquiryObject?.lastName ?? "")"
+                    $0.title = "\(enquiryObject?.firstName ?? orderObject?.firstName ?? "") \(enquiryObject?.lastName ?? orderObject?.lastName ?? "")"
                 }else {
-                    $0.title = enquiryObject?.email ?? ""
+                    $0.title = enquiryObject?.email ?? orderObject?.email ?? ""
                 }
             }
             <<< LabelRow() {
                 if User.loggedIn()?.refRoleId == "2" {
-                    $0.title = enquiryObject?.eqDescription
+                    $0.title = enquiryObject?.eqDescription ?? orderObject?.eqDescription
                 }else {
-                    $0.title = enquiryObject?.mobile
+                    $0.title = enquiryObject?.mobile ?? orderObject?.mobile
                 }
             }
             <<< LabelRow() {
@@ -88,6 +89,13 @@ class EnquiryArtisanDetailsController: FormViewController {
                 var lbl = ""
                 enquiryObject?.productCategories .forEach({ (catId) in
                     if catId == enquiryObject?.productCategories.last {
+                        lbl.append("\(ProductCategory.getProductCat(catId: catId)?.prodCatDescription ?? "")")
+                    }else {
+                        lbl.append("\(ProductCategory.getProductCat(catId: catId)?.prodCatDescription ?? ""), ")
+                    }
+                })
+                orderObject?.productCategories .forEach({ (catId) in
+                    if catId == orderObject?.productCategories.last {
                         lbl.append("\(ProductCategory.getProductCat(catId: catId)?.prodCatDescription ?? "")")
                     }else {
                         lbl.append("\(ProductCategory.getProductCat(catId: catId)?.prodCatDescription ?? ""), ")
@@ -358,28 +366,34 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.title = "Delivery Address".localized
             }.cellUpdate({ (cell, row) in
                 var finalString = ""
-                if self.enquiryObject?.line1 != nil && self.enquiryObject?.line1 != "" {
+                if (self.enquiryObject?.line1 != nil && self.enquiryObject?.line1?.isNotBlank ?? false) || (self.orderObject?.line1 != nil && self.orderObject?.line1?.isNotBlank ?? false) {
                     finalString.append(self.enquiryObject?.line1 ?? "")
                 }
-                if self.enquiryObject?.line2 != nil && self.enquiryObject?.line2 != "" {
+                if (self.enquiryObject?.line2 != nil && self.enquiryObject?.line2?.isNotBlank ?? false) || (self.orderObject?.line2 != nil && self.orderObject?.line2?.isNotBlank ?? false)  {
                     finalString.append(" \(self.enquiryObject?.line2 ?? "")")
                 }
-                if self.enquiryObject?.street != nil && self.enquiryObject?.street != "" {
+                if (self.enquiryObject?.street != nil && self.enquiryObject?.street?.isNotBlank ?? false) ||
+                    (self.orderObject?.street != nil && self.orderObject?.street?.isNotBlank ?? false) {
                     finalString.append(", \(self.enquiryObject?.street ?? "")")
                 }
-                if self.enquiryObject?.city != nil && self.enquiryObject?.city != "" {
+                if (self.enquiryObject?.city != nil && self.enquiryObject?.city?.isNotBlank ?? false) ||
+                    (self.orderObject?.city != nil && self.orderObject?.city?.isNotBlank ?? false) {
                     finalString.append(self.enquiryObject?.city ?? "")
                 }
-                if self.enquiryObject?.district != nil && self.enquiryObject?.district != "" {
+                if (self.enquiryObject?.district != nil && self.enquiryObject?.district?.isNotBlank ?? false) ||
+                    (self.orderObject?.district != nil && self.orderObject?.district?.isNotBlank ?? false) {
                     finalString.append(" \(self.enquiryObject?.district ?? "")")
                 }
-                if self.enquiryObject?.state != nil && self.enquiryObject?.state != "" {
+                if (self.enquiryObject?.state != nil && self.enquiryObject?.state?.isNotBlank ?? false) ||
+                   (self.orderObject?.state != nil && self.orderObject?.state?.isNotBlank ?? false) {
                     finalString.append(", \(self.enquiryObject?.state ?? "")")
                 }
-                if self.enquiryObject?.pincode != nil && self.enquiryObject?.pincode != "" {
+                if (self.enquiryObject?.pincode != nil && self.enquiryObject?.pincode?.isNotBlank ?? false) ||
+                   (self.orderObject?.pincode != nil && self.orderObject?.pincode?.isNotBlank ?? false) {
                     finalString.append(", \(self.enquiryObject?.pincode ?? "")")
                 }
-                if self.enquiryObject?.country != nil && self.enquiryObject?.country != "" {
+                if (self.enquiryObject?.country != nil && self.enquiryObject?.country?.isNotBlank ?? false) ||
+                    (self.orderObject?.country != nil && self.orderObject?.country?.isNotBlank ?? false){
                     finalString.append("\n \(self.enquiryObject?.country ?? "")")
                 }
                 cell.detailTextLabel?.text = finalString
@@ -397,7 +411,7 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.text = enquiryObject?.gst ?? ""
+                $0.cell.valueTextField.text = enquiryObject?.gst ?? orderObject?.gst ?? ""
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.height = { 80.0 }
                 }.cellUpdate({ (cell, row) in
@@ -418,7 +432,7 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.text = "\(enquiryObject?.pocFirstName ?? "") \(enquiryObject?.pocLastName ?? "")"
+                $0.cell.valueTextField.text = "\(enquiryObject?.pocFirstName ?? orderObject?.pocFirstName ?? "") \(enquiryObject?.pocLastName ?? orderObject?.pocLastName ?? "")"
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.height = { 80.0 }
                 }.cellUpdate({ (cell, row) in
@@ -435,7 +449,7 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
                 $0.cell.height = { 80.0 }
-                $0.cell.valueTextField.text = enquiryObject?.pocContact ?? ""
+                $0.cell.valueTextField.text = enquiryObject?.pocContact ?? orderObject?.pocContact ?? ""
                 $0.cell.valueTextField.textColor = .darkGray
                 }.cellUpdate({ (cell, row) in
                     cell.isUserInteractionEnabled = false
@@ -450,7 +464,7 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.text = enquiryObject?.pocEmail ?? ""
+                $0.cell.valueTextField.text = enquiryObject?.pocEmail ?? orderObject?.pocEmail ?? ""
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.height = { 80.0 }
                 }.cellUpdate({ (cell, row) in
@@ -468,8 +482,9 @@ class EnquiryArtisanDetailsController: FormViewController {
 
 class CustomMOQArtisanDetailsController: FormViewController {
     
-     var getMOs: GetMOQs?
-     var enquiryObject: Enquiry?
+    var getMOs: GetMOQs?
+    var enquiryObject: Enquiry?
+    var orderObject: Order?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -508,7 +523,7 @@ class CustomMOQArtisanDetailsController: FormViewController {
                 $0.title = getMOs?.brand
             }
             <<< LabelRow() {
-                    $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? "")"
+                    $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? orderObject?.productCategoryId ?? orderObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? orderObject?.clusterName ?? "")"
             }
             
     }

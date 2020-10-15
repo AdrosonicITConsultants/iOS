@@ -50,6 +50,11 @@ class OrderListController: UIViewController {
         }
         tableView.refreshControl?.beginRefreshing()
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        if User.loggedIn()?.refRoleId == "1" {
+            self.emptyView.image = UIImage.init(named: "no-order-artisan")
+        }else {
+            self.emptyView.image = UIImage.init(named: "no-order-buyer")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,22 +116,21 @@ extension OrderListController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("*** object ***")
-        /*do {
+        do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
             if let obj = allOrders?[indexPath.row] {
-                let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allOrders?[indexPath.row], enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
+                let vc = OrderDetailsService(client: client).createOrderDetailScene(forOrder: allOrders?[indexPath.row], enquiryId: obj.entityID) as! OrderDetailController
                 vc.modalPresentationStyle = .fullScreen
                 if segmentView.selectedSegmentIndex == 0 {
                     vc.isClosed = false
                 }else {
                     vc.isClosed = true
                 }
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.pushViewController(vc, animated: false)
             }
         }catch {
             print(error.localizedDescription)
-        }*/
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

@@ -82,25 +82,7 @@ extension EnquiryDetailsService {
         }
         vc.checkMOQ = {
             vc.showLoading()
-            self.getMOQ(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
-                    if let dataDict = json["data"] as? Dictionary<String,Any>
-                    {
-                        guard let moqObj = dataDict["moq"] as? Dictionary<String,Any> else {
-                            return
-                        }
-                        if let moqdata = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
-                            if  let object = try? JSONDecoder().decode(GetMOQ.self, from: moqdata) {
-                                DispatchQueue.main.async {
-                                    vc.getMOQ = object
-                                    vc.assignMOQ()
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            }.dispose(in: vc.bag)
+            self.checkMOQ(enquiryId: enquiryId, vc: vc)
         }
         
         vc.checkMOQs = {
@@ -221,15 +203,8 @@ extension EnquiryDetailsService {
         }
         
         vc.viewPI = {
-            
-            self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
-                    vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: date , data: object)
-                    vc.hideLoading()
-                }
-            }.dispose(in: vc.bag)
+            let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
+            self.getPreviewPI(enquiryId: enquiryId, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc)
         }
         
         vc.downloadPI = {
@@ -237,21 +212,7 @@ extension EnquiryDetailsService {
         }
         
         vc.getPI = {
-            self.getPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
-                    if let dataDict = json["data"] as? Dictionary<String,Any>
-                    {
-                        if let moqdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
-                            if  let object = try? JSONDecoder().decode(GetPI.self, from: moqdata) {
-                                DispatchQueue.main.async {
-                                    vc.PI = object
-                                    print("hey: \(object)")
-                                }
-                            }
-                        }
-                    }
-                }
-            }.dispose(in: vc.bag)
+            self.showPI(enquiryId: enquiryId, vc: vc)
         }
         
         return vc
@@ -295,6 +256,63 @@ extension EnquiryDetailsService {
             }
             
         }
+    }
+    
+    func checkMOQ(enquiryId: Int, vc:UIViewController) {
+        self.getMOQ(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                if let dataDict = json["data"] as? Dictionary<String,Any>
+                {
+                    guard let moqObj = dataDict["moq"] as? Dictionary<String,Any> else {
+                        return
+                    }
+                    if let moqdata = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
+                        if  let object = try? JSONDecoder().decode(GetMOQ.self, from: moqdata) {
+                            DispatchQueue.main.async {
+                                if let controller = vc as? BuyerEnquiryDetailsController {
+                                    controller.getMOQ = object
+                                    controller.assignMOQ()
+                                }else if let controller = vc as? OrderDetailController {
+                                    controller.getMOQ = object
+                                    controller.assignMOQ()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
+    func getPreviewPI(enquiryId: Int, lastUpdatedDate: String, code: String, vc: UIViewController) {
+        self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+            DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                vc.view.showAcceptedPIView(controller: vc, entityId: code, date: lastUpdatedDate , data: object)
+                vc.hideLoading()
+            }
+        }.dispose(in: vc.bag)
+    }
+    
+    func showPI(enquiryId: Int, vc: UIViewController) {
+        self.getPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                if let dataDict = json["data"] as? Dictionary<String,Any>
+                {
+                    if let moqdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                        if  let object = try? JSONDecoder().decode(GetPI.self, from: moqdata) {
+                            DispatchQueue.main.async {
+                                if let controller = vc as? BuyerEnquiryDetailsController {
+                                    controller.PI = object
+                                }else if let controller = vc as? OrderDetailController {
+                                    controller.PI = object
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }.dispose(in: vc.bag)
     }
 }
 

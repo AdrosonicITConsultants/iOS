@@ -8,12 +8,13 @@
 
 import Foundation
 import UIKit
+import Eureka
 
 @objc protocol TransactionListProtocol {
     @objc optional func viewTransactionReceipt(tag: Int)
 }
 
-class TransactionDetailRow: UITableViewCell {
+class TransactionDetailRow: Cell<String>, CellType {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var invoiceButton: UIButton!
@@ -40,3 +41,11 @@ class TransactionDetailRow: UITableViewCell {
     }
 }
 
+// The custom Row also has the cell: CustomCell and its correspond value
+final class TransactionDetailRowView: Row<TransactionDetailRow>, RowType {
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        // We set the cellProvider to load the .xib corresponding to our cell
+        cellProvider = CellProvider<TransactionDetailRow>(nibName: "TransactionDetailRow")
+    }
+}
