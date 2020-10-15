@@ -31,6 +31,15 @@ extension ArtisanTabbarController {
             } catch let error {
               print("Unable to load view:\n\(error.localizedDescription)")
             }
+        }else if item.title == "Orders" {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = OrderListService(client: client).createScene()
+                let nav = self.customizableViewControllers?[1] as! UINavigationController
+                nav.setViewControllers([vc], animated: false)
+            } catch let error {
+              print("Unable to load view:\n\(error.localizedDescription)")
+            }
         }
     }
 }
