@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11AC037C2538688000469A7D /* FillQCForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AC037A2538687F00469A7D /* FillQCForm.swift */; };
+		11AC037D2538688000469A7D /* FillQCForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11AC037B2538687F00469A7D /* FillQCForm.xib */; };
+		11AC0380253D6F4F00469A7D /* SaveAndSendQC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AC037E253D6F4F00469A7D /* SaveAndSendQC.swift */; };
+		11AC0381253D6F4F00469A7D /* SaveAndSendQC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11AC037F253D6F4F00469A7D /* SaveAndSendQC.xib */; };
+		11B732172538556300A30183 /* QCStage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B732152538556200A30183 /* QCStage1.swift */; };
+		11B732182538556300A30183 /* QCStage1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B732162538556200A30183 /* QCStage1.xib */; };
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
 		3001A8AE2518894E00CFC32A /* GetMOQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3001A8AD2518894D00CFC32A /* GetMOQ.swift */; };
 		3005D1E12521966200BF22C0 /* MOQAcceptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005D1E02521966200BF22C0 /* MOQAcceptView.swift */; };
@@ -369,6 +375,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11AC037A2538687F00469A7D /* FillQCForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillQCForm.swift; sourceTree = "<group>"; };
+		11AC037B2538687F00469A7D /* FillQCForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FillQCForm.xib; sourceTree = "<group>"; };
+		11AC037E253D6F4F00469A7D /* SaveAndSendQC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAndSendQC.swift; sourceTree = "<group>"; };
+		11AC037F253D6F4F00469A7D /* SaveAndSendQC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaveAndSendQC.xib; sourceTree = "<group>"; };
+		11B732152538556200A30183 /* QCStage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCStage1.swift; sourceTree = "<group>"; };
+		11B732162538556200A30183 /* QCStage1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QCStage1.xib; sourceTree = "<group>"; };
 		3001A8AD2518894D00CFC32A /* GetMOQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMOQ.swift; sourceTree = "<group>"; };
 		3005D1E02521966200BF22C0 /* MOQAcceptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQAcceptView.swift; sourceTree = "<group>"; };
 		3005D1E22521978100BF22C0 /* MOQAcceptView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQAcceptView.xib; sourceTree = "<group>"; };
@@ -1353,6 +1365,8 @@
 		C099E3EB24FE8ECE003B6E3B /* Popups */ = {
 			isa = PBXGroup;
 			children = (
+				11AC037A2538687F00469A7D /* FillQCForm.swift */,
+				11AC037B2538687F00469A7D /* FillQCForm.xib */,
 				C099E3EC24FE8F0C003B6E3B /* EnquiryInitiationView.xib */,
 				C099E3F024FE9D29003B6E3B /* EnquiryExistsView.swift */,
 				C099E3EE24FE9252003B6E3B /* EnquiryExistsView.xib */,
@@ -1475,6 +1489,10 @@
 				3089DED7252B31C1003184FA /* uploadRecieptView.xib */,
 				3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */,
 				3089DEDD252B3220003184FA /* UploadSuccessfulView.xib */,
+				11B732152538556200A30183 /* QCStage1.swift */,
+				11B732162538556200A30183 /* QCStage1.xib */,
+				11AC037E253D6F4F00469A7D /* SaveAndSendQC.swift */,
+				11AC037F253D6F4F00469A7D /* SaveAndSendQC.xib */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -1806,7 +1824,9 @@
 				C06DCAC724D33DD000F1435F /* lengthWidthRow.xib in Resources */,
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
+				11B732182538556300A30183 /* QCStage1.xib in Resources */,
 				307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */,
+				11AC037D2538688000469A7D /* FillQCForm.xib in Resources */,
 				C099E3EF24FE9252003B6E3B /* EnquiryExistsView.xib in Resources */,
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
 				C06570A9252B9128001140C7 /* TransactionTitleRow.xib in Resources */,
@@ -1818,6 +1838,7 @@
 				C0A9108D247CD8D000852695 /* Lato-Bold.ttf in Resources */,
 				C0A91092247CD8D000852695 /* Lato-BoldItalic.ttf in Resources */,
 				C05E3AE524D2839E00963FAA /* CollectionViewRow.xib in Resources */,
+				11AC0381253D6F4F00469A7D /* SaveAndSendQC.xib in Resources */,
 				C0AAC3962492BBA2008C2047 /* RoundedActionSheetRow.xib in Resources */,
 				C06AA39A25052FA200EF4B10 /* StatusRow.xib in Resources */,
 				C0A91093247CD8D000852695 /* Lato-Light.ttf in Resources */,
@@ -1879,6 +1900,7 @@
 				C04842C024E7E0AE00D3207F /* CustomProductImageService.swift in Sources */,
 				C071E248247EE59E0085805B /* HTTPMethod.swift in Sources */,
 				C09B3F0D24BA615900FBC115 /* Disk+InternalHelpers.swift in Sources */,
+				11AC0380253D6F4F00469A7D /* SaveAndSendQC.swift in Sources */,
 				C08FBE002497F31B0065BB20 /* REGBuyerPersonalInfoService.swift in Sources */,
 				C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */,
 				C09C8C29250D7A7000950526 /* EnquiryArtisanDetailsController.swift in Sources */,
@@ -2021,6 +2043,7 @@
 				C09C970324B9096000FD97E9 /* MyProfileScene.swift in Sources */,
 				C09B3EFE24BA569300FBC115 /* ProfileImageRow.swift in Sources */,
 				C09C970724B919EE00FD97E9 /* ArtisanBrandDetails.swift in Sources */,
+				11B732172538556300A30183 /* QCStage1.swift in Sources */,
 				C0AAC39024927296008C2047 /* RoundedTextFieldRow.swift in Sources */,
 				C09F215224862F12001F2FCD /* ProductCategory+Transaction.swift in Sources */,
 				C0ACE9A22485947500EFA4ED /* ValidateWeaverService.swift in Sources */,
@@ -2133,6 +2156,7 @@
 				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,
 				C08FBE022497FF920065BB20 /* REGBuyerCompanyInfoScene.swift in Sources */,
 				C09C970924B919FC00FD97E9 /* ArtisanBankDetails.swift in Sources */,
+				11AC037C2538688000469A7D /* FillQCForm.swift in Sources */,
 				C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */,
 				C0A0D76324BD7B360089CC47 /* PaymentAccDetails+Transaction.swift in Sources */,
 				C0E6D04824EC17D2008CFB1F /* ProductDetailInfoRow.swift in Sources */,

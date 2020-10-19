@@ -188,44 +188,44 @@ extension Enquiry {
         )
     }
     
-    public static func savePI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int ) -> Request<Data, APIError> {
-        let parameters: [String: Any] = ["enquiryId":enquiryId,
-                                         "cgst": cgst,
-                                         "expectedDateOfDelivery": expectedDateOfDelivery,
-                                         "hsn": hsn,
-                                         "ppu": ppu,
-                                         "quantity": quantity,
-                                         "sgst": sgst]
-        return Request(
-            path: "enquiry/savePi/\(enquiryId)",
-            method: .post,
-            parameters: JSONParameters(parameters),
-            resource: {print(String(data: $0, encoding: .utf8) ?? "save PI failed")
-                return $0},
-            error: APIError.init,
-            needsAuthorization: false
-        )
-    }
+//    public static func savePI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int ) -> Request<Data, APIError> {
+//        let parameters: [String: Any] = ["enquiryId":enquiryId,
+//                                         "cgst": cgst,
+//                                         "expectedDateOfDelivery": expectedDateOfDelivery,
+//                                         "hsn": hsn,
+//                                         "ppu": ppu,
+//                                         "quantity": quantity,
+//                                         "sgst": sgst]
+//        return Request(
+//            path: "enquiry/savePi/\(enquiryId)",
+//            method: .post,
+//            parameters: JSONParameters(parameters),
+//            resource: {print(String(data: $0, encoding: .utf8) ?? "save PI failed")
+//                return $0},
+//            error: APIError.init,
+//            needsAuthorization: false
+//        )
+//    }
     
-    public static func sendPI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int ) -> Request<Data, APIError> {
-        let parameters: [String: Any] = ["enquiryId":enquiryId,
-                                         "cgst": cgst,
-                                         "expectedDateOfDelivery": expectedDateOfDelivery,
-                                         "hsn": hsn,
-                                         "ppu": ppu,
-                                         "quantity": quantity,
-                                         "sgst": sgst]
-        return Request(
-            path: "enquiry/sendPi/\(enquiryId)",
-            method: .post,
-            parameters: JSONParameters(parameters),
-            resource: {print(String(data: $0, encoding: .utf8) ?? "save PI failed")
-                return $0},
-            error: APIError.init,
-            needsAuthorization: false
-        )
-    }
-    
+//    public static func sendPI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int ) -> Request<Data, APIError> {
+//        let parameters: [String: Any] = ["enquiryId":enquiryId,
+//                                         "cgst": cgst,
+//                                         "expectedDateOfDelivery": expectedDateOfDelivery,
+//                                         "hsn": hsn,
+//                                         "ppu": ppu,
+//                                         "quantity": quantity,
+//                                         "sgst": sgst]
+//        return Request(
+//            path: "enquiry/sendPi/\(enquiryId)",
+//            method: .post,
+//            parameters: JSONParameters(parameters),
+//            resource: {print(String(data: $0, encoding: .utf8) ?? "save PI failed")
+//                return $0},
+//            error: APIError.init,
+//            needsAuthorization: false
+//        )
+//    }
+//    
     public static func acceptMOQ(enquiryId: Int, moqId: Int, artisanId: Int) -> Request<Data, APIError> {
         let parameters: [String: Any] = ["enquiryId":enquiryId,
                                          "moqId": moqId,
@@ -290,20 +290,20 @@ extension Enquiry {
         )
     }
     
-    public static func getPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
-        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
-        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)"
-        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        return Request(
-            path: str,
-            method: .get,
-            headers: headers,
-            resource: {print(String(data: $0, encoding: .utf8) ?? "get preview PI failed")
-                return $0},
-            error: APIError.init,
-            needsAuthorization: true
-        )
-    }
+//    public static func getPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
+//        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
+//        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)"
+//        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+//        return Request(
+//            path: str,
+//            method: .get,
+//            headers: headers,
+//            resource: {print(String(data: $0, encoding: .utf8) ?? "get preview PI failed")
+//                return $0},
+//            error: APIError.init,
+//            needsAuthorization: true
+//        )
+//    }
     
     public static func downloadPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "application/pdf"]
