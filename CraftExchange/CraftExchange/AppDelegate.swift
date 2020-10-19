@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let vc = storyboard.instantiateViewController(withIdentifier: "MarketHomeController") as! MarketHomeController
+    let vc = storyboard.instantiateViewController(withIdentifier: "DefaultViewController") as! DefaultViewController
     window?.rootViewController = vc
     window?.makeKeyAndVisible()
     let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)

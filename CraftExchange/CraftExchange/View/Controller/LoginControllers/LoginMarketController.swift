@@ -9,19 +9,21 @@
 import Bond
 import ReactiveKit
 import UIKit
+
 class LoginMarketViewModel {
     var username = Observable<String?>(nil)
     var password = Observable<String?>(nil)
     var performAuthentication: (() -> Void)?
     var goToForgotPassword: (() -> Void)?
-    var goToRegister: (() -> Void)?
+    var goToLogin: (() -> Void)?
 }
+
 class LoginMarketController: UIViewController {
+    
     @IBOutlet weak var loginButton: RoundedButton!
     @IBOutlet weak var usernameField: RoundedTextField!
     @IBOutlet weak var passwordField: RoundedTextField!
     var viewModel = LoginMarketViewModel()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +33,12 @@ class LoginMarketController: UIViewController {
         self.navigationItem.rightBarButtonItem = roleBarButton()
     }
     
-    
-    
     @IBAction func loginButtonSelected(_ sender: Any) {
-        //        self.showLoading()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc1 = storyboard.instantiateViewController(withIdentifier: "MarketHomeController") as! MarketHomeController
-        vc1.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(vc1, animated: true)
-        
-        
+        self.viewModel.performAuthentication?()
     }
     
+    @IBAction func forgotPasswordSelected(_ sender: Any) {
+      self.viewModel.goToForgotPassword?()
+    }
 }
 

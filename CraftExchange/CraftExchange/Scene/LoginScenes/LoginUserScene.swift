@@ -13,10 +13,9 @@ import UIKit
 
 extension LoginUserService {
   
-  func createScene(username:String) -> UIViewController {
+  func createScene() -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let vc = storyboard.instantiateViewController(withIdentifier: "LoginMarketController") as! LoginMarketController
-    vc.viewModel.username.value = username
     
     client.errors.bind(to: vc.reactive.userErrors)
     
@@ -53,13 +52,9 @@ extension LoginUserService {
                       KeychainManager.standard.username = userObj["firstName"] as? String ?? ""
                       let app = UIApplication.shared.delegate as? AppDelegate
                       app?.showDemoVideo = true
-                        if KeychainManager.standard.userRole == "Artisan" {
-                            let controller = HomeScreenService(client: self.client).createScene()
-                            vc.present(controller, animated: true, completion: nil)
-                        }else {
-                            let controller = HomeScreenService(client: self.client).createBuyerScene()
-                            vc.present(controller, animated: true, completion: nil)
-                        }
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let controller = storyboard.instantiateViewController(withIdentifier: "MarketHomeController") as! MarketHomeController
+                        vc.present(controller, animated: true, completion: nil)
                     }
                   }else {
                     DispatchQueue.main.async {
@@ -81,21 +76,8 @@ extension LoginUserService {
     }
     
     vc.viewModel.goToForgotPassword = {
-      let controller = ForgotPasswordService(client: self.client).createScene()
-      vc.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    vc.viewModel.goToRegister = {
-      let appDelegate = UIApplication.shared.delegate as? AppDelegate
-      appDelegate?.registerUser = nil
-      if KeychainManager.standard.userRoleId == 1 {
-        let controller = ValidateWeaverService(client: self.client).createScene()
-        vc.navigationController?.pushViewController(controller, animated: true)
-      }else {
-        let controller = REGValidateUserEmailService(client: self.client).createScene(weaverId: nil)
-        vc.navigationController?.pushViewController(controller, animated: true)
-      }
-      
+        let controller = ForgotPasswordService(client: self.client).createScene()
+        vc.present(controller, animated: true, completion: nil)
     }
     
     return vc

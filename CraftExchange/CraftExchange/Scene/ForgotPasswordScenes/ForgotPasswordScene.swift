@@ -24,7 +24,7 @@ extension ForgotPasswordService {
     }.dispose(in: vc.bag)
     
     vc.viewModel.sendOTP = {
-      if (vc.viewModel.username.value != nil) && vc.viewModel.username.value?.isNotBlank ?? false && vc.viewModel.username.value?.isValidEmailAddress ?? false {
+      if (vc.viewModel.username.value != nil) && vc.viewModel.username.value?.isNotBlank ?? false {
         vc.showLoading()
         let username = vc.viewModel.username.value ?? ""
         vc.sendOTPButton.isEnabled = false
@@ -64,7 +64,7 @@ extension ForgotPasswordService {
     }
     
     vc.viewModel.validateOTP = {
-      if (vc.viewModel.username.value != nil) && vc.viewModel.username.value?.isNotBlank ?? false && vc.viewModel.username.value?.isValidEmailAddress ?? false && (vc.viewModel.otp.value != nil) && vc.viewModel.otp.value?.isNotBlank ?? false {
+      if (vc.viewModel.username.value != nil) && vc.viewModel.username.value?.isNotBlank ?? false && (vc.viewModel.otp.value != nil) && vc.viewModel.otp.value?.isNotBlank ?? false {
         let username = vc.viewModel.username.value ?? ""
         let otp = vc.viewModel.otp.value ?? ""
         vc.showLoading()

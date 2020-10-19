@@ -186,7 +186,7 @@ class SideMenuController: FormViewController {
             UIApplication.shared.applicationIconBadgeNumber = 0
             self.showLoading()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
+            let vc = storyboard.instantiateViewController(withIdentifier: "LoginMarketController") as! LoginMarketController
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: {
               self.hideLoading()

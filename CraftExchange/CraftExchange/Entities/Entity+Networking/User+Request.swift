@@ -26,15 +26,10 @@ extension User {
   }
   
   public static func authenticate(username: String, password: String) -> Request<Data, APIError> {
-    var roleId = 1
-    if let role =  KeychainManager.standard.userRoleId {
-      roleId = role
-    }
-    let parameters: [String: Any] = ["emailOrMobile":username,
-                                     "password":password,
-                                     "roleId":roleId]
+    let parameters: [String: Any] = ["username":username,
+                                     "password":password]
       return Request(
-          path: "login/authenticate",
+          path: "login/authenticateMarketing",
           method: .post,
           parameters: JSONParameters(parameters),
           resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
@@ -45,12 +40,8 @@ extension User {
   }
   
   public static func sendOTP(username: String) -> Request<Data, APIError> {
-    var roleId = 1
-    if let role =  KeychainManager.standard.userRoleId {
-      roleId = role
-    }
       return Request(
-          path: "forgotpassword/sendotp?email=\(username)&roleId=\(roleId)",
+          path: "forgotpassword/sendOtpToMarketingTeam?username=\(username)",
           method: .get,
           resource: { print(String(data: $0, encoding: .utf8) ?? "opt sendind failed")
           return $0
@@ -76,15 +67,10 @@ extension User {
   }
   
   public static func resetPassword(username: String, password: String) -> Request<Data, APIError> {
-    var roleId = 1
-    if let role =  KeychainManager.standard.userRoleId {
-      roleId = role
-    }
-    let parameters: [String: Any] = ["emailOrMobile":username,
-                                     "password":password,
-                                     "roleId":roleId]
+    let parameters: [String: Any] = ["username":username,
+                                     "password":password]
       return Request(
-          path: "forgotpassword/resetpassword",
+          path: "forgotpassword/resetMarketingPassword",
           method: .post,
           parameters: JSONParameters(parameters),
           resource: {print(String(data: $0, encoding: .utf8) ?? "reset password failed")

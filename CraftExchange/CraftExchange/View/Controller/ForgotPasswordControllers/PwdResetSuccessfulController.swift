@@ -20,7 +20,7 @@ class PwdResetSuccessfulController: UIViewController {
   @IBAction func showLoginSelected(_sender: Any) {
     do {
       let client = try SafeClient(wrapping: CraftExchangeClient())
-      let controller = ValidateUserService(client: client).createScene()
+      let controller = LoginUserService(client: client).createScene()
       let navigationController = UINavigationController(rootViewController: controller)
       self.present(navigationController, animated: true, completion: nil)
     } catch let error {
