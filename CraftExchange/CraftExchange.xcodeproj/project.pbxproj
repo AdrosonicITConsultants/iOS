@@ -7,10 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11173F4A253DBCC90027B9C3 /* checkboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11173F48253DBCC80027B9C3 /* checkboxField.swift */; };
+		11173F4B253DBCC90027B9C3 /* checkboxField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11173F49253DBCC80027B9C3 /* checkboxField.xib */; };
+		11173F4E253DDBFA0027B9C3 /* CRNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11173F4C253DDBFA0027B9C3 /* CRNoteView.swift */; };
+		11173F4F253DDBFA0027B9C3 /* CRNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11173F4D253DDBFA0027B9C3 /* CRNoteView.xib */; };
 		11AC037C2538688000469A7D /* FillQCForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AC037A2538687F00469A7D /* FillQCForm.swift */; };
 		11AC037D2538688000469A7D /* FillQCForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11AC037B2538687F00469A7D /* FillQCForm.xib */; };
 		11AC0380253D6F4F00469A7D /* SaveAndSendQC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AC037E253D6F4F00469A7D /* SaveAndSendQC.swift */; };
 		11AC0381253D6F4F00469A7D /* SaveAndSendQC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11AC037F253D6F4F00469A7D /* SaveAndSendQC.xib */; };
+		11AC0384253D824F00469A7D /* DisableCRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AC0382253D824F00469A7D /* DisableCRView.swift */; };
+		11AC0385253D824F00469A7D /* DisableCRView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11AC0383253D824F00469A7D /* DisableCRView.xib */; };
+		11AC0388253D9CD300469A7D /* AcceptRejectCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AC0386253D9CD300469A7D /* AcceptRejectCR.swift */; };
+		11AC0389253D9CD300469A7D /* AcceptRejectCR.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11AC0387253D9CD300469A7D /* AcceptRejectCR.xib */; };
 		11B732172538556300A30183 /* QCStage1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B732152538556200A30183 /* QCStage1.swift */; };
 		11B732182538556300A30183 /* QCStage1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B732162538556200A30183 /* QCStage1.xib */; };
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
@@ -375,10 +383,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11173F48253DBCC80027B9C3 /* checkboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkboxField.swift; sourceTree = "<group>"; };
+		11173F49253DBCC80027B9C3 /* checkboxField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = checkboxField.xib; sourceTree = "<group>"; };
+		11173F4C253DDBFA0027B9C3 /* CRNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRNoteView.swift; sourceTree = "<group>"; };
+		11173F4D253DDBFA0027B9C3 /* CRNoteView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CRNoteView.xib; sourceTree = "<group>"; };
 		11AC037A2538687F00469A7D /* FillQCForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillQCForm.swift; sourceTree = "<group>"; };
 		11AC037B2538687F00469A7D /* FillQCForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FillQCForm.xib; sourceTree = "<group>"; };
 		11AC037E253D6F4F00469A7D /* SaveAndSendQC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAndSendQC.swift; sourceTree = "<group>"; };
 		11AC037F253D6F4F00469A7D /* SaveAndSendQC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaveAndSendQC.xib; sourceTree = "<group>"; };
+		11AC0382253D824F00469A7D /* DisableCRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableCRView.swift; sourceTree = "<group>"; };
+		11AC0383253D824F00469A7D /* DisableCRView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisableCRView.xib; sourceTree = "<group>"; };
+		11AC0386253D9CD300469A7D /* AcceptRejectCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptRejectCR.swift; sourceTree = "<group>"; };
+		11AC0387253D9CD300469A7D /* AcceptRejectCR.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcceptRejectCR.xib; sourceTree = "<group>"; };
 		11B732152538556200A30183 /* QCStage1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCStage1.swift; sourceTree = "<group>"; };
 		11B732162538556200A30183 /* QCStage1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QCStage1.xib; sourceTree = "<group>"; };
 		3001A8AD2518894D00CFC32A /* GetMOQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMOQ.swift; sourceTree = "<group>"; };
@@ -1382,6 +1398,8 @@
 				309787822524AE5300F9B608 /* AcceptedPIView.xib */,
 				307B3984252C917D000028AC /* TransactionReceiptView.swift */,
 				307B3980252C73EE000028AC /* TransactionReceiptView.xib */,
+				11173F48253DBCC80027B9C3 /* checkboxField.swift */,
+				11173F49253DBCC80027B9C3 /* checkboxField.xib */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -1493,6 +1511,12 @@
 				11B732162538556200A30183 /* QCStage1.xib */,
 				11AC037E253D6F4F00469A7D /* SaveAndSendQC.swift */,
 				11AC037F253D6F4F00469A7D /* SaveAndSendQC.xib */,
+				11AC0382253D824F00469A7D /* DisableCRView.swift */,
+				11AC0383253D824F00469A7D /* DisableCRView.xib */,
+				11AC0386253D9CD300469A7D /* AcceptRejectCR.swift */,
+				11AC0387253D9CD300469A7D /* AcceptRejectCR.xib */,
+				11173F4C253DDBFA0027B9C3 /* CRNoteView.swift */,
+				11173F4D253DDBFA0027B9C3 /* CRNoteView.xib */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -1773,7 +1797,9 @@
 				C097949F24EAB23100C11AC7 /* ImageViewRow.xib in Resources */,
 				C09F97DF25021C100076F917 /* BuyerEnquiryCell.xib in Resources */,
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
+				11AC0385253D824F00469A7D /* DisableCRView.xib in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
+				11173F4F253DDBFA0027B9C3 /* CRNoteView.xib in Resources */,
 				C099E3ED24FE8F0C003B6E3B /* EnquiryInitiationView.xib in Resources */,
 				C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */,
 				309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */,
@@ -1802,6 +1828,7 @@
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C06AA3A2250550D200EF4B10 /* MOQValueRow.xib in Resources */,
 				309598862510FC8100491E33 /* OrderAvailabilityCell.xib in Resources */,
+				11173F4B253DBCC90027B9C3 /* checkboxField.xib in Resources */,
 				C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
@@ -1830,6 +1857,7 @@
 				C099E3EF24FE9252003B6E3B /* EnquiryExistsView.xib in Resources */,
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
 				C06570A9252B9128001140C7 /* TransactionTitleRow.xib in Resources */,
+				11AC0389253D9CD300469A7D /* AcceptRejectCR.xib in Resources */,
 				3089DED8252B31C2003184FA /* uploadRecieptView.xib in Resources */,
 				C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */,
 				309787792524136000F9B608 /* PreviewPIView.xib in Resources */,
@@ -1937,6 +1965,7 @@
 				C071E24B247EE59E0085805B /* RequestParameters.swift in Sources */,
 				C071E264247F07930085805B /* ReactiveExtentions.swift in Sources */,
 				C06570B7252BB45A001140C7 /* TransactionService.swift in Sources */,
+				11173F4A253DBCC90027B9C3 /* checkboxField.swift in Sources */,
 				C02DC55724F4F26C00805C98 /* Product+Search.swift in Sources */,
 				C06570A0252B82D3001140C7 /* TransactionStatus+Request.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
@@ -1973,6 +2002,7 @@
 				C09B3F1524BA615900FBC115 /* Disk+Codable.swift in Sources */,
 				C016EC1E2510D4F20039B7AF /* Notification+Request.swift in Sources */,
 				C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */,
+				11AC0388253D9CD300469A7D /* AcceptRejectCR.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
 				C09B3F1224BA615900FBC115 /* Disk+VolumeInformation.swift in Sources */,
 				C091894E248038BB0058501C /* RoleViewController.swift in Sources */,
@@ -2037,6 +2067,7 @@
 				C0930D3925061F7C00DC9274 /* StatusRow.swift in Sources */,
 				C0FBE35224C6F7CB0037347A /* ProductCatalogService.swift in Sources */,
 				C0A3F41724B7959C0071F7F8 /* BuyerProfileController.swift in Sources */,
+				11173F4E253DDBFA0027B9C3 /* CRNoteView.swift in Sources */,
 				C06570A4252B86B8001140C7 /* TransactionObject.swift in Sources */,
 				C09C8C27250D4DA400950526 /* EnquiryDetailsService.swift in Sources */,
 				C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */,
@@ -2093,6 +2124,7 @@
 				C05E3AD724D1B31F00963FAA /* UploadProductService.swift in Sources */,
 				C0917DFA24D474E3006B6664 /* ProductCare+Transaction.swift in Sources */,
 				308D5F652514C59C00CA5152 /* EnquiryMOQDeliveryTimes.swift in Sources */,
+				11AC0384253D824F00469A7D /* DisableCRView.swift in Sources */,
 				3097877F252461EF00F9B608 /* InvoiceScene.swift in Sources */,
 				C0A3F41924B7A7EF0071F7F8 /* BuyerGeneralInfo.swift in Sources */,
 				C0AE9CFB24ED842F0037ECB3 /* ToggleOptionRow.swift in Sources */,
