@@ -19,12 +19,12 @@ class PwdResetSuccessfulController: UIViewController {
   
   @IBAction func showLoginSelected(_sender: Any) {
     do {
-      let client = try SafeClient(wrapping: CraftExchangeClient())
-      let controller = LoginUserService(client: client).createScene()
-      let navigationController = UINavigationController(rootViewController: controller)
-      self.present(navigationController, animated: true, completion: nil)
+        let client = try SafeClient(wrapping: CraftExchangeClient())
+        let controller = LoginUserService(client: client).createScene()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true, completion: nil)
     } catch let error {
-      print("Unable to load view:\n\(error.localizedDescription)")
+        print("Unable to load view:\n\(error.localizedDescription)")
     }
   }
 }

@@ -78,7 +78,8 @@ extension ForgotPasswordService {
                   if (jsonDict["valid"] as? Bool) == true {
                     DispatchQueue.main.async {
                       let controller = ResetPasswordService(client: self.client).createScene(username: username)
-                      vc.navigationController?.pushViewController(controller, animated: true)
+                        vc.present(controller, animated: true, completion: nil)
+//                      vc.navigationController?.pushViewController(controller, animated: true)
                     }
                   }else {
                     DispatchQueue.main.async {

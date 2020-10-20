@@ -44,7 +44,8 @@ extension ResetPasswordService {
   //                        vc.alert("Password Reset Successfully")
                           let storyboard = UIStoryboard(name: "ForgotPassword", bundle: Bundle.main)
                           let controller = storyboard.instantiateViewController(withIdentifier: "PwdResetSuccessfulController") as! PwdResetSuccessfulController
-                          vc.navigationController?.present(controller, animated: true, completion: nil)
+                            controller.modalPresentationStyle = .fullScreen
+                          vc.present(controller, animated: true, completion: nil)
                         }
                       }else {
                         DispatchQueue.main.async {

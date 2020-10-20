@@ -30,7 +30,7 @@ class MarketHomeController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
-        
+        self.tableView.backgroundColor = .black
         form
             +++ Section()
             <<< AdminHomeHeaderRow() {
