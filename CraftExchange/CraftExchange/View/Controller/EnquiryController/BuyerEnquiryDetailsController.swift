@@ -257,7 +257,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                     cell.row.hidden = true
                     cell.height = { 0.0 }
                 }
-                })
+            })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
@@ -705,12 +705,14 @@ class BuyerEnquiryDetailsController: FormViewController {
     
     @objc func goToChat() {
         
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        if let obj = Chat().searchChat(searchId: enquiryObject!.enquiryId) {
-            let service = ChatDetailsService.init(client: client)
-            let vc = service.createScene(forChat: obj, enquiryId: enquiryObject!.enquiryId)
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+                let service = ChatListService.init(client: client)
+            if let enquiryId = enquiryObject?.enquiryId {
+                service.initiateConversation(vc: self, enquiryId: enquiryId)
+            }
+        }catch {
+            print(error.localizedDescription)
         }
     }
     
@@ -736,7 +738,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             self.form.allSections.first?.reload(with: .none)
         }
         if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 {
-           let row = form.rowBy(tag: "Production Stages Progrees")
+            let row = form.rowBy(tag: "Production Stages Progrees")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
@@ -756,9 +758,9 @@ class BuyerEnquiryDetailsController: FormViewController {
         
         form.allRows .forEach { (row) in
             row.reload()
-           // row.updateCell()
+            // row.updateCell()
         }
-      
+        
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }

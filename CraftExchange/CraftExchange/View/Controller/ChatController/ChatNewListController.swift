@@ -29,7 +29,6 @@ class ChatNewListController: UIViewController {
     @IBOutlet weak var pullToRefreshButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIImageView!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var chatNewListSearchBar: UISearchBar!
     var searchText: String = ""
     
@@ -43,7 +42,7 @@ class ChatNewListController: UIViewController {
         try? reachabilityManager?.startNotifier()
         allChat = []
         definesPresentationContext = false
-        self.setupSideMenu(false)
+        self.setupSideMenu(true)
         let center = NotificationCenter.default
         center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
             self.applicationEnteredForeground?()
@@ -84,11 +83,6 @@ class ChatNewListController: UIViewController {
         
         emptyView.isHidden = allChat?.count == 0 ? false : true
         self.tableView.reloadData()
-    }
-    @IBAction func backButtonSelected(_ sender: Any) {
-        
-        self.navigationController?.popViewController(animated: true)
-
     }
     
 }

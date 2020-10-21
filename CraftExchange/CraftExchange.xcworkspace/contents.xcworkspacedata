@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/CustomAssets/Popups/ChatHeaderView.xib">
-   </FileRef>
-   <FileRef
       location = "group:CraftExchange.xcodeproj">
    </FileRef>
    <FileRef

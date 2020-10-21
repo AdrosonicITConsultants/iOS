@@ -247,6 +247,10 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+        //self.view.showChatHeaderView(controller: self, chat: chatObj)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         self.view.showChatHeaderView(controller: self, chat: chatObj)
     }
     
@@ -430,8 +434,7 @@ extension ChatDetailsController: MessageCellDelegate, OpenAttachmentViewProtocol
     }
     
     func goToEnquiryButtonSelected() {
-        self.goToEnquiry?(chatObj.enquiryId)
-        //self.downloadEnquiry?(chatObj.enquiryId)
+        self.downloadEnquiry?(chatObj.enquiryId)
     }
     
     func closeDetailsButtonSelected() {

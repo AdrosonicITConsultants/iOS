@@ -141,6 +141,18 @@ extension OrderListController: UITableViewDataSource, UITableViewDelegate {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let viewEditAction = UIContextualAction(style: .normal, title:  "Chat".localized, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
+            do {
+             let client = try SafeClient(wrapping: CraftExchangeClient())
+            if let obj = self.allOrders?[indexPath.row] {
+                let service = ChatListService.init(client: client)
+                service.initiateConversation(vc: self, enquiryId: obj.entityID)
+            }
+            }catch {
+                print(error.localizedDescription)
+            }
+            
+            success(true)
+            
         })
         viewEditAction.image = UIImage.init(named: "chat-icon")
         viewEditAction.backgroundColor = UIColor().CEMagenda()
