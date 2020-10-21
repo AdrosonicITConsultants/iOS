@@ -81,16 +81,30 @@ extension ChatDetailsService {
         
         controller.downloadEnquiry = { (enquiryId) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        service.pasrseEnquiryJson(json: json, vc: controller)
+            if forChat?.enquiryOpenOrClosed == 2 {
+                service.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            service.pasrseEnquiryJson(json: json, vc: controller)
+                        }
                     }
-                }
-                DispatchQueue.main.async {
-                    controller.hideLoading()
-                }
-            }.dispose(in: controller.bag)
+                    DispatchQueue.main.async {
+                        controller.hideLoading()
+                    }
+                }.dispose(in: controller.bag)
+            }else {
+                service.getClosedEnquiryDetails(enquiryId: enquiryId).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                                   if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                                       if json["valid"] as? Bool == true {
+                                           service.pasrseEnquiryJson(json: json, vc: controller)
+                                       }
+                                   }
+                                   DispatchQueue.main.async {
+                                       controller.hideLoading()
+                                   }
+                               }.dispose(in: controller.bag)
+            }
+            
         }
         
         controller.goToEnquiry = { (enquiryId) in
