@@ -13,6 +13,7 @@ import ReactiveKit
 import Realm
 import RealmSwift
 import UIKit
+import Eureka
 
 extension OrderDetailsService {
     func createOrderDetailScene(forOrder: Order?, enquiryId: Int) -> UIViewController {
@@ -97,19 +98,17 @@ extension OrderDetailsService {
         }
         
         vc.toggleChangeRequest = { (eqId, isEnabled) in
-            vc.showLoading()
-            self.toggleChangeRequest(enquiryId: eqId, isEnabled: isEnabled).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        DispatchQueue.main.async {
-                            vc.orderObject?.toggleChangeStatus(isEnabled: isEnabled)
-                        }
-                    }
-                }
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                }
-            }.dispose(in: vc.bag)
+            let str = isEnabled == 1 ? "Enable".localized : "Disable".localized
+            vc.confirmAction("Warning".localized, "Are you sure you want to \(str) change request for this Order?".localized, confirmedCallback: { (action) in
+                let request = OfflineOrderRequest(type: .toggleOrderChangeRequest, orderId: eqId, changeRequestStatus: isEnabled)
+                OfflineRequestManager.defaultManager.queueRequest(request)
+                vc.orderObject?.toggleChangeStatus(isEnabled: isEnabled)
+            }) { (action) in
+                let row = vc.form.rowBy(tag: "CRRow") as! SwitchRow
+                vc.shouldCallToggle = false
+                row.value = isEnabled == 1 ? false : true
+                row.updateCell()
+            }
         }
         
         vc.checkTransactions = {

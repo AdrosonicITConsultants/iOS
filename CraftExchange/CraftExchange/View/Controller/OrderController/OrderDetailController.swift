@@ -48,6 +48,7 @@ class OrderDetailController: FormViewController {
     var toggleChangeRequest: ((_ enquiryId: Int, _ isEnabled: Int) -> ())?
     let realm = try? Realm()
     var isClosed = false
+    var shouldCallToggle = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +122,7 @@ class OrderDetailController: FormViewController {
             
             <<< SwitchRow() {
                 $0.title = "Change Request Enabled".localized
+                $0.tag = "CRRow"
                 if orderObject?.productStatusId == 2 {
                     $0.hidden = true
                 }else {
@@ -128,12 +130,16 @@ class OrderDetailController: FormViewController {
                 }
                 $0.value = orderObject?.changeRequestOn == 1 ? true : false
             }.onChange({ (row) in
-                if row.value == true {
-                    print("CR Enabled")
-                    self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 1)
+                if self.shouldCallToggle {
+                    if row.value == true {
+                        print("CR Enabled")
+                        self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 1)
+                    }else {
+                        print("CR Disabled")
+                        self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 0)
+                    }
                 }else {
-                    print("CR Disabled")
-                    self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 0)
+                    self.shouldCallToggle = true
                 }
             }).cellUpdate({ (cell, row) in
                 if self.orderObject?.enquiryStageId == 4 && self.isClosed == false {

@@ -308,13 +308,13 @@ extension UIView {
                 let date2 = Date().ttceFormatter(isoDate: chat.convertedToOrderDate!)
                 initiationView?.convertedToOrderOn.text = "Converted to order on: " + date2
             }else{
-                initiationView?.convertedToOrderOn.text = "Converted to order on: Not Converted"
+                initiationView?.convertedToOrderOn.text = "Converted to order on: Not Converted".localized
             }
             
             let date3 = Date().ttceFormatter(isoDate: chat.lastUpdatedOn!)
             initiationView?.lastUpdatedOn.text = "Last updated on: " + date3
             
-            initiationView?.productType.text = chat.productTypeId!
+            initiationView?.productType.text = chat.productTypeId ?? "Custom".localized
             if chat.orderAmount != nil{
                  initiationView?.orderAmount.text = "₹" + chat.orderAmount!
             }else {
