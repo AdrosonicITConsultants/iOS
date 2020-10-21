@@ -45,7 +45,7 @@ class OrderDetailController: FormViewController {
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
     var showHistoryProductDetails: (() -> ())?
-    var closeEnquiry: ((_ enquiryId: Int) -> ())?
+    var toggleChangeRequest: ((_ enquiryId: Int, _ isEnabled: Int) -> ())?
     let realm = try? Realm()
     var isClosed = false
     
@@ -59,27 +59,11 @@ class OrderDetailController: FormViewController {
         checkMOQs?()
         getPI?()
         checkTransactions?()
-        var shouldShowOption = false
         
-        if User.loggedIn()?.refRoleId == "1" {
-            shouldShowOption = false
-        }else {
-            if orderObject?.enquiryStageId ?? 0 > 3 {
-                shouldShowOption = false
-            }else {
-                shouldShowOption = true
-            }
-        }
-        if shouldShowOption && isClosed == false {
-            let rightButtonItem = UIBarButtonItem.init(title: "Options".localized, style: .plain, target: self, action: #selector(showOptions(_:)))
-            rightButtonItem.tintColor = .darkGray
-            self.navigationItem.rightBarButtonItem = rightButtonItem
-        }else if isClosed == false {
-            let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
-            rightButtonItem.image = UIImage.init(named: "ios magenta chat")
-            rightButtonItem.tintColor = UIColor().CEMagenda()
-            self.navigationItem.rightBarButtonItem = rightButtonItem
-        }
+        let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
+        rightButtonItem.image = UIImage.init(named: "ios magenta chat")
+        rightButtonItem.tintColor = UIColor().CEMagenda()
+        self.navigationItem.rightBarButtonItem = rightButtonItem
         
         form
             +++ Section()
@@ -132,8 +116,32 @@ class OrderDetailController: FormViewController {
             })
             
             <<< LabelRow(){
-                $0.title = "Enquiry Details"
+                $0.title = "Enquiry Details".localized
             }
+            
+            <<< SwitchRow() {
+                $0.title = "Change Request Enabled".localized
+                if orderObject?.productStatusId == 2 {
+                    $0.hidden = true
+                }else {
+                    $0.hidden = false
+                }
+                $0.value = orderObject?.changeRequestOn == 1 ? true : false
+            }.onChange({ (row) in
+                if row.value == true {
+                    print("CR Enabled")
+                    self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 1)
+                }else {
+                    print("CR Disabled")
+                    self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 0)
+                }
+            }).cellUpdate({ (cell, row) in
+                if self.orderObject?.enquiryStageId == 4 && self.isClosed == false {
+                    cell.isUserInteractionEnabled = true
+                }else {
+                    cell.isUserInteractionEnabled = false
+                }
+            })
             
             <<< StatusRow() {
                 $0.cell.height = { 110.0 }
@@ -730,29 +738,6 @@ class OrderDetailController: FormViewController {
     
     @objc func pullToRefresh() {
         viewWillAppear?()
-    }
-    
-    @objc func showOptions(_ sender: UIButton) {
-        let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
-        
-        let chat = UIAlertAction.init(title: "Chat", style: .default) { (action) in
-            self.goToChat()
-        }
-        alert.addAction(chat)
-        
-        let closeEnquiry = UIAlertAction.init(title: "Close Enquiry", style: .default) { (action) in
-            self.confirmAction("Warning".localized, "Are you sure you want to close this enquiry?".localized, confirmedCallback: { (action) in
-                self.closeEnquiry?(self.orderObject?.entityID ?? 0)
-            }) { (action) in
-                
-            }
-        }
-        alert.addAction(closeEnquiry)
-        
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
-        }
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func goToChat() {

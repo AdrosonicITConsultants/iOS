@@ -17,9 +17,9 @@ class Order: Object, Decodable {
     @objc dynamic var mobile: String?
     @objc dynamic var logo: String?
     @objc dynamic var startedOn: String?
-    @objc dynamic var changeRequestOn: String?
-    @objc dynamic var changeRequestStatus: String?
-    @objc dynamic var changeRequestModifiedOn: String?
+    @objc dynamic var changeRequestOn: Int = 0
+    @objc dynamic var changeRequestStatus: Int = 0
+    @objc dynamic var changeRequestModifiedOn: Date?
     @objc dynamic var enquiryCode: String?
     @objc dynamic var alternateMobile: String?
     @objc dynamic var orderCode: String?
@@ -162,9 +162,11 @@ class Order: Object, Decodable {
         entityID = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)
         id = "\(entityID)"
         alternateMobile = try? values.decodeIfPresent(String.self, forKey: .alternateMobile)
-        changeRequestModifiedOn = try? values.decodeIfPresent(String.self, forKey: .changeRequestModifiedOn)
-        changeRequestOn = try? values.decodeIfPresent(String.self, forKey: .changeRequestOn)
-        changeRequestStatus = try? values.decodeIfPresent(String.self, forKey: .changeRequestStatus)
+        if let dateString = try? values.decodeIfPresent(String.self, forKey: .changeRequestModifiedOn) {
+            changeRequestModifiedOn = Date().ttceISODate(isoDate: dateString)
+        }
+        changeRequestOn = try (values.decodeIfPresent(Int.self, forKey: .changeRequestOn) ?? 0)
+        changeRequestStatus = try (values.decodeIfPresent(Int.self, forKey: .changeRequestStatus) ?? 0)
         city = try? values.decodeIfPresent(String.self, forKey: .city)
         comment = try? values.decodeIfPresent(String.self, forKey: .comment)
         companyName = try? values.decodeIfPresent(String.self, forKey: .companyName)

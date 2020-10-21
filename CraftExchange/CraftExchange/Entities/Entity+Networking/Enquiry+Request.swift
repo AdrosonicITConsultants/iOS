@@ -378,22 +378,34 @@ extension Enquiry {
     public static func changeInnerStage(enquiryId: Int, stageId: Int, innerStageId: Int) -> Request<Data, APIError> {
         var str = ""
         if innerStageId == 0{
-             str = "enquiry/setEnquiryOrderStages/\(stageId)/\(enquiryId)/ "
+            str = "enquiry/setEnquiryOrderStages/\(stageId)/\(enquiryId)/ "
         }else{
-             str = "enquiry/setEnquiryOrderStages/\(stageId)/\(enquiryId)/\(innerStageId)?innerStageId=\(innerStageId)"
+            str = "enquiry/setEnquiryOrderStages/\(stageId)/\(enquiryId)/\(innerStageId)?innerStageId=\(innerStageId)"
         }
-          
-               str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                     let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-           
-              return Request(
-                path: str,
-                  method: .post,
-                  headers: headers,
-                  resource: {print(String(data: $0, encoding: .utf8) ?? "changing Inner stage failed")
-                    return $0},
-                  error: APIError.init,
-                  needsAuthorization: true
-              )
-          }
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                 let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "changing Inner stage failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+          )
+      }
+    
+    public static func toggleChangeRequest(enquiryId: Int, isEnabled: Int) -> Request<Data, APIError> {
+        var str = "enquiry/toggleChangeRequestFromArtisan?enquiryId=\(enquiryId)&status=\(isEnabled)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .post,
+            resource: {
+                print(String(data: $0, encoding: .utf8) ?? "toggleChangeRequestFromArtisan failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }

@@ -25,4 +25,8 @@ class OrderDetailsService: BaseService<Data> {
     func getClosedOrderDetails(enquiryId: Int) -> SafeSignal<Data> {
         return Order.getClosedOrderDetails(enquiryId: enquiryId).response(using: client).debug()
     }
+    
+    func toggleChangeRequest(enquiryId: Int, isEnabled: Int) -> SafeSignal<Data> {
+        return Enquiry.toggleChangeRequest(enquiryId: enquiryId, isEnabled: isEnabled).response(using: client).debug()
+    }
 }

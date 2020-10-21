@@ -74,14 +74,6 @@ extension OrderDetailsService {
             vc.hideLoading()
         }
         
-        vc.closeEnquiry = { (enquiryId) in
-            let service = EnquiryDetailsService.init(client: self.client)
-            service.closeEnquiry(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                DispatchQueue.main.async {
-                    vc.navigationController?.popViewController(animated: true)
-                }
-            }
-        }
         vc.checkMOQ = {
             vc.showLoading()
             let service = EnquiryDetailsService.init(client: self.client)
@@ -102,6 +94,22 @@ extension OrderDetailsService {
         vc.getPI = {
             let service = EnquiryDetailsService.init(client: self.client)
             service.showPI(enquiryId: enquiryId, vc: vc)
+        }
+        
+        vc.toggleChangeRequest = { (eqId, isEnabled) in
+            vc.showLoading()
+            self.toggleChangeRequest(enquiryId: eqId, isEnabled: isEnabled).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        DispatchQueue.main.async {
+                            vc.orderObject?.toggleChangeStatus(isEnabled: isEnabled)
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                }
+            }.dispose(in: vc.bag)
         }
         
         vc.checkTransactions = {

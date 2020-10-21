@@ -51,6 +51,15 @@ extension Order {
         }
     }
     
+    func toggleChangeStatus(isEnabled: Int) {
+        let realm = try! Realm()
+        if let object = realm.objects(Order.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.changeRequestOn = isEnabled
+            }
+        }
+    }
+    
     func saveOrUpdate() {
         let realm = try! Realm()
         if let object = realm.objects(Order.self).filter("%K == %@", "entityID", self.entityID).first {
