@@ -6,7 +6,12 @@ PODS:
   - Eureka (5.2.1)
   - ImageRow (4.0.0):
     - Eureka (~> 5.0)
+  - InputBarAccessoryView (5.2.1):
+    - InputBarAccessoryView/Core (= 5.2.1)
+  - InputBarAccessoryView/Core (5.2.1)
   - JGProgressHUD (2.1)
+  - MessageKit (3.4.2):
+    - InputBarAccessoryView (~> 5.2.1)
   - ReachabilitySwift (5.0.0)
   - ReactiveKit (3.17.1)
   - Realm (5.3.3):
@@ -27,6 +32,7 @@ DEPENDENCIES:
   - Eureka
   - ImageRow
   - JGProgressHUD
+  - MessageKit
   - ReachabilitySwift
   - ReactiveKit
   - RealmSwift
@@ -42,7 +48,9 @@ SPEC REPOS:
     - Differ
     - Eureka
     - ImageRow
+    - InputBarAccessoryView
     - JGProgressHUD
+    - MessageKit
     - ReachabilitySwift
     - ReactiveKit
     - Realm
@@ -58,7 +66,9 @@ SPEC CHECKSUMS:
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   ImageRow: e65b2e1a33f89062bf2a553a2aad61d975eb7428
+  InputBarAccessoryView: 39a7ed22727baf3b8550ecdf6c8a4d28b2c6aa91
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  MessageKit: 5ff0908bce5a7b6e11bd0b60e13a33e03697d161
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   ReactiveKit: f578a74d3555296ea61fab228f5245a4ed7b4b27
   Realm: 2d57ea355bf8ca2a0964d6bfb38d28d7ff2addf6
@@ -69,6 +79,6 @@ SPEC CHECKSUMS:
   ViewRow: 8da541e9c019f3be63f4e28f311a62cac2045ecf
   WMSegmentControl: 00415dce32ed41ad7623ac6ac076eedbb8140a5e
 
-PODFILE CHECKSUM: af58e3ad98b7a3a10c27c9ead6e9698194d8761b
+PODFILE CHECKSUM: 79e9c1c7a5e44e3a36abd142c97a36e942f40f3c
 
 COCOAPODS: 1.8.4

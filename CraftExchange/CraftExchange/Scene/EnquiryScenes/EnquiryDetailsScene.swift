@@ -240,6 +240,8 @@ extension EnquiryDetailsService {
                                                             controller.reloadFormData()
                                                         }else if let controller = vc as? TransactionListController {
                                                             controller.viewModel.goToEnquiry?(enquiryObj.enquiryId)
+                                                        }else if let controller = vc as? ChatDetailsController {
+                                                            controller.goToEnquiry?(enquiryObj.enquiryId)
                                                         }
                                                         
                                                         vc.hideLoading()

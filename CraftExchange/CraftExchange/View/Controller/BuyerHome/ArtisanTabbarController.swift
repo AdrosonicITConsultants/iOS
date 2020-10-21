@@ -11,13 +11,13 @@ import UIKit
 
 class ArtisanTabbarController: UITabBarController {
     let actionsManager = OfflineRequestManager.defaultManager
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    appDelegate?.artisanTabbar = self
-    OfflineRequestManager.defaultManager.delegate = self
-  }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.artisanTabbar = self
+        OfflineRequestManager.defaultManager.delegate = self
+    }
 }
 
 extension ArtisanTabbarController {
@@ -29,7 +29,17 @@ extension ArtisanTabbarController {
                 let nav = self.customizableViewControllers?[1] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
-              print("Unable to load view:\n\(error.localizedDescription)")
+                print("Unable to load view:\n\(error.localizedDescription)")
+            }
+        }
+        else if item.title == "Chat" {
+            do{
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = ChatListService(client: client).createScene()
+                let nav = self.customizableViewControllers?[3] as! UINavigationController
+                nav.setViewControllers([vc], animated: false)
+            } catch let error {
+                print("Unable to load view:\n\(error.localizedDescription)")
             }
         }else if item.title == "Orders" {
             do {

@@ -225,4 +225,114 @@ extension UIView {
             initialView.removeFromSuperview()
         }
     }
+    
+    func showOpenAttachmentView(controller: UIViewController, data: String) {
+        if let _ = self.viewWithTag(131) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("OpenAttachmentView", owner:
+                self, options: nil)?.first as? OpenAttachmentView
+            initiationView?.attachmentURL = data
+            initiationView?.delegate =  controller as? OpenAttachmentViewProtocol
+            initiationView?.tag = 131
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    func hideOpenAttachmentView() {
+        if let initialView = self.viewWithTag(131) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+    }
+    
+    func showChatHeaderView(controller: UIViewController, chat: Chat) {
+        if let _ = self.viewWithTag(132) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("ChatHeaderView", owner:
+                self, options: nil)?.first as? ChatHeaderView
+            initiationView?.buyerName.text = chat.buyerCompanyName
+            initiationView?.enquiryNumber.text = chat.enquiryNumber
+            initiationView?.orderStatus.text = chat.orderStatus
+            if chat.changeRequestDone == 0{
+                initiationView?.CRView.isHidden = true
+            }
+            if chat.escalation == 0{
+                initiationView?.escalationButton.isHidden = true
+            }
+            initiationView?.imageButton.imageView?.layer.cornerRadius = 25
+            if let tag = chat.buyerLogo, chat.buyerLogo != "" {
+                       let prodId = chat.buyerId
+                                  if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                                    initiationView?.imageButton.setImage(downloadedImage, for: .normal)
+                                   
+                                  }else {
+                                      do {
+                                          let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                                          let service = chatBrandLogoService.init(client: client, chatObj: chat)
+                                          service.fetch().observeNext { (attachment) in
+                                              DispatchQueue.main.async {
+                                               let tag = chat.buyerLogo ?? "name.jpg"
+                                                  let prodId = chat.buyerId
+                                                  _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                                initiationView?.imageButton.setImage(UIImage.init(data: attachment), for: .normal)
+                                               
+                                              }
+                                          }.dispose(in: controller.bag)
+                                      }catch {
+                                          print(error.localizedDescription)
+                                      }
+                                  }
+                              }
+             initiationView?.delegate =  controller as? ChatHeaderViewProtocol
+            initiationView?.tag = 132
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x:0, y: 80, width: self.frame.width, height: 120)
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    
+    func showChatHeaderDetailsView(controller: UIViewController, chat: Chat) {
+        if let _ = self.viewWithTag(133) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("ChatHeaderDetailsView", owner:
+                self, options: nil)?.first as? ChatHeaderDetailsView
+            let date1 = Date().ttceFormatter(isoDate: chat.enquiryGeneratedOn!)
+            
+            initiationView?.enquiryStartedOn.text = "Date Started: " + date1
+            
+            if chat.convertedToOrderDate != nil {
+                let date2 = Date().ttceFormatter(isoDate: chat.convertedToOrderDate!)
+                initiationView?.convertedToOrderOn.text = "Converted to order on: " + date2
+            }else{
+                initiationView?.convertedToOrderOn.text = "Converted to order on: Not Converted"
+            }
+            
+            let date3 = Date().ttceFormatter(isoDate: chat.lastUpdatedOn!)
+            initiationView?.lastUpdatedOn.text = "Last updated on: " + date3
+            
+            initiationView?.productType.text = chat.productTypeId!
+            if chat.orderAmount != nil{
+                 initiationView?.orderAmount.text = "₹" + chat.orderAmount!
+            }else {
+                 initiationView?.orderAmount.text = "Not finalized"
+            }
+            
+            initiationView?.delegate =  controller as? ChatHeaderDetailsViewProtocol
+            initiationView?.tag = 133
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x:0, y: 205, width: self.frame.width, height: 275)
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    func hideChatHeaderDetailsView() {
+        if let initialView = self.viewWithTag(133) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+    }
+    
 }

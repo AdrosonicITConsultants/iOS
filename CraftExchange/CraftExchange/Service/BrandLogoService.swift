@@ -32,3 +32,25 @@ class BrandLogoService: BaseService<URL> {
         return User.fetchBrandImage(with: userObject.entityID, name: userObject.buyerCompanyDetails.first?.logo ?? "") .response(using: client).debug()
     }
 }
+
+class chatBrandLogoService: BaseService<URL> {
+    var chatObj: Chat!
+
+    convenience init(client: SafeClient, chatObj: Chat) {
+        self.init(client: client)
+        self.chatObj = chatObj
+        if let name = chatObj.buyerLogo {
+            let prodId = chatObj.buyerId
+            _object.value = try? Disk.retrieveURL("\(prodId)/\(name)", from: .caches, as: Data.self)
+        }
+    }
+
+    override func update(_ object: URL?) {
+        super.update(object)
+    }
+
+    func fetch() -> Signal<Data, Never> {
+        
+        return Chat.fetchChatBrandImage(with: chatObj.buyerId, name: chatObj.buyerLogo!).response(using: client).debug()
+    }
+}

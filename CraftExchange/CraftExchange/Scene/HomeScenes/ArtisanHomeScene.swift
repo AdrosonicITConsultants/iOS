@@ -452,6 +452,9 @@ extension HomeScreenService {
                         }
                     }
                 }
+                else{
+                    return
+                }
             }.resume()
         }
     }
