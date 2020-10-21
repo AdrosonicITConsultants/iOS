@@ -66,6 +66,14 @@ extension UIColor {
     func EQBrownText() -> UIColor {
         return colorWith(r: 190, g: 144, b: 103)
     }
+    
+    func EQPinkBg() -> UIColor {
+        return colorWith(r: 247, g: 221, b: 239)
+    }
+    
+    func EQPinkText() -> UIColor {
+        return colorWith(r: 199, g: 71, b: 147)
+    }
 
     func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) -> UIColor {
       return UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)

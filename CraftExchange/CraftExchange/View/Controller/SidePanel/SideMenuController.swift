@@ -102,7 +102,16 @@ class SideMenuController: FormViewController {
             row.cell.imageView?.image = UIImage(named: "tab-enquiries")
             row.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
-              self.dismiss(animated: true, completion: nil)
+              self.dismiss(animated: true, completion: {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = OrderListService(client: client).createScene()
+                    let nav = self.getNavBar()
+                    nav?.pushViewController(vc, animated: true)
+                } catch let error {
+                  print("Unable to load view:\n\(error.localizedDescription)")
+                }
+              })
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })

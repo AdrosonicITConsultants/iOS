@@ -23,13 +23,14 @@ import ViewRow
 import WebKit
 
 class PaymentArtistController: FormViewController{
-var enquiryObject: Enquiry?
-var viewWillAppear: (() -> ())?
-var showCustomProduct: (() -> ())?
-var showProductDetails: (() -> ())?
-var showHistoryProductDetails: (() -> ())?
-var closeEnquiry: ((_ enquiryId: Int) -> ())?
-let realm = try? Realm()
+    var enquiryObject: Enquiry?
+    var orderObject: Order?
+    var viewWillAppear: (() -> ())?
+    var showCustomProduct: (() -> ())?
+    var showProductDetails: (() -> ())?
+    var showHistoryProductDetails: (() -> ())?
+    var closeEnquiry: ((_ enquiryId: Int) -> ())?
+    let realm = try? Realm()
     var status: Int?
     
     
@@ -40,26 +41,29 @@ let realm = try? Realm()
         
         let client = try! SafeClient(wrapping: CraftExchangeClient())
         let service = EnquiryDetailsService.init(client: client)
-        service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject!.enquiryId)
-        service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject!.enquiryId)
+        service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
+        service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
         
         form
             +++ Section()
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
-                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
-                if enquiryObject?.productType == "Custom Product" {
+                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
+                if enquiryObject?.productType == "Custom Product" || orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
                 }else {
-                    $0.cell.designByLbl.text = enquiryObject?.brandName
+                    $0.cell.designByLbl.text = enquiryObject?.brandName ?? orderObject?.brandName
                 }
                 $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
-                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if enquiryObject?.enquiryStageId ?? 0 < 5 {
+                if orderObject != nil {
+                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
+                }
+                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+                if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 5 {
                     $0.cell.statusLbl.textColor = .black
                     $0.cell.statusDotView.backgroundColor = .black
-                }else if enquiryObject?.enquiryStageId ?? 0 < 9 {
+                }else if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 9 {
                     $0.cell.statusLbl.textColor = .systemYellow
                     $0.cell.statusDotView.backgroundColor = .systemYellow
                 }else {
@@ -69,7 +73,10 @@ let realm = try? Realm()
                 if let date = enquiryObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
                 }
-                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId {
+                if let date = orderObject?.lastUpdated {
+                    $0.cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
+                }
+                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first ?? orderObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId ?? orderObject?.productId {
                     if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
                         $0.cell.productImage.image = downloadedImage
                     }else {
@@ -107,7 +114,7 @@ let realm = try? Realm()
             $0.tag = "PaymentArtist-2"
             $0.cell.tag = 5
             $0.cell.delegate = self
-            if enquiryObject!.enquiryStageId >= 4{
+            if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 >= 4{
                 $0.hidden = true
             }
             
@@ -120,10 +127,12 @@ extension PaymentArtistController: ApproveButtonProtocol {
        switch tag{
         case 5:
             self.status = 2
-             self.showLoading()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-            service.validateadvancePaymentFunc(vc: self,enquiryObj: self.enquiryObject!, enquiryId: self.enquiryObject!.enquiryId, status: self.status!)
+            self.showLoading()
+            let client = try! SafeClient(wrapping: CraftExchangeClient())
+            let service = EnquiryDetailsService.init(client: client)
+            if let enquiry = self.enquiryObject {
+                service.validateadvancePaymentFunc(vc: self,enquiryObj: enquiry, enquiryId: enquiry.enquiryId, status: self.status!)
+            }
         default:
             print("do nothing")
         }
@@ -136,7 +145,9 @@ extension PaymentArtistController: ApproveButtonProtocol {
             self.showLoading()
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let service = EnquiryDetailsService.init(client: client)
-            service.validateadvancePaymentFunc(vc: self,enquiryObj: self.enquiryObject!, enquiryId: self.enquiryObject!.enquiryId, status: self.status!)
+            if let enquiry = self.enquiryObject {
+                service.validateadvancePaymentFunc(vc: self,enquiryObj: enquiry, enquiryId: enquiry.enquiryId, status: self.status!)
+            }
         default:
              print("do nothing")
         }

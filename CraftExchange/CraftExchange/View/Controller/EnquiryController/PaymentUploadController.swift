@@ -34,6 +34,7 @@ class UploadPaymentViewModel {
 class PaymentUploadController: FormViewController{
     
     var enquiryObject: Enquiry?
+    var orderObject: Order?
     var viewWillAppear: (() -> ())?
     let realm = try? Realm()
     var isClosed = false
@@ -49,7 +50,7 @@ class PaymentUploadController: FormViewController{
         imageReciept?()
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-        let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? 0)
+        let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? orderObject?.userId ?? 0)
         
         form
             +++ Section()
@@ -59,17 +60,23 @@ class PaymentUploadController: FormViewController{
                 $0.cell.statusLbl.text = "10 days remaining to upload receipt"
                 $0.cell.statusLbl.textColor = UIColor.black
                 $0.cell.statusDotView.isHidden = true
-                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
-                if enquiryObject?.productType == "Custom Product" {
+                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
+                if enquiryObject?.productType ?? orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
                 }else {
-                    $0.cell.designByLbl.text = enquiryObject?.brandName
+                    $0.cell.designByLbl.text = enquiryObject?.brandName ?? orderObject?.brandName
                 }
                 $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
+                if orderObject != nil {
+                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
+                }
                 if let date = enquiryObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
                 }
-                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId {
+                if let date = orderObject?.lastUpdated {
+                    $0.cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
+                }
+                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first ?? orderObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId ?? orderObject?.productId {
                     if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
                         $0.cell.productImage.image = downloadedImage
                     }else {
@@ -93,18 +100,18 @@ class PaymentUploadController: FormViewController{
             }
             <<< LabelRow(){
                 $0.title = "Upload the Payment Receipt to Confirm"
-                if enquiryObject!.isBlue {
+                if enquiryObject?.isBlue ?? orderObject?.isBlue ?? false {
                     $0.hidden = true
                 }
             }
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 if User.loggedIn()?.refRoleId == "2" {
-                    $0.cell.titleLbl.text = "Brand: \(enquiryObject?.brandName ?? "NA")"
+                    $0.cell.titleLbl.text = "Brand: \(enquiryObject?.brandName ?? orderObject?.brandName ?? "NA")"
                 }else {
                     $0.cell.titleLbl.text = ""
                 }
-                if enquiryObject!.isBlue {
+                if enquiryObject?.isBlue ?? orderObject?.isBlue ?? false {
                     $0.hidden = true
                 }
                 
@@ -215,7 +222,10 @@ class PaymentUploadController: FormViewController{
                 $0.cell.height = { 375.0 }
                 $0.tag = "uploadReceipt"
                 $0.cell.delegate = self
-                if enquiryObject!.isBlue || enquiryObject!.enquiryStageId >= 4{
+                if enquiryObject?.isBlue ?? false || enquiryObject?.enquiryStageId ?? 0 >= 4{
+                    $0.hidden = true
+                }
+                if orderObject?.isBlue ?? false || orderObject?.enquiryStageId ?? 0 >= 4{
                     $0.hidden = true
                 }
             }
@@ -228,7 +238,10 @@ class PaymentUploadController: FormViewController{
                 $0.cell.Tick.layer.borderColor = #colorLiteral(red: 0.2589518452, green: 0.5749325825, blue: 0.166714282, alpha: 1)
                 $0.cell.Tick.layer.borderWidth = 2
                 $0.hidden = true
-                if enquiryObject!.isBlue || enquiryObject!.enquiryStageId >= 4{
+                if enquiryObject?.isBlue ?? false || enquiryObject?.enquiryStageId ?? 0 >= 4{
+                    $0.hidden = false
+                }
+                if orderObject?.isBlue ?? false || orderObject?.enquiryStageId ?? 0 >= 4{
                     $0.hidden = false
                 }
         }
@@ -301,7 +314,7 @@ extension PaymentUploadController: UIImagePickerControllerDelegate, UINavigation
             
         }
         self.viewModel.imageData.value = imgdata
-        self.viewModel.fileName.value = "\(self.enquiryObject!.enquiryId).\(Int(viewModel.pid.value!)!).jpg"
+        self.viewModel.fileName.value = "\(self.enquiryObject?.enquiryId ?? self.orderObject?.enquiryId ?? 0).\(Int(viewModel.pid.value!)!).jpg"
         picker.dismiss(animated: true) {
             self.reloadAddPhotoRow()
         }

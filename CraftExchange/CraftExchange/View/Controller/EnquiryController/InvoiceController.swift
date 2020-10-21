@@ -34,6 +34,7 @@ class InvoiceViewModel {
 
 class InvoiceController: FormViewController{
     var enquiryObject: Enquiry?
+    var orderObject: Order?
     var viewWillAppear: (() -> ())?
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
@@ -56,7 +57,7 @@ class InvoiceController: FormViewController{
         if User.loggedIn()?.refRoleId == "1" {
             shouldShowOption = false
         }else {
-            if enquiryObject?.enquiryStageId ?? 0 > 3 {
+            if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 > 3 {
                 shouldShowOption = false
             }else {
                 shouldShowOption = false
@@ -77,18 +78,21 @@ class InvoiceController: FormViewController{
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
-                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
-                if enquiryObject?.productType == "Custom Product" {
+                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
+                if enquiryObject?.productType ?? orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
                 }else {
-                    $0.cell.designByLbl.text = enquiryObject?.brandName
+                    $0.cell.designByLbl.text = enquiryObject?.brandName ?? orderObject?.brandName
                 }
                 $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
-                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if enquiryObject?.enquiryStageId ?? 0 < 5 {
+                if orderObject != nil {
+                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
+                }
+                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+                if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 5 {
                     $0.cell.statusLbl.textColor = .black
                     $0.cell.statusDotView.backgroundColor = .black
-                }else if enquiryObject?.enquiryStageId ?? 0 < 9 {
+                }else if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 9 {
                     $0.cell.statusLbl.textColor = .systemYellow
                     $0.cell.statusDotView.backgroundColor = .systemYellow
                 }else {
@@ -98,7 +102,11 @@ class InvoiceController: FormViewController{
                 if let date = enquiryObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
                 }
-                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId {
+                if let date = orderObject?.lastUpdated {
+                    $0.cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date)))"
+                }
+                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first ?? orderObject?.productImages?.components(separatedBy: ",").first,
+                    let prodId = enquiryObject?.productId ?? orderObject?.productId {
                     if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
                         $0.cell.productImage.image = downloadedImage
                     }else {
@@ -126,7 +134,7 @@ class InvoiceController: FormViewController{
             
             <<< EnquiryClosedRow() {
                 $0.cell.height = { 110.0 }
-                if enquiryObject?.enquiryStageId == 10 {
+                if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId == 10 {
                     $0.cell.dotView.backgroundColor = UIColor().CEGreen()
                     $0.cell.enquiryLabel.text = "Enquiry Completed".localized
                     $0.cell.enquiryLabel.textColor = UIColor().CEGreen()
@@ -282,7 +290,7 @@ class InvoiceController: FormViewController{
         
         let closeEnquiry = UIAlertAction.init(title: "Close Enquiry", style: .default) { (action) in
             self.confirmAction("Warning".localized, "Are you sure you want to close this enquiry?".localized, confirmedCallback: { (action) in
-                self.closeEnquiry?(self.enquiryObject?.entityID ?? 0)
+                self.closeEnquiry?(self.enquiryObject?.entityID ?? self.orderObject?.entityID ?? 0)
             }) { (action) in
                 
             }
@@ -299,7 +307,11 @@ class InvoiceController: FormViewController{
         
     }
     func reloadFormData() {
-        enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
+        if enquiryObject != nil {
+            enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
+        }else if orderObject != nil {
+            orderObject = realm?.objects(Order.self).filter("%K == %@","entityID",orderObject?.entityID ?? 0).first
+        }
         form.allRows .forEach { (row) in
             row.reload()
         }
