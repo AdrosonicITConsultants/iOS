@@ -25,8 +25,9 @@ class DashboardController: UIViewController, WKUIDelegate {
         components.scheme = "https"
         components.host = "datastudio.google.com"
         
+       
         if roleId == 1 {
-            components.path = "/embed/reporting/cef7a3b2-e37f-48a2-9f28-0c3f45a07585/page/RJ8dB"
+            components.path = "/embed/reporting/0c128fc7-917e-4030-b7b4-370628de1996/page/CEweB"
             param = "{\"ds0.Token\":\"\(token)\",\"ds2.Token\":\"\(token)\",\"ds12.Token\":\"\(token)\",\"ds16.Token\":\"\(token)\",\"ds18.Token\":\"\(token)\",\"ds22.Token\":\"\(token)\",\"ds30.Token\":\"\(token)\"}"
         }else {
             components.path = "/embed/reporting/0ede1d26-5dbf-4564-a7c4-4f850493a89f/page/i56cB"

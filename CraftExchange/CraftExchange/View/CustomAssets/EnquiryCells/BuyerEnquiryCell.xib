@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -110,7 +110,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Requesting MOQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydw-90-OG1">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requesting MOQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydw-90-OG1">
                         <rect key="frame" x="310" y="89" width="96" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="96" id="qEC-L6-GeF"/>
@@ -126,6 +126,7 @@
                     <constraint firstItem="9kh-qW-z45" firstAttribute="top" secondItem="1yx-xl-qcv" secondAttribute="bottom" constant="4" id="2Z3-6I-FMR"/>
                     <constraint firstItem="vBg-FC-Oh9" firstAttribute="top" secondItem="9MW-gz-9jf" secondAttribute="top" constant="15" id="5aN-5G-7Sa"/>
                     <constraint firstAttribute="trailing" secondItem="bRx-Pf-ivG" secondAttribute="trailing" constant="8" id="8YY-Fu-in6"/>
+                    <constraint firstItem="ydw-90-OG1" firstAttribute="top" secondItem="gCZ-4c-Ulc" secondAttribute="bottom" constant="3" id="8eL-ie-zrH"/>
                     <constraint firstItem="6ve-fW-iaV" firstAttribute="leading" secondItem="Yk3-hH-Eu3" secondAttribute="trailing" constant="8" id="AQE-os-8OI"/>
                     <constraint firstItem="bRx-Pf-ivG" firstAttribute="leading" secondItem="gCZ-4c-Ulc" secondAttribute="trailing" constant="8" id="BE7-u8-tuO"/>
                     <constraint firstItem="6ve-fW-iaV" firstAttribute="top" secondItem="9kh-qW-z45" secondAttribute="bottom" constant="4" id="Fib-vR-bLH"/>

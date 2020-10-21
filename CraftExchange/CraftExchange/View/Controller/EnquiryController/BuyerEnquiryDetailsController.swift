@@ -705,6 +705,13 @@ class BuyerEnquiryDetailsController: FormViewController {
     
     @objc func goToChat() {
         
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        if let obj = Chat().searchChat(searchId: enquiryObject!.enquiryId) {
+            let service = ChatDetailsService.init(client: client)
+            let vc = service.createScene(forChat: obj, enquiryId: enquiryObject!.enquiryId)
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func reloadFormData() {
