@@ -18,7 +18,7 @@ extension EnquiryDetailsService {
     func createEnquiryDetailScene(forEnquiry: Enquiry?, enquiryId: Int) -> UIViewController {
         let vc = BuyerEnquiryDetailsController.init(style: .plain)
         vc.enquiryObject = forEnquiry
-        
+        vc.title = forEnquiry?.enquiryCode ?? ""
         vc.viewWillAppear = {
             vc.showLoading()
             if vc.isClosed {

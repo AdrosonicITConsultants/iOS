@@ -180,49 +180,15 @@ extension ChatListService {
     func initiateConversation(vc: UIViewController, enquiryId: Int){
         self.initiateChat(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
             DispatchQueue.main.async {
-                if let vc1 = vc as? ChatNewListController{
-                vc1.navigationController?.popViewController(animated: true)
-                }
-//                else if let vc1 = vc as? BuyerEnquiryListController {
-//                    do{
-//                        let client = try SafeClient(wrapping: CraftExchangeClient())
-//                        let vc2 = ChatListService(client: client).createScene()
-//                        vc1.present(vc2, animated:true, completion:nil)
-//
-//                    } catch let error {
-//                                 print("Unable to load view:\n\(error.localizedDescription)")
-//                               }
-//
-//                }
-                else {
-                    do {
-                    let client = try SafeClient(wrapping: CraftExchangeClient())
-                    if let obj = Chat().searchChat(searchId: enquiryId) {
-                        let service = ChatDetailsService.init(client: client)
-                        let vc1 = service.createScene(forChat: obj, enquiryId: enquiryId)
-                        vc1.modalPresentationStyle = .fullScreen
-                        vc.navigationController?.pushViewController(vc1, animated: true)
-                    }else {
-                        let service = ChatListService.init(client: client)
-                        
-                        let vc2 = service.createScene() as! ChatListController
-                                                vc2.setupSideMenu(true)
-                                                vc.navigationController?.pushViewController(vc2, animated: true)
-                        }
-                    }catch {
-                        print(error.localizedDescription)
-                    }
-//                    do{
-//                        let client = try SafeClient(wrapping: CraftExchangeClient())
-//                        let vc2 = ChatListService(client: client).createScene() as! ChatListController
-//                        vc2.setupSideMenu(true)
-//                        vc.navigationController?.pushViewController(vc2, animated: true)
-//
-//                    } catch let error {
-//                                 print("Unable to load view:\n\(error.localizedDescription)")
-//                               }
-                }
+                do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
                 
+                    let service = ChatDetailsService.init(client: client)
+                    service.downloadChat(vc: vc, enquiryId: enquiryId)
+                
+                }catch {
+                    print(error.localizedDescription)
+                }
             }
         }
     }

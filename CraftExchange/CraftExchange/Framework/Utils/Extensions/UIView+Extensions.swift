@@ -289,7 +289,15 @@ extension UIView {
              initiationView?.delegate =  controller as? ChatHeaderViewProtocol
             initiationView?.tag = 132
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 80, width: self.frame.width, height: 120)
+            let safeAreaTop: CGFloat
+
+            if #available(iOS 11.0, *) {
+                safeAreaTop = controller.view.safeAreaInsets.top
+            } else {
+                safeAreaTop = controller.topLayoutGuide.length
+            }
+            initiationView?.frame = CGRect(x:0, y: safeAreaTop , width: self.frame.width, height: 120)
+            
             self.bringSubviewToFront(initiationView!)
         }
     }
@@ -313,19 +321,21 @@ extension UIView {
             
             let date3 = Date().ttceFormatter(isoDate: chat.lastUpdatedOn!)
             initiationView?.lastUpdatedOn.text = "Last updated on: " + date3
-            
-            initiationView?.productType.text = chat.productTypeId ?? "Custom".localized
-            if chat.orderAmount != nil{
-                 initiationView?.orderAmount.text = "₹" + chat.orderAmount!
-            }else {
-                 initiationView?.orderAmount.text = "Not finalized"
-            }
-            
+            initiationView?.productType.text = chat.productTypeId ?? "Custom design".localized
+            initiationView?.orderAmount.text = chat.orderAmount != nil ? "Order amount: ₹" + chat.orderAmount! : "Order amount: Not finalized"
             initiationView?.delegate =  controller as? ChatHeaderDetailsViewProtocol
             initiationView?.tag = 133
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 205, width: self.frame.width, height: 275)
+            let safeAreaTop: CGFloat
+
+            if #available(iOS 11.0, *) {
+                safeAreaTop = controller.view.safeAreaInsets.top
+            } else {
+                safeAreaTop = controller.topLayoutGuide.length
+            }
+            initiationView?.frame = CGRect(x:0, y: safeAreaTop + 120, width: self.frame.width, height: 275)
             self.bringSubviewToFront(initiationView!)
+            print(safeAreaTop)
         }
     }
     func hideChatHeaderDetailsView() {

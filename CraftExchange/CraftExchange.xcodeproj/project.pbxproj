@@ -15,7 +15,7 @@
 		3005D1E72521AEE200BF22C0 /* MOQAcceptedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3005D1E62521AEE200BF22C0 /* MOQAcceptedView.xib */; };
 		3005D1EE2521C79300BF22C0 /* SingleLabelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005D1EC2521C79300BF22C0 /* SingleLabelRow.swift */; };
 		3005D1EF2521C79300BF22C0 /* SingleLabelRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3005D1ED2521C79300BF22C0 /* SingleLabelRow.xib */; };
-		3018B063253F22F3007A6C69 /* ChatHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3061022D253F12E1006430D9 /* ChatHeaderView.xib */; };
+		3018B0662540ED9F007A6C69 /* ChatHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3018B0652540ED9E007A6C69 /* ChatHeaderView.xib */; };
 		301B7EE925223FDC0008DE3A /* MOQSortButtonsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */; };
 		301B7EEA25223FDC0008DE3A /* MOQSortButtonsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */; };
 		301B7EEC25235B6C0008DE3A /* GetPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EEB25235B6C0008DE3A /* GetPI.swift */; };
@@ -416,12 +416,12 @@
 		3005D1E62521AEE200BF22C0 /* MOQAcceptedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQAcceptedView.xib; sourceTree = "<group>"; };
 		3005D1EC2521C79300BF22C0 /* SingleLabelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLabelRow.swift; sourceTree = "<group>"; };
 		3005D1ED2521C79300BF22C0 /* SingleLabelRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleLabelRow.xib; sourceTree = "<group>"; };
+		3018B0652540ED9E007A6C69 /* ChatHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatHeaderView.xib; sourceTree = "<group>"; };
 		301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQSortButtonsRow.swift; sourceTree = "<group>"; };
 		301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSortButtonsRow.xib; sourceTree = "<group>"; };
 		301B7EEB25235B6C0008DE3A /* GetPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPI.swift; sourceTree = "<group>"; };
 		3061022A253F1271006430D9 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		3061022C253F129E006430D9 /* ChatHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ChatHeaderView.xib; path = /Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/HomeScenes/ChatHeaderView.xib; sourceTree = "<absolute>"; };
-		3061022D253F12E1006430D9 /* ChatHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatHeaderView.xib; sourceTree = "<group>"; };
 		3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderDetailsView.swift; sourceTree = "<group>"; };
 		30610230253F1330006430D9 /* ChatHeaderDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatHeaderDetailsView.xib; sourceTree = "<group>"; };
 		307B397C252C24DD000028AC /* AdvancePaymentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancePaymentScene.swift; sourceTree = "<group>"; };
@@ -1520,7 +1520,7 @@
 				309738A2253DF6120010A139 /* OpenAttachmentView.swift */,
 				309738A4253DF6290010A139 /* OpenAttachmentView.xib */,
 				3061022A253F1271006430D9 /* ChatHeaderView.swift */,
-				3061022D253F12E1006430D9 /* ChatHeaderView.xib */,
+				3018B0652540ED9E007A6C69 /* ChatHeaderView.xib */,
 				3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */,
 				30610230253F1330006430D9 /* ChatHeaderDetailsView.xib */,
 			);
@@ -1931,7 +1931,7 @@
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
 				C099E3ED24FE8F0C003B6E3B /* EnquiryInitiationView.xib in Resources */,
-				3018B063253F22F3007A6C69 /* ChatHeaderView.xib in Resources */,
+				3018B0662540ED9F007A6C69 /* ChatHeaderView.xib in Resources */,
 				C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */,
 				309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */,
 				C0A910A4247CD90B00852695 /* PlayfairDisplay-Medium.ttf in Resources */,

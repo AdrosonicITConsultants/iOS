@@ -157,10 +157,11 @@ extension HomeScreenService {
         self.fetchAllCountries().bind(to: vc, context: .global(qos: .background)) { (_, countryArray) in
             do {
                 if (countryArray.count > 0) {
-                    countryArray.forEach( {countryObj in
-                        countryObj.saveOrUpdate()
-                        }
-                    )
+                    DispatchQueue.main.async {
+                        countryArray.forEach( {countryObj in
+                            countryObj.saveOrUpdate()
+                        })
+                    }
                 }
             }
         }.dispose(in: vc.bag)

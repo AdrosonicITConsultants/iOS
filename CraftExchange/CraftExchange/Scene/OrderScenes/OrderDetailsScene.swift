@@ -20,7 +20,7 @@ extension OrderDetailsService {
         
         let vc = OrderDetailController.init(style: .plain)
         vc.orderObject = forOrder
-        
+        vc.title = forOrder?.orderCode ?? ""
         vc.viewWillAppear = {
             vc.showLoading()
             if vc.isClosed {
@@ -103,6 +103,8 @@ extension OrderDetailsService {
                 let request = OfflineOrderRequest(type: .toggleOrderChangeRequest, orderId: eqId, changeRequestStatus: isEnabled)
                 OfflineRequestManager.defaultManager.queueRequest(request)
                 vc.orderObject?.toggleChangeStatus(isEnabled: isEnabled)
+                let row = vc.form.rowBy(tag: "CRRow") as! SwitchRow
+                row.cell.isUserInteractionEnabled = false
             }) { (action) in
                 let row = vc.form.rowBy(tag: "CRRow") as! SwitchRow
                 vc.shouldCallToggle = false

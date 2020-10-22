@@ -25,6 +25,21 @@ extension Chat {
         )
     }
     
+    static func getSpecificChat(enquiryId: Int) -> Request<Data, APIError> {
+           let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+           
+           var str = "enquiry/getEnquiryMessageChatList?searchedString=\(enquiryId)"
+           str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+           return Request(
+               path: str,
+               method: .get,
+               headers: headers,
+               resource: { $0 },
+               error: APIError.init,
+               needsAuthorization: false
+           )
+       }
+    
     static func getNewChatList() -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         

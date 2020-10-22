@@ -131,19 +131,18 @@ class OrderDetailController: FormViewController {
                 $0.value = orderObject?.changeRequestOn == 1 ? true : false
             }.onChange({ (row) in
                 if self.shouldCallToggle {
-                    if row.value == true {
-                        print("CR Enabled")
-                        self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 1)
-                    }else {
-                        print("CR Disabled")
-                        self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 0)
-                    }
+                    print("CR Disabled")
+                    self.toggleChangeRequest?(self.orderObject?.enquiryId ?? 0, 0)
                 }else {
                     self.shouldCallToggle = true
                 }
             }).cellUpdate({ (cell, row) in
-                if self.orderObject?.enquiryStageId == 4 && self.isClosed == false {
-                    cell.isUserInteractionEnabled = true
+                if self.orderObject?.enquiryStageId ?? 0 < 6 && self.isClosed == false && User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestOn == 1 {
+                    if self.orderObject?.changeRequestStatus == nil || self.orderObject?.changeRequestStatus == 0 {
+                        cell.isUserInteractionEnabled = true
+                    }else {
+                        cell.isUserInteractionEnabled = false
+                    }
                 }else {
                     cell.isUserInteractionEnabled = false
                 }
@@ -747,7 +746,16 @@ class OrderDetailController: FormViewController {
     }
     
     @objc func goToChat() {
-        
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+                let service = ChatListService.init(client: client)
+            if let enquiryId = orderObject?.enquiryId {
+                service.initiateConversation(vc: self, enquiryId: enquiryId)
+            }
+        }catch {
+            print(error.localizedDescription)
+        }
+
     }
     
     func reloadFormData() {

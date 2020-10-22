@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -255,20 +255,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPV-F2-uUA">
-                                <rect key="frame" x="15" y="61.5" width="40" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="weH-rf-aNQ"/>
-                                    <constraint firstAttribute="height" constant="30" id="yj6-LS-sCY"/>
-                                </constraints>
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <state key="normal" backgroundImage="arrow.left" catalog="system"/>
-                                <connections>
-                                    <action selector="backButtonSelected:" destination="cJg-HM-Nik" eventType="touchUpInside" id="ugx-Qd-8NY"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17B-sC-WQc">
-                                <rect key="frame" x="20" y="108" width="374" height="50"/>
+                                <rect key="frame" x="20" y="64" width="374" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ezw-c6-Qf5"/>
                                 </constraints>
@@ -277,7 +265,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" text="" placeholder="search by enquiry/ buyer's name" translatesAutoresizingMaskIntoConstraints="NO" id="8SA-Dp-IwN">
-                                <rect key="frame" x="0.0" y="168" width="414" height="70"/>
+                                <rect key="frame" x="0.0" y="124" width="414" height="70"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="Tue-65-fSv"/>
@@ -293,7 +281,7 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22q-HK-j2V">
-                                <rect key="frame" x="153.5" y="240" width="107" height="30"/>
+                                <rect key="frame" x="153.5" y="196" width="107" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="NCg-aG-GeJ"/>
                                 </constraints>
@@ -304,7 +292,7 @@
                                 </state>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VIO-Ps-6Vc">
-                                <rect key="frame" x="0.0" y="275" width="414" height="587"/>
+                                <rect key="frame" x="0.0" y="231" width="414" height="631"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="cJg-HM-Nik" id="ziD-G8-KPE"/>
@@ -312,15 +300,15 @@
                                 </connections>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q6s-h5-V2x">
-                                <rect key="frame" x="0.0" y="275" width="414" height="587"/>
+                                <rect key="frame" x="0.0" y="231" width="414" height="631"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8SA-Dp-IwN" firstAttribute="top" secondItem="17B-sC-WQc" secondAttribute="bottom" constant="10" id="90h-TJ-jnh"/>
                             <constraint firstItem="q6s-h5-V2x" firstAttribute="leading" secondItem="5EW-0a-zZT" secondAttribute="leading" id="HWq-Zv-qji"/>
-                            <constraint firstItem="cPV-F2-uUA" firstAttribute="leading" secondItem="5EW-0a-zZT" secondAttribute="leading" constant="15" id="I3A-sV-IU8"/>
                             <constraint firstItem="17B-sC-WQc" firstAttribute="leading" secondItem="5EW-0a-zZT" secondAttribute="leading" constant="20" id="MVu-52-TwI"/>
+                            <constraint firstItem="17B-sC-WQc" firstAttribute="top" secondItem="5EW-0a-zZT" secondAttribute="top" constant="20" id="PNd-bL-EMW"/>
                             <constraint firstItem="8SA-Dp-IwN" firstAttribute="leading" secondItem="5EW-0a-zZT" secondAttribute="leading" id="RV4-gr-7Fm"/>
                             <constraint firstItem="5EW-0a-zZT" firstAttribute="bottom" secondItem="VIO-Ps-6Vc" secondAttribute="bottom" id="STT-JJ-QnV"/>
                             <constraint firstItem="8SA-Dp-IwN" firstAttribute="trailing" secondItem="5EW-0a-zZT" secondAttribute="trailing" id="TKI-Ci-ph9"/>
@@ -331,15 +319,12 @@
                             <constraint firstItem="q6s-h5-V2x" firstAttribute="top" secondItem="22q-HK-j2V" secondAttribute="bottom" constant="5" id="l7o-Z5-Qah"/>
                             <constraint firstItem="VIO-Ps-6Vc" firstAttribute="trailing" secondItem="5EW-0a-zZT" secondAttribute="trailing" id="qAG-yS-MU5"/>
                             <constraint firstItem="22q-HK-j2V" firstAttribute="top" secondItem="8SA-Dp-IwN" secondAttribute="bottom" constant="2" id="rjD-YR-LL2"/>
-                            <constraint firstItem="17B-sC-WQc" firstAttribute="top" secondItem="cPV-F2-uUA" secondAttribute="bottom" constant="19" id="vBn-CF-CiY"/>
                             <constraint firstItem="VIO-Ps-6Vc" firstAttribute="top" secondItem="22q-HK-j2V" secondAttribute="bottom" constant="5" id="vTN-qj-FZB"/>
-                            <constraint firstItem="cPV-F2-uUA" firstAttribute="top" secondItem="5EW-0a-zZT" secondAttribute="top" constant="15" id="xra-aA-gTS"/>
                             <constraint firstItem="VIO-Ps-6Vc" firstAttribute="leading" secondItem="5EW-0a-zZT" secondAttribute="leading" id="zEe-Qs-OPw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5EW-0a-zZT"/>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="cPV-F2-uUA" id="RvE-yk-p2J"/>
                         <outlet property="chatNewListSearchBar" destination="8SA-Dp-IwN" id="Z8h-xN-Jnu"/>
                         <outlet property="emptyView" destination="q6s-h5-V2x" id="8mQ-k0-QA2"/>
                         <outlet property="pullToRefreshButton" destination="22q-HK-j2V" id="1yB-hI-RcT"/>
@@ -348,7 +333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZZO-ss-cex" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3736.2318840579715" y="1588.3928571428571"/>
+            <point key="canvasLocation" x="3632" y="1584"/>
         </scene>
         <!--Chat-->
         <scene sceneID="bg5-ir-ywk">
@@ -1254,7 +1239,6 @@
         <image name="arrow-down" width="14" height="8"/>
         <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
-        <image name="arrow.left" catalog="system" width="64" height="48"/>
         <image name="bell" catalog="system" width="64" height="62"/>
         <image name="coverImage" width="374" height="128"/>
         <image name="custom-design-icon" width="31" height="22"/>

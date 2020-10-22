@@ -18,6 +18,10 @@ class ChatDetailsService: BaseService<Data> {
         super.init()
     }
     
+    func getSpecificChat(enquiryId: Int) -> SafeSignal<Data> {
+        return Chat.getSpecificChat(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
      func getConversation(enquiryId: Int) -> SafeSignal<Data> {
         return Chat.getConversation(enquiryId: enquiryId).response(using: client).debug()
      }
