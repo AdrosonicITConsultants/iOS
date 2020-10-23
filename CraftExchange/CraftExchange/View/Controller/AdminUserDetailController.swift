@@ -64,7 +64,14 @@ class AdminUserDetailController: UIViewController {
         let realm = try! Realm()
         
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+           super.viewWillAppear(animated)
+          var AdminInfoViewController: AdminGeneralInfo = {
+               var viewController = AdminGeneralInfo.init()
+               self.add(asChildViewController: viewController)
+               return viewController
+           }()
+       }
     @IBAction func segmentValueChanged(_ sender: Any) {
         if Segment.selectedSegmentIndex == 0 {
             add(asChildViewController: AdminInfoViewController)
