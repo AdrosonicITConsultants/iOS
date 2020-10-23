@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 import Eureka
-
+protocol MarketActionsProtocol {
+    func ArrowBtnSelected(tag: Int)
+}
 class MarketActions:Cell<String>, CellType {
 
     @IBOutlet weak var ActionBtn: UIButton!
@@ -18,15 +20,20 @@ class MarketActions:Cell<String>, CellType {
     @IBOutlet weak var ActionImg: UIImageView!
     @IBOutlet weak var ActionLabel: UILabel!
     @IBOutlet weak var LowerActionLabel: UILabel!
+     var delegate: MarketActionsProtocol!
     public override func setup() {
         super.setup()
-       
+       ArrowBtn.addTarget(self, action: #selector(ArrowButtonSelected), for: .touchUpInside)
     }
 
     public override func update() {
         super.update()
     }
     
+    @IBAction func ArrowButtonSelected(_ sender: Any) {
+           delegate?.ArrowBtnSelected(tag: tag)
+          
+       }
    
 }
 

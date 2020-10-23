@@ -7,12 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11173F5925417CA20027B9C3 /* AdminUserDatabase.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11173F5825417CA00027B9C3 /* AdminUserDatabase.storyboard */; };
+		11173F5D254192A40027B9C3 /* AdminUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11173F5C254192A30027B9C3 /* AdminUserController.swift */; };
+		11173F5F2541A9840027B9C3 /* AdminUserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11173F5E2541A9830027B9C3 /* AdminUserDetailController.swift */; };
 		114186B92535C90F0039B80F /* AdminLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114186B72535C90F0039B80F /* AdminLabelCell.swift */; };
 		114186BA2535C90F0039B80F /* AdminLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 114186B82535C90F0039B80F /* AdminLabelCell.xib */; };
 		1144A6B32534A8CC00163D2E /* AdminHomeBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1144A6B12534A8CC00163D2E /* AdminHomeBottom.swift */; };
 		1144A6B42534A8CC00163D2E /* AdminHomeBottom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1144A6B22534A8CC00163D2E /* AdminHomeBottom.xib */; };
+		1148DB982541D5BA0052B8D6 /* AdminGeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148DB972541D5BA0052B8D6 /* AdminGeneralInfo.swift */; };
+		1148DB9A2541D5D20052B8D6 /* AdminBrandDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148DB992541D5D20052B8D6 /* AdminBrandDetails.swift */; };
+		1148DB9C2541D5E20052B8D6 /* AdminBankDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148DB9B2541D5E20052B8D6 /* AdminBankDetails.swift */; };
 		114B366B25357E34000DDE6E /* AdminCardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114B366925357E34000DDE6E /* AdminCardsCell.swift */; };
 		114B366C25357E34000DDE6E /* AdminCardsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 114B366A25357E34000DDE6E /* AdminCardsCell.xib */; };
+		115338A12542BB8300BF4204 /* BrandDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1153389F2542BB8300BF4204 /* BrandDetailView.swift */; };
+		115338A22542BB8300BF4204 /* BrandDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115338A02542BB8300BF4204 /* BrandDetailView.xib */; };
+		115338A42542D8E900BF4204 /* AdminBuyerUserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338A32542D8E800BF4204 /* AdminBuyerUserDetailController.swift */; };
+		115338A72542DB9200BF4204 /* LabelUnderlinedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338A52542DB9200BF4204 /* LabelUnderlinedView.swift */; };
+		115338A82542DB9200BF4204 /* LabelUnderlinedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115338A62542DB9200BF4204 /* LabelUnderlinedView.xib */; };
+		115338AA2542E08F00BF4204 /* AdminBuyerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */; };
 		11C849B325304C3C00729355 /* LoginMarketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C849B225304C3C00729355 /* LoginMarketController.swift */; };
 		11C849B5253054B200729355 /* MarketHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C849B4253054B200729355 /* MarketHomeController.swift */; };
 		11ECC7F22534BDBA00F8621C /* AdminHomeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ECC7F02534BDBA00F8621C /* AdminHomeHeader.swift */; };
@@ -354,12 +366,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11173F5825417CA00027B9C3 /* AdminUserDatabase.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdminUserDatabase.storyboard; sourceTree = "<group>"; };
+		11173F5C254192A30027B9C3 /* AdminUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUserController.swift; sourceTree = "<group>"; };
+		11173F5E2541A9830027B9C3 /* AdminUserDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUserDetailController.swift; sourceTree = "<group>"; };
 		114186B72535C90F0039B80F /* AdminLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminLabelCell.swift; sourceTree = "<group>"; };
 		114186B82535C90F0039B80F /* AdminLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminLabelCell.xib; sourceTree = "<group>"; };
 		1144A6B12534A8CC00163D2E /* AdminHomeBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHomeBottom.swift; sourceTree = "<group>"; };
 		1144A6B22534A8CC00163D2E /* AdminHomeBottom.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminHomeBottom.xib; sourceTree = "<group>"; };
+		1148DB972541D5BA0052B8D6 /* AdminGeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminGeneralInfo.swift; sourceTree = "<group>"; };
+		1148DB992541D5D20052B8D6 /* AdminBrandDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminBrandDetails.swift; sourceTree = "<group>"; };
+		1148DB9B2541D5E20052B8D6 /* AdminBankDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminBankDetails.swift; sourceTree = "<group>"; };
 		114B366925357E34000DDE6E /* AdminCardsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCardsCell.swift; sourceTree = "<group>"; };
 		114B366A25357E34000DDE6E /* AdminCardsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminCardsCell.xib; sourceTree = "<group>"; };
+		1153389F2542BB8300BF4204 /* BrandDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDetailView.swift; sourceTree = "<group>"; };
+		115338A02542BB8300BF4204 /* BrandDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrandDetailView.xib; sourceTree = "<group>"; };
+		115338A32542D8E800BF4204 /* AdminBuyerUserDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminBuyerUserDetailController.swift; sourceTree = "<group>"; };
+		115338A52542DB9200BF4204 /* LabelUnderlinedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelUnderlinedView.swift; sourceTree = "<group>"; };
+		115338A62542DB9200BF4204 /* LabelUnderlinedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelUnderlinedView.xib; sourceTree = "<group>"; };
+		115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminBuyerInfo.swift; sourceTree = "<group>"; };
 		11C849B225304C3C00729355 /* LoginMarketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMarketController.swift; sourceTree = "<group>"; };
 		11C849B4253054B200729355 /* MarketHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHomeController.swift; sourceTree = "<group>"; };
 		11ECC7F02534BDBA00F8621C /* AdminHomeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHomeHeader.swift; sourceTree = "<group>"; };
@@ -721,6 +745,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1153389E2542BB4600BF4204 /* AdminDetailCells */ = {
+			isa = PBXGroup;
+			children = (
+				1153389F2542BB8300BF4204 /* BrandDetailView.swift */,
+				115338A02542BB8300BF4204 /* BrandDetailView.xib */,
+				115338A52542DB9200BF4204 /* LabelUnderlinedView.swift */,
+				115338A62542DB9200BF4204 /* LabelUnderlinedView.xib */,
+			);
+			path = AdminDetailCells;
+			sourceTree = "<group>";
+		};
 		300D9F8CF38CB340DAEB48A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +786,8 @@
 			children = (
 				11C849B225304C3C00729355 /* LoginMarketController.swift */,
 				11C849B4253054B200729355 /* MarketHomeController.swift */,
+				11173F5C254192A30027B9C3 /* AdminUserController.swift */,
+				115338A32542D8E800BF4204 /* AdminBuyerUserDetailController.swift */,
 			);
 			path = LoginControllers;
 			sourceTree = "<group>";
@@ -1016,6 +1053,7 @@
 				C0925796249F6FE7006C4C05 /* BuyerHome */,
 				C0144ABF248443BB006FF4AB /* ForgotPasswordControllers */,
 				C0144ABE24844390006FF4AB /* LoginControllers */,
+				11173F5E2541A9830027B9C3 /* AdminUserDetailController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1032,6 +1070,7 @@
 				3097877C252461BC00F9B608 /* Invoice.storyboard */,
 				C06570B0252BA839001140C7 /* Transaction.storyboard */,
 				30E3C639252B340600AB95E5 /* Payment.storyboard */,
+				11173F5825417CA00027B9C3 /* AdminUserDatabase.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1255,6 +1294,7 @@
 		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
 			isa = PBXGroup;
 			children = (
+				1153389E2542BB4600BF4204 /* AdminDetailCells */,
 				C06570A7252B910F001140C7 /* TransactionCells */,
 				C09F97DD25021BE30076F917 /* EnquiryCells */,
 				C099E3EB24FE8ECE003B6E3B /* Popups */,
@@ -1473,6 +1513,10 @@
 				C09C970424B919D300FD97E9 /* ArtisanGeneralInfo.swift */,
 				C09C970624B919EE00FD97E9 /* ArtisanBrandDetails.swift */,
 				C09C970824B919FC00FD97E9 /* ArtisanBankDetails.swift */,
+				1148DB972541D5BA0052B8D6 /* AdminGeneralInfo.swift */,
+				1148DB992541D5D20052B8D6 /* AdminBrandDetails.swift */,
+				1148DB9B2541D5E20052B8D6 /* AdminBankDetails.swift */,
+				115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */,
 			);
 			path = ProfileController;
 			sourceTree = "<group>";
@@ -1689,6 +1733,7 @@
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
 				C099E3ED24FE8F0C003B6E3B /* EnquiryInitiationView.xib in Resources */,
+				115338A82542DB9200BF4204 /* LabelUnderlinedView.xib in Resources */,
 				C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */,
 				11F525342534882900E0FBDC /* MarketActions.xib in Resources */,
 				309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */,
@@ -1713,10 +1758,12 @@
 				C06AA3A025054FB200EF4B10 /* MOQSectionTitle.xib in Resources */,
 				C0AE9CF524ECE48D0037ECB3 /* ProdDetailRelatedRow.xib in Resources */,
 				3097877D252461BC00F9B608 /* Invoice.storyboard in Resources */,
+				115338A22542BB8300BF4204 /* BrandDetailView.xib in Resources */,
 				C09EE6FC252C2AE60030A5C1 /* TransactionDetailRow.xib in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C06AA3A2250550D200EF4B10 /* MOQValueRow.xib in Resources */,
 				309598862510FC8100491E33 /* OrderAvailabilityCell.xib in Resources */,
+				11173F5925417CA20027B9C3 /* AdminUserDatabase.storyboard in Resources */,
 				C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
@@ -1826,6 +1873,7 @@
 				C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */,
 				C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */,
 				3001A8AE2518894E00CFC32A /* GetMOQ.swift in Sources */,
+				115338A72542DB9200BF4204 /* LabelUnderlinedView.swift in Sources */,
 				C074EE3C24EEC3DD00B0973B /* WishlistService.swift in Sources */,
 				C0917DE624D46099006B6664 /* Yarn.swift in Sources */,
 				C071E247247EE59E0085805B /* Result.swift in Sources */,
@@ -1850,6 +1898,7 @@
 				C06570B7252BB45A001140C7 /* TransactionService.swift in Sources */,
 				C02DC55724F4F26C00805C98 /* Product+Search.swift in Sources */,
 				C06570A0252B82D3001140C7 /* TransactionStatus+Request.swift in Sources */,
+				115338A12542BB8300BF4204 /* BrandDetailView.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
 				C06DCAC924D346F100F1435F /* OrderAvailabilityCell.swift in Sources */,
 				C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */,
@@ -1863,6 +1912,7 @@
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
 				C08C168C24F4431500D3100A /* BuyerProductDetailsScene.swift in Sources */,
 				C06570AB252B958F001140C7 /* TransactionTitleRow.swift in Sources */,
+				1148DB9C2541D5E20052B8D6 /* AdminBankDetails.swift in Sources */,
 				C016EC1B2510D3590039B7AF /* NotificationCell.swift in Sources */,
 				C092579A249F7235006C4C05 /* BuyerTabbarController.swift in Sources */,
 				C0917DF024D4660E006B6664 /* ProductCare.swift in Sources */,
@@ -1883,6 +1933,7 @@
 				C016EC1E2510D4F20039B7AF /* Notification+Request.swift in Sources */,
 				C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
+				1148DB982541D5BA0052B8D6 /* AdminGeneralInfo.swift in Sources */,
 				C09B3F1224BA615900FBC115 /* Disk+VolumeInformation.swift in Sources */,
 				C0AAC3942492BB8A008C2047 /* RoundedActionSheetRow.swift in Sources */,
 				C071E23A247EDDB20085805B /* UserProductCategory.swift in Sources */,
@@ -1929,6 +1980,7 @@
 				C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */,
 				C0930D3F2506231100DC9274 /* MOQSectionTitle.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
+				11173F5F2541A9840027B9C3 /* AdminUserDetailController.swift in Sources */,
 				C09B3F0E24BA615900FBC115 /* Disk+[Data].swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
 				C06570A6252B8E87001140C7 /* TransactionObject+Request.swift in Sources */,
@@ -1950,6 +2002,7 @@
 				11C849B5253054B200729355 /* MarketHomeController.swift in Sources */,
 				C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */,
 				C0A2A00624B8D89800A49E56 /* Address+Transaction.swift in Sources */,
+				115338AA2542E08F00BF4204 /* AdminBuyerInfo.swift in Sources */,
 				C0D218B124FEC67A0071896E /* EnquiryGeneratedView.swift in Sources */,
 				3089DEDC252B3213003184FA /* UploadSuccessfulView.swift in Sources */,
 				C05836B724C8567F0027FF44 /* CraftExchangeImageClient.swift in Sources */,
@@ -1995,6 +2048,7 @@
 				C0AE9CFB24ED842F0037ECB3 /* ToggleOptionRow.swift in Sources */,
 				C02EE1A5253DC9150039B1C9 /* DefaultViewController.swift in Sources */,
 				308D5F672514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift in Sources */,
+				115338A42542D8E900BF4204 /* AdminBuyerUserDetailController.swift in Sources */,
 				114186B92535C90F0039B80F /* AdminLabelCell.swift in Sources */,
 				C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */,
 				C099E3EA24FE1BDF003B6E3B /* Enquiry+Request.swift in Sources */,
@@ -2031,6 +2085,7 @@
 				C04F72DE24C6276B00E8122E /* ArtisanProdCatalogueController.swift in Sources */,
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,
 				C0F4723324C9901900DB8F38 /* DesignCollectionController.swift in Sources */,
+				1148DB9A2541D5D20052B8D6 /* AdminBrandDetails.swift in Sources */,
 				C06DCABF24D2EBED00F1435F /* DimensionsCardCell.swift in Sources */,
 				3089DEE2252B327E003184FA /* PaymentUploadController.swift in Sources */,
 				C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */,
@@ -2060,6 +2115,7 @@
 				C04842B124E7BB0F00D3207F /* CustomeProduct+Request.swift in Sources */,
 				C0917DE224D43446006B6664 /* ProductWidth.swift in Sources */,
 				C0A5EB6624A0EB0100AD42EA /* SideMenuController.swift in Sources */,
+				11173F5D254192A40027B9C3 /* AdminUserController.swift in Sources */,
 				C06DCAC524D33DBB00F1435F /* lengthWidthRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
