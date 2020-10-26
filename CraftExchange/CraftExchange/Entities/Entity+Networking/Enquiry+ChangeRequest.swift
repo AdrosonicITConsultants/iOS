@@ -23,7 +23,7 @@ extension Enquiry {
         )
     }
     
-    public static func getChangeRequestMetadata() -> Request<[ChangeRequest], APIError> {
+    public static func getChangeRequestMetadata() -> Request<[ChangeRequestType], APIError> {
       return Request(
           path: "enquiry/getChangeRequestItemTable",
           method: .get,
@@ -31,7 +31,7 @@ extension Enquiry {
             if let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as? [String: Any] {
               if let array = json["data"] as? [[String: Any]] {
                   let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
-                  let object = try JSONDecoder().decode([ChangeRequest].self, from: data)
+                  let object = try JSONDecoder().decode([ChangeRequestType].self, from: data)
                   return object
               }
             }

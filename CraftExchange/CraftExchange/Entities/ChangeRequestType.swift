@@ -1,5 +1,5 @@
 //
-//  ChangeRequest.swift
+//  ChangeRequestType.swift
 //  CraftExchange
 //
 //  Created by Preety Singh on 26/10/20.
@@ -10,7 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class ChangeRequest: Object, Decodable {
+class ChangeRequestType: Object, Decodable {
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
     @objc dynamic var item: String?

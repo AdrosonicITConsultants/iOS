@@ -1,11 +1,11 @@
 //
-//  BuyerChangeRequestController.swift
+//  ArtisanChangeRequestController.swift
 //  CraftExchange
 //
-//  Created by Preety Singh on 24/10/20.
+//  Created by Preety Singh on 27/10/20.
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
-
+/*
 import Foundation
 import UIKit
 import Bond
@@ -18,10 +18,11 @@ import RealmSwift
 import Realm
 import ViewRow
 
-class BuyerChangeRequestController: FormViewController {
+class ArtisanChangeRequestController: FormViewController {
     
-    var raiseChangeRequest: ((_ changeReqArr:[changeRequest]) -> ())?
-    var allChangeRequests: Results<ChangeRequestType>?
+    var updateChangeRequest: ((_ changeReqArr:[changeRequest]) -> ())?
+    var fetchChangeRequest: ((_ changeReqArr:[changeRequest]) -> ())?
+    var allChangeRequests: Results<ChangeRequest>?
     var changeReqArray: [changeRequest]?
     let realm = try? Realm()
     let enquiryId: Int = 0
@@ -29,7 +30,7 @@ class BuyerChangeRequestController: FormViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        allChangeRequests = realm?.objects(ChangeRequestType.self).sorted(byKeyPath: "entityID")
+        allChangeRequests = realm?.objects(ChangeRequest.self).sorted(byKeyPath: "entityID")
         changeReqArray = []
         
         let changeReqTypeSection = Section() {
@@ -105,7 +106,7 @@ class BuyerChangeRequestController: FormViewController {
             var start = label2.frame.origin.y + label2.frame.size.height + 5
             changeReqArray?.forEach({ (changeReq) in
                 let crTitle = UILabel.init(frame: CGRect.init(x: 20, y: start, width: label.frame.size.width/2, height: 30))
-                crTitle.text = " \(ChangeRequestType().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? "\(changeReq.requestItemsId)"):"
+                crTitle.text = " \(ChangeRequest().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? "\(changeReq.requestItemsId)"):"
                 crTitle.layer.borderColor = UIColor.lightGray.cgColor
                 crTitle.layer.borderWidth = 0.5
                 crTitle.font = .systemFont(ofSize: 16)
@@ -169,3 +170,5 @@ class BuyerChangeRequestController: FormViewController {
 }
 
 
+
+*/
