@@ -12,6 +12,7 @@ import ReactiveKit
 enum OrderActionType: String {
     case toggleOrderChangeRequest
     case raiseChangeRequest
+    case updateChangeRequest
 }
 
 class OfflineOrderRequest: NSObject, OfflineRequest {
@@ -36,6 +37,8 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
             self.request = Enquiry.toggleChangeRequest(enquiryId: orderId, isEnabled: changeRequestStatus ?? 0)
         case .raiseChangeRequest:
             self.request = Enquiry.raiseChangeRequest(crJson: changeRequestJson ?? [:])
+        case .updateChangeRequest:
+            self.request = Enquiry.updateChangeRequest(crJson: changeRequestJson ?? [:])
         }
         super.init()
     }
@@ -63,6 +66,10 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
             if self.type == .raiseChangeRequest && response.error == nil {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ChangeRequestRaised"), object: nil)
+                }
+            }else if self.type == .updateChangeRequest && response.error == nil {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ChangeRequestUpdated"), object: nil)
                 }
             }
             completion(response.error)

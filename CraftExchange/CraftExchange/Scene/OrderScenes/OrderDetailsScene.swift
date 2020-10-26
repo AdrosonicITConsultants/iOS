@@ -151,6 +151,10 @@ extension OrderDetailsService {
             vc.listTransactions = transactions.compactMap({$0})
         }
         
+        vc.fetchChangeRequest = {
+            self.fetchArtisanChangeRquest(vc: vc, enquiryId: enquiryId)
+        }
+        
         return vc
     }
     

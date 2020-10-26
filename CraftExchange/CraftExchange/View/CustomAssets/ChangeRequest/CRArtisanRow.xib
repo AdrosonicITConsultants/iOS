@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="QRY-hE-eZv" customClass="CRArtisanRowView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QRY-hE-eZv" id="VEA-AS-Phe">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nef-pE-C9x">
+                        <rect key="frame" x="20" y="8" width="169" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFJ-Dj-1EP">
+                        <rect key="frame" x="374" y="14" width="20" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="BnP-65-gaJ"/>
+                            <constraint firstAttribute="width" constant="20" id="Gzs-l8-j1k"/>
+                        </constraints>
+                        <state key="normal" image="square" catalog="system"/>
+                        <connections>
+                            <action selector="checkmarkSelected:" destination="QRY-hE-eZv" eventType="touchUpInside" id="P4g-SC-ddm"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgw-s3-Tv4">
+                        <rect key="frame" x="197" y="8" width="169" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.83350139860000005" green="0.62401866910000003" blue="0.41955995559999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JFJ-Dj-1EP" firstAttribute="leading" secondItem="Pgw-s3-Tv4" secondAttribute="trailing" constant="8" id="Axh-8T-O1h"/>
+                    <constraint firstItem="nef-pE-C9x" firstAttribute="leading" secondItem="VEA-AS-Phe" secondAttribute="leading" constant="20" id="DxH-wd-THp"/>
+                    <constraint firstItem="Pgw-s3-Tv4" firstAttribute="width" secondItem="nef-pE-C9x" secondAttribute="width" id="E60-6e-Ycb"/>
+                    <constraint firstItem="nef-pE-C9x" firstAttribute="top" secondItem="VEA-AS-Phe" secondAttribute="top" constant="8" id="MA2-9i-yIM"/>
+                    <constraint firstAttribute="bottom" secondItem="Pgw-s3-Tv4" secondAttribute="bottom" constant="8" id="RhK-kN-Zlu"/>
+                    <constraint firstAttribute="bottom" secondItem="nef-pE-C9x" secondAttribute="bottom" constant="8" id="Yl9-Jo-hWQ"/>
+                    <constraint firstItem="JFJ-Dj-1EP" firstAttribute="centerY" secondItem="Pgw-s3-Tv4" secondAttribute="centerY" id="aSG-e0-TsN"/>
+                    <constraint firstItem="Pgw-s3-Tv4" firstAttribute="top" secondItem="VEA-AS-Phe" secondAttribute="top" constant="8" id="anE-CH-dWz"/>
+                    <constraint firstAttribute="trailing" secondItem="JFJ-Dj-1EP" secondAttribute="trailing" constant="20" id="arZ-hz-sf4"/>
+                    <constraint firstItem="Pgw-s3-Tv4" firstAttribute="leading" secondItem="nef-pE-C9x" secondAttribute="trailing" constant="8" id="vRX-cy-n3T"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="labelField" destination="nef-pE-C9x" id="mgw-hF-9gc"/>
+                <outlet property="tickBtn" destination="JFJ-Dj-1EP" id="MXa-55-BqF"/>
+                <outlet property="valuefield" destination="Pgw-s3-Tv4" id="vyP-0U-D3a"/>
+            </connections>
+            <point key="canvasLocation" x="136" y="143"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="square" catalog="system" width="64" height="56"/>
+    </resources>
+</document>

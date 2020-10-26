@@ -139,6 +139,8 @@
 		C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8832476F0BF00279D7F /* Assets.xcassets */; };
 		C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C03BD8852476F0BF00279D7F /* LaunchScreen.storyboard */; };
 		C04249C92547532600D9EA6C /* ArtisanChangeRequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04249C82547532600D9EA6C /* ArtisanChangeRequestController.swift */; };
+		C04249CB2547552100D9EA6C /* ChangeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04249CA2547552100D9EA6C /* ChangeRequest.swift */; };
+		C04249CD2547560600D9EA6C /* ChangeRequestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04249CC2547560600D9EA6C /* ChangeRequestItem.swift */; };
 		C04842B124E7BB0F00D3207F /* CustomeProduct+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04842B024E7BB0F00D3207F /* CustomeProduct+Request.swift */; };
 		C04842B424E7BB9D00D3207F /* CustomProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04842B324E7BB9D00D3207F /* CustomProductService.swift */; };
 		C04842B724E7C2ED00D3207F /* CustomProductListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04842B624E7C2ED00D3207F /* CustomProductListScene.swift */; };
@@ -261,6 +263,11 @@
 		C097949F24EAB23100C11AC7 /* ImageViewRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C097949E24EAB23100C11AC7 /* ImageViewRow.xib */; };
 		C09794A124EAB2A700C11AC7 /* ImageViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09794A024EAB2A700C11AC7 /* ImageViewRow.swift */; };
 		C09794A324EABB7900C11AC7 /* CustomProductImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09794A224EABB7900C11AC7 /* CustomProductImage.swift */; };
+		C0989E3D25475EF5001B933F /* ChangeRequestType+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0989E3C25475EF5001B933F /* ChangeRequestType+Transaction.swift */; };
+		C0989E3F25475F66001B933F /* ChangeRequestItem+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0989E3E25475F66001B933F /* ChangeRequestItem+Transaction.swift */; };
+		C0989E412547600F001B933F /* ArtisanChangeRequestScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0989E402547600F001B933F /* ArtisanChangeRequestScene.swift */; };
+		C0989E43254767C1001B933F /* CRArtisanRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0989E42254767C1001B933F /* CRArtisanRow.swift */; };
+		C0989E4525476822001B933F /* CRArtisanRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0989E4425476822001B933F /* CRArtisanRow.xib */; };
 		C09905DE2546C4F100F00E50 /* ChangeRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09905DD2546C4F100F00E50 /* ChangeRequestType.swift */; };
 		C09905E02546C73700F00E50 /* ChangeRequest+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09905DF2546C73700F00E50 /* ChangeRequest+Transaction.swift */; };
 		C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */; };
@@ -559,6 +566,8 @@
 		C03BD8862476F0BF00279D7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C03BD8882476F0BF00279D7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C04249C82547532600D9EA6C /* ArtisanChangeRequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanChangeRequestController.swift; sourceTree = "<group>"; };
+		C04249CA2547552100D9EA6C /* ChangeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeRequest.swift; sourceTree = "<group>"; };
+		C04249CC2547560600D9EA6C /* ChangeRequestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeRequestItem.swift; sourceTree = "<group>"; };
 		C04842B024E7BB0F00D3207F /* CustomeProduct+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomeProduct+Request.swift"; sourceTree = "<group>"; };
 		C04842B324E7BB9D00D3207F /* CustomProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProductService.swift; sourceTree = "<group>"; };
 		C04842B624E7C2ED00D3207F /* CustomProductListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProductListScene.swift; sourceTree = "<group>"; };
@@ -684,6 +693,11 @@
 		C097949E24EAB23100C11AC7 /* ImageViewRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewRow.xib; sourceTree = "<group>"; };
 		C09794A024EAB2A700C11AC7 /* ImageViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewRow.swift; sourceTree = "<group>"; };
 		C09794A224EABB7900C11AC7 /* CustomProductImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProductImage.swift; sourceTree = "<group>"; };
+		C0989E3C25475EF5001B933F /* ChangeRequestType+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangeRequestType+Transaction.swift"; sourceTree = "<group>"; };
+		C0989E3E25475F66001B933F /* ChangeRequestItem+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangeRequestItem+Transaction.swift"; sourceTree = "<group>"; };
+		C0989E402547600F001B933F /* ArtisanChangeRequestScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanChangeRequestScene.swift; sourceTree = "<group>"; };
+		C0989E42254767C1001B933F /* CRArtisanRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRArtisanRow.swift; sourceTree = "<group>"; };
+		C0989E4425476822001B933F /* CRArtisanRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CRArtisanRow.xib; sourceTree = "<group>"; };
 		C09905DD2546C4F100F00E50 /* ChangeRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeRequestType.swift; sourceTree = "<group>"; };
 		C09905DF2546C73700F00E50 /* ChangeRequest+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangeRequest+Transaction.swift"; sourceTree = "<group>"; };
 		C0995BF324C8C88100EC4CC3 /* CategoryBrandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBrandCell.swift; sourceTree = "<group>"; };
@@ -1044,6 +1058,7 @@
 				C0374DF825384005008954C6 /* OrderListScene.swift */,
 				C0374DFE253882D7008954C6 /* OrderDetailsScene.swift */,
 				C0C248A725470B7800AE18FA /* BuyerChangeRequestScene.swift */,
+				C0989E402547600F001B933F /* ArtisanChangeRequestScene.swift */,
 			);
 			path = OrderScenes;
 			sourceTree = "<group>";
@@ -1194,6 +1209,8 @@
 				3087346E253043B3004E5A72 /* CMS.swift */,
 				3092470A2535DE7C0073463E /* Chat.swift */,
 				30EB8DEA2537408D00BA59E8 /* Conversation.swift */,
+				C04249CA2547552100D9EA6C /* ChangeRequest.swift */,
+				C04249CC2547560600D9EA6C /* ChangeRequestItem.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1625,6 +1642,8 @@
 				3092470E2535DED30073463E /* Chat+Transaction.swift */,
 				C0374DFA2538429D008954C6 /* Order+Transaction.swift */,
 				C09905DF2546C73700F00E50 /* ChangeRequest+Transaction.swift */,
+				C0989E3E25475F66001B933F /* ChangeRequestItem+Transaction.swift */,
+				C0989E3C25475EF5001B933F /* ChangeRequestType+Transaction.swift */,
 			);
 			path = "Entity+Transaction";
 			sourceTree = "<group>";
@@ -1853,6 +1872,8 @@
 				C0EED035254355C200C920B7 /* CRNoteView.xib */,
 				C0EED032254355C100C920B7 /* DisableCRView.swift */,
 				C0EED030254355C100C920B7 /* DisableCRView.xib */,
+				C0989E42254767C1001B933F /* CRArtisanRow.swift */,
+				C0989E4425476822001B933F /* CRArtisanRow.xib */,
 			);
 			path = ChangeRequest;
 			sourceTree = "<group>";
@@ -2044,6 +2065,7 @@
 				C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */,
 				309787792524136000F9B608 /* PreviewPIView.xib in Resources */,
 				C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */,
+				C0989E4525476822001B933F /* CRArtisanRow.xib in Resources */,
 				C04F72DB24C611E700E8122E /* ArtisanProductCell.xib in Resources */,
 				C0A9108D247CD8D000852695 /* Lato-Bold.ttf in Resources */,
 				C0A91092247CD8D000852695 /* Lato-BoldItalic.ttf in Resources */,
@@ -2166,6 +2188,7 @@
 				C02DC55224F4F0AE00805C98 /* Searchable.swift in Sources */,
 				C0EED03B254355C200C920B7 /* AcceptRejectCR.swift in Sources */,
 				C09C8C25250D496700950526 /* EnquiryDetailsScene.swift in Sources */,
+				C0989E412547600F001B933F /* ArtisanChangeRequestScene.swift in Sources */,
 				C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */,
 				C071E24A247EE59E0085805B /* Request.swift in Sources */,
 				C08C168C24F4431500D3100A /* BuyerProductDetailsScene.swift in Sources */,
@@ -2230,6 +2253,7 @@
 				C071E238247ED41A0085805B /* User.swift in Sources */,
 				C0A3F41B24B7A8090071F7F8 /* BuyerCompanyProfileInfo.swift in Sources */,
 				C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */,
+				C0989E43254767C1001B933F /* CRArtisanRow.swift in Sources */,
 				C0ACE9AC2485A54600EFA4ED /* RegisterArtisanService.swift in Sources */,
 				C05836BB24C887AC0027FF44 /* ProductImage.swift in Sources */,
 				309247032535DD510073463E /* ChatListService.swift in Sources */,
@@ -2287,6 +2311,7 @@
 				C05836B724C8567F0027FF44 /* CraftExchangeImageClient.swift in Sources */,
 				C09F214F24862B56001F2FCD /* REGArtisanDataScene.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
+				C0989E3D25475EF5001B933F /* ChangeRequestType+Transaction.swift in Sources */,
 				C09794A124EAB2A700C11AC7 /* ImageViewRow.swift in Sources */,
 				C0ACE9B02485BD0C00EFA4ED /* ClusterDetails+Request.swift in Sources */,
 				30EB8DE92537230800BA59E8 /* ChatNewListController.swift in Sources */,
@@ -2342,11 +2367,13 @@
 				C0AE9CFB24ED842F0037ECB3 /* ToggleOptionRow.swift in Sources */,
 				308D5F672514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift in Sources */,
 				C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */,
+				C04249CB2547552100D9EA6C /* ChangeRequest.swift in Sources */,
 				C099E3EA24FE1BDF003B6E3B /* Enquiry+Request.swift in Sources */,
 				3097877B2524616E00F9B608 /* InvoiceController.swift in Sources */,
 				C0374DF925384005008954C6 /* OrderListScene.swift in Sources */,
 				C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */,
 				309247112535ED7C0073463E /* ChatListScene.swift in Sources */,
+				C0989E3F25475F66001B933F /* ChangeRequestItem+Transaction.swift in Sources */,
 				C0ACE9982485900F00EFA4ED /* REGValidateArtisanController.swift in Sources */,
 				C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */,
 				C0917DE424D4372B006B6664 /* Weave.swift in Sources */,
@@ -2409,6 +2436,7 @@
 				C0A0D76324BD7B360089CC47 /* PaymentAccDetails+Transaction.swift in Sources */,
 				C0E6D04824EC17D2008CFB1F /* ProductDetailInfoRow.swift in Sources */,
 				308B6A5F2518FDCD00075095 /* GetMOQs.swift in Sources */,
+				C04249CD2547560600D9EA6C /* ChangeRequestItem.swift in Sources */,
 				C06AA396250240A500EF4B10 /* BuyerEnquiryListController.swift in Sources */,
 				3092470D2535DE9A0073463E /* Chat+Request.swift in Sources */,
 				3089DEE0252B3276003184FA /* PaymentBuyerOne.swift in Sources */,

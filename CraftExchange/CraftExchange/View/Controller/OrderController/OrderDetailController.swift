@@ -46,6 +46,7 @@ class OrderDetailController: FormViewController {
     var showProductDetails: (() -> ())?
     var showHistoryProductDetails: (() -> ())?
     var toggleChangeRequest: ((_ enquiryId: Int, _ isEnabled: Int) -> ())?
+    var fetchChangeRequest: (() -> ())?
     let realm = try? Realm()
     var isClosed = false
     var shouldCallToggle = true
@@ -396,15 +397,18 @@ class OrderDetailController: FormViewController {
                 $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
             }.onCellSelection({ (cell, row) in
                 if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 && self.orderObject?.changeRequestStatus != 2 {
-                    if User.loggedIn()?.refRoleId == "2" {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        if User.loggedIn()?.refRoleId == "2" {
                             let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
                             self.navigationController?.pushViewController(vc, animated: false)
-                        }catch {
-                            print(error.localizedDescription)
+                        }else {
+                            self.fetchChangeRequest?()
                         }
+                    }catch {
+                        print(error.localizedDescription)
                     }
+                    
                 }
             })
             

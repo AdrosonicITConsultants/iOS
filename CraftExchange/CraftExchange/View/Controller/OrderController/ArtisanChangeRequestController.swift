@@ -5,7 +5,7 @@
 //  Created by Preety Singh on 27/10/20.
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
-/*
+
 import Foundation
 import UIKit
 import Bond
@@ -21,16 +21,19 @@ import ViewRow
 class ArtisanChangeRequestController: FormViewController {
     
     var updateChangeRequest: ((_ changeReqArr:[changeRequest]) -> ())?
-    var fetchChangeRequest: ((_ changeReqArr:[changeRequest]) -> ())?
-    var allChangeRequests: Results<ChangeRequest>?
+    var fetchChangeRequest: (() -> ())?
+    var allChangeRequests: Results<ChangeRequestItem>?
     var changeReqArray: [changeRequest]?
     let realm = try? Realm()
-    let enquiryId: Int = 0
+    var enquiryId: Int = 0
+    var changeRequestObj: ChangeRequest?
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        allChangeRequests = realm?.objects(ChangeRequest.self).sorted(byKeyPath: "entityID")
+        fetchChangeRequest?()
+        changeRequestObj = ChangeRequest().searchChangeRequest(searchEqId: enquiryId)
+        allChangeRequests = ChangeRequestItem().searchChangeRequestItems(searchId: changeRequestObj?.entityID ?? 0)
         changeReqArray = []
         
         let changeReqTypeSection = Section() {
@@ -45,39 +48,49 @@ class ArtisanChangeRequestController: FormViewController {
         form
         +++ Section()
         <<< CRNoteViewRow() { (row) in
-            row.cell.Label1.text = "Please Note:\nChange request may be accepted or rejected subjective to the feasibility of the change by artisan. If accepted, there may be a change in final amount and hence the pro forma invoice.".localized
-            row.cell.Label2.text = "You can only submit this change request once. Be sure about the change requested before submitting.".localized
+            row.cell.Label1.text = "Please Note:\nChange request is only one time facility to buyer for their ongoing order with you.\nDo consider with checking box if able to accept the request.".localized
+            row.cell.Label2.text = "If you accept this change request, the buyer shall not be able to raise another change request".localized
         }
         <<< changeReqTypeView
         +++ changeReqTypeSection
         +++ Section()
         <<< ButtonRow() {
-            $0.title = "REQUEST FOR CHANGE"
+            $0.title = "SUBMIT".localized
         }.onCellSelection({ (cell, row) in
             self.changeReqArray?.removeAll()
             self.allChangeRequests?.forEach({ (changeReq) in
-                if let row = self.form.rowBy(tag: changeReq.id) as? CRBuyerRow {
-                    if row.cell.Tickbtn.image(for: .normal) == UIImage.init(systemName: "checkmark.square.fill") && row.cell.CRTextfield.text?.isNotBlank ?? false {
-                        let cr = changeRequest.init(changeRequestId: 0, id: 0, requestItemsId: changeReq.entityID, requestStatus: 0, requestText: row.cell.CRTextfield.text)
+                if let row = self.form.rowBy(tag: changeReq.id) as? CRArtisanRow {
+                    if row.cell.tickBtn.image(for: .normal) == UIImage.init(systemName: "checkmark.square.fill") {
+                        let cr = changeRequest.init(changeRequestId: changeReq.changeRequestId, id: changeReq.entityID, requestItemsId: changeReq.requestItemsId, requestStatus: 1, requestText: changeReq.requestText)
                         self.changeReqArray?.append(cr)
                     }
                 }
             })
+            var showText = "You are about to reject the complete request".localized
             if self.changeReqArray?.count ?? 0 > 0 {
-                self.showChangeRequestBuyerView()
+                showText = "You are about to partially accepted the change request".localized
+                if self.changeReqArray?.count == self.allChangeRequests?.count {
+                    showText = "You are about to accept the complete request".localized
+                }
+            }
+            self.confirmAction("Are you sure?".localized, showText, confirmedCallback: { (action) in
+                self.updateChangeRequest?(self.changeReqArray ?? [])
+            }) { (action) in
+                
             }
         })
         
         allChangeRequests?.forEach({ (changeReq) in
-            changeReqTypeSection <<< CRBuyerRow() {
+            changeReqTypeSection <<< CRArtisanRow() {
                 $0.cell.height = { 50.0 }
-                $0.cell.LabelField.text = changeReq.item
-                $0.cell.Tickbtn.tag = changeReq.entityID
+                $0.cell.labelField.text = ChangeRequestType().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? ""
+                $0.cell.valuefield.text = changeReq.requestText ?? ""
+                $0.cell.tickBtn.tag = changeReq.entityID
                 $0.tag = changeReq.id
             }
         })
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "ChangeRequestRaised"), object: nil, queue: .main) { (notif) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "ChangeRequestUpdated"), object: nil, queue: .main) { (notif) in
             self.hideLoading()
             self.navigationController?.popViewController(animated: true)
         }
@@ -106,7 +119,7 @@ class ArtisanChangeRequestController: FormViewController {
             var start = label2.frame.origin.y + label2.frame.size.height + 5
             changeReqArray?.forEach({ (changeReq) in
                 let crTitle = UILabel.init(frame: CGRect.init(x: 20, y: start, width: label.frame.size.width/2, height: 30))
-                crTitle.text = " \(ChangeRequest().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? "\(changeReq.requestItemsId)"):"
+                crTitle.text = " \(ChangeRequestType().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? "\(changeReq.requestItemsId)"):"
                 crTitle.layer.borderColor = UIColor.lightGray.cgColor
                 crTitle.layer.borderWidth = 0.5
                 crTitle.font = .systemFont(ofSize: 16)
@@ -138,7 +151,7 @@ class ArtisanChangeRequestController: FormViewController {
             let okBtn = UIButton.init(type: .custom)
             okBtn.setTitle("Ok".localized, for: .normal)
             okBtn.backgroundColor = UIColor().CEGreen()
-            okBtn.addTarget(self, action: #selector(raiseChangeRequestBuyer), for: .touchUpInside)
+            okBtn.addTarget(self, action: #selector(updateChangeRequestArtisan), for: .touchUpInside)
             okBtn.frame = CGRect.init(x: self.view.center.x + 10, y: cancelBtn.frame.origin.y, width: 50, height: 30)
                 
             initiationView.addSubview(label)
@@ -160,15 +173,11 @@ class ArtisanChangeRequestController: FormViewController {
         }
     }
     
-    @objc func raiseChangeRequestBuyer() {
+    @objc func updateChangeRequestArtisan() {
         if let initialView = self.view.viewWithTag(134) {
             self.view.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
-            self.raiseChangeRequest?(changeReqArray ?? [])
+            self.updateChangeRequest?(changeReqArray ?? [])
         }
     }
 }
-
-
-
-*/

@@ -53,4 +53,28 @@ extension Enquiry {
             needsAuthorization: false
         )
     }
+    
+    public static func getChangeRequestForArtisan(eqId: Int) -> Request<Data, APIError> {
+      return Request(
+          path: "enquiry/getChangeRequestForArtisan?enquiryId=\(eqId)",
+          method: .get,
+          resource: { print(String(data: $0, encoding: .utf8) ?? "ChangeRequest fetch failed")
+            return $0
+          },
+          error: APIError.init,
+          needsAuthorization: false
+      )
+    }
+    
+    public static func updateChangeRequest(crJson: [String: Any]) -> Request<Data, APIError> {
+        return Request(
+            path: "enquiry/changeRequestStatusUpdate",
+            method: .post,
+            parameters: JSONParameters(crJson),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "updateChangeRequest failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }

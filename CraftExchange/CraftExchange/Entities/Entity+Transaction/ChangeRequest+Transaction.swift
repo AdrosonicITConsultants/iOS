@@ -12,11 +12,11 @@ import RealmSwift
 import Bond
 import ReactiveKit
 
-extension ChangeRequestType {
+extension ChangeRequest {
     
-    func searchChangeRequest(searchId: Int) -> ChangeRequestType? {
+    func searchChangeRequest(searchEqId: Int) -> ChangeRequest? {
         let realm = try! Realm()
-        if let object = realm.objects(ChangeRequestType.self).filter("%K == %@", "entityID", searchId).first {
+        if let object = realm.objects(ChangeRequest.self).filter("%K == %@", "enquiryId", searchEqId).first {
             return object
         }
         return nil
@@ -24,9 +24,11 @@ extension ChangeRequestType {
     
     func saveOrUpdate() {
         let realm = try! Realm()
-        if let object = realm.objects(ChangeRequestType.self).filter("%K == %@", "entityID", self.entityID).first {
+        if let object = realm.objects(ChangeRequest.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                object.item = item
+                object.status = status
+                object.createdOn = createdOn
+                object.modifiedOn = modifiedOn
             }
         } else {
             try? realm.write {

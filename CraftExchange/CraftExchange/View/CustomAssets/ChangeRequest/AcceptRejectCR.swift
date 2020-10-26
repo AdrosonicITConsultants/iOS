@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import Eureka
 
-
-
 class AcceptRejectCR: Cell<String>, CellType {
 
    public override func setup() {
