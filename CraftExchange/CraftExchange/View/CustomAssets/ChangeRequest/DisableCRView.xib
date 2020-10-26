@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="DisableCRView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="346" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="346" height="200"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are You Sure?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGA-pq-gDX">
+                        <rect key="frame" x="0.0" y="10" width="346" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="346" id="QG0-Wx-6CD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BH8-G6-Vya">
+                        <rect key="frame" x="0.0" y="45.5" width="346" height="29"/>
+                        <string key="text">You are disabling change request for buyer, 
+this will freeze on the requirement</string>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9F6-ky-Ukz">
+                        <rect key="frame" x="86.5" y="98.5" width="173" height="30.5"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlu-QJ-8zh" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="76" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O3x-QU-0Hh" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                                <rect key="frame" x="93" y="0.0" width="76" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Ok">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="173" id="ZYC-AH-dw9"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BH8-G6-Vya" firstAttribute="top" secondItem="hGA-pq-gDX" secondAttribute="bottom" constant="15" id="3r7-2i-ehh"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="9F6-ky-Ukz" secondAttribute="bottom" constant="60" id="GpY-dc-Z6K"/>
+                    <constraint firstItem="hGA-pq-gDX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ijq-nE-msq"/>
+                    <constraint firstAttribute="trailing" secondItem="BH8-G6-Vya" secondAttribute="trailing" id="a51-dH-pcU"/>
+                    <constraint firstItem="9F6-ky-Ukz" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="djS-Ug-856"/>
+                    <constraint firstAttribute="trailing" secondItem="hGA-pq-gDX" secondAttribute="trailing" id="foF-Od-bcl"/>
+                    <constraint firstItem="BH8-G6-Vya" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="i2r-0g-pYx"/>
+                    <constraint firstItem="9F6-ky-Ukz" firstAttribute="top" secondItem="BH8-G6-Vya" secondAttribute="bottom" constant="24" id="ry8-gG-Ape"/>
+                    <constraint firstItem="hGA-pq-gDX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="s27-74-8Db"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="BtnCancel" destination="Hlu-QJ-8zh" id="a4H-7s-yNh"/>
+                <outlet property="BtnOk" destination="O3x-QU-0Hh" id="nJ4-E6-Uv5"/>
+                <outlet property="Label1" destination="hGA-pq-gDX" id="ZcL-R2-tJ7"/>
+                <outlet property="Label2" destination="BH8-G6-Vya" id="jgF-ot-oei"/>
+            </connections>
+            <point key="canvasLocation" x="207.24637681159422" y="117.85714285714285"/>
+        </tableViewCell>
+    </objects>
+</document>

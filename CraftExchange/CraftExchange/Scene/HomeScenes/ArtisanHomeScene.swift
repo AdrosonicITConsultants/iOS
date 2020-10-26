@@ -35,6 +35,7 @@ extension HomeScreenService {
                 self.fetchNotification(vc: vc)
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
+                self.fetchChangeRequestData(vc: vc)
                 
                 self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                     DispatchQueue.main.async {
@@ -316,6 +317,18 @@ extension HomeScreenService {
         }.dispose(in: vc.bag)
     }
     
+    func fetchChangeRequestData(vc: UIViewController) {
+        self.fetchChangeRequestData().bind(to: vc, context: .global(qos: .background)) { (_, changeReqArray) in
+            do {
+                if (changeReqArray.count > 0) {
+                    changeReqArray.forEach( {CRObj in
+                        CRObj.saveOrUpdate()
+                        }
+                    )
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
     
     func createBuyerScene() -> UIViewController {
         
@@ -341,6 +354,7 @@ extension HomeScreenService {
                 self.fetchNotification(vc: vc)
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
+                self.fetchChangeRequestData(vc: vc)
                 
                 self.fetch().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
                     DispatchQueue.main.async {

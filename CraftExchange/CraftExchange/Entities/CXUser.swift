@@ -540,3 +540,41 @@ extension relatedProductInfo {
         return product
     }
 }
+
+struct changeRequest {
+    var changeRequestId: Int = 0
+    var id: Int = 0
+    var requestItemsId: Int = 0
+    var requestStatus: Int = 0
+    var requestText: String?
+}
+
+extension changeRequest {
+    func toJSON() -> [String: Any] {
+
+        var changeRequestJson: [String: Any] = [:]
+
+        changeRequestJson["id"] = id
+        changeRequestJson["changeRequestId"] = changeRequestId
+        changeRequestJson["requestItemsId"] = requestItemsId
+        changeRequestJson["requestStatus"] = requestStatus
+        if let requestText = requestText {
+            changeRequestJson["requestText"] = requestText
+        }
+
+        return changeRequestJson
+    }
+    
+    func finalJson(eqId:Int, list:[changeRequest]) -> [String: Any] {
+        var finalJson: [String: Any] = [:]
+        finalJson["enquiryId"] = eqId
+        var crArr: [[String: Any]] = []
+        list .forEach { (cr) in
+            crArr.append(cr.toJSON())
+        }
+        finalJson["itemList"] = crArr
+        return finalJson
+    }
+}
+
+

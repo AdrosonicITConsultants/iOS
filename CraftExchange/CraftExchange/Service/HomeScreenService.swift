@@ -46,4 +46,8 @@ class HomeScreenService: BaseService<Data> {
     func fetchAllWishlistIds() -> SafeSignal<Data> {
       return Product.getAllProductIdsInWishlist().response(using: client).debug()
     }
+    
+    func fetchChangeRequestData() -> SafeSignal<[ChangeRequest]> {
+      return Enquiry.getChangeRequestMetadata().response(using: client).debug()
+    }
 }

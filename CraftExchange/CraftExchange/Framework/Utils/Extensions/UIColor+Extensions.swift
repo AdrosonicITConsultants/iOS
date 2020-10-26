@@ -35,6 +35,10 @@ extension UIColor {
         return colorWith(r: 170, g: 39, b: 72)
     }
     
+    func CEMustard() -> UIColor {
+        return colorWith(r: 228, g: 175, b: 107)
+    }
+    
     func EQBlueBg() -> UIColor {
         return colorWith(r: 226, g: 246, b: 254)
     }

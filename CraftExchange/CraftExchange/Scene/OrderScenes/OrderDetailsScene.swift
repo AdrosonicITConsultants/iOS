@@ -100,7 +100,7 @@ extension OrderDetailsService {
         vc.toggleChangeRequest = { (eqId, isEnabled) in
             let str = isEnabled == 1 ? "Enable".localized : "Disable".localized
             vc.confirmAction("Warning".localized, "Are you sure you want to \(str) change request for this Order?".localized, confirmedCallback: { (action) in
-                let request = OfflineOrderRequest(type: .toggleOrderChangeRequest, orderId: eqId, changeRequestStatus: isEnabled)
+                let request = OfflineOrderRequest(type: .toggleOrderChangeRequest, orderId: eqId, changeRequestStatus: isEnabled, changeRequestJson: [:])
                 OfflineRequestManager.defaultManager.queueRequest(request)
                 vc.orderObject?.toggleChangeStatus(isEnabled: isEnabled)
                 let row = vc.form.rowBy(tag: "CRRow") as! SwitchRow

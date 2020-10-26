@@ -394,18 +394,4 @@ extension Enquiry {
             needsAuthorization: true
           )
       }
-    
-    public static func toggleChangeRequest(enquiryId: Int, isEnabled: Int) -> Request<Data, APIError> {
-        var str = "enquiry/toggleChangeRequestFromArtisan?enquiryId=\(enquiryId)&status=\(isEnabled)"
-        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        return Request(
-            path: str,
-            method: .post,
-            resource: {
-                print(String(data: $0, encoding: .utf8) ?? "toggleChangeRequestFromArtisan failed")
-                return $0},
-            error: APIError.init,
-            needsAuthorization: false
-        )
-    }
 }

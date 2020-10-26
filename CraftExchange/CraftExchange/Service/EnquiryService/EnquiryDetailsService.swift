@@ -83,7 +83,7 @@ class EnquiryDetailsService: BaseService<Data> {
     }
     
     func changeInnerStage(enquiryId: Int, stageId: Int, innerStageId: Int)-> SafeSignal<Data>  {
-    return Enquiry.changeInnerStage(enquiryId: enquiryId, stageId: stageId, innerStageId: innerStageId).response(using: client).debug()
+        return Enquiry.changeInnerStage(enquiryId: enquiryId, stageId: stageId, innerStageId: innerStageId).response(using: client).debug()
     }
     
 }
