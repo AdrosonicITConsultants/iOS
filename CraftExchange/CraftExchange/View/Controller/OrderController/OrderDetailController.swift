@@ -34,6 +34,8 @@ class OrderDetailController: FormViewController {
     var getPI: (() -> ())?
     var PI: GetPI?
     var advancePaymnet: PaymentStatus?
+    var finalPaymnet: PaymentStatus?
+    var finalPaymnetDetails: FinalPaymentDetails?
     lazy var viewModel = CreateMOQModel()
     var allDeliveryTimes: Results<EnquiryMOQDeliveryTimes>?
     var innerStages: Results<EnquiryInnerStages>?
@@ -68,6 +70,9 @@ class OrderDetailController: FormViewController {
         let service = EnquiryDetailsService.init(client: client)
         service.advancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
         checkTransactions?()
+
+        service.finalPaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+        service.finalPaymentDetails(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
         
         let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
         rightButtonItem.image = UIImage.init(named: "ios magenta chat")
@@ -435,7 +440,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.tag = 102
                 $0.cell.nextStepsLabel.text = ""
                 $0.cell.createSendInvoiceBtn.setTitle("Upload final payment receipt", for: .normal)
-                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
                     $0.hidden = false
                 }
                 else {
@@ -444,7 +449,7 @@ class OrderDetailController: FormViewController {
             }
             .cellUpdate({ (cell, row) in
                 
-                if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
                     cell.row.hidden = false
                 }
                 else{
@@ -452,6 +457,33 @@ class OrderDetailController: FormViewController {
                     cell.height = { 0.0 }
                 }
             })
+            
+            <<< ProFormaInvoiceRow() {
+                $0.cell.height = { 90.0 }
+                $0.cell.delegate = self
+                $0.tag = "Approve final payment receipt"
+                $0.cell.tag = 103
+                $0.cell.nextStepsLabel.text = ""
+                $0.cell.createSendInvoiceBtn.setTitle("Approve final payment", for: .normal)
+                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                   // orderObject?.isBlue
+                    $0.hidden = false
+                }
+                else {
+                    $0.hidden = true
+                }
+            }
+            .cellUpdate({ (cell, row) in
+                
+                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                    cell.row.hidden = false
+                }
+                else{
+                    cell.row.hidden = true
+                    cell.height = { 0.0 }
+                }
+            })
+
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
@@ -954,7 +986,32 @@ class OrderDetailController: FormViewController {
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
+
+       if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
+         let row = form.rowBy(tag: "Upload final payment receipt")
+           row?.hidden = false
+           row?.evaluateHidden()
+           self.form.allSections.first?.reload(with: .none)
+       }
+       else {
+            let row = form.rowBy(tag: "Upload final payment receipt")
+                      row?.hidden = true
+                      row?.evaluateHidden()
+                      self.form.allSections.first?.reload(with: .none)
+       }
         
+        if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+          let row = form.rowBy(tag: "Approve final payment receipt")
+            row?.hidden = false
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
+        }
+        else {
+             let row = form.rowBy(tag: "Approve final payment receipt")
+                       row?.hidden = true
+                       row?.evaluateHidden()
+                       self.form.allSections.first?.reload(with: .none)
+        }
         if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
             let row = form.rowBy(tag: "Upload delivery receipt")
             row?.hidden = false
@@ -1241,6 +1298,30 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
             vc1.orderObject = self.orderObject
             vc1.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc1, animated: true)
+        case 102:
+            if finalPaymnetDetails != nil {
+                 let client = try? SafeClient(wrapping: CraftExchangeClient())
+                            let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject!.enquiryId) as! PaymentUploadController
+                            vc1.orderObject = self.orderObject
+                           vc1.finalPaymnetDetails = self.finalPaymnetDetails
+                vc1.viewModel.totalAmount.value = "\(self.finalPaymnetDetails!.totalAmount)"
+                           vc1.viewModel.paidAmount.value = "\(self.finalPaymnetDetails!.payableAmount)"
+                           vc1.viewModel.pid.value = "\(self.finalPaymnetDetails!.pid)"
+                           vc1.viewModel.percentage.value = "0"
+                vc1.viewModel.invoiceId.value = "\(self.finalPaymnetDetails!.invoiceId)"
+                            vc1.modalPresentationStyle = .fullScreen
+                            self.navigationController?.pushViewController(vc1, animated: true)
+            }
+        case 103:
+            if finalPaymnetDetails != nil {
+                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+                 let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
+                 vc1.orderObject = self.orderObject
+                vc1.finalPaymnetDetails = self.finalPaymnetDetails
+                 vc1.modalPresentationStyle = .fullScreen
+                 self.navigationController?.pushViewController(vc1, animated: true)
+
+            }
         default:
             print("NOt Working PI")
         }
