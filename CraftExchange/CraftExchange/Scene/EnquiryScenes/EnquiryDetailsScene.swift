@@ -204,7 +204,7 @@ extension EnquiryDetailsService {
         
         vc.viewPI = { (isOld) in
             let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
-            self.getPreviewPI(enquiryId: enquiryId,isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc)
+            self.getPreviewPI(enquiryId: enquiryId,isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc, containsOld: false, raiseNewPI: false)
         }
         
         vc.downloadPI = {
@@ -287,11 +287,11 @@ extension EnquiryDetailsService {
         }.dispose(in: vc.bag)
     }
     
-    func getPreviewPI(enquiryId: Int,isOld: Int, lastUpdatedDate: String, code: String, vc: UIViewController) {
+    func getPreviewPI(enquiryId: Int,isOld: Int, lastUpdatedDate: String, code: String, vc: UIViewController, containsOld: Bool, raiseNewPI: Bool) {
         self.getPreviewPI(enquiryId: enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
             DispatchQueue.main.async {
                 let object = String(data: responseData, encoding: .utf8) ?? ""
-                vc.view.showAcceptedPIView(controller: vc, entityId: code, date: lastUpdatedDate , data: object)
+                vc.view.showAcceptedPIView(controller: vc, entityId: code, date: lastUpdatedDate , data: object, containsOld: containsOld, raiseNewPI: raiseNewPI)
                 vc.hideLoading()
             }
            

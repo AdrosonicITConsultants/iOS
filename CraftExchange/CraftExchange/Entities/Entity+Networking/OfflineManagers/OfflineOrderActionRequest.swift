@@ -13,6 +13,7 @@ enum OrderActionType: String {
     case toggleOrderChangeRequest
     case raiseChangeRequest
     case updateChangeRequest
+    case sendRevisedPIRequest
 }
 
 class OfflineOrderRequest: NSObject, OfflineRequest {
@@ -39,6 +40,8 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
             self.request = Enquiry.raiseChangeRequest(crJson: changeRequestJson ?? [:])
         case .updateChangeRequest:
             self.request = Enquiry.updateChangeRequest(crJson: changeRequestJson ?? [:], status: changeRequestStatus ?? 0)
+        case .sendRevisedPIRequest:
+            self.request = Enquiry.sendRevisedPI(enquiryId: orderId, parameters: changeRequestJson ?? [:])
         }
         super.init()
     }
@@ -70,6 +73,10 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
             }else if self.type == .updateChangeRequest && response.error == nil {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ChangeRequestUpdated"), object: nil)
+                }
+            }else if self.type == .sendRevisedPIRequest && response.error == nil {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PIRevised"), object: nil)
                 }
             }
             completion(response.error)

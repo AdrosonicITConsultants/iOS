@@ -24,8 +24,10 @@ extension OrderDetailsService {
         
         vc.viewWillAppear = {
             vc.showLoading()
+            
             let service  = HomeScreenService.init(client: self.client)
             service.fetchChangeRequestData(vc: vc)
+            
             if vc.isClosed {
                 self.getClosedOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -37,17 +39,24 @@ extension OrderDetailsService {
                         vc.hideLoading()
                     }
                 }.dispose(in: vc.bag)
-            }
-            self.getOpenOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        self.pasrseEnquiryJson(json: json, vc: vc)
+            } else {
+                self.getOldPIDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if responseData.count != 0 {
+                        vc.containsOldPI = true
                     }
                 }
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                }
-            }.dispose(in: vc.bag)
+                
+                self.getOpenOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            self.pasrseEnquiryJson(json: json, vc: vc)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                    }
+                }.dispose(in: vc.bag)
+            }
         }
         
         vc.showCustomProduct = {
@@ -87,7 +96,19 @@ extension OrderDetailsService {
         vc.viewPI = {(isOld) in
             let date = Date().ttceISOString(isoDate: vc.orderObject!.lastUpdated!)
             let service = EnquiryDetailsService.init(client: self.client)
-            service.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.orderObject?.orderCode ?? "\(enquiryId)", vc: vc)
+            if isOld == 1 {
+                service.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.orderObject?.orderCode ?? "\(enquiryId)", vc: vc, containsOld: false, raiseNewPI: false)
+            }else {
+                if vc.containsOldPI {
+                    service.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.orderObject?.orderCode ?? "\(enquiryId)", vc: vc, containsOld: true, raiseNewPI: false)
+                }else {
+                    var raiseNewPI = false
+                    if User.loggedIn()?.refRoleId == "1" && (vc.orderObject?.changeRequestStatus == 1 || vc.orderObject?.changeRequestStatus == 3) {
+                        raiseNewPI = true
+                    }
+                    service.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.orderObject?.orderCode ?? "\(enquiryId)", vc: vc, containsOld: false, raiseNewPI: raiseNewPI)
+                }
+            }
         }
         
         vc.downloadPI = {
@@ -156,6 +177,18 @@ extension OrderDetailsService {
         
         vc.fetchChangeRequest = {
             self.fetchArtisanChangeRquest(vc: vc, enquiryId: enquiryId)
+        }
+        
+        vc.raiseNewCRPI = {
+            let vc1 = EnquiryDetailsService(client: self.client).piCreate(enquiryId: vc.orderObject!.enquiryId, enquiryObj: nil, orderObj: vc.orderObject) as! InvoiceController
+            vc1.modalPresentationStyle = .fullScreen
+//            if vc.orderObject?.enquiryStageId == 6 || vc.orderObject?.enquiryStageId == 7 {
+            vc1.PI = vc.PI
+            vc1.advancePaymnet = vc.advancePaymnet
+//            }
+            vc1.orderObject = vc.orderObject
+            vc1.isRevisedPI = true
+            vc.navigationController?.pushViewController(vc1, animated: true)
         }
         
         return vc

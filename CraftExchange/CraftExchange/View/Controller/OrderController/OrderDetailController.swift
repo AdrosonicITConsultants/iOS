@@ -49,9 +49,11 @@ class OrderDetailController: FormViewController {
     var closeEnquiry: ((_ enquiryId: Int) -> ())?
     var toggleChangeRequest: ((_ enquiryId: Int, _ isEnabled: Int) -> ())?
     var fetchChangeRequest: (() -> ())?
+    var raiseNewCRPI: (() -> ())?
     let realm = try? Realm()
     var isClosed = false
     var shouldCallToggle = true
+    var containsOldPI = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -230,10 +232,11 @@ class OrderDetailController: FormViewController {
                         $0.cell.approvePaymentButton.isHidden = true
                         $0.cell.height = { 90.0 }
                     }
-                    
                 }
                 else {
-                    $0.hidden = true
+                    $0.hidden = false
+                    $0.cell.approvePaymentButton.isHidden = true
+                    $0.cell.height = { 90.0 }
                 }
                 if self.orderObject?.productStatusId == 2 {
                     $0.cell.approvePaymentButton.isHidden = true
@@ -241,9 +244,7 @@ class OrderDetailController: FormViewController {
                 }
                 $0.cell.tag = 3
                 $0.cell.delegate = self
-                
-            }
-            .cellUpdate({ (cell, row) in
+            }.cellUpdate({ (cell, row) in
                 if self.orderObject?.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
                     cell.row.hidden = false
                     if (self.orderObject!.isBlue){
@@ -255,10 +256,10 @@ class OrderDetailController: FormViewController {
                     }
                 }
                 else{
-                    cell.row.hidden = true
+                    cell.row.hidden = false
+                    cell.approvePaymentButton.isHidden = true
+                    cell.height = { 90.0 }
                 }
-                
-                
             })
             
             <<< StartStageViewRow()
@@ -339,25 +340,15 @@ class OrderDetailController: FormViewController {
             //                }
             //            })
             
-            <<< TransactionReceiptRow() {
-                $0.cell.height = { 110.0 }
-                $0.cell.delegate = self
-                $0.tag = "UploadReceipt"
-                $0.cell.tag = 100
-                $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
-                if User.loggedIn()?.refRoleId == "1"  {
-                    $0.hidden = true
-                }else if ( orderObject?.isPiSend == 1 || orderObject!.enquiryStageId == 3){
-                    $0.hidden = false
-                }
-                else {
-                    $0.hidden = true
-                }
-                if self.orderObject?.productStatusId == 2 {
-                    $0.cell.uploadReceiptBtn.isHidden = true
-                    $0.cell.height = { 80.0 }
-                }
-            }
+//            <<< TransactionReceiptRow() {
+//                $0.cell.height = { 110.0 }
+//                $0.cell.delegate = self
+//                $0.tag = "UploadReceipt"
+//                $0.cell.tag = 100
+//                $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
+//                $0.cell.uploadReceiptBtn.isHidden = true
+//                $0.cell.height = { 80.0 }
+//            }
             
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 150.0 }
@@ -374,11 +365,9 @@ class OrderDetailController: FormViewController {
                     $0.hidden = true
                 }
             }.cellUpdate({ (cell, row) in
-                
                 if self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
                     cell.row.hidden = false
-                }
-                else{
+                } else{
                     cell.row.hidden = true
                     cell.height = { 0.0 }
                 }
@@ -516,16 +505,15 @@ class OrderDetailController: FormViewController {
                 if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeClient())
-                        if User.loggedIn()?.refRoleId == "2" {// && self.orderObject?.changeRequestModifiedOn == nil {
+                        if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
                             let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
                             self.navigationController?.pushViewController(vc, animated: false)
-                        }else if User.loggedIn()?.refRoleId == "1" {// && self.orderObject?.changeRequestStatus == 0 {
+                        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
                             self.fetchChangeRequest?()
                         }
                     }catch {
                         print(error.localizedDescription)
                     }
-                    
                 }
             })
             
@@ -917,6 +905,15 @@ class OrderDetailController: FormViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if appDelegate?.revisePI ?? false {
+            appDelegate?.revisePI = false
+            self.showLoading()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.hideLoading()
+                self.viewProformaInvoiceBtnSelected(tag: self.orderObject?.entityID ?? 0)
+            }
+        }
     }
     
     @objc func pullToRefresh() {
@@ -1217,7 +1214,7 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
         switch tag{
         case 3:
             self.showLoading()
-            self.viewPI?(1)
+            self.viewPI?(0)
         default:
             print("do nothing")
         }
@@ -1230,7 +1227,7 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject!.enquiryId, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
-            if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+            if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
                 vc1.PI = self.PI
                 vc1.advancePaymnet = self.advancePaymnet
             }
@@ -1308,9 +1305,20 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
 }
 
 extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol  {
+    
     func viewProformaInvoiceBtnSelected(tag: Int) {
         self.showLoading()
+        self.viewPI?(0)
+    }
+    
+    func viewOldPI() {
+        self.showLoading()
         self.viewPI?(1)
+    }
+    
+    func raiseNewPI() {
+        self.view.hideAcceptedPIView()
+        self.raiseNewCRPI?()
     }
     
     func RejectBtnSelected(tag: Int) {
@@ -1390,7 +1398,9 @@ extension OrderDetailController: MarkCompleteAndNextProtocol, StartstageProtocol
             service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 6, innerStageId: 0)
         }
         else{
-            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: orderObject?.innerEnquiryStageId ?? 0 + 1)
+            if let innerStageId = orderObject?.innerEnquiryStageId, innerStageId > 0 {
+                service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: innerStageId + 1)
+            }
         }
         
     }

@@ -58,6 +58,7 @@ class InvoiceController: FormViewController{
     var isClosed = false
     var viewModel = InvoiceViewModel()
     var allCurrencySigns: Results<CurrencySigns>?
+    var isRevisedPI: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -198,7 +199,7 @@ class InvoiceController: FormViewController{
                 }
                 self.viewModel.quantity.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
-                cell.valueTextField.maxLength = 2
+                cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
             })
@@ -502,6 +503,9 @@ class InvoiceController: FormViewController{
                 self.viewModel.hsn.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.hsn.value ?? ""
                 self.viewModel.hsn.value = $0.cell.valueTextField.text
+                if PI?.quantity != nil {
+                    $0.cell.valueTextField.text = "\(PI?.hsn ?? 12345678)"
+                }
             }.cellUpdate({ (cell, row) in
                 cell.valueTextField.maxLength = 8
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
@@ -535,10 +539,19 @@ class InvoiceController: FormViewController{
                 $0.tag = "CreatePreviewPI"
                 $0.cell.singleButton.backgroundColor = .blue
                 $0.cell.singleButton.setTitleColor(.white, for: .normal)
-                $0.cell.singleButton.setTitle("Save and Preview Invoice", for: .normal)
+                if isRevisedPI {
+                    $0.cell.singleButton.setTitle("Send Revised PI", for: .normal)
+                }else {
+                    $0.cell.singleButton.setTitle("Save and Preview Invoice", for: .normal)
+                }
                 $0.cell.height = { 50.0 }
                 $0.cell.delegate = self as SingleButtonActionProtocol
                 $0.cell.tag = 101
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "PIRevised"), object: nil, queue: .main) { (notif) in
+            self.hideLoading()
+            self.navigationController?.popViewController(animated: true)
         }
         
     }

@@ -93,11 +93,6 @@ class ArtisanChangeRequestController: FormViewController {
                 }
             }))
             self.present(vc, animated: true, completion: nil)
-//            self.confirmAction("Are you sure?".localized, showText, confirmedCallback: { (action) in
-//                self.updateChangeRequest?(self.changeReqArray ?? [], self.status)
-//            }) { (action) in
-//
-//            }
         })
         
         allChangeRequests?.forEach({ (changeReq) in
@@ -113,7 +108,13 @@ class ArtisanChangeRequestController: FormViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "ChangeRequestUpdated"), object: nil, queue: .main) { (notif) in
             Order().updateChangeStatus(status: self.status, enquiryId: self.enquiryId)
             self.hideLoading()
-            self.navigationController?.popViewController(animated: true)
+            self.confirmAction("Post change request process".localized, "Update the pro forma invoice?\n\nyou have 2 days remaining to update your invoice after change request".localized, confirmedCallback: { (action) in
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                appDelegate?.revisePI = true
+                self.navigationController?.popViewController(animated: true)
+            }) { (action) in
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }

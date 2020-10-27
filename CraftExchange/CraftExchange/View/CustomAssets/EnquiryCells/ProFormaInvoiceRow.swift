@@ -17,22 +17,20 @@ protocol InvoiceButtonProtocol {
 class ProFormaInvoiceRowView: Cell<String>, CellType {
 
     @IBOutlet weak var nextStepsLabel: UILabel!
-    
     @IBOutlet weak var createSendInvoiceBtn: UIButton!
-    
     var delegate: InvoiceButtonProtocol?
     
-    @IBAction func createSendInvoiceBtnSelected(_ sender: Any) {
-delegate?.createSendInvoiceBtnSelected(tag: tag)
-       }
     public override func setup() {
         super.setup()
         createSendInvoiceBtn.addTarget(self, action: #selector(createSendInvoiceBtnSelected(_:)), for: .touchUpInside)
-
     }
 
     public override func update() {
         super.update()
+    }
+    
+    @IBAction func createSendInvoiceBtnSelected(_ sender: Any) {
+        delegate?.createSendInvoiceBtnSelected(tag: tag)
     }
 }
 

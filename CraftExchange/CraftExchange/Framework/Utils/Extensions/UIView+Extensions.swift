@@ -195,9 +195,25 @@ extension UIView {
         }
     }
     
-    func showAcceptedPIView(controller: UIViewController, entityId: String, date: String, data: String) {
-        if let _ = self.viewWithTag(129) {
+    func showAcceptedPIView(controller: UIViewController, entityId: String, date: String, data: String, containsOld: Bool, raiseNewPI: Bool) {
+        if let initiationView = self.viewWithTag(129) as? AcceptedPIView {
             print("do nothing")
+            initiationView.entityIdLabel.text = "Pro forma invoice for " + entityId
+            initiationView.dateLabel.text = "Date accepted " + date
+            initiationView.data = data
+            if containsOld {
+                initiationView.oldPIButton.isHidden = false
+                initiationView.oldPIButton.setTitle("View Old PI".localized, for: .normal)
+                initiationView.showOldPI = true
+            }else if raiseNewPI {
+                initiationView.oldPIButton.isHidden = false
+                initiationView.oldPIButton.setTitle("Raise New PI".localized, for: .normal)
+                initiationView.showRaisePI = true
+            }else {
+                initiationView.oldPIButton.isHidden = true
+                initiationView.showOldPI = false
+                initiationView.showRaisePI = false
+            }
         }else {
             let initiationView = Bundle.main.loadNibNamed("AcceptedPIView", owner:
                 self, options: nil)?.first as? AcceptedPIView
@@ -206,6 +222,19 @@ extension UIView {
             initiationView?.data = data
             initiationView?.delegate = controller as? AcceptedPIViewProtocol
             initiationView?.tag = 129
+            if containsOld {
+                initiationView?.showOldPI = true
+                initiationView?.oldPIButton.isHidden = false
+                initiationView?.oldPIButton.setTitle("View Old PI".localized, for: .normal)
+            }else if raiseNewPI {
+                initiationView?.oldPIButton.isHidden = false
+                initiationView?.oldPIButton.setTitle("Raise New PI".localized, for: .normal)
+                initiationView?.showRaisePI = true
+            }else {
+                initiationView?.showOldPI = false
+                initiationView?.showRaisePI = false
+                initiationView?.oldPIButton.isHidden = true
+            }
             self.addSubview(initiationView!)
             initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
             self.bringSubviewToFront(initiationView!)

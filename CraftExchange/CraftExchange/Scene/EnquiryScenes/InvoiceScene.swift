@@ -31,23 +31,33 @@ extension EnquiryDetailsService {
                 if quantity.isValidNumber && Int(vc.viewModel.quantity.value!)! > 0 {
                     if pricePerUnitPI.isValidNumber && Int(vc.viewModel.pricePerUnitPI.value!)! > 0{
                         if hsn.isValidNumber {
-                            
-                            self.savePI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(hsn)!, ppu: Int(pricePerUnitPI)!, quantity: Int(quantity)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                                    if json["valid"] as? Bool == true {
-                                        DispatchQueue.main.async {
-                                            print("PI saved successfully")
-                                            vc.previewPI?(vc.viewModel.isOld.value!)
-                                            
+                            if vc.isRevisedPI == true {
+                                let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                                                 "cgst": 0,
+                                                                 "expectedDateOfDelivery": vc.viewModel.expectedDateOfDelivery.value!,
+                                                                 "hsn": Int(vc.viewModel.hsn.value!)!,
+                                                                 "ppu": Int(vc.viewModel.pricePerUnitPI.value!)!,
+                                                                 "quantity": Int(vc.viewModel.quantity.value!)!,
+                                                                 "sgst": 0]
+                                let request = OfflineOrderRequest.init(type: .sendRevisedPIRequest, orderId: vc.orderObject?.enquiryId ?? 0, changeRequestStatus: 0, changeRequestJson: parameters)
+                                OfflineRequestManager.defaultManager.queueRequest(request)
+                            }else {
+                                self.savePI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(hsn)!, ppu: Int(pricePerUnitPI)!, quantity: Int(quantity)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                                        if json["valid"] as? Bool == true {
+                                            DispatchQueue.main.async {
+                                                print("PI saved successfully")
+                                                vc.previewPI?(vc.viewModel.isOld.value!)
+                                                
+                                            }
+                                        }
+                                        else {
+                                            vc.alert("Save PI failed, please try again later")
+                                            vc.hideLoading()
                                         }
                                     }
-                                    else {
-                                        vc.alert("Save PI failed, please try again later")
-                                        vc.hideLoading()
-                                    }
-                                }
-                            }.dispose(in: vc.bag)
-                            
+                                }.dispose(in: vc.bag)
+                            }
                         }else {
                             vc.alert("Please enter valid hsn")
                             vc.hideLoading()
@@ -180,7 +190,6 @@ extension EnquiryDetailsService {
         }
         
         vc.viewModel.sendPI = {
-            
             self.sendPI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(vc.viewModel.hsn.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool == true {

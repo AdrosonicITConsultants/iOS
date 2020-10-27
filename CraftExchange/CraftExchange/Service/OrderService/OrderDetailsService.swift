@@ -33,4 +33,8 @@ class OrderDetailsService: BaseService<Data> {
     func getChangeRequestDetails(enquiryId: Int) -> SafeSignal<Data> {
         return Enquiry.getChangeRequestForArtisan(eqId: enquiryId).response(using: client).debug()
     }
+    
+    func getOldPIDetails(enquiryId: Int) -> SafeSignal<Data> {
+        return Enquiry.getOldPIData(eqId: enquiryId).response(using: client).debug()
+    }
 }

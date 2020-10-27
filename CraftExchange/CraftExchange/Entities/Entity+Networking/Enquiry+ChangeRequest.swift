@@ -77,4 +77,33 @@ extension Enquiry {
             needsAuthorization: false
         )
     }
+    
+    public static func getOldPIData(eqId: Int) -> Request<Data, APIError> {
+      return Request(
+          path: "enquiry/getOldPIData?enquiryId=\(eqId)",
+          method: .get,
+          resource: { print(String(data: $0, encoding: .utf8) ?? "getOldPIData failed")
+            if let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as? [String: Any] {
+                if let _ = json["data"] as? [String: Any] {
+                    return $0
+                }
+            }
+            return Data()
+          },
+          error: APIError.init,
+          needsAuthorization: false
+      )
+    }
+    
+    public static func sendRevisedPI(enquiryId: Int, parameters: [String: Any] ) -> Request<Data, APIError> {
+        return Request(
+            path: "enquiry/revisedPI?enquiryId=\(enquiryId)",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "send revise PI failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }
