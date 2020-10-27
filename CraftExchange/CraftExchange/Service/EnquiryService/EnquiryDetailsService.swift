@@ -70,20 +70,40 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.sendFinalInvoice(enquiryId: enquiryId, advancePaidAmount: advancePaidAmount, finalTotalAmount: finalTotalAmount, quantity: quantity, ppu: ppu, cgst: cgst, sgst: sgst, deliveryCharges: deliveryCharges).response(using: client).debug()
     }
     
-    func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?)-> SafeSignal<Data>  {
-        return Enquiry.uploadReceipt(enquiryId: enquiryId, type: type, paidAmount: paidAmount, percentage: percentage, pid: pid, totalAmount: totalAmount, imageData: imageData, filename: filename).response(using: client).debug()
+    func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, invoiceId: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?)-> SafeSignal<Data>  {
+        return Enquiry.uploadReceipt(enquiryId: enquiryId, type: type, paidAmount: paidAmount, percentage: percentage, invoiceId: invoiceId, pid: pid, totalAmount: totalAmount, imageData: imageData, filename: filename).response(using: client).debug()
     }
     
     func ImgReceit(enquiryId: Int)-> SafeSignal<Data>  {
         return Enquiry.ReceivedReceit(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func FinalPaymentReceit(enquiryId: Int)-> SafeSignal<Data>  {
+        return Enquiry.FinalPaymentReceit(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
     func getAdvancePaymentStatus(enquiryId: Int)-> SafeSignal<Data>  {
         return Enquiry.getAdvancePaymentStatus(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func getFinalPaymentDetails(enquiryId: Int)-> SafeSignal<Data>  {
+        return Enquiry.getFinalPaymentDetails(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
+    func getFinalPaymentStatus(enquiryId: Int)-> SafeSignal<Data>  {
+        return Enquiry.getFinalPaymentStatus(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
     func validateAdvancePayment(enquiryId: Int, status: Int)-> SafeSignal<Data>  {
         return Enquiry.validateAdvancePayment(enquiryId: enquiryId, status: status).response(using: client).debug()
+    }
+    
+    func validateFinalPayment(enquiryId: Int, status: Int)-> SafeSignal<Data>  {
+        return Enquiry.validateFinalPayment(enquiryId: enquiryId, status: status).response(using: client).debug()
+    }
+    
+    func uploadDeliveryChallan(enquiryId: Int,orderDispatchDate: String, ETA: String, imageData: Data?, filename: String?)-> SafeSignal<Data>  {
+        return Enquiry.uploadDeliveryChallan(enquiryId: enquiryId, orderDispatchDate: orderDispatchDate, ETA: ETA, imageData: imageData, filename: filename).response(using: client).debug()
     }
     
     func changeInnerStage(enquiryId: Int, stageId: Int, innerStageId: Int)-> SafeSignal<Data>  {

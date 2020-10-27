@@ -335,9 +335,13 @@ extension Enquiry {
         )
     }
     
-    public static func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?) -> Request<Data, APIError> {
-        
-        let json = ["enquiryId": enquiryId, "type": type, "paidAmount": paidAmount, "percentage": percentage, "pid": pid, "totalAmount": totalAmount]
+    public static func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int,invoiceId: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?) -> Request<Data, APIError> {
+        var json: [String: Any] = [:]
+        if percentage == 0{
+            json = ["enquiryId": enquiryId, "type": type, "paidAmount": paidAmount,"invoiceId": invoiceId,  "pid": pid, "totalAmount": totalAmount]
+        }else{
+           json = ["enquiryId": enquiryId, "type": type, "paidAmount": paidAmount, "percentage": percentage, "pid": pid, "totalAmount": totalAmount]
+        }
         var str = json.jsonString
         
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -363,8 +367,51 @@ extension Enquiry {
         )
         
     }
+    
+    public static func uploadDeliveryChallan(enquiryId: Int,orderDispatchDate: String, ETA: String, imageData: Data?, filename: String?) -> Request<Data, APIError> {
+        var str = "enquiry/submitDeliveryChallan?enquiryId=\(enquiryId)&orderDispatchDate=\(orderDispatchDate)&ETA=\(ETA)"
+           if ETA == "0"{
+               str = "enquiry/submitDeliveryChallan?enquiryId=\(enquiryId)&orderDispatchDate=\(orderDispatchDate)"
+           }
+         
+           str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+           let content = imageData
+           let filename = filename
+           let boundary = "\(UUID().uuidString)"
+           let dataLength = content!.count
+           let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")", "accept": "application/json","Content-Type": "multipart/form-data; boundary=\(boundary)",
+               "Content-Length": String(dataLength) ]
+           
+           let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content!, mimeType: "application/octet-stream", filename: filename!, param: "file")
+           
+           return Request(
+               path: str,
+               method: .post,
+               parameters: DataParameter(finalData),
+               headers: headers,
+               resource: {
+                   print(String(data: $0, encoding: .utf8) ?? "uploading delivery challan failed")
+                   return $0},
+               error: APIError.init,
+               needsAuthorization: true
+           )
+           
+       }
     public static func ReceivedReceit(enquiryId: Int) -> Request<Data, APIError> {
         var str = "enquiry/getAdvancedPaymentReceipt/\(enquiryId)?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    public static func FinalPaymentReceit(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getFinalPaymentReceipt/\(enquiryId)?enquiryId=\(enquiryId)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
@@ -379,6 +426,34 @@ extension Enquiry {
     
     public static func getAdvancePaymentStatus(enquiryId: Int) -> Request<Data, APIError> {
         var str = "enquiry/getAdvancedPaymentStatus?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func getFinalPaymentDetails(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getPaymentDetailsForFinalPayment?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func getFinalPaymentStatus(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getFinalPaymentStatus?enquiryId=\(enquiryId)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
@@ -407,6 +482,24 @@ extension Enquiry {
                needsAuthorization: true
            )
        }
+    
+    public static func validateFinalPayment(enquiryId: Int, status: Int) -> Request<Data, APIError> {
+     
+     var str = "enquiry/validateFinalPaymentFromArtisan?enquiryId=\(enquiryId)&status=\(status)"
+         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+               let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+     
+        return Request(
+          path: str,
+            method: .put,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "validating final payment failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+ 
     
     public static func changeInnerStage(enquiryId: Int, stageId: Int, innerStageId: Int) -> Request<Data, APIError> {
         var str = ""

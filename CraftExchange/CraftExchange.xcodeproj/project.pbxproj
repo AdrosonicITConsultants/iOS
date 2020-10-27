@@ -19,6 +19,7 @@
 		301B7EE925223FDC0008DE3A /* MOQSortButtonsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */; };
 		301B7EEA25223FDC0008DE3A /* MOQSortButtonsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */; };
 		301B7EEC25235B6C0008DE3A /* GetPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EEB25235B6C0008DE3A /* GetPI.swift */; };
+		3024AF8C25483892008C0E87 /* FinalPaymentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024AF8B25483892008C0E87 /* FinalPaymentDetails.swift */; };
 		3061022B253F1271006430D9 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022A253F1271006430D9 /* ChatHeaderView.swift */; };
 		3061022F253F1321006430D9 /* ChatHeaderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */; };
 		30610231253F1330006430D9 /* ChatHeaderDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30610230253F1330006430D9 /* ChatHeaderDetailsView.xib */; };
@@ -419,6 +420,7 @@
 		301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQSortButtonsRow.swift; sourceTree = "<group>"; };
 		301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSortButtonsRow.xib; sourceTree = "<group>"; };
 		301B7EEB25235B6C0008DE3A /* GetPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPI.swift; sourceTree = "<group>"; };
+		3024AF8B25483892008C0E87 /* FinalPaymentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalPaymentDetails.swift; sourceTree = "<group>"; };
 		3061022A253F1271006430D9 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		3061022C253F129E006430D9 /* ChatHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ChatHeaderView.xib; path = /Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/HomeScenes/ChatHeaderView.xib; sourceTree = "<absolute>"; };
 		3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderDetailsView.swift; sourceTree = "<group>"; };
@@ -1160,6 +1162,7 @@
 				3087346E253043B3004E5A72 /* CMS.swift */,
 				3092470A2535DE7C0073463E /* Chat.swift */,
 				30EB8DEA2537408D00BA59E8 /* Conversation.swift */,
+				3024AF8B25483892008C0E87 /* FinalPaymentDetails.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -2214,6 +2217,7 @@
 				C09C970324B9096000FD97E9 /* MyProfileScene.swift in Sources */,
 				C09B3EFE24BA569300FBC115 /* ProfileImageRow.swift in Sources */,
 				C09C970724B919EE00FD97E9 /* ArtisanBrandDetails.swift in Sources */,
+				3024AF8C25483892008C0E87 /* FinalPaymentDetails.swift in Sources */,
 				C0AAC39024927296008C2047 /* RoundedTextFieldRow.swift in Sources */,
 				C09F215224862F12001F2FCD /* ProductCategory+Transaction.swift in Sources */,
 				C0ACE9A22485947500EFA4ED /* ValidateWeaverService.swift in Sources */,
