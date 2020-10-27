@@ -1060,12 +1060,12 @@ class OrderDetailController: FormViewController {
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-        //        if (self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "2"){
-        //            let row = form.rowBy(tag: "Check MOQ Buyer")
-        //            row?.hidden = false
-        //            row?.evaluateHidden()
-        //            self.form.allSections.first?.reload(with: .none)
-        //        }
+//        if (self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "2"){
+//            let row = form.rowBy(tag: "Check MOQ Buyer")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
         
         form.allRows .forEach { (row) in
             row.reload()
