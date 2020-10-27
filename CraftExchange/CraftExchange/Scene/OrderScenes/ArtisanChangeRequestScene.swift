@@ -23,9 +23,9 @@ extension OrderDetailsService {
             self.fetchArtisanChangeRquest(vc: vc, enquiryId: forEnquiry)
         }
         
-        vc.updateChangeRequest = { (crList) in
+        vc.updateChangeRequest = { (crList, status) in
             let crJson = changeRequest().finalJson(eqId: forEnquiry, list: crList)
-            let request = OfflineOrderRequest.init(type: .updateChangeRequest, orderId: forEnquiry, changeRequestStatus: 0, changeRequestJson: crJson)
+            let request = OfflineOrderRequest.init(type: .updateChangeRequest, orderId: forEnquiry, changeRequestStatus: status, changeRequestJson: crJson)
             OfflineRequestManager.defaultManager.queueRequest(request)
             vc.showLoading()
         }

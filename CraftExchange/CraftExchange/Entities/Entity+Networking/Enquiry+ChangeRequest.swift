@@ -66,9 +66,9 @@ extension Enquiry {
       )
     }
     
-    public static func updateChangeRequest(crJson: [String: Any]) -> Request<Data, APIError> {
+    public static func updateChangeRequest(crJson: [String: Any], status: Int) -> Request<Data, APIError> {
         return Request(
-            path: "enquiry/changeRequestStatusUpdate",
+            path: "enquiry/changeRequestStatusUpdate?status=\(status)",
             method: .post,
             parameters: JSONParameters(crJson),
             resource: {print(String(data: $0, encoding: .utf8) ?? "updateChangeRequest failed")

@@ -38,7 +38,7 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
         case .raiseChangeRequest:
             self.request = Enquiry.raiseChangeRequest(crJson: changeRequestJson ?? [:])
         case .updateChangeRequest:
-            self.request = Enquiry.updateChangeRequest(crJson: changeRequestJson ?? [:])
+            self.request = Enquiry.updateChangeRequest(crJson: changeRequestJson ?? [:], status: changeRequestStatus ?? 0)
         }
         super.init()
     }

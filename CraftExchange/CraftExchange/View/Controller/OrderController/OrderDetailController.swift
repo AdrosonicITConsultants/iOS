@@ -360,49 +360,50 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Change Request".localized
-                switch(orderObject?.changeRequestStatus) {
+                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
+                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
+                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
+            }.cellUpdate({ (cell, row) in
+                switch(self.orderObject?.changeRequestStatus) {
                 case 0:
                     if self.orderObject?.productStatusId == 2 {
-                        $0.cell.valueLbl.text = "Change request is not applicable for in stock products".localized
+                        row.cell.valueLbl.text = "Change request is not applicable for in stock products".localized
                     }else {
                         if self.orderObject?.enquiryStageId ?? 0 < 6 {
                             if self.orderObject?.changeRequestModifiedOn != nil {
                                 if User.loggedIn()?.refRoleId == "1" {
-                                    $0.cell.valueLbl.text = "Buyer Waiting for Acknowledgement".localized
+                                    row.cell.valueLbl.text = "Buyer Waiting for Acknowledgement".localized
                                 }else {
-                                    $0.cell.valueLbl.text = "Awaiting for Acknowledgement".localized
+                                    row.cell.valueLbl.text = "Awaiting for Acknowledgement".localized
                                 }
                             }else {
                                 if self.orderObject?.changeRequestOn == 0 {
-                                    $0.cell.valueLbl.text = User.loggedIn()?.refRoleId == "1" ? "Change request disabled".localized : "Change request disabled by artisan".localized
+                                    row.cell.valueLbl.text = User.loggedIn()?.refRoleId == "1" ? "Change request disabled".localized : "Change request disabled by artisan".localized
                                 }else {
-                                    $0.cell.valueLbl.text = ""
+                                    row.cell.valueLbl.text = ""
                                 }
                             }
                         }else {
-                            $0.cell.valueLbl.text = "Last date to raise Change Request passed.".localized
+                            row.cell.valueLbl.text = "Last date to raise Change Request passed.".localized
                         }
                     }
                 case 1:
-                    $0.cell.valueLbl.text = "Change request has been accepted".localized
+                    row.cell.valueLbl.text = "Change request has been accepted".localized
                 case 2:
-                    $0.cell.valueLbl.text = "Change request has been rejected".localized
+                    row.cell.valueLbl.text = "Change request has been rejected".localized
                 case 3:
-                    $0.cell.valueLbl.text = "Change request has been partially accepted".localized
+                    row.cell.valueLbl.text = "Change request has been partially accepted".localized
                 case .none, .some(_):
-                    $0.cell.valueLbl.text = ""
+                    row.cell.valueLbl.text = ""
                 }
-                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
-                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
-                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
-            }.onCellSelection({ (cell, row) in
-                if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 && self.orderObject?.changeRequestStatus != 2 {
+            }).onCellSelection({ (cell, row) in
+                if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeClient())
-                        if User.loggedIn()?.refRoleId == "2" {
+                        if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
                             let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
                             self.navigationController?.pushViewController(vc, animated: false)
-                        }else {
+                        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
                             self.fetchChangeRequest?()
                         }
                     }catch {

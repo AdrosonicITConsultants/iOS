@@ -21,8 +21,11 @@ extension OrderDetailsService {
         let vc = OrderDetailController.init(style: .plain)
         vc.orderObject = forOrder
         vc.title = forOrder?.orderCode ?? ""
+        
         vc.viewWillAppear = {
             vc.showLoading()
+            let service  = HomeScreenService.init(client: self.client)
+            service.fetchChangeRequestData(vc: vc)
             if vc.isClosed {
                 self.getClosedOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {

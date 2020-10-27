@@ -20,13 +20,14 @@ import ViewRow
 
 class ArtisanChangeRequestController: FormViewController {
     
-    var updateChangeRequest: ((_ changeReqArr:[changeRequest]) -> ())?
+    var updateChangeRequest: ((_ changeReqArr:[changeRequest], _ status: Int) -> ())?
     var fetchChangeRequest: (() -> ())?
     var allChangeRequests: Results<ChangeRequestItem>?
     var changeReqArray: [changeRequest]?
     let realm = try? Realm()
     var enquiryId: Int = 0
     var changeRequestObj: ChangeRequest?
+    var status = 0
     
     override func viewDidLoad() {
         
@@ -67,17 +68,36 @@ class ArtisanChangeRequestController: FormViewController {
                 }
             })
             var showText = "You are about to reject the complete request".localized
+            self.status = 2
             if self.changeReqArray?.count ?? 0 > 0 {
-                showText = "You are about to partially accepted the change request".localized
                 if self.changeReqArray?.count == self.allChangeRequests?.count {
                     showText = "You are about to accept the complete request".localized
+                    self.status = 1
+                }else {
+                    showText = "You are about to partially accepted the change request".localized
+                    self.status = 3
                 }
             }
-            self.confirmAction("Are you sure?".localized, showText, confirmedCallback: { (action) in
-                self.updateChangeRequest?(self.changeReqArray ?? [])
-            }) { (action) in
-                
-            }
+            let vc = UIAlertController(title: "Are you sure?".localized, message: showText, preferredStyle: .alert)
+            vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(act) in }))
+            vc.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                self.updateChangeRequest?(self.changeReqArray ?? [], self.status)
+            }))
+            vc.addAction(UIAlertAction(title: "Go to this enquiry chat", style: .default, handler: { (action) in
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let service = ChatListService.init(client: client)
+                    service.initiateConversation(vc: self, enquiryId: self.enquiryId)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }))
+            self.present(vc, animated: true, completion: nil)
+//            self.confirmAction("Are you sure?".localized, showText, confirmedCallback: { (action) in
+//                self.updateChangeRequest?(self.changeReqArray ?? [], self.status)
+//            }) { (action) in
+//
+//            }
         })
         
         allChangeRequests?.forEach({ (changeReq) in
@@ -91,93 +111,9 @@ class ArtisanChangeRequestController: FormViewController {
         })
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "ChangeRequestUpdated"), object: nil, queue: .main) { (notif) in
+            Order().updateChangeStatus(status: self.status, enquiryId: self.enquiryId)
             self.hideLoading()
             self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    func showChangeRequestBuyerView() {
-        if let _ = self.view.viewWithTag(134) {
-                print("do nothing")
-            }else {
-            let ht = 220 + ((changeReqArray?.count ?? 0)*35)
-            let greyView = UIView.init(frame: self.view.frame)
-                greyView.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
-                greyView.tag = 134
-            let initiationView = UIView.init(frame: CGRect.init(x: 0, y: 120, width: self.view.frame.size.width, height: CGFloat(ht)))
-                initiationView.backgroundColor = .white
-            let label = UILabel.init(frame: CGRect.init(x: 20, y: 20, width: self.view.frame.size.width - 40, height: 45))
-            label.text = "Are you sure?".localized
-            label.textAlignment = .center
-            label.font = .systemFont(ofSize: 20)
-                
-            let label2 = UILabel.init(frame: CGRect.init(x: 20, y: label.frame.origin.y + label.frame.size.height + 5, width: label.frame.size.width, height: 30))
-            label2.text = "You are requesting changes for:".localized
-            label2.textAlignment = .center
-            label2.font = .systemFont(ofSize: 16)
-            
-            var start = label2.frame.origin.y + label2.frame.size.height + 5
-            changeReqArray?.forEach({ (changeReq) in
-                let crTitle = UILabel.init(frame: CGRect.init(x: 20, y: start, width: label.frame.size.width/2, height: 30))
-                crTitle.text = " \(ChangeRequestType().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? "\(changeReq.requestItemsId)"):"
-                crTitle.layer.borderColor = UIColor.lightGray.cgColor
-                crTitle.layer.borderWidth = 0.5
-                crTitle.font = .systemFont(ofSize: 16)
-                
-                let crValue = UILabel.init(frame: CGRect.init(x: 20+label.frame.size.width/2, y: start, width: label.frame.size.width/2, height: 30))
-                crValue.text = " \(changeReq.requestText ?? "")"
-                crValue.textColor = UIColor().CEMustard()
-                crValue.layer.borderColor = UIColor.lightGray.cgColor
-                crValue.layer.borderWidth = 0.5
-                crTitle.font = .systemFont(ofSize: 16)
-                
-                start = start + 35
-                initiationView.addSubview(crTitle)
-                initiationView.addSubview(crValue)
-            })
-                
-            let label3 = UILabel.init(frame: CGRect.init(x: 20, y: start, width: label.frame.size.width, height: 60))
-            label3.numberOfLines = 3
-            label3.font = .systemFont(ofSize: 14)
-            label3.text = "This change request may or may not be accepted. You can raise change request if rejected by first discussing with artisan in advance to avoid rejection.".localized
-            label3.textAlignment = .center
-            
-            let cancelBtn = UIButton.init(type: .custom)
-            cancelBtn.setTitle("Cancel".localized, for: .normal)
-            cancelBtn.addTarget(self, action: #selector(hideChangeRequestBuyerView), for: .touchUpInside)
-            cancelBtn.frame = CGRect.init(x: self.view.center.x - 80, y: label3.frame.origin.y + label3.frame.size.height + 10, width: 70, height: 30)
-            cancelBtn.setTitleColor(.lightGray, for: .normal)
-                
-            let okBtn = UIButton.init(type: .custom)
-            okBtn.setTitle("Ok".localized, for: .normal)
-            okBtn.backgroundColor = UIColor().CEGreen()
-            okBtn.addTarget(self, action: #selector(updateChangeRequestArtisan), for: .touchUpInside)
-            okBtn.frame = CGRect.init(x: self.view.center.x + 10, y: cancelBtn.frame.origin.y, width: 50, height: 30)
-                
-            initiationView.addSubview(label)
-            initiationView.addSubview(label2)
-            initiationView.addSubview(label3)
-            initiationView.addSubview(cancelBtn)
-            initiationView.addSubview(okBtn)
-            greyView.addSubview(initiationView)
-            self.view.addSubview(greyView)
-            initiationView.center = self.view.center
-            self.view.bringSubviewToFront(greyView)
-        }
-    }
-    
-    @objc func hideChangeRequestBuyerView() {
-        if let initialView = self.view.viewWithTag(134) {
-            self.view.sendSubviewToBack(initialView)
-            initialView.removeFromSuperview()
-        }
-    }
-    
-    @objc func updateChangeRequestArtisan() {
-        if let initialView = self.view.viewWithTag(134) {
-            self.view.sendSubviewToBack(initialView)
-            initialView.removeFromSuperview()
-            self.updateChangeRequest?(changeReqArray ?? [])
         }
     }
 }
