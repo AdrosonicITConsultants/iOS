@@ -37,7 +37,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var sendMOQ: (() -> ())?
     var acceptMOQ: (() -> ())?
     var sentMOQ: Int = 0
-    var viewPI: (() -> ())?
+    var viewPI: ((_ isOld: Int) -> ())?
     var downloadPI: (() -> ())?
     var isMOQNeedToAccept: Int = 0
     var showCustomProduct: (() -> ())?
@@ -80,6 +80,18 @@ class BuyerEnquiryDetailsController: FormViewController {
         
         form
             +++ Section()
+            <<< LabelRow(){
+                $0.cell.height = { 25.0 }
+                $0.title = enquiryObject?.enquiryCode
+            }
+            <<< LabelRow(){
+                $0.cell.height = { 20.0 }
+                let date = Date().ttceFormatter(isoDate: (enquiryObject?.startedOn!)!)
+                $0.title = "Date accepted: " + date
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = .darkGray
+                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
+            })
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
@@ -135,20 +147,31 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< StatusRow() {
                 $0.cell.height = { 110.0 }
             }.cellUpdate({ (cell, row) in
+                
                 cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
+                if self.enquiryObject!.enquiryStageId == 3 && self.enquiryObject?.productStatusId == 2 {
+                    cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) - 4)?.stageDescription ?? "NA")"
+                }
                 if self.enquiryObject?.enquiryStageId == 5 && self.enquiryObject!.innerEnquiryStageId >= 2{
                     cell.previousStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.enquiryObject?.innerEnquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
                 }
+                
                 cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
                 if self.enquiryObject?.enquiryStageId == 5{
                     cell.currentStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: self.enquiryObject?.innerEnquiryStageId ?? 0)?.stageDescription ?? "NA")"
                     
                 }
-                cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+                
+                    cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
+                if self.enquiryObject!.enquiryStageId == 3 && self.enquiryObject?.productStatusId == 2 {
+                    cell.nextStatusLbl.text = "\(AvailableProductStages.getStageType(searchId: (self.enquiryObject?.enquiryStageId ?? 0) + 4)?.stageDescription ?? "NA")"
+                }
+               
                 if self.enquiryObject?.enquiryStageId == 5 && self.enquiryObject!.innerEnquiryStageId <= 4{
                     cell.nextStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.enquiryObject?.innerEnquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
                     
                 }
+                
                 if (self.enquiryObject?.isBlue ?? false == true) && (self.enquiryObject?.enquiryStageId == 3 || self.enquiryObject?.enquiryStageId == 9){
                     cell.actionLbl.text = "Advance payment Awaiting"
                 }else {
@@ -175,7 +198,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             
             <<< AcceptedInvoiceRow() {
-                $0.cell.height = { 120.0 }
+               // $0.cell.height = { 120.0 }
                 $0.tag = "View Invoice & Approve Advance Payment"
                 if User.loggedIn()?.refRoleId == "1"  && enquiryObject!.enquiryStageId >= 3{
                     $0.hidden = false
@@ -185,14 +208,14 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
                 $0.cell.tag = 3
                 $0.cell.delegate = self
-                
-                if (enquiryObject!.isBlue){
-                    $0.cell.approvePaymentButton.isHidden = false
-                }
-                else {
+//
+//                if (enquiryObject!.isBlue){
+//                    $0.cell.approvePaymentButton.isHidden = false
+//                }
+//                else {
                     $0.cell.approvePaymentButton.isHidden = true
                     $0.cell.height = { 90.0 }
-                }
+//                }
             }.cellUpdate({ (cell, row) in
                 if self.enquiryObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
                     cell.row.hidden = false
@@ -200,108 +223,112 @@ class BuyerEnquiryDetailsController: FormViewController {
                 else{
                     cell.row.hidden = true
                 }
-                
-                if (self.enquiryObject!.isBlue){
-                    cell.approvePaymentButton.isHidden = false
-                }
-                else {
+                // cell.tag = 3
+//                if (self.enquiryObject!.isBlue){
+//                    cell.approvePaymentButton.isHidden = false
+//                }
+//                else {
                     cell.approvePaymentButton.isHidden = true
                     cell.height = { 90.0 }
-                }
+               // }
             })
             
-            <<< StartStageViewRow()
-                {
-                    $0.cell.height = { 90.0 }
-                    $0.cell.tag = 6
-                    $0.tag = "Start Production Stage"
-                    $0.cell.delegate = self
-                    if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 4 && isClosed == false {
-                        $0.hidden = false
-                    }
-                    else{
-                        $0.hidden = true
-                    }
-            }.cellUpdate({ (cell, row) in
-                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 4 && self.isClosed == false {
-                    cell.row.hidden = false
-                    cell.height = { 90.0 }
-                }
-                else{
-                    cell.row.hidden = true
-                    cell.height = { 0.0 }
-                }
-            })
+//            <<< StartStageViewRow()
+//                {
+//                    $0.cell.height = { 90.0 }
+//                    $0.cell.tag = 6
+//                    $0.tag = "Start Production Stage"
+//                    $0.cell.delegate = self
+//                    if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 4 && isClosed == false {
+//                        $0.hidden = false
+//                    }
+//                    else{
+//                        $0.hidden = true
+//                    }
+//            }.cellUpdate({ (cell, row) in
+//                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 4 && self.isClosed == false {
+//                    cell.row.hidden = false
+//                    cell.height = { 90.0 }
+//                }
+//                else{
+//                    cell.row.hidden = true
+//                    cell.height = { 0.0 }
+//                }
+//            })
             
-            <<< MarkCompleteAndNextRow()
-                {
-                    $0.cell.height = { 125.0 }
-                    $0.cell.tag = 7
-                    $0.tag = "Production Stages Progrees"
-                    $0.cell.MarkProgress.layer.borderColor = UIColor(red: 83.0/255.0, green: 186.0/255.0, blue: 183.0/255.0, alpha: 1.0).cgColor
-                    $0.cell.MarkProgress.layer.borderWidth = 2.0
-                    $0.cell.delegate = self
-                    if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && isClosed == false {
-                        $0.hidden = false
-                    }
-                    else{
-                        $0.hidden = true
-                    }
-            }.cellUpdate({ (cell, row) in
-                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && self.isClosed == false {
-                    cell.row.hidden = false
-                    cell.height = { 125.0 }
-                    
-                }
-                else{
-                    cell.row.hidden = true
-                    cell.height = { 0.0 }
-                }
-            })
+//            <<< MarkCompleteAndNextRow()
+//                {
+//                    $0.cell.height = { 125.0 }
+//                    $0.cell.tag = 7
+//                    $0.tag = "Production Stages Progrees"
+//                    $0.cell.MarkProgress.layer.borderColor = UIColor(red: 83.0/255.0, green: 186.0/255.0, blue: 183.0/255.0, alpha: 1.0).cgColor
+//                    $0.cell.MarkProgress.layer.borderWidth = 2.0
+//                    $0.cell.delegate = self
+//                    if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && isClosed == false {
+//                        $0.hidden = false
+//                    }
+//                    else{
+//                        $0.hidden = true
+//                    }
+//            }.cellUpdate({ (cell, row) in
+//                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && self.isClosed == false {
+//                    cell.row.hidden = false
+//                    cell.height = { 125.0 }
+//
+//                }
+//                else{
+//                    cell.row.hidden = true
+//                    cell.height = { 0.0 }
+//                }
+//            })
             
-            <<< BuyerEnquirySectionViewRow() {
-                $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check advance Payment receipt"
-                $0.cell.valueLbl.text = "View"
-                
-                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
-                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
-                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
-                if User.loggedIn()?.refRoleId == "1" && enquiryObject!.enquiryStageId >= 4  {
-                    $0.hidden = false
-                }
-                else {
-                    $0.hidden = true
-                }
-            }.onCellSelection({ (cell, row) in
-                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
-                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
-                vc1.enquiryObject = self.enquiryObject
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-            }).cellUpdate({ (cell, row) in
-                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {
-                    cell.row.hidden = false
-                }
-                else {
-                    cell.row.hidden = true
-                }
-            })
+//            <<< BuyerEnquirySectionViewRow() {
+//                $0.cell.height = { 44.0 }
+//                $0.cell.titleLbl.text = "Check advance Payment receipt"
+//                $0.cell.valueLbl.text = "View"
+//
+//                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
+//                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
+//                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
+//                if User.loggedIn()?.refRoleId == "1" && enquiryObject!.enquiryStageId >= 4  {
+//                    $0.hidden = false
+//                }
+//                else {
+//                    $0.hidden = true
+//                }
+//            }.onCellSelection({ (cell, row) in
+//                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+//                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
+//                vc1.enquiryObject = self.enquiryObject
+//                vc1.modalPresentationStyle = .fullScreen
+//                self.navigationController?.pushViewController(vc1, animated: true)
+//            }).cellUpdate({ (cell, row) in
+//                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {
+//                    cell.row.hidden = false
+//                }
+//                else {
+//                    cell.row.hidden = true
+//                }
+//            })
             
             <<< TransactionReceiptRow() {
-                $0.cell.height = { 120.0 }
+              //  $0.cell.height = { 120.0 }
                 $0.cell.delegate = self
                 $0.tag = "UploadReceipt"
-                $0.cell.tag = 100
+             //   $0.cell.tag = 100
                 $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
                 if User.loggedIn()?.refRoleId == "1"  {
                     $0.hidden = true
-                }else if ( enquiryObject?.isPiSend == 1 || enquiryObject?.enquiryStageId == 3){
+                }else if ( enquiryObject?.isPiSend == 1 || enquiryObject!.enquiryStageId >= 3){
                     $0.hidden = false
                 }
                 else {
                     $0.hidden = true
                 }
+//                if self.enquiryObject?.productStatusId == 2 {
+                    $0.cell.uploadReceiptBtn.isHidden = true
+                     $0.cell.height = { 80.0 }
+           //     }
             }
             
             <<< ProFormaInvoiceRow() {
@@ -719,30 +746,30 @@ class BuyerEnquiryDetailsController: FormViewController {
     func reloadFormData() {
         enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
         
-        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {
-            let row = form.rowBy(tag: "Check advance Payment receipt")
-            row?.hidden = false
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-        }
-        if self.enquiryObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
-            let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
-            row?.hidden = false
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-        }
-        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 4{
-            let row = form.rowBy(tag: "Start Production Stage")
-            row?.hidden = false
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-        }
-        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 {
-            let row = form.rowBy(tag: "Production Stages Progrees")
-            row?.hidden = false
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-        }
+//        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {
+//            let row = form.rowBy(tag: "Check advance Payment receipt")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
+//        if self.enquiryObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
+//            let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
+//        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 4{
+//            let row = form.rowBy(tag: "Start Production Stage")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
+//        if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 {
+//            let row = form.rowBy(tag: "Production Stages Progrees")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
         if self.enquiryObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
             let row = form.rowBy(tag: "CreatePI")
             row?.hidden = false
@@ -951,7 +978,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
         switch tag{
         case 3:
             self.showLoading()
-            self.viewPI?()
+            self.viewPI?(1)
         default:
             print("do nothing")
         }
@@ -965,6 +992,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
             let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.enquiryObject!.enquiryId, enquiryObj: self.enquiryObject!, orderObj: nil) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
             vc1.enquiryObject = self.enquiryObject
+            
             print("PI WORKING")
             self.navigationController?.pushViewController(vc1, animated: true)
             print("createSendInvoiceBtnSelected WORKING")
@@ -1033,35 +1061,36 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
 extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
     func viewProformaInvoiceBtnSelected(tag: Int) {
         self.showLoading()
-        self.viewPI?()
+        self.viewPI?(1)
     }
     
-    func RejectBtnSelected(tag: Int) {
-        print("do nothing")
-    }
+//    func RejectBtnSelected(tag: Int) {
+//        print("do nothing")
+//    }
     
     func paymentBtnSelected(tag: Int) {
-        switch tag{
-        case 100:
-            if self.enquiryObject!.isBlue || self.enquiryObject!.enquiryStageId >= 4{
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
-                vc1.enquiryObject = self.enquiryObject
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-            }
-            else{
-                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
-                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
-                vc1.enquiryObject = self.enquiryObject
-                vc1.PI = self.PI
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-                print("uploadReceiptBtnSelected")
-            }
-        default:
-            print("uploadReceiptBtnSelected Not WORKING")
-        }
+        print("do nothing")
+//        switch tag{
+//        case 100:
+//            if self.enquiryObject!.isBlue || self.enquiryObject!.enquiryStageId >= 4{
+//                let client = try? SafeClient(wrapping: CraftExchangeClient())
+//                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
+//                vc1.enquiryObject = self.enquiryObject
+//                vc1.modalPresentationStyle = .fullScreen
+//                self.navigationController?.pushViewController(vc1, animated: true)
+//            }
+//            else{
+//                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+//                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
+//                vc1.enquiryObject = self.enquiryObject
+//                vc1.PI = self.PI
+//                vc1.modalPresentationStyle = .fullScreen
+//                self.navigationController?.pushViewController(vc1, animated: true)
+//                print("uploadReceiptBtnSelected")
+//            }
+//        default:
+//            print("uploadReceiptBtnSelected Not WORKING")
+//        }
     }
     
     func backButtonSelected() {
@@ -1095,35 +1124,35 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
     
 }
 
-extension BuyerEnquiryDetailsController: MarkCompleteAndNextProtocol, StartstageProtocol {
-    
-    
-    func MarkProgressSelected(tag: Int) {
-        self.showLoading()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId)
-    }
-    
-    func MarkCompleteNextSelected(tag: Int) {
-        self.showLoading()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        if enquiryObject!.innerEnquiryStageId == 5{
-            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 6, innerStageId: 0)
-        }
-        else{
-            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId + 1)
-        }
-        
-    }
-    
-    func StartstageBtnSelected(tag: Int) {
-        self.showLoading()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 5, innerStageId: 1)
-    }
-    
-    
-}
+//extension BuyerEnquiryDetailsController: MarkCompleteAndNextProtocol, StartstageProtocol {
+//
+//
+//    func MarkProgressSelected(tag: Int) {
+//        self.showLoading()
+//        let client = try! SafeClient(wrapping: CraftExchangeClient())
+//        let service = EnquiryDetailsService.init(client: client)
+//        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId)
+//    }
+//
+//    func MarkCompleteNextSelected(tag: Int) {
+//        self.showLoading()
+//        let client = try! SafeClient(wrapping: CraftExchangeClient())
+//        let service = EnquiryDetailsService.init(client: client)
+//        if enquiryObject!.innerEnquiryStageId == 5{
+//            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 6, innerStageId: 0)
+//        }
+//        else{
+//            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId + 1)
+//        }
+//
+//    }
+//
+//    func StartstageBtnSelected(tag: Int) {
+//        self.showLoading()
+//        let client = try! SafeClient(wrapping: CraftExchangeClient())
+//        let service = EnquiryDetailsService.init(client: client)
+//        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 5, innerStageId: 1)
+//    }
+//
+//
+//}

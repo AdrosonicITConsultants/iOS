@@ -82,16 +82,16 @@ extension OrderDetailsService {
                 }
             }
         }
-        vc.checkMOQ = {
-            vc.showLoading()
-            let service = EnquiryDetailsService.init(client: self.client)
-            service.checkMOQ(enquiryId: enquiryId, vc: vc)
-        }
+//        vc.checkMOQ = {
+//            vc.showLoading()
+//            let service = EnquiryDetailsService.init(client: self.client)
+//            service.checkMOQ(enquiryId: enquiryId, vc: vc)
+//        }
         
-        vc.viewPI = {
+        vc.viewPI = {(isOld) in
             let date = Date().ttceISOString(isoDate: vc.orderObject!.lastUpdated!)
             let service = EnquiryDetailsService.init(client: self.client)
-            service.getPreviewPI(enquiryId: enquiryId, lastUpdatedDate: date, code: vc.orderObject?.orderCode ?? "\(enquiryId)", vc: vc)
+            service.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.orderObject?.orderCode ?? "\(enquiryId)", vc: vc)
         }
         
         vc.downloadPI = {

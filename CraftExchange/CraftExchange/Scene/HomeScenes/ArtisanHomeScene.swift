@@ -298,7 +298,24 @@ extension HomeScreenService {
                 print(error.description)
             }
         }.dispose(in: vc.bag)
-        
+        //getAvailableProductEnquiryStages
+        service.getAvailableProductEnquiryStages().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            do {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        try array.forEach { (dataDict) in
+                             if let stageDict = dataDict["orderStages"] as? [String: Any] {
+                                if let data = try? JSONSerialization.data(withJSONObject: stageDict, options: .fragmentsAllowed){
+                                    try JSONDecoder().decode(AvailableProductStages.self, from: data).saveOrUpdate()
+                                }
+                            }
+                        }
+                    }
+                }
+            }catch let error as NSError {
+                print(error.description)
+            }
+        }.dispose(in: vc.bag)
         service.getEnquiryInnerStages().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {

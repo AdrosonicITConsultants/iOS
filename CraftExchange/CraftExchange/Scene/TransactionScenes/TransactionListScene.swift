@@ -71,15 +71,16 @@ extension TransactionService {
             syncData()
         }
         
-        controller.viewModel.viewTransactionReceipt = { (transaction) in
+        controller.viewModel.viewTransactionReceipt = { (transaction, isOld) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.getPreviewPI(enquiryId: transaction.enquiryId).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+            service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                DispatchQueue.main.async {
                 let object = String(data: responseData, encoding: .utf8) ?? ""
                 controller.view.showAcceptedPIView(controller: controller, entityId: transaction.enquiryCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object)
                    controller.hideLoading()
                }
             }.dispose(in: controller.bag)
+            controller.hideLoading()
         }
         
         controller.viewModel.downloadPI = { (enquiryId) in

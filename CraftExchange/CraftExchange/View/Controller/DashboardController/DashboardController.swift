@@ -30,7 +30,7 @@ class DashboardController: UIViewController, WKUIDelegate {
             components.path = "/embed/reporting/0c128fc7-917e-4030-b7b4-370628de1996/page/CEweB"
             param = "{\"ds0.Token\":\"\(token)\",\"ds2.Token\":\"\(token)\",\"ds12.Token\":\"\(token)\",\"ds16.Token\":\"\(token)\",\"ds18.Token\":\"\(token)\",\"ds22.Token\":\"\(token)\",\"ds30.Token\":\"\(token)\"}"
         }else {
-            components.path = "/embed/reporting/0ede1d26-5dbf-4564-a7c4-4f850493a89f/page/i56cB"
+            components.path = "/embed/reporting/22dd8e4d-ca54-4a5a-8084-571f9b776457/page/iJ7cB"
             param = "{\"ds0.email\":\"\(userEmail)\",\"ds0.Token\":\"\(token)\",\"ds44.Token\":\"\(token)\"}"
         }
         param = param.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!

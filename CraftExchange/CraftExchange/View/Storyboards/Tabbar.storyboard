@@ -134,13 +134,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGd-tO-Abc">
-                                <rect key="frame" x="354" y="113.5" width="40" height="39.5"/>
+                                <rect key="frame" x="354" y="113" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="cbw-YI-n4B"/>
                                     <constraint firstAttribute="width" constant="40" id="eDX-9b-Mho"/>
                                 </constraints>
                                 <color key="tintColor" red="0.1647058824" green="0.38431372549999998" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" backgroundImage="plus.bubble.fill" catalog="system"/>
+                                <state key="normal" backgroundImage="new chat"/>
                                 <connections>
                                     <action selector="addNewChatSelected:" destination="ruw-rQ-XXO" eventType="touchUpInside" id="xes-lY-wcC"/>
                                 </connections>
@@ -165,8 +165,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7dG-Xc-Lc7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Recent" image="recent">
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="  Recent" image="Icon metro-history">
                                     <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
@@ -174,7 +174,7 @@
                                 <rect key="frame" x="148" y="240" width="118" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title=" Pull to refresh" image="arrow.clockwise" catalog="system">
+                                <state key="normal" title=" Pull to refresh" image="Icon ionic-ios-refresh">
                                     <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
@@ -183,7 +183,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="tintColor" red="0.73996668779999997" green="0.1721055765" blue="0.1443841645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title=" 0 Escalations" image="exclamationmark.circle.fill" catalog="system">
-                                    <color key="titleColor" red="0.73996668779999997" green="0.1721055765" blue="0.1443841645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.74117647058823533" green="0.17254901960784313" blue="0.14509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cfv-GQ-AWB">
@@ -194,7 +194,7 @@
                                     <outlet property="delegate" destination="ruw-rQ-XXO" id="1K9-48-9RK"/>
                                 </connections>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ImE-lo-JpO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tmsm" translatesAutoresizingMaskIntoConstraints="NO" id="ImE-lo-JpO">
                                 <rect key="frame" x="0.0" y="275" width="414" height="538"/>
                             </imageView>
                         </subviews>
@@ -299,7 +299,7 @@
                                     <outlet property="delegate" destination="cJg-HM-Nik" id="BOo-ME-MiM"/>
                                 </connections>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q6s-h5-V2x">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tmsm" translatesAutoresizingMaskIntoConstraints="NO" id="q6s-h5-V2x">
                                 <rect key="frame" x="0.0" y="231" width="414" height="631"/>
                             </imageView>
                         </subviews>
@@ -1236,6 +1236,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Icon ionic-ios-refresh" width="12" height="14"/>
+        <image name="Icon metro-history" width="13" height="11"/>
         <image name="arrow-down" width="14" height="8"/>
         <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
@@ -1253,12 +1255,12 @@
         <image name="ios_bell" width="19" height="22"/>
         <image name="ios_search" width="20" height="19"/>
         <image name="list.bullet.indent" catalog="system" width="64" height="36"/>
-        <image name="plus.bubble.fill" catalog="system" width="64" height="54"/>
-        <image name="recent" width="38" height="36"/>
+        <image name="new chat" width="30" height="30"/>
         <image name="ring _of_string-ios" width="34" height="43"/>
         <image name="tab-chat" width="21" height="21"/>
         <image name="tab-enquiries" width="19" height="21"/>
         <image name="tab-home" width="22" height="20"/>
         <image name="tab-wishlist" width="21" height="19"/>
+        <image name="tmsm" width="286" height="263"/>
     </resources>
 </document>

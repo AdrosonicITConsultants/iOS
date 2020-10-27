@@ -46,6 +46,7 @@ class PaymentArtistController: FormViewController{
         
         form
             +++ Section()
+            
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }

@@ -202,9 +202,9 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)
         }
         
-        vc.viewPI = {
+        vc.viewPI = { (isOld) in
             let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
-            self.getPreviewPI(enquiryId: enquiryId, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc)
+            self.getPreviewPI(enquiryId: enquiryId,isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc)
         }
         
         vc.downloadPI = {
@@ -274,10 +274,11 @@ extension EnquiryDetailsService {
                                 if let controller = vc as? BuyerEnquiryDetailsController {
                                     controller.getMOQ = object
                                     controller.assignMOQ()
-                                }else if let controller = vc as? OrderDetailController {
-                                    controller.getMOQ = object
-                                    controller.assignMOQ()
                                 }
+//                                else if let controller = vc as? OrderDetailController {
+//                                    controller.getMOQ = object
+//                                    controller.assignMOQ()
+//                                }
                             }
                         }
                     }
@@ -286,14 +287,16 @@ extension EnquiryDetailsService {
         }.dispose(in: vc.bag)
     }
     
-    func getPreviewPI(enquiryId: Int, lastUpdatedDate: String, code: String, vc: UIViewController) {
-        self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+    func getPreviewPI(enquiryId: Int,isOld: Int, lastUpdatedDate: String, code: String, vc: UIViewController) {
+        self.getPreviewPI(enquiryId: enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
             DispatchQueue.main.async {
                 let object = String(data: responseData, encoding: .utf8) ?? ""
                 vc.view.showAcceptedPIView(controller: vc, entityId: code, date: lastUpdatedDate , data: object)
                 vc.hideLoading()
             }
+           
         }.dispose(in: vc.bag)
+         vc.hideLoading()
     }
     
     func showPI(enquiryId: Int, vc: UIViewController) {

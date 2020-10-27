@@ -44,6 +44,8 @@ class Order: Object, Decodable {
     @objc dynamic var pocEmail: String?
     @objc dynamic var pocContact: String?
     @objc dynamic var gst: String?
+    @objc dynamic var deliveryChallanUploaded: Int = 0
+    @objc dynamic var deliveryChallanLabel: String?
     @objc dynamic var productHistoryCode: String?
     @objc dynamic var productHistoryName: String?
     @objc dynamic var productCategoryHistoryId: Int = 0
@@ -115,6 +117,8 @@ class Order: Object, Decodable {
         case pocEmail = "pocEmail"
         case pocContact = "pocContact"
         case gst = "gst"
+        case deliveryChallanUploaded = "deliveryChallanUploaded"
+        case deliveryChallanLabel = "deliveryChallanLabel"
         case productHistoryCode = "productHistoryCode"
         case productHistoryName = "productHistoryName"
         case productCategoryHistoryId = "productCategoryHistoryId"
@@ -183,6 +187,8 @@ class Order: Object, Decodable {
         extraWeftYarnId = try (values.decodeIfPresent(Int.self, forKey: .extraWeftYarnId) ?? 0)
         firstName = try? values.decodeIfPresent(String.self, forKey: .firstName)
         gst = try? values.decodeIfPresent(String.self, forKey: .gst)
+        deliveryChallanUploaded = try (values.decodeIfPresent(Int.self, forKey: .deliveryChallanUploaded) ?? 0)
+        deliveryChallanLabel = try? values.decodeIfPresent(String.self, forKey: .deliveryChallanLabel)
         historyProductId = try (values.decodeIfPresent(Int.self, forKey: .historyProductId) ?? 0)
         innerEnquiryStageId = try (values.decodeIfPresent(Int.self, forKey: .innerEnquiryStageId) ?? 0)
         isMoqSend = try (values.decodeIfPresent(Int.self, forKey: .isMoqSend) ?? 0)

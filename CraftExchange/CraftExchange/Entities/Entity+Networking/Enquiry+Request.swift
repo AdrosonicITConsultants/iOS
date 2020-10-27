@@ -64,6 +64,18 @@ extension Enquiry {
         )
     }
     
+    static func getAvailableProductEnquiryStages() -> Request<Data, APIError> {
+        var str = "enquiry/getEnquiryStagesForAvailableProduct"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
     static func getOpenEnquiries() -> Request<Data, APIError> {
         var str = "enquiry/getOpenEnquiries"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -180,6 +192,27 @@ extension Enquiry {
         )
     }
     
+    public static func sendFinalInvoice(enquiryId: String, advancePaidAmount: String, finalTotalAmount: Int, quantity: Int, ppu: Int, cgst: String , sgst: String, deliveryCharges: String ) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "advancePaidAmt": advancePaidAmount,
+                                         "finalTotalAmt": finalTotalAmount,
+                                         "quantity": quantity,
+                                         "ppu": ppu,
+                                         "cgst": cgst,
+                                         "sgst": sgst,
+                                         "deliveryCharges": deliveryCharges
+                                        ]
+        return Request(
+            path: "enquiry/generateTaxInvoice",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "sending final invoice failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
     public static func acceptMOQ(enquiryId: Int, moqId: Int, artisanId: Int) -> Request<Data, APIError> {
         let parameters: [String: Any] = ["enquiryId":enquiryId,
                                          "moqId": moqId,
@@ -244,9 +277,9 @@ extension Enquiry {
         )
     }
     
-    public static func getPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
+    public static func getPreviewPI(enquiryId: Int, isOld: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
-        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)"
+        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)&isOld=\(isOld)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,

@@ -79,7 +79,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="UEM-oa-pi8" firstAttribute="centerX" secondItem="DtG-2I-J04" secondAttribute="centerX" id="9Gr-y5-xb6"/>
                         <constraint firstAttribute="trailing" secondItem="iqj-dF-aV7" secondAttribute="trailing" constant="20" id="Gqo-6P-jlv"/>
