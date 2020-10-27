@@ -83,9 +83,10 @@ class PaymentUploadController: FormViewController{
                 }else {
                     $0.cell.designByLbl.text = enquiryObject?.brandName ?? orderObject?.brandName
                 }
-                $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "Amount to be paid: " + "\(enquiryObject?.totalAmount ?? 0)" : "NA"
+                print(tobePaidAmount)
+                $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "Amount to be paid: " + tobePaidAmount! : "NA"
                 if orderObject != nil {
-                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Amount to be paid: " + "\(orderObject?.totalAmount ?? 0)" : "NA"
+                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Amount to be paid: " + tobePaidAmount! : "NA"
                 }
                 if orderObject?.enquiryStageId == 8{
                     $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Amount to be paid: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
@@ -268,7 +269,7 @@ class PaymentUploadController: FormViewController{
                                 let dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
                                 let date = dateFormatter.string(from: value)
-                                self.viewModel.orderDispatchDate.value = date + " 10:00:00"
+                                self.viewModel.orderDispatchDate.value = date
                                 //                    enquiry/submitDeliveryChallan?enquiryId=1881&orderDispatchDate=2020-10-27%2014%3A14%3A06&ETA=2020-10-27%2014%3A14%3A06
                             }
                         }).cellUpdate({ (cell, row) in
@@ -295,9 +296,9 @@ class PaymentUploadController: FormViewController{
                         }.onChange({ (row) in
                             if let value = row.value {
                                 let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "yyyy-MM-dd"
+                                dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
                                 let date = dateFormatter.string(from: value)
-                                self.viewModel.ETA.value = date + " 10:00:00"
+                                self.viewModel.ETA.value = date
                             }
                         }).cellUpdate({ (cell, row) in
                             cell.textLabel?.textColor = .black
@@ -325,6 +326,7 @@ class PaymentUploadController: FormViewController{
                 }
                  if orderObject?.enquiryStageId == 9{
                     $0.hidden = false
+                    $0.cell.UploadBtn.setTitle("Upload delivery receipt", for: .normal)
                 }
             }
 

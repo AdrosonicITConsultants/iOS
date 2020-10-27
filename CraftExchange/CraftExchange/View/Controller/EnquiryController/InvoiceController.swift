@@ -159,6 +159,9 @@ class InvoiceController: FormViewController{
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
                     $0.title = "Tax Invoice"
                 }
+                if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+                    $0.title = "Tax Invoice"
+                }
             }
             
             <<< EnquiryClosedRow() {
@@ -209,6 +212,9 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 60.0 }
                 $0.minimumDate = Date()
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+                    $0.hidden = true
+                }
+                if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
                     $0.hidden = true
                 }
                 $0.value = Date()
@@ -293,7 +299,10 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
                     $0.hidden = false
-                }else {
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+                    $0.hidden = true
+                    
+                }else{
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.textColor = .black
@@ -322,6 +331,9 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
                     $0.hidden = false
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+                    $0.hidden = true
+                    
                 }else {
                     $0.hidden = true
                 }
@@ -353,6 +365,8 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
                     $0.hidden = false
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+                    $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
@@ -376,6 +390,8 @@ class InvoiceController: FormViewController{
                 $0.tag = "Cgst"
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                    $0.hidden = false
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
                     $0.hidden = false
                 }else {
                     $0.hidden = true
@@ -402,6 +418,8 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+                    $0.hidden = false
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
                     $0.hidden = false
                 }else {
                     $0.hidden = true
@@ -432,6 +450,9 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
                     $0.hidden = false
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+                    $0.hidden = true
+                    
                 }else {
                     $0.hidden = true
                 }
@@ -465,6 +486,8 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
                     $0.hidden = false
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+                    $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
@@ -494,6 +517,9 @@ class InvoiceController: FormViewController{
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
                     $0.hidden = true
                 }
+                    if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+                    $0.hidden = true
+                }
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -516,6 +542,8 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 60.0 }
                 $0.cell.titleLbl.text = "Agree to terms and Conditions"
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                    $0.hidden = false
+                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
                     $0.hidden = false
                 }else {
                     $0.hidden = true
@@ -626,6 +654,8 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
                // self.hideLoading()
                 
                 self.viewModel.sendFI?()
+            }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+               self.viewModel.sendFI?()
             }else{
                 self.viewModel.isOld.value = 1
                 self.viewModel.savePI?()

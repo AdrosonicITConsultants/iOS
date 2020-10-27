@@ -385,27 +385,30 @@ class OrderDetailController: FormViewController {
                 $0.cell.tag = 100
                 $0.cell.nextStepsLabel.text = ""
                 $0.cell.createSendInvoiceBtn.setTitle("Create& Send Final Invoice", for: .normal)
-                if ( orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
+                if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
                     $0.hidden = false
                 }
                 else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
                      $0.hidden = false
-                }else {
-                    $0.hidden = true
                 }
-                
-                if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
+                else if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
                     $0.hidden = true
+                    $0.cell.height = { 0.0 }
+                }
+                else{
+                    $0.hidden = true
+                    $0.cell.height = { 0.0 }
                 }
             }
             .cellUpdate({ (cell, row) in
                 
-                if self.orderObject?.enquiryStageId == 6 || self.orderObject?.enquiryStageId == 7 && User.loggedIn()?.refRoleId == "1"{
+                if User.loggedIn()?.refRoleId == "1" && (self.orderObject?.enquiryStageId == 6 || self.orderObject?.enquiryStageId == 7) {
                     cell.row.hidden = false
                 }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3{
                      cell.row.hidden = false
                 }else if User.loggedIn()?.refRoleId == "2" || self.isClosed || self.orderObject?.isPiSend == 1{
                     cell.row.hidden = true
+                    cell.height = { 0.0 }
                 }
                 else{
                     cell.row.hidden = true
@@ -980,7 +983,7 @@ class OrderDetailController: FormViewController {
             self.form.allSections.first?.reload(with: .none)
         }
         //"Create Final Invoice"
-        if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId == 7 || self.orderObject!.enquiryStageId == 6 {
+        if User.loggedIn()?.refRoleId == "1" && (self.orderObject!.enquiryStageId == 7 || self.orderObject!.enquiryStageId == 6) {
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = false
             row?.evaluateHidden()
@@ -1297,6 +1300,9 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
             if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
                 vc1.PI = self.PI
                 vc1.advancePaymnet = self.advancePaymnet
+            }
+            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+                 vc1.PI = self.PI
             }
             vc1.orderObject = self.orderObject
             print("PI WORKING")

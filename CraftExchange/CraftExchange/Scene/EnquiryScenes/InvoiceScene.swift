@@ -100,7 +100,7 @@ extension EnquiryDetailsService {
                                     if cgst.isValidNumber {
                                         if sgst.isValidNumber {
                                             if finalamount.isValidNumber && Int(vc.viewModel.finalamount.value!)! > 0 {
-                                                if amountToBePaid.isValidNumber && Int(vc.viewModel.amountToBePaid.value!)! > 0{
+                                                if amountToBePaid.isValidNumber {
                                                     if deliveryCharges.isValidNumber {
                                                         self.sendFinalInvoice(enquiryId: "\(vc.orderObject!.enquiryId)", advancePaidAmount: vc.viewModel.advancePaidAmount.value!, finalTotalAmount: Int(vc.viewModel.finalamount.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, cgst: vc.viewModel.cgst.value!, sgst: vc.viewModel.sgst.value!, deliveryCharges: vc.viewModel.deliveryCharges.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                                                             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {

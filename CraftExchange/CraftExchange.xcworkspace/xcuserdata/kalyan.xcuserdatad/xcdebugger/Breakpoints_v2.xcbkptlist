@@ -158,8 +158,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "981"
-            endingLineNumber = "981"
+            startingLineNumber = "986"
+            endingLineNumber = "986"
             landmarkName = "viewInvoiceButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1064"
-            endingLineNumber = "1064"
+            startingLineNumber = "1069"
+            endingLineNumber = "1069"
             landmarkName = "viewProformaInvoiceBtnSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -190,8 +190,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1062"
-            endingLineNumber = "1062"
+            startingLineNumber = "1067"
+            endingLineNumber = "1067"
             landmarkName = "viewProformaInvoiceBtnSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1247"
-            endingLineNumber = "1247"
+            startingLineNumber = "1250"
+            endingLineNumber = "1250"
             landmarkName = "OrderDetailController"
             landmarkType = "3">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/PaymentUploadController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -242,6 +242,53 @@
             endingLineNumber = "127"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3CE862CF-0EAB-475C-9D0F-C68C04CFB67E - 8ac04f041eec4fa1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Craft_Xchange.OrderDetailController.viewDidLoad() -&gt; ()"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "4776">
+               </Location>
+               <Location
+                  uuid = "3CE862CF-0EAB-475C-9D0F-C68C04CFB67E - 3701073117deaea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 (Craft_Xchange.EnquiryDetailsRow) -&gt; () in Craft_Xchange.OrderDetailController.viewDidLoad() -&gt; ()"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "12420">
+               </Location>
+               <Location
+                  uuid = "3CE862CF-0EAB-475C-9D0F-C68C04CFB67E - 140cf99f45780e8a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #5 (Craft_Xchange.EnquiryDetailRowView, Craft_Xchange.EnquiryDetailsRow) -&gt; () in Craft_Xchange.OrderDetailController.viewDidLoad() -&gt; ()"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "275">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -286,8 +333,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/PaymentUploadController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
             landmarkName = "ViewTransactionBtnSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -321,6 +368,22 @@
             startingLineNumber = "166"
             endingLineNumber = "166"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "59ACF0E1-E95F-48AD-92CE-3FA87648FF98"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/View/Controller/EnquiryController/PaymentUploadController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

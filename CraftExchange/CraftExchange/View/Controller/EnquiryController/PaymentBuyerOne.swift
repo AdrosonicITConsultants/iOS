@@ -135,18 +135,23 @@ extension PaymentBuyerOneController: BTransactionButtonProtocol {
     func TransactionBtnSelected(tag: Int) {
          switch tag{
                 case 100:
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
-                vc1.enquiryObject = self.enquiryObject
-                vc1.orderObject = self.orderObject
-                vc1.viewModel.totalAmount.value = "\(enquiryObject?.totalAmount ?? orderObject?.totalAmount ?? 0)"
-                vc1.tobePaidAmount = "\(self.enquiryObject?.totalAmount ?? self.orderObject?.totalAmount ?? 0 * self.value / 100 )"
-                vc1.viewModel.percentage.value = "\(self.value)"
-                vc1.viewModel.paidAmount.value = "\(self.enquiryObject?.totalAmount ?? self.orderObject?.totalAmount ?? 0 * self.value / 100 )"
-                vc1.viewModel.pid.value = "\(self.PI!.id)"
-                vc1.viewModel.invoiceId.value = "0"
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
+                    if enquiryObject?.totalAmount != nil {
+                        let client = try? SafeClient(wrapping: CraftExchangeClient())
+                        let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
+                        vc1.enquiryObject = self.enquiryObject
+                        vc1.orderObject = self.orderObject
+                        vc1.viewModel.totalAmount.value = "\(enquiryObject?.totalAmount ?? orderObject?.totalAmount ?? 0)"
+                        vc1.tobePaidAmount = "\(self.enquiryObject!.totalAmount * self.value / 100 )"
+                        vc1.viewModel.pid.value = "\(self.PI!.id)"
+                        vc1.viewModel.percentage.value = "\(self.value)"
+                        vc1.viewModel.paidAmount.value = "\(self.enquiryObject!.totalAmount * self.value / 100 )"
+                        vc1.viewModel.pid.value = "\(self.PI!.id)"
+                        vc1.viewModel.invoiceId.value = "0"
+                       // print(vc1.viewModel.paidAmount.value)
+                        vc1.modalPresentationStyle = .fullScreen
+                        self.navigationController?.pushViewController(vc1, animated: true)
+                    }
+                
 
                 default:
                     print("Transaction Not working")
