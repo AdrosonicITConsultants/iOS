@@ -83,13 +83,13 @@ class PaymentUploadController: FormViewController{
                 }else {
                     $0.cell.designByLbl.text = enquiryObject?.brandName ?? orderObject?.brandName
                 }
-                print(tobePaidAmount)
-                $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "Amount to be paid: " + tobePaidAmount! : "NA"
-                if orderObject != nil {
-                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Amount to be paid: " + tobePaidAmount! : "NA"
-                }
+                //print(tobePaidAmount)
+//                "
+                
                 if orderObject?.enquiryStageId == 8{
                     $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Amount to be paid: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
+                }else{
+                    $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "Amount to be paid: " + (tobePaidAmount ?? "NA") : "NA"
                 }
                  if orderObject?.enquiryStageId == 9{
                     $0.cell.amountLbl.text = ""
