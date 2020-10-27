@@ -311,13 +311,17 @@ class PaymentUploadController: FormViewController{
                 if enquiryObject?.isBlue ?? false || enquiryObject?.enquiryStageId ?? 0 >= 4{
                     $0.hidden = true
                 }
+                if enquiryObject?.enquiryStageId ?? 0 < 4{
+                    $0.hidden = false
+                }
                 if orderObject?.isBlue ?? false || orderObject?.enquiryStageId ?? 0 >= 4{
                     $0.hidden = true
                 }
+                if orderObject?.enquiryStageId ?? 0 < 4{
+                    $0.hidden = false
+                }
                 if orderObject?.enquiryStageId == 8 && !finalPaymnetDetails!.finalPaymentDone{
                     $0.hidden = false
-                }else{
-                    $0.hidden = true
                 }
                  if orderObject?.enquiryStageId == 9{
                     $0.hidden = false
@@ -339,10 +343,11 @@ class PaymentUploadController: FormViewController{
                 if orderObject?.isBlue ?? false || orderObject?.enquiryStageId ?? 0 >= 4{
                     $0.hidden = false
                 }
+                if orderObject?.enquiryStageId ?? 0 < 4{
+                    $0.hidden = true
+                }
                 if orderObject?.enquiryStageId == 8 && !finalPaymnetDetails!.finalPaymentDone{
                    $0.hidden = true
-                }else{
-                   $0.hidden = false
                 }
                  if orderObject?.enquiryStageId == 9{
                      $0.hidden = true

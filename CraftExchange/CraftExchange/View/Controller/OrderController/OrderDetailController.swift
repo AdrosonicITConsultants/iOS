@@ -387,6 +387,9 @@ class OrderDetailController: FormViewController {
                 $0.cell.createSendInvoiceBtn.setTitle("Create& Send Final Invoice", for: .normal)
                 if ( orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
                     $0.hidden = false
+                }
+                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+                     $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
@@ -399,6 +402,8 @@ class OrderDetailController: FormViewController {
                 
                 if self.orderObject?.enquiryStageId == 6 || self.orderObject?.enquiryStageId == 7 && User.loggedIn()?.refRoleId == "1"{
                     cell.row.hidden = false
+                }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3{
+                     cell.row.hidden = false
                 }else if User.loggedIn()?.refRoleId == "2" || self.isClosed || self.orderObject?.isPiSend == 1{
                     cell.row.hidden = true
                 }
@@ -980,6 +985,11 @@ class OrderDetailController: FormViewController {
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
+        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+             let row = form.rowBy(tag: "Create Final Invoice")
+             row?.hidden = false
+             row?.evaluateHidden()
+             self.form.allSections.first?.reload(with: .none)
         }else{
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = true

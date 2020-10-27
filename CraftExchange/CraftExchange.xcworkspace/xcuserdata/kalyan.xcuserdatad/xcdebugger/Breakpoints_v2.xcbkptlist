@@ -206,10 +206,10 @@
             filePath = "CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1237"
-            endingLineNumber = "1237"
-            landmarkName = "viewInvoiceButtonSelected(tag:)"
-            landmarkType = "7">
+            startingLineNumber = "1247"
+            endingLineNumber = "1247"
+            landmarkName = "OrderDetailController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -254,8 +254,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,8 +270,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -286,8 +286,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/PaymentUploadController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "ViewTransactionBtnSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -302,8 +302,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +318,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
