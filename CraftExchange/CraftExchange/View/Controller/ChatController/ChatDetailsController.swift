@@ -92,8 +92,11 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         messagesCollectionView.messageCellDelegate = self
         
         showMessageTimestampOnSwipeLeft = true
-      //  messagesCollectionView.backgroundColor = #colorLiteral(red: 0.8401213515, green: 0.8401213515, blue: 0.8401213515, alpha: 1)
         
+        let image2View = UIImageView(frame: CGRect(x: 0, y: UIScreen.main.bounds.midY-167, width: 415, height: 254))
+        image2View.image = #imageLiteral(resourceName: "ChatCx.pdf")
+        messagesCollectionView.backgroundView =  UIImageView(image:#imageLiteral(resourceName: "ChatBg.pdf") )
+        messagesCollectionView.backgroundView?.addSubview(image2View)
         additionalBottomInset = 50
         
         messageInputBar.inputTextView.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
@@ -102,6 +105,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         messageInputBar.delegate = self
         setupInputButton()
         messages = []
+        
         
         definesPresentationContext = false
         self.setupSideMenu(true)

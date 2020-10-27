@@ -37,6 +37,10 @@ class ChatNewListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if KeychainManager.standard.userRoleId == 2{
+            chatNewListSearchBar.placeholder = "search by enquiry/ artisan's name"
+        }
+        
         self.pullToRefreshButton.isUserInteractionEnabled = false
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
@@ -100,6 +104,7 @@ extension ChatNewListController: UITableViewDataSource, UITableViewDelegate {
 
                 cell.lastMessage.text = ""
                 cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastUpdatedOn!)
+            cell.lastUpdatedTime.text = ""
         }
         
         return cell

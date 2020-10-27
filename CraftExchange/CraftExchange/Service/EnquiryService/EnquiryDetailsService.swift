@@ -50,8 +50,8 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.acceptMOQ(enquiryId: enquiryId, moqId: moqId, artisanId: artisanId).response(using: client).debug()
     }
     
-    func getPreviewPI(enquiryId: Int) -> SafeSignal<Data>{
-        return Enquiry.getPreviewPI(enquiryId: enquiryId).response(using: client).debug()
+    func getPreviewPI(enquiryId: Int, isOld: Int) -> SafeSignal<Data>{
+        return Enquiry.getPreviewPI(enquiryId: enquiryId, isOld: isOld).response(using: client).debug()
     }
     
     func downloadPI(enquiryId: Int) -> SafeSignal<Data>{
@@ -64,6 +64,10 @@ class EnquiryDetailsService: BaseService<Data> {
     
     func sendPI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int )-> SafeSignal<Data>  {
         return Enquiry.sendPI(enquiryId: enquiryId, cgst: cgst, expectedDateOfDelivery: expectedDateOfDelivery, hsn: hsn, ppu: ppu, quantity: quantity, sgst: sgst).response(using: client).debug()
+    }
+    
+    func sendFinalInvoice(enquiryId: String, advancePaidAmount: String, finalTotalAmount: Int, quantity: Int, ppu: Int, cgst: String , sgst: String, deliveryCharges: String )-> SafeSignal<Data>  {
+        return Enquiry.sendFinalInvoice(enquiryId: enquiryId, advancePaidAmount: advancePaidAmount, finalTotalAmount: finalTotalAmount, quantity: quantity, ppu: ppu, cgst: cgst, sgst: sgst, deliveryCharges: deliveryCharges).response(using: client).debug()
     }
     
     func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?)-> SafeSignal<Data>  {

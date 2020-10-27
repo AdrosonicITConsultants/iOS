@@ -41,7 +41,7 @@
                             </userDefinedRuntimeAttributes>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mac D House Mumbai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YML-Ym-gaS">
-                            <rect key="frame" x="80" y="15" width="204" height="17"/>
+                            <rect key="frame" x="80" y="15" width="209" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.73996668779999997" green="0.1721055765" blue="0.1443841645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -56,12 +56,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uEZ-l9-JJW">
-                            <rect key="frame" x="314" y="28" width="25" height="25"/>
+                            <rect key="frame" x="319" y="28" width="20" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="25" id="JjX-h1-pz5"/>
-                                <constraint firstAttribute="height" constant="25" id="cEA-8l-dwy"/>
+                                <constraint firstAttribute="width" constant="20" id="2nu-9e-i2Q"/>
+                                <constraint firstAttribute="height" constant="20" id="e5M-PH-9E9"/>
                             </constraints>
-                            <state key="normal" backgroundImage="red heart"/>
+                            <state key="normal" backgroundImage="ChatCR"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eW7-cR-SxK">
                             <rect key="frame" x="369" y="28.5" width="25" height="24"/>
@@ -76,7 +76,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.06375749143835617" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="eW7-cR-SxK" firstAttribute="leading" secondItem="uEZ-l9-JJW" secondAttribute="trailing" constant="30" id="NBj-kL-NWo"/>
                         <constraint firstItem="H1D-wf-6Yp" firstAttribute="top" secondItem="QBH-9W-XCy" secondAttribute="top" constant="15" id="QBa-l6-7zi"/>
@@ -122,14 +122,14 @@
                             </constraints>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                             <state key="normal" title="View Details">
-                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="viewDetailsButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="aew-ol-Lsf"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="gcw-s3-y7I" secondAttribute="trailing" constant="20" id="1Nx-DW-Nss"/>
                         <constraint firstAttribute="height" constant="40" id="4HL-LY-DJe"/>
@@ -159,15 +159,16 @@
                 <outlet property="escalationButton" destination="eW7-cR-SxK" id="cr0-Gu-VIU"/>
                 <outlet property="imageButton" destination="H1D-wf-6Yp" id="7Hk-2U-djP"/>
                 <outlet property="orderStatus" destination="LD0-4t-yQR" id="3yO-9D-ix0"/>
+                <outlet property="secondView" destination="NMa-hh-PMH" id="QMF-c4-TCE"/>
                 <outlet property="viewDetailsButton" destination="gcw-s3-y7I" id="Hfe-CK-iLJ"/>
             </connections>
             <point key="canvasLocation" x="173.91304347826087" y="112.5"/>
         </view>
     </objects>
     <resources>
+        <image name="ChatCR" width="22" height="22"/>
         <image name="circle.fill" catalog="system" width="64" height="60"/>
         <image name="exclamationmark.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="red heart" width="14" height="13"/>
         <image name="user" width="512" height="512"/>
     </resources>
 </document>

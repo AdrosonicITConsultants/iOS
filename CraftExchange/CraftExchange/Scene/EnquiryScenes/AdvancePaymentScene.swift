@@ -118,6 +118,8 @@ extension EnquiryDetailsService {
                                         row?.cell.AmountLabel.text = "Amount to be Paid as per PI: \(object.paidAmount)"
                                        
                                       
+                                    }else if let controller = vc as? OrderDetailController{
+                                        controller.advancePaymnet = object
                                     }
 
                                 }

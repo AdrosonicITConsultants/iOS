@@ -39,6 +39,9 @@ class ChatListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if KeychainManager.standard.userRoleId == 2{
+            chatListSearchBar.placeholder = "search by enquiry/ artisan's name"
+        }
         
         self.recentButton.isUserInteractionEnabled = false
         self.pullToRefreshButton.isUserInteractionEnabled = false
@@ -115,6 +118,7 @@ extension ChatListController: UITableViewDataSource, UITableViewDelegate {
         if let obj = allChat?[indexPath.row] {
              cell.configure(obj)
                 cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastChatDate!)
+            cell.lastUpdatedTime.text = Date().ttceFormatterTime(isoDate: obj.lastChatDate!)
         }
         
         return cell
@@ -160,6 +164,7 @@ extension ChatListController: UITableViewDataSource, UITableViewDelegate {
 
 extension ChatListController: UISearchBarDelegate {
     
+  
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }

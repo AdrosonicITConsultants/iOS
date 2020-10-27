@@ -16,6 +16,7 @@ class ChatCell: UITableViewCell {
     @IBOutlet weak var enquiryCode: UILabel!
     @IBOutlet weak var lastMessage: UILabel!
     @IBOutlet weak var lastUpdatedOn: UILabel!
+    @IBOutlet weak var lastUpdatedTime: UILabel!
     @IBOutlet weak var isEscalationPresent: UIButton!
     @IBOutlet weak var unreadMessages: RoundedButton!
     

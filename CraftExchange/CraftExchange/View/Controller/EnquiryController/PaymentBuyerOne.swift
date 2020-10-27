@@ -37,6 +37,18 @@ class PaymentBuyerOneController: FormViewController{
         
         form
             +++ Section()
+//            <<< LabelRow(){
+//                $0.cell.height = { 25.0 }
+//                $0.title = enquiryObject?.enquiryCode
+//            }
+//            <<< LabelRow(){
+//                $0.cell.height = { 20.0 }
+//                let date = Date().ttceFormatter(isoDate: (enquiryObject?.startedOn!)!)
+//                $0.title = "Date accepted: " + date
+//            }.cellUpdate({ (cell, row) in
+//                cell.textLabel?.textColor = .darkGray
+//                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
+//            })
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }

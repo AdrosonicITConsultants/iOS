@@ -101,6 +101,8 @@ extension Order {
                 object.firstName = firstName
  
                 object.gst = gst
+                object.deliveryChallanUploaded = deliveryChallanUploaded
+                object.deliveryChallanLabel = deliveryChallanLabel
                 object.historyProductId = historyProductId
                 object.innerEnquiryStageId = innerEnquiryStageId
                 object.isMoqSend = isMoqSend

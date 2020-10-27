@@ -76,8 +76,10 @@ class PaymentUploadController: FormViewController{
                 if let date = orderObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
                 }
+                print(orderObject?.productImages?.components(separatedBy: ",").first)
+                print(orderObject?.productId)
                 if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first ?? orderObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId ?? orderObject?.productId {
-                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                    if let downloadedImage = try? Disk.retrieve("\(prodId)" + tag, from: .caches, as: UIImage.self) {
                         $0.cell.productImage.image = downloadedImage
                     }else {
                         do {
@@ -85,7 +87,7 @@ class PaymentUploadController: FormViewController{
                             let service = ProductImageService.init(client: client)
                             service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
                                 DispatchQueue.main.async {
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)" + tag)
                                     let row = self.form.rowBy(tag: "EnquiryDetailsRow") as! EnquiryDetailsRow
                                     row.cell.productImage.image = UIImage.init(data: attachment)
                                     row.reload()

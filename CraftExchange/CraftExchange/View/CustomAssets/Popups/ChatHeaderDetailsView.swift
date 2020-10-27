@@ -33,5 +33,12 @@ class ChatHeaderDetailsView: UIView {
     @IBAction func closeDetailsButtonSelected(_ sender: Any) {
         delegate?.closeDetailsButtonSelected()
     }
+    override func layoutSubviews() {
+        self.layer.masksToBounds = false
+        self.layer.shadowRadius = 4
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0 , height:2)
+       }
     
 }

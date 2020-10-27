@@ -16,7 +16,8 @@ protocol InvoiceButtonProtocol {
 
 class ProFormaInvoiceRowView: Cell<String>, CellType {
 
-
+    @IBOutlet weak var nextStepsLabel: UILabel!
+    
     @IBOutlet weak var createSendInvoiceBtn: UIButton!
     
     var delegate: InvoiceButtonProtocol?

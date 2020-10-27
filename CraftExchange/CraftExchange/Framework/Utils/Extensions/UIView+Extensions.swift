@@ -40,6 +40,19 @@ extension UIView {
         shapeLayer.path = path
         layer.addSublayer(shapeLayer)
     }
+    func addBottomdBorder() {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = UIColor.darkGray.cgColor
+        shapeLayer.lineWidth = 0.3
+        shapeLayer.lineDashPattern = [1,0]
+        
+        let path = CGMutablePath()
+        path.addLines(between: [CGPoint(x: 0, y: self.frame.height),
+                                CGPoint(x: self.frame.width, y: self.frame.height)])
+        shapeLayer.path = path
+        layer.addSublayer(shapeLayer)
+    }
+
     
     func showEnquiryInitiationView() {
         if let _ = self.viewWithTag(123) {

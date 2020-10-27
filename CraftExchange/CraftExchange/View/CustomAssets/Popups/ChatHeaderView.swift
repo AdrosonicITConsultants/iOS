@@ -23,6 +23,7 @@ class ChatHeaderView: UIView {
     @IBOutlet var orderStatus: UILabel!
     @IBOutlet var viewDetailsButton: UIButton!
     
+    @IBOutlet weak var secondView: UIView!
     var delegate: ChatHeaderViewProtocol?
     
     @IBAction func viewDetailsButtonSelected(_ sender: Any) {
@@ -32,5 +33,8 @@ class ChatHeaderView: UIView {
     @IBAction func escalationButtonSelected(_ sender: Any) {
         delegate?.escalationButtonSelected()
     }
-    
+     override func layoutSubviews() {
+        secondView.addBottomdBorder()
+//        secondView.addBorder(side: .bottom, color: UIColor.black, leftOffset: 15.0)
+    }
 }
