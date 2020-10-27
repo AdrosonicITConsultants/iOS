@@ -297,7 +297,7 @@ extension EnquiryDetailsService {
                             if json["valid"] as? Bool == true {
                                 DispatchQueue.main.async {
                                     vc.hideLoading()
-                                    vc.popBack(toControllerType: OrderDetailController.self)
+                                    vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
                                 }
                             }
                         }

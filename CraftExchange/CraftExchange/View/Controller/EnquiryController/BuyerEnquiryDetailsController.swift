@@ -196,7 +196,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.hidden = isClosed == true ? false : true
             }
             
-            
             <<< AcceptedInvoiceRow() {
                 $0.cell.height = { 120.0 }
                 $0.tag = "View Invoice & Approve Advance Payment"
