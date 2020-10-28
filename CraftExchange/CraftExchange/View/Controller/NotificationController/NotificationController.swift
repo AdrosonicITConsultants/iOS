@@ -76,17 +76,17 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
         
         switch notificationType {
             case "Enquiry Generated", "Enquiry Closed":
-            enquiryImage = #imageLiteral(resourceName: "Enquiry.pdf")
+                enquiryImage = UIImage.init(named: "Enquiry")
             case "Moq Received","Moq accepted":
-            enquiryImage = #imageLiteral(resourceName: "MOQ.pdf")
-            case "Pi finalized", "Tax Invoice Raised","Delivery Challan Uploaded","Order Received":
-            enquiryImage = #imageLiteral(resourceName: "Pi.pdf")
+                enquiryImage = UIImage.init(named: "MOQ")
+            case "Pi finalized", "Tax Invoice Raised", "Delivery Challan Uploaded", "Order Received":
+                enquiryImage = UIImage.init(named: "Pi")
             case "Advance Payment Received", "Advanced Payment Accepted":
-            enquiryImage = #imageLiteral(resourceName: "AdvancePayment.pdf")
+                enquiryImage = UIImage.init(named: "AdvancePayment")
             case "Change Requested Initiated","Change Requested Accepted":
-            enquiryImage = #imageLiteral(resourceName: "ChnageRequest.pdf")
+                enquiryImage = UIImage.init(named: "ChangeRequest")
             default:
-        enquiryImage = #imageLiteral(resourceName: "Enquiry.pdf")
+                enquiryImage = UIImage.init(named: "Enquiry")
         }
         cell.enquiryIcon.image = enquiryImage
         

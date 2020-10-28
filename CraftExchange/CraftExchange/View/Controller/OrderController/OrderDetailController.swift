@@ -311,9 +311,8 @@ class OrderDetailController: FormViewController {
                 if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 5 && self.isClosed == false {
                     cell.row.hidden = false
                     cell.height = { 125.0 }
-                    
                 }
-                else{
+                else {
                     cell.row.hidden = true
                     cell.height = { 0.0 }
                 }
@@ -387,7 +386,7 @@ class OrderDetailController: FormViewController {
                 $0.tag = "Create Final Invoice"
                 $0.cell.tag = 100
                 $0.cell.nextStepsLabel.text = ""
-                $0.cell.createSendInvoiceBtn.setTitle("Create& Send Final Invoice", for: .normal)
+                $0.cell.createSendInvoiceBtn.setTitle("Create & Send Final Invoice".localized, for: .normal)
                 if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
                     $0.hidden = false
                 }
@@ -978,7 +977,7 @@ class OrderDetailController: FormViewController {
     
     func reloadFormData() {
         orderObject = realm?.objects(Order.self).filter("%K == %@","entityID",orderObject?.entityID ?? 0).first
-        
+
         if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 4  {
             let row = form.rowBy(tag: "Check advance Payment receipt")
             row?.hidden = false
@@ -991,7 +990,7 @@ class OrderDetailController: FormViewController {
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
-        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3 {
              let row = form.rowBy(tag: "Create Final Invoice")
              row?.hidden = false
              row?.evaluateHidden()
@@ -1004,29 +1003,29 @@ class OrderDetailController: FormViewController {
         }
 
        if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
-         let row = form.rowBy(tag: "Upload final payment receipt")
-           row?.hidden = false
-           row?.evaluateHidden()
-           self.form.allSections.first?.reload(with: .none)
+        let row = form.rowBy(tag: "Upload final payment receipt")
+        row?.hidden = false
+        row?.evaluateHidden()
+        self.form.allSections.first?.reload(with: .none)
        }
        else {
-            let row = form.rowBy(tag: "Upload final payment receipt")
-                      row?.hidden = true
-                      row?.evaluateHidden()
-                      self.form.allSections.first?.reload(with: .none)
+        let row = form.rowBy(tag: "Upload final payment receipt")
+        row?.hidden = true
+        row?.evaluateHidden()
+        self.form.allSections.first?.reload(with: .none)
        }
         
         if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
-          let row = form.rowBy(tag: "Approve final payment receipt")
+            let row = form.rowBy(tag: "Approve final payment receipt")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
         else {
-             let row = form.rowBy(tag: "Approve final payment receipt")
-                       row?.hidden = true
-                       row?.evaluateHidden()
-                       self.form.allSections.first?.reload(with: .none)
+            let row = form.rowBy(tag: "Approve final payment receipt")
+            row?.hidden = true
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
         }
         if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
             let row = form.rowBy(tag: "Upload delivery receipt")

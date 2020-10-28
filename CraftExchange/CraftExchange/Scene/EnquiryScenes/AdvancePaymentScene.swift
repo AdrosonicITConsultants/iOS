@@ -326,6 +326,8 @@ extension EnquiryDetailsService {
                         vc.hideLoading()
                         if let controller = vc as? BuyerEnquiryDetailsController {
                             controller.viewWillAppear?()
+                        }else if let controller = vc as? OrderDetailController {
+                            controller.viewWillAppear?()
                         }
                     }
                 }

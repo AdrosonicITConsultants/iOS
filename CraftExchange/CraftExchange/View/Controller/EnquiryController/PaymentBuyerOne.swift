@@ -114,7 +114,6 @@ class PaymentBuyerOneController: FormViewController{
                 $0.cell.thirtyBtn.layer.borderColor = UIColor.green.cgColor
                 $0.cell.ActualAmount.layer.borderColor = UIColor.blue.cgColor
                 $0.cell.ActualAmount.layer.borderWidth = 2.0
-               
             }.cellUpdate({ (cell, row) in
                 if self.value == 30 {
                      cell.TransactionBtn.setTitle("proceed with 30 percent ", for: .normal)
