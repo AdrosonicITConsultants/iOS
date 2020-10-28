@@ -151,12 +151,9 @@ extension PaymentArtistController: ApproveButtonProtocol {
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let service = EnquiryDetailsService.init(client: client)
             if let order = self.orderObject {
-                if self.orderObject?.enquiryStageId == 8{
-                   service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
-                }else{
-                    service.validatePaymentFunc(vc: self,typeId: 1, enquiryId: order.enquiryId, status: self.status!)
-                }
-                
+               service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
+            }else if let enquiry = self.enquiryObject {
+                service.validatePaymentFunc(vc: self,typeId: 1, enquiryId: enquiry.enquiryId, status: self.status!)
             }
         default:
             print("do nothing")
@@ -171,12 +168,9 @@ extension PaymentArtistController: ApproveButtonProtocol {
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let service = EnquiryDetailsService.init(client: client)
             if let order = self.orderObject {
-                if self.orderObject?.enquiryStageId == 8{
-                    service.validatePaymentFunc(vc: self,typeId:2, enquiryId: order.enquiryId, status: self.status!)
-                }else{
-                    service.validatePaymentFunc(vc: self,typeId:1, enquiryId: order.enquiryId, status: self.status!)
-                }
-                
+                service.validatePaymentFunc(vc: self,typeId:2, enquiryId: order.enquiryId, status: self.status!)
+            }else if let enquiry = self.enquiryObject {
+                service.validatePaymentFunc(vc: self,typeId:1, enquiryId: enquiry.enquiryId, status: self.status!)
             }
         default:
              print("do nothing")

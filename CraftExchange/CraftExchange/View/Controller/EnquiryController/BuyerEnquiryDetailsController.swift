@@ -196,7 +196,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.hidden = isClosed == true ? false : true
             }
             
-            
             <<< AcceptedInvoiceRow() {
                 $0.cell.height = { 120.0 }
                 $0.tag = "View Invoice & Approve Advance Payment"
@@ -325,7 +324,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 else {
                     $0.hidden = true
                 }
-                if self.enquiryObject?.productStatusId == 2 {
+                if self.enquiryObject?.productStatusId == 2 || self.enquiryObject!.isBlue || enquiryObject!.enquiryStageId > 3 {
                     $0.cell.uploadReceiptBtn.isHidden = true
                     $0.cell.height = { 80.0 }
                 }
@@ -745,7 +744,12 @@ class BuyerEnquiryDetailsController: FormViewController {
     
     func reloadFormData() {
         enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
-        
+        if self.enquiryObject?.productStatusId == 2 || self.enquiryObject!.isBlue || enquiryObject!.enquiryStageId > 3 {
+            let row = form.rowBy(tag: "UploadReceipt") as? TransactionReceiptRow
+            row?.cell.uploadReceiptBtn.isHidden = true
+            row?.cell.height = { 80.0 }
+            self.form.allSections.first?.reload(with: .none)
+        }
         if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {
             let row = form.rowBy(tag: "Check advance Payment receipt")
             row?.hidden = false
