@@ -119,11 +119,17 @@ extension EnquiryDetailsService {
                                                                             row?.cell.ImageReceit.image = UIImage(data: finalData)
                                                        //  controller.hideLoading()
                                                       
+                                                    }else if let controller = vc as? OrderDetailController {
+                                                        controller.hideLoading()
+                                                        controller.view.showTransactionReceiptView(controller: controller, data: finalData)
                                                     }
                                                 }
                                             }
+                                            
                                         }
                                     }.resume()
+                                    vc.hideLoading()
+
                                 }
                             }
                         }
@@ -168,10 +174,16 @@ extension EnquiryDetailsService {
                                                        //  controller.hideLoading()
                                                       
                                                     }
+                                                    else if let controller = vc as? OrderDetailController {
+                                                        controller.hideLoading()
+                                                        controller.view.showTransactionReceiptView(controller: controller, data: finalData)
+                                                    }
                                                 }
                                             }
+                                            
                                         }
                                     }.resume()
+                                    vc.hideLoading()
                                 }
                             }
                         }

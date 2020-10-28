@@ -14,11 +14,26 @@
             filePath = "CraftExchange/Scene/ChatScenes/ChatDetailsScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "createScene(forChat:enquiryId:)"
             landmarkType = "7">
             <Locations>
+               <Location
+                  uuid = "7E7803E7-4AE5-4A22-A3B9-79DBABC7F36A - c5f0815c8ef8ae5d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Craft_Xchange.ChatDetailsService.createScene(forChat: Swift.Optional&lt;Craft_Xchange.Chat&gt;, enquiryId: Swift.Int) -&gt; __C.UIViewController"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/ChatScenes/ChatDetailsScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "668">
+               </Location>
                <Location
                   uuid = "7E7803E7-4AE5-4A22-A3B9-79DBABC7F36A - db3839657f0f3ffd"
                   shouldBeEnabled = "Yes"
@@ -30,24 +45,9 @@
                   urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/ChatScenes/ChatDetailsScene.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
                   offsetFromSymbolStart = "120">
-               </Location>
-               <Location
-                  uuid = "7E7803E7-4AE5-4A22-A3B9-79DBABC7F36A - 6e8035582a5db676"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Craft_Xchange.ChatDetailsController, Foundation.Data) -&gt; () in closure #4 () -&gt; () in Craft_Xchange.ChatDetailsService.createScene(forChat: Swift.Optional&lt;Craft_Xchange.Chat&gt;, enquiryId: Swift.Int) -&gt; __C.UIViewController"
-                  moduleName = "Craft Xchange"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/ChatScenes/ChatDetailsScene.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "205">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -62,10 +62,42 @@
             filePath = "CraftExchange/Scene/ChatScenes/ChatDetailsScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "createScene(forChat:enquiryId:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4A46A975-8715-4B0B-B6B9-6C4247FE2DC4 - db3839657f0f3ffd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 () -&gt; () in Craft_Xchange.ChatDetailsService.createScene(forChat: Swift.Optional&lt;Craft_Xchange.Chat&gt;, enquiryId: Swift.Int) -&gt; __C.UIViewController"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/ChatScenes/ChatDetailsScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "120">
+               </Location>
+               <Location
+                  uuid = "4A46A975-8715-4B0B-B6B9-6C4247FE2DC4 - 6e8035582a5db676"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Craft_Xchange.ChatDetailsController, Foundation.Data) -&gt; () in closure #4 () -&gt; () in Craft_Xchange.ChatDetailsService.createScene(forChat: Swift.Optional&lt;Craft_Xchange.Chat&gt;, enquiryId: Swift.Int) -&gt; __C.UIViewController"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/ChatScenes/ChatDetailsScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "205">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -78,8 +110,8 @@
             filePath = "CraftExchange/View/Controller/ChatController/ChatDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +238,8 @@
             filePath = "CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1250"
-            endingLineNumber = "1250"
+            startingLineNumber = "1255"
+            endingLineNumber = "1255"
             landmarkName = "OrderDetailController"
             landmarkType = "3">
          </BreakpointContent>
@@ -231,69 +263,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3CE862CF-0EAB-475C-9D0F-C68C04CFB67E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3CE862CF-0EAB-475C-9D0F-C68C04CFB67E - 8ac04f041eec4fa1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Craft_Xchange.OrderDetailController.viewDidLoad() -&gt; ()"
-                  moduleName = "Craft Xchange"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "4776">
-               </Location>
-               <Location
-                  uuid = "3CE862CF-0EAB-475C-9D0F-C68C04CFB67E - 3701073117deaea"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #4 (Craft_Xchange.EnquiryDetailsRow) -&gt; () in Craft_Xchange.OrderDetailController.viewDidLoad() -&gt; ()"
-                  moduleName = "Craft Xchange"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "12420">
-               </Location>
-               <Location
-                  uuid = "3CE862CF-0EAB-475C-9D0F-C68C04CFB67E - 140cf99f45780e8a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #5 (Craft_Xchange.EnquiryDetailRowView, Craft_Xchange.EnquiryDetailsRow) -&gt; () in Craft_Xchange.OrderDetailController.viewDidLoad() -&gt; ()"
-                  moduleName = "Craft Xchange"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "128"
-                  endingLineNumber = "128"
-                  offsetFromSymbolStart = "275">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "C1AAA775-2A22-447D-8ADD-1B3771216E1B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -301,8 +270,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -317,8 +286,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -365,8 +334,8 @@
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -384,6 +353,38 @@
             startingLineNumber = "86"
             endingLineNumber = "86"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2E9343BA-B5BE-49A4-87EA-2678D830983F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/View/Controller/OrderController/OrderDetailController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1536"
+            endingLineNumber = "1536"
+            landmarkName = "viewTransactionReceipt(tag:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05A08E8B-39C2-485D-847E-9A6D30BCCDBD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "downloadAndViewReceipt(vc:enquiryId:typeId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
