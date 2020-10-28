@@ -368,7 +368,7 @@ extension PaymentUploadController: uploadtransactionProtocol, uploadSuccessProto
         if orderObject?.enquiryStageId == 8{
             imageReciept?(2)
         }else{
-             imageReciept?(1)
+            imageReciept?(1)
         }
         if self.data != nil{
              self.view.showTransactionReceiptView(controller: self, data: self.data!)
