@@ -279,7 +279,7 @@ extension Enquiry {
     
     public static func getPreviewPI(enquiryId: Int, isOld: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
-        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)&isOld=\(isOld)"
+        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)&isOld=\(isOld == 1 ? true : false)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,
