@@ -39,22 +39,16 @@ extension ChatDetailsService {
                                         var i = 0
                                         var eqArray: [Int] = []
                                         DispatchQueue.main.async {
-                                            if controller.messages == [] {
-                                                for obj in chatObj {
-                                                                                               i+=1
-                                                                                               obj.saveOrUpdate()
-                                                                                               eqArray.append(obj.entityID)
-                                                                                               print("\(obj)")
-                                                                                               
-                                                                                           }
-                                                if i == chatObj.count {
-                                                    controller.id = eqArray
-                                                    
-                                                }
+                                            for obj in chatObj {
+                                                i+=1
+                                                obj.saveOrUpdate()
+                                                eqArray.append(obj.entityID)
+                                                print("\(obj)")
                                             }
-                                            
-                                           
-                                            
+                                            if i == chatObj.count {
+                                                controller.id = eqArray
+                                                
+                                            }
                                             controller.endRefresh()
                                         }
                                     }
