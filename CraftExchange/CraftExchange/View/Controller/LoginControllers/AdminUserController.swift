@@ -43,18 +43,21 @@ class AdminUserController: UIViewController {
         //        let storyboard = UIStoryboard(name: "AdminUserDatabase", bundle: nil)
         //        let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminBuyerUserDetailController") as! AdminBuyerUserDetailController
         //        vc1.modalPresentationStyle = .fullScreen
-        let storyboard = UIStoryboard(name: "AdminUserDatabase", bundle: nil)
-        let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUserDetailController") as! AdminUserDetailController
+//        let storyboard = UIStoryboard(name: "AdminProductCatalogue", bundle: nil)
+//        let vc1 = storyboard.instantiateViewController(withIdentifier: "ProductCatalogueController") as! ProductCatalogueController
+//        vc1.modalPresentationStyle = .fullScreen
+//        //        self.navigationController?.pushViewController(vc1, animated: true)
+//        self.present(vc1, animated: true, completion: nil)
+//        
+        let storyboard = UIStoryboard(name: "AdminProductCatalogue", bundle: nil)
+        let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUploadProductController") as! AdminUploadProductController
         vc1.modalPresentationStyle = .fullScreen
-        //        self.navigationController?.pushViewController(vc1, animated: true)
         self.present(vc1, animated: true, completion: nil)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Trial.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
-        self.navigationItem.title = "Hello Kiran"
     }
     
     override func viewWillAppear(_ animated: Bool) {

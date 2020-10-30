@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageSelectorCell" id="Voa-ka-oYF" customClass="ImageSelectorCell" customModule="CraftExchange" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageSelectorCell" id="Voa-ka-oYF" customClass="ImageSelectorCell" customModule="Craft_Xchange_Admin" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="tCf-b1-F9K">
@@ -55,7 +55,7 @@
                         </connections>
                     </button>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="KbQ-iX-JBw" firstAttribute="centerX" secondItem="Sbd-oC-t0G" secondAttribute="centerX" id="1rp-4m-Vgt"/>
                     <constraint firstItem="Sbd-oC-t0G" firstAttribute="leading" secondItem="kON-34-mIo" secondAttribute="trailing" constant="10" id="3uW-Rg-BIS"/>

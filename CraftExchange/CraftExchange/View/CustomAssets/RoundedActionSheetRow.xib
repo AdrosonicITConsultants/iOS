@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bZ2-0Y-rTH" customClass="RoundedActionSheetView" customModule="CraftExchange" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bZ2-0Y-rTH" customClass="RoundedActionSheetView" customModule="Craft_Xchange_Admin" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bZ2-0Y-rTH" id="XHU-2l-u7k">
@@ -21,10 +21,10 @@
                             <constraint firstAttribute="height" constant="15" id="IcR-xk-ozr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ws7-4K-pyD" customClass="RoundedButton" customModule="CraftExchange" customModuleProvider="target">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ws7-4K-pyD" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
                         <rect key="frame" x="20" y="29" width="374" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="QhN-EZ-Xb7"/>
@@ -32,7 +32,7 @@
                         <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="360" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal">
-                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="titleShadowColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <userDefinedRuntimeAttributes>
@@ -40,7 +40,7 @@
                                 <real key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
-                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
@@ -63,6 +63,7 @@
                         </constraints>
                     </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="NvH-FD-Nu2" firstAttribute="top" secondItem="XHU-2l-u7k" secondAttribute="top" constant="6" id="2Rr-a6-d70"/>
                     <constraint firstItem="Ws7-4K-pyD" firstAttribute="leading" secondItem="XHU-2l-u7k" secondAttribute="leading" constant="20" id="9fR-1m-KDg"/>

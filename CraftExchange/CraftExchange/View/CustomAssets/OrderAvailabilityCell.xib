@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderAvailabilityCell" rowHeight="185" id="QNg-n9-6fP" customClass="OrderAvailabilityCellView" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderAvailabilityCell" rowHeight="185" id="QNg-n9-6fP" customClass="OrderAvailabilityCellView" customModule="Craft_Xchange_Admin" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="185"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QNg-n9-6fP" id="E8h-BP-ceh">
@@ -37,7 +37,7 @@
                             <constraint firstAttribute="width" constant="107" id="Ufy-re-BuG"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available in stock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khU-Y2-Z3u">
@@ -46,10 +46,11 @@
                             <constraint firstAttribute="width" constant="132" id="3Ir-d9-1Zt"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="oIq-ks-faK" firstAttribute="leading" secondItem="xh8-2e-k3U" secondAttribute="trailing" constant="73" id="8xQ-33-67l"/>
                     <constraint firstItem="khU-Y2-Z3u" firstAttribute="centerX" secondItem="oIq-ks-faK" secondAttribute="centerX" id="Bhd-kQ-PSj"/>

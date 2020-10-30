@@ -68,7 +68,7 @@ class MarketHomeController: FormViewController {
                 $0.cell.tag = 109
                 $0.cell.ActionLabel.text = "Fault and Escalations"
                 $0.cell.LowerActionLabel.text = "3454"
-                $0.cell.ActionImg.image = UIImage(named: "AppIcon")
+                $0.cell.ActionImg.image = UIImage(named: "Icon ionic-ios-alert (1)")
                 $0.cell.height = { 80.0 }
             }
             <<< MarketActionsRow() {

@@ -25,6 +25,12 @@
 		115338A72542DB9200BF4204 /* LabelUnderlinedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338A52542DB9200BF4204 /* LabelUnderlinedView.swift */; };
 		115338A82542DB9200BF4204 /* LabelUnderlinedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115338A62542DB9200BF4204 /* LabelUnderlinedView.xib */; };
 		115338AA2542E08F00BF4204 /* AdminBuyerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */; };
+		115338AC2546E8DD00BF4204 /* AdminProductCatalogue.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115338AB2546E8DC00BF4204 /* AdminProductCatalogue.storyboard */; };
+		115338AF2546EEAE00BF4204 /* ProductCatalogueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338AE2546EEAE00BF4204 /* ProductCatalogueController.swift */; };
+		115338B12547F35400BF4204 /* AdminProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338B02547F35400BF4204 /* AdminProductDetailController.swift */; };
+		115338B52547FB8800BF4204 /* ProdImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338B32547FB8800BF4204 /* ProdImagesView.swift */; };
+		115338B62547FB8800BF4204 /* ProdImagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115338B42547FB8800BF4204 /* ProdImagesView.xib */; };
+		115338B825494D9900BF4204 /* AdminUploadProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338B725494D9700BF4204 /* AdminUploadProductController.swift */; };
 		11C849B325304C3C00729355 /* LoginMarketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C849B225304C3C00729355 /* LoginMarketController.swift */; };
 		11C849B5253054B200729355 /* MarketHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C849B4253054B200729355 /* MarketHomeController.swift */; };
 		11ECC7F22534BDBA00F8621C /* AdminHomeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ECC7F02534BDBA00F8621C /* AdminHomeHeader.swift */; };
@@ -384,6 +390,12 @@
 		115338A52542DB9200BF4204 /* LabelUnderlinedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelUnderlinedView.swift; sourceTree = "<group>"; };
 		115338A62542DB9200BF4204 /* LabelUnderlinedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelUnderlinedView.xib; sourceTree = "<group>"; };
 		115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminBuyerInfo.swift; sourceTree = "<group>"; };
+		115338AB2546E8DC00BF4204 /* AdminProductCatalogue.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdminProductCatalogue.storyboard; sourceTree = "<group>"; };
+		115338AE2546EEAE00BF4204 /* ProductCatalogueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCatalogueController.swift; sourceTree = "<group>"; };
+		115338B02547F35400BF4204 /* AdminProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminProductDetailController.swift; sourceTree = "<group>"; };
+		115338B32547FB8800BF4204 /* ProdImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdImagesView.swift; sourceTree = "<group>"; };
+		115338B42547FB8800BF4204 /* ProdImagesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdImagesView.xib; sourceTree = "<group>"; };
+		115338B725494D9700BF4204 /* AdminUploadProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUploadProductController.swift; sourceTree = "<group>"; };
 		11C849B225304C3C00729355 /* LoginMarketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMarketController.swift; sourceTree = "<group>"; };
 		11C849B4253054B200729355 /* MarketHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHomeController.swift; sourceTree = "<group>"; };
 		11ECC7F02534BDBA00F8621C /* AdminHomeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHomeHeader.swift; sourceTree = "<group>"; };
@@ -756,6 +768,25 @@
 			path = AdminDetailCells;
 			sourceTree = "<group>";
 		};
+		115338AD2546EC9600BF4204 /* AdminProductCatalg */ = {
+			isa = PBXGroup;
+			children = (
+				115338AE2546EEAE00BF4204 /* ProductCatalogueController.swift */,
+				115338B02547F35400BF4204 /* AdminProductDetailController.swift */,
+				115338B725494D9700BF4204 /* AdminUploadProductController.swift */,
+			);
+			path = AdminProductCatalg;
+			sourceTree = "<group>";
+		};
+		115338B22547FB3B00BF4204 /* AdminProductCatalogueCells */ = {
+			isa = PBXGroup;
+			children = (
+				115338B32547FB8800BF4204 /* ProdImagesView.swift */,
+				115338B42547FB8800BF4204 /* ProdImagesView.xib */,
+			);
+			path = AdminProductCatalogueCells;
+			sourceTree = "<group>";
+		};
 		300D9F8CF38CB340DAEB48A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1038,6 +1069,7 @@
 			isa = PBXGroup;
 			children = (
 				C02EE1A4253DC9150039B1C9 /* DefaultViewController.swift */,
+				115338AD2546EC9600BF4204 /* AdminProductCatalg */,
 				C06570B2252BAAC9001140C7 /* TransactionController */,
 				309598802510FAE200491E33 /* DashboardController */,
 				C016EC162510D3140039B7AF /* NotificationController */,
@@ -1071,6 +1103,7 @@
 				C06570B0252BA839001140C7 /* Transaction.storyboard */,
 				30E3C639252B340600AB95E5 /* Payment.storyboard */,
 				11173F5825417CA00027B9C3 /* AdminUserDatabase.storyboard */,
+				115338AB2546E8DC00BF4204 /* AdminProductCatalogue.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1294,6 +1327,7 @@
 		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
 			isa = PBXGroup;
 			children = (
+				115338B22547FB3B00BF4204 /* AdminProductCatalogueCells */,
 				1153389E2542BB4600BF4204 /* AdminDetailCells */,
 				C06570A7252B910F001140C7 /* TransactionCells */,
 				C09F97DD25021BE30076F917 /* EnquiryCells */,
@@ -1751,6 +1785,7 @@
 				C0A9108C247CD8D000852695 /* Lato-Thin.ttf in Resources */,
 				C0A91090247CD8D000852695 /* Lato-BlackItalic.ttf in Resources */,
 				C0AAC392249272AC008C2047 /* RoundedTextFieldRow.xib in Resources */,
+				115338B62547FB8800BF4204 /* ProdImagesView.xib in Resources */,
 				C06570B1252BA839001140C7 /* Transaction.storyboard in Resources */,
 				309787832524AE5400F9B608 /* AcceptedPIView.xib in Resources */,
 				C0144AB924843D66006FF4AB /* ForgotPassword.storyboard in Resources */,
@@ -1774,6 +1809,7 @@
 				C0AE9CF924ED7E970037ECB3 /* ToggleOptionRow.xib in Resources */,
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
 				114186BA2535C90F0039B80F /* AdminLabelCell.xib in Resources */,
+				115338AC2546E8DD00BF4204 /* AdminProductCatalogue.storyboard in Resources */,
 				C06DCAC124D2EC2B00F1435F /* DimensionsCardCell.xib in Resources */,
 				C05E3ADE24D1EEC100963FAA /* ImageSelectorCell.xib in Resources */,
 				C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */,
@@ -1933,6 +1969,7 @@
 				C016EC1E2510D4F20039B7AF /* Notification+Request.swift in Sources */,
 				C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
+				115338B52547FB8800BF4204 /* ProdImagesView.swift in Sources */,
 				1148DB982541D5BA0052B8D6 /* AdminGeneralInfo.swift in Sources */,
 				C09B3F1224BA615900FBC115 /* Disk+VolumeInformation.swift in Sources */,
 				C0AAC3942492BB8A008C2047 /* RoundedActionSheetRow.swift in Sources */,
@@ -1970,6 +2007,7 @@
 				C0ACE99424852A5B00EFA4ED /* CXUser.swift in Sources */,
 				C0917DDE24D43302006B6664 /* ProductType.swift in Sources */,
 				C0930D3D2506223200DC9274 /* BuyerEnquirySectionView.swift in Sources */,
+				115338AF2546EEAE00BF4204 /* ProductCatalogueController.swift in Sources */,
 				C09B3F1324BA615900FBC115 /* Disk+[UIImage].swift in Sources */,
 				C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */,
 				C0A0D76624BE442F0089CC47 /* OfflineProfileActionsRequest.swift in Sources */,
@@ -2031,6 +2069,7 @@
 				C0917DF424D47361006B6664 /* Yarn+Transaction.swift in Sources */,
 				C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */,
 				307B3985252C917D000028AC /* TransactionReceiptView.swift in Sources */,
+				115338B825494D9900BF4204 /* AdminUploadProductController.swift in Sources */,
 				C06DCAC324D33A9E00F1435F /* ButtonWithImage.swift in Sources */,
 				C09B3F1024BA615900FBC115 /* Disk+Errors.swift in Sources */,
 				C071E236247EB69D0085805B /* Role.swift in Sources */,
@@ -2039,6 +2078,7 @@
 				C04842BC24E7C62B00D3207F /* CustomProduct.swift in Sources */,
 				C06570AD252B9B25001140C7 /* TransactionStatus+Transaction.swift in Sources */,
 				C0917DEC24D4636C006B6664 /* ReedCount.swift in Sources */,
+				115338B12547F35400BF4204 /* AdminProductDetailController.swift in Sources */,
 				C071E249247EE59E0085805B /* Client.swift in Sources */,
 				C05E3AD724D1B31F00963FAA /* UploadProductService.swift in Sources */,
 				C0917DFA24D474E3006B6664 /* ProductCare+Transaction.swift in Sources */,

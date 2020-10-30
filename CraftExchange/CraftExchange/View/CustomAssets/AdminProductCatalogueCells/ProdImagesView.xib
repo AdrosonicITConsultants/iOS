@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="295" id="KGk-i7-Jjw" customClass="ProdImagesView" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="295"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="295"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Red Yellow  Katan Silk Fabric" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx1-Aj-EsF">
+                        <rect key="frame" x="0.0" y="54" width="414" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="414" id="XON-ow-25U"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IIN-3D-0jJ">
+                        <rect key="frame" x="0.0" y="126" width="414" height="129"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coverImage" translatesAutoresizingMaskIntoConstraints="NO" id="Af5-jv-8iw">
+                                <rect key="frame" x="8" y="8" width="122" height="113"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fabric" translatesAutoresizingMaskIntoConstraints="NO" id="O1O-fO-wQM">
+                                <rect key="frame" x="146" y="8" width="122" height="113"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fashion accessories" translatesAutoresizingMaskIntoConstraints="NO" id="bja-EC-I8o">
+                                <rect key="frame" x="284" y="8" width="122" height="113"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="bja-EC-I8o" firstAttribute="leading" secondItem="O1O-fO-wQM" secondAttribute="trailing" constant="16" id="8Re-P0-Z8e"/>
+                            <constraint firstItem="bja-EC-I8o" firstAttribute="trailing" secondItem="IIN-3D-0jJ" secondAttribute="trailingMargin" id="AJs-he-O9Z"/>
+                            <constraint firstAttribute="width" constant="414" id="AMq-Jj-KTT"/>
+                            <constraint firstItem="O1O-fO-wQM" firstAttribute="width" secondItem="Af5-jv-8iw" secondAttribute="width" id="Gtq-0k-pRU"/>
+                            <constraint firstItem="Af5-jv-8iw" firstAttribute="leading" secondItem="IIN-3D-0jJ" secondAttribute="leadingMargin" id="I67-Rf-6Mw"/>
+                            <constraint firstAttribute="bottom" secondItem="Af5-jv-8iw" secondAttribute="bottom" constant="9" id="MR0-5j-QIV"/>
+                            <constraint firstItem="Af5-jv-8iw" firstAttribute="centerY" secondItem="IIN-3D-0jJ" secondAttribute="centerY" id="Mrz-0V-FzB"/>
+                            <constraint firstItem="O1O-fO-wQM" firstAttribute="top" secondItem="bja-EC-I8o" secondAttribute="top" id="NEw-50-Wos"/>
+                            <constraint firstItem="Af5-jv-8iw" firstAttribute="top" secondItem="IIN-3D-0jJ" secondAttribute="topMargin" id="Zwa-SB-Sga"/>
+                            <constraint firstItem="Af5-jv-8iw" firstAttribute="top" secondItem="O1O-fO-wQM" secondAttribute="top" id="boJ-qh-j4A"/>
+                            <constraint firstItem="bja-EC-I8o" firstAttribute="width" secondItem="Af5-jv-8iw" secondAttribute="width" id="cbc-qH-2Nj"/>
+                            <constraint firstItem="O1O-fO-wQM" firstAttribute="centerX" secondItem="IIN-3D-0jJ" secondAttribute="centerX" id="dTt-bD-Znu"/>
+                            <constraint firstItem="O1O-fO-wQM" firstAttribute="leading" secondItem="Af5-jv-8iw" secondAttribute="trailing" constant="16" id="gO9-vE-uoB"/>
+                            <constraint firstItem="O1O-fO-wQM" firstAttribute="height" secondItem="Af5-jv-8iw" secondAttribute="height" id="jsm-nc-WOU"/>
+                            <constraint firstItem="bja-EC-I8o" firstAttribute="height" secondItem="Af5-jv-8iw" secondAttribute="height" id="tLw-DB-hGm"/>
+                        </constraints>
+                        <viewLayoutGuide key="contentLayoutGuide" id="aSG-u1-vIP"/>
+                        <viewLayoutGuide key="frameLayoutGuide" id="yFS-QV-gbs"/>
+                    </scrollView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Product code: XY_ZX_AB1988" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4Q-dh-1Om">
+                        <rect key="frame" x="0.0" y="85" width="414" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="414" id="Cua-VS-iZR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="28n-6W-x2z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3WM-rR-hNu">
+                                <rect key="frame" x="364" y="10" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="vNS-ON-l6B"/>
+                                </constraints>
+                                <state key="normal" image="edit"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oE-Yd-oDJ">
+                                <rect key="frame" x="55" y="10" width="30" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="hCN-Q8-bPm"/>
+                                </constraints>
+                                <state key="normal" image="Dry Clean Only"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8hO-RB-Lme">
+                                <rect key="frame" x="10" y="10" width="30" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="53p-z7-tec"/>
+                                </constraints>
+                                <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9oE-Yd-oDJ" firstAttribute="top" secondItem="28n-6W-x2z" secondAttribute="top" constant="10" id="J2K-Cd-HIC"/>
+                            <constraint firstItem="3WM-rR-hNu" firstAttribute="top" secondItem="28n-6W-x2z" secondAttribute="top" constant="10" id="PHh-gH-fbq"/>
+                            <constraint firstAttribute="width" constant="414" id="Qpp-y3-gNT"/>
+                            <constraint firstItem="8hO-RB-Lme" firstAttribute="leading" secondItem="28n-6W-x2z" secondAttribute="leading" constant="10" id="esj-FG-V5c"/>
+                            <constraint firstItem="8hO-RB-Lme" firstAttribute="top" secondItem="28n-6W-x2z" secondAttribute="top" constant="10" id="p4r-dW-2GO"/>
+                            <constraint firstItem="9oE-Yd-oDJ" firstAttribute="leading" secondItem="8hO-RB-Lme" secondAttribute="trailing" constant="15" id="rEd-er-mxV"/>
+                            <constraint firstAttribute="trailing" secondItem="3WM-rR-hNu" secondAttribute="trailing" constant="20" id="smA-bb-zuR"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="IIN-3D-0jJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3O4-fj-pQi"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="IIN-3D-0jJ" secondAttribute="bottom" constant="29" id="50d-A3-fFr"/>
+                    <constraint firstItem="28n-6W-x2z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8a9-eL-0Ls"/>
+                    <constraint firstItem="q4Q-dh-1Om" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DTb-rv-xnd"/>
+                    <constraint firstAttribute="trailing" secondItem="IIN-3D-0jJ" secondAttribute="trailing" id="HLC-73-ph5"/>
+                    <constraint firstItem="q4Q-dh-1Om" firstAttribute="top" secondItem="Bx1-Aj-EsF" secondAttribute="bottom" constant="8" id="I9r-wU-xgg"/>
+                    <constraint firstItem="Bx1-Aj-EsF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="IhQ-gW-EkH"/>
+                    <constraint firstItem="IIN-3D-0jJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="126" id="J43-YT-vWI"/>
+                    <constraint firstItem="28n-6W-x2z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LDk-Px-8Ul"/>
+                    <constraint firstAttribute="trailing" secondItem="28n-6W-x2z" secondAttribute="trailing" id="M37-Xp-by5"/>
+                    <constraint firstItem="Bx1-Aj-EsF" firstAttribute="top" secondItem="28n-6W-x2z" secondAttribute="bottom" constant="10" id="VEI-bg-2uf"/>
+                    <constraint firstAttribute="trailing" secondItem="q4Q-dh-1Om" secondAttribute="trailing" id="euz-Ca-BR5"/>
+                    <constraint firstAttribute="trailing" secondItem="Bx1-Aj-EsF" secondAttribute="trailing" id="fNy-lR-094"/>
+                    <constraint firstItem="IIN-3D-0jJ" firstAttribute="top" secondItem="q4Q-dh-1Om" secondAttribute="bottom" constant="24" id="zqv-47-z69"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="backBtn" destination="8hO-RB-Lme" id="5C0-SX-NQc"/>
+                <outlet property="editBtn" destination="3WM-rR-hNu" id="Oq6-LE-ybN"/>
+                <outlet property="prodImg1" destination="Af5-jv-8iw" id="pXQ-OH-cWf"/>
+                <outlet property="prodImg2" destination="O1O-fO-wQM" id="Qd9-89-wtF"/>
+                <outlet property="prodImg3" destination="bja-EC-I8o" id="cME-x9-ifY"/>
+                <outlet property="prodNameLabel" destination="Bx1-Aj-EsF" id="aQA-j9-k2n"/>
+                <outlet property="prodScrollView" destination="IIN-3D-0jJ" id="D6n-uN-az3"/>
+                <outlet property="roundBtn" destination="9oE-Yd-oDJ" id="JUk-6q-CZ0"/>
+            </connections>
+            <point key="canvasLocation" x="140.57971014492756" y="131.58482142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Dry Clean Only" width="31" height="32"/>
+        <image name="Fabric" width="1600" height="1068"/>
+        <image name="Fashion accessories" width="204" height="247"/>
+        <image name="Icon awesome-long-arrow-alt-right" width="22" height="11"/>
+        <image name="coverImage" width="374" height="128"/>
+        <image name="edit" width="15" height="15"/>
+    </resources>
+</document>
