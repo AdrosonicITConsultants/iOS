@@ -260,22 +260,20 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     
     func endRefresh() {
         
-          otherUser = Sender(senderId: "\(chatObj.buyerId)", displayName: chatObj.buyerCompanyName!)
-      //  if messages == [] {
-            messages = realm?.objects(Conversation.self).filter("%K IN %@","entityID", id ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
-                 if messages != []{
-                     for obj in messages! {
-                         if self.chatObj?.buyerId != obj.messageFrom {
-                             showMessage(obj: obj, user: currentUser)
-                         }else{
-                             showMessage(obj: obj, user: otherUser!)
-                         }
-                     }
-                 }
-       // }
-       
+
+        messages = realm?.objects(Conversation.self).filter("%K IN %@","entityID", id ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
+        otherUser = Sender(senderId: "\(chatObj.buyerId)", displayName: chatObj.buyerCompanyName!)
+
         
-        
+        if messages != []{
+            for obj in messages! {
+                if self.chatObj?.buyerId != obj.messageFrom {
+                    showMessage(obj: obj, user: currentUser)
+                }else{
+                    showMessage(obj: obj, user: otherUser!)
+                }
+            }
+        }
         
         messagesCollectionView.reloadData()
         DispatchQueue.main.async {
