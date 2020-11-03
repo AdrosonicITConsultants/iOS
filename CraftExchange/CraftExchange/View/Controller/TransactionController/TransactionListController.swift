@@ -22,6 +22,7 @@ class TransactionListViewModel {
     var goToEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
+    var downloadFinalReceipt: ((_ enquiryId: Int) -> ())?
 }
 
 class TransactionListController: UIViewController {
@@ -152,11 +153,17 @@ class TransactionListController: UIViewController {
 extension TransactionListController: TransactionListProtocol, AcceptedPIViewProtocol, TransactionReceiptViewProtocol {
     func viewTransactionReceipt(tag: Int) {
         if let transaction = allTransactions?[tag] {
-            let invoiceStateArray = [1,2,3,4,5,12,13]
+            let invoiceStateArray = [1,2,3,4,5]
+            let advancePaymentArray = [6,8,10]
+           // let taxInvoiceArray = [12,13]
+            let finalPaymentarray = [14,16,18]
             if invoiceStateArray.contains(transaction.accomplishedStatus) {
                 self.viewModel.viewTransactionReceipt?(transaction, 1)
-            }else {
+            }else if advancePaymentArray.contains(transaction.accomplishedStatus){
                 self.viewModel.downloadAdvReceipt?(transaction.enquiryId)
+            }
+            else if finalPaymentarray.contains(transaction.accomplishedStatus){
+                self.viewModel.downloadFinalReceipt?(transaction.enquiryId)
             }
         }
     }

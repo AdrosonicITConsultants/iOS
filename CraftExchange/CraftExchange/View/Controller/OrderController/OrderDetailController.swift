@@ -44,6 +44,9 @@ class OrderDetailController: FormViewController {
     var sentMOQ: Int = 0
     var viewPI: ((_ isOld: Int) -> ())?
     var downloadPI: (() -> ())?
+    var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
+    var downloadFinalReceipt: ((_ enquiryId: Int) -> ())?
+    var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int) -> ())?
     // var isMOQNeedToAccept: Int = 0
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
@@ -1084,7 +1087,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 60.0 }
                 $0.cell.configure(obj)
             }.onCellSelection({ (cell, row) in
-                let row = self.form.rowBy(tag: "\(obj.entityID)")
+                let row = self.form.rowBy(tag: obj.id!)
                 if row?.isHidden == true {
                     row?.hidden = false
                 }else {
@@ -1098,8 +1101,10 @@ class OrderDetailController: FormViewController {
                     $0.cell.height = { 60.0 }
                     $0.cell.configure(obj)
                     $0.cell.tag = obj.entityID
+                    $0.cell.invoiceButton.tag = obj.entityID
+                    $0.cell.delegate = self as TransactionListProtocol
                     $0.hidden = true
-                    $0.tag = "\(obj.entityID)"
+                    $0.tag = obj.id
             }
         })
         self.form.sectionBy(tag: "list Transactions")?.reload()
@@ -1509,5 +1514,40 @@ extension OrderDetailController: MarkCompleteAndNextProtocol, StartstageProtocol
     }
     
     
+}
+
+extension OrderDetailController: TransactionListProtocol, TransactionReceiptViewProtocol {
+    func viewTransactionReceipt(tag: Int) {
+        
+        let showMOQ = listTransactions!
+               showMOQ.forEach({ (obj) in
+                print(obj)
+                   switch tag {
+                   case obj.entityID:
+                       print(obj)
+                        let invoiceStateArray = [1,2,3,4,5]
+                        let advancePaymentArray = [6,8,10]
+                       // let taxInvoiceArray = [12,13]
+                        let finalPaymentarray = [14,16,18]
+                        if invoiceStateArray.contains(obj.accomplishedStatus) {
+                            self.viewTransactionReceipt?(obj, 1)
+                        }else if advancePaymentArray.contains(obj.accomplishedStatus){
+                            self.downloadAdvReceipt?(obj.enquiryId)
+                        }
+                        else if finalPaymentarray.contains(obj.accomplishedStatus){
+                            self.downloadFinalReceipt?(obj.enquiryId)
+                        }
+                    default:
+                    print("do nothing")
+
+                }
+        })
+        
+    }
+    
+    
+    func cancelBtnSelected() {
+        self.view.hideTransactionReceiptView()
+    }
 }
 

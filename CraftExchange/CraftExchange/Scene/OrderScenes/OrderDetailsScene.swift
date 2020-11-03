@@ -191,6 +191,27 @@ extension OrderDetailsService {
             vc.navigationController?.pushViewController(vc1, animated: true)
         }
         
+        vc.downloadAdvReceipt = { (enquiryId) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            vc.showLoading()
+            service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 1)
+        }
+        vc.downloadFinalReceipt = { (enquiryId) in
+                   let service = EnquiryDetailsService.init(client: self.client)
+                   vc.showLoading()
+                   service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 2)
+               }
+        vc.viewTransactionReceipt = { (transaction, isOld) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+               DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                vc.view.showAcceptedPIView(controller: vc, entityId: transaction.enquiryCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false)
+                   vc.hideLoading()
+               }
+            }.dispose(in: vc.bag)
+            vc.hideLoading()
+        }
         return vc
     }
     
