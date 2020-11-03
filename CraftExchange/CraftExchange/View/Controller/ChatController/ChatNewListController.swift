@@ -102,7 +102,7 @@ extension ChatNewListController: UITableViewDataSource, UITableViewDelegate {
         if let obj = allChat?[indexPath.row] {
              cell.configure(obj)
 
-                cell.lastMessage.text = ""
+               // cell.lastMessage.text = ""
                 cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastUpdatedOn!)
             cell.lastUpdatedTime.text = ""
         }

@@ -103,6 +103,7 @@ extension Order {
                 object.gst = gst
                 object.deliveryChallanUploaded = deliveryChallanUploaded
                 object.deliveryChallanLabel = deliveryChallanLabel
+                object.isPartialRefundReceived = isPartialRefundReceived
                 object.historyProductId = historyProductId
                 object.innerEnquiryStageId = innerEnquiryStageId
                 object.isMoqSend = isMoqSend

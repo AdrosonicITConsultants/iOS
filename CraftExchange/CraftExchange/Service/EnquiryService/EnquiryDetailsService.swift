@@ -30,6 +30,14 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.closeEnquiry(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func markOrderAsReceived(orderId: Int, orderRecieveDate: String, isAutoCompleted: Int)-> SafeSignal<Data> {
+        return Enquiry.markOrderAsReceived(orderId: orderId, orderRecieveDate: orderRecieveDate, isAutoCompleted: isAutoCompleted).response(using: client).debug()
+    }
+    
+   func closeOrder(enquiryId: Int) -> SafeSignal<Data> {
+          return Enquiry.closeOrder(enquiryId: enquiryId).response(using: client).debug()
+      }
+    
     func getMOQs(enquiryId: Int) -> SafeSignal<Data>{
         return Enquiry.getMOQs(enquiryId: enquiryId).response(using: client).debug()
     }

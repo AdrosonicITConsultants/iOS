@@ -241,6 +241,7 @@ extension EnquiryDetailsService {
                     if  let object = try? JSONDecoder().decode(FinalPaymentDetails.self, from: finalpaymentdata) {
                                 DispatchQueue.main.async {
                                     print("hey:\(object)")
+                                    
                                     if let controller = vc as? OrderDetailController{
                                         controller.finalPaymnetDetails = object
                                     }
@@ -273,8 +274,8 @@ extension EnquiryDetailsService {
                                        // controller.hideLoading()
                                         let row = controller.form.rowBy(tag: "PaymentArtist-1") as? ArtistReceitImgRow
                                         row?.cell.AmountLabel.text = "Amount to be Paid as per Final Invoice: \(object.paidAmount)"
-                                       
-                                      
+                                        let row2 = controller.form.rowBy(tag: "EnquiryDetailsRow") as? EnquiryDetailsRow
+                                        row2?.cell.amountLbl.text = "Total Amount: \(object.totalAmount) "
                                     }else if let controller = vc as? OrderDetailController{
                                         controller.finalPaymnet = object
                                     }
@@ -327,6 +328,7 @@ extension EnquiryDetailsService {
                         if let controller = vc as? BuyerEnquiryDetailsController {
                             controller.viewWillAppear?()
                         }else if let controller = vc as? OrderDetailController {
+                            controller.view.hideMarkAsDispatchedView()
                             controller.viewWillAppear?()
                         }
                     }

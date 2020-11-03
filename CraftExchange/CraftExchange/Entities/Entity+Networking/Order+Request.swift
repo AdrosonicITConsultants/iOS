@@ -60,4 +60,28 @@ extension Order {
         )
     }
     
+    static func getArtisanFaultyReview() -> Request<Data, APIError> {
+        var str = "enquiry/getAllRefArtisanReview"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    static func getBuyerFaultyReview() -> Request<Data, APIError> {
+        var str = "enquiry/getAllRefBuyerReview"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
 }

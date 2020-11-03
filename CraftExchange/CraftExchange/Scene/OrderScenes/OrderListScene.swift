@@ -38,6 +38,8 @@ extension OrderListService {
             let service = HomeScreenService.init(client: client)
             service.fetchEnquiryStateData(vc: controller)
             
+            
+            
             if controller.segmentView.selectedSegmentIndex == 0 {
                 getOngoingOrders().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -51,6 +53,37 @@ extension OrderListService {
                     }
                 }.dispose(in: controller.bag)
             }
+            
+            self.getArtisanFaultyReview().bind(to: controller, context: .global(qos: .background)) { (_, responseData) in
+                       do {
+                           if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                               if let array = json["data"] as? [[String: Any]] {
+                                   let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
+                                   try JSONDecoder().decode([ArtisanFaultyOrder].self, from: data) .forEach({ (stage) in
+                                       stage.saveOrUpdate()
+                                   })
+                               }
+                           }
+                       }catch let error as NSError {
+                           print(error.description)
+                       }
+                   }.dispose(in: controller.bag)
+                   
+                   
+                   self.getBuyerFaultyReview().bind(to: controller, context: .global(qos: .background)) { (_, responseData) in
+                       do {
+                           if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                               if let array = json["data"] as? [[String: Any]] {
+                                   let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
+                                   try JSONDecoder().decode([BuyerFaultyOrder].self, from: data) .forEach({ (stage) in
+                                       stage.saveOrUpdate()
+                                   })
+                               }
+                           }
+                       }catch let error as NSError {
+                           print(error.description)
+                       }
+                   }.dispose(in: controller.bag)
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
@@ -99,7 +132,10 @@ extension OrderListService {
         
         return controller
     }
+    
+   
 }
+
 
 
 

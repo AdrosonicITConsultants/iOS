@@ -39,7 +39,7 @@ extension ChatDetailsService {
                                         var i = 0
                                         var eqArray: [Int] = []
                                         DispatchQueue.main.async {
-                                            if controller.messages == [] {
+                                          //  if controller.messages == [] {
                                                 for obj in chatObj {
                                                                                                i+=1
                                                                                                obj.saveOrUpdate()
@@ -51,7 +51,7 @@ extension ChatDetailsService {
                                                     controller.id = eqArray
                                                     
                                                 }
-                                            }
+                                         //   }
                                             
                                            
                                             

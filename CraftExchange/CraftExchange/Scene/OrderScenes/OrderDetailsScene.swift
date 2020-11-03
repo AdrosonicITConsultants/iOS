@@ -191,6 +191,25 @@ extension OrderDetailsService {
             vc.navigationController?.pushViewController(vc1, animated: true)
         }
         
+       
+        vc.downloadDeliveryReceipt = { (enquiryId, imageName) in
+            
+            let url = URL(string: KeychainManager.standard.imageBaseURL + "/deliveryChallanReceipt/\(enquiryId)/" + imageName)
+            URLSession.shared.dataTask(with: url!) { data, response, error in
+                DispatchQueue.main.async {
+                    if error == nil {
+                        if let finalData = data {
+                           
+                                vc.hideLoading()
+                                vc.view.showTransactionReceiptView(controller: vc, data: finalData)
+                           
+                        }
+                    }
+                    
+                }
+            }.resume()
+        }
+        
         vc.downloadAdvReceipt = { (enquiryId) in
             let service = EnquiryDetailsService.init(client: self.client)
             vc.showLoading()
@@ -200,7 +219,7 @@ extension OrderDetailsService {
                    let service = EnquiryDetailsService.init(client: self.client)
                    vc.showLoading()
                    service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 2)
-               }
+        }
         vc.viewTransactionReceipt = { (transaction, isOld) in
             let service = EnquiryDetailsService.init(client: self.client)
             service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
