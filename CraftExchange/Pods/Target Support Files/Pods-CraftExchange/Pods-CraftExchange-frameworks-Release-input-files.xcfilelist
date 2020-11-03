@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-CraftExchange/Pods-CraftExchange-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Bond/Bond.framework
+${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework
 ${BUILT_PRODUCTS_DIR}/Differ/Differ.framework
 ${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework
 ${BUILT_PRODUCTS_DIR}/ImageRow/ImageRow.framework

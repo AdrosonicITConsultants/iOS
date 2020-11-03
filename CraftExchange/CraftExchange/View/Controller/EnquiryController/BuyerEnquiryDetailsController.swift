@@ -211,7 +211,17 @@ class BuyerEnquiryDetailsController: FormViewController {
                                $0.hidden = true
                            }
                        }
-            
+            <<< DisplayRatingRow() {
+                $0.cell.height = { 25.0 }
+                //                $0.cell.delegate = self
+                $0.tag = "Rating:"
+                $0.cell.tag = 901
+                
+            }.onCellSelection({ (cell, row) in
+                let vc = ViewRatingController.init(style: .plain)
+//                vc.enquiryObject = self.enquiryObject
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 150.0 }
                 $0.cell.delegate = self
