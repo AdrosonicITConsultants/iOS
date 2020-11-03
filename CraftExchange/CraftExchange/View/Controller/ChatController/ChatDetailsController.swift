@@ -428,7 +428,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     
 }
 
-extension ChatDetailsController: MessageCellDelegate, OpenAttachmentViewProtocol, ChatHeaderDetailsViewProtocol, ChatHeaderViewProtocol  {
+extension ChatDetailsController: MessageCellDelegate, ChatHeaderDetailsViewProtocol, ChatHeaderViewProtocol  {
     func escalationButtonSelected() {
        print("Escaltion button selected")
     }

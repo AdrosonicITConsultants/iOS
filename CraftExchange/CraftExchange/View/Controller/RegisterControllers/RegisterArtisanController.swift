@@ -77,6 +77,11 @@ class RegisterArtisanController: UIViewController {
     @IBAction func updateBrandLogoSelected(_ sender: Any) {
         self.showImagePickerAlert()
     }
+    
+    @IBAction func faqButtonSelected(_ sender: UIButton) {
+        didTapFAQButton(tag: sender.tag)
+    }
+    
 }
 
 extension RegisterArtisanController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

@@ -37,4 +37,9 @@ class REGValidateArtisanController: UIViewController {
   @IBAction func nextButtonSelected(_ sender: Any) {
     self.viewModel.performValidation?()
   }
+    
+  @IBAction func faqButtonSelected(_ sender: UIButton){
+        didTapFAQButton(tag: sender.tag)
+  }
+    
 }

@@ -42,4 +42,8 @@ class LoginPasswordController: UIViewController {
   @IBAction func registerSelected(_ sender: Any) {
     self.viewModel.goToRegister?()
   }
+    
+  @IBAction func faqButtonSelected(_ sender: UIButton){
+        didTapFAQButton(tag : sender.tag)
+  }
 }

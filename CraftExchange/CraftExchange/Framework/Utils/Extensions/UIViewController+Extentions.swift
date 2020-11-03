@@ -95,7 +95,8 @@ extension UIViewController {
     }
 }
 
-extension UIViewController {
+extension UIViewController : OpenAttachmentViewProtocol {
+    
   func roleBarButton() -> UIBarButtonItem {
     let rightButtonItem = UIBarButtonItem.init(
         title: "\(KeychainManager.standard.userRole ?? "")",
@@ -140,6 +141,30 @@ extension UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+    @objc func faqCancelButtonSelected() {
+       self.view.hideOpenFAQView()
+       self.inputAccessoryView?.isHidden = false
+       if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
+            initialView.fromFaq = false
+           }
+       }
+
+   func didTapFAQButton(tag: Int) {
+       var url = ""
+       if tag == 1 {
+           url = KeychainManager.standard.faqBaseURL + "/documents/PRIVACY%20POLICY.pdf"
+       } else if tag == 2 {
+           url = KeychainManager.standard.faqBaseURL + "/documents/LEGAL%20DISCLAIMER.pdf"
+       } else if tag == 3 {
+           url = KeychainManager.standard.faqBaseURL + "/documents/TERMS_and_CONDITIONS.pdf"
+       }
+       self.view.showOpenFAQView(controller: self, data: url)
+    
+    if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
+        initialView.fromFaq = true
+           }
+   }
     
     func searchBarButton() -> UIBarButtonItem {
         let rightButtonItem = UIBarButtonItem.init(

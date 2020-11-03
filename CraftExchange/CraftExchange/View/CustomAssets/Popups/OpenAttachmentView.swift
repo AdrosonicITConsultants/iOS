@@ -10,11 +10,14 @@ import Foundation
 import UIKit
 import WebKit
 
-protocol OpenAttachmentViewProtocol {
-    func cancelButtonSelected()
+@objc protocol OpenAttachmentViewProtocol {
+    @objc optional func faqCancelButtonSelected()
+    @objc optional func cancelButtonSelected()
 }
 
 class OpenAttachmentView: UIView, WKUIDelegate {
+    
+    var fromFaq : Bool = false
     
     @IBOutlet weak var cancelButton: UIButton!
     
@@ -24,7 +27,12 @@ class OpenAttachmentView: UIView, WKUIDelegate {
     var attachmentURL: String = ""
     
     @IBAction func cancelButtonSelected(_ sender: Any) {
-        delegate?.cancelButtonSelected()
+        if fromFaq {
+            delegate?.faqCancelButtonSelected?()
+        }
+        else {
+            delegate?.cancelButtonSelected?()
+        }
     }
     override func layoutSubviews() {
         attachementView.load(URLRequest(url:URL(string: attachmentURL)!))

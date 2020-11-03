@@ -36,4 +36,8 @@ class ResetPasswordController: UIViewController {
   @IBAction func resetPasswordSelected(_ sender: Any) {
     self.viewModel.preformResetPassword?()
   }
+    
+  @IBAction func faqButtonSelected(_ sender: UIButton){
+        didTapFAQButton(tag: sender.tag)
+  }
 }

@@ -83,5 +83,9 @@ class REGNewUserPasswordController: UIViewController {
             appDelegate?.registerUser?.password = self.viewModel.password.value ?? ""
         }
     }
+    @IBAction func faqButtonSelected(_ sender: UIButton){
+            didTapFAQButton(tag: sender.tag)
+    }
+    
 }
 
