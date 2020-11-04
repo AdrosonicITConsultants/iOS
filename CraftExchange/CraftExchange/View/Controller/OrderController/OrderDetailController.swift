@@ -46,6 +46,7 @@ class OrderDetailController: FormViewController {
     var downloadPI: (() -> ())?
     var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
     var downloadFinalReceipt: ((_ enquiryId: Int) -> ())?
+    var downloadDeliveryReceipt: ((_ enquiryId: Int, _ imageName: String) -> ())?
     var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int) -> ())?
     // var isMOQNeedToAccept: Int = 0
     var showCustomProduct: (() -> ())?
@@ -84,18 +85,18 @@ class OrderDetailController: FormViewController {
         
         form
             +++ Section()
-            <<< LabelRow(){
-                $0.cell.height = { 25.0 }
-                $0.title = orderObject?.orderCode
-            }
-            <<< LabelRow(){
-                $0.cell.height = { 20.0 }
-                let date = Date().ttceISOString(isoDate: (orderObject?.orderCreatedOn!)!)
-                $0.title = "Order created on: " + date
-            }.cellUpdate({ (cell, row) in
-                cell.textLabel?.textColor = .darkGray
-                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
-            })
+//            <<< LabelRow(){
+//                $0.cell.height = { 25.0 }
+//                $0.title = orderObject?.orderCode
+//            }
+//            <<< LabelRow(){
+//                $0.cell.height = { 20.0 }
+//                let date = Date().ttceISOString(isoDate: (orderObject?.orderCreatedOn!)!)
+//                $0.title = "Order created on: " + date
+//            }.cellUpdate({ (cell, row) in
+//                cell.textLabel?.textColor = .darkGray
+//                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
+//            })
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
@@ -176,6 +177,57 @@ class OrderDetailController: FormViewController {
                 }
             })
             
+            <<< ProFormaInvoiceRow() {
+                           $0.cell.height = { 85.0 }
+                           $0.cell.delegate = self
+                           $0.tag = "Close Order"
+                           $0.cell.tag = 105
+                           $0.cell.nextStepsLabel.text = "Want to close order?"
+                           $0.cell.createSendInvoiceBtn.setTitle("Close Order", for: .normal)
+                           $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 0.918557363, green: 0, blue: 0, alpha: 1)
+                $0.cell.createSendInvoiceBtn.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+                $0.hidden = true
+                            if orderObject != nil {
+                                if self.orderObject!.enquiryStageId <= 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed && self.orderObject?.isPartialRefundReceived == 1 {
+                                    $0.hidden = false
+                                }
+                            }
+                       }.cellUpdate({ (cell, row) in
+                        if self.orderObject != nil {
+                            if self.orderObject!.enquiryStageId <= 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed && self.orderObject?.isPartialRefundReceived == 1 {
+                                cell.row.hidden = false
+                            }else{
+                                cell.row.hidden = true
+                                cell.height = { 0.0 }
+                            }
+                        }
+                       })
+            <<< ProFormaInvoiceRow() {
+                           $0.cell.height = { 85.0 }
+                           $0.cell.delegate = self
+                           $0.tag = "Is Partial Refund Received?"
+                           $0.cell.tag = 106
+                           $0.cell.nextStepsLabel.text = "Is Partial Refund Received?"
+                           $0.cell.createSendInvoiceBtn.setTitle("Is Partial Refund Received?", for: .normal)
+                           $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 0, green: 0.5, blue: 0, alpha: 1)
+                           $0.hidden = true
+                            if orderObject != nil {
+                                if self.orderObject!.enquiryStageId <= 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed && self.orderObject?.isPartialRefundReceived == 0 {
+                                    $0.hidden = false
+                                }
+                            }
+                       }.cellUpdate({ (cell, row) in
+                        if self.orderObject != nil {
+                            if self.orderObject!.enquiryStageId <= 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed && self.orderObject?.isPartialRefundReceived == 0 {
+                                cell.row.hidden = false
+                            }else{
+                                cell.row.hidden = true
+                                cell.height = { 0.0 }
+                            }
+                        }
+                       })
+
+            
             <<< StatusRow() {
                 $0.cell.height = { 110.0 }
             }.cellUpdate({ (cell, row) in
@@ -201,9 +253,16 @@ class OrderDetailController: FormViewController {
                     cell.nextStatusLbl.text = "\(EnquiryInnerStages.getStageType(searchId: (self.orderObject?.innerEnquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
                     
                 }
-                if (self.orderObject?.isBlue ?? false == true) && (self.orderObject?.enquiryStageId == 3 || self.orderObject?.enquiryStageId == 9){
+                if self.orderObject?.enquiryStageId == 10 {
+                    cell.nextStatusLbl.text = "Completed"
+                    
+                }
+                if (self.orderObject?.isBlue ?? false == true) && (self.orderObject?.enquiryStageId == 3){
                     cell.actionLbl.text = "Advance payment Awaiting"
-                }else {
+                }else if (self.orderObject?.isBlue ?? false == true) && (self.orderObject?.enquiryStageId == 8){
+                    cell.actionLbl.text = "Final payment Awaiting"
+                }
+                else {
                     cell.actionLbl.text = ""
                 }
                 if self.isClosed {
@@ -227,6 +286,25 @@ class OrderDetailController: FormViewController {
                 $0.hidden = isClosed == true ? false : true
             }
             
+            <<< ConfirmDeliveryRow() {
+                 $0.cell.height = { 175.0 }
+                $0.tag = "Confirm Delivery & Complete Order"
+                $0.cell.tag = 100
+                $0.cell.delegate = self
+                $0.hidden = true
+                if self.orderObject?.enquiryStageId == 10 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
+                    $0.hidden = false
+                }
+            }.cellUpdate({ (cell, row) in
+                
+                if self.orderObject?.enquiryStageId == 10 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
+                    cell.row.hidden = false
+                }
+                else{
+                    cell.row.hidden = true
+                    cell.height = { 0.0 }
+                }
+            })
             
             <<< AcceptedInvoiceRow() {
                 $0.cell.height = { 120.0 }
@@ -381,11 +459,11 @@ class OrderDetailController: FormViewController {
             })
             
             <<< ProFormaInvoiceRow() {
-                $0.cell.height = { 90.0 }
+                $0.cell.height = { 85.0 }
                 $0.cell.delegate = self
                 $0.tag = "Create Final Invoice"
                 $0.cell.tag = 100
-                $0.cell.nextStepsLabel.text = ""
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice"
                 $0.cell.createSendInvoiceBtn.setTitle("Create & Send Final Invoice".localized, for: .normal)
                 if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
                     $0.hidden = false
@@ -419,36 +497,41 @@ class OrderDetailController: FormViewController {
             })
             
             <<< ProFormaInvoiceRow() {
-                $0.cell.height = { 90.0 }
+                $0.cell.height = { 85.0 }
                 $0.cell.delegate = self
                 $0.tag = "Upload delivery receipt"
                 $0.cell.tag = 101
-                $0.cell.nextStepsLabel.text = ""
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload delivery receipt"
                 $0.cell.createSendInvoiceBtn.setTitle("Upload delivery receipt", for: .normal)
-                if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
-                    $0.hidden = false
+                $0.hidden = true
+                if orderObject?.enquiryStageId != nil {
+                    if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                        $0.hidden = false
+                    }
+                    
                 }
-                else {
-                    $0.hidden = true
-                }
+                
             }
             .cellUpdate({ (cell, row) in
+                if self.orderObject?.enquiryStageId != nil {
+                    if (self.orderObject?.enquiryStageId)! >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                        cell.row.hidden = false
+                    }
+                    else{
+                        cell.row.hidden = true
+                        cell.height = { 0.0 }
+                    }
+                }
+
                 
-                if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
-                    cell.row.hidden = false
-                }
-                else{
-                    cell.row.hidden = true
-                    cell.height = { 0.0 }
-                }
             })
             
             <<< ProFormaInvoiceRow() {
-                $0.cell.height = { 90.0 }
+                $0.cell.height = { 85.0 }
                 $0.cell.delegate = self
                 $0.tag = "Upload final payment receipt"
                 $0.cell.tag = 102
-                $0.cell.nextStepsLabel.text = ""
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload final payment receipt"
                 $0.cell.createSendInvoiceBtn.setTitle("Upload final payment receipt", for: .normal)
                 if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
                     $0.hidden = false
@@ -469,23 +552,22 @@ class OrderDetailController: FormViewController {
             })
             
             <<< ProFormaInvoiceRow() {
-                $0.cell.height = { 90.0 }
+                $0.cell.height = { 85.0 }
                 $0.cell.delegate = self
                 $0.tag = "Approve final payment receipt"
                 $0.cell.tag = 103
-                $0.cell.nextStepsLabel.text = ""
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Approve final payment"
                 $0.cell.createSendInvoiceBtn.setTitle("Approve final payment", for: .normal)
-                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.isBlue ?? false{
                    // orderObject?.isBlue
                     $0.hidden = false
                 }
                 else {
                     $0.hidden = true
                 }
-            }
-            .cellUpdate({ (cell, row) in
+            }.cellUpdate({ (cell, row) in
                 
-                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed  && self.orderObject?.isBlue ?? false{
                     cell.row.hidden = false
                 }
                 else{
@@ -493,7 +575,95 @@ class OrderDetailController: FormViewController {
                     cell.height = { 0.0 }
                 }
             })
+            
+            <<< ProFormaInvoiceRow() {
+                $0.cell.height = { 85.0 }
+                $0.cell.delegate = self
+                $0.tag = "Order Dispacthed"
+                $0.cell.tag = 104
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Mark Order as Dispatched"
+                $0.cell.createSendInvoiceBtn.setTitle("Mark Order as Dispatched", for: .normal)
+                $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+                $0.hidden = true
+                if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                    $0.hidden = false
+                }
+                
+            }.cellUpdate({ (cell, row) in
+                
+                if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                    cell.row.hidden = false
+                }
+                else{
+                    cell.row.hidden = true
+                    cell.height = { 0.0 }
+                }
+            })
+            
+//            <<< BuyerEnquirySectionViewRow() {
+//                           $0.cell.height = { 44.0 }
+//                           $0.tag = "Raise Concern"
+//                           $0.cell.titleLbl.text = "Eh! Problem?".localized
+//                           $0.cell.valueLbl.text = "Raise a concern"
+//                           $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
+//                           $0.cell.titleLbl.textColor = UIColor().EQBrownText()
+//                           $0.cell.valueLbl.textColor = UIColor().EQBrownText()
+//                           $0.hidden = true
+//                            if self.orderObject?.enquiryStageId != nil {
+//                             if User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && !self.isClosed {
+//                                $0.hidden = false
+//                                }
+//                             
+//                            }
+//                       }.onCellSelection({ (cell, row) in
+//                         if self.orderObject != nil {
+//                           let vc = RaiseConcernController.init(style: .plain)
+//                           vc.orderObject = self.orderObject
+//                           self.navigationController?.pushViewController(vc, animated: true)
+//                        }
+//                       })
+//                .cellUpdate({ (cell, row) in
+//                           
+//                           if self.orderObject?.enquiryStageId != nil {
+//                            if User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && self.orderObject?.deliveryChallanUploaded == 1 {
+//                               cell.row.hidden = false
+//                            }
+//                           }
+//                       })
 
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.tag = "Delivery Receipt"
+                $0.cell.titleLbl.text = "Delivery Receipt".localized
+                $0.cell.valueLbl.text = "View"
+                $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
+                $0.cell.titleLbl.textColor = UIColor().EQBlueText()
+                $0.cell.valueLbl.textColor = UIColor().EQBlueText()
+                $0.hidden = true
+                 if self.orderObject?.enquiryStageId != nil {
+                  if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 9 && self.orderObject?.deliveryChallanUploaded == 1 {
+                     $0.hidden = false
+                     }
+                  if User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && self.orderObject?.deliveryChallanUploaded == 1 {
+                     $0.hidden = false
+                  }
+                 }
+            }.onCellSelection({ (cell, row) in
+              if self.orderObject != nil {
+                self.showLoading()
+                 self.downloadDeliveryReceipt?(self.orderObject!.enquiryId, self.orderObject!.deliveryChallanLabel!)
+             }
+            }).cellUpdate({ (cell, row) in
+                
+                if self.orderObject?.enquiryStageId != nil {
+                 if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 9 && self.orderObject?.deliveryChallanUploaded == 1 {
+                    cell.row.hidden = false
+                    }
+                 if User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && self.orderObject?.deliveryChallanUploaded == 1 {
+                    cell.row.hidden = false
+                 }
+                }
+            })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
@@ -562,24 +732,20 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Tax Invoice".localized
-                $0.cell.valueLbl.text = ""
+                $0.cell.valueLbl.text = "View"
                 $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBrownText()
                 $0.cell.valueLbl.textColor = UIColor().EQBrownText()
-            }
-            //            .onCellSelection({ (cell, row) in
-            //                            let row = self.form.rowBy(tag: "Create Final Invoice")
-            //                if User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.isPiSend != 1 && self.orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
-            //                    if row?.isHidden == true {
-            //                        row?.hidden = false
-            //                    }else {
-            //                        row?.hidden = true
-            //                    }
-            //                    row?.evaluateHidden()
-            //                    self.form.allSections.first?.reload(with: .none)
-            //                }
-            //
-            //                        })
+            }.onCellSelection({ (cell, row) in
+                if self.orderObject?.enquiryStageId != nil {
+                    if self.orderObject!.enquiryStageId >= 8 {
+                        print("show tax invoice")
+                    }else{
+                        self.alert("Tax Invoice not yet created")
+                    }
+                }
+                
+                })
             
             
             <<< BuyerEnquirySectionViewRow() {
@@ -977,7 +1143,29 @@ class OrderDetailController: FormViewController {
     
     func reloadFormData() {
         orderObject = realm?.objects(Order.self).filter("%K == %@","entityID",orderObject?.entityID ?? 0).first
-
+       // $0.cell.nextStepsLabel.text = "Want to close order?"
+        if orderObject != nil {
+            let row = form.rowBy(tag: "Want to close order?")
+            if self.orderObject!.enquiryStageId <= 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed && self.orderObject?.isPartialRefundReceived == 1 {
+                row?.hidden = false
+                row?.evaluateHidden()
+            }else{
+                row?.hidden = true
+                row?.evaluateHidden()
+            }
+            self.form.allSections.first?.reload(with: .none)
+        }
+        if orderObject != nil {
+            let row = form.rowBy(tag: "Is Partial Refund Received?")
+            if self.orderObject!.enquiryStageId <= 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed && self.orderObject?.isPartialRefundReceived == 0 {
+                row?.hidden = false
+                row?.evaluateHidden()
+            }else{
+                row?.hidden = true
+                row?.evaluateHidden()
+            }
+            self.form.allSections.first?.reload(with: .none)
+        }
         if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 4  {
             let row = form.rowBy(tag: "Check advance Payment receipt")
             row?.hidden = false
@@ -1015,7 +1203,7 @@ class OrderDetailController: FormViewController {
         self.form.allSections.first?.reload(with: .none)
        }
         
-        if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+        if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed  && self.orderObject?.isBlue ?? false{
             let row = form.rowBy(tag: "Approve final payment receipt")
             row?.hidden = false
             row?.evaluateHidden()
@@ -1027,17 +1215,45 @@ class OrderDetailController: FormViewController {
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-        if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
-            let row = form.rowBy(tag: "Upload delivery receipt")
+        
+          if User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 9 && self.orderObject?.deliveryChallanUploaded == 1 {
+            let row = form.rowBy(tag: "Delivery Receipt")
+             row?.hidden = false
+             row?.evaluateHidden()
+             self.form.allSections.first?.reload(with: .none)
+             }
+          if User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && self.orderObject?.deliveryChallanUploaded == 1 {
+            let row = form.rowBy(tag: "Delivery Receipt")
+             row?.hidden = false
+             row?.evaluateHidden()
+             self.form.allSections.first?.reload(with: .none)
+          }
+        if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+            let row = form.rowBy(tag: "Order Dispacthed")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
-        }else{
-            let row = form.rowBy(tag: "Upload delivery receipt")
-            row?.hidden = true
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
         }
+        if self.orderObject?.enquiryStageId == 10 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
+           let row = form.rowBy(tag: "Confirm Delivery & Complete Order")
+           row?.hidden = false
+           row?.evaluateHidden()
+           self.form.allSections.first?.reload(with: .none)
+       }
+        if self.orderObject?.enquiryStageId != nil {
+            if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                let row = form.rowBy(tag: "Upload delivery receipt")
+                row?.hidden = false
+                row?.evaluateHidden()
+                self.form.allSections.first?.reload(with: .none)
+            }else{
+                let row = form.rowBy(tag: "Upload delivery receipt")
+                row?.hidden = true
+                row?.evaluateHidden()
+                self.form.allSections.first?.reload(with: .none)
+            }
+        }
+        
         if self.orderObject!.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
             let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
             row?.hidden = false
@@ -1269,7 +1485,26 @@ class OrderDetailController: FormViewController {
     //    }
 }
 
-extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProtocol {
+extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProtocol, ConfirmDeliveryProtocol {
+    
+    func ConfirmDeliveryInitationBtnSelected(tag: Int) {
+        switch tag {
+            case 100:
+            if orderObject != nil {
+                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+                 let vc1 = storyboard.instantiateViewController(withIdentifier: "ConfirmOrderReceivedController") as! ConfirmOrderReceivedController
+                 vc1.orderObject = self.orderObject
+               
+                 vc1.modalPresentationStyle = .fullScreen
+                 self.navigationController?.pushViewController(vc1, animated: true)
+
+            }
+        default:
+            print("do nothing")
+        }
+    }
+    
+    
     func approvePaymentButtonSelected(tag: Int) {
         switch tag{
         case 3:
@@ -1342,6 +1577,13 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
                  self.navigationController?.pushViewController(vc1, animated: true)
 
             }
+        case 104:
+            self.view.showMarkAsDispatchedView(controller: self)
+            
+        case 105:
+            self.view.showCloseOrderView(controller: self, enquiryCode: orderObject?.orderCode)
+        case 106: self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode)
+            
         default:
             print("NOt Working PI")
         }
@@ -1405,7 +1647,59 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
     
 }
 
-extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol  {
+extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, CloseOrderViewProtocol, MarkAsDispatchedViewProtocol, PartialRefundReceivedViewProtocol  {
+    
+    
+    
+    func RefundCancelButtonSelected() {
+        self.view.hidePartialRefundReceivedView()
+       self.viewWillAppear?()
+    }
+    
+    func RefundNoButtonSelected() {
+        self.view.hidePartialRefundReceivedView()
+        self.viewWillAppear?()
+    }
+    
+    func RefundYesButtonSelected() {
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
+        self.showLoading()
+        if orderObject?.enquiryId != nil {
+           service.completeOrder(enquiryId: orderObject!.enquiryId, vc: self)
+        }
+        
+    }
+    
+    func MarkAsDipatchedCloseButtonSelected() {
+        self.view.hideMarkAsDispatchedView()
+    }
+    
+    func MarkAsDispatchedButtonSelected() {
+        self.showLoading()
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
+        service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 10, innerStageId: 0)
+    }
+    
+    func closeOrderCancelButtonSelected() {
+        self.view.hideCloseOrderView()
+    }
+    
+    func closeOrderNoButtonSelected() {
+        self.view.hideCloseOrderView()
+    }
+    
+    func closeOrderYesButtonSelected() {
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
+        self.showLoading()
+        if orderObject?.enquiryId != nil {
+            service.closeOrder(enquiryId: orderObject!.enquiryId,enquiryCode: orderObject?.enquiryCode ?? "", vc: self)
+        }
+        
+    }
+    
     
     func viewProformaInvoiceBtnSelected(tag: Int) {
         self.showLoading()

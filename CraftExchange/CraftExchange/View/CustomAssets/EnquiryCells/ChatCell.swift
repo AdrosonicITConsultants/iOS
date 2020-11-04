@@ -14,7 +14,7 @@ class ChatCell: UITableViewCell {
     @IBOutlet weak var logo: RoundedButton!
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var enquiryCode: UILabel!
-    @IBOutlet weak var lastMessage: UILabel!
+   // @IBOutlet weak var lastMessage: UILabel!
     @IBOutlet weak var lastUpdatedOn: UILabel!
     @IBOutlet weak var lastUpdatedTime: UILabel!
     @IBOutlet weak var isEscalationPresent: UIButton!

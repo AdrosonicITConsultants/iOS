@@ -38,7 +38,7 @@ extension ValidateUserService {
                       let controller = LoginUserService(client: self.client).createScene(username:username)
                       vc.navigationController?.pushViewController(controller, animated: true)
                     }
-                  }else {
+                  } else {
                     DispatchQueue.main.async {
                       vc.alert("Invalid User Email Id or Mobile Number")
                     }

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RatingInitaitionView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgB-8q-vNH">
+                    <rect key="frame" x="57" y="44" width="300" height="400"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Khushiyon ki home delivery!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1lt-2n-SSN">
+                            <rect key="frame" x="40" y="25" width="220" height="90"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="220" id="1Rh-9x-S1g"/>
+                                <constraint firstAttribute="height" constant="90" id="wgv-JE-c5p"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="28"/>
+                            <color key="textColor" red="0.0" green="0.51037931439999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Qm-ga-rfu" userLabel="Review &amp; Rating">
+                            <rect key="frame" x="15" y="255" width="270" height="50"/>
+                            <color key="backgroundColor" red="0.27017337328767121" green="0.11368257705479452" blue="0.70569349315068497" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="7Pf-t3-0fQ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="19"/>
+                            <state key="normal" title="    Review &amp; Rating" image="Icon material-rate-review - white">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="RevewAndRatingBtnSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="V6k-QS-1cy"/>
+                            </connections>
+                        </button>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 2169" translatesAutoresizingMaskIntoConstraints="NO" id="req-NF-1yv">
+                            <rect key="frame" x="60" y="145" width="180" height="80"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="80" id="0Qu-3R-TlC"/>
+                                <constraint firstAttribute="width" constant="180" id="829-hK-OWP"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwl-gY-0pX">
+                            <rect key="frame" x="112.5" y="335" width="75" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="ZJ5-MH-JRy"/>
+                                <constraint firstAttribute="width" constant="75" id="mIc-bg-JtF"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
+                            <state key="normal" title="Skip">
+                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="skipBtnSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="dsO-Oa-T0Z"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="zwl-gY-0pX" firstAttribute="top" secondItem="8Qm-ga-rfu" secondAttribute="bottom" constant="30" id="12A-sW-KcW"/>
+                        <constraint firstItem="8Qm-ga-rfu" firstAttribute="top" secondItem="req-NF-1yv" secondAttribute="bottom" constant="30" id="5tS-zw-jKR"/>
+                        <constraint firstAttribute="width" constant="300" id="9Co-Dw-yi3"/>
+                        <constraint firstItem="req-NF-1yv" firstAttribute="top" secondItem="1lt-2n-SSN" secondAttribute="bottom" constant="30" id="A6O-vf-hyY"/>
+                        <constraint firstItem="1lt-2n-SSN" firstAttribute="centerX" secondItem="fgB-8q-vNH" secondAttribute="centerX" id="HLA-Im-L2m"/>
+                        <constraint firstItem="8Qm-ga-rfu" firstAttribute="leading" secondItem="fgB-8q-vNH" secondAttribute="leading" constant="15" id="Lic-aF-vEh"/>
+                        <constraint firstItem="zwl-gY-0pX" firstAttribute="centerX" secondItem="fgB-8q-vNH" secondAttribute="centerX" id="ade-Dw-M9W"/>
+                        <constraint firstItem="8Qm-ga-rfu" firstAttribute="centerX" secondItem="fgB-8q-vNH" secondAttribute="centerX" id="bJh-f4-TkN"/>
+                        <constraint firstItem="req-NF-1yv" firstAttribute="centerX" secondItem="fgB-8q-vNH" secondAttribute="centerX" id="bNN-BH-z3j"/>
+                        <constraint firstItem="1lt-2n-SSN" firstAttribute="top" secondItem="fgB-8q-vNH" secondAttribute="top" constant="25" id="euR-Hz-G9g"/>
+                        <constraint firstAttribute="trailing" secondItem="8Qm-ga-rfu" secondAttribute="trailing" constant="15" id="fZL-4B-AI4"/>
+                        <constraint firstAttribute="height" constant="400" id="t5K-U7-g6x"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fgB-8q-vNH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wVi-VV-bug"/>
+                <constraint firstItem="fgB-8q-vNH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="zCH-NQ-W7U"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="RevewAndRatingButton" destination="8Qm-ga-rfu" id="J1D-ir-RuA"/>
+                <outlet property="skipbutton" destination="zwl-gY-0pX" id="8dR-4P-EvS"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="102.45535714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Group 2169" width="360" height="176"/>
+        <image name="Icon material-rate-review - white" width="26" height="26"/>
+    </resources>
+</document>

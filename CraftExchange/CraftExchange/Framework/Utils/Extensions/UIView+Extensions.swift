@@ -414,5 +414,146 @@ extension UIView {
             initialView.removeFromSuperview()
         }
     }
+    func showCloseOrderView(controller: UIViewController, enquiryCode: String?) {
+        if let _ = self.viewWithTag(134) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("CloseOrderView", owner:
+                self, options: nil)?.first as? CloseOrderView
+            initiationView?.enquiryCode.text = enquiryCode ?? ""
+                
+            
+            initiationView?.delegate =  controller as? CloseOrderViewProtocol
+            initiationView?.tag = 134
+           
+            let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+           let effectView = UIVisualEffectView(effect: effect)
+            effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+            effectView.tag = 135
+            self.addSubview(effectView)
+             self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 150, width: 300, height: 300)
+            initiationView?.dropShadow()
+            
+            self.bringSubviewToFront(initiationView!)
+           
+        }
+    }
+    func hideCloseOrderView() {
+        if let initialView = self.viewWithTag(134) {
+           // self.effectView.removeFromSuperview()
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+        if let effectView = self.viewWithTag(135) {
+            self.sendSubviewToBack(effectView)
+                       effectView.removeFromSuperview()
+        }
+    }
+    
+    func showMarkAsDispatchedView(controller: UIViewController) {
+        if let _ = self.viewWithTag(136) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("MarkAsDispatchedView", owner:
+                self, options: nil)?.first as? MarkAsDispatchedView
+           
+            
+            initiationView?.delegate =  controller as? MarkAsDispatchedViewProtocol
+            initiationView?.tag = 136
+            let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let effectView = UIVisualEffectView(effect: effect)
+             effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+             effectView.tag = 137
+              self.addSubview(effectView)
+            self.addSubview(initiationView!)
+           
+            
+            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
+            self.bringSubviewToFront(initiationView!)
+           
+        }
+    }
+    func hideMarkAsDispatchedView() {
+        if let initialView = self.viewWithTag(136) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+        if let effectView = self.viewWithTag(137) {
+            self.sendSubviewToBack(effectView)
+                       effectView.removeFromSuperview()
+        }
+    }
+    
+    func showPartialRefundReceivedView(controller: UIViewController, enquiryCode: String?) {
+           if let _ = self.viewWithTag(138) {
+               print("do nothing")
+           }else {
+               let initiationView = Bundle.main.loadNibNamed("PartialRefundReceivedView", owner:
+                   self, options: nil)?.first as? PartialRefundReceivedView
+               initiationView?.enquiryCode.text = enquiryCode ?? ""
+                   
+               
+               initiationView?.delegate =  controller as? PartialRefundReceivedViewProtocol
+               initiationView?.tag = 138
+              
+               let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+              let effectView = UIVisualEffectView(effect: effect)
+               effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+               effectView.tag = 139
+               self.addSubview(effectView)
+                self.addSubview(initiationView!)
+               initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 150, width: 300, height: 300)
+               initiationView?.dropShadow()
+               
+               self.bringSubviewToFront(initiationView!)
+              
+           }
+       }
+       func hidePartialRefundReceivedView() {
+           if let initialView = self.viewWithTag(138) {
+              // self.effectView.removeFromSuperview()
+               self.sendSubviewToBack(initialView)
+               initialView.removeFromSuperview()
+           }
+           if let effectView = self.viewWithTag(139) {
+               self.sendSubviewToBack(effectView)
+                          effectView.removeFromSuperview()
+           }
+       }
+    
+    func showRatingInitaitionView(controller: UIViewController) {
+              if let _ = self.viewWithTag(140) {
+                  print("do nothing")
+              }else {
+                  let initiationView = Bundle.main.loadNibNamed("RatingInitaitionView", owner:
+                      self, options: nil)?.first as? RatingInitaitionView
+                  initiationView?.delegate =  controller as? RatingInitaitionViewProtocol
+                  initiationView?.tag = 140
+                 
+                  let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+                 let effectView = UIVisualEffectView(effect: effect)
+                  effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+                  effectView.tag = 141
+                  self.addSubview(effectView)
+                   self.addSubview(initiationView!)
+                  initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
+                  initiationView?.dropShadow()
+                  
+                  self.bringSubviewToFront(initiationView!)
+                 
+              }
+          }
+          func hideRatingInitaitionView() {
+              if let initialView = self.viewWithTag(140) {
+                 // self.effectView.removeFromSuperview()
+                  self.sendSubviewToBack(initialView)
+                  initialView.removeFromSuperview()
+              }
+              if let effectView = self.viewWithTag(141) {
+                  self.sendSubviewToBack(effectView)
+                             effectView.removeFromSuperview()
+              }
+          }
     
 }

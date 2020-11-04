@@ -260,8 +260,10 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     
     func endRefresh() {
         
+
         messages = realm?.objects(Conversation.self).filter("%K IN %@","entityID", id ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
         otherUser = Sender(senderId: "\(chatObj.buyerId)", displayName: chatObj.buyerCompanyName!)
+
         
         if messages != []{
             for obj in messages! {

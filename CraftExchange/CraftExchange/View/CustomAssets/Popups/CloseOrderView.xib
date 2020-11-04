@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CloseOrderView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VSd-K1-9Sa">
+                    <rect key="frame" x="57" y="44" width="300" height="300"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rWV-fe-Bog">
+                            <rect key="frame" x="255" y="15" width="30" height="33"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="X"/>
+                            <connections>
+                                <action selector="closeOrderCancelButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="Igo-Fa-YGW"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are You Sure?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ce-eo-Y9y">
+                            <rect key="frame" x="75" y="41" width="150" height="29"/>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are about to close this order!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inN-GU-pST">
+                            <rect key="frame" x="27.5" y="120" width="245" height="21"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                            <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OWC-SAR-2025" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3d-WG-4B1">
+                            <rect key="frame" x="87.5" y="151" width="125" height="21"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cNj-pV-2fN">
+                            <rect key="frame" x="42.5" y="247" width="215" height="35"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQr-yD-hVR" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="35"/>
+                                    <color key="backgroundColor" red="0.91764705882352937" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="nKj-GT-iWG"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="No">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="15"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="closeOrderNoButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="aof-UO-GHq"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ear-KM-JrL" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                                    <rect key="frame" x="115" y="0.0" width="100" height="35"/>
+                                    <color key="backgroundColor" red="0.0" green="0.51037931443424656" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="35" id="2Zn-i0-J8G"/>
+                                        <constraint firstAttribute="width" constant="100" id="Lzz-Yu-IC7"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <state key="normal" title="Yes">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="15"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                            <color key="value" red="0.0" green="0.51037931439999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="closeOrderYesButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="xEr-tP-thV"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="ear-KM-JrL" secondAttribute="bottom" id="Dly-9Q-WAh"/>
+                                <constraint firstAttribute="height" constant="35" id="E79-En-BLr"/>
+                                <constraint firstAttribute="bottom" secondItem="rQr-yD-hVR" secondAttribute="bottom" id="Epa-8T-1tC"/>
+                                <constraint firstItem="ear-KM-JrL" firstAttribute="leading" secondItem="rQr-yD-hVR" secondAttribute="trailing" constant="15" id="GE4-eK-6aM"/>
+                                <constraint firstAttribute="width" constant="215" id="Nex-dT-JYp"/>
+                                <constraint firstItem="rQr-yD-hVR" firstAttribute="leading" secondItem="cNj-pV-2fN" secondAttribute="leading" id="OZt-17-KPd"/>
+                                <constraint firstItem="ear-KM-JrL" firstAttribute="top" secondItem="cNj-pV-2fN" secondAttribute="top" id="S1X-EA-v66"/>
+                                <constraint firstItem="rQr-yD-hVR" firstAttribute="top" secondItem="cNj-pV-2fN" secondAttribute="top" id="hRQ-Bo-Huj"/>
+                                <constraint firstAttribute="trailing" secondItem="ear-KM-JrL" secondAttribute="trailing" id="sYF-as-5ik"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="rWV-fe-Bog" firstAttribute="top" secondItem="VSd-K1-9Sa" secondAttribute="top" constant="15" id="2It-G8-w0J"/>
+                        <constraint firstItem="3Ce-eo-Y9y" firstAttribute="centerX" secondItem="VSd-K1-9Sa" secondAttribute="centerX" id="2Xx-Qd-Gcf"/>
+                        <constraint firstItem="inN-GU-pST" firstAttribute="top" secondItem="3Ce-eo-Y9y" secondAttribute="bottom" constant="50" id="BbA-in-RJx"/>
+                        <constraint firstAttribute="height" constant="300" id="Ft3-cl-fNn"/>
+                        <constraint firstItem="inN-GU-pST" firstAttribute="centerX" secondItem="VSd-K1-9Sa" secondAttribute="centerX" id="PDo-6E-kez"/>
+                        <constraint firstItem="cNj-pV-2fN" firstAttribute="centerX" secondItem="VSd-K1-9Sa" secondAttribute="centerX" id="PWE-6C-6cW"/>
+                        <constraint firstAttribute="width" constant="300" id="TQD-dL-ptt"/>
+                        <constraint firstItem="3Ce-eo-Y9y" firstAttribute="top" secondItem="VSd-K1-9Sa" secondAttribute="top" constant="41" id="TcH-IQ-eLT"/>
+                        <constraint firstItem="x3d-WG-4B1" firstAttribute="top" secondItem="inN-GU-pST" secondAttribute="bottom" constant="10" id="XjI-4U-oRf"/>
+                        <constraint firstItem="x3d-WG-4B1" firstAttribute="centerX" secondItem="VSd-K1-9Sa" secondAttribute="centerX" id="ixn-uS-koQ"/>
+                        <constraint firstAttribute="trailing" secondItem="rWV-fe-Bog" secondAttribute="trailing" constant="15" id="ncI-xq-d1r"/>
+                        <constraint firstItem="cNj-pV-2fN" firstAttribute="top" secondItem="x3d-WG-4B1" secondAttribute="bottom" constant="75" id="ylJ-8K-g37"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VSd-K1-9Sa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="491-Ag-WTq"/>
+                <constraint firstItem="VSd-K1-9Sa" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="uwO-Gc-kIX"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="closeOrderCancelButton" destination="rWV-fe-Bog" id="uj7-X9-LyS"/>
+                <outlet property="closeOrderNoButton" destination="rQr-yD-hVR" id="M8V-SX-0qk"/>
+                <outlet property="closeOrderYesButton" destination="ear-KM-JrL" id="Qwg-cs-ZiF"/>
+                <outlet property="enquiryCode" destination="x3d-WG-4B1" id="f2v-r6-78l"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="108"/>
+        </view>
+    </objects>
+</document>
