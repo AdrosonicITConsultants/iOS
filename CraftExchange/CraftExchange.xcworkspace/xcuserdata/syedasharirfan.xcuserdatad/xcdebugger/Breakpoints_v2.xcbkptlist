@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "3B34E026-4411-40F7-A961-2F2E86203FED"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EDEA841D-7AF1-41EE-A3EB-362E54C7297F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Scene/LoginScenes/ValidateUserScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "createScene()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EDEA841D-7AF1-41EE-A3EB-362E54C7297F - 6773b0a9012c2b46"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in Craft_Xchange.ValidateUserService.createScene() -&gt; __C.UIViewController"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/syedasharirfan/Documents/craftexchange/CraftExchange/CraftExchange/Scene/LoginScenes/ValidateUserScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1562">
+               </Location>
+               <Location
+                  uuid = "EDEA841D-7AF1-41EE-A3EB-362E54C7297F - ca84d0e00fe05a2e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Craft_Xchange.LoginEmailController, Foundation.Data) -&gt; () in closure #2 () -&gt; () in Craft_Xchange.ValidateUserService.createScene() -&gt; __C.UIViewController"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/syedasharirfan/Documents/craftexchange/CraftExchange/CraftExchange/Scene/LoginScenes/ValidateUserScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "159">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
