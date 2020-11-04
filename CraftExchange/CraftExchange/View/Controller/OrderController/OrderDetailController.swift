@@ -494,7 +494,6 @@ class OrderDetailController: FormViewController {
                 }
             })
 
-            
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Quality Check".localized
@@ -502,7 +501,19 @@ class OrderDetailController: FormViewController {
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
                 $0.cell.valueLbl.textColor = UIColor().EQGreenText()
-            }
+            }.onCellSelection({ (cell, row) in
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    if User.loggedIn()?.refRoleId == "1" {
+                        if let order = self.orderObject {
+                            let vc = QCService(client: client).createQCArtisanScene(forOrder: order)
+                            self.navigationController?.pushViewController(vc, animated: false)
+                        }
+                    }
+                }catch {
+                    print(error.localizedDescription)
+                }
+            })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }

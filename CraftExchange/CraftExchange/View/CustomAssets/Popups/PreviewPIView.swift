@@ -42,8 +42,7 @@ class PreviewPIView: UIView, WKUIDelegate {
     //    override func didAddSubview(_ subview: UIView) {
     //    //    }
     override func layoutSubviews() {
-    previewPI.loadHTMLString( data, baseURL: nil)
-
+        previewPI.loadHTMLString( data, baseURL: nil)
     }
 //    override func awakeFromNib() {
 //        previewPI.loadHTMLString( data, baseURL: nil)

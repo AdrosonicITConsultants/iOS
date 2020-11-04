@@ -93,6 +93,14 @@
 		C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB924C2335400197519 /* Product+Transaction.swift */; };
 		C006B3AF250E4FAC00882C4A /* ProFormaInvoiceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */; };
 		C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */; };
+		C00E8A93254C336500DDB23D /* QCStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A92254C336500DDB23D /* QCStages.swift */; };
+		C00E8A95254C33C300DDB23D /* QCQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A94254C33C300DDB23D /* QCQuestions.swift */; };
+		C00E8A97254C3D6E00DDB23D /* QualityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A96254C3D6E00DDB23D /* QualityCheck.swift */; };
+		C00E8A99254C407600DDB23D /* QualityCheck+Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A98254C407600DDB23D /* QualityCheck+Transactions.swift */; };
+		C00E8A9B254C41C100DDB23D /* QualityCheck+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A9A254C41C100DDB23D /* QualityCheck+Request.swift */; };
+		C00E8A9D254C594C00DDB23D /* QCArtisanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A9C254C594C00DDB23D /* QCArtisanController.swift */; };
+		C00E8A9F254C5F5D00DDB23D /* QCArtisanScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A9E254C5F5D00DDB23D /* QCArtisanScene.swift */; };
+		C00E8AA1254C607A00DDB23D /* QCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8AA0254C607A00DDB23D /* QCService.swift */; };
 		C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */; };
 		C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */; };
 		C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */; };
@@ -407,6 +415,8 @@
 		C0E212D62498D11C00EC2B80 /* REGBuyerAddressInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */; };
 		C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D72498D13700EC2B80 /* REGBuyerAddressInfoService.swift */; };
 		C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D92498D17300EC2B80 /* REGBuyerAddressInfoScene.swift */; };
+		C0E6348F2552D721001C7768 /* SaveAndSendQC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6348D2552D721001C7768 /* SaveAndSendQC.xib */; };
+		C0E634902552D721001C7768 /* SaveAndSendQC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6348E2552D721001C7768 /* SaveAndSendQC.swift */; };
 		C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03A24EBD7D0008CFB1F /* ProductDetailInfoRow.xib */; };
 		C0E6D03D24EBDFD9008CFB1F /* ProdDetailYarnRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03C24EBDFD9008CFB1F /* ProdDetailYarnRow.xib */; };
 		C0E6D03F24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03E24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib */; };
@@ -517,6 +527,14 @@
 		C005BCB924C2335400197519 /* Product+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Transaction.swift"; sourceTree = "<group>"; };
 		C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProFormaInvoiceRow.xib; sourceTree = "<group>"; };
 		C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFormaInvoiceRow.swift; sourceTree = "<group>"; };
+		C00E8A92254C336500DDB23D /* QCStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCStages.swift; sourceTree = "<group>"; };
+		C00E8A94254C33C300DDB23D /* QCQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCQuestions.swift; sourceTree = "<group>"; };
+		C00E8A96254C3D6E00DDB23D /* QualityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityCheck.swift; sourceTree = "<group>"; };
+		C00E8A98254C407600DDB23D /* QualityCheck+Transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QualityCheck+Transactions.swift"; sourceTree = "<group>"; };
+		C00E8A9A254C41C100DDB23D /* QualityCheck+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QualityCheck+Request.swift"; sourceTree = "<group>"; };
+		C00E8A9C254C594C00DDB23D /* QCArtisanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCArtisanController.swift; sourceTree = "<group>"; };
+		C00E8A9E254C5F5D00DDB23D /* QCArtisanScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCArtisanScene.swift; sourceTree = "<group>"; };
+		C00E8AA0254C607A00DDB23D /* QCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCService.swift; sourceTree = "<group>"; };
 		C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
 		C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
@@ -838,6 +856,8 @@
 		C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoController.swift; sourceTree = "<group>"; };
 		C0E212D72498D13700EC2B80 /* REGBuyerAddressInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoService.swift; sourceTree = "<group>"; };
 		C0E212D92498D17300EC2B80 /* REGBuyerAddressInfoScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoScene.swift; sourceTree = "<group>"; };
+		C0E6348D2552D721001C7768 /* SaveAndSendQC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaveAndSendQC.xib; sourceTree = "<group>"; };
+		C0E6348E2552D721001C7768 /* SaveAndSendQC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveAndSendQC.swift; sourceTree = "<group>"; };
 		C0E6D03A24EBD7D0008CFB1F /* ProductDetailInfoRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailInfoRow.xib; sourceTree = "<group>"; };
 		C0E6D03C24EBDFD9008CFB1F /* ProdDetailYarnRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdDetailYarnRow.xib; sourceTree = "<group>"; };
 		C0E6D03E24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdDetailYarnValueRow.xib; sourceTree = "<group>"; };
@@ -928,6 +948,15 @@
 				C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */,
 			);
 			path = HomeScenes;
+			sourceTree = "<group>";
+		};
+		C00E8AA2254C9C4100DDB23D /* QualityCheck */ = {
+			isa = PBXGroup;
+			children = (
+				C0E6348E2552D721001C7768 /* SaveAndSendQC.swift */,
+				C0E6348D2552D721001C7768 /* SaveAndSendQC.xib */,
+			);
+			path = QualityCheck;
 			sourceTree = "<group>";
 		};
 		C0144ABE24844390006FF4AB /* LoginControllers */ = {
@@ -1039,6 +1068,7 @@
 			children = (
 				C0374DF225383C0E008954C6 /* OrderListService.swift */,
 				C0374E002538830A008954C6 /* OrderDetailsService.swift */,
+				C00E8AA0254C607A00DDB23D /* QCService.swift */,
 			);
 			path = OrderService;
 			sourceTree = "<group>";
@@ -1050,6 +1080,7 @@
 				C0374DFC25384C17008954C6 /* OrderDetailController.swift */,
 				C0EED03E2543618200C920B7 /* BuyerChangeRequestController.swift */,
 				C04249C82547532600D9EA6C /* ArtisanChangeRequestController.swift */,
+				C00E8A9C254C594C00DDB23D /* QCArtisanController.swift */,
 			);
 			path = OrderController;
 			sourceTree = "<group>";
@@ -1061,6 +1092,7 @@
 				C0374DFE253882D7008954C6 /* OrderDetailsScene.swift */,
 				C0C248A725470B7800AE18FA /* BuyerChangeRequestScene.swift */,
 				C0989E402547600F001B933F /* ArtisanChangeRequestScene.swift */,
+				C00E8A9E254C5F5D00DDB23D /* QCArtisanScene.swift */,
 			);
 			path = OrderScenes;
 			sourceTree = "<group>";
@@ -1214,6 +1246,9 @@
 				C04249CA2547552100D9EA6C /* ChangeRequest.swift */,
 				C04249CC2547560600D9EA6C /* ChangeRequestItem.swift */,
 				3024AF8B25483892008C0E87 /* FinalPaymentDetails.swift */,
+				C00E8A92254C336500DDB23D /* QCStages.swift */,
+				C00E8A94254C33C300DDB23D /* QCQuestions.swift */,
+				C00E8A96254C3D6E00DDB23D /* QualityCheck.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1470,6 +1505,7 @@
 				C06570A5252B8E87001140C7 /* TransactionObject+Request.swift */,
 				3092470C2535DE9A0073463E /* Chat+Request.swift */,
 				C0374DEF25383A41008954C6 /* Order+Request.swift */,
+				C00E8A9A254C41C100DDB23D /* QualityCheck+Request.swift */,
 			);
 			path = "Entity+Networking";
 			sourceTree = "<group>";
@@ -1493,6 +1529,7 @@
 		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
 			isa = PBXGroup;
 			children = (
+				C00E8AA2254C9C4100DDB23D /* QualityCheck */,
 				C0EED02D2543552A00C920B7 /* ChangeRequest */,
 				C06570A7252B910F001140C7 /* TransactionCells */,
 				C09F97DD25021BE30076F917 /* EnquiryCells */,
@@ -1647,6 +1684,7 @@
 				C09905DF2546C73700F00E50 /* ChangeRequest+Transaction.swift */,
 				C0989E3E25475F66001B933F /* ChangeRequestItem+Transaction.swift */,
 				C0989E3C25475EF5001B933F /* ChangeRequestType+Transaction.swift */,
+				C00E8A98254C407600DDB23D /* QualityCheck+Transactions.swift */,
 			);
 			path = "Entity+Transaction";
 			sourceTree = "<group>";
@@ -2006,6 +2044,7 @@
 				C0EED03D254355C200C920B7 /* CRNoteView.xib in Resources */,
 				C09D002524B7379C0039F805 /* MyProfile.storyboard in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
+				C0E6348F2552D721001C7768 /* SaveAndSendQC.xib in Resources */,
 				C099E3ED24FE8F0C003B6E3B /* EnquiryInitiationView.xib in Resources */,
 				3018B0662540ED9F007A6C69 /* ChatHeaderView.xib in Resources */,
 				C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */,
@@ -2169,6 +2208,7 @@
 				C016EC0F2510D16D0039B7AF /* BuyerNotificationScene.swift in Sources */,
 				C016EC202510D4FF0039B7AF /* OfflineNotificationRequest.swift in Sources */,
 				C0C4CD85250BCD7100017889 /* EnquiryListService.swift in Sources */,
+				C00E8A9F254C5F5D00DDB23D /* QCArtisanScene.swift in Sources */,
 				309F24F425340DA50015DED4 /* CMS+Transaction.swift in Sources */,
 				C0EED03A254355C200C920B7 /* DisableCRView.swift in Sources */,
 				C09C8C23250CF37F00950526 /* EnquiryStages+Transactions.swift in Sources */,
@@ -2238,9 +2278,11 @@
 				C0285AA124CF4E4F0045623A /* BuyerProductCatalogController.swift in Sources */,
 				C0A29FFC24B8A72300A49E56 /* CompanyPointOfContact.swift in Sources */,
 				C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */,
+				C00E8A9D254C594C00DDB23D /* QCArtisanController.swift in Sources */,
 				3092470F2535DED30073463E /* Chat+Transaction.swift in Sources */,
 				C08FBDFE2497F2DA0065BB20 /* REGBuyerPersonalInfoScene.swift in Sources */,
 				C0ACE99E2485916400EFA4ED /* ProductCategory+Request.swift in Sources */,
+				C00E8AA1254C607A00DDB23D /* QCService.swift in Sources */,
 				C0ACE99A2485908E00EFA4ED /* REGValidateUserEmailController.swift in Sources */,
 				C09C8C21250CBDBC00950526 /* Enquiry+Transactions.swift in Sources */,
 				C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */,
@@ -2267,6 +2309,7 @@
 				C0AE9CF724ED3E260037ECB3 /* ProdDetailsRelatedRow.swift in Sources */,
 				C0A5EB6A24A0F68500AD42EA /* UIColor+Extensions.swift in Sources */,
 				C0ACE9A62485966600EFA4ED /* REGValidateUserEmailService.swift in Sources */,
+				C00E8A95254C33C300DDB23D /* QCQuestions.swift in Sources */,
 				C0917DF624D473FA006B6664 /* ReedCount+Transaction.swift in Sources */,
 				C0ACE99424852A5B00EFA4ED /* CXUser.swift in Sources */,
 				C0917DDE24D43302006B6664 /* ProductType.swift in Sources */,
@@ -2301,6 +2344,7 @@
 				C0EED036254355C200C920B7 /* CRBuyerRow.swift in Sources */,
 				C09C8C27250D4DA400950526 /* EnquiryDetailsService.swift in Sources */,
 				C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */,
+				C00E8A97254C3D6E00DDB23D /* QualityCheck.swift in Sources */,
 				C09C970324B9096000FD97E9 /* MyProfileScene.swift in Sources */,
 				C09B3EFE24BA569300FBC115 /* ProfileImageRow.swift in Sources */,
 				C09C970724B919EE00FD97E9 /* ArtisanBrandDetails.swift in Sources */,
@@ -2316,6 +2360,7 @@
 				C09F214F24862B56001F2FCD /* REGArtisanDataScene.swift in Sources */,
 				C071E232247EAC0F0085805B /* ClusterDetails.swift in Sources */,
 				C0989E3D25475EF5001B933F /* ChangeRequestType+Transaction.swift in Sources */,
+				C00E8A93254C336500DDB23D /* QCStages.swift in Sources */,
 				C09794A124EAB2A700C11AC7 /* ImageViewRow.swift in Sources */,
 				C0ACE9B02485BD0C00EFA4ED /* ClusterDetails+Request.swift in Sources */,
 				30EB8DE92537230800BA59E8 /* ChatNewListController.swift in Sources */,
@@ -2338,6 +2383,7 @@
 				C09794A324EABB7900C11AC7 /* CustomProductImage.swift in Sources */,
 				C0374DFF253882D7008954C6 /* OrderDetailsScene.swift in Sources */,
 				309787772524133600F9B608 /* PreviewPIView.swift in Sources */,
+				C00E8A99254C407600DDB23D /* QualityCheck+Transactions.swift in Sources */,
 				C0EED03F2543618200C920B7 /* BuyerChangeRequestController.swift in Sources */,
 				C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */,
 				C0AE9CF124ECDA2B0037ECB3 /* ProdDetailYarnRow.swift in Sources */,
@@ -2378,6 +2424,7 @@
 				C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */,
 				309247112535ED7C0073463E /* ChatListScene.swift in Sources */,
 				C0989E3F25475F66001B933F /* ChangeRequestItem+Transaction.swift in Sources */,
+				C0E634902552D721001C7768 /* SaveAndSendQC.swift in Sources */,
 				C0ACE9982485900F00EFA4ED /* REGValidateArtisanController.swift in Sources */,
 				C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */,
 				C0917DE424D4372B006B6664 /* Weave.swift in Sources */,
@@ -2387,6 +2434,7 @@
 				309247052535DD7B0073463E /* ChatDetailsService.swift in Sources */,
 				C09EE6FE252C2E3E0030A5C1 /* TransactionDetailRow.swift in Sources */,
 				C0F0653724BCC4C8004B5138 /* AccountType.swift in Sources */,
+				C00E8A9B254C41C100DDB23D /* QualityCheck+Request.swift in Sources */,
 				309787892524CEAE00F9B608 /* CurrencySigns+Transaction.swift in Sources */,
 				C071E25F247EFAAB0085805B /* BaseService.swift in Sources */,
 				C0A8EEA124C0EF680074C620 /* ArtisanTabbarController.swift in Sources */,

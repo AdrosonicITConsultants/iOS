@@ -28,6 +28,5 @@ class OpenAttachmentView: UIView, WKUIDelegate {
     }
     override func layoutSubviews() {
         attachementView.load(URLRequest(url:URL(string: attachmentURL)!))
-
     }
 }
