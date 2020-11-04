@@ -47,4 +47,9 @@ class REGValidateUserEmailController: UIViewController {
   @IBAction func sendOTPSelected(_ sender: Any) {
     self.viewModel.sendOTP?()
   }
+    
+  @IBAction func faqButtonSelected(_ sender: UIButton){
+    didTapFAQButton(tag: sender.tag)
+  }
+      
 }

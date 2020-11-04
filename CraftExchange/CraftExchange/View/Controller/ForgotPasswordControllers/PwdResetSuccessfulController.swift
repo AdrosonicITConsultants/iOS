@@ -27,4 +27,8 @@ class PwdResetSuccessfulController: UIViewController {
       print("Unable to load view:\n\(error.localizedDescription)")
     }
   }
+
+  @IBAction func faqButtonSelected(_ sender: UIButton){
+        didTapFAQButton(tag: sender.tag)
+  }
 }

@@ -277,8 +277,15 @@ extension UIView {
             initiationView?.attachmentURL = data
             initiationView?.delegate =  controller as? OpenAttachmentViewProtocol
             initiationView?.tag = 131
+            let safeAreaTop: CGFloat
+
+            if #available(iOS 11.0, *) {
+                safeAreaTop = controller.view.safeAreaInsets.top
+            } else {
+                safeAreaTop = controller.topLayoutGuide.length
+            }
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+            initiationView?.frame = CGRect(x:0, y:safeAreaTop, width: self.frame.width, height: self.frame.height)
             self.bringSubviewToFront(initiationView!)
         }
     }
@@ -382,6 +389,27 @@ extension UIView {
     }
     func hideChatHeaderDetailsView() {
         if let initialView = self.viewWithTag(133) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+    }
+    
+    func showOpenFAQView(controller: UIViewController, data: String) {
+        if let _ = self.viewWithTag(134) {
+            print("do nothing")
+        } else {
+            let initiationView = Bundle.main.loadNibNamed("OpenAttachmentView", owner:
+                self, options: nil)?.first as? OpenAttachmentView
+            initiationView?.attachmentURL = data
+            initiationView?.delegate =  controller as? OpenAttachmentViewProtocol
+            initiationView?.tag = 134
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    func hideOpenFAQView() {
+        if let initialView = self.viewWithTag(134) {
             self.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
         }

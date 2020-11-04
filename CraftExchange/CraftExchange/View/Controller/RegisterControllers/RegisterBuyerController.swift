@@ -45,4 +45,8 @@ class RegisterBuyerController: UIViewController {
   @IBAction func completeButtonSelected(_ sender: Any) {
     self.viewModel.completeRegistration?()
   }
+    
+  @IBAction func faqButtonSelected(_ sender: UIButton) {
+        didTapFAQButton(tag: sender.tag)
+  }
 }

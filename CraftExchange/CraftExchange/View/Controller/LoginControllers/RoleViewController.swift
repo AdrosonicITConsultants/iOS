@@ -45,6 +45,11 @@ class RoleViewController: UIViewController {
     KeychainManager.standard.userRoleId = 2
     showLogin()
   }
+
+  @IBAction func faqButtonSelected(_ sender: UIButton) {
+    didTapFAQButton(tag: sender.tag)
+  }
+    
   
   func showLogin() {
     print(KeychainManager.standard.userRoleId as Any)
