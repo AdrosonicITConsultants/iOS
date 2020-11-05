@@ -32,6 +32,7 @@ class QCArtisanController: FormViewController {
     var artisanQCArray: Results<QualityCheck>?
     let realm = try? Realm()
     var orderQCStageId: Int = 0
+    var orderQCIsSend: Int = 0
     var showSection: String?
     
     override func viewDidLoad() {
@@ -70,6 +71,11 @@ class QCArtisanController: FormViewController {
             })
         <<< stageView
         +++ stageSection
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "QCRevised"), object: nil, queue: .main) { (notif) in
+            self.hideLoading()
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +88,7 @@ class QCArtisanController: FormViewController {
             
             return }
         if orderQCStageId == 0 {
-            showSection = "1"
+            showSection = "0"
         }
         if let stageArray = stagesArray, stageArray.count > 0 {
             stageArray .forEach { (stage) in
@@ -100,10 +106,18 @@ class QCArtisanController: FormViewController {
                             if self.orderQCStageId == 7 {
                                 cell.row.hidden = false
                             }else {
-                                if Int(cell.row.tag ?? "0") ?? 0 <= self.orderQCStageId+1 {
-                                    cell.row.hidden = false
+                                if self.orderQCIsSend == 1 {
+                                    if Int(cell.row.tag ?? "0") ?? 0 <= self.orderQCStageId+1 {
+                                        cell.row.hidden = false
+                                    }else {
+                                        cell.row.hidden = true
+                                    }
                                 }else {
-                                    cell.row.hidden = true
+                                    if Int(cell.row.tag ?? "0") ?? 0 <= self.orderQCStageId {
+                                        cell.row.hidden = false
+                                    }else {
+                                        cell.row.hidden = true
+                                    }
                                 }
                             }
                         }else {
@@ -146,10 +160,11 @@ class QCArtisanController: FormViewController {
                     var showSave = false
                     if let qcArray = questionsArray?.filter("%K == %@","stageId",stage.entityID).sorted(byKeyPath: "entityID"), qcArray.count > 0 {
                         qcArray .forEach { (question) in
-                            if let getQC = self.artisanQCArray?.filter("%K == %@ AND %K == %@","stageId",stage.entityID,"questionId",question.questionNo).first {
-                                let index = (Int(self.showSection ?? "0") ?? 0)+1
-                                if getQC.stageId != index {
+                            if let getQC = self.artisanQCArray?.filter("%K == %@ AND %K == %@","stageId",stage.entityID,"questionId",question.questionNo).sorted(byKeyPath: "modifiedOn", ascending: false).first {
+//                                let index = (Int(self.showSection ?? "0") ?? 0)+1
+                                if (getQC.stageId == self.orderQCStageId && self.orderQCIsSend == 1) || getQC.stageId < self.orderQCStageId {
                                     print("is Not Editable")
+                                    showSave = false
                                     stageSection <<< RoundedTextFieldRow() {
                                         $0.cell.height = { 80.0 }
                                         $0.tag = "\(stage.entityID)-\(question.questionNo)-ans"
@@ -214,6 +229,16 @@ class QCArtisanController: FormViewController {
     
     func getAnswerCellWithTag(question: QCQuestions) -> [BaseRow] {
         var row = LabelRow()
+        var answer = ""
+        var selectedOptions: [String] = []
+        if let getQC = self.artisanQCArray?.filter("%K == %@ AND %K == %@","stageId",question.stageId,"questionId",question.questionNo).sorted(byKeyPath: "modifiedOn", ascending: false).first {
+            answer = getQC.answer ?? ""
+            if question.answerType == "1" {
+                selectedOptions = getQC.answer?.components(separatedBy: ",").compactMap({ (opt) -> String? in
+                    return opt.replacingOccurrences(of: ",", with: "")
+                }) ?? []
+            }
+        }
         switch question.answerType {
         case "0":
             print("textfield")
@@ -228,12 +253,13 @@ class QCArtisanController: FormViewController {
                 $0.cell.backgroundColor = .white
                 $0.cell.valueTextField.placeholder = "Your comments...".localized
                 $0.cell.valueTextField.textColor = .darkGray
+                $0.cell.valueTextField.text = answer
             }.cellUpdate({ (cell, row) in
                 cell.isUserInteractionEnabled = true
                 cell.valueTextField.isUserInteractionEnabled = true
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                let currentSection = (Int(self.showSection ?? "0") ?? 0)+1
+                let currentSection = (Int(self.showSection ?? "0") ?? 0)
                 if cell.row.tag == "\(currentSection)-\(question.entityID)-ans" {
                     cell.row.hidden = false
                 }else {
@@ -274,11 +300,18 @@ class QCArtisanController: FormViewController {
                         $0.cell.toggleDelegate = self
                         $0.hidden = true
                         $0.tag = "\(question.stageId)-\(question.questionNo)-\(i)-ans"
+                        if selectedOptions.contains(opt){
+                            $0.cell.titleLbl.textColor = UIColor().menuSelectorBlue()
+                            $0.cell.toggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
+                        }else {
+                            $0.cell.titleLbl.textColor = .lightGray
+                            $0.cell.toggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
+                        }
                     }.onCellSelection({ (cell, row) in
                         cell.toggleButton.sendActions(for: .touchUpInside)
                         cell.contentView.backgroundColor = .white
                     }).cellUpdate { (cell, row) in
-                        let currentSection = (Int(self.showSection ?? "0") ?? 0)+1
+                        let currentSection = (Int(self.showSection ?? "0") ?? 0)
                         if cell.row.tag == "\(currentSection)-\(question.entityID)-ans" {
                             cell.row.hidden = false
                         }else {
@@ -301,10 +334,11 @@ class QCArtisanController: FormViewController {
                 }) {
                     $0.options = options
                 }
+                $0.value = answer
             }.cellUpdate { (cell, row) in
                 cell.textLabel?.textColor = .black
                 cell.textLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-                let currentSection = (Int(self.showSection ?? "0") ?? 0)+1
+                let currentSection = (Int(self.showSection ?? "0") ?? 0)
                 if cell.row.tag == "\(currentSection)-\(question.entityID)-ans" {
                     cell.row.hidden = false
                 }else {

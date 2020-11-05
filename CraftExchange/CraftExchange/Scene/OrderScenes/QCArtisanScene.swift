@@ -33,6 +33,7 @@ extension QCService {
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                         if let dictionary = json["data"] as? [String: Any] {
                             vc.orderQCStageId = dictionary["stageId"] as? Int ?? 0
+                            vc.orderQCIsSend = dictionary["isSend"] as? Int ?? 0
                             if let array = dictionary["artisanQcResponses"] as? [[[String: Any]]] {
                                 try array .forEach { (obj) in
                                     try obj .forEach { (dict) in
@@ -63,6 +64,34 @@ extension QCService {
         }
         
         vc.saveQualityCheck = { (stageID) in
+            vc.showLoading()
+            let qaArray = createQAArray(stageID: stageID)
+            print("qcArr: \(qaArray)")
+            let qualityObj = qualityCheck.init(stageId: stageID, enquiryId: forOrder.enquiryId, saveOrSend: 0, questionAnswers: qaArray)
+            let request = OfflineOrderRequest.init(type: .sendOrSaveQCRequest, orderId: forOrder.enquiryId, changeRequestStatus: nil, changeRequestJson: qualityObj.toJSON())
+            OfflineRequestManager.defaultManager.queueRequest(request)
+        }
+        
+        vc.sendQualityCheck = { (stageID) in
+            vc.showLoading()
+            let qaArray = createQAArray(stageID: stageID)
+            print("qcArr: \(qaArray)")
+            let qualityObj = qualityCheck.init(stageId: stageID, enquiryId: forOrder.enquiryId, saveOrSend: 1, questionAnswers: qaArray)
+            let request = OfflineOrderRequest.init(type: .sendOrSaveQCRequest, orderId: forOrder.enquiryId, changeRequestStatus: nil, changeRequestJson: qualityObj.toJSON())
+            OfflineRequestManager.defaultManager.queueRequest(request)
+        }
+        
+        func getQuestionID(answerRow: BaseRow) -> Int {
+            if let strs = answerRow.tag?.components(separatedBy: "-").compactMap({ (str) -> String? in
+                return str.replacingOccurrences(of: "-", with: "")
+            }) {
+                let questionId = strs[1]
+                return Int(questionId) ?? 0
+            }
+            return 0
+        }
+        
+        func createQAArray(stageID: Int) -> [[String:Any]] {
             var qaArray: [[String:Any]] = []
             vc.form.allRows .forEach { (row) in
                 if row.tag?.starts(with: "\(stageID)-") ?? false {
@@ -95,23 +124,9 @@ extension QCService {
                     }
                 }
             }
-            print("qcArr: \(qaArray)")
+            return qaArray
         }
-        
-        func getQuestionID(answerRow: BaseRow) -> Int {
-            if let strs = answerRow.tag?.components(separatedBy: "-").compactMap({ (str) -> String? in
-                return str.replacingOccurrences(of: "-", with: "")
-            }) {
-                let questionId = strs[1]
-                return Int(questionId) ?? 0
-            }
-            return 0
-        }
-        
-        vc.sendQualityCheck = { (stageID) in
-            
-        }
-        
+
         return vc
     }
     

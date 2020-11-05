@@ -577,4 +577,23 @@ extension changeRequest {
     }
 }
 
+struct qualityCheck {
+    var stageId: Int = 0
+    var enquiryId: Int = 0
+    var saveOrSend: Int = 0
+    var questionAnswers: [[String: Any]]?
+}
 
+extension qualityCheck {
+    func toJSON() -> [String: Any] {
+
+        var changeRequestJson: [String: Any] = [:]
+
+        changeRequestJson["stageId"] = stageId
+        changeRequestJson["enquiryId"] = enquiryId
+        changeRequestJson["saveOrSend"] = saveOrSend
+        changeRequestJson["questionAnswers"] = questionAnswers
+
+        return changeRequestJson
+    }
+}

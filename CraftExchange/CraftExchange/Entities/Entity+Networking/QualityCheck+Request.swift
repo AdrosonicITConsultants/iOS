@@ -59,7 +59,7 @@ extension QualityCheck {
     
     public static func sendOrSaveQcForm(parameters: [String: Any] ) -> Request<Data, APIError> {
         return Request(
-            path: "enquiry/sendOrSaveQcForm",
+            path: "qc/sendOrSaveQcForm",
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "sendOrSaveQcForm failed")
