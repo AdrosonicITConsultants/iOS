@@ -29,11 +29,6 @@ class MarketHomeController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
-        let rightBarButtomItem2 = self.searchBarButton()
-        navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(notificationButtonSelected(_:)), name: NSNotification.Name(rawValue: "ShowNotification"), object: nil)
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
         form
@@ -43,9 +38,10 @@ class MarketHomeController: FormViewController {
                 $0.tag = "HorizonatalAdmin0"
                 $0.cell.backgroundColor = UIColor.black
                 $0.cell.Logo.image = UIImage(named: "cx")
+                $0.cell.delegate = self
+                $0.cell.tag = 110
                 $0.cell.height = { 100.0 }
             }
-            
             <<< AdminLabelRow(){
                 $0.tag = "AdminLabelRow-1"
                 $0.cell.AdminLabel.text = "Report"
@@ -118,29 +114,30 @@ class MarketHomeController: FormViewController {
                 }
             })
     }
-    @IBAction func notificationButtonSelected(_ sender: Any) {
-           do {
-               let client = try SafeClient(wrapping: CraftExchangeClient())
-               let vc = NotificationService(client: client).createScene()
-               vc.modalPresentationStyle = .fullScreen
-               self.navigationController?.pushViewController(vc, animated: true)
-           }catch {
-               print(error.localizedDescription)
-           }
-       }
 }
 
-extension MarketHomeController: MarketActionsProtocol {
+extension MarketHomeController: MarketActionsProtocol, NotifyButtonProtocol{
+    func NotifyBtnSelected(tag: Int){
+        switch tag{
+            case 110:
+                let storyboard = UIStoryboard(name: "AdminNotification", bundle: nil)
+                let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminNotificationController") as! AdminNotificationController
+                vc1.modalPresentationStyle = .fullScreen
+                self.present(vc1, animated: true, completion: nil)
+                
+            default:
+                print("Notify Not WORKING")
+            }
+    }
     func ArrowBtnSelected(tag: Int) {
     switch tag{
     case 109:
-
         let storyboard = UIStoryboard(name: "AdminUserDatabase", bundle: nil)
         let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUserController") as! AdminUserController
         vc1.modalPresentationStyle = .fullScreen
         self.present(vc1, animated: true, completion: nil)
 
-//        self.navigationController?.pushViewController(vc1, animated: true)
+        self.navigationController?.pushViewController(vc1, animated: true)
         print("DbBtnSelected")
         
     default:

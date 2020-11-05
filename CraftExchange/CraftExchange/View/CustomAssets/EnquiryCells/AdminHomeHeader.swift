@@ -9,16 +9,22 @@
 import Foundation
 import UIKit
 import Eureka
-
+protocol NotifyButtonProtocol {
+    func NotifyBtnSelected(tag: Int)
+}
 class AdminHomeHeader: Cell<String>, CellType {
 
     
     @IBOutlet weak var Logo: UIImageView!
     
     @IBOutlet weak var NotifyBtn: UIButton!
+    var delegate: NotifyButtonProtocol?
+       @IBAction func NotifyBtnSelected(_ sender: Any) {
+       delegate?.NotifyBtnSelected(tag: tag)
+              }
     public override func setup() {
         super.setup()
-       
+        NotifyBtn.addTarget(self, action: #selector(NotifyBtnSelected(_:)), for: .touchUpInside)
     }
 
     public override func update() {
