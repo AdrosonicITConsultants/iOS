@@ -827,7 +827,6 @@
 				11C849B4253054B200729355 /* MarketHomeController.swift */,
 				11173F5C254192A30027B9C3 /* AdminUserController.swift */,
 				115338A32542D8E800BF4204 /* AdminBuyerUserDetailController.swift */,
-				118F70442552EF050075F998 /* AdminNotificationController.swift */,
 			);
 			path = LoginControllers;
 			sourceTree = "<group>";
@@ -897,6 +896,7 @@
 			isa = PBXGroup;
 			children = (
 				C016EC172510D3280039B7AF /* NotificationController.swift */,
+				118F70442552EF050075F998 /* AdminNotificationController.swift */,
 			);
 			path = NotificationController;
 			sourceTree = "<group>";
