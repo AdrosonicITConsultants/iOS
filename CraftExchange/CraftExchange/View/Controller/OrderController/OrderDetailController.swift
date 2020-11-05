@@ -509,6 +509,11 @@ class OrderDetailController: FormViewController {
                             let vc = QCService(client: client).createQCArtisanScene(forOrder: order)
                             self.navigationController?.pushViewController(vc, animated: false)
                         }
+                    }else {
+                        if let order = self.orderObject {
+                            let vc = QCService(client: client).createQCBuyerScene(forOrder: order)
+                            self.navigationController?.pushViewController(vc, animated: false)
+                        }
                     }
                 }catch {
                     print(error.localizedDescription)

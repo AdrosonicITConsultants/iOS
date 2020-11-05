@@ -186,6 +186,8 @@
 		C06570B4252BAAE2001140C7 /* TransactionListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06570B3252BAAE2001140C7 /* TransactionListController.swift */; };
 		C06570B7252BB45A001140C7 /* TransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06570B6252BB45A001140C7 /* TransactionService.swift */; };
 		C06570BA252BB4F8001140C7 /* TransactionListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06570B9252BB4F8001140C7 /* TransactionListScene.swift */; };
+		C066FC29255447E800487CD8 /* QCBuyerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066FC28255447E800487CD8 /* QCBuyerController.swift */; };
+		C066FC2B2554482600487CD8 /* QCBuyerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066FC2A2554482600487CD8 /* QCBuyerScene.swift */; };
 		C06AA396250240A500EF4B10 /* BuyerEnquiryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06AA395250240A500EF4B10 /* BuyerEnquiryListController.swift */; };
 		C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA39725052A9B00EF4B10 /* EnquiryDetailsRow.xib */; };
 		C06AA39A25052FA200EF4B10 /* StatusRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA39925052FA200EF4B10 /* StatusRow.xib */; };
@@ -626,6 +628,8 @@
 		C06570B3252BAAE2001140C7 /* TransactionListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListController.swift; sourceTree = "<group>"; };
 		C06570B6252BB45A001140C7 /* TransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionService.swift; sourceTree = "<group>"; };
 		C06570B9252BB4F8001140C7 /* TransactionListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListScene.swift; sourceTree = "<group>"; };
+		C066FC28255447E800487CD8 /* QCBuyerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCBuyerController.swift; sourceTree = "<group>"; };
+		C066FC2A2554482600487CD8 /* QCBuyerScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCBuyerScene.swift; sourceTree = "<group>"; };
 		C06AA395250240A500EF4B10 /* BuyerEnquiryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerEnquiryListController.swift; sourceTree = "<group>"; };
 		C06AA39725052A9B00EF4B10 /* EnquiryDetailsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnquiryDetailsRow.xib; sourceTree = "<group>"; };
 		C06AA39925052FA200EF4B10 /* StatusRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusRow.xib; sourceTree = "<group>"; };
@@ -1081,6 +1085,7 @@
 				C0EED03E2543618200C920B7 /* BuyerChangeRequestController.swift */,
 				C04249C82547532600D9EA6C /* ArtisanChangeRequestController.swift */,
 				C00E8A9C254C594C00DDB23D /* QCArtisanController.swift */,
+				C066FC28255447E800487CD8 /* QCBuyerController.swift */,
 			);
 			path = OrderController;
 			sourceTree = "<group>";
@@ -1093,6 +1098,7 @@
 				C0C248A725470B7800AE18FA /* BuyerChangeRequestScene.swift */,
 				C0989E402547600F001B933F /* ArtisanChangeRequestScene.swift */,
 				C00E8A9E254C5F5D00DDB23D /* QCArtisanScene.swift */,
+				C066FC2A2554482600487CD8 /* QCBuyerScene.swift */,
 			);
 			path = OrderScenes;
 			sourceTree = "<group>";
@@ -2177,6 +2183,7 @@
 				C09B3F0D24BA615900FBC115 /* Disk+InternalHelpers.swift in Sources */,
 				C0C248A825470B7800AE18FA /* BuyerChangeRequestScene.swift in Sources */,
 				C08FBE002497F31B0065BB20 /* REGBuyerPersonalInfoService.swift in Sources */,
+				C066FC2B2554482600487CD8 /* QCBuyerScene.swift in Sources */,
 				C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */,
 				C09C8C29250D7A7000950526 /* EnquiryArtisanDetailsController.swift in Sources */,
 				C02DC55524F4F1D000805C98 /* SearchScene.swift in Sources */,
@@ -2200,6 +2207,7 @@
 				C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */,
 				C05E3AD424D177EA00963FAA /* UploadProductController.swift in Sources */,
 				C0B2311A24F8F64C00193ABB /* UILabel+Extensions.swift in Sources */,
+				C066FC29255447E800487CD8 /* QCBuyerController.swift in Sources */,
 				C0ACE99C248590B100EFA4ED /* REGNewUserPasswordController.swift in Sources */,
 				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
 				C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */,

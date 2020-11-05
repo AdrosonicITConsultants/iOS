@@ -29,4 +29,8 @@ class QCService: BaseService<Data> {
     func fetchQCForArtisan(enquiryId: Int) -> SafeSignal<Data> {
         return QualityCheck.getArtisanQcResponse(enquiryId: enquiryId).response(using: client).debug()
     }
+    
+    func fetchQCForBuyer(enquiryId: Int) -> SafeSignal<Data> {
+        return QualityCheck.getBuyerQcResponse(enquiryId: enquiryId).response(using: client).debug()
+    }
 }
