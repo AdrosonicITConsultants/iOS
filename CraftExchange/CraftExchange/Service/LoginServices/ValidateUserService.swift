@@ -21,4 +21,8 @@ class ValidateUserService: BaseService<Data> {
     func fetch(username: String) -> SafeSignal<Data> {
       return User.validateUsername(username: username).response(using: client).debug()
     }
+    
+    func fetchSocialLogin(socialToken: String, socialTokenType: String) -> SafeSignal<Data> {
+      return User.authenticateSocial(socialToken: socialToken, socialTokenType: socialTokenType).response(using: client).debug()
+    }
 }
