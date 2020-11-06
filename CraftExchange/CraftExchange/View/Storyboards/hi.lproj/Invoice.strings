@@ -3,10 +3,10 @@
 "fZ8-ve-5zZ.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Download this invoice in pdf"; ObjectID = "jgd-OC-ss7"; */
-"jgd-OC-ss7.normalTitle" = "Download this invoice in pdf";
+"jgd-OC-ss7.normalTitle" = "इस चालान को पीडीऍफ़ में डाउनलोड करें";
 
 /* Class = "UILabel"; text = "Note that it is Preview:"; ObjectID = "tw6-9I-SwP"; */
-"tw6-9I-SwP.text" = "Note that it is Preview:";
+"tw6-9I-SwP.text" = "ध्यान दें कि यह पूर्वावलोकन है:";
 
 /* Class = "UIButton"; normalTitle = "Swipe to Send PI"; ObjectID = "z4C-wy-seg"; */
-"z4C-wy-seg.normalTitle" = "Swipe to Send PI";
+"z4C-wy-seg.normalTitle" = "पीआई भेजने के लिए स्वाइप करें";

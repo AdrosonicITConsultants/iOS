@@ -1,42 +1,42 @@
 
 /* Class = "UILabel"; text = "Heart your favourite product while browsing!"; ObjectID = "13C-Ut-39A"; */
-"13C-Ut-39A.text" = "Heart your favourite product while browsing!";
+"13C-Ut-39A.text" = "ब्राउज़ करते समय अपने पसंदीदा उत्पाद को दिल दें!";
 
 /* Class = "UILabel"; text = "New Chat"; ObjectID = "17B-sC-WQc"; */
-"17B-sC-WQc.text" = "New Chat";
+"17B-sC-WQc.text" = "नई चैट";
 
 /* Class = "UIButton"; normalTitle = " Pull to refresh"; ObjectID = "22q-HK-j2V"; */
-"22q-HK-j2V.normalTitle" = " Pull to refresh";
+"22q-HK-j2V.normalTitle" = " रीफ़्रेश करने के लिए खींचें";
 
 /* Class = "UITabBarItem"; title = "Enquiries"; ObjectID = "2jg-7e-5hw"; */
-"2jg-7e-5hw.title" = "Enquiries";
+"2jg-7e-5hw.title" = "पूछताछ";
 
 /* Class = "UIButton"; normalTitle = "View by cluster"; ObjectID = "3Q4-e9-M0o"; */
-"3Q4-e9-M0o.normalTitle" = "View by cluster";
+"3Q4-e9-M0o.normalTitle" = "क्लस्टर द्वारा देखें";
 
 /* Class = "UILabel"; text = "No new notifications"; ObjectID = "4ks-Px-Epg"; */
-"4ks-Px-Epg.text" = "No new notifications";
+"4ks-Px-Epg.text" = "कोई नए संदेश नहीं";
 
 /* Class = "UILabel"; text = "Chats"; ObjectID = "5jK-uV-Ayi"; */
-"5jK-uV-Ayi.text" = "Chats";
+"5jK-uV-Ayi.text" = "चैट";
 
 /* Class = "UISearchBar"; placeholder = "search by enquiry/ buyer's name"; ObjectID = "8SA-Dp-IwN"; */
-"8SA-Dp-IwN.placeholder" = "search by enquiry/ buyer's name";
+"8SA-Dp-IwN.placeholder" = "जांच / खरीदार के नाम से खोजें";
 
 /* Class = "UISearchBar"; 8SA-Dp-IwN.scopeButtonTitles[0] = "Title"; ObjectID = "8SA-Dp-IwN"; */
-"8SA-Dp-IwN.scopeButtonTitles[0]" = "Title";
+"8SA-Dp-IwN.scopeButtonTitles[0]" = "शीर्षक";
 
 /* Class = "UISearchBar"; 8SA-Dp-IwN.scopeButtonTitles[1] = "Title"; ObjectID = "8SA-Dp-IwN"; */
-"8SA-Dp-IwN.scopeButtonTitles[1]" = "Title";
+"8SA-Dp-IwN.scopeButtonTitles[1]" = "शीर्षक";
 
 /* Class = "UITabBarItem"; title = "Wishlist"; ObjectID = "B0M-PY-aOI"; */
-"B0M-PY-aOI.title" = "Wishlist";
+"B0M-PY-aOI.title" = "इच्छा-सूची";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "CFS-hb-Jhu"; */
 "CFS-hb-Jhu.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Antaran co-design collection"; ObjectID = "Cq6-bf-nZ4"; */
-"Cq6-bf-nZ4.normalTitle" = "Antaran co-design collection";
+"Cq6-bf-nZ4.normalTitle" = "अंतरण सह-डिज़ाइन संग्रह";
 
 /* Class = "UITableViewController"; title = "BuyerNotificationController"; ObjectID = "Deu-Fi-aU8"; */
 "Deu-Fi-aU8.title" = "BuyerNotificationController";
@@ -45,79 +45,79 @@
 "EJU-RT-fCX.text" = "Label";
 
 /* Class = "UILabel"; text = "Have something unique in mind?"; ObjectID = "FsR-eo-0e6"; */
-"FsR-eo-0e6.text" = "Have something unique in mind?";
+"FsR-eo-0e6.text" = "मन में कुछ अनोखा है?";
 
 /* Class = "UIButton"; normalTitle = " Pull to refresh"; ObjectID = "GEV-lN-CwT"; */
-"GEV-lN-CwT.normalTitle" = " Pull to refresh";
+"GEV-lN-CwT.normalTitle" = " रीफ़्रेश करने के लिए खींचें";
 
 /* Class = "UISearchBar"; placeholder = "search by enquiry/ buyer's name"; ObjectID = "HTY-iJ-fp0"; */
-"HTY-iJ-fp0.placeholder" = "search by enquiry/ buyer's name";
+"HTY-iJ-fp0.placeholder" = "जांच / खरीदार के नाम से खोजें";
 
 /* Class = "UISearchBar"; HTY-iJ-fp0.scopeButtonTitles[0] = "Title"; ObjectID = "HTY-iJ-fp0"; */
-"HTY-iJ-fp0.scopeButtonTitles[0]" = "Title";
+"HTY-iJ-fp0.scopeButtonTitles[0]" = "शीर्षक";
 
 /* Class = "UISearchBar"; HTY-iJ-fp0.scopeButtonTitles[1] = "Title"; ObjectID = "HTY-iJ-fp0"; */
-"HTY-iJ-fp0.scopeButtonTitles[1]" = "Title";
+"HTY-iJ-fp0.scopeButtonTitles[1]" = "शीर्षक";
 
 /* Class = "UITabBarItem"; title = "Home"; ObjectID = "HsG-wa-urq"; */
-"HsG-wa-urq.title" = "Home";
+"HsG-wa-urq.title" = "घर";
 
 /* Class = "UILabel"; text = " Recent"; ObjectID = "K7P-Eq-J6f"; */
-"K7P-Eq-J6f.text" = " Recent";
+"K7P-Eq-J6f.text" = " हाल का";
 
 /* Class = "UILabel"; text = "Dupattas"; ObjectID = "Kc4-Qe-NoT"; */
-"Kc4-Qe-NoT.text" = "Dupattas";
+"Kc4-Qe-NoT.text" = "ओढ़नी";
 
 /* Class = "UIButton"; normalTitle = "Customise your own design"; ObjectID = "Lcj-dI-h1s"; */
-"Lcj-dI-h1s.normalTitle" = "Customise your own design";
+"Lcj-dI-h1s.normalTitle" = "अपने खुद के डिजाइन को अनुकूलित करें";
 
 /* Class = "UIButton"; normalTitle = "  Recent"; ObjectID = "Pnx-8F-DiD"; */
-"Pnx-8F-DiD.normalTitle" = "  Recent";
+"Pnx-8F-DiD.normalTitle" = "  हाल का";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "VRO-Fh-yWu"; */
-"VRO-Fh-yWu.title" = "Item";
+"VRO-Fh-yWu.title" = "विषय";
 
 /* Class = "UILabel"; text = "Choose from"; ObjectID = "WiI-iy-Mr9"; */
-"WiI-iy-Mr9.text" = "Choose from";
+"WiI-iy-Mr9.text" = "से चुनें";
 
 /* Class = "UILabel"; text = "Your Enquiries"; ObjectID = "dKP-hS-mkT"; */
-"dKP-hS-mkT.text" = "Your Enquiries";
+"dKP-hS-mkT.text" = "अपनी पूछताछ";
 
 /* Class = "UITabBarItem"; title = "Chat"; ObjectID = "dtm-xQ-L44"; */
-"dtm-xQ-L44.title" = "Chat";
+"dtm-xQ-L44.title" = "चैट";
 
 /* Class = "UILabel"; text = "Your wish list"; ObjectID = "fKX-q3-QnY"; */
-"fKX-q3-QnY.text" = "Your wish list";
+"fKX-q3-QnY.text" = "आपकी इच्छा सूची";
 
 /* Class = "UIButton"; normalTitle = " 0 Escalations"; ObjectID = "hDp-DO-7Is"; */
-"hDp-DO-7Is.normalTitle" = " 0 Escalations";
+"hDp-DO-7Is.normalTitle" = " 0 इज़ाफ़ा";
 
 /* Class = "UILabel"; text = "is empty"; ObjectID = "iCy-EC-2Tm"; */
-"iCy-EC-2Tm.text" = "is empty";
+"iCy-EC-2Tm.text" = "खाली है";
 
 /* Class = "UIButton"; normalTitle = "Artisan Self Design"; ObjectID = "l7A-JW-g3T"; */
-"l7A-JW-g3T.normalTitle" = "Artisan Self Design";
+"l7A-JW-g3T.normalTitle" = "कारीगर स्व डिजाइन";
 
 /* Class = "UITabBarItem"; title = "Notifications"; ObjectID = "lg1-Zc-rm9"; */
-"lg1-Zc-rm9.title" = "Notifications";
+"lg1-Zc-rm9.title" = "सूचनाएं";
 
 /* Class = "UILabel"; text = "Browse the latest collection of"; ObjectID = "od1-jO-7LF"; */
-"od1-jO-7LF.text" = "Browse the latest collection of";
+"od1-jO-7LF.text" = "के नवीनतम संग्रह को ब्राउज़ करें";
 
 /* Class = "UILabel"; text = "Antaran Co Design Collection"; ObjectID = "od3-TO-fte"; */
-"od3-TO-fte.text" = "Antaran Co Design Collection";
+"od3-TO-fte.text" = "अंतरण सह-डिज़ाइन संग्रह";
 
 /* Class = "UIButton"; normalTitle = "Mark all as read"; ObjectID = "qif-mx-DT5"; */
-"qif-mx-DT5.normalTitle" = "Mark all as read";
+"qif-mx-DT5.normalTitle" = "सभी को पढ़ा हुआ मार्क करें";
 
 /* Class = "UIButton"; normalTitle = "Explore "; ObjectID = "tiK-xP-551"; */
-"tiK-xP-551.normalTitle" = "Explore ";
+"tiK-xP-551.normalTitle" = "खोजना ";
 
 /* Class = "UIButton"; normalTitle = "Explore "; ObjectID = "wcb-iM-Ra2"; */
-"wcb-iM-Ra2.normalTitle" = "Explore ";
+"wcb-iM-Ra2.normalTitle" = "खोजना ";
 
 /* Class = "UITabBarItem"; title = "Notifications"; ObjectID = "xZG-v9-EgZ"; */
-"xZG-v9-EgZ.title" = "Notifications";
+"xZG-v9-EgZ.title" = "सूचनाएं";
 
 /* Class = "UIButton"; normalTitle = "  Filter"; ObjectID = "zRT-pH-an9"; */
-"zRT-pH-an9.normalTitle" = "  Filter";
+"zRT-pH-an9.normalTitle" = "  फिल्टर";

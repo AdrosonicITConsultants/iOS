@@ -1,45 +1,45 @@
 
 /* Class = "UILabel"; text = " Recent"; ObjectID = "21s-86-GpV"; */
-"21s-86-GpV.text" = " Recent";
+"21s-86-GpV.text" = "  हाल का";
 
 /* Class = "UITabBarItem"; title = "Enquiries"; ObjectID = "2jg-7e-5hw"; */
-"2jg-7e-5hw.title" = "Enquiries";
+"2jg-7e-5hw.title" = "पूछताछ";
 
 /* Class = "UITabBarItem"; title = "Notifications"; ObjectID = "5K7-GN-LEN"; */
-"5K7-GN-LEN.title" = "Notifications";
+"5K7-GN-LEN.title" = "सूचनाएं";
 
 /* Class = "UITabBarItem"; title = "Orders"; ObjectID = "B0M-PY-aOI"; */
-"B0M-PY-aOI.title" = "Orders";
+"B0M-PY-aOI.title" = "आदेश";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "CFS-hb-Jhu"; */
 "CFS-hb-Jhu.text" = "Label";
 
 /* Class = "UILabel"; text = "Your Orders"; ObjectID = "E3j-2E-z58"; */
-"E3j-2E-z58.text" = "Your Orders";
+"E3j-2E-z58.text" = "तुम्हारे ऑर्डर";
 
 /* Class = "UITabBarItem"; title = "Home"; ObjectID = "HsG-wa-urq"; */
-"HsG-wa-urq.title" = "Home";
+"HsG-wa-urq.title" = "घर";
 
 /* Class = "UILabel"; text = "List of your very own products sorted by categories"; ObjectID = "Hvb-za-FSO"; */
-"Hvb-za-FSO.text" = "List of your very own products sorted by categories";
+"Hvb-za-FSO.text" = "श्रेणियों द्वारा क्रमबद्ध आपके अपने स्वयं के उत्पादों की सूची";
 
 /* Class = "UIButton"; normalTitle = "     Add a new product"; ObjectID = "Lcj-dI-h1s"; */
-"Lcj-dI-h1s.normalTitle" = "     Add a new product";
+"Lcj-dI-h1s.normalTitle" = "     एक नया उत्पाद जोड़ें";
 
 /* Class = "UILabel"; text = "No new notifications"; ObjectID = "OoK-w3-MTi"; */
-"OoK-w3-MTi.text" = "No new notifications";
+"OoK-w3-MTi.text" = "कोई नए संदेश नहीं";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "VRO-Fh-yWu"; */
-"VRO-Fh-yWu.title" = "Item";
+"VRO-Fh-yWu.title" = "वस्तु";
 
 /* Class = "UITabBarItem"; title = "Chat"; ObjectID = "baa-Z9-7Qm"; */
-"baa-Z9-7Qm.title" = "Chat";
+"baa-Z9-7Qm.title" = "चैट";
 
 /* Class = "UILabel"; text = "Your Products"; ObjectID = "eOk-I1-h8K"; */
-"eOk-I1-h8K.text" = "Your Products";
+"eOk-I1-h8K.text" = "आपके उत्पादों";
 
 /* Class = "UIButton"; normalTitle = "Mark all as read"; ObjectID = "iEN-XG-XOI"; */
-"iEN-XG-XOI.normalTitle" = "Mark all as read";
+"iEN-XG-XOI.normalTitle" = "सभी को पढ़ा हुआ मार्क करें";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "xN3-Js-aGe"; */
 "xN3-Js-aGe.text" = "Label";

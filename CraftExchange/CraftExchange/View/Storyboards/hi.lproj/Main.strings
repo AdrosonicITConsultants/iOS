@@ -30,13 +30,13 @@
 "jTH-D3-aJw.normalTitle" = "गोपनीयता नीति";
 
 /* Class = "UIButton"; normalTitle = "Need help in deciding?"; ObjectID = "jdL-Q3-nqp"; */
-"jdL-Q3-nqp.normalTitle" = "Need help in deciding?";
+"jdL-Q3-nqp.normalTitle" = "निर्णय लेने में मदद चाहिए?";
 
 /* Class = "UIButton"; normalTitle = "Legal Disclaimer"; ObjectID = "kGo-nN-9IJ"; */
 "kGo-nN-9IJ.normalTitle" = "कानूनी अस्वीकरण";
 
 /* Class = "UILabel"; text = "Enter your password to login"; ObjectID = "lUg-r1-gf3"; */
-"lUg-r1-gf3.text" = "Enter your password to login";
+"lUg-r1-gf3.text" = "लॉगिन करने के लिए अपना पासवर्ड दर्ज करें";
 
 /* Class = "UIButton"; normalTitle = "Need help?"; ObjectID = "mCr-yq-SIa"; */
 "mCr-yq-SIa.normalTitle" = "मदद की ज़रूरत है?";
@@ -45,7 +45,7 @@
 "mW3-pX-gwT.normalTitle" = "गोपनीयता नीति";
 
 /* Class = "UILabel"; text = "What describes you the best?"; ObjectID = "usK-Lx-fKM"; */
-"usK-Lx-fKM.text" = "What describes you the best?";
+"usK-Lx-fKM.text" = "क्या आप सबसे अच्छा वर्णन करता है?";
 
 /* Class = "UIButton"; normalTitle = "Forgot password?"; ObjectID = "vUQ-tC-MvQ"; */
-"vUQ-tC-MvQ.normalTitle" = "Forgot password?";
+"vUQ-tC-MvQ.normalTitle" = "पासवर्ड भूल गए?";
