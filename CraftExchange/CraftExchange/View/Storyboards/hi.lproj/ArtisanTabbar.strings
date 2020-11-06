@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = " Recent"; ObjectID = "21s-86-GpV"; */
+"21s-86-GpV.text" = " Recent";
+
+/* Class = "UITabBarItem"; title = "Enquiries"; ObjectID = "2jg-7e-5hw"; */
+"2jg-7e-5hw.title" = "Enquiries";
+
+/* Class = "UITabBarItem"; title = "Notifications"; ObjectID = "5K7-GN-LEN"; */
+"5K7-GN-LEN.title" = "Notifications";
+
+/* Class = "UITabBarItem"; title = "Orders"; ObjectID = "B0M-PY-aOI"; */
+"B0M-PY-aOI.title" = "Orders";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "CFS-hb-Jhu"; */
+"CFS-hb-Jhu.text" = "Label";
+
+/* Class = "UILabel"; text = "Your Orders"; ObjectID = "E3j-2E-z58"; */
+"E3j-2E-z58.text" = "Your Orders";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "HsG-wa-urq"; */
+"HsG-wa-urq.title" = "Home";
+
+/* Class = "UILabel"; text = "List of your very own products sorted by categories"; ObjectID = "Hvb-za-FSO"; */
+"Hvb-za-FSO.text" = "List of your very own products sorted by categories";
+
+/* Class = "UIButton"; normalTitle = "     Add a new product"; ObjectID = "Lcj-dI-h1s"; */
+"Lcj-dI-h1s.normalTitle" = "     Add a new product";
+
+/* Class = "UILabel"; text = "No new notifications"; ObjectID = "OoK-w3-MTi"; */
+"OoK-w3-MTi.text" = "No new notifications";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "VRO-Fh-yWu"; */
+"VRO-Fh-yWu.title" = "Item";
+
+/* Class = "UITabBarItem"; title = "Chat"; ObjectID = "baa-Z9-7Qm"; */
+"baa-Z9-7Qm.title" = "Chat";
+
+/* Class = "UILabel"; text = "Your Products"; ObjectID = "eOk-I1-h8K"; */
+"eOk-I1-h8K.text" = "Your Products";
+
+/* Class = "UIButton"; normalTitle = "Mark all as read"; ObjectID = "iEN-XG-XOI"; */
+"iEN-XG-XOI.normalTitle" = "Mark all as read";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xN3-Js-aGe"; */
+"xN3-Js-aGe.text" = "Label";

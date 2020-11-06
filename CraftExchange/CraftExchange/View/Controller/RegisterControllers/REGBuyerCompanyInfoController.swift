@@ -62,7 +62,7 @@ class REGBuyerCompanyInfoController: FormViewController {
         self.viewModel.companyName.value = $0.cell.valueTextField.text
       }
         <<< ImageRow() { row in
-            row.title = "Upload your brand logo"
+            row.title = "Upload your brand logo".localized
             row.sourceTypes = [.Camera, .PhotoLibrary, .SavedPhotosAlbum]
             row.clearAction = .yes(style: UIAlertAction.Style.destructive)
         }.onChange({ (row) in
@@ -72,7 +72,7 @@ class REGBuyerCompanyInfoController: FormViewController {
             }
         })
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "GST Number"
+        $0.cell.titleLabel.text = "GST Number".localized
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.gstNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -80,7 +80,7 @@ class REGBuyerCompanyInfoController: FormViewController {
         self.viewModel.gstNo.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "CIN Number"
+        $0.cell.titleLabel.text = "CIN Number".localized
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.cinNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -88,7 +88,7 @@ class REGBuyerCompanyInfoController: FormViewController {
         self.viewModel.cinNo.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "PAN Number"
+        $0.cell.titleLabel.text = "PAN Number".localized
         $0.cell.valueTextField.autocapitalizationType = .allCharacters
         $0.cell.height = { 80.0 }
         self.viewModel.panNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -96,11 +96,11 @@ class REGBuyerCompanyInfoController: FormViewController {
         self.viewModel.panNo.value = $0.cell.valueTextField.text
       }
       <<< LabelRow() {
-        $0.title = "Point of Contact Details"
+        $0.title = "Point of Contact Details".localized
         $0.cell.height = { 80.0 }
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Name"
+        $0.cell.titleLabel.text = "Name".localized
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocFirstName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -108,7 +108,7 @@ class REGBuyerCompanyInfoController: FormViewController {
         self.viewModel.pocFirstName.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Email Address"
+        $0.cell.titleLabel.text = "Email Address".localized
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocEmailId.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -116,7 +116,7 @@ class REGBuyerCompanyInfoController: FormViewController {
         self.viewModel.pocEmailId.value = $0.cell.valueTextField.text
       }
       <<< RoundedTextFieldRow() {
-        $0.cell.titleLabel.text = "Mobile Number"
+        $0.cell.titleLabel.text = "Mobile Number".localized
         $0.cell.height = { 80.0 }
         $0.cell.compulsoryIcon.isHidden = true
         self.viewModel.pocMobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -124,25 +124,25 @@ class REGBuyerCompanyInfoController: FormViewController {
         self.viewModel.pocMobNo.value = $0.cell.valueTextField.text
       }
       <<< RoundedButtonViewRow("REGNextCell") {
-        $0.cell.titleLabel.text = "Fields are mandatory"
+        $0.cell.titleLabel.text = "Fields are mandatory".localized
         $0.cell.compulsoryIcon.isHidden = false
         $0.cell.greyLineView.isHidden = false
         $0.cell.buttonView.borderColour = .black
         $0.cell.buttonView.backgroundColor = .black
         $0.cell.buttonView.setTitleColor(.white, for: .normal)
-        $0.cell.buttonView.setTitle("Next", for: .normal)
+        $0.cell.buttonView.setTitle("Next".localized, for: .normal)
         $0.cell.tag = 101
         $0.cell.delegate = self
         $0.cell.height = { 100.0 }
     }
       <<< RoundedButtonViewRow("REGHelpCell") {
-          $0.cell.titleLabel.text = "Next up: Address details"
+        $0.cell.titleLabel.text = "Next up: Address details".localized
           $0.cell.compulsoryIcon.isHidden = true
           $0.cell.greyLineView.isHidden = true
           $0.cell.buttonView.borderColour = .white
           $0.cell.buttonView.backgroundColor = .white
           $0.cell.buttonView.setTitleColor(.lightGray, for: .normal)
-          $0.cell.buttonView.setTitle("Privacy Policy", for: .normal)
+        $0.cell.buttonView.setTitle("Privacy Policy".localized, for: .normal)
           $0.cell.tag = 102
           $0.cell.delegate = self
           $0.cell.height = { 100.0 }

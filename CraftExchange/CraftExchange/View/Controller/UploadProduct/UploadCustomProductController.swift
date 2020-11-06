@@ -220,7 +220,7 @@ class UploadCustomProductController: FormViewController {
                 $0.cell.buttonView.borderColour = UIColor().CEGreen()
                 $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
                 $0.cell.buttonView.setTitleColor(.white, for: .normal)
-                $0.cell.buttonView.setTitle("Next", for: .normal)
+                $0.cell.buttonView.setTitle("Next".localized, for: .normal)
                 $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
                 $0.cell.tag = CustomProductState.addPhotos.rawValue
                 $0.cell.height = { 80.0 }
@@ -332,7 +332,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.buttonView.borderColour = UIColor().CEGreen()
             $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
             $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next", for: .normal)
+            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
             $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
             $0.cell.tag = CustomProductState.addGeneralDetails.rawValue
             $0.cell.height = { 80.0 }
@@ -348,7 +348,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.buttonView.borderColour = UIColor().CEGreen()
             $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
             $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next", for: .normal)
+            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
             $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
             $0.cell.tag = CustomProductState.selectWeaveType.rawValue
             $0.cell.height = { 80.0 }
@@ -382,7 +382,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.buttonView.borderColour = UIColor().CEGreen()
             $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
             $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next", for: .normal)
+            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
             $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
             $0.cell.tag = CustomProductState.selectWarpWeftYarn.rawValue
             $0.cell.height = { 80.0 }
@@ -438,7 +438,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.buttonView.borderColour = UIColor().CEGreen()
             $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
             $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next", for: .normal)
+            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
             $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
             $0.cell.tag = CustomProductState.reedCount.rawValue
             $0.cell.height = { 80.0 }
@@ -564,7 +564,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.buttonView.borderColour = UIColor().CEGreen()
             $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
             $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next", for: .normal)
+            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
             $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
             $0.cell.tag = CustomProductState.dimensions.rawValue
             $0.cell.height = { 80.0 }
@@ -627,7 +627,7 @@ class UploadCustomProductController: FormViewController {
             $0.cell.buttonView.borderColour = UIColor().CEGreen()
             $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
             $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next", for: .normal)
+            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
             $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
             $0.cell.tag = CustomProductState.gsm.rawValue
             $0.cell.height = { 80.0 }

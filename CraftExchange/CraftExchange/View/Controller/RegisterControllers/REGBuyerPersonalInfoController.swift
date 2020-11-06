@@ -45,7 +45,7 @@ class REGBuyerPersonalInfoController: FormViewController {
       $0.cell.imageView?.image = UIImage(named: "logo-underlying-text")
     }
     <<< LabelRow() {
-      $0.title = "Tell us about yourself"
+        $0.title = "Tell us about yourself".localized
       $0.cellStyle = .default
       $0.cell.textLabel?.textAlignment = .center
       $0.cell.textLabel?.textColor = .darkGray
@@ -53,14 +53,14 @@ class REGBuyerPersonalInfoController: FormViewController {
       $0.cell.height = { 40.0 }
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "First name"
+        $0.cell.titleLabel.text = "First name".localized
       $0.cell.height = { 80.0 }
       self.viewModel.firstname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
         $0.cell.valueTextField.text = appDelegate?.registerUser?.firstName
         self.viewModel.firstname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Last name"
+        $0.cell.titleLabel.text = "Last name".localized
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.lastname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -68,14 +68,14 @@ class REGBuyerPersonalInfoController: FormViewController {
         self.viewModel.lastname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Mobile Number"
+        $0.cell.titleLabel.text = "Mobile Number".localized
       $0.cell.height = { 80.0 }
       self.viewModel.mobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
         $0.cell.valueTextField.text = appDelegate?.registerUser?.mobile
         self.viewModel.mobNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Alternate Contact Number"
+        $0.cell.titleLabel.text = "Alternate Contact Number".localized
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.alternateMobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -83,7 +83,7 @@ class REGBuyerPersonalInfoController: FormViewController {
         self.viewModel.alternateMobNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Designation"
+        $0.cell.titleLabel.text = "Designation".localized
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.designation.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -97,19 +97,19 @@ class REGBuyerPersonalInfoController: FormViewController {
         $0.cell.buttonView.borderColour = .black
         $0.cell.buttonView.backgroundColor = .black
         $0.cell.buttonView.setTitleColor(.white, for: .normal)
-        $0.cell.buttonView.setTitle("Next", for: .normal)
+        $0.cell.buttonView.setTitle("Next".localized, for: .normal)
         $0.cell.tag = 101
         $0.cell.delegate = self
         $0.cell.height = { 100.0 }
     }
     <<< RoundedButtonViewRow("REGHelpCell") {
-        $0.cell.titleLabel.text = "Next up: Company details"
+        $0.cell.titleLabel.text = "Next up: Company details".localized
         $0.cell.compulsoryIcon.isHidden = true
         $0.cell.greyLineView.isHidden = true
         $0.cell.buttonView.borderColour = .white
         $0.cell.buttonView.backgroundColor = .white
         $0.cell.buttonView.setTitleColor(.lightGray, for: .normal)
-        $0.cell.buttonView.setTitle("Privacy Policy", for: .normal)
+        $0.cell.buttonView.setTitle("Privacy Policy".localized, for: .normal)
         $0.cell.tag = 102
         $0.cell.delegate = self
         $0.cell.height = { 100.0 }

@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fZ8-ve-5zZ"; */
+"fZ8-ve-5zZ.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Download this invoice in pdf"; ObjectID = "jgd-OC-ss7"; */
+"jgd-OC-ss7.normalTitle" = "Download this invoice in pdf";
+
+/* Class = "UILabel"; text = "Note that it is Preview:"; ObjectID = "tw6-9I-SwP"; */
+"tw6-9I-SwP.text" = "Note that it is Preview:";
+
+/* Class = "UIButton"; normalTitle = "Swipe to Send PI"; ObjectID = "z4C-wy-seg"; */
+"z4C-wy-seg.normalTitle" = "Swipe to Send PI";

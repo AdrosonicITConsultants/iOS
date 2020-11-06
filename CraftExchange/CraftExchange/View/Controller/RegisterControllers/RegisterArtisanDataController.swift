@@ -60,14 +60,14 @@ class RegisterArtisanDataController: FormViewController {
       $0.cell.height = { 40.0 }
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "First name"
+      $0.cell.titleLabel.text = "First name".localized
       $0.cell.height = { 80.0 }
       self.viewModel.firstname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
         $0.cell.valueTextField.text = appDelegate?.registerUser?.firstName
         self.viewModel.firstname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Last name"
+      $0.cell.titleLabel.text = "Last name".localized
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.height = { 80.0 }
       self.viewModel.lastname.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -75,7 +75,7 @@ class RegisterArtisanDataController: FormViewController {
         self.viewModel.lastname.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Pincode"
+      $0.cell.titleLabel.text = "Pincode".localized
       $0.cell.height = { 80.0 }
       self.viewModel.pincode.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
         $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.pincode
@@ -83,7 +83,7 @@ class RegisterArtisanDataController: FormViewController {
     }
     <<< RoundedActionSheetRow() {
         $0.tag = "ClusterRow"
-    $0.cell.titleLabel.text = "Cluster"
+    $0.cell.titleLabel.text = "Cluster".localized
         if let selectedCluster = appDelegate?.registerUser?.clusterId {
             $0.cell.selectedVal = allClusters?.first(where: { (obj) -> Bool in
                 obj.entityID == selectedCluster
@@ -101,7 +101,7 @@ class RegisterArtisanDataController: FormViewController {
         self.viewModel.selectedClusterId.value = selectedClusterObj?.entityID
         })
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "District"
+      $0.cell.titleLabel.text = "District".localized
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.district.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -109,7 +109,7 @@ class RegisterArtisanDataController: FormViewController {
         self.viewModel.district.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "State"
+      $0.cell.titleLabel.text = "State".localized
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.state.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -117,14 +117,14 @@ class RegisterArtisanDataController: FormViewController {
         self.viewModel.state.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Mobile Number"
+      $0.cell.titleLabel.text = "Mobile Number".localized
       $0.cell.height = { 80.0 }
       self.viewModel.mobNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
         $0.cell.valueTextField.text = appDelegate?.registerUser?.mobile
         self.viewModel.mobNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Pan No."
+      $0.cell.titleLabel.text = "Pan No.".localized
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       $0.cell.valueTextField.autocapitalizationType = .allCharacters
@@ -133,53 +133,33 @@ class RegisterArtisanDataController: FormViewController {
         self.viewModel.panNo.value = $0.cell.valueTextField.text
     }
     <<< RoundedTextFieldRow() {
-      $0.cell.titleLabel.text = "Address"
+      $0.cell.titleLabel.text = "Address".localized
       $0.cell.height = { 80.0 }
       $0.cell.compulsoryIcon.isHidden = true
       self.viewModel.addr.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
         $0.cell.valueTextField.text = appDelegate?.registerUser?.address?.line1
         self.viewModel.addr.value = $0.cell.valueTextField.text
     }
-    /*<<< MultipleSelectorRow<String>() {
-        $0.title = "Product Category"
-        $0.options = []
-//        self.viewModel.cluster.value?.prodCategory.compactMap{$0.prodCatDescription}
-//      print("options prod cat: \($0.options) prodCatArray: \(self.viewModel.cluster.value?.prodCategory)")
-        $0.tag = "ProductCategoryRow"
-        $0.cell.height = { 44.0 }
-      }.onChange({ (actionSheetRow) in
-        actionSheetRow.value?.forEach({ (str) in
-          var codeToAdd = 0
-          if str == "Saree" {
-            codeToAdd = 1
-          }else if str == "Razai" {
-            codeToAdd = 2
-          }
-          if !(self.viewModel.selectedProdCat.value?.contains(codeToAdd) ?? false) {
-            self.viewModel.selectedProdCat.value?.append(codeToAdd)
-          }
-        })
-    })*/
       <<< RoundedButtonViewRow("REGNextCell") {
-        $0.cell.titleLabel.text = "Fields are mandatory"
+        $0.cell.titleLabel.text = "Fields are mandatory".localized
         $0.cell.compulsoryIcon.isHidden = false
         $0.cell.greyLineView.isHidden = false
         $0.cell.buttonView.borderColour = .black
         $0.cell.buttonView.backgroundColor = .black
         $0.cell.buttonView.setTitleColor(.white, for: .normal)
-        $0.cell.buttonView.setTitle("Next", for: .normal)
+        $0.cell.buttonView.setTitle("Next".localized, for: .normal)
         $0.cell.tag = 101
         $0.cell.delegate = self
         $0.cell.height = { 100.0 }
     }
     <<< RoundedButtonViewRow("REGHelpCell") {
-        $0.cell.titleLabel.text = "In case of any help"
+        $0.cell.titleLabel.text = "In case of any help".localized
         $0.cell.compulsoryIcon.isHidden = true
         $0.cell.greyLineView.isHidden = true
         $0.cell.buttonView.borderColour = .black
         $0.cell.buttonView.backgroundColor = .white
         $0.cell.buttonView.setTitleColor(.black, for: .normal)
-        $0.cell.buttonView.setTitle("Reach out to us", for: .normal)
+        $0.cell.buttonView.setTitle("Reach out to us".localized, for: .normal)
         $0.cell.tag = 102
         $0.cell.delegate = self
         $0.cell.height = { 100.0 }

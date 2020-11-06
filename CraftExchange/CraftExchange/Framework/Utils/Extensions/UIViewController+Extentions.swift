@@ -19,8 +19,8 @@ import AVKit
 extension UIViewController {
     
     func alert(_ title: String? = nil, _ message: String? = nil, callback: ((UIAlertAction) -> ())? = nil) {
-        let vc = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: callback))
+        let vc = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .alert)
+        vc.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: callback))
         self.present(vc, animated: true, completion: nil)
     }
 
@@ -326,6 +326,16 @@ extension UIViewController {
                     break
                 }
             }
+        }
+    }
+}
+
+extension UIViewController {
+    func showLanguagePickerAlert() {
+        self.confirmAction("Notice".localized, "You will be redirected to Device Settings to change the language. Please select English or Hindi.".localized, confirmedCallback: { (action) in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+        }) { (action) in
+            
         }
     }
 }

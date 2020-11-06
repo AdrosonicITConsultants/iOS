@@ -1,0 +1,123 @@
+
+/* Class = "UILabel"; text = "Heart your favourite product while browsing!"; ObjectID = "13C-Ut-39A"; */
+"13C-Ut-39A.text" = "Heart your favourite product while browsing!";
+
+/* Class = "UILabel"; text = "New Chat"; ObjectID = "17B-sC-WQc"; */
+"17B-sC-WQc.text" = "New Chat";
+
+/* Class = "UIButton"; normalTitle = " Pull to refresh"; ObjectID = "22q-HK-j2V"; */
+"22q-HK-j2V.normalTitle" = " Pull to refresh";
+
+/* Class = "UITabBarItem"; title = "Enquiries"; ObjectID = "2jg-7e-5hw"; */
+"2jg-7e-5hw.title" = "Enquiries";
+
+/* Class = "UIButton"; normalTitle = "View by cluster"; ObjectID = "3Q4-e9-M0o"; */
+"3Q4-e9-M0o.normalTitle" = "View by cluster";
+
+/* Class = "UILabel"; text = "No new notifications"; ObjectID = "4ks-Px-Epg"; */
+"4ks-Px-Epg.text" = "No new notifications";
+
+/* Class = "UILabel"; text = "Chats"; ObjectID = "5jK-uV-Ayi"; */
+"5jK-uV-Ayi.text" = "Chats";
+
+/* Class = "UISearchBar"; placeholder = "search by enquiry/ buyer's name"; ObjectID = "8SA-Dp-IwN"; */
+"8SA-Dp-IwN.placeholder" = "search by enquiry/ buyer's name";
+
+/* Class = "UISearchBar"; 8SA-Dp-IwN.scopeButtonTitles[0] = "Title"; ObjectID = "8SA-Dp-IwN"; */
+"8SA-Dp-IwN.scopeButtonTitles[0]" = "Title";
+
+/* Class = "UISearchBar"; 8SA-Dp-IwN.scopeButtonTitles[1] = "Title"; ObjectID = "8SA-Dp-IwN"; */
+"8SA-Dp-IwN.scopeButtonTitles[1]" = "Title";
+
+/* Class = "UITabBarItem"; title = "Wishlist"; ObjectID = "B0M-PY-aOI"; */
+"B0M-PY-aOI.title" = "Wishlist";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "CFS-hb-Jhu"; */
+"CFS-hb-Jhu.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Antaran co-design collection"; ObjectID = "Cq6-bf-nZ4"; */
+"Cq6-bf-nZ4.normalTitle" = "Antaran co-design collection";
+
+/* Class = "UITableViewController"; title = "BuyerNotificationController"; ObjectID = "Deu-Fi-aU8"; */
+"Deu-Fi-aU8.title" = "BuyerNotificationController";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "EJU-RT-fCX"; */
+"EJU-RT-fCX.text" = "Label";
+
+/* Class = "UILabel"; text = "Have something unique in mind?"; ObjectID = "FsR-eo-0e6"; */
+"FsR-eo-0e6.text" = "Have something unique in mind?";
+
+/* Class = "UIButton"; normalTitle = " Pull to refresh"; ObjectID = "GEV-lN-CwT"; */
+"GEV-lN-CwT.normalTitle" = " Pull to refresh";
+
+/* Class = "UISearchBar"; placeholder = "search by enquiry/ buyer's name"; ObjectID = "HTY-iJ-fp0"; */
+"HTY-iJ-fp0.placeholder" = "search by enquiry/ buyer's name";
+
+/* Class = "UISearchBar"; HTY-iJ-fp0.scopeButtonTitles[0] = "Title"; ObjectID = "HTY-iJ-fp0"; */
+"HTY-iJ-fp0.scopeButtonTitles[0]" = "Title";
+
+/* Class = "UISearchBar"; HTY-iJ-fp0.scopeButtonTitles[1] = "Title"; ObjectID = "HTY-iJ-fp0"; */
+"HTY-iJ-fp0.scopeButtonTitles[1]" = "Title";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "HsG-wa-urq"; */
+"HsG-wa-urq.title" = "Home";
+
+/* Class = "UILabel"; text = " Recent"; ObjectID = "K7P-Eq-J6f"; */
+"K7P-Eq-J6f.text" = " Recent";
+
+/* Class = "UILabel"; text = "Dupattas"; ObjectID = "Kc4-Qe-NoT"; */
+"Kc4-Qe-NoT.text" = "Dupattas";
+
+/* Class = "UIButton"; normalTitle = "Customise your own design"; ObjectID = "Lcj-dI-h1s"; */
+"Lcj-dI-h1s.normalTitle" = "Customise your own design";
+
+/* Class = "UIButton"; normalTitle = "  Recent"; ObjectID = "Pnx-8F-DiD"; */
+"Pnx-8F-DiD.normalTitle" = "  Recent";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "VRO-Fh-yWu"; */
+"VRO-Fh-yWu.title" = "Item";
+
+/* Class = "UILabel"; text = "Choose from"; ObjectID = "WiI-iy-Mr9"; */
+"WiI-iy-Mr9.text" = "Choose from";
+
+/* Class = "UILabel"; text = "Your Enquiries"; ObjectID = "dKP-hS-mkT"; */
+"dKP-hS-mkT.text" = "Your Enquiries";
+
+/* Class = "UITabBarItem"; title = "Chat"; ObjectID = "dtm-xQ-L44"; */
+"dtm-xQ-L44.title" = "Chat";
+
+/* Class = "UILabel"; text = "Your wish list"; ObjectID = "fKX-q3-QnY"; */
+"fKX-q3-QnY.text" = "Your wish list";
+
+/* Class = "UIButton"; normalTitle = " 0 Escalations"; ObjectID = "hDp-DO-7Is"; */
+"hDp-DO-7Is.normalTitle" = " 0 Escalations";
+
+/* Class = "UILabel"; text = "is empty"; ObjectID = "iCy-EC-2Tm"; */
+"iCy-EC-2Tm.text" = "is empty";
+
+/* Class = "UIButton"; normalTitle = "Artisan Self Design"; ObjectID = "l7A-JW-g3T"; */
+"l7A-JW-g3T.normalTitle" = "Artisan Self Design";
+
+/* Class = "UITabBarItem"; title = "Notifications"; ObjectID = "lg1-Zc-rm9"; */
+"lg1-Zc-rm9.title" = "Notifications";
+
+/* Class = "UILabel"; text = "Browse the latest collection of"; ObjectID = "od1-jO-7LF"; */
+"od1-jO-7LF.text" = "Browse the latest collection of";
+
+/* Class = "UILabel"; text = "Antaran Co Design Collection"; ObjectID = "od3-TO-fte"; */
+"od3-TO-fte.text" = "Antaran Co Design Collection";
+
+/* Class = "UIButton"; normalTitle = "Mark all as read"; ObjectID = "qif-mx-DT5"; */
+"qif-mx-DT5.normalTitle" = "Mark all as read";
+
+/* Class = "UIButton"; normalTitle = "Explore "; ObjectID = "tiK-xP-551"; */
+"tiK-xP-551.normalTitle" = "Explore ";
+
+/* Class = "UIButton"; normalTitle = "Explore "; ObjectID = "wcb-iM-Ra2"; */
+"wcb-iM-Ra2.normalTitle" = "Explore ";
+
+/* Class = "UITabBarItem"; title = "Notifications"; ObjectID = "xZG-v9-EgZ"; */
+"xZG-v9-EgZ.title" = "Notifications";
+
+/* Class = "UIButton"; normalTitle = "  Filter"; ObjectID = "zRT-pH-an9"; */
+"zRT-pH-an9.normalTitle" = "  Filter";

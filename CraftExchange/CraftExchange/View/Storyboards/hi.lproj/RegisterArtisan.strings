@@ -1,0 +1,129 @@
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "0Gm-8f-Ita"; */
+"0Gm-8f-Ita.normalTitle" = "आगे";
+
+/* Class = "UIButton"; normalTitle = "Need help?"; ObjectID = "0ZZ-2e-OIf"; */
+"0ZZ-2e-OIf.normalTitle" = "मदद की ज़रूरत है?";
+
+/* Class = "UILabel"; text = "By completing this form and sign up process, you hereby agree to our"; ObjectID = "1Jd-su-VgH"; */
+"1Jd-su-VgH.text" = "By completing this form and sign up process, you hereby agree to our";
+
+/* Class = "UIButton"; normalTitle = "Upload Photo"; ObjectID = "2cW-rB-2Wg"; */
+"2cW-rB-2Wg.normalTitle" = "Upload Photo";
+
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "3LE-cl-0z9"; */
+"3LE-cl-0z9.normalTitle" = "गोपनीयता नीति";
+
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "3Sz-zx-F3F"; */
+"3Sz-zx-F3F.normalTitle" = "गोपनीयता नीति";
+
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "443-cT-76z"; */
+"443-cT-76z.normalTitle" = "गोपनीयता नीति";
+
+/* Class = "UIButton"; normalTitle = "Fashion Accessories"; ObjectID = "7pf-ep-Joa"; */
+"7pf-ep-Joa.normalTitle" = "Fashion Accessories";
+
+/* Class = "UIButton"; normalTitle = "Skip"; ObjectID = "8Jq-xe-g5n"; */
+"8Jq-xe-g5n.normalTitle" = "Skip";
+
+/* Class = "UIButton"; normalTitle = "Need help?"; ObjectID = "Ag6-IK-UWx"; */
+"Ag6-IK-UWx.normalTitle" = "मदद की ज़रूरत है?";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "B0Y-zs-JN0"; */
+"B0Y-zs-JN0.normalTitle" = "आगे";
+
+/* Class = "UIButton"; normalTitle = "Stole"; ObjectID = "Ckk-9J-xxc"; */
+"Ckk-9J-xxc.normalTitle" = "Stole";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Fwf-UJ-I62"; */
+"Fwf-UJ-I62.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "IRv-bK-7fK"; */
+"IRv-bK-7fK.normalTitle" = "आगे";
+
+/* Class = "UIButton"; normalTitle = "Need help?"; ObjectID = "LiM-DQ-Mig"; */
+"LiM-DQ-Mig.normalTitle" = "मदद की ज़रूरत है?";
+
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "NuR-5s-OjE"; */
+"NuR-5s-OjE.normalTitle" = "गोपनीयता नीति";
+
+/* Class = "UIButton"; normalTitle = "Reach out to us"; ObjectID = "QUl-X4-cSw"; */
+"QUl-X4-cSw.normalTitle" = "Reach out to us";
+
+/* Class = "UILabel"; text = "If you don't have weaver id get in touch with us"; ObjectID = "UPU-Wj-0ZS"; */
+"UPU-Wj-0ZS.text" = "If you don't have weaver id get in touch with us";
+
+/* Class = "UIButton"; normalTitle = "Saree"; ObjectID = "W8Q-2G-YTk"; */
+"W8Q-2G-YTk.normalTitle" = "Saree";
+
+/* Class = "UIButton"; normalTitle = "Complete"; ObjectID = "X00-T7-K4f"; */
+"X00-T7-K4f.normalTitle" = "Complete";
+
+/* Class = "UIButton"; normalTitle = "Need help?"; ObjectID = "XaL-pS-D5A"; */
+"XaL-pS-D5A.normalTitle" = "मदद की ज़रूरत है?";
+
+/* Class = "UILabel"; text = "Enter your email id"; ObjectID = "Zxc-Sg-5pf"; */
+"Zxc-Sg-5pf.text" = "Enter your email id";
+
+/* Class = "UIButton"; normalTitle = "Fabric"; ObjectID = "aW8-LB-2Kt"; */
+"aW8-LB-2Kt.normalTitle" = "Fabric";
+
+/* Class = "UILabel"; text = "Social media link"; ObjectID = "cXe-FX-38E"; */
+"cXe-FX-38E.text" = "Social media link";
+
+/* Class = "UIButton"; normalTitle = "Dupattas"; ObjectID = "cqw-RR-kBn"; */
+"cqw-RR-kBn.normalTitle" = "Dupattas";
+
+/* Class = "UIButton"; normalTitle = "terms & conditions"; ObjectID = "dSG-oc-kDh"; */
+"dSG-oc-kDh.normalTitle" = "terms & conditions";
+
+/* Class = "UIButton"; normalTitle = "You can always do this step later. SKIP"; ObjectID = "e4Y-lN-F0D"; */
+"e4Y-lN-F0D.normalTitle" = "You can always do this step later. SKIP";
+
+/* Class = "UILabel"; text = "Website link"; ObjectID = "eeh-eP-3pR"; */
+"eeh-eP-3pR.text" = "Website link";
+
+/* Class = "UIButton"; normalTitle = "Need help?"; ObjectID = "ez8-FI-Zx5"; */
+"ez8-FI-Zx5.normalTitle" = "मदद की ज़रूरत है?";
+
+/* Class = "UILabel"; text = "You can skip this step and your links later in the profile section"; ObjectID = "fvj-kd-0ce"; */
+"fvj-kd-0ce.text" = "You can skip this step and your links later in the profile section";
+
+/* Class = "UIButton"; normalTitle = "Home Accessories"; ObjectID = "j9t-Uc-nDQ"; */
+"j9t-Uc-nDQ.normalTitle" = "Home Accessories";
+
+/* Class = "UILabel"; text = "Enter your new password"; ObjectID = "jZH-2f-fSR"; */
+"jZH-2f-fSR.text" = "Enter your new password";
+
+/* Class = "UILabel"; text = "In case of any help"; ObjectID = "kn4-GW-yCZ"; */
+"kn4-GW-yCZ.text" = "In case of any help";
+
+/* Class = "UIButton"; normalTitle = "Send OTP"; ObjectID = "lLx-ab-u6f"; */
+"lLx-ab-u6f.normalTitle" = "Send OTP";
+
+/* Class = "UILabel"; text = "Provide your link for web presence"; ObjectID = "m1K-Jb-dlx"; */
+"m1K-Jb-dlx.text" = "Provide your link for web presence";
+
+/* Class = "UIButton"; normalTitle = "Reach out to us"; ObjectID = "mK5-Ml-cl4"; */
+"mK5-Ml-cl4.normalTitle" = "Reach out to us";
+
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "mhk-h0-FfL"; */
+"mhk-h0-FfL.normalTitle" = "गोपनीयता नीति";
+
+/* Class = "UIButton"; normalTitle = "Reach out to us"; ObjectID = "q3z-mi-jeB"; */
+"q3z-mi-jeB.normalTitle" = "Reach out to us";
+
+/* Class = "UIButton"; normalTitle = "terms & conditions"; ObjectID = "rKV-Kc-pcT"; */
+"rKV-Kc-pcT.normalTitle" = "terms & conditions";
+
+/* Class = "UILabel"; text = "In case of any help"; ObjectID = "rPo-LB-gPr"; */
+"rPo-LB-gPr.text" = "In case of any help";
+
+/* Class = "UILabel"; text = "Enter your artisan id"; ObjectID = "vJc-fC-iHP"; */
+"vJc-fC-iHP.text" = "Enter your artisan id";
+
+/* Class = "UILabel"; text = "By completing this form and sign up process, you hereby agree to our"; ObjectID = "yGL-PD-XO4"; */
+"yGL-PD-XO4.text" = "By completing this form and sign up process, you hereby agree to our";
+
+/* Class = "UIButton"; normalTitle = "Complete"; ObjectID = "z4N-gH-L8M"; */
+"z4N-gH-L8M.normalTitle" = "Complete";

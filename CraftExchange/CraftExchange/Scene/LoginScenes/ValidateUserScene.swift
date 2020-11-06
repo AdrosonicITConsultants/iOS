@@ -40,7 +40,7 @@ extension ValidateUserService {
                     }
                   }else {
                     DispatchQueue.main.async {
-                      vc.alert("Invalid User Email Id or Mobile Number")
+                        vc.alert("Invalid User Email Id or Mobile Number")
                     }
                   }
                 } else {
