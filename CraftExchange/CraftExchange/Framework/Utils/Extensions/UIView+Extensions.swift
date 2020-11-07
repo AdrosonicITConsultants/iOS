@@ -217,7 +217,7 @@ extension UIView {
         }else {
             let initiationView = Bundle.main.loadNibNamed("AcceptedPIView", owner:
                 self, options: nil)?.first as? AcceptedPIView
-            initiationView?.entityIdLabel.text = "Pro forma invoice for " + entityId
+            initiationView?.entityIdLabel.text = "Pro forma invoice for ".localized + entityId
             initiationView?.dateLabel.text = "Date accepted " + date
             initiationView?.data = data
             initiationView?.delegate = controller as? AcceptedPIViewProtocol
@@ -359,19 +359,19 @@ extension UIView {
                 self, options: nil)?.first as? ChatHeaderDetailsView
             let date1 = Date().ttceFormatter(isoDate: chat.enquiryGeneratedOn!)
             
-            initiationView?.enquiryStartedOn.text = "Date Started: " + date1
+            initiationView?.enquiryStartedOn.text = "Date Started: ".localized + date1
             
             if chat.convertedToOrderDate != nil {
                 let date2 = Date().ttceFormatter(isoDate: chat.convertedToOrderDate!)
-                initiationView?.convertedToOrderOn.text = "Converted to order on: " + date2
+                initiationView?.convertedToOrderOn.text = "Converted to order on: ".localized + date2
             }else{
                 initiationView?.convertedToOrderOn.text = "Converted to order on: Not Converted".localized
             }
             
             let date3 = Date().ttceFormatter(isoDate: chat.lastUpdatedOn!)
-            initiationView?.lastUpdatedOn.text = "Last updated on: " + date3
+            initiationView?.lastUpdatedOn.text = "Last updated on: ".localized + date3
             initiationView?.productType.text = chat.productTypeId ?? "Custom design".localized
-            initiationView?.orderAmount.text = chat.orderAmount != nil ? "Order amount: ₹" + chat.orderAmount! : "Order amount: Not finalized"
+            initiationView?.orderAmount.text = chat.orderAmount != nil ? "Order amount: ₹".localized + chat.orderAmount! : "Order amount: Not finalized".localized
             initiationView?.delegate =  controller as? ChatHeaderDetailsViewProtocol
             initiationView?.tag = 133
             self.addSubview(initiationView!)

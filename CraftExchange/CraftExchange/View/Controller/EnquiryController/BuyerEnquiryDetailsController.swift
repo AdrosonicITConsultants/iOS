@@ -283,7 +283,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check advance Payment receipt"
+                $0.cell.titleLbl.text = "Check advance Payment receipt".localized
                 $0.cell.valueLbl.text = "View"
 
                 $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
@@ -375,7 +375,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check MOQ"
+                $0.cell.titleLbl.text = "Check MOQ".localized
                 $0.cell.valueLbl.text = ""
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
@@ -556,7 +556,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< MOQSectionTitleRow() {
                 $0.cell.height = { 44.0 }
                 $0.tag = "Check MOQ Buyer"
-                $0.cell.titleLbl.text = "Check MOQ"
+                $0.cell.titleLbl.text = "Check MOQ".localized
                 $0.cell.noOfUnitLbl.text = "70 pcs"
                 $0.cell.costLbl.text = "Rs 1000"
                 $0.cell.etaLbl.text = "100 days"
@@ -641,7 +641,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check Product Details"
+                $0.cell.titleLbl.text = "Check Product Details".localized
                 $0.cell.valueLbl.text = "\(enquiryObject?.productName ?? "Design By")"
                 $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBrownText()
@@ -659,7 +659,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check MOQ"
+                $0.cell.titleLbl.text = "Check MOQ".localized
                 $0.tag = "Check MOQs"
                 $0.cell.valueLbl.text = ""
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
@@ -714,7 +714,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         }
         alert.addAction(chat)
         
-        let closeEnquiry = UIAlertAction.init(title: "Close Enquiry", style: .default) { (action) in
+        let closeEnquiry = UIAlertAction.init(title: "Close Enquiry".localized, style: .default) { (action) in
             self.confirmAction("Warning".localized, "Are you sure you want to close this enquiry?".localized, confirmedCallback: { (action) in
                 self.closeEnquiry?(self.enquiryObject?.entityID ?? 0)
             }) { (action) in
@@ -723,7 +723,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         }
         alert.addAction(closeEnquiry)
         
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)

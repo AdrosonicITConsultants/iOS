@@ -29,7 +29,7 @@ class SearchTableViewController: UITableViewController, Searchable {
         tableView.register(UINib.init(nibName: "LabelCell", bundle: nil), forCellReuseIdentifier: "LabelCell")
         searchController = UISearchController(searchResultsController: nil)
         searchController?.obscuresBackgroundDuringPresentation = false
-        searchController?.searchBar.placeholder = "Search products, codes, product type, weaves"
+        searchController?.searchBar.placeholder = "Search products, codes, product type, weaves".localized
         searchController?.searchBar.delegate = self
         searchController?.searchBar.sizeToFit()
         definesPresentationContext = true
@@ -109,7 +109,7 @@ extension SearchTableViewController {
         header.textColor = .lightGray
         header.font = .systemFont(ofSize: 16)
         header.numberOfLines = 2
-        header.text = "No suggestions for this keyword. Try searching \"saree\", \"fabric\", \"ikat\""
+        header.text = "No suggestions for this keyword. Try searching \"saree\", \"fabric\", \"ikat\"".localized
         labelView.addSubview(header)
         return labelView
     }

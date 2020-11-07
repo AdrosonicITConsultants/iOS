@@ -77,7 +77,7 @@ class OrderDetailController: FormViewController {
         service.finalPaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
         service.finalPaymentDetails(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
         
-        let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(goToChat))
+        let rightButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: self, action: #selector(goToChat))
         rightButtonItem.image = UIImage.init(named: "ios magenta chat")
         rightButtonItem.tintColor = UIColor().CEMagenda()
         self.navigationItem.rightBarButtonItem = rightButtonItem

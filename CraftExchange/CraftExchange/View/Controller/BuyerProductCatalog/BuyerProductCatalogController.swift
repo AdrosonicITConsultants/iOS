@@ -337,7 +337,7 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
         }else if allPorducts?.count ?? 0 > 0 {
             header.text = " Found \(allPorducts?.count ?? 0) items"
         }else {
-            header.text = " No Results Found!"
+            header.text = " No Results Found!".localized
         }
         header.font = .systemFont(ofSize: 15)
         return header

@@ -151,6 +151,7 @@ extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataS
                                                       for: indexPath) as! ProductCategoryCell
         cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription
         cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
+        cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription?.localized
         return cell
     }
     

@@ -215,7 +215,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
             })
             <<< ActionSheetRow<String>() { row in
                 row.tag = "AddressEditRow5"
-                row.title = "Country"
+                row.title = "Country".localized
                 row.cell.height = { 80.0 }
                 row.options = allCountries?.compactMap { $0.name }
             }.cellUpdate({ (cell, row) in
@@ -231,7 +231,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 $0.cell.buttonView.borderColour = .black
                 $0.cell.buttonView.backgroundColor = .black
                 $0.cell.buttonView.setTitleColor(.white, for: .normal)
-                $0.cell.buttonView.setTitle("Edit your details", for: .normal)
+                $0.cell.buttonView.setTitle("Edit your details".localized, for: .normal)
                 $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
                 $0.cell.tag = 101
                 $0.cell.height = { 80.0 }
@@ -264,18 +264,18 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
         //Edit selected
         let btnRow = self.form.rowBy(tag: "EditArtisanDetails") as? RoundedButtonViewRow
         let secRow = self.form.sectionBy(tag: "EditAddressSection")
-        if btnRow?.cell.buttonView.titleLabel?.text == "Edit your details" {
+        if btnRow?.cell.buttonView.titleLabel?.text == "Edit your details".localized {
             editEnabled = true
             secRow?.hidden = false
             secRow?.evaluateHidden()
-            btnRow?.cell.buttonView.setTitle("Save your details", for: .normal)
+            btnRow?.cell.buttonView.setTitle("Save your details".localized, for: .normal)
             btnRow?.cell.buttonView.borderColour = .red
             btnRow?.cell.buttonView.backgroundColor = .red
         }else {
             editEnabled = false
             secRow?.hidden = true
             secRow?.evaluateHidden()
-            btnRow?.cell.buttonView.setTitle("Edit your details", for: .normal)
+            btnRow?.cell.buttonView.setTitle("Edit your details".localized, for: .normal)
             btnRow?.cell.buttonView.borderColour = .black
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {

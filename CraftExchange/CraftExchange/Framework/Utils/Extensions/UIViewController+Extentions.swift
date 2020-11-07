@@ -27,9 +27,9 @@ extension UIViewController {
     func confirmAction(_ title: String? = nil, _ message: String,
                        confirmedCallback: ((UIAlertAction) -> ())?,
                        cancelCallBack: ((UIAlertAction) -> ())? = nil) {
-        let vc = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: cancelCallBack))
-        vc.addAction(UIAlertAction(title: "OK", style: .default, handler: confirmedCallback))
+        let vc = UIAlertController(title: title?.localized, message: message.localized, preferredStyle: .alert)
+        vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: cancelCallBack))
+        vc.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: confirmedCallback))
         self.present(vc, animated: true, completion: nil)
     }
     

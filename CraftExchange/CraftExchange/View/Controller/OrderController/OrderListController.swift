@@ -59,6 +59,7 @@ class OrderListController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+        segmentView.buttonTitles = "Ongoing, Completed".localized
         segmentView.bottomBarHeight = 5
         segmentView.type = .normal
         segmentView.selectorType = .bottomBar

@@ -119,7 +119,7 @@ class BuyerProfileController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
         OfflineRequestManager.defaultManager.delegate = self
         if KeychainManager.standard.userRole == "Artisan" || loadArtisan {
-            self.navigationItem.title = "Hello \(User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? "")"
+            self.navigationItem.title = "Hello".localized + " \(User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? "")"
             if let constraint = (profileView.constraints.filter{$0.firstAttribute == .height}.first) {
                 constraint.constant = 0.0
                 profileView.isHidden = true
@@ -183,7 +183,7 @@ class BuyerProfileController: UIViewController {
     
     func setupSegmentTitle() {
         if KeychainManager.standard.userRole == "Artisan" {
-            segmentControl.buttonTitles = "My Details, Brand Details, Bank Details"
+            segmentControl.buttonTitles = "My Details, Brand Details, Bank Details".localized
         }else {
             segmentControl.buttonTitles = "General, Brand, Delivery"
         }

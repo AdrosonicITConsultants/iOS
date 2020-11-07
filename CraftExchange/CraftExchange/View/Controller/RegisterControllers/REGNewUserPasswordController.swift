@@ -62,7 +62,7 @@ class REGNewUserPasswordController: UIViewController {
           alert("Password & Confirm password mismatch.")
         }
       }else {
-        alert("Please enter valid password with 8 characters. It should contain at least 1 Capital alphabet, number and special character.")
+        alert("Please enter a valid password with 8 characters. It should contain at least 1 Capital alphabet, number, and special character.")
       }
     }else {
       alert("Please enter password & confirm your password")

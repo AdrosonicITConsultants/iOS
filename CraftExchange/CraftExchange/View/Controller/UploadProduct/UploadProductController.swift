@@ -109,7 +109,7 @@ class UploadProductController: FormViewController {
             let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
             rightButtonItem.tintColor = .red
             
-            let rightButtonItem2 = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
+            let rightButtonItem2 = UIBarButtonItem.init(title: "Save".localized, style: .plain, target: self, action: #selector(saveClicked))
             
             self.navigationItem.rightBarButtonItems = [rightButtonItem, rightButtonItem2]
             
@@ -216,7 +216,7 @@ class UploadProductController: FormViewController {
         }
         <<< RoundedTextFieldRow() {
             $0.tag = "ProdNameRow"
-            $0.cell.titleLabel.text = "Name of the product(40 characters)"
+            $0.cell.titleLabel.text = "Name of the product (40 characters)".localized
             $0.cell.height = { 80.0 }
             self.viewModel.prodName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             $0.cell.valueTextField.text = self.viewModel.prodName.value ?? ""
@@ -227,11 +227,11 @@ class UploadProductController: FormViewController {
             cell.valueTextField.text = self.viewModel.prodName.value ?? ""
         })
         <<< RoundedTextFieldRow() {
-            $0.cell.titleLabel.text = "Product Code"
+            $0.cell.titleLabel.text = "Product Code".localized
             $0.tag = "ProdCodeRow"
             $0.cell.height = { 80.0 }
             $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.valueTextField.placeholder = "Product Code (Eg:ABC01_02)"
+            $0.cell.valueTextField.placeholder = "Product Code (Eg:ABC01_02)".localized
             self.viewModel.prodCode.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             $0.cell.valueTextField.text = self.viewModel.prodCode.value ?? ""
             self.viewModel.prodCode.value = $0.cell.valueTextField.text
@@ -241,7 +241,7 @@ class UploadProductController: FormViewController {
         })
         <<< RoundedActionSheetRow() {
             $0.tag = "ProdCatRow"
-            $0.cell.titleLabel.text = "Select product category"
+            $0.cell.titleLabel.text = "Select product category".localized
             $0.cell.compulsoryIcon.isHidden = true
             $0.cell.options = allCategories?.compactMap { $0.prodCatDescription }
             if let selectedCluster = self.viewModel.prodCategory.value {
@@ -273,7 +273,7 @@ class UploadProductController: FormViewController {
         })
         <<< RoundedActionSheetRow() {
             $0.tag = "ProdTypeRow"
-            $0.cell.titleLabel.text = "Product type"
+            $0.cell.titleLabel.text = "Product type".localized
             $0.cell.compulsoryIcon.isHidden = true
             if let selectedCat = self.viewModel.prodCategory.value {
                 $0.cell.options = selectedCat.productTypes.compactMap { $0.productDesc }
@@ -302,13 +302,13 @@ class UploadProductController: FormViewController {
             let row = self.form.rowBy(tag: "ProdLenWidthRow") as! lengthWidthRow
             row.cell.lengthTextField.text = nil
             row.cell.widthTextField.text = nil
-            row.cell.length.setTitle("Select length", for: .normal)
-            row.cell.width.setTitle("Select width", for: .normal)
+            row.cell.length.setTitle("Select length".localized, for: .normal)
+            row.cell.width.setTitle("Select width".localized, for: .normal)
             let row2 = self.form.rowBy(tag: "RelatedProdLenWidthRow") as! lengthWidthRow
             row2.cell.lengthTextField.text = nil
             row2.cell.widthTextField.text = nil
-            row2.cell.length.setTitle("Select length", for: .normal)
-            row2.cell.width.setTitle("Select width", for: .normal)
+            row2.cell.length.setTitle("Select length".localized, for: .normal)
+            row2.cell.width.setTitle("Select width".localized, for: .normal)
             let row3 = self.form.rowBy(tag: "ProdWeightRow") as! TextRow
             row3.value = nil
             row3.cell.textField.text = nil
@@ -410,7 +410,7 @@ class UploadProductController: FormViewController {
         }
         <<< RoundedActionSheetRow() {
             $0.tag = "ReedCountRow"
-            $0.cell.titleLabel.text = "Enter reed count"
+            $0.cell.titleLabel.text = "Enter the reed count".localized
             $0.cell.compulsoryIcon.isHidden = true
             $0.cell.options = allReed?.compactMap({$0.count})
             if let selectedObj = self.viewModel.reedCount.value {
@@ -631,7 +631,7 @@ class UploadProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 9, title: "Select the weigth")
+                    let view = self.createSectionView(forStep: 9, title: "Select the weight")
                   return view
                 }))
                 header.height = { ht }
@@ -650,7 +650,7 @@ class UploadProductController: FormViewController {
             self.viewModel.prodWeight.bidirectionalBind(to: $0.cell.textField.reactive.text)
             $0.cell.textField.text = self.viewModel.prodWeight.value
             $0.value = self.viewModel.prodWeight.value
-            $0.cell.textField.placeholder = "Enter weigth"
+            $0.cell.textField.placeholder = "Enter weight".localized
         }.cellUpdate({ (cell, row) in
             row.title = self.viewModel.prodType.value?.productDesc ?? ""
             self.viewModel.prodWeight.value = cell.row.value
@@ -662,7 +662,7 @@ class UploadProductController: FormViewController {
             self.viewModel.relatedProdWeight.bidirectionalBind(to: $0.cell.textField.reactive.text)
             $0.cell.textField.text = self.viewModel.relatedProdWeight.value
             $0.value = self.viewModel.relatedProdWeight.value
-            $0.cell.textField.placeholder = "Enter weigth"
+            $0.cell.textField.placeholder = "Enter weight".localized
         }.cellUpdate({ (cell, row) in
             row.title = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
             if self.viewModel.prodType.value?.relatedProductTypes.count ?? 0 > 0 {
@@ -717,7 +717,7 @@ class UploadProductController: FormViewController {
         })
         <<< RoundedTextFieldRow() {
             $0.tag = "GSMRow"
-            $0.cell.titleLabel.text = "GSM"
+            $0.cell.titleLabel.text = "GSM".localized
             $0.cell.compulsoryIcon.isHidden = true
             $0.hidden = true
             self.viewModel.gsm.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
@@ -778,7 +778,7 @@ class UploadProductController: FormViewController {
             $0.cell.buttonView.borderColour = UIColor().menuSelectorBlue()
             $0.cell.buttonView.backgroundColor = UIColor().menuSelectorBlue()
             $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle(" Save ", for: .normal)
+            $0.cell.buttonView.setTitle(" Save ".localized, for: .normal)
             $0.cell.buttonView.setImage(UIImage.init(named: "save and upload"), for: .normal)
             $0.cell.buttonView.tintColor = .white
             $0.cell.tag = NewProductState.addDescription.rawValue
@@ -1043,7 +1043,7 @@ class UploadProductController: FormViewController {
         let stepLbl = UILabel.init(frame: CGRect(x: dotView.frame.origin.x + dotView.frame.size.width + 5, y: CGFloat(y), width: CGFloat(70), height: CGFloat(lblHt)))
         stepLbl.font = .systemFont(ofSize: 17, weight: .regular)
         stepLbl.textColor = .darkGray
-        stepLbl.text = "Step \(forStep):".localized
+        stepLbl.text = "Step".localized + " \(forStep):"
         stepLbl.tag = 444
         view.addSubview(stepLbl)
           

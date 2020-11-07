@@ -61,10 +61,10 @@ class ArtisanProdCatalogueController: UITableViewController {
             self.applicationEnteredForeground?()
         }
         if fromFilter {
-            let rightButtonItem = UIBarButtonItem.init(title: "Filter by Collection", style: .plain, target: self, action: #selector(showCreatorOptions))
+            let rightButtonItem = UIBarButtonItem.init(title: "Filter by Collection".localized, style: .plain, target: self, action: #selector(showCreatorOptions))
             self.navigationItem.rightBarButtonItem = rightButtonItem
         }else {
-            let rightButtonItem = UIBarButtonItem.init(title: "Change Category", style: .plain, target: self, action: #selector(showCategory))
+            let rightButtonItem = UIBarButtonItem.init(title: "Change Category".localized, style: .plain, target: self, action: #selector(showCategory))
             self.navigationItem.rightBarButtonItem = rightButtonItem
         }
     }
@@ -85,25 +85,25 @@ class ArtisanProdCatalogueController: UITableViewController {
     }
     
     @objc func showCategory() {
-        let alert = UIAlertController.init(title: "Select Category", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "Select Category".localized, message: "", preferredStyle: .actionSheet)
         let catgories = Product().getAllProductCatForUser()
         for option in catgories {
-            let action = UIAlertAction.init(title: option.prodCatDescription ?? "", style: .default) { (action) in
-                self.title = option.prodCatDescription
+            let action = UIAlertAction.init(title: option.prodCatDescription?.localized ?? "", style: .default) { (action) in
+                self.title = option.prodCatDescription?.localized
                 self.refreshCategory?(option.entityID)
                 
           }
           alert.addAction(action)
         }
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
     
     @objc func showCreatorOptions() {
-        let textArray = ["Show Both", "Artisan Self Design Collection","Antaran Co-Design Collection"]
-        let alert = UIAlertController.init(title: "Please select", message: "", preferredStyle: .actionSheet)
+        let textArray = ["Show Both".localized, "Artisan Self Design Collection".localized,"Antaran Co-Design Collection".localized]
+        let alert = UIAlertController.init(title: "Please select".localized, message: "", preferredStyle: .actionSheet)
         for option in textArray {
             let action = UIAlertAction.init(title: option, style: .default) { (action) in
                 if let index = textArray.firstIndex(of: option) {
@@ -161,7 +161,7 @@ extension ArtisanProdCatalogueController {
         }else if dataSource?.changeset?.count ?? 0 > 0 {
             header.text = " Found \(dataSource?.changeset?.count ?? 0) items"
         }else {
-            header.text = " No Results Found!"
+            header.text = " No Results Found!".localized
         }
         header.font = .systemFont(ofSize: 15)
         return header

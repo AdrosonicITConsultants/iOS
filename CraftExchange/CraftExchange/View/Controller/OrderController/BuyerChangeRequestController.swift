@@ -44,8 +44,8 @@ class BuyerChangeRequestController: FormViewController {
         form
         +++ Section()
         <<< CRNoteViewRow() { (row) in
-            row.cell.Label1.text = "Please Note:\nChange request may be accepted or rejected subjective to the feasibility of the change by artisan. If accepted, there may be a change in final amount and hence the pro forma invoice.".localized
-            row.cell.Label2.text = "You can only submit this change request once. Be sure about the change requested before submitting.".localized
+            row.cell.Label1.text = "Please Note:\nChange request may be accepted or rejected subjective to the feasibility of the change by the artisan. If accepted, there may be a change in the final amount and hence the pro forma invoice.".localized
+            row.cell.Label2.text = "You can only submit this change request once. Be sure about the change requested before submitting it.".localized
         }
         <<< changeReqTypeView
         +++ changeReqTypeSection

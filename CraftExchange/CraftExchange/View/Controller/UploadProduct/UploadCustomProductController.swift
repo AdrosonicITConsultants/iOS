@@ -241,7 +241,7 @@ class UploadCustomProductController: FormViewController {
         }
         <<< RoundedActionSheetRow() {
             $0.tag = "ProdCatRow"
-            $0.cell.titleLabel.text = "Select product category"
+            $0.cell.titleLabel.text = "Select product category".localized
             $0.cell.compulsoryIcon.isHidden = true
             $0.cell.options = allCategories?.compactMap { $0.prodCatDescription }
             if let selectedCluster = self.viewModel.prodCategory.value {
@@ -276,7 +276,7 @@ class UploadCustomProductController: FormViewController {
         })
         <<< RoundedActionSheetRow() {
             $0.tag = "ProdTypeRow"
-            $0.cell.titleLabel.text = "Product type"
+            $0.cell.titleLabel.text = "Product type".localized
             $0.cell.compulsoryIcon.isHidden = true
             if let selectedCat = self.viewModel.prodCategory.value {
                 $0.cell.options = selectedCat.productTypes.compactMap { $0.productDesc }
@@ -306,13 +306,13 @@ class UploadCustomProductController: FormViewController {
             let row = self.form.rowBy(tag: "ProdLenWidthRow") as! lengthWidthRow
             row.cell.lengthTextField.text = nil
             row.cell.widthTextField.text = nil
-            row.cell.length.setTitle("Select length", for: .normal)
-            row.cell.width.setTitle("Select width", for: .normal)
+            row.cell.length.setTitle("Select length".localized, for: .normal)
+            row.cell.width.setTitle("Select width".localized, for: .normal)
             let row2 = self.form.rowBy(tag: "RelatedProdLenWidthRow") as! lengthWidthRow
             row2.cell.lengthTextField.text = nil
             row2.cell.widthTextField.text = nil
-            row2.cell.length.setTitle("Select length", for: .normal)
-            row2.cell.width.setTitle("Select width", for: .normal)
+            row2.cell.length.setTitle("Select length".localized, for: .normal)
+            row2.cell.width.setTitle("Select width".localized, for: .normal)
             let row5 = self.form.rowBy(tag: "GSMRow") as! RoundedTextFieldRow
             row5.value = nil
             row5.cell.valueTextField.text = nil
@@ -408,7 +408,7 @@ class UploadCustomProductController: FormViewController {
         }
         <<< RoundedActionSheetRow() {
             $0.tag = "ReedCountRow"
-            $0.cell.titleLabel.text = "Enter reed count"
+            $0.cell.titleLabel.text = "Enter reed count".localized
             $0.cell.compulsoryIcon.isHidden = true
             $0.cell.options = allReed?.compactMap({$0.count})
             if let selectedObj = self.viewModel.reedCount.value {
@@ -601,7 +601,7 @@ class UploadCustomProductController: FormViewController {
         })
         <<< RoundedTextFieldRow() {
             $0.tag = "GSMRow"
-            $0.cell.titleLabel.text = "GSM"
+            $0.cell.titleLabel.text = "GSM".localized
             $0.cell.compulsoryIcon.isHidden = true
             $0.hidden = true
             self.viewModel.gsm.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)

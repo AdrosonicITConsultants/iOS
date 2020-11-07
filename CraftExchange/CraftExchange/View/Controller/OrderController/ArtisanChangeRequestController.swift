@@ -49,7 +49,7 @@ class ArtisanChangeRequestController: FormViewController {
         form
         +++ Section()
         <<< CRNoteViewRow() { (row) in
-            row.cell.Label1.text = "Please Note:\nChange request is only one time facility to buyer for their ongoing order with you.\nDo consider with checking box if able to accept the request.".localized
+            row.cell.Label1.text = "Please Note:\nChange request is the only one-time facility to the buyer for their ongoing order with you.\nDo consider with checking the box if able to accept".localized
             row.cell.Label2.text = "If you accept this change request, the buyer shall not be able to raise another change request".localized
         }
         <<< changeReqTypeView
@@ -108,7 +108,7 @@ class ArtisanChangeRequestController: FormViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "ChangeRequestUpdated"), object: nil, queue: .main) { (notif) in
             Order().updateChangeStatus(status: self.status, enquiryId: self.enquiryId)
             self.hideLoading()
-            self.confirmAction("Post change request process".localized, "Update the pro forma invoice?\n\nyou have 2 days remaining to update your invoice after change request".localized, confirmedCallback: { (action) in
+            self.confirmAction("Post the change request process".localized, "Update the pro forma invoice?\n\nyou have 2 days remaining to update your invoice after change request".localized, confirmedCallback: { (action) in
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate
                 appDelegate?.revisePI = true
                 self.navigationController?.popViewController(animated: true)

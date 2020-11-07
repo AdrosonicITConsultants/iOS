@@ -111,7 +111,7 @@ class TransactionListController: UIViewController {
     }
     
     @IBAction func filterSelected(_ sender: Any) {
-        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "Select".localized, message: "", preferredStyle: .actionSheet)
         let all = UIAlertAction.init(title: "All".localized, style: .default) { (action) in
             self.filterButton.setTitle("  Filter".localized, for: .normal)
             self.selectedFilter = 0
@@ -119,7 +119,7 @@ class TransactionListController: UIViewController {
             self.tableView.reloadData()
         }
         alert.addAction(all)
-        let textArray = ["P ID", "Payment ID","Tax Invoice ID", "Challan ID"]
+        let textArray = ["P ID".localized, "Payment ID".localized,"Tax Invoice ID".localized, "Challan ID".localized]
         alert.title = "Please Select".localized
         for option in textArray {
             let action = UIAlertAction.init(title: option, style: .default) { (action) in

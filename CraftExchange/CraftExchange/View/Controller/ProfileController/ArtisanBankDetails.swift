@@ -138,7 +138,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 self.viewModel.benficiaryName.value = $0.cell.valueTextField.text
                 self.viewModel.benficiaryName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
-                cell.titleLabel.text = "Benefitiary Name".localized
+                cell.titleLabel.text = "Beneficiary Name".localized
                 cell.titleLabel.textColor = .black
                 cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
                 cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)

@@ -44,10 +44,10 @@ extension NotificationService {
                                         controller.notificationCount = dataDict["count"]! as! Int
                                         let count =  controller.notificationCount
                                         if count == 0 {
-                                            controller.notificationsLabel?.text = "No new notifications"
+                                            controller.notificationsLabel?.text = "No new notifications".localized
                                         }
                                         else {
-                                            controller.notificationsLabel?.text = "\(count) new notifications"
+                                            controller.notificationsLabel?.text = "\(count) " + "new notifications".localized
                                         }
                                         
                                         controller.tableView.reloadData()

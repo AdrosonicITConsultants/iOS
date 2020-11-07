@@ -30,7 +30,7 @@ class SideMenuController: FormViewController {
                   hiLbl.font = .systemFont(ofSize: 24, weight: .semibold)
                   hiLbl.numberOfLines = 3
                   hiLbl.textColor = .black
-                  hiLbl.text = "Hi,\n\(KeychainManager.standard.username ?? "")"
+                    hiLbl.text = "Hi,".localized + "\n\(KeychainManager.standard.username ?? "")"
                   view.addSubview(hiLbl)
                   
                   let profileImg = UIImageView.init(image: UIImage(named: "person_icon"))
@@ -49,7 +49,7 @@ class SideMenuController: FormViewController {
         }
           <<< LabelRow() {
             $0.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
-            $0.title = "My Profile"
+            $0.title = "My Profile".localized
             $0.cellStyle = .default
             $0.cell.imageView?.image = UIImage(named: "my-profile-icon")
             $0.cell.height = { 56.0 }
@@ -78,7 +78,7 @@ class SideMenuController: FormViewController {
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
           <<< LabelRow() { row in
-            row.title = "My Transactions"
+            row.title = "My Transactions".localized
             row.cell.imageView?.image = UIImage(named: "ios_transactions")
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
             row.cell.height = { 56.0 }
@@ -97,7 +97,7 @@ class SideMenuController: FormViewController {
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
           <<< LabelRow() { row in
-            row.title = "My Orders"
+            row.title = "My Orders".localized
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
             row.cell.imageView?.image = UIImage(named: "tab-enquiries")
             row.cell.height = { 56.0 }
@@ -136,7 +136,7 @@ class SideMenuController: FormViewController {
               row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
             })
           <<< LabelRow() { row in
-            row.title = "My Dashboard"
+            row.title = "My Dashboard".localized
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
             row.cell.imageView?.image = UIImage(named: "ios_mydash")
             row.cell.height = { 56.0 }
@@ -172,7 +172,7 @@ class SideMenuController: FormViewController {
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
           <<< LabelRow() { row in
-            row.title = "Support"
+            row.title = "Support".localized
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
             row.cell.imageView?.image = UIImage(named: "ios_help")
             row.cell.height = { 56.0 }
@@ -182,7 +182,7 @@ class SideMenuController: FormViewController {
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
             <<< LabelRow() { row in
-              row.title = "Change Language"
+                row.title = "Change Language".localized
               row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
               row.cell.imageView?.image = UIImage(named: "change language")
               row.cell.height = { 56.0 }
@@ -193,7 +193,7 @@ class SideMenuController: FormViewController {
               row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
             })
           <<< LabelRow() { row in
-            row.title = "Logout"
+            row.title = "Logout".localized
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
             row.cell.imageView?.image = UIImage(named: "ios_logout")
             row.cell.height = { 56.0 }
