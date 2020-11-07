@@ -181,6 +181,17 @@ class SideMenuController: FormViewController {
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
+            <<< LabelRow() { row in
+              row.title = "Change Language"
+              row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+              row.cell.imageView?.image = UIImage(named: "change language")
+              row.cell.height = { 56.0 }
+              row.hidden = KeychainManager.standard.userRoleId == 2 ? true : false
+            }.onCellSelection { (cell, row) in
+                self.showLanguagePickerAlert()
+            }.cellUpdate({ (str, row) in
+              row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
+            })
           <<< LabelRow() { row in
             row.title = "Logout"
             row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
