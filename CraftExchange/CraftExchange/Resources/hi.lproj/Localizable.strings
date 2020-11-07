@@ -57,6 +57,7 @@
 "support" = "सहयोग";
 "Support" = "सहयोग";
 "Change Language" = "भाषा बदलो";
+"  Change Language" = "भाषा बदलो";
 "logout" = "लॉग आउट";
 "Logout" = "लॉग आउट";
 "your products" = "आपके उत्पादों";
@@ -311,3 +312,6 @@
 "Check MOQ" = "जाँच MOQ";
 "Check MOQs" = "जाँच MOQs";
 "Check Product Details" = "उत्पाद विवरण की जाँच करें";
+"New user? Click here to register." = "नया उपयोगकर्ता? पंजीकरण करने के लिए यहां क्लिक करें।";
+"Buyer" = "क्रेता";
+"Artisan" = "कारीगर";

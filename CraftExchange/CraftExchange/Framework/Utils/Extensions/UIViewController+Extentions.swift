@@ -99,7 +99,7 @@ extension UIViewController : OpenAttachmentViewProtocol {
     
   func roleBarButton() -> UIBarButtonItem {
     let rightButtonItem = UIBarButtonItem.init(
-        title: "\(KeychainManager.standard.userRole ?? "")",
+        title: "\(KeychainManager.standard.userRole?.localized ?? "")",
         style: .plain,
         target: self,
         action: nil

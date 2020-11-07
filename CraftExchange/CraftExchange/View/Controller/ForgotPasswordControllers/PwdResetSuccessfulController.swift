@@ -31,4 +31,8 @@ class PwdResetSuccessfulController: UIViewController {
   @IBAction func faqButtonSelected(_ sender: UIButton){
         didTapFAQButton(tag: sender.tag)
   }
+    
+    @IBAction func languageButtonSelected(_ sender: UIButton){
+        showLanguagePickerAlert()
+    }
 }

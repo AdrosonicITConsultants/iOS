@@ -22,12 +22,14 @@ class LoginEmailController: UIViewController {
 
   @IBOutlet weak var nextButton: RoundedButton!
   @IBOutlet weak var usernameField: RoundedTextField!
+    @IBOutlet weak var registerBtn: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    registerBtn.setTitle("New user? Click here to register.".localized, for: .normal)
   }
   
   @IBAction func nextButtonSelected(_ sender: Any) {

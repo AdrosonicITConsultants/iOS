@@ -48,4 +48,8 @@ class ForgotPasswordController: UIViewController {
         didTapFAQButton(tag: sender.tag)
   }
     
+    @IBAction func languageButtonSelected(_ sender: UIButton){
+        showLanguagePickerAlert()
+    }
+    
 }

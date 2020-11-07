@@ -23,12 +23,14 @@ class LoginPasswordController: UIViewController {
   lazy var viewModel = LoginViewModel()
   @IBOutlet weak var loginButton: RoundedButton!
   @IBOutlet weak var passwordField: RoundedTextField!
-  
+  @IBOutlet weak var registerBtn: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    registerBtn.setTitle("New user? Click here to register.".localized, for: .normal)
   }
   
   @IBAction func loginButtonSelected(_ sender: Any) {
@@ -46,4 +48,8 @@ class LoginPasswordController: UIViewController {
   @IBAction func faqButtonSelected(_ sender: UIButton){
         didTapFAQButton(tag : sender.tag)
   }
+    
+    @IBAction func languageButtonSelected(_ sender: UIButton){
+        showLanguagePickerAlert()
+    }
 }
