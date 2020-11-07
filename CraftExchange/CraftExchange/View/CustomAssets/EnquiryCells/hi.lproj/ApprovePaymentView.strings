@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "Reject Payment"; ObjectID = "XUn-el-kOf"; */
+"XUn-el-kOf.normalTitle" = "भुगतान अस्वीकार करें";
+
+/* Class = "UIButton"; normalTitle = "Approve Advance Payment by Buyer"; ObjectID = "duz-PS-fA5"; */
+"duz-PS-fA5.normalTitle" = "क्रेता द्वारा अग्रिम भुगतान को मंजूरी";
+
+/* Class = "UILabel"; text = "Once you approved it,the product stage cannot be reverted.Kindly make sure to check your account balance is refelcted with amount.Best practice is to check with your bank or in bank statementfrom authorised bank sources."; ObjectID = "ntV-LP-ntY"; */
+"ntV-LP-ntY.text" = "एक बार जब आप इसे मंजूरी दे देते हैं, तो उत्पाद चरण को वापस नहीं लाया जा सकता है। अपने खाते की शेष राशि की जांच सुनिश्चित करें। सबसे अच्छा अभ्यास आपके बैंक या बैंक के अधिकृत बैंक स्रोतों से जांच करना है।";

@@ -22,7 +22,7 @@ class ArtisanTabbarController: UITabBarController {
 
 extension ArtisanTabbarController {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if item.title == "Enquiries" {
+        if item.title == "Enquiries".localized {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = EnquiryListService(client: client).createScene()
@@ -32,7 +32,7 @@ extension ArtisanTabbarController {
                 print("Unable to load view:\n\(error.localizedDescription)")
             }
         }
-        else if item.title == "Chat" {
+        else if item.title == "Chat".localized {
             do{
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = ChatListService(client: client).createScene()
@@ -41,7 +41,7 @@ extension ArtisanTabbarController {
             } catch let error {
                 print("Unable to load view:\n\(error.localizedDescription)")
             }
-        }else if item.title == "Orders" {
+        }else if item.title == "Orders".localized {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = OrderListService(client: client).createScene()

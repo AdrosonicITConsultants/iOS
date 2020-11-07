@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "Reject Payment"; ObjectID = "XUn-el-kOf"; */
+"XUn-el-kOf.normalTitle" = "Reject Payment";
+
+/* Class = "UIButton"; normalTitle = "Approve Advance Payment by Buyer"; ObjectID = "duz-PS-fA5"; */
+"duz-PS-fA5.normalTitle" = "Approve Advance Payment by Buyer";
+
+/* Class = "UILabel"; text = "Once you approved it,the product stage cannot be reverted.Kindly make sure to check your account balance is refelcted with amount.Best practice is to check with your bank or in bank statementfrom authorised bank sources."; ObjectID = "ntV-LP-ntY"; */
+"ntV-LP-ntY.text" = "Once you approved it,the product stage cannot be reverted.Kindly make sure to check your account balance is refelcted with amount.Best practice is to check with your bank or in bank statement from authorised bank sources.";

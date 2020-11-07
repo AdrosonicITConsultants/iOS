@@ -1,0 +1,12 @@
+
+/* Class = "UIButton"; normalTitle = "Create & Send Pro Forma Invoice"; ObjectID = "Lr5-rM-JS3"; */
+"Lr5-rM-JS3.normalTitle" = "Create & Send Pro Forma Invoice";
+
+/* Class = "UILabel"; text = "Please leverage the use of chat to discuss and finalise on the terms before hand to avoid any escalation, dispute or discrepancy."; ObjectID = "beL-uw-qqH"; */
+"beL-uw-qqH.text" = "Please leverage the use of chat to discuss and finalise on the terms before hand to avoid any escalation, dispute or discrepancy.";
+
+/* Class = "UILabel"; text = "Next Steps -------------------------------->     Create and send the PI"; ObjectID = "iN2-Zd-fQZ"; */
+"iN2-Zd-fQZ.text" = "Next Steps -------------------------------->     Create and send the PI";
+
+/* Class = "UILabel"; text = "The PI can be changed later only if change request is raised by buyer."; ObjectID = "j2r-8b-rvu"; */
+"j2r-8b-rvu.text" = "The PI can be changed later only if change request is raised by buyer.";

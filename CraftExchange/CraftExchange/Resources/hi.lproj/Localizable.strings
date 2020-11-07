@@ -39,6 +39,8 @@
 "my order" = "मेरा आदेश";
 "search" = "खोज";
 "chat" = "बातचीत";
+"Chat" = "बातचीत";
+"Orders" = "आदेश";
 "notification" = "अधिसूचना";
 "my enquiry" = "मेरी पूछताछ";
 "my profile" = "मेरी प्रोफाइल";
@@ -148,3 +150,10 @@
 "You will be redirected to Device Settings to change the language. Please select English or Hindi." = "भाषा बदलने के लिए आपको डिवाइस सेटिंग्स पर पुनर्निर्देशित किया जाएगा। कृपया अंग्रेजी या हिंदी चुनें।";
 "Are you sure?" = "क्या आपको यकीन है?";
 "Notice" = "नोटिस";
+"Enquiries" = "पूछताछ";
+"Saree" = "साड़ी";
+"Fabric" = "कपड़ा";
+"Dupattas" = "ओढ़नी";
+"Home Accessories" = "घर की सहायक चीज़ें";
+"Fashion Accessories" = "फैशन के सामान";
+"Stole" = "उपरना";

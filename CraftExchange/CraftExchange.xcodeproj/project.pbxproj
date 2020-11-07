@@ -14,15 +14,12 @@
 		3005D1E52521AE4000BF22C0 /* MOQAcceptedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005D1E42521AE4000BF22C0 /* MOQAcceptedView.swift */; };
 		3005D1E72521AEE200BF22C0 /* MOQAcceptedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3005D1E62521AEE200BF22C0 /* MOQAcceptedView.xib */; };
 		3005D1EE2521C79300BF22C0 /* SingleLabelRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005D1EC2521C79300BF22C0 /* SingleLabelRow.swift */; };
-		3005D1EF2521C79300BF22C0 /* SingleLabelRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3005D1ED2521C79300BF22C0 /* SingleLabelRow.xib */; };
 		3018B0662540ED9F007A6C69 /* ChatHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3018B0652540ED9E007A6C69 /* ChatHeaderView.xib */; };
 		301B7EE925223FDC0008DE3A /* MOQSortButtonsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */; };
-		301B7EEA25223FDC0008DE3A /* MOQSortButtonsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */; };
 		301B7EEC25235B6C0008DE3A /* GetPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EEB25235B6C0008DE3A /* GetPI.swift */; };
 		3024AF8C25483892008C0E87 /* FinalPaymentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3024AF8B25483892008C0E87 /* FinalPaymentDetails.swift */; };
 		3061022B253F1271006430D9 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022A253F1271006430D9 /* ChatHeaderView.swift */; };
 		3061022F253F1321006430D9 /* ChatHeaderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */; };
-		30610231253F1330006430D9 /* ChatHeaderDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30610230253F1330006430D9 /* ChatHeaderDetailsView.xib */; };
 		307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B397C252C24DD000028AC /* AdvancePaymentScene.swift */; };
 		307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B3980252C73EE000028AC /* TransactionReceiptView.xib */; };
 		307B3983252C8602000028AC /* PaymentArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3982252C8602000028AC /* PaymentArtist.swift */; };
@@ -32,16 +29,12 @@
 		307B398E252D8C67000028AC /* ApprovePaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B398A252D8C66000028AC /* ApprovePaymentView.swift */; };
 		307B398F252D8C67000028AC /* ArtistReceitImg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B398B252D8C66000028AC /* ArtistReceitImg.swift */; };
 		307B3990252D8C67000028AC /* ArtistReceitImg.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B398C252D8C66000028AC /* ArtistReceitImg.xib */; };
-		307B3991252D8C67000028AC /* ApprovePaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B398D252D8C66000028AC /* ApprovePaymentView.xib */; };
 		30873467252F26BD004E5A72 /* StartStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30873466252F26BD004E5A72 /* StartStageView.swift */; };
-		3087346B252F26CC004E5A72 /* MarkCompleteAndNext.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */; };
 		3087346C252F26CC004E5A72 /* MarkCompleteAndNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */; };
-		3087346D252F26CC004E5A72 /* StartStageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3087346A252F26CC004E5A72 /* StartStageView.xib */; };
 		3087346F253043B4004E5A72 /* CMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3087346E253043B3004E5A72 /* CMS.swift */; };
 		3089DED0252B319D003184FA /* PaymentModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DECF252B319D003184FA /* PaymentModeView.swift */; };
 		3089DED2252B31A7003184FA /* PaymentModeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED1252B31A6003184FA /* PaymentModeView.xib */; };
 		3089DED4252B31B0003184FA /* PercentPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DED3252B31B0003184FA /* PercentPayment.swift */; };
-		3089DED6252B31B9003184FA /* PercentPayment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED5252B31B8003184FA /* PercentPayment.xib */; };
 		3089DED8252B31C2003184FA /* uploadRecieptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3089DED7252B31C1003184FA /* uploadRecieptView.xib */; };
 		3089DEDA252B31CC003184FA /* uploadRecieptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DED9252B31CC003184FA /* uploadRecieptView.swift */; };
 		3089DEDC252B3213003184FA /* UploadSuccessfulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */; };
@@ -62,11 +55,9 @@
 		309247142535EE030073463E /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309247122535EE030073463E /* ChatCell.swift */; };
 		309247152535EE030073463E /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309247132535EE030073463E /* ChatCell.xib */; };
 		309598822510FB2B00491E33 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309598812510FB2B00491E33 /* DashboardController.swift */; };
-		309598862510FC8100491E33 /* OrderAvailabilityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309598852510FC8100491E33 /* OrderAvailabilityCell.xib */; };
 		309738A3253DF6120010A139 /* OpenAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309738A2253DF6120010A139 /* OpenAttachmentView.swift */; };
 		309738A5253DF6290010A139 /* OpenAttachmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309738A4253DF6290010A139 /* OpenAttachmentView.xib */; };
 		309787772524133600F9B608 /* PreviewPIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309787762524133600F9B608 /* PreviewPIView.swift */; };
-		309787792524136000F9B608 /* PreviewPIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309787782524136000F9B608 /* PreviewPIView.xib */; };
 		3097877B2524616E00F9B608 /* InvoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3097877A2524616E00F9B608 /* InvoiceController.swift */; };
 		3097877F252461EF00F9B608 /* InvoiceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3097877E252461EF00F9B608 /* InvoiceScene.swift */; };
 		309787832524AE5400F9B608 /* AcceptedPIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309787822524AE5300F9B608 /* AcceptedPIView.xib */; };
@@ -74,7 +65,6 @@
 		309787872524CCE000F9B608 /* CurrencySigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309787862524CCE000F9B608 /* CurrencySigns.swift */; };
 		309787892524CEAE00F9B608 /* CurrencySigns+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309787882524CEAE00F9B608 /* CurrencySigns+Transaction.swift */; };
 		3097878C2524D9BD00F9B608 /* AcceptedInvoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3097878A2524D9BD00F9B608 /* AcceptedInvoiceRow.swift */; };
-		3097878D2524D9BD00F9B608 /* AcceptedInvoiceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3097878B2524D9BD00F9B608 /* AcceptedInvoiceRow.xib */; };
 		309BFD2A251C6FF3001FAC7F /* MOQSelectedDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BFD28251C6FF3001FAC7F /* MOQSelectedDetailsRow.swift */; };
 		309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 309BFD29251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib */; };
 		309BFD34251C8452001FAC7F /* SingleButtonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309BFD32251C8452001FAC7F /* SingleButtonRow.swift */; };
@@ -88,7 +78,6 @@
 		C005BCB624C1AB2F00197519 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB524C1AB2F00197519 /* Product.swift */; };
 		C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB724C1DC9F00197519 /* Product+Request.swift */; };
 		C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB924C2335400197519 /* Product+Transaction.swift */; };
-		C006B3AF250E4FAC00882C4A /* ProFormaInvoiceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */; };
 		C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */; };
 		C00E8A93254C336500DDB23D /* QCStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A92254C336500DDB23D /* QCStages.swift */; };
 		C00E8A95254C33C300DDB23D /* QCQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E8A94254C33C300DDB23D /* QCQuestions.swift */; };
@@ -119,6 +108,20 @@
 		C01AA7BF24FD739F00F66A62 /* Enquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01AA7BE24FD739F00F66A62 /* Enquiry.swift */; };
 		C0264C7B2535D4A000810C33 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0264C7A2535D4A000810C33 /* Order.swift */; };
 		C027F0CB25557B53001FEE09 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C027F0CD25557B53001FEE09 /* Localizable.strings */; };
+		C027F0CF25561430001FEE09 /* SaveAndSendQC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0D125561430001FEE09 /* SaveAndSendQC.xib */; };
+		C027F0D625561509001FEE09 /* TransactionReceiptRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0D825561509001FEE09 /* TransactionReceiptRow.xib */; };
+		C027F0DB255615D5001FEE09 /* ProFormaInvoiceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0DD255615D5001FEE09 /* ProFormaInvoiceRow.xib */; };
+		C027F0E025561681001FEE09 /* EnquiryClosedRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0E225561681001FEE09 /* EnquiryClosedRow.xib */; };
+		C027F0E5255616BA001FEE09 /* SingleLabelRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0E7255616BA001FEE09 /* SingleLabelRow.xib */; };
+		C027F0EA25561720001FEE09 /* MOQSortButtonsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0EC25561720001FEE09 /* MOQSortButtonsRow.xib */; };
+		C027F0EF25561797001FEE09 /* AcceptedInvoiceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0F125561797001FEE09 /* AcceptedInvoiceRow.xib */; };
+		C027F0FA2556190D001FEE09 /* PercentPayment.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0F92556190C001FEE09 /* PercentPayment.xib */; };
+		C027F0FB2556193D001FEE09 /* ApprovePaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F0FD2556193D001FEE09 /* ApprovePaymentView.xib */; };
+		C027F10225561B57001FEE09 /* StartStageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F10425561B57001FEE09 /* StartStageView.xib */; };
+		C027F10925561B94001FEE09 /* MarkCompleteAndNext.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F10B25561B94001FEE09 /* MarkCompleteAndNext.xib */; };
+		C027F11025561F90001FEE09 /* PreviewPIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F11225561F90001FEE09 /* PreviewPIView.xib */; };
+		C027F11725562077001FEE09 /* ChatHeaderDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F11925562077001FEE09 /* ChatHeaderDetailsView.xib */; };
+		C027F11E25562105001FEE09 /* OrderAvailabilityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C027F12025562105001FEE09 /* OrderAvailabilityCell.xib */; };
 		C0285A9B24CEDE8F0045623A /* BuyerProductCatagoryScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */; };
 		C0285A9D24CF22CB0045623A /* BrandLogoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9C24CF22CB0045623A /* BrandLogoService.swift */; };
 		C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */; };
@@ -195,7 +198,6 @@
 		C06AA396250240A500EF4B10 /* BuyerEnquiryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06AA395250240A500EF4B10 /* BuyerEnquiryListController.swift */; };
 		C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA39725052A9B00EF4B10 /* EnquiryDetailsRow.xib */; };
 		C06AA39A25052FA200EF4B10 /* StatusRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA39925052FA200EF4B10 /* StatusRow.xib */; };
-		C06AA39C250547E300EF4B10 /* TransactionReceiptRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA39B250547E300EF4B10 /* TransactionReceiptRow.xib */; };
 		C06AA39E25054CC700EF4B10 /* BuyerEnquirySectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA39D25054CC700EF4B10 /* BuyerEnquirySectionView.xib */; };
 		C06AA3A025054FB200EF4B10 /* MOQSectionTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA39F25054FB200EF4B10 /* MOQSectionTitle.xib */; };
 		C06AA3A2250550D200EF4B10 /* MOQValueRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06AA3A1250550D200EF4B10 /* MOQValueRow.xib */; };
@@ -381,7 +383,6 @@
 		C0AAC3962492BBA2008C2047 /* RoundedActionSheetRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */; };
 		C0AC755D249402C00011B7D3 /* RoundedButtonViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC755C249402C00011B7D3 /* RoundedButtonViewRow.swift */; };
 		C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AC755E249403380011B7D3 /* RoundedButtonViewRow.xib */; };
-		C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0ACA1C4250F32D400978CEA /* EnquiryClosedRow.xib */; };
 		C0ACA1C7250F33B300978CEA /* EnquiryClosedRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACA1C6250F33B300978CEA /* EnquiryClosedRow.swift */; };
 		C0ACE9902484EF0D00EFA4ED /* User+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */; };
 		C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ACE9912484EF3800EFA4ED /* Country+Request.swift */; };
@@ -418,7 +419,6 @@
 		C0E212D62498D11C00EC2B80 /* REGBuyerAddressInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */; };
 		C0E212D82498D13700EC2B80 /* REGBuyerAddressInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D72498D13700EC2B80 /* REGBuyerAddressInfoService.swift */; };
 		C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E212D92498D17300EC2B80 /* REGBuyerAddressInfoScene.swift */; };
-		C0E6348F2552D721001C7768 /* SaveAndSendQC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6348D2552D721001C7768 /* SaveAndSendQC.xib */; };
 		C0E634902552D721001C7768 /* SaveAndSendQC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6348E2552D721001C7768 /* SaveAndSendQC.swift */; };
 		C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03A24EBD7D0008CFB1F /* ProductDetailInfoRow.xib */; };
 		C0E6D03D24EBDFD9008CFB1F /* ProdDetailYarnRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03C24EBDFD9008CFB1F /* ProdDetailYarnRow.xib */; };
@@ -450,16 +450,13 @@
 		3005D1E42521AE4000BF22C0 /* MOQAcceptedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQAcceptedView.swift; sourceTree = "<group>"; };
 		3005D1E62521AEE200BF22C0 /* MOQAcceptedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQAcceptedView.xib; sourceTree = "<group>"; };
 		3005D1EC2521C79300BF22C0 /* SingleLabelRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLabelRow.swift; sourceTree = "<group>"; };
-		3005D1ED2521C79300BF22C0 /* SingleLabelRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleLabelRow.xib; sourceTree = "<group>"; };
 		3018B0652540ED9E007A6C69 /* ChatHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatHeaderView.xib; sourceTree = "<group>"; };
 		301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQSortButtonsRow.swift; sourceTree = "<group>"; };
-		301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSortButtonsRow.xib; sourceTree = "<group>"; };
 		301B7EEB25235B6C0008DE3A /* GetPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPI.swift; sourceTree = "<group>"; };
 		3024AF8B25483892008C0E87 /* FinalPaymentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalPaymentDetails.swift; sourceTree = "<group>"; };
 		3061022A253F1271006430D9 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		3061022C253F129E006430D9 /* ChatHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ChatHeaderView.xib; path = /Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/Scene/HomeScenes/ChatHeaderView.xib; sourceTree = "<absolute>"; };
 		3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderDetailsView.swift; sourceTree = "<group>"; };
-		30610230253F1330006430D9 /* ChatHeaderDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatHeaderDetailsView.xib; sourceTree = "<group>"; };
 		307B397C252C24DD000028AC /* AdvancePaymentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancePaymentScene.swift; sourceTree = "<group>"; };
 		307B3980252C73EE000028AC /* TransactionReceiptView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionReceiptView.xib; sourceTree = "<group>"; };
 		307B3982252C8602000028AC /* PaymentArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentArtist.swift; sourceTree = "<group>"; };
@@ -469,16 +466,12 @@
 		307B398A252D8C66000028AC /* ApprovePaymentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApprovePaymentView.swift; sourceTree = "<group>"; };
 		307B398B252D8C66000028AC /* ArtistReceitImg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistReceitImg.swift; sourceTree = "<group>"; };
 		307B398C252D8C66000028AC /* ArtistReceitImg.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArtistReceitImg.xib; sourceTree = "<group>"; };
-		307B398D252D8C66000028AC /* ApprovePaymentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ApprovePaymentView.xib; sourceTree = "<group>"; };
 		30873466252F26BD004E5A72 /* StartStageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartStageView.swift; sourceTree = "<group>"; };
-		30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkCompleteAndNext.xib; sourceTree = "<group>"; };
 		30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkCompleteAndNext.swift; sourceTree = "<group>"; };
-		3087346A252F26CC004E5A72 /* StartStageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartStageView.xib; sourceTree = "<group>"; };
 		3087346E253043B3004E5A72 /* CMS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMS.swift; sourceTree = "<group>"; };
 		3089DECF252B319D003184FA /* PaymentModeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentModeView.swift; sourceTree = "<group>"; };
 		3089DED1252B31A6003184FA /* PaymentModeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentModeView.xib; sourceTree = "<group>"; };
 		3089DED3252B31B0003184FA /* PercentPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PercentPayment.swift; sourceTree = "<group>"; };
-		3089DED5252B31B8003184FA /* PercentPayment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PercentPayment.xib; sourceTree = "<group>"; };
 		3089DED7252B31C1003184FA /* uploadRecieptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = uploadRecieptView.xib; sourceTree = "<group>"; };
 		3089DED9252B31CC003184FA /* uploadRecieptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uploadRecieptView.swift; sourceTree = "<group>"; };
 		3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadSuccessfulView.swift; sourceTree = "<group>"; };
@@ -499,11 +492,9 @@
 		309247122535EE030073463E /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		309247132535EE030073463E /* ChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		309598812510FB2B00491E33 /* DashboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
-		309598852510FC8100491E33 /* OrderAvailabilityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderAvailabilityCell.xib; sourceTree = "<group>"; };
 		309738A2253DF6120010A139 /* OpenAttachmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAttachmentView.swift; sourceTree = "<group>"; };
 		309738A4253DF6290010A139 /* OpenAttachmentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpenAttachmentView.xib; sourceTree = "<group>"; };
 		309787762524133600F9B608 /* PreviewPIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPIView.swift; sourceTree = "<group>"; };
-		309787782524136000F9B608 /* PreviewPIView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviewPIView.xib; sourceTree = "<group>"; };
 		3097877A2524616E00F9B608 /* InvoiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceController.swift; sourceTree = "<group>"; };
 		3097877E252461EF00F9B608 /* InvoiceScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceScene.swift; sourceTree = "<group>"; };
 		309787822524AE5300F9B608 /* AcceptedPIView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptedPIView.xib; sourceTree = "<group>"; };
@@ -511,7 +502,6 @@
 		309787862524CCE000F9B608 /* CurrencySigns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySigns.swift; sourceTree = "<group>"; };
 		309787882524CEAE00F9B608 /* CurrencySigns+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrencySigns+Transaction.swift"; sourceTree = "<group>"; };
 		3097878A2524D9BD00F9B608 /* AcceptedInvoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptedInvoiceRow.swift; sourceTree = "<group>"; };
-		3097878B2524D9BD00F9B608 /* AcceptedInvoiceRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AcceptedInvoiceRow.xib; sourceTree = "<group>"; };
 		309BFD28251C6FF3001FAC7F /* MOQSelectedDetailsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQSelectedDetailsRow.swift; sourceTree = "<group>"; };
 		309BFD29251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSelectedDetailsRow.xib; sourceTree = "<group>"; };
 		309BFD32251C8452001FAC7F /* SingleButtonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleButtonRow.swift; sourceTree = "<group>"; };
@@ -525,7 +515,6 @@
 		C005BCB524C1AB2F00197519 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		C005BCB724C1DC9F00197519 /* Product+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Request.swift"; sourceTree = "<group>"; };
 		C005BCB924C2335400197519 /* Product+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Transaction.swift"; sourceTree = "<group>"; };
-		C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProFormaInvoiceRow.xib; sourceTree = "<group>"; };
 		C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFormaInvoiceRow.swift; sourceTree = "<group>"; };
 		C00E8A92254C336500DDB23D /* QCStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCStages.swift; sourceTree = "<group>"; };
 		C00E8A94254C33C300DDB23D /* QCQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QCQuestions.swift; sourceTree = "<group>"; };
@@ -559,6 +548,45 @@
 		C0264C7A2535D4A000810C33 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		C027F0CC25557B53001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C027F0CE25557B55001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C027F0D025561430001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SaveAndSendQC.xib; sourceTree = "<group>"; };
+		C027F0D525561450001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = hi; path = hi.lproj/SaveAndSendQC.xib; sourceTree = "<group>"; };
+		C027F0DA25561513001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/TransactionReceiptRow.strings; sourceTree = "<group>"; };
+		C027F0DF255615DD001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/ProFormaInvoiceRow.strings; sourceTree = "<group>"; };
+		C027F0E425561686001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/EnquiryClosedRow.strings; sourceTree = "<group>"; };
+		C027F0E9255616C0001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/SingleLabelRow.strings; sourceTree = "<group>"; };
+		C027F0EE25561727001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/MOQSortButtonsRow.strings; sourceTree = "<group>"; };
+		C027F0F32556179E001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/AcceptedInvoiceRow.strings; sourceTree = "<group>"; };
+		C027F0F92556190C001FEE09 /* PercentPayment.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PercentPayment.xib; sourceTree = "<group>"; };
+		C027F0FC2556193D001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ApprovePaymentView.xib; sourceTree = "<group>"; };
+		C027F0FF25561943001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ApprovePaymentView.strings; sourceTree = "<group>"; };
+		C027F10125561945001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/ApprovePaymentView.strings; sourceTree = "<group>"; };
+		C027F10325561B57001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StartStageView.xib; sourceTree = "<group>"; };
+		C027F10625561B5D001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/StartStageView.strings; sourceTree = "<group>"; };
+		C027F10825561B63001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/StartStageView.strings; sourceTree = "<group>"; };
+		C027F10A25561B94001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MarkCompleteAndNext.xib; sourceTree = "<group>"; };
+		C027F10D25561B9B001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MarkCompleteAndNext.strings; sourceTree = "<group>"; };
+		C027F10F25561B9E001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/MarkCompleteAndNext.strings; sourceTree = "<group>"; };
+		C027F11125561F90001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreviewPIView.xib; sourceTree = "<group>"; };
+		C027F11425561F96001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PreviewPIView.strings; sourceTree = "<group>"; };
+		C027F11625561F9A001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/PreviewPIView.strings; sourceTree = "<group>"; };
+		C027F11825562077001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ChatHeaderDetailsView.xib; sourceTree = "<group>"; };
+		C027F11B2556207F001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ChatHeaderDetailsView.strings; sourceTree = "<group>"; };
+		C027F11D25562081001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/ChatHeaderDetailsView.strings; sourceTree = "<group>"; };
+		C027F11F25562105001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OrderAvailabilityCell.xib; sourceTree = "<group>"; };
+		C027F1222556210B001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/OrderAvailabilityCell.strings; sourceTree = "<group>"; };
+		C027F1242556210D001FEE09 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/OrderAvailabilityCell.strings; sourceTree = "<group>"; };
+		C027F12525562273001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TransactionReceiptRow.xib; sourceTree = "<group>"; };
+		C027F12625562289001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SingleLabelRow.xib; sourceTree = "<group>"; };
+		C027F127255622AC001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TransactionReceiptRow.strings; sourceTree = "<group>"; };
+		C027F128255622C0001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SingleLabelRow.strings; sourceTree = "<group>"; };
+		C027F129255622D4001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProFormaInvoiceRow.xib; sourceTree = "<group>"; };
+		C027F12A255622DB001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ProFormaInvoiceRow.strings; sourceTree = "<group>"; };
+		C027F12B255622ED001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MOQSortButtonsRow.xib; sourceTree = "<group>"; };
+		C027F12C255622F5001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MOQSortButtonsRow.strings; sourceTree = "<group>"; };
+		C027F12D25562308001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EnquiryClosedRow.xib; sourceTree = "<group>"; };
+		C027F12E2556230D001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/EnquiryClosedRow.strings; sourceTree = "<group>"; };
+		C027F12F2556231D001FEE09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AcceptedInvoiceRow.xib; sourceTree = "<group>"; };
+		C027F13025562326001FEE09 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AcceptedInvoiceRow.strings; sourceTree = "<group>"; };
 		C0285A9A24CEDE8F0045623A /* BuyerProductCatagoryScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductCatagoryScene.swift; sourceTree = "<group>"; };
 		C0285A9C24CF22CB0045623A /* BrandLogoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandLogoService.swift; sourceTree = "<group>"; };
 		C0285A9E24CF22ED0045623A /* UserProfilePicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePicService.swift; sourceTree = "<group>"; };
@@ -657,7 +685,6 @@
 		C06AA395250240A500EF4B10 /* BuyerEnquiryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerEnquiryListController.swift; sourceTree = "<group>"; };
 		C06AA39725052A9B00EF4B10 /* EnquiryDetailsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnquiryDetailsRow.xib; sourceTree = "<group>"; };
 		C06AA39925052FA200EF4B10 /* StatusRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusRow.xib; sourceTree = "<group>"; };
-		C06AA39B250547E300EF4B10 /* TransactionReceiptRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionReceiptRow.xib; sourceTree = "<group>"; };
 		C06AA39D25054CC700EF4B10 /* BuyerEnquirySectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuyerEnquirySectionView.xib; sourceTree = "<group>"; };
 		C06AA39F25054FB200EF4B10 /* MOQSectionTitle.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSectionTitle.xib; sourceTree = "<group>"; };
 		C06AA3A1250550D200EF4B10 /* MOQValueRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQValueRow.xib; sourceTree = "<group>"; };
@@ -844,7 +871,6 @@
 		C0AAC3952492BBA2008C2047 /* RoundedActionSheetRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedActionSheetRow.xib; sourceTree = "<group>"; };
 		C0AC755C249402C00011B7D3 /* RoundedButtonViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButtonViewRow.swift; sourceTree = "<group>"; };
 		C0AC755E249403380011B7D3 /* RoundedButtonViewRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedButtonViewRow.xib; sourceTree = "<group>"; };
-		C0ACA1C4250F32D400978CEA /* EnquiryClosedRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnquiryClosedRow.xib; sourceTree = "<group>"; };
 		C0ACA1C6250F33B300978CEA /* EnquiryClosedRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryClosedRow.swift; sourceTree = "<group>"; };
 		C0ACE98F2484EF0D00EFA4ED /* User+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Register.swift"; sourceTree = "<group>"; };
 		C0ACE9912484EF3800EFA4ED /* Country+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Request.swift"; sourceTree = "<group>"; };
@@ -881,7 +907,6 @@
 		C0E212D52498D11C00EC2B80 /* REGBuyerAddressInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoController.swift; sourceTree = "<group>"; };
 		C0E212D72498D13700EC2B80 /* REGBuyerAddressInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoService.swift; sourceTree = "<group>"; };
 		C0E212D92498D17300EC2B80 /* REGBuyerAddressInfoScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REGBuyerAddressInfoScene.swift; sourceTree = "<group>"; };
-		C0E6348D2552D721001C7768 /* SaveAndSendQC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaveAndSendQC.xib; sourceTree = "<group>"; };
 		C0E6348E2552D721001C7768 /* SaveAndSendQC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveAndSendQC.swift; sourceTree = "<group>"; };
 		C0E6D03A24EBD7D0008CFB1F /* ProductDetailInfoRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailInfoRow.xib; sourceTree = "<group>"; };
 		C0E6D03C24EBDFD9008CFB1F /* ProdDetailYarnRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdDetailYarnRow.xib; sourceTree = "<group>"; };
@@ -979,7 +1004,7 @@
 			isa = PBXGroup;
 			children = (
 				C0E6348E2552D721001C7768 /* SaveAndSendQC.swift */,
-				C0E6348D2552D721001C7768 /* SaveAndSendQC.xib */,
+				C027F0D125561430001FEE09 /* SaveAndSendQC.xib */,
 			);
 			path = QualityCheck;
 			sourceTree = "<group>";
@@ -1591,7 +1616,7 @@
 				C06DCAC424D33DBB00F1435F /* lengthWidthRow.swift */,
 				C06DCAC624D33DD000F1435F /* lengthWidthRow.xib */,
 				C06DCAC824D346F100F1435F /* OrderAvailabilityCell.swift */,
-				309598852510FC8100491E33 /* OrderAvailabilityCell.xib */,
+				C027F12025562105001FEE09 /* OrderAvailabilityCell.xib */,
 				C097949A24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift */,
 				C097949B24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib */,
 				C09794A024EAB2A700C11AC7 /* ImageViewRow.swift */,
@@ -1631,7 +1656,7 @@
 				3005D1E42521AE4000BF22C0 /* MOQAcceptedView.swift */,
 				3005D1E62521AEE200BF22C0 /* MOQAcceptedView.xib */,
 				309787762524133600F9B608 /* PreviewPIView.swift */,
-				309787782524136000F9B608 /* PreviewPIView.xib */,
+				C027F11225561F90001FEE09 /* PreviewPIView.xib */,
 				309787842524B40C00F9B608 /* AcceptedPIView.swift */,
 				309787822524AE5300F9B608 /* AcceptedPIView.xib */,
 				307B3984252C917D000028AC /* TransactionReceiptView.swift */,
@@ -1641,7 +1666,7 @@
 				3061022A253F1271006430D9 /* ChatHeaderView.swift */,
 				3018B0652540ED9E007A6C69 /* ChatHeaderView.xib */,
 				3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */,
-				30610230253F1330006430D9 /* ChatHeaderDetailsView.xib */,
+				C027F11925562077001FEE09 /* ChatHeaderDetailsView.xib */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -1726,7 +1751,7 @@
 				C0930D3625061D4300DC9274 /* EnquiryDetailRow.swift */,
 				C06AA39925052FA200EF4B10 /* StatusRow.xib */,
 				C0930D3825061F7C00DC9274 /* StatusRow.swift */,
-				C06AA39B250547E300EF4B10 /* TransactionReceiptRow.xib */,
+				C027F0D825561509001FEE09 /* TransactionReceiptRow.xib */,
 				C0930D3A250620E000DC9274 /* TransactionReceiptRow.swift */,
 				C06AA39D25054CC700EF4B10 /* BuyerEnquirySectionView.xib */,
 				C0930D3C2506223100DC9274 /* BuyerEnquirySectionView.swift */,
@@ -1735,36 +1760,36 @@
 				3061022C253F129E006430D9 /* ChatHeaderView.xib */,
 				C06AA3A1250550D200EF4B10 /* MOQValueRow.xib */,
 				C0930D402506237400DC9274 /* MOQValueRow.swift */,
-				C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */,
+				C027F0DD255615D5001FEE09 /* ProFormaInvoiceRow.xib */,
 				C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */,
-				C0ACA1C4250F32D400978CEA /* EnquiryClosedRow.xib */,
+				C027F0E225561681001FEE09 /* EnquiryClosedRow.xib */,
 				C0ACA1C6250F33B300978CEA /* EnquiryClosedRow.swift */,
 				309BFD28251C6FF3001FAC7F /* MOQSelectedDetailsRow.swift */,
 				309BFD29251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib */,
 				309BFD32251C8452001FAC7F /* SingleButtonRow.swift */,
 				309BFD33251C8452001FAC7F /* SingleButtonRow.xib */,
 				3005D1EC2521C79300BF22C0 /* SingleLabelRow.swift */,
-				3005D1ED2521C79300BF22C0 /* SingleLabelRow.xib */,
+				C027F0E7255616BA001FEE09 /* SingleLabelRow.xib */,
 				301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */,
-				301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */,
+				C027F0EC25561720001FEE09 /* MOQSortButtonsRow.xib */,
 				3097878A2524D9BD00F9B608 /* AcceptedInvoiceRow.swift */,
-				3097878B2524D9BD00F9B608 /* AcceptedInvoiceRow.xib */,
+				C027F0F125561797001FEE09 /* AcceptedInvoiceRow.xib */,
 				3089DECF252B319D003184FA /* PaymentModeView.swift */,
 				3089DED1252B31A6003184FA /* PaymentModeView.xib */,
 				3089DED3252B31B0003184FA /* PercentPayment.swift */,
-				3089DED5252B31B8003184FA /* PercentPayment.xib */,
+				C027F0F92556190C001FEE09 /* PercentPayment.xib */,
 				3089DED9252B31CC003184FA /* uploadRecieptView.swift */,
 				3089DED7252B31C1003184FA /* uploadRecieptView.xib */,
 				3089DEDB252B3213003184FA /* UploadSuccessfulView.swift */,
 				3089DEDD252B3220003184FA /* UploadSuccessfulView.xib */,
 				307B398A252D8C66000028AC /* ApprovePaymentView.swift */,
-				307B398D252D8C66000028AC /* ApprovePaymentView.xib */,
+				C027F0FD2556193D001FEE09 /* ApprovePaymentView.xib */,
 				307B398B252D8C66000028AC /* ArtistReceitImg.swift */,
 				307B398C252D8C66000028AC /* ArtistReceitImg.xib */,
 				30873466252F26BD004E5A72 /* StartStageView.swift */,
-				3087346A252F26CC004E5A72 /* StartStageView.xib */,
+				C027F10425561B57001FEE09 /* StartStageView.xib */,
 				30873469252F26CC004E5A72 /* MarkCompleteAndNext.swift */,
-				30873468252F26CC004E5A72 /* MarkCompleteAndNext.xib */,
+				C027F10B25561B94001FEE09 /* MarkCompleteAndNext.xib */,
 				309247122535EE030073463E /* ChatCell.swift */,
 				309247132535EE030073463E /* ChatCell.xib */,
 			);
@@ -2047,13 +2072,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3087346B252F26CC004E5A72 /* MarkCompleteAndNext.xib in Resources */,
+				C027F10925561B94001FEE09 /* MarkCompleteAndNext.xib in Resources */,
 				C0A910A2247CD90B00852695 /* PlayfairDisplay-Bold.ttf in Resources */,
 				C0A910A6247CD90B00852695 /* PlayfairDisplay-ExtraBoldItalic.ttf in Resources */,
-				3005D1EF2521C79300BF22C0 /* SingleLabelRow.xib in Resources */,
-				307B3991252D8C67000028AC /* ApprovePaymentView.xib in Resources */,
+				C027F0E5255616BA001FEE09 /* SingleLabelRow.xib in Resources */,
+				C027F0FB2556193D001FEE09 /* ApprovePaymentView.xib in Resources */,
 				3089DEDE252B3220003184FA /* UploadSuccessfulView.xib in Resources */,
-				3097878D2524D9BD00F9B608 /* AcceptedInvoiceRow.xib in Resources */,
+				C027F0EF25561797001FEE09 /* AcceptedInvoiceRow.xib in Resources */,
 				C0EED03C254355C200C920B7 /* CRBuyerRow.xib in Resources */,
 				C0995BFA24C8CB9900EC4CC3 /* RegionCell.xib in Resources */,
 				C0A9108A247CD8D000852695 /* Lato-Italic.ttf in Resources */,
@@ -2067,16 +2092,16 @@
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
 				C066FC2C255481BD00487CD8 /* Tabbar.storyboard in Resources */,
 				3089DED2252B31A7003184FA /* PaymentModeView.xib in Resources */,
-				C06AA39C250547E300EF4B10 /* TransactionReceiptRow.xib in Resources */,
+				C027F0D625561509001FEE09 /* TransactionReceiptRow.xib in Resources */,
 				C097949F24EAB23100C11AC7 /* ImageViewRow.xib in Resources */,
 				C09F97DF25021C100076F917 /* BuyerEnquiryCell.xib in Resources */,
 				C0EED03D254355C200C920B7 /* CRNoteView.xib in Resources */,
 				C066FC362554820C00487CD8 /* MyProfile.storyboard in Resources */,
 				C0A910A9247CD90B00852695 /* PlayfairDisplay-Black.ttf in Resources */,
-				C0E6348F2552D721001C7768 /* SaveAndSendQC.xib in Resources */,
+				C027F0CF25561430001FEE09 /* SaveAndSendQC.xib in Resources */,
 				C099E3ED24FE8F0C003B6E3B /* EnquiryInitiationView.xib in Resources */,
 				3018B0662540ED9F007A6C69 /* ChatHeaderView.xib in Resources */,
-				C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */,
+				C027F0E025561681001FEE09 /* EnquiryClosedRow.xib in Resources */,
 				309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */,
 				C027F0CB25557B53001FEE09 /* Localizable.strings in Resources */,
 				C0A910A4247CD90B00852695 /* PlayfairDisplay-Medium.ttf in Resources */,
@@ -2087,7 +2112,7 @@
 				C0A910AB247CD90B00852695 /* PlayfairDisplay-MediumItalic.ttf in Resources */,
 				C0A910A7247CD90B00852695 /* PlayfairDisplay-Italic.ttf in Resources */,
 				C0E6D04424EC0888008CFB1F /* ProdDetailDescriptionRow.xib in Resources */,
-				301B7EEA25223FDC0008DE3A /* MOQSortButtonsRow.xib in Resources */,
+				C027F0EA25561720001FEE09 /* MOQSortButtonsRow.xib in Resources */,
 				C0E6D03F24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib in Resources */,
 				C0EED038254355C200C920B7 /* DisableCRView.xib in Resources */,
 				C066FC31255481ED00487CD8 /* ArtisanTabbar.storyboard in Resources */,
@@ -2105,13 +2130,12 @@
 				C0EED039254355C200C920B7 /* AcceptRejectCR.xib in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C06AA3A2250550D200EF4B10 /* MOQValueRow.xib in Resources */,
-				309598862510FC8100491E33 /* OrderAvailabilityCell.xib in Resources */,
+				C027F11E25562105001FEE09 /* OrderAvailabilityCell.xib in Resources */,
 				C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
 				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
 				C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */,
-				3089DED6252B31B9003184FA /* PercentPayment.xib in Resources */,
 				C0A91094247CD8D000852695 /* Lato-ThinItalic.ttf in Resources */,
 				C0AE9CF924ED7E970037ECB3 /* ToggleOptionRow.xib in Resources */,
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
@@ -2121,27 +2145,28 @@
 				C0144AB424843D4A006FF4AB /* RegisterArtisan.storyboard in Resources */,
 				C099E3F324FEC31C003B6E3B /* EnquiryGeneratedView.xib in Resources */,
 				C0995BF624C8C8A000EC4CC3 /* CategoryBrandCell.xib in Resources */,
-				C006B3AF250E4FAC00882C4A /* ProFormaInvoiceRow.xib in Resources */,
+				C027F0DB255615D5001FEE09 /* ProFormaInvoiceRow.xib in Resources */,
 				C0A9108F247CD8D000852695 /* Lato-Regular.ttf in Resources */,
 				309BFD35251C8452001FAC7F /* SingleButtonRow.xib in Resources */,
 				3005D1E32521978200BF22C0 /* MOQAcceptView.xib in Resources */,
 				C06DCAC724D33DD000F1435F /* lengthWidthRow.xib in Resources */,
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
-				30610231253F1330006430D9 /* ChatHeaderDetailsView.xib in Resources */,
+				C027F11725562077001FEE09 /* ChatHeaderDetailsView.xib in Resources */,
 				307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */,
 				C099E3EF24FE9252003B6E3B /* EnquiryExistsView.xib in Resources */,
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
 				C06570A9252B9128001140C7 /* TransactionTitleRow.xib in Resources */,
 				3089DED8252B31C2003184FA /* uploadRecieptView.xib in Resources */,
+				C027F0FA2556190D001FEE09 /* PercentPayment.xib in Resources */,
 				C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */,
-				309787792524136000F9B608 /* PreviewPIView.xib in Resources */,
+				C027F11025561F90001FEE09 /* PreviewPIView.xib in Resources */,
 				C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */,
 				C0989E4525476822001B933F /* CRArtisanRow.xib in Resources */,
 				C04F72DB24C611E700E8122E /* ArtisanProductCell.xib in Resources */,
 				C0A9108D247CD8D000852695 /* Lato-Bold.ttf in Resources */,
 				C0A91092247CD8D000852695 /* Lato-BoldItalic.ttf in Resources */,
-				3087346D252F26CC004E5A72 /* StartStageView.xib in Resources */,
+				C027F10225561B57001FEE09 /* StartStageView.xib in Resources */,
 				C05E3AE524D2839E00963FAA /* CollectionViewRow.xib in Resources */,
 				C0AAC3962492BBA2008C2047 /* RoundedActionSheetRow.xib in Resources */,
 				C06AA39A25052FA200EF4B10 /* StatusRow.xib in Resources */,
@@ -2565,6 +2590,135 @@
 				C027F0CE25557B55001FEE09 /* hi */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		C027F0D125561430001FEE09 /* SaveAndSendQC.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0D025561430001FEE09 /* en */,
+				C027F0D525561450001FEE09 /* hi */,
+			);
+			name = SaveAndSendQC.xib;
+			sourceTree = "<group>";
+		};
+		C027F0D825561509001FEE09 /* TransactionReceiptRow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0DA25561513001FEE09 /* hi */,
+				C027F12525562273001FEE09 /* Base */,
+				C027F127255622AC001FEE09 /* en */,
+			);
+			name = TransactionReceiptRow.xib;
+			sourceTree = "<group>";
+		};
+		C027F0DD255615D5001FEE09 /* ProFormaInvoiceRow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0DF255615DD001FEE09 /* hi */,
+				C027F129255622D4001FEE09 /* Base */,
+				C027F12A255622DB001FEE09 /* en */,
+			);
+			name = ProFormaInvoiceRow.xib;
+			sourceTree = "<group>";
+		};
+		C027F0E225561681001FEE09 /* EnquiryClosedRow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0E425561686001FEE09 /* hi */,
+				C027F12D25562308001FEE09 /* Base */,
+				C027F12E2556230D001FEE09 /* en */,
+			);
+			name = EnquiryClosedRow.xib;
+			sourceTree = "<group>";
+		};
+		C027F0E7255616BA001FEE09 /* SingleLabelRow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0E9255616C0001FEE09 /* hi */,
+				C027F12625562289001FEE09 /* Base */,
+				C027F128255622C0001FEE09 /* en */,
+			);
+			name = SingleLabelRow.xib;
+			sourceTree = "<group>";
+		};
+		C027F0EC25561720001FEE09 /* MOQSortButtonsRow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0EE25561727001FEE09 /* hi */,
+				C027F12B255622ED001FEE09 /* Base */,
+				C027F12C255622F5001FEE09 /* en */,
+			);
+			name = MOQSortButtonsRow.xib;
+			sourceTree = "<group>";
+		};
+		C027F0F125561797001FEE09 /* AcceptedInvoiceRow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0F32556179E001FEE09 /* hi */,
+				C027F12F2556231D001FEE09 /* Base */,
+				C027F13025562326001FEE09 /* en */,
+			);
+			name = AcceptedInvoiceRow.xib;
+			sourceTree = "<group>";
+		};
+		C027F0FD2556193D001FEE09 /* ApprovePaymentView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F0FC2556193D001FEE09 /* Base */,
+				C027F0FF25561943001FEE09 /* en */,
+				C027F10125561945001FEE09 /* hi */,
+			);
+			name = ApprovePaymentView.xib;
+			sourceTree = "<group>";
+		};
+		C027F10425561B57001FEE09 /* StartStageView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F10325561B57001FEE09 /* Base */,
+				C027F10625561B5D001FEE09 /* en */,
+				C027F10825561B63001FEE09 /* hi */,
+			);
+			name = StartStageView.xib;
+			sourceTree = "<group>";
+		};
+		C027F10B25561B94001FEE09 /* MarkCompleteAndNext.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F10A25561B94001FEE09 /* Base */,
+				C027F10D25561B9B001FEE09 /* en */,
+				C027F10F25561B9E001FEE09 /* hi */,
+			);
+			name = MarkCompleteAndNext.xib;
+			sourceTree = "<group>";
+		};
+		C027F11225561F90001FEE09 /* PreviewPIView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F11125561F90001FEE09 /* Base */,
+				C027F11425561F96001FEE09 /* en */,
+				C027F11625561F9A001FEE09 /* hi */,
+			);
+			name = PreviewPIView.xib;
+			sourceTree = "<group>";
+		};
+		C027F11925562077001FEE09 /* ChatHeaderDetailsView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F11825562077001FEE09 /* Base */,
+				C027F11B2556207F001FEE09 /* en */,
+				C027F11D25562081001FEE09 /* hi */,
+			);
+			name = ChatHeaderDetailsView.xib;
+			sourceTree = "<group>";
+		};
+		C027F12025562105001FEE09 /* OrderAvailabilityCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C027F11F25562105001FEE09 /* Base */,
+				C027F1222556210B001FEE09 /* en */,
+				C027F1242556210D001FEE09 /* hi */,
+			);
+			name = OrderAvailabilityCell.xib;
 			sourceTree = "<group>";
 		};
 		C03BD8802476F0BC00279D7F /* Main.storyboard */ = {

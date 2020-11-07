@@ -1,0 +1,15 @@
+
+/* Class = "UIButton"; normalTitle = "Download this invoice in pdf "; ObjectID = "5Sn-pc-Gf8"; */
+"5Sn-pc-Gf8.normalTitle" = "इस चालान को पीडीऍफ़ में डाउनलोड करें ";
+
+/* Class = "UILabel"; text = "Note that this is a preview"; ObjectID = "PlQ-ni-7M2"; */
+"PlQ-ni-7M2.text" = "ध्यान दें कि यह एक पूर्वावलोकन है";
+
+/* Class = "UILabel"; text = "Date Accepted"; ObjectID = "ffn-OA-ldp"; */
+"ffn-OA-ldp.text" = "तिथि स्वीकृत";
+
+/* Class = "UIButton"; normalTitle = " Raise PI"; ObjectID = "n6E-a0-7Ho"; */
+"n6E-a0-7Ho.normalTitle" = " पीआई उठाएं";
+
+/* Class = "UILabel"; text = "Pro forma Invoice for  AN-SN-BS-78907"; ObjectID = "neO-BU-7zo"; */
+"neO-BU-7zo.text" = "Pro forma Invoice for  AN-SN-BS-78907";

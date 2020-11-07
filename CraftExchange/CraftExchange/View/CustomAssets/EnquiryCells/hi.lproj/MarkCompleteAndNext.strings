@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "Mark as still in Progress"; ObjectID = "QhA-qr-X5Y"; */
+"QhA-qr-X5Y.normalTitle" = "अभी भी प्रगति के रूप में चिह्नित करें";
+
+/* Class = "UILabel"; text = "you have to update the status every 8 hrs to avoid escalation"; ObjectID = "RwX-ef-EKr"; */
+"RwX-ef-EKr.text" = "आपको वृद्धि से बचने के लिए हर 8 बजे स्थिति को अपडेट करना होगा";
+
+/* Class = "UIButton"; normalTitle = "Mark as complete and move to next stage"; ObjectID = "lrO-PQ-hqM"; */
+"lrO-PQ-hqM.normalTitle" = "पूर्ण के रूप में चिह्नित करें और अगले चरण पर जाएं";

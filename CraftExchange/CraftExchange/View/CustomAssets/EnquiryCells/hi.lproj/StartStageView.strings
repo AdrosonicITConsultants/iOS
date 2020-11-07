@@ -1,0 +1,6 @@
+
+/* Class = "UILabel"; text = "you have to update the status every 48 hrs to avoid escalation"; ObjectID = "2La-cy-VT7"; */
+"2La-cy-VT7.text" = "आपको एस्केलेशन से बचने के लिए हर 48 घंटे में स्थिति को अपडेट करना होगा";
+
+/* Class = "UIButton"; normalTitle = "Start Production stage"; ObjectID = "UdF-iA-Qzv"; */
+"UdF-iA-Qzv.normalTitle" = "उत्पादन चरण शुरू करें";

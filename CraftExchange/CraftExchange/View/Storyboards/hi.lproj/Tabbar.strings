@@ -18,7 +18,7 @@
 "4ks-Px-Epg.text" = "कोई नए संदेश नहीं";
 
 /* Class = "UILabel"; text = "Chats"; ObjectID = "5jK-uV-Ayi"; */
-"5jK-uV-Ayi.text" = "चैट";
+"5jK-uV-Ayi.text" = "बातचीत";
 
 /* Class = "UISearchBar"; placeholder = "search by enquiry/ buyer's name"; ObjectID = "8SA-Dp-IwN"; */
 "8SA-Dp-IwN.placeholder" = "जांच / खरीदार के नाम से खोजें";
@@ -84,7 +84,7 @@
 "dKP-hS-mkT.text" = "अपनी पूछताछ";
 
 /* Class = "UITabBarItem"; title = "Chat"; ObjectID = "dtm-xQ-L44"; */
-"dtm-xQ-L44.title" = "चैट";
+"dtm-xQ-L44.title" = "बातचीत";
 
 /* Class = "UILabel"; text = "Your wish list"; ObjectID = "fKX-q3-QnY"; */
 "fKX-q3-QnY.text" = "आपकी इच्छा सूची";

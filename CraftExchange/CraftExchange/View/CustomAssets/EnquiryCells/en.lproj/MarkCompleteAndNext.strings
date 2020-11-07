@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "Mark as still in Progress"; ObjectID = "QhA-qr-X5Y"; */
+"QhA-qr-X5Y.normalTitle" = "Mark as still in Progress";
+
+/* Class = "UILabel"; text = "you have to update the status every 8 hrs to avoid escalation"; ObjectID = "RwX-ef-EKr"; */
+"RwX-ef-EKr.text" = "you have to update the status every 8 hrs to avoid escalation";
+
+/* Class = "UIButton"; normalTitle = "Mark as complete and move to next stage"; ObjectID = "lrO-PQ-hqM"; */
+"lrO-PQ-hqM.normalTitle" = "Mark as complete and move to next stage";

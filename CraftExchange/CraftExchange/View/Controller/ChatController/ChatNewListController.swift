@@ -100,11 +100,12 @@ extension ChatNewListController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ChatCell
         if let obj = allChat?[indexPath.row] {
-             cell.configure(obj)
-
-                cell.lastMessage.text = ""
-                cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastUpdatedOn!)
-            cell.lastUpdatedTime.text = ""
+            cell.configure(obj)
+//            cell.lastMessage.text = ""
+//            if let date = obj.lastUpdatedOn ?? obj.lastChatDate {
+//                cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: date)
+//            }
+//            cell.lastUpdatedTime.text = ""
         }
         
         return cell
