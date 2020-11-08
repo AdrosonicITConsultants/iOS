@@ -219,7 +219,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c34-5t-Am5">
-                                                <rect key="frame" x="80" y="447" width="254" height="1"/>
+                                                <rect key="frame" x="80" y="467" width="254" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Mxj-jP-Tb2"/>
@@ -303,18 +303,55 @@
                                                     <action selector="faqButtonSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="Tgm-2k-bDG"/>
                                                 </connections>
                                             </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="MZn-sN-cdx">
+                                                <rect key="frame" x="20" y="427" width="374" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nus-yZ-4SB">
+                                                        <rect key="frame" x="0.0" y="0.0" width="185" height="30"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="ykl-ng-3oX"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <state key="normal" title="Login with Facebook">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="facebookLoginSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="aBo-AZ-gqB"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oB3-dM-YGP">
+                                                        <rect key="frame" x="189" y="0.0" width="185" height="30"/>
+                                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="Lc2-yW-g5t"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <state key="normal" title="Login with Google">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="googleLoginSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="ZUV-fz-2LH"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="DLK-AA-pwd"/>
+                                                </constraints>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="MZn-sN-cdx" secondAttribute="trailing" constant="20" id="0NA-Tm-o6f"/>
                                             <constraint firstItem="ZeI-2a-QgN" firstAttribute="top" secondItem="VWJ-hF-pAR" secondAttribute="bottom" constant="30" id="0YU-9A-ISO"/>
                                             <constraint firstItem="VWJ-hF-pAR" firstAttribute="top" secondItem="YB0-2C-Nhm" secondAttribute="bottom" constant="30" id="1bg-pz-nXq"/>
                                             <constraint firstItem="WZa-NT-FFu" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="2QE-YZ-Zye"/>
                                             <constraint firstAttribute="trailing" secondItem="Cnk-FA-mkm" secondAttribute="trailing" constant="20" id="3qU-HR-F1D"/>
                                             <constraint firstAttribute="trailing" secondItem="GPR-I0-MCd" secondAttribute="trailing" constant="20" id="5Bi-bs-mCr"/>
-                                            <constraint firstItem="c34-5t-Am5" firstAttribute="top" secondItem="ZeI-2a-QgN" secondAttribute="bottom" constant="30" id="5CP-8g-wnf"/>
                                             <constraint firstItem="Cnk-FA-mkm" firstAttribute="top" secondItem="GPR-I0-MCd" secondAttribute="bottom" constant="30" id="7p3-aY-EHc"/>
                                             <constraint firstItem="YB0-2C-Nhm" firstAttribute="top" secondItem="6GB-te-M1f" secondAttribute="bottom" constant="8" id="Ba9-4g-OpF"/>
                                             <constraint firstAttribute="trailing" secondItem="c34-5t-Am5" secondAttribute="trailing" constant="80" id="C1q-iM-YHb"/>
+                                            <constraint firstItem="MZn-sN-cdx" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="C31-w9-ieX"/>
                                             <constraint firstAttribute="bottom" secondItem="Cnk-FA-mkm" secondAttribute="bottom" constant="44" id="Dxs-SI-Cod"/>
                                             <constraint firstItem="GPR-I0-MCd" firstAttribute="top" secondItem="WZa-NT-FFu" secondAttribute="bottom" constant="20" id="E3Z-RK-7g7"/>
                                             <constraint firstItem="WZa-NT-FFu" firstAttribute="top" secondItem="oaf-N3-KI9" secondAttribute="bottom" constant="20" id="GIJ-3a-mQC"/>
@@ -333,8 +370,10 @@
                                             <constraint firstItem="6GB-te-M1f" firstAttribute="top" secondItem="NQf-pO-apS" secondAttribute="top" constant="10" id="ZXs-hh-NA5"/>
                                             <constraint firstItem="YB0-2C-Nhm" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="bCK-uc-G3b"/>
                                             <constraint firstItem="jL3-1T-tFh" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="bwj-83-znb"/>
+                                            <constraint firstItem="c34-5t-Am5" firstAttribute="top" secondItem="MZn-sN-cdx" secondAttribute="bottom" constant="10" id="cEJ-aT-7WD"/>
                                             <constraint firstAttribute="trailing" secondItem="jL3-1T-tFh" secondAttribute="trailing" constant="20" id="dAj-4Q-Izq"/>
                                             <constraint firstItem="ZeI-2a-QgN" firstAttribute="centerX" secondItem="VWJ-hF-pAR" secondAttribute="centerX" id="hIL-Uf-SBb"/>
+                                            <constraint firstItem="MZn-sN-cdx" firstAttribute="top" secondItem="ZeI-2a-QgN" secondAttribute="bottom" constant="10" id="tIk-vx-XMv"/>
                                             <constraint firstAttribute="bottom" secondItem="jL3-1T-tFh" secondAttribute="bottom" constant="69" id="tk5-5b-iWF"/>
                                             <constraint firstItem="c34-5t-Am5" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="80" id="u4l-ei-GMS"/>
                                             <constraint firstItem="oaf-N3-KI9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="c34-5t-Am5" secondAttribute="bottom" constant="10" id="uWn-rK-Hej"/>
@@ -370,6 +409,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="facebookLoginButton" destination="nus-yZ-4SB" id="eTN-TC-uz8"/>
+                        <outlet property="googleLoginButton" destination="oB3-dM-YGP" id="N5V-4E-5QB"/>
                         <outlet property="nextButton" destination="ZeI-2a-QgN" id="uFF-YC-ipP"/>
                         <outlet property="registerBtn" destination="oaf-N3-KI9" id="QIe-PQ-J25"/>
                         <outlet property="usernameField" destination="VWJ-hF-pAR" id="BjZ-HI-rBF"/>

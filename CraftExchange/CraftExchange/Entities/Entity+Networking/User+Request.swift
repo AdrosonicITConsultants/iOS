@@ -43,6 +43,18 @@ extension User {
           needsAuthorization: false
       )
   }
+    
+    public static func authenticateSocial(socialToken: String, socialTokenType: String) -> Request<Data, APIError> {
+      
+        return Request(
+            path: "login/authenticate?socialToken=\(socialToken)&socialTokenType=\(socialTokenType)",
+            method: .post,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
   
   public static func sendOTP(username: String) -> Request<Data, APIError> {
     var roleId = 1

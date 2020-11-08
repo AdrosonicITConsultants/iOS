@@ -19,4 +19,6 @@ target 'CraftExchange' do
   pod 'WMSegmentControl'
   pod 'ViewRow'
   pod 'MessageKit'
+  pod 'FBSDKLoginKit'
+  pod 'GoogleSignIn'
 end
