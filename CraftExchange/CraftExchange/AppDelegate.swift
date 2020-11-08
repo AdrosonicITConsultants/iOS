@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKCoreKit
+import GoogleSignIn
 
 
 @UIApplicationMain
@@ -32,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions: launchOptions
     )
     
+    GIDSignIn.sharedInstance().clientID = "241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
+        
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -83,6 +86,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
           annotation: options[UIApplication.OpenURLOptionsKey.annotation]
       )
+    
+    return GIDSignIn.sharedInstance().handle(url)
 
   }
 

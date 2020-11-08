@@ -10,6 +10,7 @@ import Bond
 import ReactiveKit
 import UIKit
 import FBSDKLoginKit
+import GoogleSignIn
 
 class ValidationViewModel {
   var username = Observable<String?>("")
@@ -18,9 +19,11 @@ class ValidationViewModel {
   var performAuthenticationSocial: ((_ socialToken: String, _ socialTokenType: String) -> ())?
 }
 
-class LoginEmailController: UIViewController {
+class LoginEmailController: UIViewController, GIDSignInDelegate {
   
   lazy var viewModel = ValidationViewModel()
+    
+    var googleSignIn = GIDSignIn.sharedInstance()
 
   @IBOutlet weak var nextButton: RoundedButton!
   @IBOutlet weak var usernameField: RoundedTextField!
@@ -50,7 +53,11 @@ class LoginEmailController: UIViewController {
         didTapFAQButton(tag: sender.tag)
   }
     
-    @IBAction func socialLoginSelected(_ sender: Any) {
+    @IBAction func googleLoginSelected(_ sender: Any) {
+        googleAuthLogin()
+    }
+    
+    @IBAction func facebookLoginSelected(_ sender: Any) {
         fbLogin()
     }
     
@@ -81,5 +88,21 @@ class LoginEmailController: UIViewController {
             self.viewModel.performAuthenticationSocial?(tokenString!, "FACEBOOK")
           }
       }
-       
+    
+    func googleAuthLogin() {
+        self.googleSignIn?.presentingViewController = self
+        self.googleSignIn?.clientID = "241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
+        self.googleSignIn?.delegate = self
+        self.googleSignIn?.signIn()
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        guard let user = user else {
+            print("Uh oh. The user cancelled the Google login.")
+            return
+        }
+        let userIdToken = user.authentication.idToken ?? ""
+        self.viewModel.performAuthenticationSocial?(userIdToken, "Google")
+    }
+    
 }

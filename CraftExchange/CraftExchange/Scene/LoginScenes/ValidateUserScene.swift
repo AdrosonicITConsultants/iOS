@@ -73,7 +73,7 @@ extension ValidateUserService {
         print(socialToken)
         print(socialTokenType)
           vc.showLoading()
-          self.fetchSocialLogin(socialToken: socialToken, socialTokenType: "FACEBOOK").bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+          self.fetchSocialLogin(socialToken: socialToken, socialTokenType: socialTokenType).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             DispatchQueue.main.async {
               vc.hideLoading()
             }

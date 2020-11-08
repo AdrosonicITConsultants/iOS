@@ -1,4 +1,9 @@
 PODS:
+  - AppAuth (1.4.0):
+    - AppAuth/Core (= 1.4.0)
+    - AppAuth/ExternalUserAgent (= 1.4.0)
+  - AppAuth/Core (1.4.0)
+  - AppAuth/ExternalUserAgent (1.4.0)
   - Bond (7.6.6):
     - Differ (~> 1.4)
     - ReactiveKit (~> 3.14)
@@ -14,6 +19,18 @@ PODS:
     - FBSDKLoginKit/Login (= 8.1.0)
   - FBSDKLoginKit/Login (8.1.0):
     - FBSDKCoreKit (~> 8.1.0)
+  - GoogleSignIn (5.0.2):
+    - AppAuth (~> 1.2)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GTMAppAuth (1.1.0):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher (~> 1.4)
+  - GTMSessionFetcher (1.5.0):
+    - GTMSessionFetcher/Full (= 1.5.0)
+  - GTMSessionFetcher/Core (1.5.0)
+  - GTMSessionFetcher/Full (1.5.0):
+    - GTMSessionFetcher/Core (= 1.5.0)
   - ImageRow (4.0.0):
     - Eureka (~> 5.0)
   - InputBarAccessoryView (5.2.1):
@@ -41,6 +58,7 @@ DEPENDENCIES:
   - Bond
   - Eureka
   - FBSDKLoginKit
+  - GoogleSignIn
   - ImageRow
   - JGProgressHUD
   - MessageKit
@@ -55,11 +73,15 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppAuth
     - Bond
     - Differ
     - Eureka
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - GoogleSignIn
+    - GTMAppAuth
+    - GTMSessionFetcher
     - ImageRow
     - InputBarAccessoryView
     - JGProgressHUD
@@ -75,11 +97,15 @@ SPEC REPOS:
     - WMSegmentControl
 
 SPEC CHECKSUMS:
+  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Bond: 9e7d901cf4ed825b6004a93dd0a7f1c7479e2834
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   FBSDKCoreKit: b3ca27e124dae67122d3bb47c8f96800b39986a6
   FBSDKLoginKit: a3a92ba9380759cd0c1aa8319465fb5f2857c602
+  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
+  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   ImageRow: e65b2e1a33f89062bf2a553a2aad61d975eb7428
   InputBarAccessoryView: 39a7ed22727baf3b8550ecdf6c8a4d28b2c6aa91
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
@@ -94,6 +120,6 @@ SPEC CHECKSUMS:
   ViewRow: 8da541e9c019f3be63f4e28f311a62cac2045ecf
   WMSegmentControl: 00415dce32ed41ad7623ac6ac076eedbb8140a5e
 
-PODFILE CHECKSUM: b41692d5668b344879ac3f6cec771ee4aaffe675
+PODFILE CHECKSUM: aa8627c1d74397b8450ed53979cdc695134f2ee7
 
 COCOAPODS: 1.10.0

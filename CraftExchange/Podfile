@@ -20,4 +20,5 @@ target 'CraftExchange' do
   pod 'ViewRow'
   pod 'MessageKit'
   pod 'FBSDKLoginKit'
+  pod 'GoogleSignIn'
 end

@@ -415,7 +415,7 @@ extension UIView {
         }
     }
     func showCloseOrderView(controller: UIViewController, enquiryCode: String?) {
-        if let _ = self.viewWithTag(134) {
+        if let _ = self.viewWithTag(144) {
             print("do nothing")
         }else {
             let initiationView = Bundle.main.loadNibNamed("CloseOrderView", owner:
@@ -424,7 +424,7 @@ extension UIView {
                 
             
             initiationView?.delegate =  controller as? CloseOrderViewProtocol
-            initiationView?.tag = 134
+            initiationView?.tag = 144
            
             let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
            let effectView = UIVisualEffectView(effect: effect)
@@ -440,7 +440,7 @@ extension UIView {
         }
     }
     func hideCloseOrderView() {
-        if let initialView = self.viewWithTag(134) {
+        if let initialView = self.viewWithTag(144) {
            // self.effectView.removeFromSuperview()
             self.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()

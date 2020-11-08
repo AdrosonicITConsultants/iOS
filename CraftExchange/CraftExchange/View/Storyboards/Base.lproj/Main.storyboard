@@ -313,7 +313,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="socialLoginSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="lVi-Ir-Bin"/>
+                                                            <action selector="facebookLoginSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="DYE-2K-AYF"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8P8-8l-ykZ">
@@ -326,6 +326,9 @@
                                                         <state key="normal" title="Login with Google">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="googleLoginSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="laF-r0-GwQ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
