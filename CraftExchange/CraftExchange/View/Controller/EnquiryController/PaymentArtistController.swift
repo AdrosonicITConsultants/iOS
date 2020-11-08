@@ -66,9 +66,9 @@ class PaymentArtistController: FormViewController{
                 if orderObject != nil {
                     $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
                 }
-                if orderObject?.enquiryStageId == 8{
-                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Paid amount: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
-                }
+//                if orderObject?.enquiryStageId == 8{
+//                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Paid amount: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
+//                }
                 $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
                 if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 5 {
                     $0.cell.statusLbl.textColor = .black

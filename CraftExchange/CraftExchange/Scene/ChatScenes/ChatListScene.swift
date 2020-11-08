@@ -28,6 +28,8 @@ extension ChatListService {
             getChatList().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     parseEnquiry(json: json, isOngoing: true)
+                }else {
+                   controller.endRefresh()
                 }
             }.dispose(in: controller.bag)
             

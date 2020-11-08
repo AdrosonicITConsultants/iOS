@@ -70,11 +70,14 @@ class PaymentUploadController: FormViewController{
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
                 $0.cell.statusLbl.text = "10 days remaining to upload receipt"
-                if orderObject?.enquiryStageId == 9{
-                    $0.cell.statusLbl.text = ""
-                   // $0.cell.height = { 160.0 }
+                if orderObject != nil {
+                    if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
+                        $0.cell.statusLbl.text = ""
+                       // $0.cell.height = { 160.0 }
 
+                    }
                 }
+                
                 $0.cell.statusLbl.textColor = UIColor.black
                 $0.cell.statusDotView.isHidden = true
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
@@ -91,8 +94,11 @@ class PaymentUploadController: FormViewController{
                 }else{
                     $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "Amount to be paid: " + (tobePaidAmount ?? "NA") : "NA"
                 }
-                 if orderObject?.enquiryStageId == 9{
+                
+                 if orderObject != nil {
+                 if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
                     $0.cell.amountLbl.text = ""
+                }
                 }
                 if let date = enquiryObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
@@ -100,8 +106,10 @@ class PaymentUploadController: FormViewController{
                 if let date = orderObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
                 }
-                 if orderObject?.enquiryStageId == 9{
+                 if orderObject != nil {
+                 if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
                     $0.cell.dateLbl.text = ""
+                }
                 }
                 if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first ?? orderObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId ?? orderObject?.productId {
                     if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
@@ -130,8 +138,10 @@ class PaymentUploadController: FormViewController{
                 if enquiryObject?.isBlue ?? orderObject?.isBlue ?? false {
                     $0.hidden = true
                 }
-                if orderObject?.enquiryStageId == 9{
+                 if orderObject != nil {
+                 if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
                     $0.title = "Upload the Delivery Receipt"
+                }
                 }
             }
             <<< BuyerEnquirySectionViewRow() {
@@ -144,8 +154,10 @@ class PaymentUploadController: FormViewController{
                 if enquiryObject?.isBlue ?? orderObject?.isBlue ?? false {
                     $0.hidden = true
                 }
-                if orderObject?.enquiryStageId == 9{
-                     $0.hidden = true
+                if orderObject != nil {
+                if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1 {
+                         $0.hidden = true
+                    }
                 }
                 $0.cell.valueLbl.text = "Check Artisn's Payment details"
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
@@ -253,12 +265,15 @@ class PaymentUploadController: FormViewController{
             <<< DateRow(){
                             $0.title = "Date of dispatch"
                             $0.cell.height = { 60.0 }
-                            $0.minimumDate = Date()
-                            if orderObject?.enquiryStageId == 9{
-                                 $0.hidden = false
-                            }else{
-                                $0.hidden = true
-                            }
+                            $0.maximumDate = Date()
+                if orderObject != nil {
+                    if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
+                         $0.hidden = false
+                    }else{
+                        $0.hidden = true
+                    }
+                }
+                            
                             $0.value = Date()
 //                            let dateFormatter = DateFormatter()
 //                            dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -282,10 +297,12 @@ class PaymentUploadController: FormViewController{
                             $0.cell.height = { 60.0 }
                             $0.minimumDate = Date()
                             
-                            if orderObject?.enquiryStageId == 9{
-                                 $0.hidden = false
-                            }else{
-                                $0.hidden = true
+                            if orderObject != nil {
+                                if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
+                                     $0.hidden = false
+                                }else{
+                                    $0.hidden = true
+                                }
                             }
 
                             $0.value = nil
@@ -321,13 +338,19 @@ class PaymentUploadController: FormViewController{
                 if orderObject?.enquiryStageId ?? 0 < 4{
                     $0.hidden = false
                 }
-                if orderObject?.enquiryStageId == 8 && !finalPaymnetDetails!.finalPaymentDone{
+                if orderObject?.enquiryStageId == 8 {
                     $0.hidden = false
                 }
-                 if orderObject?.enquiryStageId == 9{
-                    $0.hidden = false
-                    $0.cell.UploadBtn.setTitle("Upload delivery receipt", for: .normal)
+                if orderObject?.isBlue ?? false {
+                    $0.hidden = true
                 }
+                if orderObject != nil{
+                    if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
+                        $0.hidden = false
+                        $0.cell.UploadBtn.setTitle("Upload delivery receipt", for: .normal)
+                    }
+                }
+                 
             }
 
             
@@ -348,12 +371,18 @@ class PaymentUploadController: FormViewController{
                 if orderObject?.enquiryStageId ?? 0 < 4{
                     $0.hidden = true
                 }
-                if orderObject?.enquiryStageId == 8 && !finalPaymnetDetails!.finalPaymentDone{
+                if orderObject?.enquiryStageId == 8 {
                    $0.hidden = true
                 }
-                 if orderObject?.enquiryStageId == 9{
-                     $0.hidden = true
+                if orderObject?.isBlue ?? false {
+                    $0.hidden = false
                 }
+                if orderObject != nil{
+                    if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
+                         $0.hidden = true
+                    }
+                }
+                 
         }
     }
     
@@ -386,14 +415,17 @@ extension PaymentUploadController: uploadtransactionProtocol, uploadSuccessProto
     
     func UploadBtnSelected(tag: Int) {
         self.showLoading()
+        if orderObject != nil {
         if orderObject?.enquiryStageId == 8 {
-             self.uploadReciept?(2)
-        }else if orderObject?.enquiryStageId == 9 {
-            self.uploadDeliveryReciept?()
-//            print(self.viewModel.orderDispatchDate.value!)
-        }else{
-             self.uploadReciept?(1)
+                     self.uploadReciept?(2)
+                }else if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1 {
+                    self.uploadDeliveryReciept?()
+        //            print(self.viewModel.orderDispatchDate.value!)
+                }else{
+                     self.uploadReciept?(1)
+                }
         }
+        
     }
     
     func UploadImageBtnSelected(tag: Int) {
@@ -435,14 +467,19 @@ extension PaymentUploadController: UIImagePickerControllerDelegate, UINavigation
             
         }
         self.viewModel.imageData.value = imgdata
-        if orderObject?.enquiryStageId == 9{
-            if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-                self.viewModel.fileName.value = url.lastPathComponent
+        if orderObject != nil{
+           
+            if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
+                if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+                    self.viewModel.fileName.value = url.lastPathComponent
+                }
+                 
+            }else{
+                self.viewModel.fileName.value = "\(self.enquiryObject?.enquiryId ?? self.orderObject?.enquiryId ?? 0).\(Int(self.viewModel.pid.value!)!).jpg"
             }
-             
-        }else{
-            self.viewModel.fileName.value = "\(self.enquiryObject?.enquiryId ?? self.orderObject?.enquiryId ?? 0).\(Int(self.viewModel.pid.value!)!).jpg"
+            
         }
+        
        
         picker.dismiss(animated: true) {
             self.reloadAddPhotoRow()

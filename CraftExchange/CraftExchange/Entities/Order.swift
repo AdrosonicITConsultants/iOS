@@ -17,6 +17,8 @@ class Order: Object, Decodable {
     @objc dynamic var mobile: String?
     @objc dynamic var logo: String?
     @objc dynamic var startedOn: String?
+    @objc dynamic var isReprocess: Int = 0
+    @objc dynamic var artisanReviewId: String?
     @objc dynamic var changeRequestOn: Int = 0
     @objc dynamic var changeRequestStatus: Int = 0
     @objc dynamic var changeRequestModifiedOn: Date?
@@ -46,6 +48,7 @@ class Order: Object, Decodable {
     @objc dynamic var gst: String?
     @objc dynamic var deliveryChallanUploaded: Int = 0
     @objc dynamic var deliveryChallanLabel: String?
+    @objc dynamic var isPartialRefundReceived: Int = 1
     @objc dynamic var productHistoryCode: String?
     @objc dynamic var productHistoryName: String?
     @objc dynamic var productCategoryHistoryId: Int = 0
@@ -93,6 +96,8 @@ class Order: Object, Decodable {
         case changeRequestOn = "changeRequestOn"
         case changeRequestStatus = "changeRequestStatus"
         case changeRequestModifiedOn = "changeRequestModifiedOn"
+        case isReprocess = "isReprocess"
+        case artisanReviewId = "artisanReviewId"
         case enquiryCode = "enquiryCode"
         case alternateMobile = "alternateMobile"
         case orderCode = "orderCode"
@@ -119,6 +124,7 @@ class Order: Object, Decodable {
         case gst = "gst"
         case deliveryChallanUploaded = "deliveryChallanUploaded"
         case deliveryChallanLabel = "deliveryChallanLabel"
+        case isPartialRefundReceived = "isPartialRefundReceived"
         case productHistoryCode = "productHistoryCode"
         case productHistoryName = "productHistoryName"
         case productCategoryHistoryId = "productCategoryHistoryId"
@@ -169,6 +175,8 @@ class Order: Object, Decodable {
         if let dateString = try? values.decodeIfPresent(String.self, forKey: .changeRequestModifiedOn) {
             changeRequestModifiedOn = Date().ttceISODate(isoDate: dateString)
         }
+        isReprocess = try (values.decodeIfPresent(Int.self, forKey: .isReprocess) ?? 0)
+        artisanReviewId = try? values.decodeIfPresent(String.self, forKey: .artisanReviewId)
         changeRequestOn = try (values.decodeIfPresent(Int.self, forKey: .changeRequestOn) ?? 0)
         changeRequestStatus = try (values.decodeIfPresent(Int.self, forKey: .changeRequestStatus) ?? 0)
         city = try? values.decodeIfPresent(String.self, forKey: .city)
@@ -191,6 +199,7 @@ class Order: Object, Decodable {
         gst = try? values.decodeIfPresent(String.self, forKey: .gst)
         deliveryChallanUploaded = try (values.decodeIfPresent(Int.self, forKey: .deliveryChallanUploaded) ?? 0)
         deliveryChallanLabel = try? values.decodeIfPresent(String.self, forKey: .deliveryChallanLabel)
+        isPartialRefundReceived = try (values.decodeIfPresent(Int.self, forKey: .isPartialRefundReceived) ?? 1)
         historyProductId = try (values.decodeIfPresent(Int.self, forKey: .historyProductId) ?? 0)
         innerEnquiryStageId = try (values.decodeIfPresent(Int.self, forKey: .innerEnquiryStageId) ?? 0)
         isMoqSend = try (values.decodeIfPresent(Int.self, forKey: .isMoqSend) ?? 0)

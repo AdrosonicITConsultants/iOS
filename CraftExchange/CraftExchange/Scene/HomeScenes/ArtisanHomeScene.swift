@@ -456,37 +456,42 @@ extension HomeScreenService {
     func getDemoVideo(vc: UIViewController){
         if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/demo-video") {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
-                    if let array = json.first {
-                        if let acf = array["acf"] as?  [String: Any] {
-                            if  let videoURL1 = acf["artisan_demo_video"] as? String {
-                                if    let videoURL2 = acf["buyer_demo_video"] as? String {
-                                    DispatchQueue.main.async {
-                                        
-                                        let app = UIApplication.shared.delegate as? AppDelegate
-                                        
-                                        // controller.path = "\(videoURL)"
-                                        if let controller = vc as? BuyerHomeController {
-                                            if app?.showDemoVideo ?? false {
-                                                app?.showDemoVideo = false
-                                                controller.showVideo(path: "\(videoURL2)")}
-                                        }
-                                        else if let controller = vc as? ArtisanHomeController {
-                                            if app?.showDemoVideo ?? false {
-                                                app?.showDemoVideo = false
-                                                controller.showVideo(path: "\(videoURL1)")
+                if data != nil {
+                    if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
+                        if let array = json.first {
+                            if let acf = array["acf"] as?  [String: Any] {
+                                if  let videoURL1 = acf["artisan_demo_video"] as? String {
+                                    if    let videoURL2 = acf["buyer_demo_video"] as? String {
+                                        DispatchQueue.main.async {
+                                            
+                                            let app = UIApplication.shared.delegate as? AppDelegate
+                                            
+                                            // controller.path = "\(videoURL)"
+                                            if let controller = vc as? BuyerHomeController {
+                                                if app?.showDemoVideo ?? false {
+                                                    app?.showDemoVideo = false
+                                                    controller.showVideo(path: "\(videoURL2)")}
                                             }
+                                            else if let controller = vc as? ArtisanHomeController {
+                                                if app?.showDemoVideo ?? false {
+                                                    app?.showDemoVideo = false
+                                                    controller.showVideo(path: "\(videoURL1)")
+                                                }
+                                            }
+                                            
                                         }
-                                        
                                     }
                                 }
                             }
                         }
+                    }else{
+                        return
                     }
-                }
-                else{
+                }else {
                     return
                 }
+                 
+                
             }.resume()
         }
     }
@@ -494,25 +499,30 @@ extension HomeScreenService {
     func getCMSCatImages(){
            if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categories") {
                URLSession.shared.dataTask(with: url) { data, response, error in
-                   if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
-                       DispatchQueue.main.async {
-                           for obj in json  {
-                               if let acf = obj["acf"] as?  [String: Any] {
-                                   if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
-                                       if let object = try? JSONDecoder().decode(CMSCategoryACF.self, from: categoryData) {
-                                           print("hey obj: \(object)")
-                                           object.saveOrUpdate()
-                                           
-                                       }
-                                   }
-                                   
-                               }
-                           }
-                           
-                           
-                       }
-                       
-                   }
+                if data != nil {
+                    if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
+                        DispatchQueue.main.async {
+                            for obj in json  {
+                                if let acf = obj["acf"] as?  [String: Any] {
+                                    if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
+                                        if let object = try? JSONDecoder().decode(CMSCategoryACF.self, from: categoryData) {
+                                            print("hey obj: \(object)")
+                                            object.saveOrUpdate()
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                }else{
+                    return
+                }
+                   
                }.resume()
            }
            
@@ -521,24 +531,29 @@ extension HomeScreenService {
     func getCMSRegionImages(){
         if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/regions") {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
-                    DispatchQueue.main.async {
-                        for obj in json  {
-                            if let acf = obj["acf"] as?  [String: Any] {
-                                if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
-                                    if let object = try? JSONDecoder().decode(CMSRegionACF.self, from: categoryData) {
-                                        print("hey obj: \(object)")
-                                        object.saveOrUpdate()
-                                        
+                 if data != nil {
+                    if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
+                        DispatchQueue.main.async {
+                            for obj in json  {
+                                if let acf = obj["acf"] as?  [String: Any] {
+                                    if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
+                                        if let object = try? JSONDecoder().decode(CMSRegionACF.self, from: categoryData) {
+                                            print("hey obj: \(object)")
+                                            object.saveOrUpdate()
+                                            
+                                        }
                                     }
+                                    
                                 }
-                                
                             }
+                            
+                            
                         }
                         
-                        
                     }
-                    
+
+                 }else{
+                    return
                 }
             }.resume()
         }

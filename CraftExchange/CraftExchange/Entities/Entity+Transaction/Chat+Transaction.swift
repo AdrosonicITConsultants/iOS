@@ -14,6 +14,12 @@ import ReactiveKit
 
 extension Chat {
     
+    static func getAllChatObjects() -> Results<Chat> {
+        let realm = try! Realm()
+        let object = realm.objects(Chat.self)
+        return object
+    }
+    
     func searchChat(searchId: Int) -> Chat? {
         let realm = try! Realm()
         if let object = realm.objects(Chat.self).filter("%K == %@", "entityID", searchId).first {

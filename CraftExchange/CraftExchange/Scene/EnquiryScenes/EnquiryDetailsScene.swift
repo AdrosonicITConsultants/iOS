@@ -319,5 +319,56 @@ extension EnquiryDetailsService {
             }
         }.dispose(in: vc.bag)
     }
+    
+    func closeOrder(enquiryId: Int, enquiryCode: String, vc: UIViewController){
+        self.closeOrder(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+            if json["valid"] as? Bool == true {
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                    vc.view.hideCloseOrderView()
+                    vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: enquiryCode, confirmQuestion: "Is Partial Refund Received?")
+                }
+            }
+            }
+        }
+        
+    }
+    
+    func completeOrder(enquiryId: Int, vc: UIViewController){
+        self.closeEnquiry(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+            if json["valid"] as? Bool == true {
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                    if let controller = vc as? ConfirmOrderReceivedController {
+                        controller.view.showRatingInitaitionView(controller: controller)
+                    }else{
+                       vc.navigationController?.popViewController(animated: true)
+                    }
+                   
+                }
+            }
+            }
+        }
+
+    }
+    
+    func markOrderAsReceivedfunc(orderId: Int, orderRecieveDate: String, vc: UIViewController){
+        self.markOrderAsReceived(orderId: orderId, orderRecieveDate: orderRecieveDate, isAutoCompleted: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+            if json["valid"] as? Bool == true {
+                DispatchQueue.main.async {
+                   
+                    self.completeOrder(enquiryId: orderId, vc: vc)
+
+                }
+            }
+            }
+        }
+    }
+   
+    
+   
 }
 

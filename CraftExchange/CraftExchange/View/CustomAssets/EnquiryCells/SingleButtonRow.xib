@@ -15,15 +15,25 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkK-8V-Agb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkK-8V-Agb" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
+                        <rect key="frame" x="57" y="0.0" width="300" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="300" id="OFJ-lF-tgf"/>
+                        </constraints>
                         <state key="normal" title="Button"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
+                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="mkK-8V-Agb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6zd-MN-iFU"/>
-                    <constraint firstAttribute="trailing" secondItem="mkK-8V-Agb" secondAttribute="trailing" id="8xN-OD-yyn"/>
                     <constraint firstItem="mkK-8V-Agb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Euo-gq-tg2"/>
+                    <constraint firstItem="mkK-8V-Agb" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="kez-zX-jgg"/>
                     <constraint firstAttribute="bottom" secondItem="mkK-8V-Agb" secondAttribute="bottom" id="xPQ-b3-Oti"/>
                 </constraints>
             </tableViewCellContentView>

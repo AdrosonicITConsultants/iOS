@@ -80,18 +80,6 @@ class BuyerEnquiryDetailsController: FormViewController {
         
         form
             +++ Section()
-            <<< LabelRow(){
-                $0.cell.height = { 25.0 }
-                $0.title = enquiryObject?.enquiryCode
-            }
-            <<< LabelRow(){
-                $0.cell.height = { 20.0 }
-                let date = Date().ttceFormatter(isoDate: (enquiryObject?.startedOn!)!)
-                $0.title = "Date accepted: " + date
-            }.cellUpdate({ (cell, row) in
-                cell.textLabel?.textColor = .darkGray
-                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
-            })
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
@@ -231,55 +219,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                     cell.height = { 90.0 }
                 }
             })
-            
-//            <<< StartStageViewRow()
-//                {
-//                    $0.cell.height = { 90.0 }
-//                    $0.cell.tag = 6
-//                    $0.tag = "Start Production Stage"
-//                    $0.cell.delegate = self
-//                    if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 4 && isClosed == false {
-//                        $0.hidden = false
-//                    }
-//                    else{
-//                        $0.hidden = true
-//                    }
-//            }.cellUpdate({ (cell, row) in
-//                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 4 && self.isClosed == false {
-//                    cell.row.hidden = false
-//                    cell.height = { 90.0 }
-//                }
-//                else{
-//                    cell.row.hidden = true
-//                    cell.height = { 0.0 }
-//                }
-//            })
-            
-//            <<< MarkCompleteAndNextRow()
-//                {
-//                    $0.cell.height = { 125.0 }
-//                    $0.cell.tag = 7
-//                    $0.tag = "Production Stages Progrees"
-//                    $0.cell.MarkProgress.layer.borderColor = UIColor(red: 83.0/255.0, green: 186.0/255.0, blue: 183.0/255.0, alpha: 1.0).cgColor
-//                    $0.cell.MarkProgress.layer.borderWidth = 2.0
-//                    $0.cell.delegate = self
-//                    if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && isClosed == false {
-//                        $0.hidden = false
-//                    }
-//                    else{
-//                        $0.hidden = true
-//                    }
-//            }.cellUpdate({ (cell, row) in
-//                if User.loggedIn()?.refRoleId == "1" && self.enquiryObject?.enquiryStageId == 5 && self.isClosed == false {
-//                    cell.row.hidden = false
-//                    cell.height = { 125.0 }
-//
-//                }
-//                else{
-//                    cell.row.hidden = true
-//                    cell.height = { 0.0 }
-//                }
-//            })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
@@ -694,7 +633,6 @@ class BuyerEnquiryDetailsController: FormViewController {
             let refreshControl = UIRefreshControl()
             tableView.refreshControl = refreshControl
         }
-        tableView.refreshControl?.beginRefreshing()
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
     
@@ -797,9 +735,14 @@ class BuyerEnquiryDetailsController: FormViewController {
         }
     }
     func listMOQsFunc() {
+        var valid = 0
         if listMOQs != [] &&  User.loggedIn()?.refRoleId == "2" {
-            
-            let  listMOQSection = self.form.sectionBy(tag: "list MOQs")!
+            let section = self.form.sectionBy(tag: "list MOQs")
+            if section?.isEmpty == true{
+                valid = 1
+            }
+
+            if  let  listMOQSection = self.form.sectionBy(tag: "list MOQs") {
             
             listMOQSection <<< LabelRow() {
                 $0.cell.height = { 25.0 }
@@ -819,9 +762,10 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.tag = "sort buttons row"
                     $0.cell.height = { 50.0 }
                     $0.cell.delegate = self as MOQSortButtonsActionProtocol
-                    $0.cell.quantityButton.tag = 201
-                    $0.cell.priceButton.tag = 201
-                    $0.cell.ETAButton.tag = 201
+//                    $0.cell.quantityButton.tag = 201
+//                    $0.cell.priceButton.tag = 201
+//                    $0.cell.ETAButton.tag = 201
+                    $0.cell.tag = 201
                     
                 }.cellUpdate({ (cell, row) in
                     cell.quantityButton.setTitle("Qnty", for: .normal)
@@ -834,11 +778,11 @@ class BuyerEnquiryDetailsController: FormViewController {
             showMOQ.forEach({ (obj) in
                 listMOQSection <<< MOQSectionTitleRow() {
                     $0.cell.height = { 44.0 }
-                    $0.cell.titleLbl.text = obj.brand! + "\n" + obj.clusterName!
+                    $0.cell.titleLbl.text = (obj.brand ?? "") + "\n" + (obj.clusterName ?? "")
                     $0.cell.noOfUnitLbl.text = "\(obj.moq!.moq) pcs"
-                    $0.cell.costLbl.text = "₹ " + obj.moq!.ppu!
-                    let ETAdays = EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: obj.moq!.deliveryTimeId)!.days
-                    $0.cell.etaLbl.text = "\(ETAdays) days"
+                    $0.cell.costLbl.text = "₹ " + (obj.moq?.ppu ?? "")
+                    let ETAdays = EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: obj.moq!.deliveryTimeId )?.days
+                    $0.cell.etaLbl.text = "\(ETAdays!) days"
                     $0.cell.titleLbl.textColor = .systemBlue
                     $0.cell.noOfUnitLbl.textColor = UIColor().EQGreenText()
                     $0.cell.costLbl.textColor = UIColor().EQGreenText()
@@ -865,13 +809,13 @@ class BuyerEnquiryDetailsController: FormViewController {
                         $0.cell.tag = obj.artisanId
                         $0.hidden = true
                         $0.tag = "\(obj.artisanId)"
-                        let date = Date().ttceFormatter(isoDate: "\(obj.moq!.modifiedOn!)")
+                        let date = Date().ttceFormatter(isoDate: "\(obj.moq?.modifiedOn)")
                         $0.cell.label1.text = "Received on \(date)"
                         $0.cell.label2.text = "Notes from Artisan"
-                        $0.cell.label3.text = obj.moq!.additionalInfo!
+                        $0.cell.label3.text = obj.moq?.additionalInfo ?? ""
                         $0.cell.imageButton.isUserInteractionEnabled = false
                         //    $0.cell.detailsButton.onchange
-                        let name = obj.logo!
+                        let name = obj.logo ?? ""
                         let userID = obj.artisanId
                         let url = URL(string: KeychainManager.standard.imageBaseURL + "/User/\(userID)/CompanyDetails/Logo/\(name)")
                         URLSession.shared.dataTask(with: url!) { data, response, error in
@@ -900,9 +844,14 @@ class BuyerEnquiryDetailsController: FormViewController {
                         self.view.showAcceptMOQView(controller: self, getMOQs: obj)
                     })
             })
-            self.form.sectionBy(tag: "list MOQs")?.reload()
+                if valid == 1{
+                    self.form.sectionBy(tag: "list MOQs")?.reload()
+                }
+            
+        }
         }
     }
+    
     func reloadMOQ() {
         DispatchQueue.main.async(){
             let row1 = self.form.rowBy(tag: "createMOQ1")
@@ -1035,9 +984,35 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     }
     
     func quantityButtonSelected(tag: Int) {
+        
         switch tag {
         case 201:
-            print("do nothing")
+            let row = self.form.rowBy(tag: "sort buttons row") as! MOQSortButtonsRow
+            if row.cell.quantityDescending == true {
+                if listMOQs != nil {
+                    listMOQs = listMOQs?.sorted(by: { (getmoq1, getmoq2) -> Bool in
+                       return getmoq1.moq!.moq > getmoq2.moq!.moq
+                    })
+                }
+                let  listMOQSection = self.form.sectionBy(tag: "list MOQs")
+                listMOQSection?.removeAll()
+                self.listMOQsFunc()
+                print("descending")
+            }else{
+                if listMOQs != nil {
+                    listMOQs = listMOQs?.sorted(by: { (getmoq1, getmoq2) -> Bool in
+                       return getmoq1.moq!.moq < getmoq2.moq!.moq
+                    })
+                }
+                let  listMOQSection = self.form.sectionBy(tag: "list MOQs")
+                listMOQSection?.removeAll()
+                self.listMOQsFunc()
+                print("ascending")
+            }
+            
+            
+            
+            
         default:
             print("do nothing")
         }
@@ -1046,7 +1021,41 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     func priceButtonSelected(tag: Int) {
         switch tag {
         case 201:
-            print("do nothing")
+            let row = self.form.rowBy(tag: "sort buttons row") as! MOQSortButtonsRow
+            if row.cell.priceDescending == true {
+                if listMOQs != nil {
+                               listMOQs = listMOQs?.sorted(by: { (getmoq1, getmoq2) -> Bool in
+                                  
+                                   var success = false
+                                   
+                                   if let ppu1 =  Int(getmoq1.moq!.ppu!), let ppu2 =  Int(getmoq2.moq!.ppu!) {
+                                       success = ppu1 > ppu2
+                                   }
+                                   return success
+                               })
+                           }
+                let  listMOQSection = self.form.sectionBy(tag: "list MOQs")
+                listMOQSection?.removeAll()
+                self.listMOQsFunc()
+            }else{
+                if listMOQs != nil {
+                               listMOQs = listMOQs?.sorted(by: { (getmoq1, getmoq2) -> Bool in
+                                  
+                                   var success = false
+                                   
+                                   if let ppu1 =  Int(getmoq1.moq!.ppu!), let ppu2 =  Int(getmoq2.moq!.ppu!) {
+                                       success = ppu1 < ppu2
+                                   }
+                                   return success
+                               })
+                           }
+                let  listMOQSection = self.form.sectionBy(tag: "list MOQs")
+                listMOQSection?.removeAll()
+                self.listMOQsFunc()
+            }
+
+           
+            
         default:
             print("do nothing")
         }
@@ -1055,7 +1064,41 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     func ETAButtonSelected(tag: Int) {
         switch tag {
         case 201:
-            print("do nothing")
+            let row = self.form.rowBy(tag: "sort buttons row") as! MOQSortButtonsRow
+            if row.cell.daysDescending == true {
+               
+                    if listMOQs != nil {
+                        listMOQs = listMOQs?.sorted(by: { (getmoq1, getmoq2) -> Bool in
+                            var success = false
+                            
+                            if let days1 =  EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getmoq1.moq!.deliveryTimeId )?.days, let days2 =  EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getmoq2.moq!.deliveryTimeId )?.days {
+                                success = days1 > days2
+                            }
+                            return success
+                        })
+                    }
+                let  listMOQSection = self.form.sectionBy(tag: "list MOQs")
+                listMOQSection?.removeAll()
+                self.listMOQsFunc()
+                
+            }else{
+                    if listMOQs != nil {
+                        if listMOQs != nil {
+                            listMOQs = listMOQs?.sorted(by: { (getmoq1, getmoq2) -> Bool in
+                                var success = false
+                                
+                                if let days1 =  EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getmoq1.moq!.deliveryTimeId )?.days, let days2 =  EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getmoq2.moq!.deliveryTimeId )?.days {
+                                    success = days1 < days2
+                                }
+                                return success
+                            })
+                        }
+                    }
+                let  listMOQSection = self.form.sectionBy(tag: "list MOQs")
+                listMOQSection?.removeAll()
+                self.listMOQsFunc()
+                }
+                
         default:
             print("do nothing")
         }

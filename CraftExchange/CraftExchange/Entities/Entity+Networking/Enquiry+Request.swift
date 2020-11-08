@@ -123,7 +123,31 @@ extension Enquiry {
             needsAuthorization: false
         )
     }
-    
+    public static func closeOrder(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "order/initializePartialRefund?orderId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    public static func markOrderAsReceived(orderId: Int, orderRecieveDate: String, isAutoCompleted: Int) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["orderId":orderId, "orderRecieveDate":orderRecieveDate, "isAutoCompleted":isAutoCompleted]
+        return Request(
+            path: "enquiry/markOrderAsRecieved/\(orderId)/\(orderRecieveDate)/\(isAutoCompleted)",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "mark order as received failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
     public static func closeEnquiry(enquiryId: Int) -> Request<Data, APIError> {
         let parameters: [String: Any] = ["enquiryId":enquiryId]
         return Request(

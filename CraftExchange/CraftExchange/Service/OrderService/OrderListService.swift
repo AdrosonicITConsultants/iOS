@@ -26,5 +26,13 @@ class OrderListService: BaseService<Data> {
         return Order.getClosedOrders().response(using: client).debug()
     }
     
+    func getArtisanFaultyReview() -> SafeSignal<Data> {
+        return Order.getArtisanFaultyReview().response(using: client).debug()
+    }
+    
+    func getBuyerFaultyReview() -> SafeSignal<Data> {
+        return Order.getBuyerFaultyReview().response(using: client).debug()
+    }
+    
 }
 
