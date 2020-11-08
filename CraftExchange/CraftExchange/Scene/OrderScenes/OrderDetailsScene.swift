@@ -56,7 +56,31 @@ extension OrderDetailsService {
                         vc.hideLoading()
                     }
                 }.dispose(in: vc.bag)
+                
+                self.getOrderProgress(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                               if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                                   if let dataDict = json["data"] as? Dictionary<String,Any>
+                                   {
+                                       guard let moqObj = dataDict["orderProgress"] as? Dictionary<String,Any> else {
+                                           return
+                                       }
+                                       if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
+                                           if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
+                                               DispatchQueue.main.async {
+                                                  print("orderProgress: \(object)")
+                                                   
+                                                       vc.orderProgress = object
+                                                   vc.reloadFormData()
+                                                   
+                                               }
+                                           }
+                                       }
+                                   }
+                               }
+                           }.dispose(in: vc.bag)
+                
             }
+            
         }
         
         vc.showCustomProduct = {
@@ -135,6 +159,53 @@ extension OrderDetailsService {
                 row.value = isEnabled == 1 ? false : true
                 row.updateCell()
             }
+        }
+        vc.getOrderProgress = {
+            self.getOrderProgress(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let dataDict = json["data"] as? Dictionary<String,Any>
+                    {
+                        guard let moqObj = dataDict["orderProgress"] as? Dictionary<String,Any> else {
+                            return
+                        }
+                        if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
+                            if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
+                                DispatchQueue.main.async {
+                                   print("orderProgress: \(object)")
+                                    
+                                        vc.orderProgress = object
+                                    vc.reloadFormData()
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }.dispose(in: vc.bag)
+        }
+        
+        vc.recreateOrder = {
+            self.recreateOrderFunc(vc: vc, enquiryId: enquiryId)
+           
+        }
+        
+        vc.orderDispatchAfterRecreation = {
+            self.orderDispatchAfterRecreation(orderId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                        vc.view.hideMarkAsDispatchedView()
+                        vc.viewWillAppear?()
+                       
+                    }
+                }else{
+                    vc.hideLoading()
+                    vc.view.hideMarkAsDispatchedView()
+                }
+                }
+            }
+
         }
         
         vc.checkTransactions = {
@@ -275,5 +346,55 @@ extension OrderDetailsService {
             
         }
     }
+    
+    func getOrderProgressFunc(enquiryId: Int, vc: UIViewController) {
+        self.getOrderProgress(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                        if let dataDict = json["data"] as? Dictionary<String,Any>
+                        {
+                            guard let moqObj = dataDict["orderProgress"] as? Dictionary<String,Any> else {
+                                return
+                            }
+                            if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
+                                if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
+                                    DispatchQueue.main.async {
+                                        if let controller = vc as? OrderDetailController {
+                                            controller.orderProgress = object
+                                        }else if let controller = vc as? RaiseConcernController {
+                                            controller.orderProgress = object
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }.dispose(in: vc.bag)
+    }
+    
+    func recreateOrderFunc(vc: UIViewController, enquiryId: Int) {
+        vc.showLoading()
+        self.recreateOrder(orderId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                   if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                       if json["valid"] as? Bool == true {
+                           DispatchQueue.main.async {
+                               vc.hideLoading()
+                               vc.view.hidePartialRefundReceivedView()
+                            if let controller = vc as? OrderDetailController{
+                                controller.viewWillAppear?()
+                            }else if let controller = vc as? RaiseConcernController{
+                                controller.viewWillAppear?()
+                            }
+                               
+                              
+                           }
+                       }else{
+                           vc.hideLoading()
+                           vc.view.hidePartialRefundReceivedView()
+                       }
+                       }
+                   }
+    }
+    
+    
 }
 

@@ -39,7 +39,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are about to close this order!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inN-GU-pST">
-                            <rect key="frame" x="27.5" y="120" width="245" height="21"/>
+                            <rect key="frame" x="28" y="120" width="244.5" height="21"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                             <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -141,6 +141,7 @@
                 <outlet property="closeOrderCancelButton" destination="rWV-fe-Bog" id="uj7-X9-LyS"/>
                 <outlet property="closeOrderNoButton" destination="rQr-yD-hVR" id="M8V-SX-0qk"/>
                 <outlet property="closeOrderYesButton" destination="ear-KM-JrL" id="Qwg-cs-ZiF"/>
+                <outlet property="confirmStatement" destination="inN-GU-pST" id="TOw-Aj-xCB"/>
                 <outlet property="enquiryCode" destination="x3d-WG-4B1" id="f2v-r6-78l"/>
             </connections>
             <point key="canvasLocation" x="139" y="108"/>

@@ -84,4 +84,100 @@ extension Order {
         )
     }
     
+    public static func sendBuyerFaultyReview(orderId: Int, buyerComment: String, multiCheck: String) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["orderId":orderId, "buyerComment":buyerComment, "multiCheck":multiCheck]
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "enquiry/faultyOrderBuyer/\(orderId)/\(buyerComment)/\(multiCheck)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .post,
+            parameters: JSONParameters(parameters),
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "sending faulty review failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func sendArtisanReview(orderId: Int, artisanReviewComment: String, multiCheck: String) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["orderId":orderId, "artisanReviewComment":artisanReviewComment, "multiCheck":multiCheck]
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "enquiry/faultyOrderArisan/\(orderId)/\(artisanReviewComment)/\(multiCheck)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .post,
+            parameters: JSONParameters(parameters),
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "sending faulty review failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+
+    
+    public static func getOrderProgress(enquiryId: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "enquiry/getOrderProgress/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get order progress failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func markConcernResolved(orderId: Int) -> Request<Data, APIError> {
+        
+        let parameters: [String: Any] = ["orderId":orderId]
+        var str = "enquiry/isResolved/\(orderId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
+            parameters: JSONParameters(parameters),
+            headers: headers,
+           resource: {print(String(data: $0, encoding: .utf8) ?? "marking concern reolved failed")
+            return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func recreateOrder(orderId: Int) -> Request<Data, APIError> {
+        var str = "order/recreateOrder?orderId=\(orderId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func orderDispatchAfterRecreation(orderId: Int) -> Request<Data, APIError> {
+        var str = "order/orderDispatchAfterRecreation?orderId=\(orderId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
 }

@@ -387,17 +387,17 @@ extension UIView {
         }
     }
     
-    func showCloseOrderView(controller: UIViewController, enquiryCode: String?) {
-        if let _ = self.viewWithTag(134) {
+    func showCloseOrderView(controller: UIViewController, enquiryCode: String?, confirmStatement: String?) {
+        if let _ = self.viewWithTag(144) {
             print("do nothing")
         }else {
             let initiationView = Bundle.main.loadNibNamed("CloseOrderView", owner:
                 self, options: nil)?.first as? CloseOrderView
             initiationView?.enquiryCode.text = enquiryCode ?? ""
-                
+            initiationView?.confirmStatement.text = confirmStatement ?? ""
             
             initiationView?.delegate =  controller as? CloseOrderViewProtocol
-            initiationView?.tag = 134
+            initiationView?.tag = 144
            
             let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
            let effectView = UIVisualEffectView(effect: effect)
@@ -413,7 +413,7 @@ extension UIView {
         }
     }
     func hideCloseOrderView() {
-        if let initialView = self.viewWithTag(134) {
+        if let initialView = self.viewWithTag(144) {
            // self.effectView.removeFromSuperview()
             self.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
@@ -458,14 +458,14 @@ extension UIView {
         }
     }
     
-    func showPartialRefundReceivedView(controller: UIViewController, enquiryCode: String?) {
+    func showPartialRefundReceivedView(controller: UIViewController, enquiryCode: String?, confirmQuestion: String?) {
            if let _ = self.viewWithTag(138) {
                print("do nothing")
            }else {
                let initiationView = Bundle.main.loadNibNamed("PartialRefundReceivedView", owner:
                    self, options: nil)?.first as? PartialRefundReceivedView
                initiationView?.enquiryCode.text = enquiryCode ?? ""
-                   
+            initiationView?.confirmQuestion.text = confirmQuestion ?? ""
                
                initiationView?.delegate =  controller as? PartialRefundReceivedViewProtocol
                initiationView?.tag = 138
@@ -528,5 +528,40 @@ extension UIView {
                              effectView.removeFromSuperview()
               }
           }
+    
+    func showBuyerReviewConfirmView(controller: UIViewController) {
+        if let _ = self.viewWithTag(142) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("BuyerReviewConfirmView", owner:
+                self, options: nil)?.first as? BuyerReviewConfirmView
+            initiationView?.delegate =  controller as? BuyerReviewConfirmViewProtocol
+            initiationView?.tag = 142
+           
+            let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+           let effectView = UIVisualEffectView(effect: effect)
+            effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+            effectView.tag = 143
+            self.addSubview(effectView)
+             self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 160, width: 300, height: 320)
+            initiationView?.dropShadow()
+            
+            self.bringSubviewToFront(initiationView!)
+           
+        }
+    }
+    func hideBuyerReviewConfirmView() {
+        if let initialView = self.viewWithTag(142) {
+           // self.effectView.removeFromSuperview()
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+        if let effectView = self.viewWithTag(143) {
+            self.sendSubviewToBack(effectView)
+                       effectView.removeFromSuperview()
+        }
+    }
+
     
 }

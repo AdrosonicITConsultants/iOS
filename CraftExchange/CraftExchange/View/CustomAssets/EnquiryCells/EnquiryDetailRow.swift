@@ -20,8 +20,10 @@ class EnquiryDetailRowView: Cell<String>, CellType {
     @IBOutlet weak var statusDotView: UIView!
     @IBOutlet weak var dateLbl: UILabel!
     
+    @IBOutlet weak var faultyStrings: UIImageView!
     public override func setup() {
         super.setup()
+        faultyStrings.isHidden = true
     }
 
     public override func update() {

@@ -113,41 +113,41 @@ class ConfirmOrderReceivedController: FormViewController{
                 self.viewModel.orderDeliveryDate.value = date
                 
             }.onChange({ (row) in
-                    if let value = row.value {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let date = dateFormatter.string(from: value)
-                        self.viewModel.orderDeliveryDate.value = date
-                        
-                    }
-                }).cellUpdate({ (cell, row) in
-                    cell.textLabel?.textColor = .black
-                    cell.textLabel?.font = .systemFont(ofSize: 16, weight: .regular)
-                })
+                if let value = row.value {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let date = dateFormatter.string(from: value)
+                    self.viewModel.orderDeliveryDate.value = date
+                    
+                }
+            }).cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = .black
+                cell.textLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+            })
             
             <<< LabelRow(){
-            $0.cell.height = { 20.0 }
+                $0.cell.height = { 20.0 }
                 $0.title = ""
             }
             
             <<< LabelRow(){
-                            $0.cell.height = { 80.0 }
-                           
-                            $0.title = "Please check the order before marking order complete. Once marked the order will be considered as completed and no concern can be raised against it."
-                            $0.cellStyle = .default
+                $0.cell.height = { 80.0 }
+                
+                $0.title = "Please check the order before marking order complete. Once marked the order will be considered as completed and no concern can be raised against it."
+                $0.cellStyle = .default
                 $0.cell.textLabel?.numberOfLines = 3
-                        }.cellUpdate({ (cell, row) in
-                            cell.textLabel?.textColor = .darkGray
-                            cell.textLabel?.font = .systemFont(ofSize: 13, weight: .regular)
-                            cell.textLabel?.textAlignment = .center
-                        })
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = .darkGray
+                cell.textLabel?.font = .systemFont(ofSize: 13, weight: .regular)
+                cell.textLabel?.textAlignment = .center
+            })
             
             <<< LabelRow(){
-            $0.cell.height = { 60.0 }
+                $0.cell.height = { 60.0 }
                 $0.title = ""
             }
-        
-        <<< SingleButtonRow() {
+            
+            <<< SingleButtonRow() {
                 $0.tag = "Confirm Delivery"
                 $0.cell.singleButton.backgroundColor = #colorLiteral(red: 0, green: 0.5103793144, blue: 0, alpha: 1)
                 $0.cell.singleButton.setTitleColor(.white, for: .normal)
@@ -155,6 +155,11 @@ class ConfirmOrderReceivedController: FormViewController{
                 $0.cell.height = { 50.0 }
                 $0.cell.delegate = self as SingleButtonActionProtocol
                 $0.cell.tag = 100
+            }
+            <<< LabelRow(){
+                $0.cell.height = {50.0}
+                
+                $0.title = ""
         }
         
     }
@@ -177,13 +182,13 @@ extension ConfirmOrderReceivedController: SingleButtonActionProtocol, RatingInit
     func singleButtonSelected(tag: Int) {
         switch tag {
         case 100:
-           let client = try! SafeClient(wrapping: CraftExchangeClient())
-           let service = EnquiryDetailsService.init(client: client)
-           
-           if orderObject?.enquiryId != nil && self.viewModel.orderDeliveryDate.value != nil {
-            self.showLoading()
-            service.markOrderAsReceivedfunc(orderId: orderObject!.enquiryId, orderRecieveDate: self.viewModel.orderDeliveryDate.value!, vc: self)
-           }
+            let client = try! SafeClient(wrapping: CraftExchangeClient())
+            let service = EnquiryDetailsService.init(client: client)
+            
+            if orderObject?.enquiryId != nil && self.viewModel.orderDeliveryDate.value != nil {
+                self.showLoading()
+                service.markOrderAsReceivedfunc(orderId: orderObject!.enquiryId, orderRecieveDate: self.viewModel.orderDeliveryDate.value!, vc: self)
+            }
         default:
             print("do nothing")
         }

@@ -18,6 +18,7 @@ protocol PartialRefundReceivedViewProtocol {
 class PartialRefundReceivedView: UIView {
 
     @IBOutlet weak var RefundCancelButton: UIButton!
+    @IBOutlet weak var confirmQuestion: UILabel!
     @IBOutlet weak var enquiryCode: UILabel!
     @IBOutlet weak var RefundNoButton: RoundedButton!
     @IBOutlet weak var RefundYesButton: RoundedButton!

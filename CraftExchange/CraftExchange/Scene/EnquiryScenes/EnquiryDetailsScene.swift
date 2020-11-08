@@ -327,7 +327,7 @@ extension EnquiryDetailsService {
                 DispatchQueue.main.async {
                     vc.hideLoading()
                     vc.view.hideCloseOrderView()
-                    vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: enquiryCode)
+                    vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: enquiryCode, confirmQuestion: "Is Partial Refund Received?")
                 }
             }
             }

@@ -104,6 +104,8 @@ extension Order {
                 object.deliveryChallanUploaded = deliveryChallanUploaded
                 object.deliveryChallanLabel = deliveryChallanLabel
                 object.isPartialRefundReceived = isPartialRefundReceived
+                object.isReprocess = isReprocess
+                object.artisanReviewId = artisanReviewId
                 object.historyProductId = historyProductId
                 object.innerEnquiryStageId = innerEnquiryStageId
                 object.isMoqSend = isMoqSend

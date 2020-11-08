@@ -13,9 +13,9 @@ import Bond
 import ReactiveKit
 
 extension ArtisanFaultyOrder {
-    static func getReviewType(searchId: Int) -> ArtisanFaultyOrder? {
+    static func getReviewType(searchId: String) -> ArtisanFaultyOrder? {
         let realm = try! Realm()
-        if let object = realm.objects(ArtisanFaultyOrder.self).filter("%K == %@", "entityID", searchId).first {
+        if let object = realm.objects(ArtisanFaultyOrder.self).filter("%K == %@", "id", searchId).first {
             return object
         }
         return nil

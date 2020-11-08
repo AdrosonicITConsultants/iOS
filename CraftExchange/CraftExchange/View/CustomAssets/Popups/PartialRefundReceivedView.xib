@@ -33,7 +33,10 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McO-ZQ-8q1">
-                            <rect key="frame" x="59.5" y="60" width="181.5" height="58"/>
+                            <rect key="frame" x="12.5" y="60" width="275" height="58"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="275" id="a04-fe-kZU"/>
+                            </constraints>
                             <string key="text">Is Partial Refund 
 Received?</string>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="24"/>
@@ -135,6 +138,7 @@ Received?</string>
                 <outlet property="RefundCancelButton" destination="acz-gV-LqJ" id="D5l-si-HjG"/>
                 <outlet property="RefundNoButton" destination="0Xd-tW-YUy" id="42I-MB-aes"/>
                 <outlet property="RefundYesButton" destination="NhV-TS-p47" id="3bh-Wz-TSH"/>
+                <outlet property="confirmQuestion" destination="McO-ZQ-8q1" id="S7j-LT-OY1"/>
                 <outlet property="enquiryCode" destination="Lza-xg-7Z7" id="jEz-TI-c4C"/>
             </connections>
             <point key="canvasLocation" x="139" y="103"/>

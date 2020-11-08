@@ -18,6 +18,7 @@ protocol CloseOrderViewProtocol {
 class CloseOrderView: UIView {
 
     @IBOutlet weak var closeOrderCancelButton: UIButton!
+    @IBOutlet weak var confirmStatement: UILabel!
     @IBOutlet weak var enquiryCode: UILabel!
     
     @IBOutlet weak var closeOrderNoButton: RoundedButton!
