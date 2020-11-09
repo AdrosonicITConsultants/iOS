@@ -38,4 +38,11 @@ class ProductCatalogueController: UIViewController {
     var applicationEnteredForeground: (() -> ())?
     let realm = try! Realm()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        productSegment.setTitleTextAttributes(titleTextAttributes, for: .normal)
+        let titleTextAttributes2 = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        productSegment.setTitleTextAttributes(titleTextAttributes2, for: .selected)
+    }
 }

@@ -52,14 +52,15 @@
                                 </constraints>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hz5-Z3-gGn">
-                                <rect key="frame" x="20" y="248" width="374" height="32"/>
+                                <rect key="frame" x="20" y="221" width="374" height="32"/>
                                 <segments>
                                     <segment title="Artisans"/>
                                     <segment title="Buyers"/>
                                 </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Artisians: 35000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO9-ip-2Mz">
-                                <rect key="frame" x="20" y="220" width="374" height="21"/>
+                                <rect key="frame" x="20" y="193" width="374" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="374" id="JbY-2u-rhj"/>
                                 </constraints>
@@ -75,7 +76,7 @@
                                 <color key="sectionIndexBackgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cluster" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fo2-12-Zbi">
-                                <rect key="frame" x="98" y="353" width="70" height="16"/>
+                                <rect key="frame" x="98" y="326" width="70" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="aFq-kP-MVN"/>
                                 </constraints>
@@ -84,7 +85,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hjz-Fc-XAv">
-                                <rect key="frame" x="315" y="422" width="68" height="30"/>
+                                <rect key="frame" x="315" y="395" width="68" height="30"/>
                                 <color key="backgroundColor" red="0.42100994559999999" green="0.96297985409999998" blue="0.40930315169999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="Obd-Ou-7GI"/>
@@ -97,7 +98,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obK-EX-e8r">
-                                <rect key="frame" x="351" y="294" width="43" height="46"/>
+                                <rect key="frame" x="351" y="267" width="43" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="43" id="b49-zl-KlV"/>
                                     <constraint firstAttribute="height" constant="46" id="oPk-34-MBz"/>
@@ -108,7 +109,7 @@
                                 </state>
                             </button>
                             <searchBar contentMode="redraw" placeholder="Search by brand,email id, phone number, name" translatesAutoresizingMaskIntoConstraints="NO" id="ZVz-Ja-LEc">
-                                <rect key="frame" x="20" y="294" width="324" height="46"/>
+                                <rect key="frame" x="20" y="267" width="324" height="46"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="324" id="XMe-tc-0M8"/>
@@ -118,7 +119,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ln7-Oo-gIe">
-                                <rect key="frame" x="216" y="379" width="102" height="34"/>
+                                <rect key="frame" x="216" y="352" width="102" height="34"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -127,7 +128,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCU-pd-GWd">
-                                <rect key="frame" x="20" y="353" width="70" height="18"/>
+                                <rect key="frame" x="20" y="326" width="70" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="lXR-dI-Awb"/>
                                 </constraints>
@@ -136,7 +137,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHq-HJ-YB5">
-                                <rect key="frame" x="213" y="353" width="70" height="16"/>
+                                <rect key="frame" x="213" y="326" width="70" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="Hav-eS-9bN"/>
                                 </constraints>
@@ -145,7 +146,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BqS-sJ-4wY">
-                                <rect key="frame" x="98" y="379" width="102" height="34"/>
+                                <rect key="frame" x="98" y="352" width="102" height="34"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="102" id="FcI-Bm-fOs"/>
@@ -188,7 +189,7 @@
                             <constraint firstItem="BqS-sJ-4wY" firstAttribute="top" secondItem="fo2-12-Zbi" secondAttribute="bottom" constant="10" id="pA0-2N-zsR"/>
                             <constraint firstItem="tSh-NO-4uf" firstAttribute="top" secondItem="Nb1-JE-Tg6" secondAttribute="top" constant="42" id="sOz-hD-Ynf"/>
                             <constraint firstItem="Nb1-JE-Tg6" firstAttribute="trailing" secondItem="Hjz-Fc-XAv" secondAttribute="trailing" constant="31" id="wa9-90-0Gs"/>
-                            <constraint firstItem="QO9-ip-2Mz" firstAttribute="top" secondItem="1vP-Fe-lrb" secondAttribute="bottom" constant="29" id="xI6-pK-enM"/>
+                            <constraint firstItem="QO9-ip-2Mz" firstAttribute="top" secondItem="1vP-Fe-lrb" secondAttribute="bottom" constant="2" id="xI6-pK-enM"/>
                             <constraint firstItem="tSh-NO-4uf" firstAttribute="leading" secondItem="Nb1-JE-Tg6" secondAttribute="leading" constant="20" id="yQF-8f-7BH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Nb1-JE-Tg6"/>
@@ -202,8 +203,8 @@
                         <outlet property="CountLabel" destination="QO9-ip-2Mz" id="3oB-xK-orU"/>
                         <outlet property="FilterLabel" destination="tCU-pd-GWd" id="FiQ-Gi-1Nj"/>
                         <outlet property="Img" destination="1vP-Fe-lrb" id="2ML-YD-PBu"/>
-                        <outlet property="SegmentedControl" destination="hz5-Z3-gGn" id="g8m-b1-mCR"/>
                         <outlet property="Trial" destination="z1m-1N-u1u" id="Pfs-ia-Ljl"/>
+                        <outlet property="segmentedControl" destination="hz5-Z3-gGn" id="Nzs-YW-ywM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTd-vh-uJY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

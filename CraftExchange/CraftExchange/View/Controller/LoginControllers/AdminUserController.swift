@@ -27,7 +27,7 @@ class AdminUserController: UIViewController {
     var allProducts: [Product]?
     let realm = try! Realm()
     
-    @IBOutlet weak var SegmentedControl: UISegmentedControl!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var FilterLabel: UILabel!
     @IBOutlet weak var Trial: UITableView!
     @IBOutlet weak var CountLabel: UILabel!
@@ -38,15 +38,12 @@ class AdminUserController: UIViewController {
     lazy var viewModel = AdminUserViewModel()
     @IBOutlet weak var AdminUserLabel: UILabel!
     
-    @IBAction func ApplyBtnPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "AdminProductCatalogue", bundle: nil)
-        let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUploadProductController") as! AdminUploadProductController
-        vc1.modalPresentationStyle = .fullScreen
-        self.present(vc1, animated: true, completion: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
+        let titleTextAttributes2 = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        segmentedControl.setTitleTextAttributes(titleTextAttributes2, for: .selected)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +57,13 @@ class AdminUserController: UIViewController {
     
     func endRefresh() {
         self.Trial.reloadData()
+    }
+    
+    @IBAction func ApplyBtnPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "AdminProductCatalogue", bundle: nil)
+        let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUploadProductController") as! AdminUploadProductController
+        vc1.modalPresentationStyle = .fullScreen
+        self.present(vc1, animated: true, completion: nil)
     }
 }
 

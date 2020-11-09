@@ -113,19 +113,6 @@ class MarketHomeController: FormViewController {
 extension MarketHomeController: MarketActionsProtocol {
 
     func ArrowBtnSelected(tag: Int) {
-        switch tag{
-    
-        case 109:
-        let storyboard = UIStoryboard(name: "AdminUserDatabase", bundle: nil)
-        let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUserController") as! AdminUserController
-        vc1.modalPresentationStyle = .fullScreen
-        self.present(vc1, animated: true, completion: nil)
-
-        self.navigationController?.pushViewController(vc1, animated: true)
-        print("DbBtnSelected")
         
-        default:
-            print("DbBtnSelected Not WORKING")
-        }
     }
 }
