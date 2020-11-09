@@ -22,7 +22,6 @@
 		30505C68254EA208003E2DFF /* PartialRefundReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30505C67254EA208003E2DFF /* PartialRefundReceivedView.swift */; };
 		30505C6A254EA213003E2DFF /* PartialRefundReceivedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505C69254EA213003E2DFF /* PartialRefundReceivedView.xib */; };
 		30505C6C254EA2CA003E2DFF /* MarkAsDispatchedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30505C6B254EA2CA003E2DFF /* MarkAsDispatchedView.swift */; };
-		30505C6E254EA2DA003E2DFF /* MarkAsDispatchedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505C6D254EA2DA003E2DFF /* MarkAsDispatchedView.xib */; };
 		3061022B253F1271006430D9 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022A253F1271006430D9 /* ChatHeaderView.swift */; };
 		3061022F253F1321006430D9 /* ChatHeaderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */; };
 		307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B397C252C24DD000028AC /* AdvancePaymentScene.swift */; };
@@ -91,7 +90,6 @@
 		30C8CDCA25500DF700AE6AEA /* CompleteOrderIconRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C8CDC825500DF700AE6AEA /* CompleteOrderIconRow.xib */; };
 		30C8CDCC25501B7700AE6AEA /* RatingInitaitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */; };
 		30C8CDCE25501B8600AE6AEA /* RatingInitaitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */; };
-		30E3C63A252B340600AB95E5 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30E3C639252B340600AB95E5 /* Payment.storyboard */; };
 		30EB8DE92537230800BA59E8 /* ChatNewListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB8DE82537230800BA59E8 /* ChatNewListController.swift */; };
 		30EB8DEB2537408D00BA59E8 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB8DEA2537408D00BA59E8 /* Conversation.swift */; };
 		30EB8DED253825FA00BA59E8 /* ChatDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB8DEC253825FA00BA59E8 /* ChatDetailsController.swift */; };
@@ -436,6 +434,7 @@
 		C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */; };
 		C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */; };
 		C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */; };
+		C0CEF35A2559286F00AD9D86 /* MarkAsDispatchedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CEF35C2559286F00AD9D86 /* MarkAsDispatchedView.xib */; };
 		C0D218B124FEC67A0071896E /* EnquiryGeneratedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */; };
 		C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6CF6224F518AE00287D7A /* LabelCell.xib */; };
 		C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6CF6624F51D8200287D7A /* LabelCell.swift */; };
@@ -481,7 +480,6 @@
 		30505C67254EA208003E2DFF /* PartialRefundReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialRefundReceivedView.swift; sourceTree = "<group>"; };
 		30505C69254EA213003E2DFF /* PartialRefundReceivedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartialRefundReceivedView.xib; sourceTree = "<group>"; };
 		30505C6B254EA2CA003E2DFF /* MarkAsDispatchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkAsDispatchedView.swift; sourceTree = "<group>"; };
-		30505C6D254EA2DA003E2DFF /* MarkAsDispatchedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkAsDispatchedView.xib; sourceTree = "<group>"; };
 		3061022A253F1271006430D9 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderDetailsView.swift; sourceTree = "<group>"; };
 		307B397C252C24DD000028AC /* AdvancePaymentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancePaymentScene.swift; sourceTree = "<group>"; };
@@ -550,7 +548,6 @@
 		30C8CDC825500DF700AE6AEA /* CompleteOrderIconRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteOrderIconRow.xib; sourceTree = "<group>"; };
 		30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInitaitionView.swift; sourceTree = "<group>"; };
 		30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingInitaitionView.xib; sourceTree = "<group>"; };
-		30E3C639252B340600AB95E5 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
 		30EB8DE82537230800BA59E8 /* ChatNewListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNewListController.swift; sourceTree = "<group>"; };
 		30EB8DEA2537408D00BA59E8 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		30EB8DEC253825FA00BA59E8 /* ChatDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailsController.swift; sourceTree = "<group>"; };
@@ -946,6 +943,9 @@
 		C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryStages.swift; sourceTree = "<group>"; };
 		C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListScene.swift; sourceTree = "<group>"; };
 		C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		C0CEF35B2559286F00AD9D86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MarkAsDispatchedView.xib; sourceTree = "<group>"; };
+		C0CEF35E2559288E00AD9D86 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MarkAsDispatchedView.strings; sourceTree = "<group>"; };
+		C0CEF3602559289000AD9D86 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/MarkAsDispatchedView.strings; sourceTree = "<group>"; };
 		C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryGeneratedView.swift; sourceTree = "<group>"; };
 		C0D6CF6224F518AE00287D7A /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		C0D6CF6624F51D8200287D7A /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
@@ -1722,7 +1722,7 @@
 				30505C67254EA208003E2DFF /* PartialRefundReceivedView.swift */,
 				30505C69254EA213003E2DFF /* PartialRefundReceivedView.xib */,
 				30505C6B254EA2CA003E2DFF /* MarkAsDispatchedView.swift */,
-				30505C6D254EA2DA003E2DFF /* MarkAsDispatchedView.xib */,
+				C0CEF35C2559286F00AD9D86 /* MarkAsDispatchedView.xib */,
 				30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */,
 				30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */,
 				309796A5255632B400851ECA /* BuyerReviewConfirmView.swift */,
@@ -2224,7 +2224,7 @@
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
 				C027F11725562077001FEE09 /* ChatHeaderDetailsView.xib in Resources */,
-				30505C6E254EA2DA003E2DFF /* MarkAsDispatchedView.xib in Resources */,
+				C0CEF35A2559286F00AD9D86 /* MarkAsDispatchedView.xib in Resources */,
 				307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */,
 				C099E3EF24FE9252003B6E3B /* EnquiryExistsView.xib in Resources */,
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
@@ -2914,6 +2914,16 @@
 				C066FC582554835A00487CD8 /* hi */,
 			);
 			name = Payment.storyboard;
+			sourceTree = "<group>";
+		};
+		C0CEF35C2559286F00AD9D86 /* MarkAsDispatchedView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0CEF35B2559286F00AD9D86 /* Base */,
+				C0CEF35E2559288E00AD9D86 /* en */,
+				C0CEF3602559289000AD9D86 /* hi */,
+			);
+			name = MarkAsDispatchedView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

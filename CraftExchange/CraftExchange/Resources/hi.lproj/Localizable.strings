@@ -124,6 +124,8 @@
 "Last updated" = "आखरी अपडेट";
 "estimate date of delivery" = "वितरण की अनुमानित तिथि";
 "brand name" = "ब्रांड का नाम";
+"Brand name" = "ब्रांड का नाम";
+"Brand Name" = "ब्रांड का नाम";
 "converted to order on" = "क्रम में परिवर्तित";
 "order id" = "आदेश ID";
 "mark as read" = "पढ़े हुए का चिह्न";
@@ -320,3 +322,8 @@
 "View" = "देखना";
 "Login with Google." = "Google से लॉगिन करें।";
 "Login with Facebook." = "फेसबुक से लॉगिन करें।";
+"Amount to be Paid as per PI:" = "पी आई के अनुसार भुगतान की जाने वाली राशि:";
+"Please write comment" = "कृपया टिप्पणी लिखें";
+"Next Step -------------------->  Upload delivery receipt" =
+"अगला चरण --------------------> डिलीवरी रसीद अपलोड करें";
+"Upload delivery receipt" = "डिलीवरी रसीद अपलोड करें";

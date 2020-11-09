@@ -538,8 +538,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Upload delivery receipt"
                 $0.cell.tag = 101
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload delivery receipt"
-                $0.cell.createSendInvoiceBtn.setTitle("Upload delivery receipt", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload delivery receipt".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Upload delivery receipt".localized, for: .normal)
                 $0.hidden = true
                 if orderObject?.enquiryStageId != nil {
                     if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {

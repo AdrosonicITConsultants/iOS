@@ -210,7 +210,7 @@ extension EnquiryDetailsService {
                                     if let controller = vc as? PaymentArtistController{
                                        // controller.hideLoading()
                                         let row = controller.form.rowBy(tag: "PaymentArtist-1") as? ArtistReceitImgRow
-                                        row?.cell.AmountLabel.text = "Amount to be Paid as per PI: \(object.paidAmount)"
+                                        row?.cell.AmountLabel.text = "Amount to be Paid as per PI:".localized +  "\(object.paidAmount)"
                                        
                                       
                                     }else if let controller = vc as? OrderDetailController{
