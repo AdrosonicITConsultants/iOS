@@ -33,15 +33,7 @@ class MarketHomeController: FormViewController {
         self.tableView.backgroundColor = .black
         form
             +++ Section()
-            
-            <<< AdminHomeHeaderRow() {
-                $0.tag = "HorizonatalAdmin0"
-                $0.cell.backgroundColor = UIColor.black
-                $0.cell.Logo.image = UIImage(named: "cx")
-                $0.cell.delegate = self
-                $0.cell.tag = 110
-                $0.cell.height = { 100.0 }
-            }
+
             <<< AdminLabelRow(){
                 $0.tag = "AdminLabelRow-1"
                 $0.cell.AdminLabel.text = "Report"
@@ -118,22 +110,12 @@ class MarketHomeController: FormViewController {
     }
 }
 
-extension MarketHomeController: MarketActionsProtocol, NotifyButtonProtocol{
-    func NotifyBtnSelected(tag: Int){
-        switch tag{
-            case 110:
-                let storyboard = UIStoryboard(name: "AdminTabbar", bundle: nil)
-                let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminTabbarController") as! AdminTabbarController
-                vc1.modalPresentationStyle = .fullScreen
-                self.present(vc1, animated: true, completion: nil)
-                
-            default:
-                print("Notify Not WORKING")
-            }
-    }
+extension MarketHomeController: MarketActionsProtocol {
+
     func ArrowBtnSelected(tag: Int) {
-    switch tag{
-    case 109:
+        switch tag{
+    
+        case 109:
         let storyboard = UIStoryboard(name: "AdminUserDatabase", bundle: nil)
         let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUserController") as! AdminUserController
         vc1.modalPresentationStyle = .fullScreen
@@ -142,8 +124,8 @@ extension MarketHomeController: MarketActionsProtocol, NotifyButtonProtocol{
         self.navigationController?.pushViewController(vc1, animated: true)
         print("DbBtnSelected")
         
-    default:
-        print("DbBtnSelected Not WORKING")
+        default:
+            print("DbBtnSelected Not WORKING")
+        }
     }
-}
 }

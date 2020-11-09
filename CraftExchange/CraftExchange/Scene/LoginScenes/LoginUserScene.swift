@@ -47,14 +47,15 @@ extension LoginUserService {
                     let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
                     loggedInUser?.saveOrUpdate()
                     DispatchQueue.main.async {
-                      KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
-                      KeychainManager.standard.userID = userObj["id"] as? Int ?? 0
-                      KeychainManager.standard.username = userObj["firstName"] as? String ?? ""
-                      let app = UIApplication.shared.delegate as? AppDelegate
-                      app?.showDemoVideo = true
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let controller = storyboard.instantiateViewController(withIdentifier: "MarketHomeController") as! MarketHomeController
-                        vc.present(controller, animated: true, completion: nil)
+                        KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
+                        KeychainManager.standard.userID = userObj["id"] as? Int ?? 0
+                        KeychainManager.standard.username = userObj["firstName"] as? String ?? ""
+                        let app = UIApplication.shared.delegate as? AppDelegate
+                        app?.showDemoVideo = true
+                        let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
+                        let tab = storyboard.instantiateViewController(withIdentifier: "MarketingTabbarController") as! MarketingTabbarController
+                        tab.modalPresentationStyle = .fullScreen
+                        vc.present(tab, animated: true, completion: nil)
                     }
                   }else {
                     DispatchQueue.main.async {

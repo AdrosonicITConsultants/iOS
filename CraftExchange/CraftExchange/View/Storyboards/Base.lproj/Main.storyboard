@@ -192,29 +192,6 @@
             </objects>
             <point key="canvasLocation" x="1812" y="-788"/>
         </scene>
-        <!--Market Home Controller-->
-        <scene sceneID="0My-vC-hIE">
-            <objects>
-                <viewController storyboardIdentifier="MarketHomeController" id="JSH-LU-TdJ" customClass="MarketHomeController" customModule="Craft_Xchange_Admin" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ak5-1w-uyz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tabBar contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g7J-Mh-DC1">
-                                <rect key="frame" x="0.0" y="799" width="414" height="49"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items/>
-                            </tabBar>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="cKM-eT-gui"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yn1-oA-0DJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2732" y="-788"/>
-        </scene>
     </scenes>
     <resources>
         <image name="change language" width="21" height="24"/>

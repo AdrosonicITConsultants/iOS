@@ -10,8 +10,6 @@
         <!--Admin User Controller-->
         <scene sceneID="Vlz-8c-dM7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="82s-VU-9Wn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="h3g-3i-2eN" userLabel="Exit" sceneMemberID="exit"/>
                 <viewController storyboardIdentifier="AdminUserController" id="Elv-J5-ldO" customClass="AdminUserController" customModule="Craft_Xchange_Admin" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sDY-pq-ywe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -117,7 +115,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Racing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSv-lQ-GKD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSv-lQ-GKD">
                                 <rect key="frame" x="213" y="309" width="70" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="va9-NH-EUT"/>
@@ -188,6 +186,8 @@
                         <outlet property="Trial" destination="AAw-i4-tlM" id="RQf-uv-HBF"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="82s-VU-9Wn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="h3g-3i-2eN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="257.97101449275362" y="99.776785714285708"/>
         </scene>
