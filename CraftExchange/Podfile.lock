@@ -17,6 +17,7 @@ PODS:
   - RichTextRow (1.0.4):
     - Eureka (~> 5.2.1)
   - SideMenu (6.4.9)
+  - SpreadsheetView (0.9.1)
   - SwiftKeychainWrapper (3.4.0)
   - ViewRow (0.8):
     - Eureka (>= 5.0.0)
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - RealmSwift
   - RichTextRow
   - SideMenu
+  - SpreadsheetView
   - SwiftKeychainWrapper
   - ViewRow
   - WMSegmentControl
@@ -49,6 +51,7 @@ SPEC REPOS:
     - RealmSwift
     - RichTextRow
     - SideMenu
+    - SpreadsheetView
     - SwiftKeychainWrapper
     - ViewRow
     - WMSegmentControl
@@ -65,10 +68,11 @@ SPEC CHECKSUMS:
   RealmSwift: 0a709536ecea30eea1d3c514f6ade2ed078dee3c
   RichTextRow: e82a02fef3f130d880a921b9dd9dd5336e22c521
   SideMenu: 8ef57a3cfc024a2d3fc1c036c7fe98537baec9e0
+  SpreadsheetView: 688dbd19f2b355df0eb09e486266fd913a013449
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
   ViewRow: 8da541e9c019f3be63f4e28f311a62cac2045ecf
   WMSegmentControl: 00415dce32ed41ad7623ac6ac076eedbb8140a5e
 
-PODFILE CHECKSUM: af58e3ad98b7a3a10c27c9ead6e9698194d8761b
+PODFILE CHECKSUM: 185b8d058c74197f78647ee82aa69f36e171bceb
 
 COCOAPODS: 1.8.4
