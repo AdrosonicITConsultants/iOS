@@ -132,7 +132,7 @@ extension ChatDetailsService {
                     }
                 }
                 else {
-                    controller.alert("Sending message failed, please try again later")
+                    controller.alert("Sending message failed, please try again later".localized)
                 }
             }.dispose(in: controller.bag)
         }
@@ -148,7 +148,7 @@ extension ChatDetailsService {
                     }
                 }
                 else {
-                    controller.alert("Sending attachment failed, please try again later")
+                    controller.alert("Sending attachment failed, please try again later".localized)
                 }
             }.dispose(in: controller.bag)
         }

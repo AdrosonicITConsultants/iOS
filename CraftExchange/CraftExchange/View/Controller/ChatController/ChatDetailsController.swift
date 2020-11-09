@@ -128,9 +128,9 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     }
     
     private func presentInputActionsheet(){
-        let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "", message: "Choose".localized, preferredStyle: .actionSheet)
         
-        let docs = UIAlertAction.init(title: "Docs", style: .default) { (action) in
+        let docs = UIAlertAction.init(title: "Docs".localized, style: .default) { (action) in
             // self.goToChat()
             self.DocPickerAlert()
             
@@ -152,7 +152,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         }
         alert.addAction(video)
         
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)

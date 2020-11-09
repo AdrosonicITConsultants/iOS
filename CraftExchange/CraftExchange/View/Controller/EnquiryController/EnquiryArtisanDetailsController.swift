@@ -109,9 +109,9 @@ class EnquiryArtisanDetailsController: FormViewController {
             <<< SegmentedRow<String>() { row in
                 row.title = ""
                 if User.loggedIn()?.refRoleId == "1" {
-                    row.options = ["Address Details", "Other Details"]
+                    row.options = ["Address Details".localized, "Other Details".localized]
                 }else {
-                    row.options = ["Bank Details", "Digital Payment Details"]
+                    row.options = ["Bank Details".localized, "Digital Payment Details".localized]
                 }
             }.onChange({ (row) in
                 if User.loggedIn()?.refRoleId == "1" {

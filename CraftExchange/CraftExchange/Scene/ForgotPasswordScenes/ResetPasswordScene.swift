@@ -48,12 +48,12 @@ extension ResetPasswordService {
                         }
                       }else {
                         DispatchQueue.main.async {
-                          vc.alert("\(jsonDict["errorMessage"] as? String ?? "Password Reset Failed.")")
+                            vc.alert("\(jsonDict["errorMessage"] as? String ?? "Password Reset Failed.".localized)")
                         }
                       }
                     } else {
                         DispatchQueue.main.async {
-                          vc.alert("Password Reset Failed.")
+                            vc.alert("Password Reset Failed.".localized)
                         }
                     }
                 } catch let error as NSError {
@@ -63,13 +63,13 @@ extension ResetPasswordService {
                 }
               }.dispose(in: vc.bag)
             }else {
-              vc.alert("Password & Confirm password mismatch.")
+            vc.alert("Password & Confirm password mismatch.".localized)
             }
         }else {
           vc.alert("Please enter valid password with 8 characters. It should contain at least 1 Capital alphabet, number and special character.")
         }
       }else {
-        vc.alert("Please enter password & confirm your password")
+        vc.alert("Please enter password & confirm your password".localized)
       }
     }
     

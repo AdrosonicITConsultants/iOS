@@ -36,7 +36,7 @@ extension RegisterArtisanService {
                     appDelegate?.registerUser = nil
                     DispatchQueue.main.async {
                       
-                      vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
+                        vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue".localized) { (alert) in
                         do {
                           let client = try SafeClient(wrapping: CraftExchangeClient())
                           let controller = ValidateUserService(client: client).createScene()
@@ -49,12 +49,12 @@ extension RegisterArtisanService {
                     }
                   }else {
                     DispatchQueue.main.async {
-                      vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed")")
+                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed".localized)")
                     }
                   }
                 } else {
                   DispatchQueue.main.async {
-                    vc.alert("Registration Failed")
+                    vc.alert("Registration Failed".localized)
                   }
                 }
             } catch let error as NSError {
@@ -64,7 +64,7 @@ extension RegisterArtisanService {
             }
         }.dispose(in: vc.bag)
       }else {
-        vc.alert("Please accept Terms and Conditions for proceeding ahead!")
+        vc.alert("Please accept Terms and Conditions for proceeding ahead!".localized)
       }
       
     }
@@ -134,7 +134,7 @@ extension RegisterArtisanService {
                     if (jsonDict["valid"] as? Bool) == true {
                       DispatchQueue.main.async {
                         
-                        vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
+                        vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue".localized) { (alert) in
                           do {
                             let client = try SafeClient(wrapping: CraftExchangeClient())
                             let controller = ValidateUserService(client: client).createScene()
@@ -147,12 +147,12 @@ extension RegisterArtisanService {
                       }
                     }else {
                       DispatchQueue.main.async {
-                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed")")
+                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed".localized)")
                       }
                     }
                   } else {
                     DispatchQueue.main.async {
-                      vc.alert("Registration Failed")
+                        vc.alert("Registration Failed".localized)
                     }
                   }
               } catch let error as NSError {
@@ -163,10 +163,10 @@ extension RegisterArtisanService {
           }.dispose(in: vc.bag)
         }
         else {
-          vc.alert("Please enter valid links")
+            vc.alert("Please enter valid links".localized)
         }
       }else {
-        vc.alert("Please accept Terms and Conditions for proceeding ahead!")
+        vc.alert("Please accept Terms and Conditions for proceeding ahead!".localized)
       }
     }
     

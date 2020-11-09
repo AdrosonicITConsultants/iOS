@@ -52,18 +52,18 @@ extension EnquiryDetailsService {
                                             }
                                         }
                                         else {
-                                            vc.alert("Save PI failed, please try again later")
+                                            vc.alert("Save PI failed, please try again later".localized)
                                             vc.hideLoading()
                                         }
                                     }
                                 }.dispose(in: vc.bag)
                             }
                         }else {
-                            vc.alert("Please enter valid hsn")
+                            vc.alert("Please enter valid hsn".localized)
                             vc.hideLoading()
                         }
                     }else {
-                        vc.alert("Please enter valid price per unit")
+                        vc.alert("Please enter valid price per unit".localized)
                         vc.hideLoading()
                     }
                 }else {
@@ -71,7 +71,7 @@ extension EnquiryDetailsService {
                     vc.hideLoading()
                 }
             }else {
-                vc.alert("Please enter all mandatory fields")
+                vc.alert("Please enter all mandatory fields".localized)
                 vc.hideLoading()
             }
         }
@@ -113,22 +113,22 @@ extension EnquiryDetailsService {
                                                                     }
                                                                 }
                                                                 else {
-                                                                    vc.alert("Sending final invoice failed, please try again later")
+                                                                    vc.alert("Sending final invoice failed, please try again later".localized)
                                                                     vc.hideLoading()
                                                                 }
                                                             }
                                                         }.dispose(in: vc.bag)
                                                         
                                                     }else {
-                                                        vc.alert("Please enter valid delivery charges")
+                                                        vc.alert("Please enter valid delivery charges".localized)
                                                         vc.hideLoading()
                                                     }
                                                 }else {
-                                                    vc.alert("Please enter valid amount to be paid")
+                                                    vc.alert("Please enter valid amount to be paid".localized)
                                                     vc.hideLoading()
                                                 }
                                             }else {
-                                                vc.alert("Please enter valid final amount")
+                                                vc.alert("Please enter valid final amount".localized)
                                                 vc.hideLoading()
                                             }
                                         }else {
@@ -141,32 +141,32 @@ extension EnquiryDetailsService {
                                     }
                                     
                                 }else {
-                                    vc.alert("Please enter valid previous advance payment received")
+                                    vc.alert("Please enter valid previous advance payment received".localized)
                                     vc.hideLoading()
                                 }
                             }else {
-                                vc.alert("Please enter valid previous total amount")
+                                vc.alert("Please enter valid previous total amount".localized)
                                 vc.hideLoading()
                             }
                             
                             
                         }else {
-                            vc.alert("Please enter valid price per unit")
+                            vc.alert("Please enter valid price per unit".localized)
                             vc.hideLoading()
                         }
                     }else {
-                        vc.alert("Please enter valid quantity")
+                        vc.alert("Please enter valid quantity".localized)
                         vc.hideLoading()
                     }
                     
                 }else{
-                    vc.alert("Please Agree to terms& conditions")
+                    vc.alert("Please Agree to terms& conditions".localized)
                     vc.hideLoading()
                 }
                 
                 
             }else {
-                vc.alert("Please enter all mandatory fields")
+                vc.alert("Please enter all mandatory fields".localized)
                 vc.hideLoading()
             }
             
@@ -206,7 +206,7 @@ extension EnquiryDetailsService {
                         }
                     }
                     else {
-                        vc.alert("Send PI failed, please try again later")
+                        vc.alert("Send PI failed, please try again later".localized)
                         vc.hideLoading()
                     }
                 }

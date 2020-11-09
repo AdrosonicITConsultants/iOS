@@ -45,7 +45,7 @@ extension EnquiryDetailsService {
                 }.dispose(in: vc.bag)
             }
             else {
-                vc.alert("Please upload image")
+                vc.alert("Please upload image".localized)
                 vc.hideLoading()
             }
         }
@@ -67,11 +67,11 @@ extension EnquiryDetailsService {
                     vc.hideLoading()
                     vc.popBack(toControllerType: OrderDetailController.self)
                 }else {
-                    vc.alert("Please fill in dispatch order date")
+                    vc.alert("Please fill in dispatch order date".localized)
                     vc.hideLoading()
                 }
             }else {
-                vc.alert("Please upload image")
+                vc.alert("Please upload image".localized)
                 vc.hideLoading()
             }
             

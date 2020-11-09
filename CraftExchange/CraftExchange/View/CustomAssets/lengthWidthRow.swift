@@ -43,7 +43,7 @@ class lengthWidthRowView: Cell<String>, CellType {
         }else if btn.tag == 1002 || btn.tag == 2002 {
             options = option2 ?? []
         }
-      let alert = UIAlertController.init(title: "Please select", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "Please select".localized, message: "", preferredStyle: .actionSheet)
       for option in options {
         let action = UIAlertAction.init(title: option, style: .default) { (action) in
           btn.setTitle(option, for: .normal)
@@ -51,7 +51,7 @@ class lengthWidthRowView: Cell<String>, CellType {
         }
         alert.addAction(action)
       }
-      let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
       }
       alert.addAction(action)
       (lengthWidthDelegate as? UIViewController)?.present(alert, animated: true, completion: nil)

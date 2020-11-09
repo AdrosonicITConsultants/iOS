@@ -129,7 +129,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             })
             
             <<< LabelRow(){
-                $0.title = "Enquiry Details"
+                $0.title = "Enquiry Details".localized
             }
             
             <<< StatusRow() {
@@ -645,7 +645,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     }
     
     @objc func showOptions(_ sender: UIButton) {
-        let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "", message: "Choose".localized, preferredStyle: .actionSheet)
         
         let chat = UIAlertAction.init(title: "Chat", style: .default) { (action) in
             self.goToChat()
