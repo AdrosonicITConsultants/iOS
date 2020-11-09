@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Admin Tabbar Controller-->
+        <scene sceneID="edR-jj-dQL">
+            <objects>
+                <viewController storyboardIdentifier="AdminTabbarController" id="aGU-BY-Bhm" customClass="AdminTabbarController" customModule="Craft_Xchange_Admin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BJy-kK-2uC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enquiries, Order &amp; Escalations" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qv-87-pXv">
+                                <rect key="frame" x="10" y="86" width="394" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-7h-9ti">
+                                <rect key="frame" x="20" y="179" width="374" height="55"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8,345,666" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Tw-Hy-B9e">
+                                        <rect key="frame" x="263" y="11" width="96" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ArtisanSelfDesigniconiOS" translatesAutoresizingMaskIntoConstraints="NO" id="8je-ke-1lY">
+                                        <rect key="frame" x="8" y="2" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Redirect Enquiries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9UY-8Z-nnY">
+                                        <rect key="frame" x="77" y="11" width="161" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.30277162598201213" green="0.22801664871494276" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zz3-xg-TeF">
+                                <rect key="frame" x="20" y="255" width="367" height="55"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="6000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyf-y8-CdH">
+                                        <rect key="frame" x="263" y="11" width="96" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ArtisanSelfDesigniconiOS" translatesAutoresizingMaskIntoConstraints="NO" id="DFr-Um-haE">
+                                        <rect key="frame" x="8" y="2" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Escalations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5FH-8Z-EeF">
+                                        <rect key="frame" x="77" y="11" width="161" height="33"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.026023234584541033" blue="0.24181861793167392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iZP-PX-wxc">
+                                <rect key="frame" x="20" y="340" width="289" height="32"/>
+                                <segments>
+                                    <segment title="Enquiries"/>
+                                    <segment title="Orders"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="aGU-BY-Bhm" eventType="valueChanged" id="JlK-6a-6y0"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AYg-kH-WdS">
+                                <rect key="frame" x="20" y="384" width="384" height="489"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="rgh-7h-9ti" firstAttribute="leading" secondItem="iZP-PX-wxc" secondAttribute="leading" id="5hD-4x-QOh"/>
+                            <constraint firstItem="CKg-fu-gum" firstAttribute="trailing" secondItem="AYg-kH-WdS" secondAttribute="trailing" constant="10" id="6RZ-cE-KVb"/>
+                            <constraint firstItem="rgh-7h-9ti" firstAttribute="top" secondItem="BJy-kK-2uC" secondAttribute="top" constant="179" id="Cp6-Ct-gOQ"/>
+                            <constraint firstItem="AYg-kH-WdS" firstAttribute="top" secondItem="iZP-PX-wxc" secondAttribute="bottom" constant="13" id="JBx-tj-EAf"/>
+                            <constraint firstItem="rgh-7h-9ti" firstAttribute="leading" secondItem="Zz3-xg-TeF" secondAttribute="leading" id="R1w-E5-srU"/>
+                            <constraint firstItem="rgh-7h-9ti" firstAttribute="leading" secondItem="AYg-kH-WdS" secondAttribute="leading" id="bBR-RP-a4a"/>
+                            <constraint firstItem="CKg-fu-gum" firstAttribute="trailing" secondItem="iZP-PX-wxc" secondAttribute="trailing" constant="105" id="d5u-WN-oRz"/>
+                            <constraint firstAttribute="bottom" secondItem="rgh-7h-9ti" secondAttribute="bottom" constant="662" id="e3s-3X-TWU"/>
+                            <constraint firstItem="rgh-7h-9ti" firstAttribute="centerX" secondItem="BJy-kK-2uC" secondAttribute="centerX" id="fxK-bj-Hs8"/>
+                            <constraint firstItem="Zz3-xg-TeF" firstAttribute="top" secondItem="rgh-7h-9ti" secondAttribute="bottom" constant="21" id="jVX-iE-LAG"/>
+                            <constraint firstItem="rgh-7h-9ti" firstAttribute="trailing" secondItem="Zz3-xg-TeF" secondAttribute="trailing" id="nM7-CJ-GZ7"/>
+                            <constraint firstItem="iZP-PX-wxc" firstAttribute="top" secondItem="BJy-kK-2uC" secondAttribute="top" constant="340" id="sHq-03-NTP"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="AYg-kH-WdS" secondAttribute="bottom" constant="-11" id="t31-9l-8vJ"/>
+                            <constraint firstItem="rgh-7h-9ti" firstAttribute="leading" secondItem="BJy-kK-2uC" secondAttribute="leadingMargin" id="wBf-MR-BYm"/>
+                            <constraint firstItem="iZP-PX-wxc" firstAttribute="top" secondItem="Zz3-xg-TeF" secondAttribute="bottom" constant="30" id="yu9-we-8p1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CKg-fu-gum"/>
+                    </view>
+                    <connections>
+                        <outlet property="Imgvalue1" destination="8je-ke-1lY" id="KSs-PN-Bgc"/>
+                        <outlet property="Imgvalue2" destination="DFr-Um-haE" id="kR1-EW-PV3"/>
+                        <outlet property="Label1" destination="8qv-87-pXv" id="EGY-EO-n8J"/>
+                        <outlet property="childContentView" destination="AYg-kH-WdS" id="o3V-Kc-3u6"/>
+                        <outlet property="escalationsLabel" destination="5FH-8Z-EeF" id="dYX-bx-T4q"/>
+                        <outlet property="redirectEnquiriesLabel" destination="9UY-8Z-nnY" id="EBG-hR-1Ik"/>
+                        <outlet property="segment" destination="iZP-PX-wxc" id="e0Z-em-UGY"/>
+                        <outlet property="valueLabel1" destination="7Tw-Hy-B9e" id="brZ-7F-k8B"/>
+                        <outlet property="valueLabel2" destination="cyf-y8-CdH" id="AsV-a7-uZF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j8p-1Q-ifS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1366.6666666666667" y="-110.49107142857143"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ArtisanSelfDesigniconiOS" width="27" height="21"/>
+    </resources>
+</document>

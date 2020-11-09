@@ -19,6 +19,7 @@ class MarketActions:Cell<String>, CellType {
     @IBOutlet weak var ArrowBtn: UIButton!
     @IBOutlet weak var ActionImg: UIImageView!
     @IBOutlet weak var ActionLabel: UILabel!
+    @IBOutlet weak var ColorLine: UIView!
     @IBOutlet weak var LowerActionLabel: UILabel!
      var delegate: MarketActionsProtocol!
     public override func setup() {

@@ -15,6 +15,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lWq-dL-L8S">
+                        <rect key="frame" x="10" y="5" width="384" height="5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="384" id="w8U-rO-trV"/>
+                        </constraints>
+                    </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="m4U-zN-1AG" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="384" height="76"/>
                         <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -60,13 +67,17 @@
                     <constraint firstAttribute="bottom" secondItem="NRe-45-9Z3" secondAttribute="bottom" constant="12" id="1Mk-EM-OR3"/>
                     <constraint firstItem="NRe-45-9Z3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="1XY-Bq-Qbq"/>
                     <constraint firstAttribute="trailing" secondItem="qva-lL-1VB" secondAttribute="trailing" constant="40" id="4tJ-hB-3YX"/>
+                    <constraint firstAttribute="trailing" secondItem="lWq-dL-L8S" secondAttribute="trailing" constant="20" id="5V4-7r-rNw"/>
+                    <constraint firstItem="lWq-dL-L8S" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="5Z0-Jl-phS"/>
                     <constraint firstItem="NRe-45-9Z3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="DXo-MX-hH4"/>
                     <constraint firstItem="2Ec-Md-dBX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="RNS-gY-4xg"/>
                     <constraint firstItem="Wzs-B4-oYA" firstAttribute="leading" secondItem="NRe-45-9Z3" secondAttribute="trailing" constant="10" id="UHU-ex-GTx"/>
                     <constraint firstItem="m4U-zN-1AG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="XIN-3Y-Dok"/>
                     <constraint firstItem="m4U-zN-1AG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Z6w-5I-JgS"/>
+                    <constraint firstItem="m4U-zN-1AG" firstAttribute="top" secondItem="lWq-dL-L8S" secondAttribute="bottom" id="bSF-OW-0AA"/>
                     <constraint firstItem="Wzs-B4-oYA" firstAttribute="top" secondItem="2Ec-Md-dBX" secondAttribute="bottom" constant="4" id="n3q-Xb-wHc"/>
                     <constraint firstItem="qva-lL-1VB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="nfu-ev-yal"/>
+                    <constraint firstItem="lWq-dL-L8S" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pbm-HI-6Yn"/>
                     <constraint firstAttribute="bottom" secondItem="qva-lL-1VB" secondAttribute="bottom" constant="20" id="qXr-XP-52I"/>
                     <constraint firstItem="2Ec-Md-dBX" firstAttribute="leading" secondItem="NRe-45-9Z3" secondAttribute="trailing" constant="10" id="r6q-Rg-5GE"/>
                     <constraint firstAttribute="bottom" secondItem="m4U-zN-1AG" secondAttribute="bottom" constant="10" id="zUA-aM-Vu1"/>
@@ -78,6 +89,7 @@
                 <outlet property="ActionImg" destination="NRe-45-9Z3" id="E2P-VK-1mi"/>
                 <outlet property="ActionLabel" destination="2Ec-Md-dBX" id="Y4G-Qz-crf"/>
                 <outlet property="ArrowBtn" destination="qva-lL-1VB" id="tII-Mh-HlT"/>
+                <outlet property="ColorLine" destination="lWq-dL-L8S" id="Jb8-28-e0R"/>
                 <outlet property="LowerActionLabel" destination="Wzs-B4-oYA" id="mFQ-8c-lAB"/>
             </connections>
             <point key="canvasLocation" x="50.724637681159422" y="16.741071428571427"/>

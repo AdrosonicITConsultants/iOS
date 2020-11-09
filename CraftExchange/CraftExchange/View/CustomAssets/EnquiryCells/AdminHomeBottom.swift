@@ -15,6 +15,10 @@ class AdminHomeBottom: Cell<String>, CellType {
     
     @IBOutlet weak var OngoingBtn: RoundedButton!
     
+    @IBOutlet weak var topLabel2: UILabel!
+    @IBOutlet weak var BottomLabel2: UILabel!
+    @IBOutlet weak var topLabel1: UILabel!
+    @IBOutlet weak var BottomLabel1: UILabel!
     @IBOutlet weak var ClosedBtn: RoundedButton!
     
     @IBOutlet weak var Logout: UIButton!

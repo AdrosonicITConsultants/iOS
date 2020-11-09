@@ -35,6 +35,10 @@
 		118F70412552C3AD0075F998 /* AdminNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118F703F2552C3AD0075F998 /* AdminNotificationView.xib */; };
 		118F70432552EE4F0075F998 /* AdminNotification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118F70422552EE4E0075F998 /* AdminNotification.storyboard */; };
 		118F70452552EF050075F998 /* AdminNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118F70442552EF050075F998 /* AdminNotificationController.swift */; };
+		118F704C255546A60075F998 /* AdminTabbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118F704B255546A40075F998 /* AdminTabbar.storyboard */; };
+		118F704E255547BC0075F998 /* AdminTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118F704D255547BC0075F998 /* AdminTabbarController.swift */; };
+		118F7054255557C60075F998 /* AdminEnquiryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118F7053255557C50075F998 /* AdminEnquiryList.swift */; };
+		118F70562555582A0075F998 /* AdminOrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118F70552555582A0075F998 /* AdminOrderList.swift */; };
 		11C849B325304C3C00729355 /* LoginMarketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C849B225304C3C00729355 /* LoginMarketController.swift */; };
 		11C849B5253054B200729355 /* MarketHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C849B4253054B200729355 /* MarketHomeController.swift */; };
 		11ECC7F22534BDBA00F8621C /* AdminHomeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ECC7F02534BDBA00F8621C /* AdminHomeHeader.swift */; };
@@ -404,6 +408,10 @@
 		118F703F2552C3AD0075F998 /* AdminNotificationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminNotificationView.xib; sourceTree = "<group>"; };
 		118F70422552EE4E0075F998 /* AdminNotification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdminNotification.storyboard; sourceTree = "<group>"; };
 		118F70442552EF050075F998 /* AdminNotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNotificationController.swift; sourceTree = "<group>"; };
+		118F704B255546A40075F998 /* AdminTabbar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdminTabbar.storyboard; sourceTree = "<group>"; };
+		118F704D255547BC0075F998 /* AdminTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminTabbarController.swift; sourceTree = "<group>"; };
+		118F7053255557C50075F998 /* AdminEnquiryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryList.swift; sourceTree = "<group>"; };
+		118F70552555582A0075F998 /* AdminOrderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminOrderList.swift; sourceTree = "<group>"; };
 		11C849B225304C3C00729355 /* LoginMarketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMarketController.swift; sourceTree = "<group>"; };
 		11C849B4253054B200729355 /* MarketHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHomeController.swift; sourceTree = "<group>"; };
 		11ECC7F02534BDBA00F8621C /* AdminHomeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHomeHeader.swift; sourceTree = "<group>"; };
@@ -1114,6 +1122,7 @@
 				11173F5825417CA00027B9C3 /* AdminUserDatabase.storyboard */,
 				115338AB2546E8DC00BF4204 /* AdminProductCatalogue.storyboard */,
 				118F70422552EE4E0075F998 /* AdminNotification.storyboard */,
+				118F704B255546A40075F998 /* AdminTabbar.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1396,6 +1405,7 @@
 				C0925799249F7235006C4C05 /* BuyerTabbarController.swift */,
 				C0A8EEA024C0EF680074C620 /* ArtisanTabbarController.swift */,
 				C0A8EE9C24C095D20074C620 /* ArtisanHomeController.swift */,
+				118F704D255547BC0075F998 /* AdminTabbarController.swift */,
 			);
 			path = BuyerHome;
 			sourceTree = "<group>";
@@ -1563,6 +1573,8 @@
 				1148DB992541D5D20052B8D6 /* AdminBrandDetails.swift */,
 				1148DB9B2541D5E20052B8D6 /* AdminBankDetails.swift */,
 				115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */,
+				118F7053255557C50075F998 /* AdminEnquiryList.swift */,
+				118F70552555582A0075F998 /* AdminOrderList.swift */,
 			);
 			path = ProfileController;
 			sourceTree = "<group>";
@@ -1806,6 +1818,7 @@
 				C06AA3A025054FB200EF4B10 /* MOQSectionTitle.xib in Resources */,
 				C0AE9CF524ECE48D0037ECB3 /* ProdDetailRelatedRow.xib in Resources */,
 				3097877D252461BC00F9B608 /* Invoice.storyboard in Resources */,
+				118F704C255546A60075F998 /* AdminTabbar.storyboard in Resources */,
 				115338A22542BB8300BF4204 /* BrandDetailView.xib in Resources */,
 				C09EE6FC252C2AE60030A5C1 /* TransactionDetailRow.xib in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
@@ -2010,6 +2023,7 @@
 				C071E238247ED41A0085805B /* User.swift in Sources */,
 				C0A3F41B24B7A8090071F7F8 /* BuyerCompanyProfileInfo.swift in Sources */,
 				C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */,
+				118F704E255547BC0075F998 /* AdminTabbarController.swift in Sources */,
 				C05836BB24C887AC0027FF44 /* ProductImage.swift in Sources */,
 				C071E258247EE9940085805B /* APIClient.swift in Sources */,
 				C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */,
@@ -2139,6 +2153,7 @@
 				C09F97DC25021BD80076F917 /* BuyerEnquiryCell.swift in Sources */,
 				C0E6D04624EC0984008CFB1F /* ProdDetailDescriptionRow.swift in Sources */,
 				C04F72DE24C6276B00E8122E /* ArtisanProdCatalogueController.swift in Sources */,
+				118F7054255557C60075F998 /* AdminEnquiryList.swift in Sources */,
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,
 				C0F4723324C9901900DB8F38 /* DesignCollectionController.swift in Sources */,
 				1148DB9A2541D5D20052B8D6 /* AdminBrandDetails.swift in Sources */,
@@ -2158,6 +2173,7 @@
 				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,
 				C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */,
 				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,
+				118F70562555582A0075F998 /* AdminOrderList.swift in Sources */,
 				C09C970924B919FC00FD97E9 /* ArtisanBankDetails.swift in Sources */,
 				C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */,
 				C0A0D76324BD7B360089CC47 /* PaymentAccDetails+Transaction.swift in Sources */,

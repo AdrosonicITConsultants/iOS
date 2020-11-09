@@ -16,14 +16,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="7we-dr-JAg" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
-                        <rect key="frame" x="20" y="20" width="182" height="102"/>
+                        <rect key="frame" x="20" y="20" width="182" height="98"/>
                         <color key="backgroundColor" red="0.58816927137801245" green="0.57560032549939677" blue="0.96297985406091369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="98" id="9g4-uf-rtM"/>
+                        </constraints>
                         <state key="normal">
-                            <string key="title">  Ongoing
-  Enquiries
-
-
-  120020</string>
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <userDefinedRuntimeAttributes>
@@ -33,14 +31,12 @@
                         </userDefinedRuntimeAttributes>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="hJn-RF-o2I" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
-                        <rect key="frame" x="212" y="20" width="182" height="102"/>
+                        <rect key="frame" x="212" y="20" width="182" height="98"/>
                         <color key="backgroundColor" red="0.42100994556893701" green="0.96297985406091369" blue="0.40930315168118325" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="98" id="eQU-7Z-DKL"/>
+                        </constraints>
                         <state key="normal">
-                            <string key="title">  Closed 
-  Enquiries
-
-
-  20010</string>
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <userDefinedRuntimeAttributes>
@@ -49,6 +45,34 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ongoing Enquiries" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8X-s1-CjV">
+                        <rect key="frame" x="30" y="26" width="152" height="29"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20010" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJO-kG-0fp">
+                        <rect key="frame" x="232" y="87" width="143" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" Closed Enquiries" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ZI-kB-CGB">
+                        <rect key="frame" x="225" y="30" width="133" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="120020" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4aZ-sk-0Wo">
+                        <rect key="frame" x="30" y="87" width="152" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -61,8 +85,12 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="BottomLabel1" destination="4aZ-sk-0Wo" id="RYB-z8-onQ"/>
+                <outlet property="BottomLabel2" destination="uJO-kG-0fp" id="X2M-Nu-Pp6"/>
                 <outlet property="ClosedBtn" destination="hJn-RF-o2I" id="9YM-Zu-pBe"/>
                 <outlet property="OngoingBtn" destination="7we-dr-JAg" id="SHC-lh-1pc"/>
+                <outlet property="topLabel1" destination="F8X-s1-CjV" id="D5X-aG-KN1"/>
+                <outlet property="topLabel2" destination="8ZI-kB-CGB" id="S3c-7l-icf"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="86.383928571428569"/>
         </tableViewCell>

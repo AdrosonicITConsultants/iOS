@@ -64,6 +64,7 @@ class MarketHomeController: FormViewController {
                 $0.cell.tag = 109
                 $0.cell.ActionLabel.text = "Fault and Escalations"
                 $0.cell.LowerActionLabel.text = "3454"
+                $0.cell.ColorLine.isHidden = true
                 $0.cell.ActionImg.image = UIImage(named: "Icon ionic-ios-alert (1)")
                 $0.cell.height = { 80.0 }
             }
@@ -72,8 +73,8 @@ class MarketHomeController: FormViewController {
                 $0.cell.backgroundColor = UIColor.black
                 $0.cell.ActionBtn.backgroundColor = UIColor.systemYellow
                 $0.cell.ActionLabel.text = "Add a Product"
+                $0.cell.ColorLine.isHidden = true
                 $0.cell.LowerActionLabel.text = " to Antaran Co Design"
-
                 $0.cell.ActionImg.image = UIImage(named: "Groupicon")
                 $0.cell.height = { 80.0 }
             }
@@ -82,6 +83,7 @@ class MarketHomeController: FormViewController {
                 $0.cell.backgroundColor = UIColor.black
                 $0.cell.ActionBtn.backgroundColor = UIColor.gray
                 $0.cell.ActionLabel.text = "Redirect Custom enquiries"
+                $0.cell.ColorLine.isHidden = true
                 $0.cell.LowerActionLabel.text = "awaiting MOQs"
                 $0.cell.ActionImg.image = UIImage(named: "Icon awesome-route")
                 $0.cell.height = { 80.0 }
@@ -120,8 +122,8 @@ extension MarketHomeController: MarketActionsProtocol, NotifyButtonProtocol{
     func NotifyBtnSelected(tag: Int){
         switch tag{
             case 110:
-                let storyboard = UIStoryboard(name: "AdminNotification", bundle: nil)
-                let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminNotificationController") as! AdminNotificationController
+                let storyboard = UIStoryboard(name: "AdminTabbar", bundle: nil)
+                let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminTabbarController") as! AdminTabbarController
                 vc1.modalPresentationStyle = .fullScreen
                 self.present(vc1, animated: true, completion: nil)
                 
