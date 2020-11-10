@@ -187,7 +187,7 @@
 "Are you sure you want to Disable the change request for this Order?" = "क्या आप वाकई इस आदेश के परिवर्तन अनुरोध को अक्षम करना चाहते हैं?";
 "Your Wish list" = "आपकी इच्छा सूची";
 "Custom products" = "कस्टम उत्पाद";
-"Error" = "भूChooseल";
+"Error" = "भूल";
 "Please enter all required data" = "कृपया सभी आवश्यक डेटा दर्ज करें";
 "Login Failed. Please validate your password." = "लॉगिन विफल। कृपया अपना पासवर्ड मान्य करें।" ;
 "View Old PI" = "पुराने पी.आई. देखें।";
@@ -235,7 +235,7 @@
 "Your comments..." = "आपकी टिप्पणी...";
 "Select" = "चयन";
 "All" = "समस्त";
-"Filter" = "फ़िल्टर";
+" Filter" = " फ़िल्टर";
 "Close Enquiry" = "पूछताछ बंद करें";
 "Are you sure you want to close this enquiry?" = "क्या आप वाकई इस पूछताछ को बंद करना चाहते हैं?";
 "Delete All" = "सभी हटाएं";
