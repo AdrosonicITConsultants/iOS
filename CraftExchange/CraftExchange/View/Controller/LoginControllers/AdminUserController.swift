@@ -13,6 +13,7 @@ import RealmSwift
 import Realm
 import Bond
 import Reachability
+import SpreadsheetView
 
 class AdminUserViewModel {
     var viewWillAppear: (() -> ())?
@@ -20,8 +21,9 @@ class AdminUserViewModel {
 }
 
 class AdminUserController: UIViewController {
-    
-    let reuseIdentifier = "BuyerProductCell"
+    @IBOutlet weak var spreadsheetView: SpreadsheetView!
+    var header = [String]()
+    var data = [[String]]()
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
     var allProducts: [Product]?
@@ -29,7 +31,6 @@ class AdminUserController: UIViewController {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var FilterLabel: UILabel!
-    @IBOutlet weak var Trial: UITableView!
     @IBOutlet weak var CountLabel: UILabel!
     @IBOutlet weak var ArrangeBtn: UIButton!
     @IBOutlet weak var Img: UIImageView!
@@ -38,12 +39,33 @@ class AdminUserController: UIViewController {
     lazy var viewModel = AdminUserViewModel()
     @IBOutlet weak var AdminUserLabel: UILabel!
     
+    enum Sorting {
+        case ascending
+        case descending
+
+        var symbol: String {
+            switch self {
+            case .ascending:
+                return "\u{25B2}"
+            case .descending:
+                return "\u{25BC}"
+            }
+        }
+    }
+    var sortedColumn = (column: 0, sorting: Sorting.ascending)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
         let titleTextAttributes2 = [NSAttributedString.Key.foregroundColor: UIColor.black]
         segmentedControl.setTitleTextAttributes(titleTextAttributes2, for: .selected)
+        header = ["brandname", "artisan id", "name", "email", "cluster", "rating date"]
+        spreadsheetView.dataSource = self
+        spreadsheetView.delegate = self
+
+        spreadsheetView.register(HeaderCell.self, forCellWithReuseIdentifier: String(describing: HeaderCell.self))
+        spreadsheetView.register(TextCell.self, forCellWithReuseIdentifier: String(describing: TextCell.self))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +78,7 @@ class AdminUserController: UIViewController {
     }
     
     func endRefresh() {
-        self.Trial.reloadData()
+        
     }
     
     @IBAction func ApplyBtnPressed(_ sender: Any) {
@@ -67,27 +89,69 @@ class AdminUserController: UIViewController {
     }
 }
 
-extension AdminUserController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+extension AdminUserController: SpreadsheetViewDataSource, SpreadsheetViewDelegate {
+    // MARK: DataSource
+    func numberOfColumns(in spreadsheetView: SpreadsheetView) -> Int {
+        return header.count
+    }
+
+    func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
+        return 1 + 30//data.count
+    }
+
+    func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
+        return 120
+    }
+
+    func spreadsheetView(_ spreadsheetView: SpreadsheetView, heightForRow row: Int) -> CGFloat {
+        if case 0 = row {
+            return 50
+        } else {
+            return 30
+        }
+    }
+
+    func frozenRows(in spreadsheetView: SpreadsheetView) -> Int {
+        return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        let product = allProducts?[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! BuyerProductCell
-        return cell
+    func frozenColumns(in spreadsheetView: SpreadsheetView) -> Int {
+        return 1
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("*** object ***")
-        do {
+
+    func spreadsheetView(_ spreadsheetView: SpreadsheetView, cellForItemAt indexPath: IndexPath) -> Cell? {
+        if case 0 = indexPath.row {
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: HeaderCell.self), for: indexPath) as! HeaderCell
+            cell.label.text = header[indexPath.column]
+
+            if case indexPath.column = sortedColumn.column {
+                cell.sortArrow.text = sortedColumn.sorting.symbol
+            } else {
+                cell.sortArrow.text = ""
+            }
+            cell.setNeedsLayout()
             
-        }catch {
-            print(error.localizedDescription)
+            return cell
+        } else {
+            let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: TextCell.self), for: indexPath) as! TextCell
+            cell.label.text = "text \(indexPath.row - 1)\(indexPath.column)"//data[indexPath.row - 1][indexPath.column]
+            return cell
+        }
+    }
+
+    /// Delegate
+    func spreadsheetView(_ spreadsheetView: SpreadsheetView, didSelectItemAt indexPath: IndexPath) {
+        if case 0 = indexPath.row {
+            if sortedColumn.column == indexPath.column {
+                sortedColumn.sorting = sortedColumn.sorting == .ascending ? .descending : .ascending
+            } else {
+                sortedColumn = (indexPath.column, .ascending)
+            }
+            data.sort {
+                let ascending = $0[sortedColumn.column] < $1[sortedColumn.column]
+                return sortedColumn.sorting == .ascending ? ascending : !ascending
+            }
+            spreadsheetView.reloadData()
         }
     }
 }

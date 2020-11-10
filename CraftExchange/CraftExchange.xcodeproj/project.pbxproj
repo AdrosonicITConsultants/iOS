@@ -362,6 +362,7 @@
 		C0D218B124FEC67A0071896E /* EnquiryGeneratedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */; };
 		C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6CF6224F518AE00287D7A /* LabelCell.xib */; };
 		C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6CF6624F51D8200287D7A /* LabelCell.swift */; };
+		C0D8D95B255AA65A0082AC4F /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8D95A255AA65A0082AC4F /* Cells.swift */; };
 		C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03A24EBD7D0008CFB1F /* ProductDetailInfoRow.xib */; };
 		C0E6D03D24EBDFD9008CFB1F /* ProdDetailYarnRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03C24EBDFD9008CFB1F /* ProdDetailYarnRow.xib */; };
 		C0E6D03F24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E6D03E24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib */; };
@@ -737,6 +738,7 @@
 		C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryGeneratedView.swift; sourceTree = "<group>"; };
 		C0D6CF6224F518AE00287D7A /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		C0D6CF6624F51D8200287D7A /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		C0D8D95A255AA65A0082AC4F /* Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
 		C0E6D03A24EBD7D0008CFB1F /* ProductDetailInfoRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailInfoRow.xib; sourceTree = "<group>"; };
 		C0E6D03C24EBDFD9008CFB1F /* ProdDetailYarnRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdDetailYarnRow.xib; sourceTree = "<group>"; };
 		C0E6D03E24EBE2AD008CFB1F /* ProdDetailYarnValueRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdDetailYarnValueRow.xib; sourceTree = "<group>"; };
@@ -1352,6 +1354,7 @@
 		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
 			isa = PBXGroup;
 			children = (
+				C0D8D959255AA63E0082AC4F /* UserDB */,
 				C02131C62559C86200269991 /* MarketingHomeRows */,
 				115338B22547FB3B00BF4204 /* AdminProductCatalogueCells */,
 				1153389E2542BB4600BF4204 /* AdminDetailCells */,
@@ -1649,6 +1652,14 @@
 				307B397C252C24DD000028AC /* AdvancePaymentScene.swift */,
 			);
 			path = EnquiryScenes;
+			sourceTree = "<group>";
+		};
+		C0D8D959255AA63E0082AC4F /* UserDB */ = {
+			isa = PBXGroup;
+			children = (
+				C0D8D95A255AA65A0082AC4F /* Cells.swift */,
+			);
+			path = UserDB;
 			sourceTree = "<group>";
 		};
 		C0E6D03924EBD799008CFB1F /* Product Detail Cells */ = {
@@ -2041,6 +2052,7 @@
 				C0930D3D2506223200DC9274 /* BuyerEnquirySectionView.swift in Sources */,
 				115338AF2546EEAE00BF4204 /* ProductCatalogueController.swift in Sources */,
 				C09B3F1324BA615900FBC115 /* Disk+[UIImage].swift in Sources */,
+				C0D8D95B255AA65A0082AC4F /* Cells.swift in Sources */,
 				C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */,
 				C0A0D76624BE442F0089CC47 /* OfflineProfileActionsRequest.swift in Sources */,
 				3005D1E12521966200BF22C0 /* MOQAcceptView.swift in Sources */,
