@@ -359,9 +359,9 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.tag = "createMOQ1"
                 $0.hidden = true
                 if self.enquiryObject?.productType == "Custom Product" {
-                    $0.title = "Fill in MOQ to bid for this enquiry"
+                    $0.title = "Fill in MOQ to bid for this enquiry".localized
                 }else{
-                    $0.title = "MOQ Details"
+                    $0.title = "MOQ Details".localized
                 }
                 $0.cell.isUserInteractionEnabled = false
             }
@@ -369,7 +369,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 80.0 }
                 $0.tag = "createMOQ2"
                 $0.hidden = true
-                $0.cell.titleLabel.text = "Minimum Quantity"
+                $0.cell.titleLabel.text = "Minimum Quantity".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -395,7 +395,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 80.0 }
                 $0.tag = "createMOQ3"
                 $0.hidden = true
-                $0.cell.titleLabel.text = "Price per unit"
+                $0.cell.titleLabel.text = "Price per unit".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -420,7 +420,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< RoundedActionSheetRow() {
                 $0.tag = "createMOQ4"
-                $0.cell.titleLabel.text = "Estimated Days"
+                $0.cell.titleLabel.text = "Estimated Days".localized
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.options = allDeliveryTimes?.compactMap { $0.deliveryDesc }
@@ -455,7 +455,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 80.0 }
                 $0.tag = "createMOQ5"
                 $0.hidden = true
-                $0.cell.titleLabel.text = "Additional note"
+                $0.cell.titleLabel.text = "Additional note".localized
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -480,7 +480,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.tag = "createMOQ6"
                 $0.cell.singleButton.backgroundColor = UIColor().CEGreen()
                 $0.cell.singleButton.setTitleColor(.white, for: .normal)
-                $0.cell.singleButton.setTitle("Send MOQ", for: .normal)
+                $0.cell.singleButton.setTitle("Send MOQ".localized , for: .normal)
                 $0.cell.height = { 50.0 }
                 $0.cell.delegate = self as SingleButtonActionProtocol
                 $0.cell.tag = 101
@@ -647,7 +647,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     @objc func showOptions(_ sender: UIButton) {
         let alert = UIAlertController.init(title: "", message: "Choose".localized, preferredStyle: .actionSheet)
         
-        let chat = UIAlertAction.init(title: "Chat", style: .default) { (action) in
+        let chat = UIAlertAction.init(title: "Chat".localized, style: .default) { (action) in
             self.goToChat()
         }
         alert.addAction(chat)

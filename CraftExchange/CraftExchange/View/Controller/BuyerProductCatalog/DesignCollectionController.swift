@@ -128,7 +128,7 @@ class DesignCollectionController: UIViewController {
             }
             alert.addAction(action)
         })
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)

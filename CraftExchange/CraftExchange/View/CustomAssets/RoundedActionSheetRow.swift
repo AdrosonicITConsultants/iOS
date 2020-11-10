@@ -30,7 +30,7 @@ class RoundedActionSheetView: Cell<String>, CellType {
   
   @IBAction func actionButtonSelected(_ sender: Any) {
 
-    let alert = UIAlertController.init(title: "\(titleLabel.text ?? "")", message: "Please select:", preferredStyle: .actionSheet)
+    let alert = UIAlertController.init(title: "\(titleLabel.text ?? "")", message: "Please select:".localized, preferredStyle: .actionSheet)
     for option in options ?? [] {
       let action = UIAlertAction.init(title: option, style: .default) { (action) in
         self.actionButton.setTitle(option, for: .normal)
@@ -41,7 +41,7 @@ class RoundedActionSheetView: Cell<String>, CellType {
       }
       alert.addAction(action)
     }
-    let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+    let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
     }
     alert.addAction(action)
     delegate?.present(alert, animated: true, completion: nil)

@@ -500,7 +500,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Create Final Invoice"
                 $0.cell.tag = 100
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice"
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice".localized
                 $0.cell.createSendInvoiceBtn.setTitle("Create & Send Final Invoice".localized, for: .normal)
                 if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
                     $0.hidden = false
@@ -568,8 +568,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Upload final payment receipt"
                 $0.cell.tag = 102
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload final payment receipt"
-                $0.cell.createSendInvoiceBtn.setTitle("Upload final payment receipt", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload final payment receipt".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Upload final payment receipt".localized, for: .normal)
                 if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
                     $0.hidden = false
                 }
@@ -593,8 +593,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Approve final payment receipt"
                 $0.cell.tag = 103
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Approve final payment"
-                $0.cell.createSendInvoiceBtn.setTitle("Approve final payment", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Approve final payment".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Approve final payment".localized, for: .normal)
                 if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.isBlue ?? false{
                     // orderObject?.isBlue
                     $0.hidden = false
@@ -618,8 +618,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Order Dispacthed"
                 $0.cell.tag = 104
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Mark Order as Dispatched"
-                $0.cell.createSendInvoiceBtn.setTitle("Mark Order as Dispatched", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Mark Order as Dispatched".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Mark Order as Dispatched".localized, for: .normal)
                 $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
                 $0.hidden = true
                 if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
@@ -642,8 +642,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Mark order dispatched after recreation"
                 $0.cell.tag = 108
-                $0.cell.nextStepsLabel.text = "Next Steps ----------------------------->   Mark order dispatched after recreation"
-                $0.cell.createSendInvoiceBtn.setTitle("Mark order dispatched after recreation", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Steps ----------------------------->   Mark order dispatched after recreation".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Mark order dispatched after recreation".localized, for: .normal)
                 $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 $0.cell.createSendInvoiceBtn.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
                 $0.cell.createSendInvoiceBtn.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -829,7 +829,7 @@ class OrderDetailController: FormViewController {
                     if self.orderObject!.enquiryStageId >= 8 {
                         print("show tax invoice")
                     }else{
-                        self.alert("Tax Invoice not yet created")
+                        self.alert("Tax Invoice not yet created".localized)
                     }
                 }
                 
@@ -904,7 +904,7 @@ class OrderDetailController: FormViewController {
         }
         
         if orderObject?.isReprocess == 1 && User.loggedIn()?.refRoleId == "1"  {
-            let row = form.rowBy(tag: "Mark order dispatched after recreation")
+            let row = form.rowBy(tag: "Mark order dispatched after recreation".localized)
             row?.hidden = false
             row?.evaluateHidden()
              self.form.allSections.first?.reload(with: .none)

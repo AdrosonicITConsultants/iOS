@@ -137,17 +137,17 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         }
         alert.addAction(docs)
         
-        let image = UIAlertAction.init(title: "Image", style: .default) { (action) in
+        let image = UIAlertAction.init(title: "Image".localized, style: .default) { (action) in
             self.ImagePickerAlert()
         }
         alert.addAction(image)
         
-        let audio = UIAlertAction.init(title: "Audio", style: .default) { (action) in
+        let audio = UIAlertAction.init(title: "Audio".localized, style: .default) { (action) in
             self.AudioPickerAlert()
         }
         alert.addAction(audio)
         
-        let video = UIAlertAction.init(title: "Video", style: .default) { (action) in
+        let video = UIAlertAction.init(title: "Video".localized, style: .default) { (action) in
             self.videoPickerAlert()
         }
         alert.addAction(video)
@@ -160,13 +160,13 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     }
     
     func sendInputActionsheet(mediaName: String?){
-        let alert = UIAlertController.init(title: "Are you sure", message: "you want to send " + mediaName! + "?", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "Are you sure".localized, message: "you want to send ".localized + mediaName! + "?", preferredStyle: .actionSheet)
         
-        let save = UIAlertAction.init(title: "Send", style: .default) { (action) in
+        let save = UIAlertAction.init(title: "Send".localized, style: .default) { (action) in
             self.sendMedia?()
         }
         alert.addAction(save)
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
             self.messagesCollectionView.scrollToBottom(animated: true)
         }
         alert.addAction(cancel)
@@ -203,7 +203,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             self.present(imagePicker, animated: true, completion: nil)
         }
         alert.addAction(action2)
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -243,7 +243,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             self.present(imagePicker, animated: true, completion: nil)
         }
         alert.addAction(action2)
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)

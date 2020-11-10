@@ -59,13 +59,13 @@ class REGNewUserPasswordController: UIViewController {
             }
           }
         }else {
-          alert("Password & Confirm password mismatch.")
+            alert("Password & Confirm password mismatch.".localized)
         }
       }else {
-        alert("Please enter a valid password with 8 characters. It should contain at least 1 Capital alphabet, number, and special character.")
+        alert("Please enter a valid password with 8 characters. It should contain at least 1 Capital alphabet, number, and special character.".localized)
       }
     }else {
-      alert("Please enter password & confirm your password")
+        alert("Please enter password & confirm your password".localized)
     }
   }
     

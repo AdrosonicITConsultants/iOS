@@ -134,13 +134,13 @@ class PaymentUploadController: FormViewController{
                 }
             }
             <<< LabelRow(){
-                $0.title = "Upload the Payment Receipt to Confirm"
+                $0.title = "Upload the Payment Receipt to Confirm".localized
                 if enquiryObject?.isBlue ?? orderObject?.isBlue ?? false {
                     $0.hidden = true
                 }
                  if orderObject != nil {
                  if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
-                    $0.title = "Upload the Delivery Receipt"
+                    $0.title = "Upload the Delivery Receipt".localized
                 }
                 }
             }
