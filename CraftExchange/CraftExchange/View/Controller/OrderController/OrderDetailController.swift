@@ -150,7 +150,7 @@ class OrderDetailController: FormViewController {
             })
             
             <<< LabelRow(){
-                $0.title = "Enquiry Details"
+                $0.title = "Enquiry Details".localized
             }
             
             <<< SwitchRow() {
@@ -184,7 +184,7 @@ class OrderDetailController: FormViewController {
                 $0.tag = "Order under Recreation"
                // $0.cell.height = { 60.0 }
                 $0.hidden = true
-               $0.title = "Order under Recreation"
+            $0.title = "Order under Recreation".localized
                 if self.orderObject?.isReprocess == 1  {
                     $0.hidden = false
                 }
@@ -192,7 +192,7 @@ class OrderDetailController: FormViewController {
                 $0.title = """
                 Order under Recreation
                 Kindly refer chats for regular updates and in-case of any inconvenience, feel free to escalate the issue over chat
-                """
+                """.localized
             }
             if User.loggedIn()?.refRoleId == "1" {
                 $0.title = """
@@ -221,7 +221,7 @@ class OrderDetailController: FormViewController {
                     cell.row.title = """
                     Order under Recreation
                     Kindly keep updating buyer about the status of product over chat
-                    """
+                    """.localized
                 }
             })
             <<< ProFormaInvoiceRow() {
@@ -229,8 +229,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Recreate Order"
                 $0.cell.tag = 107
-                $0.cell.nextStepsLabel.text = "Want to recreate order?"
-                $0.cell.createSendInvoiceBtn.setTitle("Order recreation", for: .normal)
+                $0.cell.nextStepsLabel.text = "Want to recreate order?".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Order recreation".localized, for: .normal)
                 $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 $0.cell.createSendInvoiceBtn.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                // $0.cell.createSendInvoiceBtn.layer.cornerRadius = 15
@@ -1371,13 +1371,13 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
             self.view.showMarkAsDispatchedView(controller: self)
             
         case 105:
-            self.view.showCloseOrderView(controller: self, enquiryCode: orderObject?.orderCode, confirmStatement: "You are about to close this order!")
+            self.view.showCloseOrderView(controller: self, enquiryCode: orderObject?.orderCode, confirmStatement: "You are about to close this order!".localized)
             
         case 106:
-            self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Is Partial Refund Received?")
+            self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Is Partial Refund Received?".localized)
         case 107:
              print("NOt Working PI")
-            self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Are you sure you want to recreate order?")
+             self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Are you sure you want to recreate order?".localized)
         case 108:
             self.view.showMarkAsDispatchedView(controller: self)
         default:

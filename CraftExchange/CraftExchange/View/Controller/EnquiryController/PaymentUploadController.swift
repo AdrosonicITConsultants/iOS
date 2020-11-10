@@ -263,7 +263,7 @@ class PaymentUploadController: FormViewController{
             }
             
             <<< DateRow(){
-                            $0.title = "Date of dispatch"
+                $0.title = "Date of dispatch".localized
                             $0.cell.height = { 60.0 }
                             $0.maximumDate = Date()
                 if orderObject != nil {
@@ -293,7 +293,7 @@ class PaymentUploadController: FormViewController{
                         })
                         
                         <<< DateRow(){
-                            $0.title = "Revised ETA (if required)"
+                            $0.title = "Revised ETA (if required)".localized
                             $0.cell.height = { 60.0 }
                             $0.minimumDate = Date()
                             
@@ -347,7 +347,7 @@ class PaymentUploadController: FormViewController{
                 if orderObject != nil{
                     if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
                         $0.hidden = false
-                        $0.cell.UploadBtn.setTitle("Upload delivery receipt", for: .normal)
+                        $0.cell.UploadBtn.setTitle("Upload delivery receipt".localized, for: .normal)
                     }
                 }
                  

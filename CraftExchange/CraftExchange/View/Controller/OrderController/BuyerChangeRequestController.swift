@@ -51,7 +51,7 @@ class BuyerChangeRequestController: FormViewController {
         +++ changeReqTypeSection
         +++ Section()
         <<< ButtonRow() {
-            $0.title = "REQUEST FOR CHANGE"
+            $0.title = "REQUEST FOR CHANGE".localized
         }.onCellSelection({ (cell, row) in
             self.changeReqArray?.removeAll()
             self.allChangeRequests?.forEach({ (changeReq) in

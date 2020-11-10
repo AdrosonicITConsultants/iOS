@@ -80,7 +80,7 @@ class ArtisanChangeRequestController: FormViewController {
             }
             let vc = UIAlertController(title: "Are you sure?".localized, message: showText, preferredStyle: .alert)
             vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: {(act) in }))
-            vc.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            vc.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action) in
                 self.updateChangeRequest?(self.changeReqArray ?? [], self.status)
             }))
             vc.addAction(UIAlertAction(title: "Go to this enquiry chat".localized, style: .default, handler: { (action) in

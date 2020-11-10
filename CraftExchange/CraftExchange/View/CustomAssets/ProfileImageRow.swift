@@ -44,7 +44,7 @@ class ProfileImageRowView: Cell<String>, CellType {
       self.delegate?.present(imagePicker, animated: true, completion: nil)
     }
     alert.addAction(action2)
-    let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+    let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
     }
     alert.addAction(action)
     delegate?.present(alert, animated: true, completion: nil)

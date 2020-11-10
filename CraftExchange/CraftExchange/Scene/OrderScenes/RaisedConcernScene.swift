@@ -124,7 +124,7 @@ extension OrderDetailsService {
                                     vc.hideLoading()
                                     
                                     if vc.viewModel.artisanReviewId.value!.id == "2"{
-                                        vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: forOrder?.orderCode, confirmQuestion: "Are you sure you want to recreate order?")
+                                        vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: forOrder?.orderCode, confirmQuestion: "Are you sure you want to recreate order?".localized)
                                     }
                                     vc.viewWillAppear?()
                                 }

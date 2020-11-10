@@ -119,17 +119,17 @@ class RaiseConcernController: FormViewController {
                     cell.statusDotView.backgroundColor = .systemRed
                 }
                 if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "2" {
-                    cell.statusLbl.text = "Fault Unresolved"
+                    cell.statusLbl.text = "Fault Unresolved".localized
                     cell.statusLbl.textColor = UIColor().CEGreen()
                     cell.statusDotView.backgroundColor = UIColor().CEGreen()
                 }
                 if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "1" {
-                    cell.statusLbl.text = "Fault Raised"
+                    cell.statusLbl.text = "Fault Raised".localized
                     cell.statusLbl.textColor = UIColor().CEGreen()
                     cell.statusDotView.backgroundColor = UIColor().CEGreen()
                 }
                 if self.orderProgress?.isResolved == 1  {
-                    cell.statusLbl.text = "Concern Resolved"
+                    cell.statusLbl.text = "Concern Resolved".localized
                     cell.statusLbl.textColor = UIColor().CEGreen()
                     cell.statusDotView.backgroundColor = UIColor().CEGreen()
                 }
@@ -719,7 +719,7 @@ class RaiseConcernController: FormViewController {
                 if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "1" && self.orderProgress?.artisanReviewComment == nil {
                     $0.hidden = false
                 }
-                $0.title = "Please acknowledge the raised concern to avoid any escalations."
+                $0.title = "Please acknowledge the raised concern to avoid any escalations.".localized
                 $0.cellStyle = .default
                 $0.cell.textLabel?.numberOfLines = 3
             }.cellUpdate({ (cell, row) in
@@ -1218,7 +1218,7 @@ class RaiseConcernController: FormViewController {
                     
                     listBuyerSentReviewSection <<< RoundedActionSheetRow() {
                         //  $0.tag = "Artisan Review"
-                        $0.cell.titleLabel.text = "Selected action"
+                        $0.cell.titleLabel.text = "Selected action".localized
                         $0.cell.titleLabel.textColor = .black
                         $0.cell.compulsoryIcon.isHidden = true
                         $0.cell.options = allArtisanReviews?.compactMap { $0.comment }

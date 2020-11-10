@@ -396,3 +396,35 @@
 "Upload the Payment Receipt to Confirm" = "पुष्टि के लिए भुगतान रसीद अपलोड करें";
 "Upload the Delivery Receipt" = "डिलीवरी रसीद अपलोड करें";
 "Payment Receipt: " = "भुगतान रसीद: ";
+"Remarks by Artisan Entrepreneur" = "कारीगर उद्यमी द्वारा टिप्पणी";
+"View defect & Response ⋀" = "दोष और प्रतिक्रिया देखें";
+"Selected action" = "चयनित कार्रवाई";
+"Make to order" = "व्यवस्थित करो";
+"Are you sure you want to recreate order?" = "क्या आप वाकई ऑर्डर को फिर से बनाना चाहते हैं?";
+"Fault Unresolved" = "गलती अप्रतिबंधित";
+"Order recreation" = "आदेश मनोरंजन";
+"Want to recreate order?" = "आदेश को फिर से बनाना चाहते हैं?";
+"Date of dispatch" = "प्रेषण की तारीख";
+"Revised ETA (if required)" =
+"संशोधित ईटीए (यदि आवश्यक हो)";
+"Fill in the Details" = "विवरण भरें";
+"Quantity" = "मात्रा";
+"Expected Date of Delivery" = "वितरण की प्रत्याशित तिथि";
+"Currency" = "मुद्रा";
+"Price Per Unit/m" = "मूल्य प्रति यूनिट / मी";
+"Previous Total amount(as per PI)" = "पिछली कुल राशि (पीआई के अनुसार)";
+"Advance payment received (Previously as per PI)" = "अग्रिम भुगतान प्राप्त किया (पूर्व में पीआई के अनुसार)";
+"Final Amount" = "अंतिम राशी";
+"Amount to be paid (Final Amount - Advanced Payment)" = "भुगतान की जाने वाली राशि (अंतिम राशि - उन्नत भुगतान)";
+"Delivery charges(Freight Charges)" = "वितरण शुल्क (माल ढुलाई प्रभार)";
+"Agree to terms and Conditions" = "नियम और शर्तों से सहमत";
+"Send Revised PI" = "संशोधित पीआई भेजें";
+"Save and Preview Invoice" = "सहेजें और चालान का पूर्वावलोकन करें";
+"REQUEST FOR CHANGE" = "बदलने का आग्रह";
+"Is Partial Refund Received?" = "आंशिक वापसी प्राप्त है?";
+"You are about to close this order!" = "आप इस आदेश को बंद करने वाले हैं!";
+"Order under Recreation" = "मनोरंजन के तहत आदेश";
+"Fault Raised" = "दोष उठाया";
+"Concern Resolved" = "चिंता का समाधान";
+"Please acknowledge the raised concern to avoid any escalations." = "कृपया किसी भी वृद्धि से बचने के लिए उठाए गए चिंता को स्वीकार करें।";
+

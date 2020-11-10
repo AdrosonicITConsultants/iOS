@@ -32,9 +32,9 @@ class BuyerEnquiryCell: UITableViewCell {
             availabilityLabel.isHidden = false
         }
         if enquiryObj.productStatusId == 2 {
-            availabilityLabel.text = "Available in stock"
+            availabilityLabel.text = "Available in stock".localized
         }else {
-            availabilityLabel.text = "Make to order"
+            availabilityLabel.text = "Make to order".localized
         }
         costLabel.text = enquiryObj.totalAmount != 0 ? "₹ \(enquiryObj.totalAmount)" : "NA"
         dateLabel.text = "Updated on: \(enquiryObj.lastUpdated?.split(separator: "T").first ?? "")"

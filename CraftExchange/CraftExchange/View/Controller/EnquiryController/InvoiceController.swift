@@ -157,10 +157,10 @@ class InvoiceController: FormViewController{
             <<< LabelRow(){
                 $0.title = "Proforma Invoice"
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
-                    $0.title = "Tax Invoice"
+                    $0.title = "Tax Invoice".localized
                 }
                 if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.title = "Tax Invoice"
+                    $0.title = "Tax Invoice".localized
                 }
             }
             
@@ -179,7 +179,7 @@ class InvoiceController: FormViewController{
             }
             
             <<< LabelRow(){
-                $0.title = "Fill in the Details"
+                $0.title = "Fill in the Details".localized
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = .darkGray
             })
@@ -187,7 +187,7 @@ class InvoiceController: FormViewController{
             <<< RoundedTextFieldRow() {
                 $0.tag = "Quantity"
                 $0.cell.height = { 80.0 }
-                $0.cell.titleLabel.text =  "Quantity"
+                $0.cell.titleLabel.text =  "Quantity".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -208,7 +208,7 @@ class InvoiceController: FormViewController{
             })
             
             <<< DateRow(){
-                $0.title = "Expected Date of Delivery"
+                $0.title = "Expected Date of Delivery".localized
                 $0.cell.height = { 60.0 }
                 $0.minimumDate = Date()
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
@@ -236,7 +236,7 @@ class InvoiceController: FormViewController{
             
             <<< RoundedActionSheetRow() {
                 $0.tag = "Currency"
-                $0.cell.titleLabel.text = "Currency"
+                $0.cell.titleLabel.text = "Currency".localized
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -270,7 +270,7 @@ class InvoiceController: FormViewController{
             
             <<< RoundedTextFieldRow() {
                 $0.tag = "Price Per Unit/m"
-                $0.cell.titleLabel.text =  "Price Per Unit/m"
+                $0.cell.titleLabel.text =  "Price Per Unit/m".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 $0.cell.titleLabel.textColor = .black
@@ -294,7 +294,7 @@ class InvoiceController: FormViewController{
             
             <<< RoundedTextFieldRow() {
                 $0.tag = "Previous total amount"
-                $0.cell.titleLabel.text =  "Previous Total amount(as per PI)"
+                $0.cell.titleLabel.text =  "Previous Total amount(as per PI)".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
@@ -326,7 +326,7 @@ class InvoiceController: FormViewController{
             
             <<< RoundedTextFieldRow() {
                 $0.tag = "Advance payment received"
-                $0.cell.titleLabel.text =  "Advance payment received (Previously as per PI)"
+                $0.cell.titleLabel.text =  "Advance payment received (Previously as per PI)".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
@@ -370,7 +370,7 @@ class InvoiceController: FormViewController{
                 }else {
                     $0.hidden = true
                 }
-                $0.cell.titleLabel.text =  "SGST %"
+                $0.cell.titleLabel.text =  "SGST %".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -414,7 +414,7 @@ class InvoiceController: FormViewController{
             })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Final amount"
-                $0.cell.titleLabel.text =  "Final Amount"
+                $0.cell.titleLabel.text =  "Final Amount".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
@@ -445,7 +445,7 @@ class InvoiceController: FormViewController{
             
             <<< RoundedTextFieldRow() {
                 $0.tag = "Amount to be paid"
-                $0.cell.titleLabel.text =  "Amount to be paid (Final Amount - Advanced Payment)"
+                $0.cell.titleLabel.text =  "Amount to be paid (Final Amount - Advanced Payment)".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
@@ -491,7 +491,7 @@ class InvoiceController: FormViewController{
                 }else {
                     $0.hidden = true
                 }
-                $0.cell.titleLabel.text =  "Delivery charges(Freight Charges)"
+                $0.cell.titleLabel.text =  "Delivery charges(Freight Charges)".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
@@ -540,7 +540,7 @@ class InvoiceController: FormViewController{
             
             <<< ToggleOptionRow() {
                 $0.cell.height = { 60.0 }
-                $0.cell.titleLbl.text = "Agree to terms and Conditions"
+                $0.cell.titleLbl.text = "Agree to terms and Conditions".localized
                 if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
                     $0.hidden = false
                 }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
@@ -568,9 +568,9 @@ class InvoiceController: FormViewController{
                 $0.cell.singleButton.backgroundColor = .blue
                 $0.cell.singleButton.setTitleColor(.white, for: .normal)
                 if isRevisedPI {
-                    $0.cell.singleButton.setTitle("Send Revised PI", for: .normal)
+                    $0.cell.singleButton.setTitle("Send Revised PI".localized, for: .normal)
                 }else {
-                    $0.cell.singleButton.setTitle("Save and Preview Invoice", for: .normal)
+                    $0.cell.singleButton.setTitle("Save and Preview Invoice".localized, for: .normal)
                 }
                 $0.cell.height = { 50.0 }
                 $0.cell.delegate = self as SingleButtonActionProtocol
@@ -601,7 +601,7 @@ class InvoiceController: FormViewController{
         }
         alert.addAction(closeEnquiry)
         
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
