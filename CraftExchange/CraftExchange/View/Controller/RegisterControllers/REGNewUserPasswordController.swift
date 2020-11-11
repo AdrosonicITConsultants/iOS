@@ -24,13 +24,15 @@ class REGNewUserPasswordController: UIViewController {
   @IBOutlet weak var confirmPasswordField: RoundedTextField!
   var weaverId: String?
   var validatedEmailId: String?
-  
+  @IBOutlet weak var changeLangButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
     self.viewModel.confirmPassword.bidirectionalBind(to: confirmPasswordField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
   
   @IBAction func confirmPasswordSelected(_ sender: Any) {

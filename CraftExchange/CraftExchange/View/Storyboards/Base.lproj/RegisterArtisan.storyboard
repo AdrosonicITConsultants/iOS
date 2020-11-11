@@ -431,6 +431,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="CCH-Nq-7rC"/>
                     <connections>
+                        <outlet property="changeLangButton" destination="3GW-f7-8s1" id="BkS-gJ-P2B"/>
                         <outlet property="nextButton" destination="B0Y-zs-JN0" id="ODa-cz-6pW"/>
                         <outlet property="otpField" destination="DUr-Xg-mAP" id="vR6-wb-gao"/>
                         <outlet property="sendOtpButton" destination="lLx-ab-u6f" id="VmI-UF-hxM"/>
@@ -643,6 +644,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8or-aM-P8i"/>
                     <connections>
+                        <outlet property="changeLangButton" destination="hTP-XB-3eb" id="XtH-Re-jYp"/>
                         <outlet property="confirmPasswordField" destination="03W-MY-jG5" id="8Ff-dz-uoZ"/>
                         <outlet property="passwordField" destination="hHl-ks-fAD" id="GMb-bn-Yr6"/>
                     </connections>
@@ -1267,6 +1269,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="OKy-ty-cvd"/>
                     <connections>
+                        <outlet property="changeLangButton" destination="Vxi-53-EjV" id="0uC-7Q-e1b"/>
                         <outlet property="checkboxButton" destination="bjD-ai-j1V" id="1fc-Wj-ALO"/>
                         <outlet property="mediaLinkField" destination="FW6-a8-Jce" id="RDY-d8-VbO"/>
                         <outlet property="websiteLinkField" destination="ZJx-UZ-BJj" id="Wex-gP-Hmd"/>

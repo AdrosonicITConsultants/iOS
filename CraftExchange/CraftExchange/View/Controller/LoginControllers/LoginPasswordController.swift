@@ -24,6 +24,7 @@ class LoginPasswordController: UIViewController {
   @IBOutlet weak var loginButton: RoundedButton!
   @IBOutlet weak var passwordField: RoundedTextField!
   @IBOutlet weak var registerBtn: UIButton!
+    @IBOutlet weak var changeLangButton: UIButton!
     
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -31,6 +32,7 @@ class LoginPasswordController: UIViewController {
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
     registerBtn.setTitle("New user? Click here to register.".localized, for: .normal)
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
   
   @IBAction func loginButtonSelected(_ sender: Any) {

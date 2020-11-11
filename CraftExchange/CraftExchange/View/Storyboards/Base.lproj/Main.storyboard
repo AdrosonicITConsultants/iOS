@@ -390,6 +390,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="changeLangButton" destination="GPR-I0-MCd" id="FcB-1M-R2E"/>
                         <outlet property="facebookLoginButton" destination="nus-yZ-4SB" id="eTN-TC-uz8"/>
                         <outlet property="googleLoginButton" destination="oB3-dM-YGP" id="N5V-4E-5QB"/>
                         <outlet property="nextButton" destination="ZeI-2a-QgN" id="uFF-YC-ipP"/>
@@ -625,6 +626,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="p4g-Bh-WbZ"/>
                     <connections>
+                        <outlet property="changeLangButton" destination="8Gr-j2-q2m" id="BdN-BO-CeF"/>
                         <outlet property="passwordField" destination="fIe-lL-2BD" id="kv8-qP-Tjt"/>
                         <outlet property="registerBtn" destination="WVx-Je-Glu" id="Ds8-ef-gNQ"/>
                     </connections>
