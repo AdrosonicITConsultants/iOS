@@ -154,7 +154,7 @@ class OrderDetailController: FormViewController {
             }
             
             <<< SwitchRow() {
-                $0.title = "Change Request Enabled".localized
+                $0.title = "Change Request".localized
                 $0.tag = "CRRow"
                 if orderObject?.productStatusId == 2 {
                     $0.hidden = true
@@ -802,17 +802,19 @@ class OrderDetailController: FormViewController {
                     row.cell.valueLbl.text = ""
                 }
             }).onCellSelection({ (cell, row) in
-                if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
-                    do {
-                        let client = try SafeClient(wrapping: CraftExchangeClient())
-                        if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
-                            let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
-                            self.navigationController?.pushViewController(vc, animated: false)
-                        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
-                            self.fetchChangeRequest?()
+                if self.orderObject?.enquiryStageId ?? 0 < 6 {
+                    if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
+                        do {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
+                                let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
+                                self.navigationController?.pushViewController(vc, animated: false)
+                            }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
+                                self.fetchChangeRequest?()
+                            }
+                        }catch {
+                            print(error.localizedDescription)
                         }
-                    }catch {
-                        print(error.localizedDescription)
                     }
                 }
             })

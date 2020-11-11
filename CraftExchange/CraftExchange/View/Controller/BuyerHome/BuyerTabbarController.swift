@@ -31,7 +31,7 @@ extension BuyerTabbarController {
             } catch let error {
               print("Unable to load view:\n\(error.localizedDescription)")
             }
-        }else if item.title == "Enquiries" {
+        }else if item.title == "Enquiries".localized {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = EnquiryListService(client: client).createScene()
@@ -41,15 +41,15 @@ extension BuyerTabbarController {
               print("Unable to load view:\n\(error.localizedDescription)")
             }
         }
-        else if item.title == "Chat" {
+        else if item.title == "Chat".localized {
             do{
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = ChatListService(client: client).createScene()
                 let nav = self.customizableViewControllers?[3] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
-                         print("Unable to load view:\n\(error.localizedDescription)")
-                       }
+                print("Unable to load view:\n\(error.localizedDescription)")
+            }
 
         }
     }
