@@ -12,12 +12,9 @@ import UIKit
 
 class RoleViewController: UIViewController {
 
-    @IBOutlet weak var langButton: UIButton!
-    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
-    langButton.setTitle("  Change Language".localized, for: .normal)
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -51,11 +48,7 @@ class RoleViewController: UIViewController {
   @IBAction func faqButtonSelected(_ sender: UIButton) {
     didTapFAQButton(tag: sender.tag)
   }
-    
-  @IBAction func changeLangSelected(_ sender: UIButton) {
-    showLanguagePickerAlert()
-  }
-    
+   
   func showLogin() {
     print(KeychainManager.standard.userRoleId as Any)
     do {

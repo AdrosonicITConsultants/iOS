@@ -53,6 +53,7 @@ extension REGBuyerAddressInfoService {
         newUser.designation = existingUser.designation ?? nil
         newUser.buyerCompanyDetails = existingUser.buyerCompanyDetails
         newUser.buyerPointOfContact = existingUser.buyerPointOfContact
+        newUser.profileImg = existingUser.profileImg
         let selectedCountryObj = vc.allCountries?.filter("%K == %@", "name", vc.viewModel.country.value).first
         let addr1 = vc.viewModel.addr1.value ?? nil
         let addr2 = vc.viewModel.addr2.value ?? nil

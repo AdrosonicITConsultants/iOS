@@ -97,26 +97,12 @@
                                                     <action selector="faqButtonSelected:" destination="P12-bk-zAP" eventType="touchUpInside" id="f7X-yc-ogY"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NQ-ME-jJi">
-                                                <rect key="frame" x="20" y="752" width="374" height="24"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="24" id="yh3-Nv-9Pp"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="   Change Language" image="change language">
-                                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="changeLangSelected:" destination="P12-bk-zAP" eventType="touchUpInside" id="JL6-L5-vdF"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="WHg-hu-11E" firstAttribute="leading" secondItem="5hf-Gm-euQ" secondAttribute="leading" constant="20" id="1Xu-Ii-1MF"/>
                                             <constraint firstItem="usK-Lx-fKM" firstAttribute="trailing" secondItem="w6J-Lo-wNe" secondAttribute="trailing" id="316-0X-veI"/>
                                             <constraint firstItem="WHg-hu-11E" firstAttribute="top" secondItem="jdL-Q3-nqp" secondAttribute="bottom" id="65h-GO-Z71"/>
-                                            <constraint firstItem="4NQ-ME-jJi" firstAttribute="top" secondItem="jTH-D3-aJw" secondAttribute="bottom" constant="8" id="7qL-rM-NgK"/>
                                             <constraint firstAttribute="trailing" secondItem="MSY-G2-HP0" secondAttribute="trailing" id="BCe-oB-gUZ"/>
                                             <constraint firstAttribute="trailing" secondItem="WHg-hu-11E" secondAttribute="trailing" constant="20" id="CtM-SY-hjI"/>
                                             <constraint firstItem="jdL-Q3-nqp" firstAttribute="trailing" secondItem="w6J-Lo-wNe" secondAttribute="trailing" id="EoG-WL-CZy"/>
@@ -132,8 +118,6 @@
                                             <constraint firstItem="6ON-qa-qbg" firstAttribute="top" secondItem="w6J-Lo-wNe" secondAttribute="bottom" constant="20" id="WLG-lC-u4y"/>
                                             <constraint firstItem="jdL-Q3-nqp" firstAttribute="leading" secondItem="jTH-D3-aJw" secondAttribute="leading" id="XP6-2T-dSz"/>
                                             <constraint firstItem="w6J-Lo-wNe" firstAttribute="top" secondItem="9qh-uW-LhE" secondAttribute="bottom" constant="20" id="ZjV-mg-J2e"/>
-                                            <constraint firstItem="4NQ-ME-jJi" firstAttribute="leading" secondItem="5hf-Gm-euQ" secondAttribute="leading" constant="20" id="ZpJ-Af-7W4"/>
-                                            <constraint firstAttribute="trailing" secondItem="4NQ-ME-jJi" secondAttribute="trailing" constant="20" id="hSN-0x-4wP"/>
                                             <constraint firstItem="jTH-D3-aJw" firstAttribute="leading" secondItem="5hf-Gm-euQ" secondAttribute="leading" constant="20" id="iBy-sV-RGa"/>
                                             <constraint firstItem="6ON-qa-qbg" firstAttribute="leading" secondItem="9qh-uW-LhE" secondAttribute="leading" id="llT-k9-Uwc"/>
                                             <constraint firstItem="usK-Lx-fKM" firstAttribute="top" secondItem="MSY-G2-HP0" secondAttribute="bottom" id="mWj-Go-Oj5"/>
@@ -164,9 +148,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wbg-FX-HEP"/>
                     </view>
-                    <connections>
-                        <outlet property="langButton" destination="4NQ-ME-jJi" id="3zB-on-vUV"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F0g-BS-gUF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

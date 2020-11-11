@@ -27,7 +27,13 @@ extension RegisterArtisanService {
     vc.viewModel.completeRegistration = {
       if vc.isTCAccepted {
         let userObj = createNewUser()
-        self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false)).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+        var imgData: Data?
+        if let data = vc.uploadImageButton.image(for: .normal)?.pngData() {
+            imgData = data
+        } else if let data = vc.uploadImageButton.image(for: .normal)?.jpegData(compressionQuality: 1) {
+            imgData = data
+        }
+        self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false), imageData:imgData ).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
@@ -124,7 +130,7 @@ extension RegisterArtisanService {
         if isValid {
           vc.showLoading()
           let userObj = createNewUser()
-            self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false)).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false), imageData: userObj.profileImg).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             DispatchQueue.main.async {
               vc.hideLoading()
             }
@@ -187,7 +193,7 @@ extension RegisterArtisanService {
       newUser.address = existingUser.address
       newUser.websiteLink = vc.viewModel.websiteLink.value ?? nil
       newUser.socialMediaLink = vc.viewModel.socialMediaLink.value ?? nil
-      
+        newUser.profileImg = existingUser.profileImg
       appDelegate?.registerUser = newUser
       return newUser
     }

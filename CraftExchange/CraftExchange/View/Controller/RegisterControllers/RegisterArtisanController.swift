@@ -103,7 +103,11 @@ extension RegisterArtisanController: UIImagePickerControllerDelegate, UINavigati
             print("Image not found!")
             return
         }
-        uploadImageButton.setImage(selectedImage, for: .normal)
+        if let compressedImg = selectedImage.resizedTo1MB() {
+            uploadImageButton.setImage(compressedImg, for: .normal)
+        }else {
+            uploadImageButton.setImage(selectedImage, for: .normal)
+        }
         uploadImageButton.setTitle("", for: .normal)
         picker.dismiss(animated: true, completion: nil)
     }

@@ -67,7 +67,7 @@ extension REGBuyerCompanyInfoService {
         newUser.mobile = existingUser.mobile ?? nil
         newUser.alternateMobile = existingUser.alternateMobile ?? nil
         newUser.designation = existingUser.designation ?? nil
-        
+        newUser.profileImg = vc.viewModel.brandLogo.value
         let compName = vc.viewModel.companyName.value ?? nil
         let cin = vc.viewModel.cinNo.value ?? nil
         let panNo = vc.viewModel.panNo.value ?? nil
