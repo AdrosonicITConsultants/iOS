@@ -344,8 +344,8 @@ extension BuyerProductCatalogController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if searchType > 0 {
-            return 50
+        if searchType > 0 || allPorducts == nil || allPorducts?.count == 0 {
+            return 40
         }
         return 0
     }

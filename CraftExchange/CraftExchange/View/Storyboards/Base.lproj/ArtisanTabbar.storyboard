@@ -552,7 +552,7 @@
                                 </connections>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no-order-buyer" translatesAutoresizingMaskIntoConstraints="NO" id="PnX-G8-LhE">
-                                <rect key="frame" x="0.0" y="293" width="414.00000000000006" height="520"/>
+                                <rect key="frame" x="0.0" y="293" width="414" height="520"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYh-WY-BIK">
                                 <rect key="frame" x="364" y="243" width="30" height="30"/>

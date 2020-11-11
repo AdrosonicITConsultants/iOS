@@ -168,8 +168,8 @@ extension ArtisanProdCatalogueController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if fromFilter {
-            return 50
+        if fromFilter || dataSource?.changeset?.count == 0 || dataSource == nil {
+            return 40
         }
         return 0
     }
