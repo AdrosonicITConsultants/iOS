@@ -28,6 +28,8 @@ class ArtisanHomeController: UIViewController {
     @IBOutlet weak var customDesignButton: RoundedButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var notificationButton: UIBarButtonItem!
+    @IBOutlet weak var yourProdLbl: UILabel!
+    @IBOutlet weak var yourProdListLbl: UILabel!
     private let reuseIdentifier = "ProductCategoryCell"
     var dataSource: [ProductCategory]?
     let realm = try? Realm()
@@ -43,11 +45,6 @@ class ArtisanHomeController: UIViewController {
         service.getCMSRegionImages()
         loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
         self.setupSideMenu(false)
-//        let app = UIApplication.shared.delegate as? AppDelegate
-//        if app?.showDemoVideo ?? false {
-//          app?.showDemoVideo = false
-//            showVideo(path: self.path)
-//        }
         super.viewDidLoad()
         
         viewModel.viewDidLoad?()
@@ -71,12 +68,19 @@ class ArtisanHomeController: UIViewController {
         } else {
             artisanBrand.image = UIImage.init(named: "user")
         }
-    
+        
         NotificationCenter.default.addObserver(self, selector: #selector(notificationButtonSelected(_:)), name: NSNotification.Name(rawValue: "ShowNotification"), object: nil)
     }
     
     func refreshLayout() {
         self.collectionView.reloadData()
+        if dataSource?.count ?? 0 > 0 {
+            yourProdLbl.text = "Your Products".localized
+            yourProdListLbl.isHidden = false
+        }else {
+            yourProdLbl.text = "No Products Available.".localized
+            yourProdListLbl.isHidden = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,7 +147,7 @@ class ArtisanHomeController: UIViewController {
 extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource?.count ?? 6
+        return dataSource?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
