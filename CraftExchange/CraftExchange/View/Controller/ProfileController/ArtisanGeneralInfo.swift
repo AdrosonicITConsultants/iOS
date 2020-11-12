@@ -80,7 +80,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textAlignment = .center
                 cell.detailTextLabel?.textAlignment = .center
-                cell.detailTextLabel?.text = "\(User.loggedIn()?.rating ?? 1) / 5"
+                cell.detailTextLabel?.text = "\(User.loggedIn()?.rating ?? 1.0) / 10"
                 cell.detailTextLabel?.textColor = .systemBlue
             })
             <<< RoundedTextFieldRow() {

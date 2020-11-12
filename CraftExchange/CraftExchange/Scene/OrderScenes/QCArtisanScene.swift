@@ -68,7 +68,7 @@ extension QCService {
             let qaArray = createQAArray(stageID: stageID)
             print("qcArr: \(qaArray)")
             let qualityObj = qualityCheck.init(stageId: stageID, enquiryId: forOrder.enquiryId, saveOrSend: 0, questionAnswers: qaArray)
-            let request = OfflineOrderRequest.init(type: .sendOrSaveQCRequest, orderId: forOrder.enquiryId, changeRequestStatus: nil, changeRequestJson: qualityObj.toJSON())
+            let request = OfflineOrderRequest.init(type: .sendOrSaveQCRequest, orderId: forOrder.enquiryId, changeRequestStatus: nil, changeRequestJson: qualityObj.toJSON(), submitRatingJson: nil)
             OfflineRequestManager.defaultManager.queueRequest(request)
         }
         
@@ -77,7 +77,7 @@ extension QCService {
             let qaArray = createQAArray(stageID: stageID)
             print("qcArr: \(qaArray)")
             let qualityObj = qualityCheck.init(stageId: stageID, enquiryId: forOrder.enquiryId, saveOrSend: 1, questionAnswers: qaArray)
-            let request = OfflineOrderRequest.init(type: .sendOrSaveQCRequest, orderId: forOrder.enquiryId, changeRequestStatus: nil, changeRequestJson: qualityObj.toJSON())
+            let request = OfflineOrderRequest.init(type: .sendOrSaveQCRequest, orderId: forOrder.enquiryId, changeRequestStatus: nil, changeRequestJson: qualityObj.toJSON(), submitRatingJson: nil)
             OfflineRequestManager.defaultManager.queueRequest(request)
         }
         

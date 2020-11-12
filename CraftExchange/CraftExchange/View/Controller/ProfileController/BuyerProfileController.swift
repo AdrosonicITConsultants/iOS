@@ -132,7 +132,7 @@ class BuyerProfileController: UIViewController {
             yellowBgView.layer.cornerRadius = yellowBgView.bounds.width/2
             buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
             companyName.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName
-            ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
+            ratingLbl.text = "\(User.loggedIn()?.rating ?? 1.0) / 10"
             profileImg.imageView?.layer.cornerRadius = 35
             if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
                 do {

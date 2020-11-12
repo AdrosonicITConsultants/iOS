@@ -109,7 +109,7 @@ extension MyProfileService {
             DispatchQueue.main.async {
                 vc.buyerNameLbl.text = "\(User.loggedIn()?.firstName ?? "") \n \(User.loggedIn()?.lastName ?? "")"
                 vc.companyName.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName
-                vc.ratingLbl.text = "\(User.loggedIn()?.rating ?? 1) / 5"
+                vc.ratingLbl.text = "\(User.loggedIn()?.rating ?? 1.0) / 10"
                 vc.segmentControl.setSelectedIndex(0)
                 vc.segmentControl.sendActions(for: .valueChanged)
             }

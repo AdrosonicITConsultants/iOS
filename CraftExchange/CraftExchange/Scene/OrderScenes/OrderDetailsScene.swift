@@ -39,6 +39,8 @@ extension OrderDetailsService {
                         vc.hideLoading()
                     }
                 }.dispose(in: vc.bag)
+                
+                
             } else {
                 self.getOldPIDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if responseData.count != 0 {
@@ -79,7 +81,48 @@ extension OrderDetailsService {
                                }
                            }.dispose(in: vc.bag)
                 
-            }
+                            }
+            self.getRatingResponse(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let dataDict = json["data"] as? [String: Any]
+                    {
+                        if let artisanarray = dataDict["artisanRating"] as? [[String: Any]]{
+                            if let artisanData = try? JSONSerialization.data(withJSONObject: artisanarray, options: .fragmentsAllowed) {
+                                
+                                if let object =  try? JSONDecoder().decode([RatingResponseArtisan].self, from: artisanData){
+                                    DispatchQueue.main.async{
+                                        object.forEach({ (stage) in
+                                            stage.saveOrUpdate()
+                                        })
+                                    }
+                                }
+                            }
+                        }
+                        
+                        if let buyerarray = dataDict["buyerRating"] as? [[String: Any]]{
+                            if let buyerData = try? JSONSerialization.data(withJSONObject: buyerarray, options: .fragmentsAllowed) {
+                                
+                                if let object = try? JSONDecoder().decode([RatingResponseBuyer].self, from: buyerData){
+                                    DispatchQueue.main.async{
+                                        object.forEach({ (stage) in
+                                            stage.saveOrUpdate()
+                                        })
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        
+                        DispatchQueue.main.async {
+                            vc.isBuyerRatingDone = dataDict["isBuyerRatingDone"] as? Int
+                            vc.isArtisanRatingDone = dataDict["isArtisanRatingDone"] as? Int
+                            vc.reloadFormData()
+                        }
+                    }
+                    
+                }
+            }.dispose(in: vc.bag)
+
             
         }
         
@@ -148,7 +191,7 @@ extension OrderDetailsService {
         vc.toggleChangeRequest = { (eqId, isEnabled) in
             let str = isEnabled == 1 ? "Enable" : "Disable"
             vc.confirmAction("Warning".localized, "Are you sure you want to \(str) change request for this Order?".localized, confirmedCallback: { (action) in
-                let request = OfflineOrderRequest(type: .toggleOrderChangeRequest, orderId: eqId, changeRequestStatus: isEnabled, changeRequestJson: [:])
+                let request = OfflineOrderRequest(type: .toggleOrderChangeRequest, orderId: eqId, changeRequestStatus: isEnabled, changeRequestJson: [:], submitRatingJson: nil)
                 OfflineRequestManager.defaultManager.queueRequest(request)
                 vc.orderObject?.toggleChangeStatus(isEnabled: isEnabled)
                 let row = vc.form.rowBy(tag: "CRRow") as! SwitchRow

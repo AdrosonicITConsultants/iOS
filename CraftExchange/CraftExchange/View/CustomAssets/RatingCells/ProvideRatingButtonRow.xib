@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ProvideRatingButtonRowView" customModule="Craft_Xchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rate purple" translatesAutoresizingMaskIntoConstraints="NO" id="yjO-3E-sua">
+                        <rect key="frame" x="187" y="10" width="40" height="40"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="HeX-bP-lMo"/>
+                            <constraint firstAttribute="width" constant="40" id="XU6-gY-013"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4P-ig-nJ2">
+                        <rect key="frame" x="151.5" y="55" width="111" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="Review &amp; Rating">
+                            <color key="titleColor" red="0.38535423800000002" green="0.1136825771" blue="0.70569349319999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Review the order" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9X-4e-vVs">
+                        <rect key="frame" x="156" y="90" width="102.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="completeOrder" translatesAutoresizingMaskIntoConstraints="NO" id="mLp-zL-tch">
+                        <rect key="frame" x="-50" y="12.5" width="100" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="B7M-fp-303"/>
+                            <constraint firstAttribute="width" constant="100" id="kls-gP-bT0"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="b4P-ig-nJ2" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="4tj-2U-xAi"/>
+                    <constraint firstItem="Z9X-4e-vVs" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="5Fh-lF-FMg"/>
+                    <constraint firstItem="mLp-zL-tch" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9eW-A8-YN7"/>
+                    <constraint firstItem="yjO-3E-sua" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="BPl-Lp-G9t"/>
+                    <constraint firstItem="yjO-3E-sua" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="BY0-Eg-6Cc"/>
+                    <constraint firstItem="mLp-zL-tch" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-50" id="c3Y-v4-QTl"/>
+                    <constraint firstItem="b4P-ig-nJ2" firstAttribute="top" secondItem="yjO-3E-sua" secondAttribute="bottom" constant="5" id="cHL-st-Eql"/>
+                    <constraint firstItem="Z9X-4e-vVs" firstAttribute="top" secondItem="b4P-ig-nJ2" secondAttribute="bottom" constant="5" id="qQB-gz-Hsg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="provideRatingButton" destination="b4P-ig-nJ2" id="9p6-yR-Zaw"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="102.45535714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="completeOrder" width="83" height="83"/>
+        <image name="rate purple" width="30" height="30"/>
+    </resources>
+</document>

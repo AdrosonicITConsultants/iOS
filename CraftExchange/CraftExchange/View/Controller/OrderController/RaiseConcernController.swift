@@ -154,6 +154,8 @@ class RaiseConcernController: FormViewController {
                 resolved on mutual agreement
                 """
                 $0.cellStyle = .default
+                $0.cell.textLabel?.textAlignment = .center
+                $0.cell.textLabel?.center = self.view.center
                 $0.cell.textLabel?.numberOfLines = 3
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = UIColor().CEGreen()
@@ -240,6 +242,7 @@ class RaiseConcernController: FormViewController {
                 }
                 $0.title = "Great job!"
                 $0.cellStyle = .default
+                $0.cell.textLabel?.center = self.view.center
                 $0.cell.textLabel?.textAlignment = .center
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = #colorLiteral(red: 0, green: 0.5098039216, blue: 0, alpha: 1)
@@ -264,7 +267,9 @@ class RaiseConcernController: FormViewController {
                 }
                 $0.title = "Uh Oh!!!!"
                 $0.cellStyle = .default
+                $0.cell.textLabel?.numberOfLines = 2
                 $0.cell.textLabel?.textAlignment = .center
+                $0.cell.textLabel?.center = self.view.center
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = #colorLiteral(red: 0.7411764706, green: 0.1725490196, blue: 0.1450980392, alpha: 1)
                 cell.textLabel?.font = .systemFont(ofSize: 32, weight: .regular)
@@ -318,6 +323,7 @@ class RaiseConcernController: FormViewController {
                 $0.title = "Select if any of the options are relevent."
                 // $0.cellStyle = .default
                 $0.cell.textLabel?.textAlignment = .center
+                $0.cell.textLabel?.center = self.view.center
                 $0.cell.textLabel?.numberOfLines = 3
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -392,6 +398,8 @@ class RaiseConcernController: FormViewController {
                 $0.cell.height = { 20.0 }
                 $0.cellStyle = .default
                 $0.title = "Description of the Problem(Mandatory)"
+                $0.cell.textLabel?.textAlignment = .center
+                $0.cell.textLabel?.center = self.view.center
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = #colorLiteral(red: 0.7411764706, green: 0.1725490196, blue: 0.1450980392, alpha: 1)
                 cell.textLabel?.font = .systemFont(ofSize: 16, weight: .regular)
@@ -561,7 +569,9 @@ class RaiseConcernController: FormViewController {
                 $0.cell.height = { 60.0 }
                 $0.cell.contentView.backgroundColor = #colorLiteral(red: 0.9198423028, green: 0.9198423028, blue: 0.9198423028, alpha: 1)
                 $0.title = "Upload photos (IN CHAT) for reference"
-                $0.cellStyle = .value2
+                $0.cellStyle = .default
+                $0.cell.textLabel?.textAlignment = .center
+                $0.cell.textLabel?.center = self.view.center
                 // $0.cell.textLabel?.textAlignment = .center
                 // $0.cell.textLabel?.numberOfLines = 3
                 $0.hidden = true
@@ -1485,7 +1495,17 @@ extension RaiseConcernController: ButtonActionProtocol, BuyerFaultyOrderOptionPr
     func singleButtonSelected(tag: Int) {
         switch tag {
         case 101:
-            print("do nothing")
+            if self.orderObject != nil {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: orderObject, enquiryId: orderObject?.enquiryId ?? 0) as! ProvideRatingController
+                    vc.orderObject = self.orderObject
+                        self.navigationController?.pushViewController(vc, animated: false)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+            // print("do nothing")
         default:
             print("do nothing")
         }

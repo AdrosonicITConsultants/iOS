@@ -21,4 +21,5 @@ target 'CraftExchange' do
   pod 'MessageKit'
   pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
+  pod 'Cosmos'
 end

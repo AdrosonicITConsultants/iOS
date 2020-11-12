@@ -60,6 +60,18 @@ extension Order {
         )
     }
     
+    static func getRatingQuestions() -> Request<Data, APIError> {
+           var str = "user/getRatingQuestions"
+           str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+           return Request(
+               path: str,
+               method: .get,
+               resource: { $0 },
+               error: APIError.init,
+               needsAuthorization: false
+           )
+       }
+    
     static func getArtisanFaultyReview() -> Request<Data, APIError> {
         var str = "enquiry/getAllRefArtisanReview"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -118,6 +130,32 @@ extension Order {
         )
     }
 
+    public static func getRatingResponse(enquiryId: Int) -> Request<Data, APIError> {
+           let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "user/getRatingsForUser?enquiryId=\(enquiryId)&userId=\(KeychainManager.standard.userID ?? 0)"
+           str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+           return Request(
+               path: str,
+               method: .get,
+               headers: headers,
+               resource: {print(String(data: $0, encoding: .utf8) ?? "get order progress failed")
+                   return $0},
+               error: APIError.init,
+               needsAuthorization: true
+           )
+       }
+    
+    public static func submitRating(submitRatingJson: [[String: Any]]) -> Request<Data, APIError> {
+        return Request(
+            path: "user/submitRatingToUser",
+            method: .post,
+            parameters: JSONParameters(submitRatingJson),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "submit rating failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
     
     public static func getOrderProgress(enquiryId: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]

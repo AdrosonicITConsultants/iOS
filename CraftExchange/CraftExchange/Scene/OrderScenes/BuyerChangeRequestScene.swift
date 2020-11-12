@@ -20,7 +20,7 @@ extension OrderDetailsService {
         
         vc.raiseChangeRequest = { (crList) in
             let crJson = changeRequest().finalJson(eqId: forEnquiry, list: crList)
-            let request = OfflineOrderRequest.init(type: .raiseChangeRequest, orderId: forEnquiry, changeRequestStatus: 0, changeRequestJson: crJson)
+            let request = OfflineOrderRequest.init(type: .raiseChangeRequest, orderId: forEnquiry, changeRequestStatus: 0, changeRequestJson: crJson, submitRatingJson: nil)
             OfflineRequestManager.defaultManager.queueRequest(request)
             vc.showLoading()
         }

@@ -39,7 +39,7 @@ extension EnquiryDetailsService {
                                                                  "ppu": Int(vc.viewModel.pricePerUnitPI.value!)!,
                                                                  "quantity": Int(vc.viewModel.quantity.value!)!,
                                                                  "sgst": 0]
-                                let request = OfflineOrderRequest.init(type: .sendRevisedPIRequest, orderId: vc.orderObject?.enquiryId ?? 0, changeRequestStatus: 0, changeRequestJson: parameters)
+                                let request = OfflineOrderRequest.init(type: .sendRevisedPIRequest, orderId: vc.orderObject?.enquiryId ?? 0, changeRequestStatus: 0, changeRequestJson: parameters, submitRatingJson: nil)
                                 OfflineRequestManager.defaultManager.queueRequest(request)
                             }else {
                                 self.savePI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(hsn)!, ppu: Int(pricePerUnitPI)!, quantity: Int(quantity)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in

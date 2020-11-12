@@ -36,6 +36,7 @@ extension User {
                 object.pancard = pancard
                 object.profilePic = profilePic
                 object.logo = logo
+                object.rating = rating
                 if object.buyerCompanyDetails.count > 0 {
                     object.buyerCompanyDetails.first?.companyName = buyerCompanyDetails.first?.companyName
                     object.buyerCompanyDetails.first?.compDesc = buyerCompanyDetails.first?.compDesc

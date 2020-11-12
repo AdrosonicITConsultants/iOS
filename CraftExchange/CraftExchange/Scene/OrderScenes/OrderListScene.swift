@@ -84,6 +84,46 @@ extension OrderListService {
                            print(error.description)
                        }
                    }.dispose(in: controller.bag)
+            
+            self.getRatingQuestions().bind(to: controller, context: .global(qos: .background)) { (_, responseData) in
+                do {
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [String: Any] {
+                            if let buyerData = array["buyerQuestions"] as? [String: Any]{
+                                if let buyerRatingData = buyerData["ratingQuestions"] as? [[String: Any]] {
+                                    let data = try JSONSerialization.data(withJSONObject: buyerRatingData, options: .fragmentsAllowed)
+                                    try JSONDecoder().decode([RatingQuestionsBuyer].self, from: data) .forEach({ (stage) in
+                                        stage.saveOrUpdate()
+                                    })
+                                }
+                                if let buyerCommentData = buyerData["commentQuestions"] as? [[String: Any]] {
+                                    let data = try JSONSerialization.data(withJSONObject: buyerCommentData, options: .fragmentsAllowed)
+                                    try JSONDecoder().decode([RatingQuestionsBuyer].self, from: data) .forEach({ (stage) in
+                                        stage.saveOrUpdate()
+                                    })
+                                }
+                            }
+                            if let artisanData = array["artisanQuestions"] as? [String: Any]{
+                                if let artisanRatingData = artisanData["ratingQuestions"] as? [[String: Any]] {
+                                    let data = try JSONSerialization.data(withJSONObject: artisanRatingData, options: .fragmentsAllowed)
+                                    try JSONDecoder().decode([RatingQuestionsArtisan].self, from: data) .forEach({ (stage) in
+                                        stage.saveOrUpdate()
+                                    })
+                                }
+                                if let artisanCommentData = artisanData["commentQuestions"] as? [[String: Any]] {
+                                    let data = try JSONSerialization.data(withJSONObject: artisanCommentData, options: .fragmentsAllowed)
+                                    try JSONDecoder().decode([RatingQuestionsArtisan].self, from: data) .forEach({ (stage) in
+                                        stage.saveOrUpdate()
+                                    })
+                                }
+                            }
+                            
+                        }
+                    }
+                }catch let error as NSError {
+                    print(error.description)
+                }
+            }.dispose(in: controller.bag)
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {

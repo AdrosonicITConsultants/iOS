@@ -37,7 +37,7 @@ class User: Object, Decodable {
   var addressList = List<Address>()
   var paymentAccountList = List<PaymentAccDetails>()
   var userProductCategories = List<UserProductCategory>()
-  dynamic var rating: Int?
+  @objc dynamic var rating: Double = 0.0
   @objc dynamic var userName: String?
   dynamic var enabled: Bool?
   @objc dynamic var authorities: String?
@@ -122,7 +122,7 @@ class User: Object, Decodable {
     if let list = try? values.decodeIfPresent([Address].self, forKey: .addressList) {
         addressList.append(objectsIn: list)
     }
-    rating = try? values.decodeIfPresent(Int.self, forKey: .rating)
+    rating = try values.decodeIfPresent(Double.self, forKey: .rating) ?? 0.0
     if let list = try? values.decodeIfPresent([PaymentAccDetails].self, forKey: .paymentAccountList) {
         paymentAccountList.append(objectsIn: list)
     }

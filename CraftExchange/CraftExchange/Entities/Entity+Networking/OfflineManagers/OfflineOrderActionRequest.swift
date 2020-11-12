@@ -15,6 +15,7 @@ enum OrderActionType: String {
     case updateChangeRequest
     case sendRevisedPIRequest
     case sendOrSaveQCRequest
+    case sendRating
 }
 
 class OfflineOrderRequest: NSObject, OfflineRequest {
@@ -25,14 +26,16 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
     let orderId: Int
     let changeRequestStatus: Int?
     let changeRequestJson: [String: Any]?
+    let submitRatingJson: [[String: Any]]?
     /// Initializer with an arbitrary number to demonstrate data persistence
     ///
     /// - Parameter identifier: arbitrary number
-    init(type: OrderActionType, orderId: Int, changeRequestStatus: Int?, changeRequestJson: [String: Any]?) {
+    init(type: OrderActionType, orderId: Int, changeRequestStatus: Int?, changeRequestJson: [String: Any]?, submitRatingJson: [[String: Any]]?) {
         self.type = type
         self.orderId = orderId
         self.changeRequestStatus = changeRequestStatus
         self.changeRequestJson = changeRequestJson
+        self.submitRatingJson = submitRatingJson
         
         switch type {
         case .toggleOrderChangeRequest:
@@ -45,7 +48,10 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
             self.request = Enquiry.sendRevisedPI(enquiryId: orderId, parameters: changeRequestJson ?? [:])
         case .sendOrSaveQCRequest:
             self.request = QualityCheck.sendOrSaveQcForm(parameters: changeRequestJson ?? [:])
+        case .sendRating:
+            self.request = Order.submitRating(submitRatingJson: submitRatingJson ?? [[:]])
         }
+        
         super.init()
     }
     
@@ -55,11 +61,13 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
         guard let orderId = dictionary["orderId"] as? Int else { return  nil }
         guard let changeRequestStatus = dictionary["changeRequestStatus"] as? Int else { return  nil }
         guard let changeRequestJson = dictionary["changeRequestJson"] as? [String: Any] else { return  nil }
-        self.init(type: type, orderId: orderId, changeRequestStatus: changeRequestStatus, changeRequestJson: changeRequestJson)
+        guard let submitRatingJson = dictionary["submitRatingJson"] as? [[String: Any]] else { return  nil }
+        
+        self.init(type: type, orderId: orderId, changeRequestStatus: changeRequestStatus, changeRequestJson: changeRequestJson, submitRatingJson: submitRatingJson)
     }
     
     var dictionaryRepresentation: [String : Any]? {
-        return ["type" : type.rawValue, "orderId" : orderId , "changeRequestStatus" : changeRequestStatus ?? 0, "changeRequestJson" : changeRequestJson as Any]
+        return ["type" : type.rawValue, "orderId" : orderId , "changeRequestStatus" : changeRequestStatus ?? 0, "changeRequestJson" : changeRequestJson as Any, "submitRatingJson" : submitRatingJson as Any]
     }
     
     func perform(completion: @escaping (Error?) -> Void) {
@@ -84,6 +92,10 @@ class OfflineOrderRequest: NSObject, OfflineRequest {
             }else if self.type == .sendOrSaveQCRequest && response.error == nil {
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "QCRevised"), object: nil)
+                }
+            }else if self.type == .sendRating && response.error == nil {
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "sentRating"), object: nil)
                 }
             }
             completion(response.error)

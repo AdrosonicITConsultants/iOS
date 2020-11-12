@@ -34,5 +34,9 @@ class OrderListService: BaseService<Data> {
         return Order.getBuyerFaultyReview().response(using: client).debug()
     }
     
+    func getRatingQuestions() -> SafeSignal<Data> {
+        return Order.getRatingQuestions().response(using: client).debug()
+    }
+    
 }
 

@@ -94,8 +94,10 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         showMessageTimestampOnSwipeLeft = true
         
         let image2View = UIImageView(frame: CGRect(x: 0, y: UIScreen.main.bounds.midY-167, width: 415, height: 254))
-        image2View.image = #imageLiteral(resourceName: "ChatCx.pdf")
-        messagesCollectionView.backgroundView =  UIImageView(image:#imageLiteral(resourceName: "ChatBg.pdf") )
+      //  image2View.image = #imageLiteral(resourceName: "ChatCx.pdf")
+        image2View.image = UIImage.init(named: "ChatCx")
+       // messagesCollectionView.backgroundView =  UIImageView(image:#imageLiteral(resourceName: "ChatBg.pdf") )
+        messagesCollectionView.backgroundView =  UIImageView(image: UIImage.init(named: "ChatBg"))
         messagesCollectionView.backgroundView?.addSubview(image2View)
         additionalBottomInset = 50
         

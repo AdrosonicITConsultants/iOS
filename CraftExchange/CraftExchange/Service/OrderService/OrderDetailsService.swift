@@ -50,6 +50,14 @@ class OrderDetailsService: BaseService<Data> {
         return Order.getOrderProgress(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func getRatingResponse(enquiryId: Int) -> SafeSignal<Data> {
+        return Order.getRatingResponse(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
+    func submitRating(submitRatingJson: [[String: Any]]) -> SafeSignal<Data> {
+        return Order.submitRating(submitRatingJson: submitRatingJson).response(using: client).debug()
+    }
+    
     func recreateOrder(orderId: Int) -> SafeSignal<Data> {
         return Order.recreateOrder(orderId: orderId).response(using: client).debug()
     }

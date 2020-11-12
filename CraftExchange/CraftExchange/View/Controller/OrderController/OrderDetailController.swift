@@ -35,6 +35,10 @@ class OrderDetailController: FormViewController {
     var orderDispatchAfterRecreation: (() -> ())?
     var getOrderProgress: (() -> ())?
     var orderProgress: OrderProgress?
+    var isBuyerRatingDone: Int?
+    var isArtisanRatingDone: Int?
+    var allBuyerRatingResponse: Results<RatingResponseBuyer>?
+    var isRatingFetched = 0
     var getPI: (() -> ())?
     var PI: GetPI?
     var advancePaymnet: PaymentStatus?
@@ -71,6 +75,7 @@ class OrderDetailController: FormViewController {
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         allDeliveryTimes = realm!.objects(EnquiryMOQDeliveryTimes.self).sorted(byKeyPath: "entityID")
         innerStages = realm!.objects(EnquiryInnerStages.self).sorted(byKeyPath: "entityID")
+        allBuyerRatingResponse = realm!.objects(RatingResponseBuyer.self).filter("%K == %@", "enquiryId", orderObject?.enquiryId ?? 0).sorted(byKeyPath: "entityID")
         // checkMOQ?()
         // checkMOQs?()
         getPI?()
@@ -89,18 +94,6 @@ class OrderDetailController: FormViewController {
         
         form
             +++ Section()
-            //            <<< LabelRow(){
-            //                $0.cell.height = { 25.0 }
-            //                $0.title = orderObject?.orderCode
-            //            }
-            //            <<< LabelRow(){
-            //                $0.cell.height = { 20.0 }
-            //                let date = Date().ttceISOString(isoDate: (orderObject?.orderCreatedOn!)!)
-            //                $0.title = "Order created on: " + date
-            //            }.cellUpdate({ (cell, row) in
-            //                cell.textLabel?.textColor = .darkGray
-            //                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
-            //            })
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
@@ -148,9 +141,56 @@ class OrderDetailController: FormViewController {
                     cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
                 }
             })
+            <<< BuyerEnquirySectionViewRow() {
+                          $0.cell.height = { 40.0 }
+                          $0.tag = "View Rating"
+                          $0.cell.titleLbl.text = "Buyer rated you!".localized
+                          $0.cell.valueLbl.text = "View"
+                          $0.cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.7554848031, blue: 0.2052248061, alpha: 1)
+                          $0.cell.titleLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
+                          $0.cell.valueLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
+                          $0.hidden = true
+                if self.orderObject?.enquiryStageId != nil && self.isBuyerRatingDone != nil{
+                    if (User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 10 && self.isBuyerRatingDone! == 1) {
+                                  $0.hidden = false
+                              }
+                          }
+                
+                      }.onCellSelection({ (cell, row) in
+                          if self.orderObject != nil {
+                              do {
+                                  let client = try SafeClient(wrapping: CraftExchangeClient())
+                                     let vc = ViewRatingController.init(style: .plain)
+                                  vc.orderObject = self.orderObject
+                                      self.navigationController?.pushViewController(vc, animated: false)
+                              }catch {
+                                  print(error.localizedDescription)
+                              }
+                          }
+                      }).cellUpdate({ (cell, row) in
+                        
+                        if self.orderObject?.enquiryStageId != nil && self.isBuyerRatingDone != nil{
+                            if (User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 10 && self.isBuyerRatingDone! == 1) {
+                                cell.row.hidden = false
+                            }
+                             cell.textLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+                            var ResponseArray:[Int] = []
+                            if self.allBuyerRatingResponse != nil{
+                                for object in self.allBuyerRatingResponse! {
+                                    if object.responseComment == nil {
+                                        ResponseArray.append(object.response)
+                                        cell.valueLbl.text = "\((Double(ResponseArray.reduce(0, +))/Double(ResponseArray.count)))"
+                                    }
+                                }
+                            }
+                            
+                        }
+                      })
             
             <<< LabelRow(){
-                $0.title = "Enquiry Details"
+                $0.title = "Order Details"
             }
             
             <<< SwitchRow() {
@@ -361,6 +401,25 @@ class OrderDetailController: FormViewController {
                 }
                 $0.hidden = isClosed == true ? false : true
             }
+            
+            <<< ProvideRatingButtonRow() {
+                $0.cell.height = { 125.0 }
+                $0.tag = "Provide Rating"
+                $0.cell.tag = 101
+                $0.cell.delegate = self
+                $0.hidden = true
+                if orderObject != nil {
+                    if self.orderObject!.enquiryStageId >= 10 && self.isClosed {
+                        $0.hidden = false
+                    }
+                }
+            }.cellUpdate({ (cell, row) in
+                if self.orderObject != nil {
+                    if self.orderObject!.enquiryStageId >= 10 && self.isClosed {
+                        cell.row.hidden = false
+                    }
+                }
+            })
             
             <<< ConfirmDeliveryRow() {
                 $0.cell.height = { 175.0 }
@@ -895,6 +954,15 @@ class OrderDetailController: FormViewController {
     
     func reloadFormData() {
         orderObject = realm?.objects(Order.self).filter("%K == %@","entityID",orderObject?.entityID ?? 0).first
+        
+        if self.orderObject?.enquiryStageId != nil && self.isBuyerRatingDone != nil{
+            if (User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 10 && self.isBuyerRatingDone! == 1) {
+                let row = form.rowBy(tag: "View Rating")
+                row?.hidden = false
+                row?.evaluateHidden()
+                self.form.allSections.first?.reload(with: .none)
+            }
+        }
         
         if self.orderObject?.isReprocess == 1  {
             let row = form.rowBy(tag: "Order under Recreation")
@@ -1443,10 +1511,30 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
     
 }
 
-extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, CloseOrderViewProtocol, MarkAsDispatchedViewProtocol, PartialRefundReceivedViewProtocol  {
+extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, CloseOrderViewProtocol, MarkAsDispatchedViewProtocol, PartialRefundReceivedViewProtocol, ProvideRatingButtonProtocol  {
     
+    /// provide rating
+    func provideRatingButtonSelected(tag: Int) {
+        switch tag {
+        case 101:
+            if self.orderObject != nil && self.isBuyerRatingDone != nil && self.isArtisanRatingDone != nil{
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: orderObject, enquiryId: orderObject?.enquiryId ?? 0) as! ProvideRatingController
+                    vc.orderObject = self.orderObject
+                   // vc.isBuyerRatingDone = self.isBuyerRatingDone
+                   // vc.isArtisanRatingDone = self.isArtisanRatingDone
+                        self.navigationController?.pushViewController(vc, animated: false)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        default:
+            print("do nothing")
+        }
+    }
     
-    
+    /// is partisal refund received
     func RefundCancelButtonSelected() {
         self.view.hidePartialRefundReceivedView()
         self.viewWillAppear?()
@@ -1473,6 +1561,7 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
         
     }
     
+    /// mark as dispatched
     func MarkAsDipatchedCloseButtonSelected() {
         self.view.hideMarkAsDispatchedView()
     }
@@ -1490,6 +1579,7 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
        
     }
     
+    ///close order
     func closeOrderCancelButtonSelected() {
         self.view.hideCloseOrderView()
     }
@@ -1508,7 +1598,7 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
         
     }
     
-    
+    /// view PI
     func viewProformaInvoiceBtnSelected(tag: Int) {
         self.showLoading()
         self.viewPI?(0)
@@ -1524,10 +1614,10 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
         self.raiseNewCRPI?()
     }
     
-    func RejectBtnSelected(tag: Int) {
-        print("do nothing")
-    }
-    
+//    func RejectBtnSelected(tag: Int) {
+//        print("do nothing")
+//    }
+    ///final payment
     func paymentBtnSelected(tag: Int) {
         switch tag{
         case 100:
@@ -1561,15 +1651,16 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     }
     
     
-    func cancelButtonSelected() {
-        self.view.hideAcceptMOQView()
-    }
+//    func cancelButtonSelected() {
+//        self.view.hideAcceptMOQView()
+//    }
     
     //    func acceptMOQButtonSelected() {
     //        self.showLoading()
     //        self.acceptMOQ?()
     //    }
     
+    ///go to chat
     func enquiryChatButtonSelected() {
         self.goToChat()
     }

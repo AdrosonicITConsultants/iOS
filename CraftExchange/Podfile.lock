@@ -7,6 +7,7 @@ PODS:
   - Bond (7.6.6):
     - Differ (~> 1.4)
     - ReactiveKit (~> 3.14)
+  - Cosmos (23.0.0)
   - Differ (1.4.5)
   - Eureka (5.2.1)
   - FBSDKCoreKit (8.1.0):
@@ -56,6 +57,7 @@ PODS:
 
 DEPENDENCIES:
   - Bond
+  - Cosmos
   - Eureka
   - FBSDKLoginKit
   - GoogleSignIn
@@ -75,6 +77,7 @@ SPEC REPOS:
   trunk:
     - AppAuth
     - Bond
+    - Cosmos
     - Differ
     - Eureka
     - FBSDKCoreKit
@@ -99,6 +102,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Bond: 9e7d901cf4ed825b6004a93dd0a7f1c7479e2834
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   FBSDKCoreKit: b3ca27e124dae67122d3bb47c8f96800b39986a6
@@ -120,6 +124,6 @@ SPEC CHECKSUMS:
   ViewRow: 8da541e9c019f3be63f4e28f311a62cac2045ecf
   WMSegmentControl: 00415dce32ed41ad7623ac6ac076eedbb8140a5e
 
-PODFILE CHECKSUM: aa8627c1d74397b8450ed53979cdc695134f2ee7
+PODFILE CHECKSUM: b6d8fffca3e6fb35c725e09e20557695d1baea2f
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.8.4

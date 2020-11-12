@@ -597,3 +597,27 @@ extension qualityCheck {
         return changeRequestJson
     }
 }
+//{ "enquiryId": 1592, "givenBy": 9, "questionId": 1, "response": 3, "responseComment": null }
+struct artisanRating {
+    var enquiryId: Int = 0
+    var givenBy: Int = 0
+    var questionId: Int = 0
+    var response:  Int = 0
+    var responseComment: String?
+}
+
+extension artisanRating {
+    func toJSON() -> [String: Any] {
+
+        var artisanRatingJson: [String: Any] = [:]
+
+        artisanRatingJson["enquiryId"] = enquiryId
+        artisanRatingJson["givenBy"] = givenBy
+        artisanRatingJson["questionId"] = questionId
+        artisanRatingJson["response"] = response
+        artisanRatingJson["responseComment"] = responseComment
+
+        return artisanRatingJson
+    }
+}
+
