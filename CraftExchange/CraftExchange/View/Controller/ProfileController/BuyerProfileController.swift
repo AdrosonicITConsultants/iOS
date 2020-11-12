@@ -278,22 +278,15 @@ class BuyerProfileController: UIViewController {
         let newAddr = LocalAddress.init(id: 0, addrType: nil, country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: district, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: User.loggedIn()?.entityID ?? 0)
         newUser.address = newAddr
         
-
         let cin = self.viewModel.cin.value ?? nil
         let gstNo = self.viewModel.gst.value ?? nil
         
         let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: User.loggedIn()?.buyerCompanyDetails.first?.companyName ?? "", cin: cin, contact: User.loggedIn()?.buyerCompanyDetails.first?.contact ?? "", gstNo: gstNo, logo: nil, compDesc: User.loggedIn()?.buyerCompanyDetails.first?.compDesc ?? "")
         newUser.buyerCompanyDetails = newCompDetails
         
-        if (self.viewModel.pocFirstName.value != nil && self.viewModel.pocFirstName.value?.isNotBlank ?? false) ||
-          (self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false) ||
-          self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
-          let pocName = self.viewModel.pocFirstName.value ?? nil
-          let pocEmail = self.viewModel.pocEmail.value ?? nil
-          let pocMob = self.viewModel.pocContact.value ?? nil
-          let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
-          newUser.buyerPointOfContact = newPointOfContact
-        }
+        let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: self.viewModel.pocContact.value ?? "", email: self.viewModel.pocEmail.value ?? "", firstName: self.viewModel.pocFirstName.value ?? "")
+        newUser.buyerPointOfContact = newPointOfContact
+        
         if self.viewModel.imageData.value != nil {
             self.viewModel.updateBuyerDetails?(newUser.toJSON(updateAddress: true, buyerComp: true), self.viewModel.imageData.value?.0, self.viewModel.imageData.value?.1)
         }else {
