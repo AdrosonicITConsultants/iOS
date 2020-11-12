@@ -313,9 +313,6 @@ extension UIView {
             if chat.changeRequestDone == 0{
                 initiationView?.CRView.isHidden = true
             }
-            if chat.escalation == 0{
-                initiationView?.escalationButton.isHidden = true
-            }
             initiationView?.imageButton.imageView?.layer.cornerRadius = 25
             if let tag = chat.buyerLogo, chat.buyerLogo != "" {
                        let prodId = chat.buyerId
@@ -597,6 +594,36 @@ extension UIView {
         if let effectView = self.viewWithTag(143) {
             self.sendSubviewToBack(effectView)
                        effectView.removeFromSuperview()
+        }
+    }
+    
+    func showChatEscalationHeaderView(controller: UIViewController, chat: Chat) {
+        if let _ = self.viewWithTag(150) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("ChatEscalationHeaderView", owner:
+                self, options: nil)?.first as? ChatEscalationHeaderView
+            initiationView?.enquiryNumber.text = chat.enquiryNumber
+            initiationView?.delegate =  controller as? ChatEscalationHeaderViewProtocol
+            initiationView?.tag = 150
+            self.addSubview(initiationView!)
+            let safeAreaTop: CGFloat
+
+            if #available(iOS 11.0, *) {
+                safeAreaTop = controller.view.safeAreaInsets.top
+            } else {
+                safeAreaTop = controller.topLayoutGuide.length
+            }
+            initiationView?.frame = CGRect(x:0, y: safeAreaTop , width: self.frame.width, height: 80)
+            
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    
+    func hideChatEscalationHeaderDetailsView() {
+        if let initialView = self.viewWithTag(150) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
         }
     }
 }

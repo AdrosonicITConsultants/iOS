@@ -42,8 +42,10 @@ public protocol MessageType {
     
     var id: Int { get }
     
-     var mediaName: String { get }
+    var mediaName: String { get }
     
     var pathName: String { get }
+    
+    var resolved: Int { get }
 
 }
