@@ -40,6 +40,7 @@ extension ChatDetailsService {
                                         var eqArray: [Int] = []
                                         DispatchQueue.main.async {
 
+                                            controller.messages = []
                                             for obj in chatObj {
                                                 i+=1
                                                 obj.saveOrUpdate()

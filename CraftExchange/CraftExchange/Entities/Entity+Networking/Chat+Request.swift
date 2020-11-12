@@ -152,4 +152,66 @@ extension Chat {
         
     }
     
+    public static func getEscalations() -> Request<Data, APIError> {
+        var str = "enquiry/getEscalations"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get escalations failed")
+            return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func getEscalationsSummary(enquiryId: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        var str = "enquiry/getEscalationSummaryForEnquiry?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func resolveEscalation(enquiryId: Int) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["enquiryId":enquiryId]
+        var str = "enquiry/resolveEscalation?escalationId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
+            parameters: JSONParameters(parameters),
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "chat initiation failed")
+            return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func raiseEscalation(enquiryId: Int, catId: Int, escalationFrom: Int, escalationTo: Int, message: String) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["enquiryId":enquiryId, "category":catId, "escalationFrom":escalationFrom, "escalationTo":escalationTo, "text":message]
+        var str = "enquiry/raiseEscalaton"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
+            parameters: JSONParameters(parameters),
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "chat initiation failed")
+            return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
 }

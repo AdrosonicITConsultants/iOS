@@ -31,6 +31,7 @@ struct Message: MessageType {
     var id: Int
     var mediaName: String
     var pathName: String
+    var resolved: Int
 }
 
 struct Media: MediaItem {
@@ -309,13 +310,13 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             messageObject.append(Message(sender: user,
                                          messageId: obj.id!,
                                          sentDate: Date().ttceISODate(isoDate: obj.createdOn!),
-                                         kind: .attributedText(fullString), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!))
+                                         kind: .attributedText(fullString), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!, resolved: 0))
         }
         else{
             messageObject.append(Message(sender: user,
                                          messageId: obj.id!,
                                          sentDate: Date().ttceISODate(isoDate: obj.createdOn!),
-                                         kind: .text(obj.messageString ?? ""), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!))
+                                         kind: .text(obj.messageString ?? ""), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!, resolved: 0))
         }
     }
     
@@ -432,7 +433,9 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
 
 extension ChatDetailsController: MessageCellDelegate, ChatHeaderDetailsViewProtocol, ChatHeaderViewProtocol  {
     func escalationButtonSelected() {
-       print("Escaltion button selected")
+        let vc = ChatEscalationService().createScene(forChat: chatObj, enquiryId: chatObj.enquiryId) as! ChatEscalationController
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func viewDetailsButtonSelected() {

@@ -111,3 +111,45 @@ extension Conversation {
         }
     }
 }
+
+extension EscalationCategory {
+    
+    func saveOrUpdate() {
+        let realm = try! Realm()
+        if let object = realm.objects(EscalationCategory.self).filter("%K == %@", "id", self.id).first {
+            try? realm.write {
+//                object.id = id
+                object.category = category
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+    
+}
+
+extension EscalationConversation {
+    
+    func saveOrUpdate() {
+        let realm = try! Realm()
+        if let object = realm.objects(EscalationConversation.self).filter("%K == %@", "enquiryId", self.id).first {
+            try? realm.write {
+                object.enquiryId = enquiryId
+                object.escalationFrom = escalationFrom
+                object.escalationTo = escalationTo
+                object.text = text
+                object.category = category
+                object.resolved = resolved
+                object.createdOn = createdOn
+                object.modifiedOn = modifiedOn
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+    
+}
