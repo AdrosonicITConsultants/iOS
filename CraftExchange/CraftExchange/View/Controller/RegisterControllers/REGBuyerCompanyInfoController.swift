@@ -24,7 +24,7 @@ class BuyerCompanyViewModel {
   var pocFirstName = Observable<String?>(nil)
   var pocMobNo = Observable<String?>(nil)
   var pocEmailId = Observable<String?>(nil)
-  var brandLogo = Observable<String?>(nil)
+  var brandLogo = Observable<Data?>(nil)
   var nextSelected: (() -> Void)?
 }
 
@@ -67,8 +67,13 @@ class REGBuyerCompanyInfoController: FormViewController {
             row.clearAction = .yes(style: UIAlertAction.Style.destructive)
         }.onChange({ (row) in
             if let image = row.value {
-                let imageData:NSData = image.pngData()! as NSData
-                print(imageData.length)
+                var imgData: Data?
+                if let data = image.pngData() {
+                    imgData = data
+                } else if let data = image.jpegData(compressionQuality: 1) {
+                    imgData = data
+                }
+                self.viewModel.brandLogo.value = imgData
             }
         })
       <<< RoundedTextFieldRow() {

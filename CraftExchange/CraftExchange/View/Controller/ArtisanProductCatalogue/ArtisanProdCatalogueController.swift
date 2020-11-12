@@ -118,7 +118,7 @@ class ArtisanProdCatalogueController: UITableViewController {
           }
           alert.addAction(action)
         }
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -168,8 +168,8 @@ extension ArtisanProdCatalogueController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if fromFilter {
-            return 50
+        if fromFilter || dataSource?.changeset?.count == 0 || dataSource == nil {
+            return 40
         }
         return 0
     }

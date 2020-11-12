@@ -34,12 +34,6 @@ extension REGBuyerCompanyInfoService {
                 isValid = false
               }
             }
-            if vc.viewModel.pocMobNo.value != nil && vc.viewModel.pocMobNo.value?.isNotBlank ?? false {
-              let val = vc.viewModel.pocMobNo.value?.isValidPhoneNumber ?? false
-              if val == false {
-                isValid = false
-              }
-            }
             if isValid {
               let newUser = createNewUser()
               let controller = REGBuyerAddressInfoService(client: self.client).createScene(existingUser: newUser)
@@ -67,24 +61,17 @@ extension REGBuyerCompanyInfoService {
         newUser.mobile = existingUser.mobile ?? nil
         newUser.alternateMobile = existingUser.alternateMobile ?? nil
         newUser.designation = existingUser.designation ?? nil
-        
+        newUser.profileImg = vc.viewModel.brandLogo.value
         let compName = vc.viewModel.companyName.value ?? nil
         let cin = vc.viewModel.cinNo.value ?? nil
-        let panNo = vc.viewModel.panNo.value ?? nil
+        let panNo = vc.viewModel.panNo.value ?? ""
         let gstNo = vc.viewModel.gstNo.value ?? nil
-        
-        let newCompDetails = buyerCompDetails.init(id: 0, companyName: compName, cin: cin, contact: panNo, gstNo: gstNo, logo: nil, compDesc: nil)
+        newUser.pancard = panNo
+        let newCompDetails = buyerCompDetails.init(id: 0, companyName: compName, cin: cin, contact: "", gstNo: gstNo, logo: nil, compDesc: nil)
         newUser.buyerCompanyDetails = newCompDetails
         
-        if (vc.viewModel.pocFirstName.value != nil && vc.viewModel.pocFirstName.value?.isNotBlank ?? false) ||
-          (vc.viewModel.pocMobNo.value != nil && vc.viewModel.pocMobNo.value?.isNotBlank ?? false) ||
-          vc.viewModel.pocEmailId.value != nil && vc.viewModel.pocEmailId.value?.isNotBlank ?? false {
-          let pocName = vc.viewModel.pocFirstName.value ?? nil
-          let pocEmail = vc.viewModel.pocEmailId.value ?? nil
-          let pocMob = vc.viewModel.pocMobNo.value ?? nil
-          let newPointOfContact = pointOfContact.init(id: 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
-          newUser.buyerPointOfContact = newPointOfContact
-        }
+        let newPointOfContact = pointOfContact.init(id: 0, contactNo: vc.viewModel.pocMobNo.value ?? "", email: vc.viewModel.pocEmailId.value ?? "", firstName: vc.viewModel.pocFirstName.value ?? "")
+        newUser.buyerPointOfContact = newPointOfContact
         
         appDelegate?.registerUser = newUser
         return newUser

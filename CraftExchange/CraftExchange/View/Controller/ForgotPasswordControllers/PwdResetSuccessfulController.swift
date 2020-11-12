@@ -13,8 +13,11 @@ import UIKit
 
 class PwdResetSuccessfulController: UIViewController {
   
+    @IBOutlet weak var changeLangButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
   
   @IBAction func showLoginSelected(_sender: Any) {

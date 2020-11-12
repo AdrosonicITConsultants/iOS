@@ -24,7 +24,8 @@ class RegisterBuyerController: UIViewController {
   @IBOutlet weak var websiteLinkField: RoundedTextField!
   @IBOutlet weak var mediaLinkField: RoundedTextField!
   let appDelegate = UIApplication.shared.delegate as? AppDelegate
-  
+  @IBOutlet weak var changeLangButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     self.viewModel.websiteLink.bidirectionalBind(to: websiteLinkField.reactive.text)
@@ -34,6 +35,7 @@ class RegisterBuyerController: UIViewController {
     mediaLinkField.text = appDelegate?.registerUser?.socialMediaLink
     self.viewModel.websiteLink.value = websiteLinkField.text
     self.viewModel.socialMediaLink.value = mediaLinkField.text
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
     
   @IBAction func toggleCheckbox(_ sender: Any) {

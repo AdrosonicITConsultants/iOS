@@ -24,13 +24,15 @@ class REGNewUserPasswordController: UIViewController {
   @IBOutlet weak var confirmPasswordField: RoundedTextField!
   var weaverId: String?
   var validatedEmailId: String?
-  
+  @IBOutlet weak var changeLangButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
     self.viewModel.confirmPassword.bidirectionalBind(to: confirmPasswordField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
   
   @IBAction func confirmPasswordSelected(_ sender: Any) {
@@ -59,13 +61,13 @@ class REGNewUserPasswordController: UIViewController {
             }
           }
         }else {
-          alert("Password & Confirm password mismatch.")
+            alert("Password & Confirm password mismatch.".localized)
         }
       }else {
-        alert("Please enter a valid password with 8 characters. It should contain at least 1 Capital alphabet, number, and special character.")
+        alert("Please enter a valid password with 8 characters. It should contain at least 1 Capital alphabet, number, and special character.".localized)
       }
     }else {
-      alert("Please enter password & confirm your password")
+        alert("Please enter password & confirm your password".localized)
     }
   }
     

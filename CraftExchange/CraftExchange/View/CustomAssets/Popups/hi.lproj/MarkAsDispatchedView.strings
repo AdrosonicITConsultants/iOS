@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "X"; ObjectID = "QcV-CV-T6f"; */
+"QcV-CV-T6f.normalTitle" = "X";
+
+/* Class = "UILabel"; text = "Dispatch"; ObjectID = "Yx6-ct-XO0"; */
+"Yx6-ct-XO0.text" = "भेजना";
+
+/* Class = "UIButton"; normalTitle = "Mark as dispatched"; ObjectID = "sQV-Nu-1Vs"; */
+"sQV-Nu-1Vs.normalTitle" = "भेजना के रूप में चिह्नित करें";

@@ -27,13 +27,9 @@ extension REGBuyerAddressInfoService {
         if vc.viewModel.addr1.value != nil && vc.viewModel.addr1.value?.isNotBlank ?? false &&
           vc.viewModel.country.value != nil && vc.viewModel.country.value?.isNotBlank ?? false &&
           vc.viewModel.pincode.value != nil && vc.viewModel.pincode.value?.isNotBlank ?? false {
-          if vc.viewModel.pincode.value?.isValidPincode ?? false {
-            let newUser = createNewUser()
-            let controller = RegisterArtisanService(client: self.client).createScene(existingUser: newUser)
-            vc.navigationController?.pushViewController(controller, animated: true)
-          }else {
-            vc.alert("Please enter valid Pincode")
-          }
+          let newUser = createNewUser()
+          let controller = RegisterArtisanService(client: self.client).createScene(existingUser: newUser)
+          vc.navigationController?.pushViewController(controller, animated: true)
         }else {
           vc.alert("Please enter all mandatory fields")
         }
@@ -53,6 +49,7 @@ extension REGBuyerAddressInfoService {
         newUser.designation = existingUser.designation ?? nil
         newUser.buyerCompanyDetails = existingUser.buyerCompanyDetails
         newUser.buyerPointOfContact = existingUser.buyerPointOfContact
+        newUser.profileImg = existingUser.profileImg
         let selectedCountryObj = vc.allCountries?.filter("%K == %@", "name", vc.viewModel.country.value).first
         let addr1 = vc.viewModel.addr1.value ?? nil
         let addr2 = vc.viewModel.addr2.value ?? nil

@@ -22,7 +22,6 @@
 		30505C68254EA208003E2DFF /* PartialRefundReceivedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30505C67254EA208003E2DFF /* PartialRefundReceivedView.swift */; };
 		30505C6A254EA213003E2DFF /* PartialRefundReceivedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505C69254EA213003E2DFF /* PartialRefundReceivedView.xib */; };
 		30505C6C254EA2CA003E2DFF /* MarkAsDispatchedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30505C6B254EA2CA003E2DFF /* MarkAsDispatchedView.swift */; };
-		30505C6E254EA2DA003E2DFF /* MarkAsDispatchedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505C6D254EA2DA003E2DFF /* MarkAsDispatchedView.xib */; };
 		3061022B253F1271006430D9 /* ChatHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022A253F1271006430D9 /* ChatHeaderView.swift */; };
 		3061022F253F1321006430D9 /* ChatHeaderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */; };
 		307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B397C252C24DD000028AC /* AdvancePaymentScene.swift */; };
@@ -112,6 +111,13 @@
 		30EDDF07255AAB2D005A4BCC /* RatingStars.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30EDDEFD255AAB2D005A4BCC /* RatingStars.xib */; };
 		30EDDF09255AAB2D005A4BCC /* RatingStars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EDDEFF255AAB2D005A4BCC /* RatingStars.swift */; };
 		30EF8690254C3F3F00AA99A7 /* CloseOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EF868F254C3F3F00AA99A7 /* CloseOrderView.swift */; };
+		A921AC122559723700D318F9 /* ChatEscalationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A921AC112559723700D318F9 /* ChatEscalationController.swift */; };
+		A921AC142559769B00D318F9 /* ChatEscalationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A921AC132559769B00D318F9 /* ChatEscalationScene.swift */; };
+		A921AC16255976EB00D318F9 /* ChatEscalationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A921AC15255976EB00D318F9 /* ChatEscalationService.swift */; };
+		A921AC182559C45300D318F9 /* ChatEscalationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A921AC172559C45300D318F9 /* ChatEscalationHeaderView.xib */; };
+		A921AC1A2559C48700D318F9 /* ChatEscalationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A921AC192559C48700D318F9 /* ChatEscalationHeaderView.swift */; };
+		A967840C255AC4C10066C147 /* EscalationConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967840B255AC4C10066C147 /* EscalationConversation.swift */; };
+		A967840E255AD9280066C147 /* EscalationCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967840D255AD9280066C147 /* EscalationCategory.swift */; };
 		C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB024C16EF100197519 /* HomeScreenService.swift */; };
 		C005BCB424C1778D00197519 /* ArtisanHomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */; };
 		C005BCB624C1AB2F00197519 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB524C1AB2F00197519 /* Product.swift */; };
@@ -452,6 +458,7 @@
 		C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */; };
 		C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */; };
 		C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */; };
+		C0CEF35A2559286F00AD9D86 /* MarkAsDispatchedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CEF35C2559286F00AD9D86 /* MarkAsDispatchedView.xib */; };
 		C0D218B124FEC67A0071896E /* EnquiryGeneratedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */; };
 		C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6CF6224F518AE00287D7A /* LabelCell.xib */; };
 		C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6CF6624F51D8200287D7A /* LabelCell.swift */; };
@@ -497,7 +504,6 @@
 		30505C67254EA208003E2DFF /* PartialRefundReceivedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialRefundReceivedView.swift; sourceTree = "<group>"; };
 		30505C69254EA213003E2DFF /* PartialRefundReceivedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PartialRefundReceivedView.xib; sourceTree = "<group>"; };
 		30505C6B254EA2CA003E2DFF /* MarkAsDispatchedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkAsDispatchedView.swift; sourceTree = "<group>"; };
-		30505C6D254EA2DA003E2DFF /* MarkAsDispatchedView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkAsDispatchedView.xib; sourceTree = "<group>"; };
 		3061022A253F1271006430D9 /* ChatHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderView.swift; sourceTree = "<group>"; };
 		3061022E253F1321006430D9 /* ChatHeaderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHeaderDetailsView.swift; sourceTree = "<group>"; };
 		307B397C252C24DD000028AC /* AdvancePaymentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancePaymentScene.swift; sourceTree = "<group>"; };
@@ -587,6 +593,13 @@
 		30EDDEFD255AAB2D005A4BCC /* RatingStars.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RatingStars.xib; path = CraftExchange/View/CustomAssets/RatingStars.xib; sourceTree = SOURCE_ROOT; };
 		30EDDEFF255AAB2D005A4BCC /* RatingStars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RatingStars.swift; path = CraftExchange/View/CustomAssets/RatingStars.swift; sourceTree = SOURCE_ROOT; };
 		30EF868F254C3F3F00AA99A7 /* CloseOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseOrderView.swift; sourceTree = "<group>"; };
+		A921AC112559723700D318F9 /* ChatEscalationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEscalationController.swift; sourceTree = "<group>"; };
+		A921AC132559769B00D318F9 /* ChatEscalationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEscalationScene.swift; sourceTree = "<group>"; };
+		A921AC15255976EB00D318F9 /* ChatEscalationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEscalationService.swift; sourceTree = "<group>"; };
+		A921AC172559C45300D318F9 /* ChatEscalationHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatEscalationHeaderView.xib; sourceTree = "<group>"; };
+		A921AC192559C48700D318F9 /* ChatEscalationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEscalationHeaderView.swift; sourceTree = "<group>"; };
+		A967840B255AC4C10066C147 /* EscalationConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscalationConversation.swift; sourceTree = "<group>"; };
+		A967840D255AD9280066C147 /* EscalationCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscalationCategory.swift; sourceTree = "<group>"; };
 		C005BCB024C16EF100197519 /* HomeScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenService.swift; sourceTree = "<group>"; };
 		C005BCB324C1778D00197519 /* ArtisanHomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanHomeScene.swift; sourceTree = "<group>"; };
 		C005BCB524C1AB2F00197519 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -978,6 +991,9 @@
 		C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryStages.swift; sourceTree = "<group>"; };
 		C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListScene.swift; sourceTree = "<group>"; };
 		C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		C0CEF35B2559286F00AD9D86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MarkAsDispatchedView.xib; sourceTree = "<group>"; };
+		C0CEF35E2559288E00AD9D86 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MarkAsDispatchedView.strings; sourceTree = "<group>"; };
+		C0CEF3602559289000AD9D86 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/MarkAsDispatchedView.strings; sourceTree = "<group>"; };
 		C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryGeneratedView.swift; sourceTree = "<group>"; };
 		C0D6CF6224F518AE00287D7A /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		C0D6CF6624F51D8200287D7A /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
@@ -1038,6 +1054,7 @@
 			children = (
 				309247062535DD9F0073463E /* ChatDetailsScene.swift */,
 				309247102535ED7C0073463E /* ChatListScene.swift */,
+				A921AC132559769B00D318F9 /* ChatEscalationScene.swift */,
 			);
 			path = ChatScenes;
 			sourceTree = "<group>";
@@ -1048,6 +1065,7 @@
 				309246FF2535DD050073463E /* ChatListController.swift */,
 				30EB8DE82537230800BA59E8 /* ChatNewListController.swift */,
 				30EB8DEC253825FA00BA59E8 /* ChatDetailsController.swift */,
+				A921AC112559723700D318F9 /* ChatEscalationController.swift */,
 			);
 			path = ChatController;
 			sourceTree = "<group>";
@@ -1057,6 +1075,7 @@
 			children = (
 				309247022535DD510073463E /* ChatListService.swift */,
 				309247042535DD7B0073463E /* ChatDetailsService.swift */,
+				A921AC15255976EB00D318F9 /* ChatEscalationService.swift */,
 			);
 			path = ChatService;
 			sourceTree = "<group>";
@@ -1406,6 +1425,8 @@
 				309796A12552640C00851ECA /* OrderProgress.swift */,
 				3097BF7C255A798B0095747E /* RatingQuestions.swift */,
 				3097BF82255A84AE0095747E /* RatingResponse.swift */,
+				A967840B255AC4C10066C147 /* EscalationConversation.swift */,
+				A967840D255AD9280066C147 /* EscalationCategory.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1777,11 +1798,13 @@
 				30505C67254EA208003E2DFF /* PartialRefundReceivedView.swift */,
 				30505C69254EA213003E2DFF /* PartialRefundReceivedView.xib */,
 				30505C6B254EA2CA003E2DFF /* MarkAsDispatchedView.swift */,
-				30505C6D254EA2DA003E2DFF /* MarkAsDispatchedView.xib */,
+				C0CEF35C2559286F00AD9D86 /* MarkAsDispatchedView.xib */,
 				30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */,
 				30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */,
 				309796A5255632B400851ECA /* BuyerReviewConfirmView.swift */,
 				309796A7255632C600851ECA /* BuyerReviewConfirmView.xib */,
+				A921AC192559C48700D318F9 /* ChatEscalationHeaderView.swift */,
+				A921AC172559C45300D318F9 /* ChatEscalationHeaderView.xib */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -2262,6 +2285,7 @@
 				C027F11E25562105001FEE09 /* OrderAvailabilityCell.xib in Resources */,
 				C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
+				A921AC182559C45300D318F9 /* ChatEscalationHeaderView.xib in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
 				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
 				C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */,
@@ -2283,7 +2307,7 @@
 				C0A910A3247CD90B00852695 /* PlayfairDisplay-SemiBold.ttf in Resources */,
 				C03BD8822476F0BC00279D7F /* Main.storyboard in Resources */,
 				C027F11725562077001FEE09 /* ChatHeaderDetailsView.xib in Resources */,
-				30505C6E254EA2DA003E2DFF /* MarkAsDispatchedView.xib in Resources */,
+				C0CEF35A2559286F00AD9D86 /* MarkAsDispatchedView.xib in Resources */,
 				307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */,
 				30EDDF01255AAB2D005A4BCC /* GiveRatingCell.xib in Resources */,
 				C099E3EF24FE9252003B6E3B /* EnquiryExistsView.xib in Resources */,
@@ -2465,6 +2489,7 @@
 				C0ACE9AE2485A5BB00EFA4ED /* RegisterArtisanScene.swift in Sources */,
 				C016EC132510D1A30039B7AF /* NotificationService.swift in Sources */,
 				C09C970024B908C500FD97E9 /* MyProfileService.swift in Sources */,
+				A921AC122559723700D318F9 /* ChatEscalationController.swift in Sources */,
 				C05836B924C867B50027FF44 /* ProductImageService.swift in Sources */,
 				C04842B424E7BB9D00D3207F /* CustomProductService.swift in Sources */,
 				C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */,
@@ -2499,6 +2524,7 @@
 				C00E8A9D254C594C00DDB23D /* QCArtisanController.swift in Sources */,
 				3092470F2535DED30073463E /* Chat+Transaction.swift in Sources */,
 				C08FBDFE2497F2DA0065BB20 /* REGBuyerPersonalInfoScene.swift in Sources */,
+				A967840C255AC4C10066C147 /* EscalationConversation.swift in Sources */,
 				309796A42553C57000851ECA /* RaisedConcernScene.swift in Sources */,
 				C0ACE99E2485916400EFA4ED /* ProductCategory+Request.swift in Sources */,
 				C00E8AA1254C607A00DDB23D /* QCService.swift in Sources */,
@@ -2553,6 +2579,7 @@
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
 				C0ACE9A02485923F00EFA4ED /* RegisterArtisanController.swift in Sources */,
 				C06570A6252B8E87001140C7 /* TransactionObject+Request.swift in Sources */,
+				A967840E255AD9280066C147 /* EscalationCategory.swift in Sources */,
 				C08FBE042497FFB00065BB20 /* REGBuyerCompanyInfoController.swift in Sources */,
 				C0AE9CF324ECDB940037ECB3 /* ProdDetailYarnValueRow.swift in Sources */,
 				307B398F252D8C67000028AC /* ArtistReceitImg.swift in Sources */,
@@ -2601,6 +2628,7 @@
 				C05E3AE324D1F2E700963FAA /* iCarousel.m in Sources */,
 				C0E6D04224EBF84E008CFB1F /* BuyerProductDetailController.swift in Sources */,
 				C0A3F41D24B7A8220071F7F8 /* BuyerProfileAddrInfo.swift in Sources */,
+				A921AC1A2559C48700D318F9 /* ChatEscalationHeaderView.swift in Sources */,
 				C09F21542486312D001F2FCD /* ClusterDetails+Transaction.swift in Sources */,
 				C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */,
 				C0374DF325383C0E008954C6 /* OrderListService.swift in Sources */,
@@ -2711,6 +2739,7 @@
 				C0A2A00424B8D22E00A49E56 /* User+Transaction.swift in Sources */,
 				C04842B724E7C2ED00D3207F /* CustomProductListScene.swift in Sources */,
 				C074EE3A24EEC1DF00B0973B /* WishlistController.swift in Sources */,
+				A921AC142559769B00D318F9 /* ChatEscalationScene.swift in Sources */,
 				C09F214D24862987001F2FCD /* REGArtisanInfoInputService.swift in Sources */,
 				C0E212DA2498D17300EC2B80 /* REGBuyerAddressInfoScene.swift in Sources */,
 				C09980AF24D5A74500BE86D0 /* OfflineProductRequest.swift in Sources */,
@@ -2723,6 +2752,7 @@
 				C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */,
 				C0A0D76324BD7B360089CC47 /* PaymentAccDetails+Transaction.swift in Sources */,
 				C0E6D04824EC17D2008CFB1F /* ProductDetailInfoRow.swift in Sources */,
+				A921AC16255976EB00D318F9 /* ChatEscalationService.swift in Sources */,
 				308B6A5F2518FDCD00075095 /* GetMOQs.swift in Sources */,
 				C04249CD2547560600D9EA6C /* ChangeRequestItem.swift in Sources */,
 				C06AA396250240A500EF4B10 /* BuyerEnquiryListController.swift in Sources */,
@@ -2988,6 +3018,16 @@
 				C066FC582554835A00487CD8 /* hi */,
 			);
 			name = Payment.storyboard;
+			sourceTree = "<group>";
+		};
+		C0CEF35C2559286F00AD9D86 /* MarkAsDispatchedView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0CEF35B2559286F00AD9D86 /* Base */,
+				C0CEF35E2559288E00AD9D86 /* en */,
+				C0CEF3602559289000AD9D86 /* hi */,
+			);
+			name = MarkAsDispatchedView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

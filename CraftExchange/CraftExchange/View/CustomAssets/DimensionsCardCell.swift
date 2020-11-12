@@ -45,7 +45,7 @@ class DimensionsCardCell: UICollectionViewCell {
         }else if btn.tag == 103 || btn.tag == 203 || btn.tag == 303 {
             options = option3 ?? []
         }
-        let alert = UIAlertController.init(title: "Please select", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "Please select".localized, message: "", preferredStyle: .actionSheet)
         for option in options {
           let action = UIAlertAction.init(title: option, style: .default) { (action) in
             btn.setTitle(option, for: .normal)
@@ -68,7 +68,7 @@ class DimensionsCardCell: UICollectionViewCell {
           }
           alert.addAction(action)
         }
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         (dimensionDelegate as? UIViewController)?.present(alert, animated: true, completion: nil)

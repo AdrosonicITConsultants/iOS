@@ -109,7 +109,7 @@ class PaymentArtistController: FormViewController{
                 }
             }
             <<< LabelRow(){
-                $0.title = "Payment Receipt: "
+                $0.title = "Payment Receipt: ".localized
             }
         <<< ArtistReceitImgRow(){
             $0.cell.height = { 325.0 }

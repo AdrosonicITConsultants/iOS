@@ -50,9 +50,33 @@ extension User {
       )
   }
   
-  public static func registerUser(json: [String: Any]) -> Request<Data, APIError> {
+  public static func registerUser(json: [String: Any],imageData: Data?) -> Request<Data, APIError> {
     var str = json.jsonString
     str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    
+    if let content = imageData  {
+        let boundary = "\(UUID().uuidString)"
+        let dataLength = content.count
+        let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
+                                         "accept": "application/json",
+                                         "Content-Length": String(dataLength)
+        ]
+        var queryParam = "brandLogo"
+        if json["refRoleId"] as? Int == 1 {
+            queryParam = "profilePic"
+        }
+        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: queryParam, param: queryParam)
+        return Request(
+          path: "register/user?registerRequest=\(str)",
+            method: .post,
+            parameters: DataParameter(finalData),
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "user registration failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
     let headers: [String: String] = ["accept": "application/json"]
       return Request(
         path: "register/user?registerRequest=\(str)",

@@ -31,6 +31,7 @@ struct Message: MessageType {
     var id: Int
     var mediaName: String
     var pathName: String
+    var resolved: Int
 }
 
 struct Media: MediaItem {
@@ -130,31 +131,31 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     }
     
     private func presentInputActionsheet(){
-        let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "", message: "Choose".localized, preferredStyle: .actionSheet)
         
-        let docs = UIAlertAction.init(title: "Docs", style: .default) { (action) in
+        let docs = UIAlertAction.init(title: "Docs".localized, style: .default) { (action) in
             // self.goToChat()
             self.DocPickerAlert()
             
         }
         alert.addAction(docs)
         
-        let image = UIAlertAction.init(title: "Image", style: .default) { (action) in
+        let image = UIAlertAction.init(title: "Image".localized, style: .default) { (action) in
             self.ImagePickerAlert()
         }
         alert.addAction(image)
         
-        let audio = UIAlertAction.init(title: "Audio", style: .default) { (action) in
+        let audio = UIAlertAction.init(title: "Audio".localized, style: .default) { (action) in
             self.AudioPickerAlert()
         }
         alert.addAction(audio)
         
-        let video = UIAlertAction.init(title: "Video", style: .default) { (action) in
+        let video = UIAlertAction.init(title: "Video".localized, style: .default) { (action) in
             self.videoPickerAlert()
         }
         alert.addAction(video)
         
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
@@ -162,13 +163,13 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     }
     
     func sendInputActionsheet(mediaName: String?){
-        let alert = UIAlertController.init(title: "Are you sure", message: "you want to send " + mediaName! + "?", preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: "Are you sure".localized, message: "you want to send ".localized + mediaName! + "?", preferredStyle: .actionSheet)
         
-        let save = UIAlertAction.init(title: "Send", style: .default) { (action) in
+        let save = UIAlertAction.init(title: "Send".localized, style: .default) { (action) in
             self.sendMedia?()
         }
         alert.addAction(save)
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
             self.messagesCollectionView.scrollToBottom(animated: true)
         }
         alert.addAction(cancel)
@@ -205,7 +206,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             self.present(imagePicker, animated: true, completion: nil)
         }
         alert.addAction(action2)
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -245,7 +246,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             self.present(imagePicker, animated: true, completion: nil)
         }
         alert.addAction(action2)
-        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -311,13 +312,13 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             messageObject.append(Message(sender: user,
                                          messageId: obj.id!,
                                          sentDate: Date().ttceISODate(isoDate: obj.createdOn!),
-                                         kind: .attributedText(fullString), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!))
+                                         kind: .attributedText(fullString), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!, resolved: 0))
         }
         else{
             messageObject.append(Message(sender: user,
                                          messageId: obj.id!,
                                          sentDate: Date().ttceISODate(isoDate: obj.createdOn!),
-                                         kind: .text(obj.messageString ?? ""), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!))
+                                         kind: .text(obj.messageString ?? ""), id: obj.mediaType, mediaName: obj.mediaName!, pathName: obj.path!, resolved: 0))
         }
     }
     
@@ -434,7 +435,9 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
 
 extension ChatDetailsController: MessageCellDelegate, ChatHeaderDetailsViewProtocol, ChatHeaderViewProtocol  {
     func escalationButtonSelected() {
-       print("Escaltion button selected")
+        let vc = ChatEscalationService().createScene(forChat: chatObj, enquiryId: chatObj.enquiryId) as! ChatEscalationController
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func viewDetailsButtonSelected() {

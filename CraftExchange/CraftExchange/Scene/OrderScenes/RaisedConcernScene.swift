@@ -80,11 +80,11 @@ extension OrderDetailsService {
                     vc.view.showBuyerReviewConfirmView(controller: vc)
                     
                 }else{
-                    vc.alert("Please write comment")
+                    vc.alert("Please write comment".localized)
                     vc.hideLoading()
                 }
             }else{
-                vc.alert("Please select at least one option")
+                vc.alert("Please select at least one option".localized)
                 vc.hideLoading()
             }
         }
@@ -124,25 +124,25 @@ extension OrderDetailsService {
                                     vc.hideLoading()
                                     
                                     if vc.viewModel.artisanReviewId.value!.id == "2"{
-                                        vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: forOrder?.orderCode, confirmQuestion: "Are you sure you want to recreate order?")
+                                        vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: forOrder?.orderCode, confirmQuestion: "Are you sure you want to recreate order?".localized)
                                     }
                                     vc.viewWillAppear?()
                                 }
                             }
                             else {
                                 vc.showLoading()
-                                vc.alert("Sending review for faulty orde failed, please try again later")
+                                vc.alert("Sending review for faulty order failed, please try again later".localized)
                                 vc.hideLoading()
                             }
                         }
                     }.dispose(in: vc.bag)
                     
                 }else{
-                    vc.alert("Please write comment")
+                    vc.alert("Please write comment".localized)
                     vc.hideLoading()
                 }
             }else{
-                vc.alert("Please select at least one option")
+                vc.alert("Please select at least one option".localized)
                 vc.hideLoading()
             }
         }

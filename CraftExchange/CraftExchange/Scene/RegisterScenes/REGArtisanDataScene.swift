@@ -71,16 +71,16 @@ extension REGArtisanInfoInputService {
               let controller = RegisterArtisanService(client: self.client).createScene(newUser: newUser)
               vc.navigationController?.pushViewController(controller, animated: true)
             }else {
-              vc.alert("Please enter valid PAN")
+                vc.alert("Please enter valid PAN".localized)
             }
           }else {
-            vc.alert("Please enter valid phone number")
+            vc.alert("Please enter valid phone number".localized)
           }
         }else {
-          vc.alert("Please enter valid pincode")
+            vc.alert("Please enter valid pincode".localized)
         }
       }else {
-        vc.alert("Please enter all mandatory fields")
+        vc.alert("Please enter all mandatory fields".localized)
       }
     }
     

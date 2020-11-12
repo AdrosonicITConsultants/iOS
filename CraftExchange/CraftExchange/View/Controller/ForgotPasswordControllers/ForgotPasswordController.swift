@@ -26,7 +26,8 @@ class ForgotPasswordController: UIViewController {
   @IBOutlet weak var nextButton: RoundedButton!
   @IBOutlet weak var usernameField: RoundedTextField!
   @IBOutlet weak var otpField: RoundedTextField!
-  
+  @IBOutlet weak var changeLangButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
@@ -34,6 +35,7 @@ class ForgotPasswordController: UIViewController {
     self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
     self.viewModel.otp.bidirectionalBind(to: otpField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
   
   @IBAction func nextButtonSelected(_ sender: Any) {

@@ -16,7 +16,7 @@ class ValidationViewModel {
   var username = Observable<String?>("")
   var performValidation: (() -> Void)?
   var goToRegister: (() -> Void)?
-  var performAuthenticationSocial: ((_ socialToken: String, _ socialTokenType: String) -> ())?
+  var performAuthenticationSocial: ((_ username: String, _ socialToken: String, _ socialTokenType: String) -> ())?
 }
 
 class LoginEmailController: UIViewController, GIDSignInDelegate {
@@ -27,6 +27,7 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
     @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var facebookLoginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIButton!
+    @IBOutlet weak var changeLangButton: UIButton!
     
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -40,6 +41,7 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
     registerBtn.setTitle("New user? Click here to register.".localized, for: .normal)
     facebookLoginButton.setTitle("Login with Facebook.".localized, for: .normal)
     googleLoginButton.setTitle("Login with Google.".localized, for: .normal)
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
   
   @IBAction func nextButtonSelected(_ sender: Any) {
@@ -90,7 +92,17 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
           let token = AccessToken.current
           let tokenString = token?.tokenString
           if((AccessToken.current) != nil){
-            self.viewModel.performAuthenticationSocial?(tokenString!, "FACEBOOK")
+            var username = ""
+            GraphRequest(graphPath: "me", parameters: ["fields": "email"]).start(completionHandler: { (connection, result, error) -> Void in
+                if (error == nil){
+                    let dict = result as! [String : AnyObject]
+                    let picutreDic = dict as NSDictionary
+                    if let emailAddress = picutreDic.object(forKey: "email") {
+                        username = emailAddress as! String
+                    }
+                    self.viewModel.performAuthenticationSocial?(username, tokenString!, "FACEBOOK")
+                }
+            })
           }
       }
     
@@ -106,7 +118,8 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
             print("Uh oh. The user cancelled the Google login.")
             return
         }
-        let userIdToken = user.authentication.idToken ?? ""
-        self.viewModel.performAuthenticationSocial?(userIdToken, "Google")
+        let username = user.profile.email
+        let accessToken = user.authentication.accessToken
+        self.viewModel.performAuthenticationSocial?(username!, accessToken!, "GOOGLE")
     }
 }

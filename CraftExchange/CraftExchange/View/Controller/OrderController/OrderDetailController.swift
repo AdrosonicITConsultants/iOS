@@ -190,11 +190,11 @@ class OrderDetailController: FormViewController {
                       })
             
             <<< LabelRow(){
-                $0.title = "Order Details"
+                $0.title = "Order Details".localized
             }
             
             <<< SwitchRow() {
-                $0.title = "Change Request Enabled".localized
+                $0.title = "Change Request".localized
                 $0.tag = "CRRow"
                 if orderObject?.productStatusId == 2 {
                     $0.hidden = true
@@ -224,7 +224,7 @@ class OrderDetailController: FormViewController {
                 $0.tag = "Order under Recreation"
                // $0.cell.height = { 60.0 }
                 $0.hidden = true
-               $0.title = "Order under Recreation"
+            $0.title = "Order under Recreation".localized
                 if self.orderObject?.isReprocess == 1  {
                     $0.hidden = false
                 }
@@ -232,7 +232,7 @@ class OrderDetailController: FormViewController {
                 $0.title = """
                 Order under Recreation
                 Kindly refer chats for regular updates and in-case of any inconvenience, feel free to escalate the issue over chat
-                """
+                """.localized
             }
             if User.loggedIn()?.refRoleId == "1" {
                 $0.title = """
@@ -261,7 +261,7 @@ class OrderDetailController: FormViewController {
                     cell.row.title = """
                     Order under Recreation
                     Kindly keep updating buyer about the status of product over chat
-                    """
+                    """.localized
                 }
             })
             <<< ProFormaInvoiceRow() {
@@ -269,8 +269,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Recreate Order"
                 $0.cell.tag = 107
-                $0.cell.nextStepsLabel.text = "Want to recreate order?"
-                $0.cell.createSendInvoiceBtn.setTitle("Order recreation", for: .normal)
+                $0.cell.nextStepsLabel.text = "Want to recreate order?".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Order recreation".localized, for: .normal)
                 $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 $0.cell.createSendInvoiceBtn.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                // $0.cell.createSendInvoiceBtn.layer.cornerRadius = 15
@@ -559,7 +559,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Create Final Invoice"
                 $0.cell.tag = 100
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice"
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice".localized
                 $0.cell.createSendInvoiceBtn.setTitle("Create & Send Final Invoice".localized, for: .normal)
                 if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
                     $0.hidden = false
@@ -597,8 +597,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Upload delivery receipt"
                 $0.cell.tag = 101
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload delivery receipt"
-                $0.cell.createSendInvoiceBtn.setTitle("Upload delivery receipt", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload delivery receipt".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Upload delivery receipt".localized, for: .normal)
                 $0.hidden = true
                 if orderObject?.enquiryStageId != nil {
                     if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
@@ -627,8 +627,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Upload final payment receipt"
                 $0.cell.tag = 102
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload final payment receipt"
-                $0.cell.createSendInvoiceBtn.setTitle("Upload final payment receipt", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Upload final payment receipt".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Upload final payment receipt".localized, for: .normal)
                 if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "2" && !self.isClosed {
                     $0.hidden = false
                 }
@@ -652,8 +652,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Approve final payment receipt"
                 $0.cell.tag = 103
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Approve final payment"
-                $0.cell.createSendInvoiceBtn.setTitle("Approve final payment", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Approve final payment".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Approve final payment".localized, for: .normal)
                 if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.isBlue ?? false{
                     // orderObject?.isBlue
                     $0.hidden = false
@@ -677,8 +677,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Order Dispacthed"
                 $0.cell.tag = 104
-                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Mark Order as Dispatched"
-                $0.cell.createSendInvoiceBtn.setTitle("Mark Order as Dispatched", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Mark Order as Dispatched".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Mark Order as Dispatched".localized, for: .normal)
                 $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
                 $0.hidden = true
                 if self.orderObject?.enquiryStageId == 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
@@ -701,8 +701,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "Mark order dispatched after recreation"
                 $0.cell.tag = 108
-                $0.cell.nextStepsLabel.text = "Next Steps ----------------------------->   Mark order dispatched after recreation"
-                $0.cell.createSendInvoiceBtn.setTitle("Mark order dispatched after recreation", for: .normal)
+                $0.cell.nextStepsLabel.text = "Next Steps ----------------------------->   Mark order dispatched after recreation".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Mark order dispatched after recreation".localized, for: .normal)
                 $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 $0.cell.createSendInvoiceBtn.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
                 $0.cell.createSendInvoiceBtn.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -861,17 +861,19 @@ class OrderDetailController: FormViewController {
                     row.cell.valueLbl.text = ""
                 }
             }).onCellSelection({ (cell, row) in
-                if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
-                    do {
-                        let client = try SafeClient(wrapping: CraftExchangeClient())
-                        if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
-                            let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
-                            self.navigationController?.pushViewController(vc, animated: false)
-                        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
-                            self.fetchChangeRequest?()
+                if self.orderObject?.enquiryStageId ?? 0 < 6 {
+                    if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
+                        do {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
+                                let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
+                                self.navigationController?.pushViewController(vc, animated: false)
+                            }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
+                                self.fetchChangeRequest?()
+                            }
+                        }catch {
+                            print(error.localizedDescription)
                         }
-                    }catch {
-                        print(error.localizedDescription)
                     }
                 }
             })
@@ -888,7 +890,7 @@ class OrderDetailController: FormViewController {
                     if self.orderObject!.enquiryStageId >= 8 {
                         print("show tax invoice")
                     }else{
-                        self.alert("Tax Invoice not yet created")
+                        self.alert("Tax Invoice not yet created".localized)
                     }
                 }
                 
@@ -972,7 +974,7 @@ class OrderDetailController: FormViewController {
         }
         
         if orderObject?.isReprocess == 1 && User.loggedIn()?.refRoleId == "1"  {
-            let row = form.rowBy(tag: "Mark order dispatched after recreation")
+            let row = form.rowBy(tag: "Mark order dispatched after recreation".localized)
             row?.hidden = false
             row?.evaluateHidden()
              self.form.allSections.first?.reload(with: .none)
@@ -1439,13 +1441,13 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
             self.view.showMarkAsDispatchedView(controller: self)
             
         case 105:
-            self.view.showCloseOrderView(controller: self, enquiryCode: orderObject?.orderCode, confirmStatement: "You are about to close this order!")
+            self.view.showCloseOrderView(controller: self, enquiryCode: orderObject?.orderCode, confirmStatement: "You are about to close this order!".localized)
             
         case 106:
-            self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Is Partial Refund Received?")
+            self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Is Partial Refund Received?".localized)
         case 107:
              print("NOt Working PI")
-            self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Are you sure you want to recreate order?")
+             self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Are you sure you want to recreate order?".localized)
         case 108:
             self.view.showMarkAsDispatchedView(controller: self)
         default:

@@ -157,22 +157,22 @@ extension EnquiryDetailsService {
                                     }
                                 }
                                 else {
-                                    vc.alert("Send MOQ failed, please try again later")
+                                    vc.alert("Send MOQ failed, please try again later".localized)
                                     vc.hideLoading()
                                 }
                             }
                         }.dispose(in: vc.bag)
                         
                     }else {
-                        vc.alert("Please enter valid price per unit")
+                        vc.alert("Please enter valid price per unit".localized)
                         vc.hideLoading()
                     }
                 }else {
-                    vc.alert("Please enter valid minimum order quantity")
+                    vc.alert("Please enter valid minimum order quantity".localized)
                     vc.hideLoading()
                 }
             }else {
-                vc.alert("Please enter all mandatory fields")
+                vc.alert("Please enter all mandatory fields".localized)
                 vc.hideLoading()
             }
         }

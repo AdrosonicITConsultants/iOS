@@ -431,6 +431,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="CCH-Nq-7rC"/>
                     <connections>
+                        <outlet property="changeLangButton" destination="3GW-f7-8s1" id="BkS-gJ-P2B"/>
                         <outlet property="nextButton" destination="B0Y-zs-JN0" id="ODa-cz-6pW"/>
                         <outlet property="otpField" destination="DUr-Xg-mAP" id="vR6-wb-gao"/>
                         <outlet property="sendOtpButton" destination="lLx-ab-u6f" id="VmI-UF-hxM"/>
@@ -643,6 +644,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="8or-aM-P8i"/>
                     <connections>
+                        <outlet property="changeLangButton" destination="hTP-XB-3eb" id="XtH-Re-jYp"/>
                         <outlet property="confirmPasswordField" destination="03W-MY-jG5" id="8Ff-dz-uoZ"/>
                         <outlet property="passwordField" destination="hHl-ks-fAD" id="GMb-bn-Yr6"/>
                     </connections>
@@ -742,15 +744,13 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cW-rB-2Wg">
-                                                <rect key="frame" x="147" y="220" width="120" height="100"/>
+                                                <rect key="frame" x="157" y="220" width="100" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="J9v-bz-Lo1"/>
-                                                    <constraint firstAttribute="width" constant="120" id="hq5-Xl-vT4"/>
+                                                    <constraint firstAttribute="width" constant="100" id="hq5-Xl-vT4"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="titleEdgeInsets" minX="-15" minY="50" maxX="0.0" maxY="0.0"/>
-                                                <inset key="imageEdgeInsets" minX="50" minY="0.0" maxX="50" maxY="40"/>
-                                                <state key="normal" title="Upload Photo" image="upload">
+                                                <state key="normal" image="upload">
                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -1269,6 +1269,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="OKy-ty-cvd"/>
                     <connections>
+                        <outlet property="changeLangButton" destination="Vxi-53-EjV" id="0uC-7Q-e1b"/>
                         <outlet property="checkboxButton" destination="bjD-ai-j1V" id="1fc-Wj-ALO"/>
                         <outlet property="mediaLinkField" destination="FW6-a8-Jce" id="RDY-d8-VbO"/>
                         <outlet property="websiteLinkField" destination="ZJx-UZ-BJj" id="Wex-gP-Hmd"/>

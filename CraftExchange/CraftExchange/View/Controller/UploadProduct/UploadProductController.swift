@@ -105,6 +105,10 @@ class UploadProductController: FormViewController {
         allProdCare = realm.objects(ProductCare.self).sorted(byKeyPath: "entityID")
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
+        let back = UIBarButtonItem(image: UIImage.init(systemName: "arrow.left"), style: .done, target: self, action: #selector(backSelected(_:)))
+        back.tintColor = .darkGray
+        self.navigationItem.leftBarButtonItem =  back
+        
         if let productObj = product {
             let rightButtonItem = UIBarButtonItem.init(title: "Delete", style: .plain, target: self, action: #selector(deleteClicked))
             rightButtonItem.tintColor = .red
@@ -785,6 +789,13 @@ class UploadProductController: FormViewController {
             $0.cell.height = { 80.0 }
             $0.cell.delegate = self
             $0.hidden = true
+        }
+    }
+    
+    @objc func backSelected(_ sender: Any) {
+        self.confirmAction("Warning", "Are you sure you don't want to save this new product?", confirmedCallback: { (action) in
+            self.navigationController?.popViewController(animated: true)
+        }) { (action) in
         }
     }
     

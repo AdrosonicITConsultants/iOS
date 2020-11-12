@@ -24,13 +24,15 @@ class ResetPasswordController: UIViewController {
   @IBOutlet weak var resetButton: RoundedButton!
   @IBOutlet weak var passwordField: RoundedTextField!
   @IBOutlet weak var confirmPasswordField: RoundedTextField!
-  
+  @IBOutlet weak var changeLangButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
     self.viewModel.confirmPassword.bidirectionalBind(to: confirmPasswordField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
   
   @IBAction func resetPasswordSelected(_ sender: Any) {

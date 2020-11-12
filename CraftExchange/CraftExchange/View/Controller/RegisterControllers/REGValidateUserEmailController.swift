@@ -25,13 +25,15 @@ class REGValidateUserEmailController: UIViewController {
   @IBOutlet weak var nextButton: RoundedButton!
   @IBOutlet weak var usernameField: RoundedTextField!
   @IBOutlet weak var otpField: RoundedTextField!
-  
+  @IBOutlet weak var changeLangButton: UIButton!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = roleBarButton()
     self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
     self.viewModel.otp.bidirectionalBind(to: otpField.reactive.text)
+    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
   }
     
     override func viewDidAppear(_ animated: Bool) {

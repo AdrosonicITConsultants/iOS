@@ -27,7 +27,13 @@ extension RegisterArtisanService {
     vc.viewModel.completeRegistration = {
       if vc.isTCAccepted {
         let userObj = createNewUser()
-        self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false)).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+        var imgData: Data?
+        if let data = vc.uploadImageButton.image(for: .normal)?.pngData() {
+            imgData = data
+        } else if let data = vc.uploadImageButton.image(for: .normal)?.jpegData(compressionQuality: 1) {
+            imgData = data
+        }
+        self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false), imageData:imgData ).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             do {
                 if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
                 {
@@ -36,7 +42,7 @@ extension RegisterArtisanService {
                     appDelegate?.registerUser = nil
                     DispatchQueue.main.async {
                       
-                      vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
+                        vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue".localized) { (alert) in
                         do {
                           let client = try SafeClient(wrapping: CraftExchangeClient())
                           let controller = ValidateUserService(client: client).createScene()
@@ -49,12 +55,12 @@ extension RegisterArtisanService {
                     }
                   }else {
                     DispatchQueue.main.async {
-                      vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed")")
+                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed".localized)")
                     }
                   }
                 } else {
                   DispatchQueue.main.async {
-                    vc.alert("Registration Failed")
+                    vc.alert("Registration Failed".localized)
                   }
                 }
             } catch let error as NSError {
@@ -64,7 +70,7 @@ extension RegisterArtisanService {
             }
         }.dispose(in: vc.bag)
       }else {
-        vc.alert("Please accept Terms and Conditions for proceeding ahead!")
+        vc.alert("Please accept Terms and Conditions for proceeding ahead!".localized)
       }
       
     }
@@ -124,7 +130,7 @@ extension RegisterArtisanService {
         if isValid {
           vc.showLoading()
           let userObj = createNewUser()
-            self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false)).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            self.fetch(newUser: userObj.toJSON(updateAddress: false, buyerComp: false), imageData: userObj.profileImg).bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
             DispatchQueue.main.async {
               vc.hideLoading()
             }
@@ -134,7 +140,7 @@ extension RegisterArtisanService {
                     if (jsonDict["valid"] as? Bool) == true {
                       DispatchQueue.main.async {
                         
-                        vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue") { (alert) in
+                        vc.alert("Registration Successful", "Welcome to Crafts Exchange. Please Login to Continue".localized) { (alert) in
                           do {
                             let client = try SafeClient(wrapping: CraftExchangeClient())
                             let controller = ValidateUserService(client: client).createScene()
@@ -147,12 +153,12 @@ extension RegisterArtisanService {
                       }
                     }else {
                       DispatchQueue.main.async {
-                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed")")
+                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "Registration Failed".localized)")
                       }
                     }
                   } else {
                     DispatchQueue.main.async {
-                      vc.alert("Registration Failed")
+                        vc.alert("Registration Failed".localized)
                     }
                   }
               } catch let error as NSError {
@@ -163,10 +169,10 @@ extension RegisterArtisanService {
           }.dispose(in: vc.bag)
         }
         else {
-          vc.alert("Please enter valid links")
+            vc.alert("Please enter valid links".localized)
         }
       }else {
-        vc.alert("Please accept Terms and Conditions for proceeding ahead!")
+        vc.alert("Please accept Terms and Conditions for proceeding ahead!".localized)
       }
     }
     
@@ -187,7 +193,7 @@ extension RegisterArtisanService {
       newUser.address = existingUser.address
       newUser.websiteLink = vc.viewModel.websiteLink.value ?? nil
       newUser.socialMediaLink = vc.viewModel.socialMediaLink.value ?? nil
-      
+        newUser.profileImg = existingUser.profileImg
       appDelegate?.registerUser = newUser
       return newUser
     }

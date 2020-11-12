@@ -90,9 +90,7 @@ extension CXUser {
     if let mobile = mobile {
         message["mobile"] = mobile
     }
-    if let pancard = pancard {
-        message["pancard"] = pancard
-    }
+    message["pancard"] = pancard ?? ""
     if let password = password {
         message["password"] = password
     }
@@ -215,15 +213,9 @@ extension pointOfContact {
     var message: [String: Any] = [:]
     
     message["id"] = id
-    if let contactNo = contactNo {
-        message["contactNo"] = contactNo
-    }
-    if let email = email {
-        message["email"] = email
-    }
-    if let firstName = firstName {
-        message["firstName"] = firstName
-    }
+    message["contactNo"] = contactNo ?? ""
+    message["email"] = email ?? ""
+    message["firstName"] = firstName ?? ""
     
     return message
   }

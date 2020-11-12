@@ -40,16 +40,16 @@ extension ForgotPasswordService {
                 {
                   if (jsonDict["valid"] as? Bool) == true {
                     DispatchQueue.main.async {
-                      vc.alert("\(jsonDict["data"] as? String ?? "OTP Sent Successfully")")
+                        vc.alert("\(jsonDict["data"] as? String ?? "OTP Sent Successfully".localized)")
                     }
                   }else {
                     DispatchQueue.main.async {
-                      vc.alert("\(jsonDict["errorMessage"] as? String ?? "OTP Sending Failed")")
+                        vc.alert("\(jsonDict["errorMessage"] as? String ?? "OTP Sending Failed".localized)")
                     }
                   }
                 } else {
                   DispatchQueue.main.async {
-                    vc.alert("OTP Sending Failed")
+                    vc.alert("OTP Sending Failed".localized)
                   }
                 }
             } catch let error as NSError {
@@ -59,7 +59,7 @@ extension ForgotPasswordService {
             }
         }.dispose(in: vc.bag)
       }else {
-        vc.alert("Please enter valid email id")
+        vc.alert("Please enter valid email id".localized)
       }
     }
     

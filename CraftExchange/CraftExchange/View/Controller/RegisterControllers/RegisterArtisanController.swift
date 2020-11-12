@@ -28,6 +28,9 @@ class RegisterArtisanController: UIViewController {
     self.navigationItem.rightBarButtonItem = roleBarButton()
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     self.viewModel.selectedProdCat.value = appDelegate?.registerUser?.productCategoryIds
+    uploadImageButton.layer.borderWidth = 1
+    uploadImageButton.layer.borderColor = UIColor.black.cgColor
+    uploadImageButton.layer.cornerRadius = 50
   }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -100,7 +103,11 @@ extension RegisterArtisanController: UIImagePickerControllerDelegate, UINavigati
             print("Image not found!")
             return
         }
-        uploadImageButton.setImage(selectedImage, for: .normal)
+        if let compressedImg = selectedImage.resizedTo1MB() {
+            uploadImageButton.setImage(compressedImg, for: .normal)
+        }else {
+            uploadImageButton.setImage(selectedImage, for: .normal)
+        }
         uploadImageButton.setTitle("", for: .normal)
         picker.dismiss(animated: true, completion: nil)
     }

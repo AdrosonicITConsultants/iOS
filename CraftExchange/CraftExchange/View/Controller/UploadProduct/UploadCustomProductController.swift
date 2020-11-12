@@ -92,6 +92,10 @@ class UploadCustomProductController: FormViewController {
         allReed = realm.objects(ReedCount.self).sorted(byKeyPath: "entityID")
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
+        let back = UIBarButtonItem(image: UIImage.init(systemName: "arrow.left"), style: .done, target: self, action: #selector(backSelected(_:)))
+        back.tintColor = .darkGray
+        self.navigationItem.leftBarButtonItem =  back
+        
         let weaveTypeSection = Section(){ section in
             section.tag = "\(CustomProductState.selectWeaveType.rawValue)"
             let ht: CGFloat = 60.0
@@ -678,7 +682,13 @@ class UploadCustomProductController: FormViewController {
         }
     }
     
-
+    @objc func backSelected(_ sender: Any) {
+        self.confirmAction("Warning", "Are you sure you don't want to save this new product?", confirmedCallback: { (action) in
+            self.navigationController?.popViewController(animated: true)
+        }) { (action) in
+        }
+    }
+    
     func downloadProdImages() {
         product?.productImages .forEach { (image) in
             let tag = image.lable
