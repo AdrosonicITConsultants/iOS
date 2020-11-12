@@ -128,7 +128,7 @@ extension UIView {
         }else {
             let initiationView = Bundle.main.loadNibNamed("MOQAcceptView", owner:
                 self, options: nil)?.first as? MOQAcceptView
-            initiationView?.brandClusterText.text = getMOQs.brand! + " from " + getMOQs.clusterName!
+            initiationView?.brandClusterText.text = (getMOQs.brand ?? "") + " from " + getMOQs.clusterName!
             initiationView?.moqText.text = "\(getMOQs.moq!.moq) pcs"
             initiationView?.pricePerUnitText.text = "₹ " + getMOQs.moq!.ppu!
             initiationView?.ETADaysText.text = "\(EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getMOQs.moq!.deliveryTimeId)!.days) days"
@@ -153,7 +153,7 @@ extension UIView {
         }else {
             let initiationView = Bundle.main.loadNibNamed("MOQAcceptedView", owner:
                 self, options: nil)?.first as? MOQAcceptedView
-            initiationView?.brandClusterText.text = getMOQs.brand! + " from " + getMOQs.clusterName!
+            initiationView?.brandClusterText.text = (getMOQs.brand ?? "") + " from " + getMOQs.clusterName!
             initiationView?.moqText.text = "\(getMOQs.moq!.moq) pcs"
             initiationView?.pricePerUnitText.text = "₹ " + getMOQs.moq!.ppu!
             initiationView?.ETADaysText.text = "\(EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getMOQs.moq!.deliveryTimeId)!.days) days"
