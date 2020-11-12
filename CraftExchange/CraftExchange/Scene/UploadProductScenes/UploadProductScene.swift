@@ -34,7 +34,8 @@ extension UploadProductService {
                 let weftYarnId = vc.viewModel.weftYarn.value?.entityID,
                 let width = vc.viewModel.prodWidth.value,
                 let length = vc.viewModel.prodLength.value,
-                let reedCountId = vc.viewModel.reedCount.value?.entityID
+                let reedCountId = vc.viewModel.reedCount.value?.entityID,
+                productSpec.isNotBlank
             {
                 let statusId = vc.viewModel.productAvailability.value == true ? 2 : 1
                 let gsm = vc.viewModel.gsm.value ?? ""
@@ -140,7 +141,8 @@ extension UploadProductService {
                 let weftYarnId = vc.viewModel.weftYarn.value?.entityID,
                 let width = vc.viewModel.prodWidth.value,
                 let length = vc.viewModel.prodLength.value,
-                let reedCountId = vc.viewModel.reedCount.value?.entityID
+                let reedCountId = vc.viewModel.reedCount.value?.entityID,
+                productSpec.isNotBlank
             {
                 let gsm = vc.viewModel.gsm.value ?? ""
                 let weaveIds = vc.viewModel.prodWeaveType.value?.compactMap({$0.entityID})
