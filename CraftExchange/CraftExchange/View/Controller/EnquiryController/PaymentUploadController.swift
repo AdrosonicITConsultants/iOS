@@ -266,6 +266,7 @@ class PaymentUploadController: FormViewController{
                 $0.title = "Date of dispatch".localized
                             $0.cell.height = { 60.0 }
                             $0.maximumDate = Date()
+                $0.hidden = true
                 if orderObject != nil {
                     if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
                          $0.hidden = false
@@ -296,7 +297,7 @@ class PaymentUploadController: FormViewController{
                             $0.title = "Revised ETA (if required)".localized
                             $0.cell.height = { 60.0 }
                             $0.minimumDate = Date()
-                            
+                            $0.hidden = true
                             if orderObject != nil {
                                 if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
                                      $0.hidden = false
@@ -415,6 +416,9 @@ extension PaymentUploadController: uploadtransactionProtocol, uploadSuccessProto
     
     func UploadBtnSelected(tag: Int) {
         self.showLoading()
+        if enquiryObject?.enquiryStageId == 3{
+            self.uploadReciept?(1)
+        }
         if orderObject != nil {
         if orderObject?.enquiryStageId == 8 {
                      self.uploadReciept?(2)
@@ -467,6 +471,9 @@ extension PaymentUploadController: UIImagePickerControllerDelegate, UINavigation
             
         }
         self.viewModel.imageData.value = imgdata
+        if enquiryObject?.enquiryStageId == 3{
+            self.viewModel.fileName.value = "\(self.enquiryObject?.enquiryId ?? self.orderObject?.enquiryId ?? 0).\(Int(self.viewModel.pid.value!)!).jpg"
+        }
         if orderObject != nil{
            
             if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{

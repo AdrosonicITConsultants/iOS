@@ -62,8 +62,12 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.getPreviewPI(enquiryId: enquiryId, isOld: isOld).response(using: client).debug()
     }
     
-    func downloadPI(enquiryId: Int) -> SafeSignal<Data>{
-        return Enquiry.downloadPreviewPI(enquiryId: enquiryId).response(using: client).debug()
+    func getViewFI(enquiryId: Int, isOld: Int)  -> SafeSignal<Data>{
+           return Enquiry.getViewFI(enquiryId: enquiryId, isOld: isOld).response(using: client).debug()
+       }
+    
+    func downloadPI(enquiryId: Int, isOld: Int) -> SafeSignal<Data>{
+        return Enquiry.downloadPreviewPI(enquiryId: enquiryId, isOld: isOld).response(using: client).debug()
     }
     
     func savePI(enquiryId: Int, cgst: Int, expectedDateOfDelivery: String, hsn: Int, ppu: Int, quantity: Int, sgst: Int )-> SafeSignal<Data>  {
@@ -74,11 +78,15 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.sendPI(enquiryId: enquiryId, cgst: cgst, expectedDateOfDelivery: expectedDateOfDelivery, hsn: hsn, ppu: ppu, quantity: quantity, sgst: sgst).response(using: client).debug()
     }
     
+    func previewFinalInvoice(enquiryId: String, advancePaidAmount: String, finalTotalAmount: Int, quantity: Int, ppu: Int, cgst: String , sgst: String, deliveryCharges: String )-> SafeSignal<Data>  {
+        return Enquiry.previewFinalInvoice(enquiryId: enquiryId, advancePaidAmount: advancePaidAmount, finalTotalAmount: finalTotalAmount, quantity: quantity, ppu: ppu, cgst: cgst, sgst: sgst, deliveryCharges: deliveryCharges).response(using: client).debug()
+    }
+    
     func sendFinalInvoice(enquiryId: String, advancePaidAmount: String, finalTotalAmount: Int, quantity: Int, ppu: Int, cgst: String , sgst: String, deliveryCharges: String )-> SafeSignal<Data>  {
         return Enquiry.sendFinalInvoice(enquiryId: enquiryId, advancePaidAmount: advancePaidAmount, finalTotalAmount: finalTotalAmount, quantity: quantity, ppu: ppu, cgst: cgst, sgst: sgst, deliveryCharges: deliveryCharges).response(using: client).debug()
     }
     
-    func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, invoiceId: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?)-> SafeSignal<Data>  {
+    func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int, invoiceId: Int, pid: Int, totalAmount: Int , imageData: Data, filename: String?)-> SafeSignal<Data>  {
         return Enquiry.uploadReceipt(enquiryId: enquiryId, type: type, paidAmount: paidAmount, percentage: percentage, invoiceId: invoiceId, pid: pid, totalAmount: totalAmount, imageData: imageData, filename: filename).response(using: client).debug()
     }
     

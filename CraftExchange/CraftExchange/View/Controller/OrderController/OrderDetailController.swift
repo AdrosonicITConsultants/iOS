@@ -1570,7 +1570,7 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     
     func MarkAsDispatchedButtonSelected() {
         self.showLoading()
-        if orderObject?.enquiryStatusId == 9 {
+        if orderObject?.enquiryStageId == 9 {
             let client = try! SafeClient(wrapping: CraftExchangeClient())
                    let service = EnquiryDetailsService.init(client: client)
                    service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 10, innerStageId: 0)

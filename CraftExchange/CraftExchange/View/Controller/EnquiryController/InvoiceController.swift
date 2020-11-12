@@ -39,7 +39,7 @@ class InvoiceViewModel {
     var savePI: (() -> ())?
     var sendPI: (() -> ())?
     var downloadPI: (() -> ())?
-    var sendFI: (() -> ())?
+    var sendFI: ((_ isSave: Int) -> ())?
 }
 
 class InvoiceController: FormViewController{
@@ -623,6 +623,7 @@ class InvoiceController: FormViewController{
 }
 
 extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol, ToggleButtonProtocol {
+    
     func toggleButtonSelected(tag: Int, forWashCare: Bool) {
         if self.viewModel.checkBox.value != 1{
             self.viewModel.checkBox.value = 1
@@ -630,18 +631,33 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
              self.viewModel.checkBox.value = 0
         }
     }
-    
+    //preview PI/FI
     func backButtonSelected() {
         self.view.hidePreviewPIView()
     }
     
     func downloadButtonSelected() {
-        self.viewModel.downloadPI?()
+        if enquiryObject?.enquiryId == 2 {
+            self.viewModel.downloadPI?()
+        }
+        if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+            print("download tax invoice")
+        }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+           print("download tax invoice")
+        }
     }
     
     func sendButtonClicked() {
         self.showLoading()
-        self.viewModel.sendPI?()
+        
+        if enquiryObject?.enquiryId == 2 {
+            self.viewModel.sendPI?()
+        }
+        if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+            self.viewModel.sendFI?(2)
+        }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+           self.viewModel.sendFI?(2)
+        }
     }
     // save PI Button
     func singleButtonSelected(tag: Int) {
@@ -653,9 +669,9 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
                 
                // self.hideLoading()
                 
-                self.viewModel.sendFI?()
+                self.viewModel.sendFI?(1)
             }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-               self.viewModel.sendFI?()
+               self.viewModel.sendFI?(1)
             }else{
                 self.viewModel.isOld.value = 0
                 self.viewModel.savePI?()

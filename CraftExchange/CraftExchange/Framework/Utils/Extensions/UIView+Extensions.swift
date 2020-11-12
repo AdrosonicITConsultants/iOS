@@ -173,13 +173,17 @@ extension UIView {
         }
     }
     
-    func showPreviewPIView(controller: UIViewController, entityId: String, date: String, data: String) {
+    func showPreviewPIView(controller: UIViewController, entityId: String, date: String, data: String, isPI: Bool) {
         if let _ = self.viewWithTag(128) {
             print("do nothing")
         }else {
             let initiationView = Bundle.main.loadNibNamed("PreviewPIView", owner:
                 self, options: nil)?.first as? PreviewPIView
-            initiationView?.entityIdLabel.text = "Pro forma invoice for " + entityId
+            
+            if isPI == false{
+               initiationView?.entityIdLabel.text = "Tax invoice for " + entityId
+                initiationView?.sendButton.setTitle("Generate Tax Invoice", for: .normal)
+            }
             initiationView?.dateLabel.text = "Date accepted " + date
             initiationView?.data = data
             initiationView?.delegate = controller as? PreviewPIViewProtocol

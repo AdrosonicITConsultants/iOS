@@ -216,6 +216,28 @@ extension Enquiry {
         )
     }
     
+    public static func previewFinalInvoice(enquiryId: String, advancePaidAmount: String, finalTotalAmount: Int, quantity: Int, ppu: Int, cgst: String , sgst: String, deliveryCharges: String ) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["enquiryId":enquiryId,
+                                         "advancePaidAmt": advancePaidAmount,
+                                         "finalTotalAmt": finalTotalAmount,
+                                         "quantity": quantity,
+                                         "ppu": ppu,
+                                         "cgst": cgst,
+                                         "sgst": sgst,
+                                         "deliveryCharges": deliveryCharges
+                                        ]
+        return Request(
+            path: "enquiry/generateTaxInvoicePreview",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "preview final invoice failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+
+    
     public static func sendFinalInvoice(enquiryId: String, advancePaidAmount: String, finalTotalAmount: Int, quantity: Int, ppu: Int, cgst: String , sgst: String, deliveryCharges: String ) -> Request<Data, APIError> {
         let parameters: [String: Any] = ["enquiryId":enquiryId,
                                          "advancePaidAmt": advancePaidAmount,
@@ -234,6 +256,21 @@ extension Enquiry {
                 return $0},
             error: APIError.init,
             needsAuthorization: false
+        )
+    }
+    
+    public static func getViewFI(enquiryId: Int, isOld: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
+        var str = "enquiry/getTaxInvoicePreviewHTML?enquiryId=\(enquiryId)&isOld=\(isOld == 1 ? true : false)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get view FI failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
         )
     }
     
@@ -316,9 +353,9 @@ extension Enquiry {
         )
     }
     
-    public static func downloadPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
+    public static func downloadPreviewPI(enquiryId: Int, isOld: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "application/pdf"]
-        var str = "enquiry/getPreviewPiPDF?enquiryId=\(enquiryId)"
+        var str = "enquiry/getPreviewPiPDF?enquiryId=\(enquiryId)&isOld=\(isOld)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,
@@ -359,7 +396,7 @@ extension Enquiry {
         )
     }
     
-    public static func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int,invoiceId: Int, pid: Int, totalAmount: Int , imageData: Data?, filename: String?) -> Request<Data, APIError> {
+    public static func uploadReceipt(enquiryId: Int, type: Int, paidAmount: Int, percentage: Int,invoiceId: Int, pid: Int, totalAmount: Int , imageData: Data, filename: String?) -> Request<Data, APIError> {
         var json: [String: Any] = [:]
         if percentage == 0{
             json = ["enquiryId": enquiryId, "type": type, "paidAmount": paidAmount,"invoiceId": invoiceId,  "pid": pid, "totalAmount": totalAmount]
@@ -372,11 +409,11 @@ extension Enquiry {
         let content = imageData
         let filename = filename
         let boundary = "\(UUID().uuidString)"
-        let dataLength = content!.count
+        let dataLength = content.count
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")", "accept": "application/json","Content-Type": "multipart/form-data; boundary=\(boundary)",
             "Content-Length": String(dataLength) ]
         
-        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content!, mimeType: "application/octet-stream", filename: filename!, param: "file")
+        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename!, param: "file")
         
         return Request(
             path: "enquiry/Payment?payment=\(str)",

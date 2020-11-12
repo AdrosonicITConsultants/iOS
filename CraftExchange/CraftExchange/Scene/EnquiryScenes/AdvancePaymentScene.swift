@@ -21,7 +21,7 @@ extension EnquiryDetailsService {
         
         vc.uploadReciept = { (typeId) in
             if vc.viewModel.imageData.value != nil {
-                self.uploadReceipt(enquiryId: enquiryId, type: typeId, paidAmount: Int(vc.viewModel.paidAmount.value!)!, percentage: Int(vc.viewModel.percentage.value!)!, invoiceId: Int(vc.viewModel.invoiceId.value!)!, pid: Int(vc.viewModel.pid.value!)!, totalAmount: Int(vc.viewModel.totalAmount.value!)!, imageData: vc.viewModel.imageData.value, filename: vc.viewModel.fileName.value).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                self.uploadReceipt(enquiryId: enquiryId, type: typeId, paidAmount: Int(vc.viewModel.paidAmount.value!)!, percentage: Int(vc.viewModel.percentage.value!)!, invoiceId: Int(vc.viewModel.invoiceId.value!)!, pid: Int(vc.viewModel.pid.value!)!, totalAmount: Int(vc.viewModel.totalAmount.value!)!, imageData: vc.viewModel.imageData.value!, filename: vc.viewModel.fileName.value).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                         if json["valid"] as? Bool == true {
                             DispatchQueue.main.async {

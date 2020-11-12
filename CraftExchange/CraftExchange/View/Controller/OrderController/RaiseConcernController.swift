@@ -427,6 +427,9 @@ class RaiseConcernController: FormViewController {
                 // cell.textView.delegate = self
                 self.viewModel.buyerComment.value = cell.textView.text
                 // row.hidden = true
+                cell.textLabel?.font = .systemFont(ofSize: 13, weight: .regular)
+                cell.textView?.font = .systemFont(ofSize: 13, weight: .regular)
+                cell.textView?.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
                 if self.orderProgress?.isFaulty == 0  && User.loggedIn()?.refRoleId == "2" {
                     cell.row.hidden = false
                 }
@@ -932,6 +935,9 @@ class RaiseConcernController: FormViewController {
                 self.viewModel.artisanComment.value = cell.textView.text
                 //  row.cell.contentView.layoutMargins = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
                 // row.hidden = true
+                cell.textLabel?.font = .systemFont(ofSize: 13, weight: .regular)
+                cell.textView?.font = .systemFont(ofSize: 13, weight: .regular)
+                cell.textView?.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
                 if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "1" && self.orderProgress?.artisanReviewComment == nil {
                     cell.row.hidden = false
                 }

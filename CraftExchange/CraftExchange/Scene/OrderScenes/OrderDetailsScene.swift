@@ -256,25 +256,27 @@ extension OrderDetailsService {
             service.getAllTransactionsForEnquiry(enquiryId: vc.orderObject?.enquiryId ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                 if let responseDict = json["data"] as? [String: Any] {
-                    if let transactionArray = responseDict["ongoingTransactionResponses"] as? [[String:Any]]  {
-                        var finalArray: [Int]? = []
-                        transactionArray.forEach { (dataDict) in
-                            if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
-                                if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
-                                    if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
-                                        DispatchQueue.main.async {
-                                            transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
-                                            transactionObj.eta = dataDict["eta"] as? String
-                                            transactionObj.orderCode = dataDict["orderCode"] as? String
-                                            transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
-                                            transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
-                                            transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
-                                            transactionObj.saveOrUpdate()
-                                            finalArray?.append(transactionObj.entityID)
-                                            if finalArray?.count == transactionArray.count {
-                                                let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
-                                                vc.listTransactions = transactions.compactMap({$0})
-                                                vc.listTransactionsFunc()
+                    if !vc.isClosed {
+                        if let transactionArray = responseDict["ongoingTransactionResponses"] as? [[String:Any]]  {
+                            var finalArray: [Int]? = []
+                            transactionArray.forEach { (dataDict) in
+                                if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
+                                    if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                        if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                            DispatchQueue.main.async {
+                                                transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                                transactionObj.eta = dataDict["eta"] as? String
+                                                transactionObj.orderCode = dataDict["orderCode"] as? String
+                                                transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                                transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                                transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                                transactionObj.saveOrUpdate()
+                                                finalArray?.append(transactionObj.entityID)
+                                                if finalArray?.count == transactionArray.count {
+                                                    let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
+                                                    vc.listTransactions = transactions.compactMap({$0})
+                                                    vc.listTransactionsFunc()
+                                                }
                                             }
                                         }
                                     }
@@ -282,6 +284,36 @@ extension OrderDetailsService {
                             }
                         }
                     }
+                    if vc.isClosed {
+                        if let transactionArray = responseDict["completedTransactionResponses"] as? [[String:Any]]  {
+                            var finalArray: [Int]? = []
+                            transactionArray.forEach { (dataDict) in
+                                if let transactionDict = dataDict["transactionCompleted"] as? [String: Any] {
+                                    if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                        if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                            DispatchQueue.main.async {
+                                                transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                                transactionObj.eta = dataDict["eta"] as? String
+                                                transactionObj.orderCode = dataDict["orderCode"] as? String
+                                                transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                                transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                                transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                                transactionObj.saveOrUpdate()
+                                                finalArray?.append(transactionObj.entityID)
+                                                if finalArray?.count == transactionArray.count {
+                                                    let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
+                                                    vc.listTransactions = transactions.compactMap({$0})
+                                                    vc.listTransactionsFunc()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    
                 }
                 }
             }
