@@ -1108,7 +1108,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
 extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
     func viewProformaInvoiceBtnSelected(tag: Int) {
         self.showLoading()
-        self.viewPI?(1)
+        self.viewPI?(0)
     }
     
     func RejectBtnSelected(tag: Int) {
@@ -1170,36 +1170,3 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
     }
     
 }
-
-//extension BuyerEnquiryDetailsController: MarkCompleteAndNextProtocol, StartstageProtocol {
-//
-//
-//    func MarkProgressSelected(tag: Int) {
-//        self.showLoading()
-//        let client = try! SafeClient(wrapping: CraftExchangeClient())
-//        let service = EnquiryDetailsService.init(client: client)
-//        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId)
-//    }
-//
-//    func MarkCompleteNextSelected(tag: Int) {
-//        self.showLoading()
-//        let client = try! SafeClient(wrapping: CraftExchangeClient())
-//        let service = EnquiryDetailsService.init(client: client)
-//        if enquiryObject!.innerEnquiryStageId == 5{
-//            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 6, innerStageId: 0)
-//        }
-//        else{
-//            service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: enquiryObject!.enquiryStageId, innerStageId: enquiryObject!.innerEnquiryStageId + 1)
-//        }
-//
-//    }
-//
-//    func StartstageBtnSelected(tag: Int) {
-//        self.showLoading()
-//        let client = try! SafeClient(wrapping: CraftExchangeClient())
-//        let service = EnquiryDetailsService.init(client: client)
-//        service.changeInnerStageFunc(vc: self, enquiryId: enquiryObject!.enquiryId, stageId: 5, innerStageId: 1)
-//    }
-//
-//
-//}

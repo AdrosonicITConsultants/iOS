@@ -657,7 +657,7 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
             }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
                self.viewModel.sendFI?()
             }else{
-                self.viewModel.isOld.value = 1
+                self.viewModel.isOld.value = 0
                 self.viewModel.savePI?()
                 
             }
