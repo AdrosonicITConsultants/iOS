@@ -201,6 +201,23 @@ class QCArtisanController: FormViewController {
                         }
                     }
                     if showSave {
+                        if stage.entityID == 7 {
+                            stageSection <<< LabelRow() {
+                                $0.cell.height = { 120.0 }
+                                $0.cell.tag = stage.entityID
+                                $0.tag = "\(stage.entityID)-Disclaimer"
+                                $0.title = "Declaration by AE- I, hereby certify from my end that all the processes have been Monitored & Supervised under my guidence and any issue in Quality Certified by me in person or my staff in charge is liable to be discussed with me directly on mail. Once the goods received at your doorsteps, we will not be liable for quality issue if informed after 72 hrs of receipts.".localized
+                            }.cellUpdate({ (cell, row) in
+                                cell.textLabel?.textColor = .black
+                                cell.textLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+                                cell.textLabel?.numberOfLines = 10
+                                if cell.row.tag == "\(self.showSection ?? "0")-Disclaimer" {
+                                    cell.row.hidden = false
+                                }else {
+                                    cell.row.hidden = true
+                                }
+                            })
+                        }
                         stageSection <<< SaveAndSendQCRow() {
                             $0.cell.height = { 60.0 }
                             $0.cell.btnSave.tag = stage.entityID
@@ -254,6 +271,11 @@ class QCArtisanController: FormViewController {
                 $0.cell.valueTextField.placeholder = "Your comments...".localized
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.valueTextField.text = answer
+                if question.stageId == 7 && question.questionNo == 12 {
+                    $0.cell.valueTextField.maxLength = 100
+                }else {
+                    $0.cell.valueTextField.maxLength = 25
+                }
             }.cellUpdate({ (cell, row) in
                 cell.isUserInteractionEnabled = true
                 cell.valueTextField.isUserInteractionEnabled = true
