@@ -47,7 +47,7 @@ extension User {
     public static func authenticateSocial(socialToken: String, socialTokenType: String) -> Request<Data, APIError> {
       
         return Request(
-            path: "login/authenticate?socialToken=\(socialToken)&socialTokenType=\(socialTokenType)",
+            path: "login/authenticate?socialTokenType=\(socialTokenType)&socialToken=\(socialToken)&deviceType=iOS",
             method: .post,
             resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
               return $0},

@@ -57,5 +57,8 @@ class REGValidateUserEmailController: UIViewController {
     @IBAction func languageButtonSelected(_ sender: UIButton){
         showLanguagePickerAlert()
     }
-      
+    @IBAction func reachOutToUsSelected(_ sender: Any) {
+        alert("For any query reach us @ antaran@tatatrusts.org")
+    }
+    
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P12-bk-zAP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P12-bk-zAP">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -76,7 +76,7 @@
                                                     <action selector="faqButtonSelected:" destination="P12-bk-zAP" eventType="touchUpInside" id="BX1-fd-Sff"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdL-Q3-nqp">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdL-Q3-nqp">
                                                 <rect key="frame" x="20" y="654" width="374" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="gDK-u3-BSm"/>
@@ -84,6 +84,9 @@
                                                 <state key="normal" title="Need help in deciding?">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="P12-bk-zAP" eventType="touchUpInside" id="fX1-Bm-3QA"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHg-hu-11E">
                                                 <rect key="frame" x="20" y="684" width="374" height="30"/>
@@ -263,7 +266,7 @@
                                                     <action selector="nextButtonSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="RXV-Yb-N7T"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZa-NT-FFu">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZa-NT-FFu">
                                                 <rect key="frame" x="20" y="634" width="374" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="eX6-b4-pRn"/>
@@ -271,6 +274,9 @@
                                                 <state key="normal" title="Need help?">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="AXX-CF-Ujx" eventType="touchUpInside" id="t1w-Xa-QpI"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jL3-1T-tFh">
                                                 <rect key="frame" x="20" y="713" width="374" height="30"/>
@@ -543,12 +549,6 @@
                                                     <action selector="languageButtonSelected:" destination="75Y-19-Oy8" eventType="touchUpInside" id="oFe-Uf-oA1"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCr-yq-SIa">
-                                                <rect key="frame" x="20" y="634" width="374" height="30"/>
-                                                <state key="normal" title="Need help?">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                </state>
-                                            </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGo-nN-9IJ">
                                                 <rect key="frame" x="20" y="713" width="374" height="30"/>
                                                 <constraints>
@@ -561,6 +561,18 @@
                                                     <action selector="faqButtonSelected:" destination="75Y-19-Oy8" eventType="touchUpInside" id="4hX-mI-2Ob"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VpW-6u-j7E">
+                                                <rect key="frame" x="20" y="634" width="374" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="QPM-wf-Zd4"/>
+                                                </constraints>
+                                                <state key="normal" title="Need help?">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="75Y-19-Oy8" eventType="touchUpInside" id="9lK-Dd-LqR"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -570,6 +582,7 @@
                                             <constraint firstItem="oLG-fs-vTl" firstAttribute="top" secondItem="Jtq-6M-u03" secondAttribute="bottom" constant="30" id="ADd-zc-v3w"/>
                                             <constraint firstAttribute="trailing" secondItem="fIe-lL-2BD" secondAttribute="trailing" constant="80" id="AeU-oP-ud6"/>
                                             <constraint firstItem="fIe-lL-2BD" firstAttribute="top" secondItem="lUg-r1-gf3" secondAttribute="bottom" constant="20" id="DKl-Ah-Eeg"/>
+                                            <constraint firstItem="8Gr-j2-q2m" firstAttribute="top" secondItem="VpW-6u-j7E" secondAttribute="bottom" constant="20" id="Hkf-H8-4cs"/>
                                             <constraint firstItem="Jtq-6M-u03" firstAttribute="centerX" secondItem="fIe-lL-2BD" secondAttribute="centerX" id="J97-DL-VDj"/>
                                             <constraint firstItem="mW3-pX-gwT" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="20" id="JqE-HB-opv"/>
                                             <constraint firstItem="Jtq-6M-u03" firstAttribute="top" secondItem="vUQ-tC-MvQ" secondAttribute="bottom" constant="20" id="K3f-SE-gWY"/>
@@ -577,23 +590,22 @@
                                             <constraint firstAttribute="trailing" secondItem="B9z-kI-Xd7" secondAttribute="trailing" id="Lgz-K1-nVN"/>
                                             <constraint firstItem="B9z-kI-Xd7" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" id="Lv1-T7-FaW"/>
                                             <constraint firstItem="Jtq-6M-u03" firstAttribute="centerX" secondItem="WVx-Je-Glu" secondAttribute="centerX" id="MCL-6V-atX"/>
-                                            <constraint firstItem="mCr-yq-SIa" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="20" id="PHC-dv-OKB"/>
                                             <constraint firstItem="WVx-Je-Glu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="oLG-fs-vTl" secondAttribute="bottom" constant="10" id="QCO-CY-ZEI"/>
-                                            <constraint firstItem="8Gr-j2-q2m" firstAttribute="top" secondItem="mCr-yq-SIa" secondAttribute="bottom" constant="20" id="SQq-9f-bgZ"/>
+                                            <constraint firstItem="VpW-6u-j7E" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="20" id="Tof-ud-XHJ"/>
                                             <constraint firstAttribute="bottom" secondItem="mW3-pX-gwT" secondAttribute="bottom" constant="44" id="U8q-Vh-aQ5"/>
                                             <constraint firstItem="kGo-nN-9IJ" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="20" id="UjR-nT-eNj"/>
                                             <constraint firstAttribute="trailing" secondItem="oLG-fs-vTl" secondAttribute="trailing" constant="80" id="Vaj-EV-jAc"/>
-                                            <constraint firstItem="mCr-yq-SIa" firstAttribute="top" secondItem="WVx-Je-Glu" secondAttribute="bottom" constant="20" id="XL3-d7-rC5"/>
+                                            <constraint firstAttribute="trailing" secondItem="VpW-6u-j7E" secondAttribute="trailing" constant="20" id="bXh-Ma-b2S"/>
                                             <constraint firstAttribute="trailing" secondItem="lUg-r1-gf3" secondAttribute="trailing" constant="20" id="bqv-7d-2xo"/>
                                             <constraint firstItem="oLG-fs-vTl" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="80" id="c8t-da-bVx"/>
                                             <constraint firstAttribute="trailing" secondItem="8Gr-j2-q2m" secondAttribute="trailing" constant="20" id="cTo-Lo-ckr"/>
-                                            <constraint firstAttribute="trailing" secondItem="mCr-yq-SIa" secondAttribute="trailing" constant="20" id="dpR-Wh-YoW"/>
                                             <constraint firstAttribute="trailing" secondItem="mW3-pX-gwT" secondAttribute="trailing" constant="20" id="eiq-Pw-LJI"/>
                                             <constraint firstItem="mW3-pX-gwT" firstAttribute="top" secondItem="8Gr-j2-q2m" secondAttribute="bottom" constant="30" id="f6t-HP-NsK"/>
                                             <constraint firstAttribute="trailing" secondItem="WVx-Je-Glu" secondAttribute="trailing" constant="20" id="fQf-5N-rwY"/>
                                             <constraint firstItem="lUg-r1-gf3" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="20" id="fkP-wZ-vpK"/>
                                             <constraint firstItem="8Gr-j2-q2m" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="20" id="j43-O4-Xz0"/>
                                             <constraint firstItem="vUQ-tC-MvQ" firstAttribute="trailing" secondItem="fIe-lL-2BD" secondAttribute="trailing" id="khk-7A-PUb"/>
+                                            <constraint firstItem="VpW-6u-j7E" firstAttribute="top" secondItem="WVx-Je-Glu" secondAttribute="bottom" constant="20" id="lIO-hy-m3F"/>
                                             <constraint firstItem="lUg-r1-gf3" firstAttribute="top" secondItem="B9z-kI-Xd7" secondAttribute="bottom" constant="8" id="mmt-07-Muz"/>
                                             <constraint firstItem="WVx-Je-Glu" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="20" id="nyN-P2-3k9"/>
                                             <constraint firstAttribute="trailing" secondItem="kGo-nN-9IJ" secondAttribute="trailing" constant="20" id="sT9-jt-8IX"/>
