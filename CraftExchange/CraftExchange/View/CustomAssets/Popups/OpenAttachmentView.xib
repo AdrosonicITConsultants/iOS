@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cx7-Xe-z5B">
-                    <rect key="frame" x="364" y="50" width="30" height="38"/>
+                    <rect key="frame" x="364" y="74" width="30" height="38"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                     <state key="normal" title="X"/>
                     <connections>
@@ -22,7 +22,7 @@
                     </connections>
                 </button>
                 <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6k-If-msL">
-                    <rect key="frame" x="20" y="128" width="374" height="674"/>
+                    <rect key="frame" x="20" y="127" width="374" height="675"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <wkWebViewConfiguration key="configuration">
                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -33,10 +33,10 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="M6k-If-msL" secondAttribute="bottom" constant="60" id="2xM-qQ-7Cb"/>
-                <constraint firstItem="M6k-If-msL" firstAttribute="top" secondItem="cx7-Xe-z5B" secondAttribute="bottom" constant="40" id="GWb-y6-ahL"/>
+                <constraint firstItem="M6k-If-msL" firstAttribute="top" secondItem="cx7-Xe-z5B" secondAttribute="bottom" constant="15" id="GWb-y6-ahL"/>
                 <constraint firstItem="M6k-If-msL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="KCu-XU-pRY"/>
-                <constraint firstItem="cx7-Xe-z5B" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="QBG-ii-HrX"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="M6k-If-msL" secondAttribute="trailing" constant="20" id="l03-0o-T7P"/>
+                <constraint firstItem="cx7-Xe-z5B" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="qBn-E9-NlJ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cx7-Xe-z5B" secondAttribute="trailing" constant="20" id="v0v-6C-AxP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

@@ -71,16 +71,27 @@ extension TransactionService {
             syncData()
         }
         
-        controller.viewModel.viewTransactionReceipt = { (transaction, isOld) in
+        controller.viewModel.viewTransactionReceipt = { (transaction, isOld, isPI) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
-               DispatchQueue.main.async {
-                let object = String(data: responseData, encoding: .utf8) ?? ""
-                controller.view.showAcceptedPIView(controller: controller, entityId: transaction.enquiryCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false)
-                   controller.hideLoading()
-               }
-            }.dispose(in: controller.bag)
-            controller.hideLoading()
+            if isPI {
+                service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+                   DispatchQueue.main.async {
+                    let object = String(data: responseData, encoding: .utf8) ?? ""
+                    controller.view.showAcceptedPIView(controller: controller, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
+                       controller.hideLoading()
+                   }
+                }.dispose(in: controller.bag)
+                controller.hideLoading()
+            }else{
+                service.getViewFI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+                   DispatchQueue.main.async {
+                    let object = String(data: responseData, encoding: .utf8) ?? ""
+                    controller.view.showAcceptedPIView(controller: controller, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
+                       controller.hideLoading()
+                   }
+                }.dispose(in: controller.bag)
+                controller.hideLoading()
+            }
         }
         
         controller.viewModel.downloadPI = { (enquiryId) in

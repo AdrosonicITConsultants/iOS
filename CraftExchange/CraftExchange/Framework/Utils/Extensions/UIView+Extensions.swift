@@ -201,10 +201,13 @@ extension UIView {
         }
     }
     
-    func showAcceptedPIView(controller: UIViewController, entityId: String, date: String, data: String, containsOld: Bool, raiseNewPI: Bool) {
+    func showAcceptedPIView(controller: UIViewController, entityId: String, date: String, data: String, containsOld: Bool, raiseNewPI: Bool, isPI: Bool) {
         if let initiationView = self.viewWithTag(129) as? AcceptedPIView {
             print("do nothing")
             initiationView.entityIdLabel.text = "Pro forma invoice for " + entityId
+            if isPI == false{
+                initiationView.entityIdLabel.text = "Tax invoice for " + entityId
+            }
             initiationView.dateLabel.text = "Date accepted " + date
             initiationView.data = data
             if containsOld {
@@ -224,6 +227,9 @@ extension UIView {
             let initiationView = Bundle.main.loadNibNamed("AcceptedPIView", owner:
                 self, options: nil)?.first as? AcceptedPIView
             initiationView?.entityIdLabel.text = "Pro forma invoice for ".localized + entityId
+            if isPI == false{
+                initiationView?.entityIdLabel.text = "Tax invoice for " + entityId
+            }
             initiationView?.dateLabel.text = "Date accepted " + date
             initiationView?.data = data
             initiationView?.delegate = controller as? AcceptedPIViewProtocol

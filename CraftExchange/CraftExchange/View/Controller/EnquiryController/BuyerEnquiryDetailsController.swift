@@ -257,7 +257,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
                 if User.loggedIn()?.refRoleId == "1"  {
                     $0.hidden = true
-                }else if ( enquiryObject?.isPiSend == 1 || enquiryObject!.enquiryStageId >= 3){
+                }else if ( enquiryObject?.isPiSend == 1 || enquiryObject!.enquiryStageId >= 3) && !self.isClosed {
                     $0.hidden = false
                 }
                 else {
@@ -274,7 +274,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.delegate = self
                 $0.tag = "CreatePI"
                 $0.cell.tag = 100
-                if (enquiryObject?.enquiryStageId == 2 || enquiryObject?.enquiryStageId == 7){
+                if (enquiryObject?.enquiryStageId == 2 || enquiryObject?.enquiryStageId == 7) && !self.isClosed{
                     $0.hidden = false
                 }else {
                     $0.hidden = true
@@ -285,7 +285,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
             }.cellUpdate({ (cell, row) in
                 
-                if self.enquiryObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
+                if (self.enquiryObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1" && !self.isClosed){
                     cell.row.hidden = false
                 }
                 else{
@@ -346,13 +346,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                     row5?.hidden = true
                     row6?.hidden = true
                 }
-                row1?.evaluateHidden()
-                row2?.evaluateHidden()
-                row3?.evaluateHidden()
-                row4?.evaluateHidden()
-                row5?.evaluateHidden()
-                row6?.evaluateHidden()
-                self.form.allSections.first?.reload(with: .none)
             })
             <<< LabelRow() {
                 $0.cell.height = { 60.0 }
@@ -364,7 +357,9 @@ class BuyerEnquiryDetailsController: FormViewController {
                     $0.title = "MOQ Details".localized
                 }
                 $0.cell.isUserInteractionEnabled = false
-            }
+            }.cellUpdate({ (cell, row) in
+                 cell.selectionStyle = .none
+            })
             <<< RoundedTextFieldRow() {
                 $0.cell.height = { 80.0 }
                 $0.tag = "createMOQ2"
@@ -389,6 +384,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 cell.valueTextField.text = self.viewModel.minimumQuantity.value ?? ""
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -416,6 +412,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 cell.valueTextField.text = self.viewModel.pricePerUnit.value ?? ""
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedActionSheetRow() {
@@ -449,6 +446,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                     cell.row.value = selectedTiming.deliveryDesc
                 }
                 cell.actionButton.setTitle(cell.row.value, for: .normal)
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -474,6 +472,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 cell.valueTextField.text = self.viewModel.additionalNote.value ?? ""
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             
             <<< SingleButtonRow() {
@@ -490,6 +489,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                     cell.isHidden = true
                     cell.height = { 0.0 }
                 }
+                 cell.selectionStyle = .none
             })
             
             <<< MOQSectionTitleRow() {
@@ -610,7 +610,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
             }.onCellSelection({ (cell, row) in
                 let section = self.form.sectionBy(tag: "list MOQs")
-                if section?.isEmpty == true {
+                if section?.isEmpty == true && !self.isClosed {
                     self.listMOQsFunc()
                 }else {
                     section?.removeAll()

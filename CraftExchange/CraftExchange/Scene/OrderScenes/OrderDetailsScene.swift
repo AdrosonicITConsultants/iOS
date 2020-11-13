@@ -337,7 +337,29 @@ extension OrderDetailsService {
             vc.navigationController?.pushViewController(vc1, animated: true)
         }
         
-       
+        vc.downloadEnquiry = { (enquiryId) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            service.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        service.pasrseEnquiryJson(json: json, vc: vc)
+                    }
+                }
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                }
+            }.dispose(in: vc.bag)
+        }
+        
+        vc.goToEnquiry = { (enquiryId) in
+            if let obj = Enquiry().searchEnquiry(searchId: enquiryId ) {
+                let vc1 = EnquiryDetailsService(client: self.client).createEnquiryDetailScene(forEnquiry: obj, enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
+                vc1.modalPresentationStyle = .fullScreen
+                vc1.isClosed = vc.isClosed
+                vc.navigationController?.pushViewController(vc1, animated: true)
+            }
+        }
+        
         vc.downloadDeliveryReceipt = { (enquiryId, imageName) in
             
             let url = URL(string: KeychainManager.standard.imageBaseURL + "/deliveryChallanReceipt/\(enquiryId)/" + imageName)
@@ -366,16 +388,42 @@ extension OrderDetailsService {
                    vc.showLoading()
                    service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 2)
         }
-        vc.viewTransactionReceipt = { (transaction, isOld) in
-            let service = EnquiryDetailsService.init(client: self.client)
-            service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+        vc.viewFI = {
+            vc.showLoading()
+           let service = EnquiryDetailsService.init(client: self.client)
+            service.getViewFI(enquiryId: vc.orderObject?.enquiryId ?? 0, isOld: 1).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
                DispatchQueue.main.async {
                 let object = String(data: responseData, encoding: .utf8) ?? ""
-                vc.view.showAcceptedPIView(controller: vc, entityId: transaction.enquiryCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false)
+                vc.view.showAcceptedPIView(controller: vc, entityId: vc.orderObject?.orderCode ?? "\(vc.orderObject?.enquiryId ?? 0)", date: Date().ttceISOString(isoDate: vc.orderObject?.lastUpdated ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
                    vc.hideLoading()
                }
             }.dispose(in: vc.bag)
             vc.hideLoading()
+
+        }
+        
+        vc.viewTransactionReceipt = { (transaction, isOld, isPI) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            if isPI {
+                service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                   DispatchQueue.main.async {
+                    let object = String(data: responseData, encoding: .utf8) ?? ""
+                    vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
+                       vc.hideLoading()
+                   }
+                }.dispose(in: vc.bag)
+                vc.hideLoading()
+            }else{
+                service.getViewFI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                   DispatchQueue.main.async {
+                    let object = String(data: responseData, encoding: .utf8) ?? ""
+                    vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
+                       vc.hideLoading()
+                   }
+                }.dispose(in: vc.bag)
+                vc.hideLoading()
+            }
+            
         }
         return vc
     }
