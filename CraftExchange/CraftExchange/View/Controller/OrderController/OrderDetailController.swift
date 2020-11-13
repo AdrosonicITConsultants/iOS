@@ -486,6 +486,13 @@ class OrderDetailController: FormViewController {
 //                }
 //            })
             
+            <<< LabelRow(){
+                $0.cell.height = {30.0}
+                $0.title = ""
+            }.cellUpdate({ (cell, row) in
+                cell.selectionStyle = .none
+            })
+            
             <<< StartStageViewRow()
                 {
                     $0.cell.height = { 90.0 }
@@ -564,16 +571,16 @@ class OrderDetailController: FormViewController {
                 $0.cell.tag = 100
                 $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice".localized
                 $0.cell.createSendInvoiceBtn.setTitle("Create & Send Final Invoice".localized, for: .normal)
-                if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
+                if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7 ) && !self.isClosed{
                     $0.hidden = false
                 }
-                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
-                    $0.hidden = false
-                }
-                else if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
-                    $0.hidden = true
-                    $0.cell.height = { 0.0 }
-                }
+//                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && (orderObject?.enquiryStageId == 3){
+//                    $0.hidden = false
+//                }
+//                else if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
+//                    $0.hidden = true
+//                    $0.cell.height = { 0.0 }
+//                }
                 else{
                     $0.hidden = true
                     $0.cell.height = { 0.0 }
@@ -581,14 +588,16 @@ class OrderDetailController: FormViewController {
             }
             .cellUpdate({ (cell, row) in
                 
-                if User.loggedIn()?.refRoleId == "1" && (self.orderObject?.enquiryStageId == 6 || self.orderObject?.enquiryStageId == 7) {
+                if User.loggedIn()?.refRoleId == "1" && ( self.orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed {
                     cell.row.hidden = false
-                }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3{
-                    cell.row.hidden = false
-                }else if User.loggedIn()?.refRoleId == "2" || self.isClosed || self.orderObject?.isPiSend == 1{
-                    cell.row.hidden = true
-                    cell.height = { 0.0 }
                 }
+//                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3{
+//                    cell.row.hidden = false
+//                }
+//                else if User.loggedIn()?.refRoleId == "2" || self.isClosed || self.orderObject?.isPiSend == 1{
+//                    cell.row.hidden = true
+//                    cell.height = { 0.0 }
+//                }
                 else{
                     cell.row.hidden = true
                     cell.height = { 0.0 }
@@ -866,8 +875,18 @@ class OrderDetailController: FormViewController {
                                 if self.orderObject?.changeRequestOn == 0 {
                                     row.cell.valueLbl.text = User.loggedIn()?.refRoleId == "1" ? "Change request disabled".localized : "Change request disabled by artisan".localized
                                 }else {
-                                    row.cell.valueLbl.text = ""
+                                    if (self.orderObject?.changeRequestModifiedOn == nil && User.loggedIn()?.refRoleId == "1") ||
+                                        (User.loggedIn()?.refRoleId == "2" &&
+                                        ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
+                                         ){
+                                        row.cell.valueLbl.text = "No change request available"
+                                    }else{
+                                        row.cell.valueLbl.text = "Last date to raise Change Request passed.".localized
+                                    }
+                                    
+                                    
                                 }
+                                
                             }
                         }else {
                             row.cell.valueLbl.text = "Last date to raise Change Request passed.".localized
@@ -880,11 +899,21 @@ class OrderDetailController: FormViewController {
                 case 3:
                     row.cell.valueLbl.text = "Change request has been partially accepted".localized
                 case .none, .some(_):
-                    row.cell.valueLbl.text = ""
+                    row.cell.valueLbl.text = "No change request raised".localized
                 }
             }).onCellSelection({ (cell, row) in
+            
                 if self.orderObject?.enquiryStageId ?? 0 < 6 {
                     if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
+                        var execute = false
+                    
+                        if (self.orderObject?.changeRequestModifiedOn != nil && User.loggedIn()?.refRoleId == "1") ||
+                            (User.loggedIn()?.refRoleId == "2" &&
+                            ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
+                             ){
+                            execute = true
+                        }
+                        if execute {
                         do {
                             let client = try SafeClient(wrapping: CraftExchangeClient())
                             if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
@@ -895,6 +924,7 @@ class OrderDetailController: FormViewController {
                             }
                         }catch {
                             print(error.localizedDescription)
+                        }
                         }
                     }
                 }
@@ -1050,17 +1080,19 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
             self.form.allSections.first?.reload(with: .none)
         }
         //"Create Final Invoice"
-        if User.loggedIn()?.refRoleId == "1" && (self.orderObject!.enquiryStageId == 7 || self.orderObject!.enquiryStageId == 6) {
+        if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed{
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
-        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3 {
-            let row = form.rowBy(tag: "Create Final Invoice")
-            row?.hidden = false
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-        }else{
+        }
+//        else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3 {
+//            let row = form.rowBy(tag: "Create Final Invoice")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
+        else{
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = true
             row?.evaluateHidden()
@@ -1420,13 +1452,14 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject!.enquiryId, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
-            if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+          //  if orderObject?.enquiryStageId ?? 0 >= 3 {
+                vc1.isFI = true
                 vc1.PI = self.PI
                 vc1.advancePaymnet = self.advancePaymnet
-            }
-            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
-                vc1.PI = self.PI
-            }
+          //  }
+//            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+//                vc1.PI = self.PI
+//            }
             vc1.orderObject = self.orderObject
             print("PI WORKING")
             self.navigationController?.pushViewController(vc1, animated: true)
