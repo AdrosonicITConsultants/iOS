@@ -52,74 +52,74 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
     self.viewModel.goToRegister?()
   }
     
-    @IBAction func faqButtonSelected(_ sender: UIButton) {
-        didTapFAQButton(tag: sender.tag)
+  @IBAction func faqButtonSelected(_ sender: UIButton) {
+    didTapFAQButton(tag: sender.tag)
   }
     
-    @IBAction func languageButtonSelected(_ sender: UIButton){
-        showLanguagePickerAlert()
-    }
+  @IBAction func languageButtonSelected(_ sender: UIButton){
+    showLanguagePickerAlert()
+  }
 
-    @IBAction func googleLoginSelected(_ sender: Any) {
-        googleAuthLogin()
-    }
+  @IBAction func googleLoginSelected(_ sender: Any) {
+    googleAuthLogin()
+  }
     
-    @IBAction func facebookLoginSelected(_ sender: Any) {
-        fbLogin()
-    }
+  @IBAction func facebookLoginSelected(_ sender: Any) {
+    fbLogin()
+  }
     
-    func fbLogin() {
-          let loginManager = LoginManager()
-          loginManager.logOut()
-          loginManager.logIn(permissions:[ .publicProfile, .email ], viewController: self) { loginResult in
+  func fbLogin() {
+      let loginManager = LoginManager()
+      loginManager.logOut()
+      loginManager.logIn(permissions:[ .publicProfile, .email ], viewController: self) { loginResult in
 
-              switch loginResult {
+          switch loginResult {
 
-              case .failed(let error):
-                  print(error)
+          case .failed(let error):
+              print(error)
 
-              case .cancelled:
-                  print("User cancelled login process.")
+          case .cancelled:
+              print("User cancelled login process.")
 
-              case .success( _, _, _):
-                  print("Logged in!")
-                  self.getFBUserData()
-              }
+          case .success( _, _, _):
+              print("Logged in!")
+              self.getFBUserData()
           }
       }
+    }
       
-      func getFBUserData() {
-          let token = AccessToken.current
-          let tokenString = token?.tokenString
-          if((AccessToken.current) != nil){
-            var username = ""
-            GraphRequest(graphPath: "me", parameters: ["fields": "email"]).start(completionHandler: { (connection, result, error) -> Void in
-                if (error == nil){
-                    let dict = result as! [String : AnyObject]
-                    let picutreDic = dict as NSDictionary
-                    if let emailAddress = picutreDic.object(forKey: "email") {
-                        username = emailAddress as! String
-                    }
-                    self.viewModel.performAuthenticationSocial?(username, tokenString!, "FACEBOOK")
+  func getFBUserData() {
+      let token = AccessToken.current
+      let tokenString = token?.tokenString
+      if((AccessToken.current) != nil){
+        var username = ""
+        GraphRequest(graphPath: "me", parameters: ["fields": "email"]).start(completionHandler: { (connection, result, error) -> Void in
+            if (error == nil){
+                let dict = result as! [String : AnyObject]
+                let picutreDic = dict as NSDictionary
+                if let emailAddress = picutreDic.object(forKey: "email") {
+                    username = emailAddress as! String
                 }
-            })
-          }
+                self.viewModel.performAuthenticationSocial?(username, tokenString!, "FACEBOOK")
+            }
+        })
       }
-    
-    func googleAuthLogin() {
-        self.googleSignIn?.presentingViewController = self
-        self.googleSignIn?.clientID = "241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
-        self.googleSignIn?.delegate = self
-        self.googleSignIn?.signIn()
     }
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        guard let user = user else {
-            print("Uh oh. The user cancelled the Google login.")
-            return
-        }
-        let username = user.profile.email
-        let accessToken = user.authentication.accessToken
-        self.viewModel.performAuthenticationSocial?(username!, accessToken!, "GOOGLE")
+  func googleAuthLogin() {
+    self.googleSignIn?.presentingViewController = self
+    self.googleSignIn?.clientID = "241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
+    self.googleSignIn?.delegate = self
+    self.googleSignIn?.signIn()
+  }
+    
+  func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+    guard let user = user else {
+        print("Uh oh. The user cancelled the Google login.")
+        return
     }
+    let username = user.profile.email
+    let accessToken = user.authentication.accessToken
+    self.viewModel.performAuthenticationSocial?(username!, accessToken!, "GOOGLE")
+  }
 }

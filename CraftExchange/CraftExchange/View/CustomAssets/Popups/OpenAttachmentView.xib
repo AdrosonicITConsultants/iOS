@@ -35,8 +35,8 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="M6k-If-msL" secondAttribute="bottom" constant="60" id="2xM-qQ-7Cb"/>
                 <constraint firstItem="M6k-If-msL" firstAttribute="top" secondItem="cx7-Xe-z5B" secondAttribute="bottom" constant="15" id="GWb-y6-ahL"/>
                 <constraint firstItem="M6k-If-msL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="KCu-XU-pRY"/>
+                <constraint firstItem="cx7-Xe-z5B" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="kve-CV-acU"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="M6k-If-msL" secondAttribute="trailing" constant="20" id="l03-0o-T7P"/>
-                <constraint firstItem="cx7-Xe-z5B" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="qBn-E9-NlJ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="cx7-Xe-z5B" secondAttribute="trailing" constant="20" id="v0v-6C-AxP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

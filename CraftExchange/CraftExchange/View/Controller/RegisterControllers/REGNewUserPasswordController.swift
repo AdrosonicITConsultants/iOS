@@ -91,5 +91,8 @@ class REGNewUserPasswordController: UIViewController {
     @IBAction func languageButtonSelected(_ sender: UIButton){
         showLanguagePickerAlert()
     }
+    @IBAction func ReachOutToUsSelected(_ sender: Any) {
+        alert("For any query reach us @ antaran@tatatrusts.org")
+    }
 }
 

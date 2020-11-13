@@ -179,8 +179,7 @@ extension RegisterArtisanDataController: ButtonActionProtocol {
       print("Next Selected")
       self.viewModel.nextSelected?()
     case 102:
-      print("View FAQ")
-      didTapFAQButton(tag: 1)
+      alert("For any query reach us @ antaran@tatatrusts.org")
     default:
       print("do nothing")
     }

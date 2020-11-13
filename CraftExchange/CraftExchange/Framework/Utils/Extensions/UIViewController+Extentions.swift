@@ -158,7 +158,9 @@ extension UIViewController : OpenAttachmentViewProtocol {
            url = KeychainManager.standard.faqBaseURL + "/documents/LEGAL%20DISCLAIMER.pdf"
        } else if tag == 3 {
            url = KeychainManager.standard.faqBaseURL + "/documents/TERMS_and_CONDITIONS.pdf"
-       }
+       } else if tag == 4 {
+           url = KeychainManager.standard.faqBaseURL + "/documents/Help.pdf"
+    }
        self.view.showOpenFAQView(controller: self, data: url)
     
     if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9g3-GS-y3D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9g3-GS-y3D">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,7 +49,7 @@
                                                     <action selector="languageButtonSelected:" destination="aPo-hV-Nkv" eventType="touchUpInside" id="u4p-3T-YzR"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ZZ-2e-OIf">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ZZ-2e-OIf">
                                                 <rect key="frame" x="20" y="728" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="OwB-Ht-zBu"/>
@@ -58,6 +58,9 @@
                                                 <state key="normal" title="Need help?">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="aPo-hV-Nkv" eventType="touchUpInside" id="3CT-77-BnO"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZfG-gl-5i3" customClass="RoundedTextField" customModule="Craft_Xchange" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="290" width="254" height="34"/>
@@ -125,6 +128,9 @@
                                                         <real key="value" value="18"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="reachOutToUsSelected:" destination="aPo-hV-Nkv" eventType="touchUpInside" id="ldt-HU-Ufa"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Sz-zx-F3F">
                                                 <rect key="frame" x="274" y="728" width="120" height="30"/>
@@ -258,7 +264,7 @@
                                                     <action selector="languageButtonSelected:" destination="824-BP-8MA" eventType="touchUpInside" id="qRe-M0-5Wh"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LiM-DQ-Mig">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LiM-DQ-Mig">
                                                 <rect key="frame" x="20" y="681" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="IAz-6W-8C3"/>
@@ -267,6 +273,9 @@
                                                 <state key="normal" title="Need help?">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="824-BP-8MA" eventType="touchUpInside" id="xSb-Le-wDz"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EU7-On-GdN" customClass="RoundedTextField" customModule="Craft_Xchange" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="290" width="254" height="34"/>
@@ -340,6 +349,9 @@
                                                         <real key="value" value="18"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="reachOutToUsSelected:" destination="824-BP-8MA" eventType="touchUpInside" id="HM8-U0-6nf"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhk-h0-FfL">
                                                 <rect key="frame" x="274" y="681" width="120" height="30"/>
@@ -484,7 +496,7 @@
                                                     <action selector="languageButtonSelected:" destination="dur-t0-7vE" eventType="touchUpInside" id="QxW-S2-trS"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez8-FI-Zx5">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez8-FI-Zx5">
                                                 <rect key="frame" x="20" y="778" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="5ev-jt-wD0"/>
@@ -493,6 +505,9 @@
                                                 <state key="normal" title="Need help?">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="dur-t0-7vE" eventType="touchUpInside" id="FNH-d7-ATZ"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hHl-ks-fAD" customClass="RoundedTextField" customModule="Craft_Xchange" customModuleProvider="target">
                                                 <rect key="frame" x="80" y="391" width="254" height="34"/>
@@ -574,6 +589,9 @@
                                                         <real key="value" value="18"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="ReachOutToUsSelected:" destination="dur-t0-7vE" eventType="touchUpInside" id="BC2-a5-otj"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuR-5s-OjE">
                                                 <rect key="frame" x="274" y="778" width="120" height="30"/>
@@ -686,7 +704,7 @@
                                                     <action selector="languageButtonSelected:" destination="eOc-9y-B6R" eventType="touchUpInside" id="5Gu-Z5-pNG"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ag6-IK-UWx">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ag6-IK-UWx">
                                                 <rect key="frame" x="20" y="778" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="36i-TS-9Be"/>
@@ -695,6 +713,9 @@
                                                 <state key="normal" title="Need help?">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="eOc-9y-B6R" eventType="touchUpInside" id="VJB-mX-M5a"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LE-cl-0z9">
                                                 <rect key="frame" x="274" y="778" width="120" height="30"/>
@@ -1047,7 +1068,7 @@
                                                     <action selector="languageButtonSelected:" destination="dGe-SO-67k" eventType="touchUpInside" id="Jwe-fm-XpT"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XaL-pS-D5A">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XaL-pS-D5A">
                                                 <rect key="frame" x="20" y="778" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="Jdi-hX-cOS"/>
@@ -1056,6 +1077,9 @@
                                                 <state key="normal" title="Need help?">
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="faqButtonSelected:" destination="dGe-SO-67k" eventType="touchUpInside" id="raz-Os-Ulb"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="443-cT-76z">
                                                 <rect key="frame" x="274" y="778" width="120" height="30"/>

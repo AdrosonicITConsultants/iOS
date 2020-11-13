@@ -54,4 +54,7 @@ class ForgotPasswordController: UIViewController {
         showLanguagePickerAlert()
     }
     
+    @IBAction func reachOutToUsSelected(_ sender: Any) {
+        alert("For any query reach us @ antaran@tatatrusts.org")
+    }
 }

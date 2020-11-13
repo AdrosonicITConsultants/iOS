@@ -147,7 +147,7 @@ class REGBuyerCompanyInfoController: FormViewController {
           $0.cell.buttonView.borderColour = .white
           $0.cell.buttonView.backgroundColor = .white
           $0.cell.buttonView.setTitleColor(.lightGray, for: .normal)
-        $0.cell.buttonView.setTitle("Privacy Policy".localized, for: .normal)
+          $0.cell.buttonView.setTitle("Privacy Policy".localized, for: .normal)
           $0.cell.tag = 102
           $0.cell.delegate = self
           $0.cell.height = { 100.0 }
