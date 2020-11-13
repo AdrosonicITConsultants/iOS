@@ -389,8 +389,6 @@ class OrderDetailController: FormViewController {
                 }
             })
             
-            
-            
             <<< EnquiryClosedRow() {
                 $0.cell.height = { 110.0 }
                 if orderObject?.enquiryStageId == 10 {
@@ -443,49 +441,7 @@ class OrderDetailController: FormViewController {
                     cell.height = { 0.0 }
                 }
             })
-            
-//            <<< AcceptedInvoiceRow() {
-//                $0.cell.height = { 120.0 }
-//                $0.tag = "View Invoice & Approve Advance Payment"
-//                if User.loggedIn()?.refRoleId == "1"  && orderObject?.enquiryStageId == 3{
-//                    $0.hidden = false
-//                    if (orderObject!.isBlue){
-//                        $0.cell.approvePaymentButton.isHidden = false
-//                    }
-//                    else {
-//                        $0.cell.approvePaymentButton.isHidden = true
-//                        $0.cell.height = { 90.0 }
-//                    }
-//                }
-//                else {
-//                    $0.hidden = false
-//                    $0.cell.approvePaymentButton.isHidden = true
-//                    $0.cell.height = { 90.0 }
-//                }
-//                if self.orderObject?.productStatusId == 2 {
-//                    $0.cell.approvePaymentButton.isHidden = true
-//                    $0.cell.height = { 90.0 }
-//                }
-//                $0.cell.tag = 3
-//                $0.cell.delegate = self
-//            }.cellUpdate({ (cell, row) in
-//                if self.orderObject?.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
-//                    cell.row.hidden = false
-//                    if (self.orderObject!.isBlue){
-//                        cell.approvePaymentButton.isHidden = false
-//                    }
-//                    else {
-//                        cell.approvePaymentButton.isHidden = true
-//                        cell.height = { 90.0 }
-//                    }
-//                }
-//                else{
-//                    cell.row.hidden = false
-//                    cell.approvePaymentButton.isHidden = true
-//                    cell.height = { 90.0 }
-//                }
-//            })
-            
+             
             <<< LabelRow(){
                 $0.cell.height = {30.0}
                 $0.title = ""
@@ -541,29 +497,6 @@ class OrderDetailController: FormViewController {
                 }
             })
             
-//            <<< ProFormaInvoiceRow() {
-//                $0.cell.height = { 150.0 }
-//                $0.cell.delegate = self
-//                $0.tag = "CreatePI"
-//                $0.cell.tag = 100
-//                if (orderObject?.enquiryStageId == 2 ){
-//                    $0.hidden = false
-//                }else {
-//                    $0.hidden = true
-//                }
-//
-//                if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
-//                    $0.hidden = true
-//                }
-//            }.cellUpdate({ (cell, row) in
-//                if self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
-//                    cell.row.hidden = false
-//                } else{
-//                    cell.row.hidden = true
-//                    cell.height = { 0.0 }
-//                }
-//            })
-            
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 85.0 }
                 $0.cell.delegate = self
@@ -574,30 +507,15 @@ class OrderDetailController: FormViewController {
                 if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7 ) && !self.isClosed{
                     $0.hidden = false
                 }
-//                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && (orderObject?.enquiryStageId == 3){
-//                    $0.hidden = false
-//                }
-//                else if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
-//                    $0.hidden = true
-//                    $0.cell.height = { 0.0 }
-//                }
                 else{
                     $0.hidden = true
                     $0.cell.height = { 0.0 }
                 }
             }
             .cellUpdate({ (cell, row) in
-                
                 if User.loggedIn()?.refRoleId == "1" && ( self.orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed {
                     cell.row.hidden = false
                 }
-//                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3{
-//                    cell.row.hidden = false
-//                }
-//                else if User.loggedIn()?.refRoleId == "2" || self.isClosed || self.orderObject?.isPiSend == 1{
-//                    cell.row.hidden = true
-//                    cell.height = { 0.0 }
-//                }
                 else{
                     cell.row.hidden = true
                     cell.height = { 0.0 }

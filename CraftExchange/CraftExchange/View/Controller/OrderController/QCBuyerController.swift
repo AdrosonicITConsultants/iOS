@@ -93,6 +93,26 @@ class QCBuyerController: FormViewController {
             self.orderQCStageId = buyerQCArray?.first?.stageId ?? 0
         }
         
+        if let qcRow = self.form.rowBy(tag: "QC-NA") {
+            qcRow.hidden = self.buyerQCArray?.count == 0 ? false : true
+            qcRow.evaluateHidden()
+        }else {
+            stageSection <<< LabelRow() {
+                $0.cell.height = { 60.0 }
+                $0.title = "Not Available"
+                $0.tag = "QC-NA"
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = UIColor().CEMagenda()
+                cell.textLabel?.textAlignment = .center
+                if self.buyerQCArray?.count == 0 {
+                    cell.row.hidden = false
+                }else {
+                    cell.row.hidden = true
+                }
+            })
+        }
+        
+        
         if let stageArray = stagesArray, stageArray.count > 0 {
             stageArray .forEach { (stage) in
                 if self.form.rowBy(tag: "\(stage.entityID)") == nil {
