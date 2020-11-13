@@ -774,7 +774,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 })
             }
             
-            let showMOQ = listMOQs!
+                if  let showMOQ = listMOQs {
             showMOQ.forEach({ (obj) in
                 listMOQSection <<< MOQSectionTitleRow() {
                     $0.cell.height = { 44.0 }
@@ -844,6 +844,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                         self.view.showAcceptMOQView(controller: self, getMOQs: obj)
                     })
             })
+            }
                 if valid == 1{
                     self.form.sectionBy(tag: "list MOQs")?.reload()
                 }

@@ -22,10 +22,11 @@ extension Order {
         return nil
     }
     
-    func updateAddonDetails(blue: Bool, name: String, moqRejected: Bool) {
+    func updateAddonDetails(blue: Bool, name: String, moqRejected: Bool, isOpen: Bool) {
         let realm = try! Realm()
         if let object = realm.objects(Order.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
+                object.isOpen = isOpen
                 object.isMoqRejected = moqRejected
                 object.isBlue = blue
                 object.brandName = name

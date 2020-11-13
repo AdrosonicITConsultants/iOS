@@ -73,16 +73,30 @@ class OrderListController: UIViewController {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+        if self.reachabilityManager?.connection == .unavailable {
+       // let realm = try? Realm()
+        
+        if self.segmentView.selectedSegmentIndex == 0 {
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }else {
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }
+        
+        }else{
+        
         if segmentView.selectedSegmentIndex == 0 {
             allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",ongoingOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {
             allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",closedOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }
+        }
         emptyView.isHidden = allOrders?.count == 0 ? false : true
+        self.hideLoading()
         self.tableView.reloadData()
     }
     
     @IBAction func segmentValueChanged(_ sender: Any) {
+        self.allOrders?.removeAll()
         viewWillAppear?()
     }
 }

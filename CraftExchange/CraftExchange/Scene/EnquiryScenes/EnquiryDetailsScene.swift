@@ -43,6 +43,7 @@ extension EnquiryDetailsService {
                     vc.hideLoading()
                 }
             }.dispose(in: vc.bag)
+            vc.hideLoading()
         }
         
         vc.showCustomProduct = {

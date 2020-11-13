@@ -123,7 +123,7 @@ extension OrderDetailsService {
                 }
             }.dispose(in: vc.bag)
 
-            
+            vc.hideLoading()
         }
         
         vc.showCustomProduct = {
