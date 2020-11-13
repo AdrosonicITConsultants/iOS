@@ -137,7 +137,7 @@ extension OrderListService {
                             if let enquiryObj = try? JSONDecoder().decode(Order.self, from: proddata) {
                                 DispatchQueue.main.async {
                                     enquiryObj.saveOrUpdate()
-                                    enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false)
+                                    enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false, isOpen: isOngoing)
                                     eqArray.append(enquiryObj.entityID)
                                     if i == array.count {
                                         if isOngoing {

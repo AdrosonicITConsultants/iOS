@@ -73,16 +73,30 @@ class OrderListController: UIViewController {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+        if self.reachabilityManager?.connection == .unavailable {
+       // let realm = try? Realm()
+        
+        if self.segmentView.selectedSegmentIndex == 0 {
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }else {
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }
+        
+        }else{
+        
         if segmentView.selectedSegmentIndex == 0 {
             allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",ongoingOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {
             allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",closedOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }
+        }
         emptyView.isHidden = allOrders?.count == 0 ? false : true
+        self.hideLoading()
         self.tableView.reloadData()
     }
     
     @IBAction func segmentValueChanged(_ sender: Any) {
+        self.allOrders?.removeAll()
         viewWillAppear?()
     }
 }
@@ -99,11 +113,11 @@ extension OrderListController: UITableViewDataSource, UITableViewDelegate {
             if segmentView.selectedSegmentIndex == 1 {
                 if obj.enquiryStageId == 10 {
                     cell.statusLabel.textColor = UIColor().CEGreen()
-                    cell.statusLabel.text = "Enquiry Completed"
+                    cell.statusLabel.text = "Order Completed"
                     cell.statusDot.backgroundColor = UIColor().CEGreen()
                 }else {
                     cell.statusLabel.textColor = .red
-                    cell.statusLabel.text = "Enquiry Closed"
+                    cell.statusLabel.text = "Order Closed"
                     cell.statusDot.backgroundColor = .red
                 }
                 cell.requestMOQLabel.isHidden = true

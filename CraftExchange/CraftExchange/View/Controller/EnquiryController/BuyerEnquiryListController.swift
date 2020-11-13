@@ -67,12 +67,25 @@ class BuyerEnquiryListController: UIViewController {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
-        if segmentView.selectedSegmentIndex == 0 {
-            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        }else {
-            allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        if self.reachabilityManager?.connection == .unavailable {
+        // let realm = try? Realm()
+         
+         if self.segmentView.selectedSegmentIndex == 0 {
+             self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+         }else {
+             self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+         }
+         
+        }else{
+            if segmentView.selectedSegmentIndex == 0 {
+                allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }else {
+                allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",closedEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }
         }
+        
         emptyView.isHidden = allEnquiries?.count == 0 ? false : true
+        self.hideLoading()
         self.tableView.reloadData()
     }
     

@@ -27,6 +27,7 @@ class InvoiceViewModel {
     var pricePerUnitPI = Observable<String?>(nil)
     var quantity = Observable<String?>(nil)
     var currency = Observable<CurrencySigns?>(nil)
+    var currenyNew = Observable<String?>(nil)
     var previousTotalAmount = Observable<String?>(nil)
     var advancePaidAmount = Observable<String?>(nil)
     var sgst = Observable<String?>(nil)
@@ -59,6 +60,7 @@ class InvoiceController: FormViewController{
     var viewModel = InvoiceViewModel()
     var allCurrencySigns: Results<CurrencySigns>?
     var isRevisedPI: Bool = false
+    var isFI : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,18 +91,7 @@ class InvoiceController: FormViewController{
         }
         form
             +++ Section()
-            //            <<< LabelRow(){
-            //                $0.cell.height = { 25.0 }
-            //                $0.title = enquiryObject?.enquiryCode
-            //            }
-            //            <<< LabelRow(){
-            //                $0.cell.height = { 20.0 }
-            //                let date = Date().ttceFormatter(isoDate: (enquiryObject?.startedOn!)!)
-            //                $0.title = "Date accepted: " + date
-            //            }.cellUpdate({ (cell, row) in
-            //                cell.textLabel?.textColor = .darkGray
-            //                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
-            //            })
+            
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
@@ -156,32 +147,19 @@ class InvoiceController: FormViewController{
             }
             <<< LabelRow(){
                 $0.title = "Proforma Invoice"
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                if  self.isFI {
                     $0.title = "Tax Invoice".localized
                 }
-                if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.title = "Tax Invoice".localized
-                }
-            }
-            
-            <<< EnquiryClosedRow() {
-                $0.cell.height = { 110.0 }
-                if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId == 10 {
-                    $0.cell.dotView.backgroundColor = UIColor().CEGreen()
-                    $0.cell.enquiryLabel.text = "Enquiry Completed".localized
-                    $0.cell.enquiryLabel.textColor = UIColor().CEGreen()
-                }else {
-                    $0.cell.dotView.backgroundColor = .red
-                    $0.cell.enquiryLabel.text = "Enquiry Closed".localized
-                    $0.cell.enquiryLabel.textColor = .red
-                }
-                $0.hidden = isClosed == true ? false : true
+//                if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.title = "Tax Invoice".localized
+//                }
             }
             
             <<< LabelRow(){
                 $0.title = "Fill in the Details".localized
             }.cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = .darkGray
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -198,25 +176,26 @@ class InvoiceController: FormViewController{
                 self.viewModel.quantity.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.quantity.value ?? ""
                 if PI?.quantity != nil {
-                    $0.cell.valueTextField.text = "\(PI!.quantity)"
+                    $0.cell.valueTextField.text = "\(PI?.quantity ?? 0)"
                 }
                 self.viewModel.quantity.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
                 cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             
             <<< DateRow(){
                 $0.title = "Expected Date of Delivery".localized
                 $0.cell.height = { 60.0 }
                 $0.minimumDate = Date()
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+                if  self.isFI  {
                     $0.hidden = true
                 }
-                if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = true
-                }
+//                if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = true
+//                }
                 $0.value = Date()
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -232,6 +211,7 @@ class InvoiceController: FormViewController{
             }).cellUpdate({ (cell, row) in
                 cell.textLabel?.textColor = .black
                 cell.textLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedActionSheetRow() {
@@ -240,32 +220,40 @@ class InvoiceController: FormViewController{
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.options = allCurrencySigns?.compactMap {
-                    $0.sign
-                }
-                self.viewModel.currency.value = CurrencySigns.getCurrencyType(CurrencyId: 1)
-                if let selectedCurrency = self.viewModel.currency.value {
-                    $0.cell.selectedVal = selectedCurrency.sign
-                    $0.value = selectedCurrency.sign
-                }
+                $0.cell.options = ["₹"]
+//                $0.cell.options = allCurrencySigns?.compactMap {
+//                    $0.sign
+//                }
+            //    self.viewModel.currency.value = CurrencySigns.getCurrencyType(CurrencyId: 1)
+                self.viewModel.currenyNew.value = "₹"
+//                if let selectedCurrency = self.viewModel.currency.value {
+//                    $0.cell.selectedVal = selectedCurrency.sign
+//                    $0.value = selectedCurrency.sign
+//                }
+                $0.value = "₹"
                 $0.cell.actionButton.setTitle($0.value, for: .normal)
                 $0.cell.delegate = self
                 $0.cell.height = { 80.0 }
                 
             }.onChange({ (row) in
                 print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-                let selectedCurrencyObj = self.allCurrencySigns?.filter({ (obj) -> Bool in
-                    obj.sign == row.value
-                }).first
-                self.viewModel.currency.value = selectedCurrencyObj
+//                let selectedCurrencyObj = self.allCurrencySigns?.filter({ (obj) -> Bool in
+//                    obj.sign == row.value
+//                }).first
+               // self.viewModel.currency.value = selectedCurrencyObj
+                 self.viewModel.currenyNew.value = "₹"
             }).cellUpdate({ (cell, row) in
                 
-                if let selectedCurrency = self.viewModel.currency.value {
-                    cell.selectedVal = selectedCurrency.sign
-                    cell.row.value = selectedCurrency.sign
+//                if let selectedCurrency = self.viewModel.currency.value {
+//                    cell.selectedVal = selectedCurrency.sign
+//                    cell.row.value = selectedCurrency.sign
+//                }
+                if let selectedCurrency = self.viewModel.currenyNew.value {
+                    cell.selectedVal = selectedCurrency
+                    cell.row.value = selectedCurrency
                 }
                 cell.actionButton.setTitle(cell.row.value, for: .normal)
-                
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -282,14 +270,14 @@ class InvoiceController: FormViewController{
                 self.viewModel.pricePerUnitPI.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.pricePerUnitPI.value ?? ""
                 if PI?.ppu != nil {
-                    $0.cell.valueTextField.text = "\(PI!.ppu)"
+                    $0.cell.valueTextField.text = "\(PI?.ppu ?? 0)"
                 }
                 self.viewModel.pricePerUnitPI.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
                 cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -297,12 +285,14 @@ class InvoiceController: FormViewController{
                 $0.cell.titleLabel.text =  "Previous Total amount(as per PI)".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+                if  self.orderObject?.productStatusId != 2 && self.isFI  {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = true
-                    
-                }else{
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = true
+//
+//                }
+                else{
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.textColor = .black
@@ -314,14 +304,14 @@ class InvoiceController: FormViewController{
                 self.viewModel.previousTotalAmount.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.previousTotalAmount.value ?? ""
                 if PI?.totalAmount != nil {
-                    $0.cell.valueTextField.text = "\(PI!.totalAmount)"
+                    $0.cell.valueTextField.text = "\(PI?.totalAmount ?? 0)"
                 }
                 self.viewModel.previousTotalAmount.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
                 // cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -329,12 +319,14 @@ class InvoiceController: FormViewController{
                 $0.cell.titleLabel.text =  "Advance payment received (Previously as per PI)".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                if  self.orderObject?.productStatusId != 2 && self.isFI  {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = true
-                    
-                }else {
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = true
+//
+//                }
+                else {
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.textColor = .black
@@ -347,7 +339,7 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.text = self.viewModel.advancePaidAmount.value ?? ""
                 //  if enquiryObject?.productStatusId != 2 {
                 if advancePaymnet?.paidAmount != nil {
-                    $0.cell.valueTextField.text = "\(advancePaymnet!.paidAmount)"
+                    $0.cell.valueTextField.text = "\(advancePaymnet?.paidAmount ?? 0)"
                 }else{
                     $0.cell.valueTextField.text = "0"
                 }
@@ -358,16 +350,18 @@ class InvoiceController: FormViewController{
                 // cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                
+                 cell.selectionStyle = .none
             })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Sgst"
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                if  self.isFI {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = false
-                }else {
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = false
+//                }
+                else {
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.text =  "SGST %".localized
@@ -385,15 +379,18 @@ class InvoiceController: FormViewController{
                 //   cell.valueTextField.maxLength = 2
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Cgst"
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                if  self.isFI {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = false
-                }else {
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = false
+//                }
+                else {
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.text =  "CGST %"
@@ -411,17 +408,20 @@ class InvoiceController: FormViewController{
                 // cell.valueTextField.maxLength = 2
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Final amount"
                 $0.cell.titleLabel.text =  "Final Amount".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+                if  self.isFI {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = false
-                }else {
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = false
+//                }
+                else {
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.textColor = .black
@@ -433,14 +433,14 @@ class InvoiceController: FormViewController{
                 self.viewModel.finalamount.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.finalamount.value ?? ""
                 if PI?.totalAmount != nil {
-                    $0.cell.valueTextField.text = "\(PI!.totalAmount)"
+                    $0.cell.valueTextField.text = "\(PI?.totalAmount ?? 0)"
                 }
                 self.viewModel.finalamount.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
                 // cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -448,12 +448,14 @@ class InvoiceController: FormViewController{
                 $0.cell.titleLabel.text =  "Amount to be paid (Final Amount - Advanced Payment)".localized
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                if  self.orderObject?.productStatusId != 2 && self.isFI  {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = true
-                    
-                }else {
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = true
+//
+//                }
+                else {
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.textColor = .black
@@ -466,9 +468,9 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.text = self.viewModel.amountToBePaid.value ?? ""
                 if enquiryObject?.productStatusId != 2 {
                     if PI?.totalAmount != nil && advancePaymnet?.paidAmount != nil {
-                        $0.cell.valueTextField.text = "\(PI!.totalAmount - advancePaymnet!.paidAmount)"
+                        $0.cell.valueTextField.text = "\((PI?.totalAmount ?? 0) - (advancePaymnet?.paidAmount ?? 0))"
                     }else if PI?.totalAmount != nil && advancePaymnet?.paidAmount == nil{
-                        $0.cell.valueTextField.text = "\(PI!.totalAmount )"
+                        $0.cell.valueTextField.text = "\(PI?.totalAmount ?? 0)"
                         
                     }
                     
@@ -478,17 +480,19 @@ class InvoiceController: FormViewController{
                 // cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                
+                 cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
                 $0.tag = "Delivery Charges"
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                if  self.isFI  {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = false
-                }else {
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = false
+//                }
+                else {
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.text =  "Delivery charges(Freight Charges)".localized
@@ -506,6 +510,7 @@ class InvoiceController: FormViewController{
                 // cell.valueTextField.maxLength = 2
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             
             
@@ -514,12 +519,12 @@ class InvoiceController: FormViewController{
                 $0.cell.titleLabel.text =  "HSN Code"
                 $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+                if  self.isFI  {
                     $0.hidden = true
                 }
-                    if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = true
-                }
+//                    if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = true
+//                }
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 $0.cell.compulsoryIcon.isHidden = true
@@ -536,16 +541,19 @@ class InvoiceController: FormViewController{
                 cell.valueTextField.maxLength = 8
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
+                 cell.selectionStyle = .none
             })
             
             <<< ToggleOptionRow() {
                 $0.cell.height = { 60.0 }
                 $0.cell.titleLbl.text = "Agree to terms and Conditions".localized
-                if  orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7{
+                if  self.isFI  {
                     $0.hidden = false
-                }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-                    $0.hidden = false
-                }else {
+                }
+//                else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//                    $0.hidden = false
+//                }
+                else {
                     $0.hidden = true
                 }
                 if self.viewModel.checkBox.value == 1 {
@@ -559,9 +567,18 @@ class InvoiceController: FormViewController{
                 $0.cell.toggleDelegate = self
                // $0.cell.toggleButton.tag = 100
             }.onCellSelection({ (cell, row) in
-                cell.toggleButton.sendActions(for: .touchUpInside)
-                cell.contentView.backgroundColor = .white
+                
+                self.didTapFAQButton(tag: 3)
+              //  cell.toggleButton.sendActions(for: .touchUpInside)
+               // cell.contentView.backgroundColor = .white
+            }).cellUpdate({ (cell, row) in
+                 cell.selectionStyle = .none
             })
+            
+            <<< LabelRow(){
+                $0.cell.height = {30.0}
+                $0.title = ""
+            }
             
             <<< SingleButtonRow() {
                 $0.tag = "CreatePreviewPI"
@@ -575,7 +592,16 @@ class InvoiceController: FormViewController{
                 $0.cell.height = { 50.0 }
                 $0.cell.delegate = self as SingleButtonActionProtocol
                 $0.cell.tag = 101
-        }
+            }.cellUpdate({ (cell, row) in
+                 cell.selectionStyle = .none
+            })
+            
+        <<< LabelRow(){
+            $0.cell.height = {30.0}
+            $0.title = ""
+        }.cellUpdate({ (cell, row) in
+            cell.selectionStyle = .none
+        })
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "PIRevised"), object: nil, queue: .main) { (notif) in
             self.hideLoading()
@@ -640,11 +666,12 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
         if enquiryObject?.enquiryId == 2 {
             self.viewModel.downloadPI?()
         }
-        if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+        if self.isFI  {
             print("download tax invoice")
-        }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-           print("download tax invoice")
         }
+//        else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//           print("download tax invoice")
+//        }
     }
     
     func sendButtonClicked() {
@@ -653,26 +680,29 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
         if enquiryObject?.enquiryId == 2 {
             self.viewModel.sendPI?()
         }
-        if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+        if self.isFI  {
             self.viewModel.sendFI?(2)
-        }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-           self.viewModel.sendFI?(2)
         }
+//        else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//           self.viewModel.sendFI?(2)
+//        }
     }
     // save PI Button
     func singleButtonSelected(tag: Int) {
         switch tag{
         case 101:
             self.showLoading()
-            if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+            if self.isFI  {
                 //self.viewModel.isOld.value = 0
                 
                // self.hideLoading()
                 
                 self.viewModel.sendFI?(1)
-            }else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-               self.viewModel.sendFI?(1)
-            }else{
+            }
+//            else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+//               self.viewModel.sendFI?(1)
+//            }
+            else{
                 self.viewModel.isOld.value = 0
                 self.viewModel.savePI?()
                 

@@ -50,12 +50,15 @@ class OrderDetailController: FormViewController {
     // var sendMOQ: (() -> ())?
     //  var acceptMOQ: (() -> ())?
     var sentMOQ: Int = 0
+    var goToEnquiry: ((_ enquiryId: Int) -> ())?
+    var downloadEnquiry: ((_ enquiryId: Int) -> ())?
     var viewPI: ((_ isOld: Int) -> ())?
     var downloadPI: (() -> ())?
     var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
     var downloadFinalReceipt: ((_ enquiryId: Int) -> ())?
     var downloadDeliveryReceipt: ((_ enquiryId: Int, _ imageName: String) -> ())?
-    var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int) -> ())?
+    var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int, _ isPI: Bool) -> ())?
+    var viewFI: (() -> ())?
     // var isMOQNeedToAccept: Int = 0
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
@@ -392,11 +395,11 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 110.0 }
                 if orderObject?.enquiryStageId == 10 {
                     $0.cell.dotView.backgroundColor = UIColor().CEGreen()
-                    $0.cell.enquiryLabel.text = "Enquiry Completed".localized
+                    $0.cell.enquiryLabel.text = "Order Completed".localized
                     $0.cell.enquiryLabel.textColor = UIColor().CEGreen()
                 }else {
                     $0.cell.dotView.backgroundColor = .red
-                    $0.cell.enquiryLabel.text = "Enquiry Closed".localized
+                    $0.cell.enquiryLabel.text = "Order Closed".localized
                     $0.cell.enquiryLabel.textColor = .red
                 }
                 $0.hidden = isClosed == true ? false : true
@@ -441,46 +444,53 @@ class OrderDetailController: FormViewController {
                 }
             })
             
-            <<< AcceptedInvoiceRow() {
-                $0.cell.height = { 120.0 }
-                $0.tag = "View Invoice & Approve Advance Payment"
-                if User.loggedIn()?.refRoleId == "1"  && orderObject?.enquiryStageId == 3{
-                    $0.hidden = false
-                    if (orderObject!.isBlue){
-                        $0.cell.approvePaymentButton.isHidden = false
-                    }
-                    else {
-                        $0.cell.approvePaymentButton.isHidden = true
-                        $0.cell.height = { 90.0 }
-                    }
-                }
-                else {
-                    $0.hidden = false
-                    $0.cell.approvePaymentButton.isHidden = true
-                    $0.cell.height = { 90.0 }
-                }
-                if self.orderObject?.productStatusId == 2 {
-                    $0.cell.approvePaymentButton.isHidden = true
-                    $0.cell.height = { 90.0 }
-                }
-                $0.cell.tag = 3
-                $0.cell.delegate = self
+//            <<< AcceptedInvoiceRow() {
+//                $0.cell.height = { 120.0 }
+//                $0.tag = "View Invoice & Approve Advance Payment"
+//                if User.loggedIn()?.refRoleId == "1"  && orderObject?.enquiryStageId == 3{
+//                    $0.hidden = false
+//                    if (orderObject!.isBlue){
+//                        $0.cell.approvePaymentButton.isHidden = false
+//                    }
+//                    else {
+//                        $0.cell.approvePaymentButton.isHidden = true
+//                        $0.cell.height = { 90.0 }
+//                    }
+//                }
+//                else {
+//                    $0.hidden = false
+//                    $0.cell.approvePaymentButton.isHidden = true
+//                    $0.cell.height = { 90.0 }
+//                }
+//                if self.orderObject?.productStatusId == 2 {
+//                    $0.cell.approvePaymentButton.isHidden = true
+//                    $0.cell.height = { 90.0 }
+//                }
+//                $0.cell.tag = 3
+//                $0.cell.delegate = self
+//            }.cellUpdate({ (cell, row) in
+//                if self.orderObject?.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
+//                    cell.row.hidden = false
+//                    if (self.orderObject!.isBlue){
+//                        cell.approvePaymentButton.isHidden = false
+//                    }
+//                    else {
+//                        cell.approvePaymentButton.isHidden = true
+//                        cell.height = { 90.0 }
+//                    }
+//                }
+//                else{
+//                    cell.row.hidden = false
+//                    cell.approvePaymentButton.isHidden = true
+//                    cell.height = { 90.0 }
+//                }
+//            })
+            
+            <<< LabelRow(){
+                $0.cell.height = {30.0}
+                $0.title = ""
             }.cellUpdate({ (cell, row) in
-                if self.orderObject?.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
-                    cell.row.hidden = false
-                    if (self.orderObject!.isBlue){
-                        cell.approvePaymentButton.isHidden = false
-                    }
-                    else {
-                        cell.approvePaymentButton.isHidden = true
-                        cell.height = { 90.0 }
-                    }
-                }
-                else{
-                    cell.row.hidden = false
-                    cell.approvePaymentButton.isHidden = true
-                    cell.height = { 90.0 }
-                }
+                cell.selectionStyle = .none
             })
             
             <<< StartStageViewRow()
@@ -531,28 +541,28 @@ class OrderDetailController: FormViewController {
                 }
             })
             
-            <<< ProFormaInvoiceRow() {
-                $0.cell.height = { 150.0 }
-                $0.cell.delegate = self
-                $0.tag = "CreatePI"
-                $0.cell.tag = 100
-                if (orderObject?.enquiryStageId == 2 ){
-                    $0.hidden = false
-                }else {
-                    $0.hidden = true
-                }
-                
-                if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
-                    $0.hidden = true
-                }
-            }.cellUpdate({ (cell, row) in
-                if self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
-                    cell.row.hidden = false
-                } else{
-                    cell.row.hidden = true
-                    cell.height = { 0.0 }
-                }
-            })
+//            <<< ProFormaInvoiceRow() {
+//                $0.cell.height = { 150.0 }
+//                $0.cell.delegate = self
+//                $0.tag = "CreatePI"
+//                $0.cell.tag = 100
+//                if (orderObject?.enquiryStageId == 2 ){
+//                    $0.hidden = false
+//                }else {
+//                    $0.hidden = true
+//                }
+//
+//                if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
+//                    $0.hidden = true
+//                }
+//            }.cellUpdate({ (cell, row) in
+//                if self.orderObject?.enquiryStageId == 2 && User.loggedIn()?.refRoleId == "1"{
+//                    cell.row.hidden = false
+//                } else{
+//                    cell.row.hidden = true
+//                    cell.height = { 0.0 }
+//                }
+//            })
             
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 85.0 }
@@ -561,16 +571,16 @@ class OrderDetailController: FormViewController {
                 $0.cell.tag = 100
                 $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice".localized
                 $0.cell.createSendInvoiceBtn.setTitle("Create & Send Final Invoice".localized, for: .normal)
-                if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7){
+                if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7 ) && !self.isClosed{
                     $0.hidden = false
                 }
-                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
-                    $0.hidden = false
-                }
-                else if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
-                    $0.hidden = true
-                    $0.cell.height = { 0.0 }
-                }
+//                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && (orderObject?.enquiryStageId == 3){
+//                    $0.hidden = false
+//                }
+//                else if User.loggedIn()?.refRoleId == "2" || isClosed || orderObject?.isPiSend == 1{
+//                    $0.hidden = true
+//                    $0.cell.height = { 0.0 }
+//                }
                 else{
                     $0.hidden = true
                     $0.cell.height = { 0.0 }
@@ -578,14 +588,16 @@ class OrderDetailController: FormViewController {
             }
             .cellUpdate({ (cell, row) in
                 
-                if User.loggedIn()?.refRoleId == "1" && (self.orderObject?.enquiryStageId == 6 || self.orderObject?.enquiryStageId == 7) {
+                if User.loggedIn()?.refRoleId == "1" && ( self.orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed {
                     cell.row.hidden = false
-                }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3{
-                    cell.row.hidden = false
-                }else if User.loggedIn()?.refRoleId == "2" || self.isClosed || self.orderObject?.isPiSend == 1{
-                    cell.row.hidden = true
-                    cell.height = { 0.0 }
                 }
+//                else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3{
+//                    cell.row.hidden = false
+//                }
+//                else if User.loggedIn()?.refRoleId == "2" || self.isClosed || self.orderObject?.isPiSend == 1{
+//                    cell.row.hidden = true
+//                    cell.height = { 0.0 }
+//                }
                 else{
                     cell.row.hidden = true
                     cell.height = { 0.0 }
@@ -781,7 +793,7 @@ class OrderDetailController: FormViewController {
             }.onCellSelection({ (cell, row) in
                 if self.orderObject != nil {
                     self.showLoading()
-                    self.downloadDeliveryReceipt?(self.orderObject!.enquiryId, self.orderObject!.deliveryChallanLabel!)
+                    self.downloadDeliveryReceipt?(self.orderObject?.enquiryId ?? 0, self.orderObject?.deliveryChallanLabel ?? "")
                 }
             }).cellUpdate({ (cell, row) in
                 
@@ -793,6 +805,25 @@ class OrderDetailController: FormViewController {
                         cell.row.hidden = false
                     }
                 }
+            })
+            
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Tax Invoice".localized
+                $0.cell.valueLbl.text = "View".localized
+                $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
+                $0.cell.titleLbl.textColor = UIColor().EQBrownText()
+                $0.cell.valueLbl.textColor = UIColor().EQBrownText()
+            }.onCellSelection({ (cell, row) in
+                if self.orderObject?.enquiryStageId != nil {
+                    if self.orderObject!.enquiryStageId >= 8 {
+                        self.viewFI?()
+                        print("show tax invoice")
+                    }else{
+                        self.alert("Tax Invoice not yet created".localized)
+                    }
+                }
+                
             })
             
             <<< BuyerEnquirySectionViewRow() {
@@ -844,8 +875,18 @@ class OrderDetailController: FormViewController {
                                 if self.orderObject?.changeRequestOn == 0 {
                                     row.cell.valueLbl.text = User.loggedIn()?.refRoleId == "1" ? "Change request disabled".localized : "Change request disabled by artisan".localized
                                 }else {
-                                    row.cell.valueLbl.text = ""
+                                    if (self.orderObject?.changeRequestModifiedOn == nil && User.loggedIn()?.refRoleId == "1") ||
+                                        (User.loggedIn()?.refRoleId == "2" &&
+                                        ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
+                                         ){
+                                        row.cell.valueLbl.text = "No change request available"
+                                    }else{
+                                        row.cell.valueLbl.text = "Last date to raise Change Request passed.".localized
+                                    }
+                                    
+                                    
                                 }
+                                
                             }
                         }else {
                             row.cell.valueLbl.text = "Last date to raise Change Request passed.".localized
@@ -858,11 +899,21 @@ class OrderDetailController: FormViewController {
                 case 3:
                     row.cell.valueLbl.text = "Change request has been partially accepted".localized
                 case .none, .some(_):
-                    row.cell.valueLbl.text = ""
+                    row.cell.valueLbl.text = "No change request raised".localized
                 }
             }).onCellSelection({ (cell, row) in
+            
                 if self.orderObject?.enquiryStageId ?? 0 < 6 {
                     if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
+                        var execute = false
+                    
+                        if (self.orderObject?.changeRequestModifiedOn != nil && User.loggedIn()?.refRoleId == "1") ||
+                            (User.loggedIn()?.refRoleId == "2" &&
+                            ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
+                             ){
+                            execute = true
+                        }
+                        if execute {
                         do {
                             let client = try SafeClient(wrapping: CraftExchangeClient())
                             if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
@@ -874,25 +925,21 @@ class OrderDetailController: FormViewController {
                         }catch {
                             print(error.localizedDescription)
                         }
+                        }
                     }
                 }
             })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Tax Invoice".localized
+                $0.cell.titleLbl.text = "Check PI".localized
                 $0.cell.valueLbl.text = "View".localized
-                $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
-                $0.cell.titleLbl.textColor = UIColor().EQBrownText()
-                $0.cell.valueLbl.textColor = UIColor().EQBrownText()
+                $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
+                $0.cell.titleLbl.textColor = UIColor().EQBlueText()
+                $0.cell.valueLbl.textColor = UIColor().EQBlueText()
             }.onCellSelection({ (cell, row) in
-                if self.orderObject?.enquiryStageId != nil {
-                    if self.orderObject!.enquiryStageId >= 8 {
-                        print("show tax invoice")
-                    }else{
-                        self.alert("Tax Invoice not yet created".localized)
-                    }
-                }
+                self.showLoading()
+                self.viewPI?(0)
                 
             })
             
@@ -1033,17 +1080,19 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
             self.form.allSections.first?.reload(with: .none)
         }
         //"Create Final Invoice"
-        if User.loggedIn()?.refRoleId == "1" && (self.orderObject!.enquiryStageId == 7 || self.orderObject!.enquiryStageId == 6) {
+        if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed{
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = false
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
-        }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3 {
-            let row = form.rowBy(tag: "Create Final Invoice")
-            row?.hidden = false
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-        }else{
+        }
+//        else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3 {
+//            let row = form.rowBy(tag: "Create Final Invoice")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
+        else{
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = true
             row?.evaluateHidden()
@@ -1114,12 +1163,12 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
             }
         }
         
-        if self.orderObject!.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
-            let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
-            row?.hidden = false
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-        }
+//        if self.orderObject!.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
+//            let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
+//            row?.hidden = false
+//            row?.evaluateHidden()
+//            self.form.allSections.first?.reload(with: .none)
+//        }
         if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 4{
             let row = form.rowBy(tag: "Start Production Stage")
             row?.hidden = false
@@ -1181,7 +1230,14 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
                     $0.cell.delegate = self as TransactionListProtocol
                     $0.hidden = true
                     $0.tag = obj.id
-            }
+                }.onCellSelection({ (cell, row) in
+                    if let obj = Enquiry().searchEnquiry(searchId: obj.enquiryId ) {
+                        self.goToEnquiry?(obj.enquiryId)
+                    }else {
+                        self.downloadEnquiry?(obj.enquiryId )
+                    }
+
+                })
         })
         self.form.sectionBy(tag: "list Transactions")?.reload()
     }
@@ -1345,7 +1401,7 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
     //    }
 }
 
-extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProtocol, ConfirmDeliveryProtocol {
+extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol {
     
     func ConfirmDeliveryInitationBtnSelected(tag: Int) {
         switch tag {
@@ -1365,29 +1421,29 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
     }
     
     
-    func approvePaymentButtonSelected(tag: Int) {
-        switch tag{
-        case 3:
-            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
-            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
-            vc1.orderObject = self.orderObject
-            vc1.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc1, animated: true)
-            
-        default:
-            print("PaymentArtistBtnSelected Not WORKING")
-        }
-    }
-    
-    func viewInvoiceButtonSelected(tag: Int) {
-        switch tag{
-        case 3:
-            self.showLoading()
-            self.viewPI?(0)
-        default:
-            print("do nothing")
-        }
-    }
+//    func approvePaymentButtonSelected(tag: Int) {
+//        switch tag{
+//        case 3:
+//            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+//            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
+//            vc1.orderObject = self.orderObject
+//            vc1.modalPresentationStyle = .fullScreen
+//            self.navigationController?.pushViewController(vc1, animated: true)
+//
+//        default:
+//            print("PaymentArtistBtnSelected Not WORKING")
+//        }
+//    }
+//
+//    func viewInvoiceButtonSelected(tag: Int) {
+//        switch tag{
+//        case 3:
+//            self.showLoading()
+//            self.viewPI?(0)
+//        default:
+//            print("do nothing")
+//        }
+//    }
     
     
     func createSendInvoiceBtnSelected(tag: Int) {
@@ -1396,13 +1452,14 @@ extension OrderDetailController:  InvoiceButtonProtocol, AcceptedInvoiceRowProto
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject!.enquiryId, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
-            if orderObject?.enquiryStageId == 6 || orderObject?.enquiryStageId == 7 {
+          //  if orderObject?.enquiryStageId ?? 0 >= 3 {
+                vc1.isFI = true
                 vc1.PI = self.PI
                 vc1.advancePaymnet = self.advancePaymnet
-            }
-            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
-                vc1.PI = self.PI
-            }
+          //  }
+//            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+//                vc1.PI = self.PI
+//            }
             vc1.orderObject = self.orderObject
             print("PI WORKING")
             self.navigationController?.pushViewController(vc1, animated: true)
@@ -1595,7 +1652,7 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
         let service = EnquiryDetailsService.init(client: client)
         self.showLoading()
         if orderObject?.enquiryId != nil {
-            service.closeOrder(enquiryId: orderObject!.enquiryId,enquiryCode: orderObject?.enquiryCode ?? "", vc: self)
+            service.closeOrder(enquiryId: orderObject!.enquiryId,enquiryCode: orderObject?.enquiryCode ?? "", productStatusId: orderObject?.productStatusId ?? 0, vc: self)
         }
         
     }
@@ -1722,15 +1779,24 @@ extension OrderDetailController: TransactionListProtocol, TransactionReceiptView
                 print(obj)
                 let invoiceStateArray = [1,2,3,4,5]
                 let advancePaymentArray = [6,8,10]
-                // let taxInvoiceArray = [12,13]
+                let taxInvoiceArray = [12,13]
                 let finalPaymentarray = [14,16,18]
+                let deliveryReciptArray = [20]
                 if invoiceStateArray.contains(obj.accomplishedStatus) {
-                    self.viewTransactionReceipt?(obj, 1)
+                    self.viewTransactionReceipt?(obj, 0, true)
                 }else if advancePaymentArray.contains(obj.accomplishedStatus){
                     self.downloadAdvReceipt?(obj.enquiryId)
                 }
                 else if finalPaymentarray.contains(obj.accomplishedStatus){
                     self.downloadFinalReceipt?(obj.enquiryId)
+                }else if taxInvoiceArray.contains(obj.accomplishedStatus) {
+                    self.viewTransactionReceipt?(obj, 1, false)
+                }
+                else if deliveryReciptArray.contains(obj.accomplishedStatus) {
+                    if self.orderObject != nil {
+                        self.showLoading()
+                        self.downloadDeliveryReceipt?(self.orderObject?.enquiryId ?? 0, self.orderObject?.deliveryChallanLabel ?? "")
+                    }
                 }
             default:
                 print("do nothing")

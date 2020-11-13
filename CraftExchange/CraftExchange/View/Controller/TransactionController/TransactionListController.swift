@@ -17,7 +17,7 @@ import Reachability
 class TransactionListViewModel {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
-    var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int) -> ())?
+    var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int, _ isPI: Bool) -> ())?
     var downloadPI: ((_ enquiryId: Int) -> ())?
     var goToEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadEnquiry: ((_ enquiryId: Int) -> ())?
@@ -155,15 +155,17 @@ extension TransactionListController: TransactionListProtocol, AcceptedPIViewProt
         if let transaction = allTransactions?[tag] {
             let invoiceStateArray = [1,2,3,4,5]
             let advancePaymentArray = [6,8,10]
-           // let taxInvoiceArray = [12,13]
+            let taxInvoiceArray = [12,13]
             let finalPaymentarray = [14,16,18]
             if invoiceStateArray.contains(transaction.accomplishedStatus) {
-                self.viewModel.viewTransactionReceipt?(transaction, 1)
+                self.viewModel.viewTransactionReceipt?(transaction, 1, true)
             }else if advancePaymentArray.contains(transaction.accomplishedStatus){
                 self.viewModel.downloadAdvReceipt?(transaction.enquiryId)
             }
             else if finalPaymentarray.contains(transaction.accomplishedStatus){
                 self.viewModel.downloadFinalReceipt?(transaction.enquiryId)
+            }else if taxInvoiceArray.contains(transaction.accomplishedStatus) {
+                self.viewModel.viewTransactionReceipt?(transaction, 1, false)
             }
         }
     }

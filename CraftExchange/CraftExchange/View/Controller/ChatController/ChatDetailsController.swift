@@ -267,7 +267,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         messages = realm?.objects(Conversation.self).filter("%K IN %@","entityID", id ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
         otherUser = Sender(senderId: "\(chatObj.buyerId)", displayName: chatObj.buyerCompanyName!)
 
-        
+        messageObject = []
         if messages != []{
             for obj in messages! {
                 if self.chatObj?.buyerId != obj.messageFrom {

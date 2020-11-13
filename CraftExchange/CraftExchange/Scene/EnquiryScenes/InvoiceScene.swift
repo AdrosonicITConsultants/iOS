@@ -111,8 +111,8 @@ extension EnquiryDetailsService {
                                                                             if let object = json["data"] as? String {
                                                                                 print(object)
                                                                                 if vc.orderObject?.orderCode != nil && vc.orderObject?.lastUpdated != nil{
-                                                                                    let date = Date().ttceISOString(isoDate: vc.orderObject!.lastUpdated!)
-                                                                                    vc.view.showPreviewPIView(controller: vc, entityId: (vc.orderObject?.orderCode!)!, date: date, data: object, isPI: false)
+                                                                                    let date = Date().ttceISOString(isoDate: vc.orderObject?.lastUpdated ?? Date())
+                                                                                    vc.view.showPreviewPIView(controller: vc, entityId: (vc.orderObject?.orderCode ?? "\(vc.orderObject?.enquiryId ?? 0)"), date: date, data: object, isPI: false)
                                                                                     vc.hideLoading()
                                                                                 }
                                                                             }

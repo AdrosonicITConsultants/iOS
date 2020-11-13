@@ -43,6 +43,7 @@ extension EnquiryDetailsService {
                     vc.hideLoading()
                 }
             }.dispose(in: vc.bag)
+            vc.hideLoading()
         }
         
         vc.showCustomProduct = {
@@ -291,7 +292,7 @@ extension EnquiryDetailsService {
         self.getPreviewPI(enquiryId: enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
             DispatchQueue.main.async {
                 let object = String(data: responseData, encoding: .utf8) ?? ""
-                vc.view.showAcceptedPIView(controller: vc, entityId: code, date: lastUpdatedDate , data: object, containsOld: containsOld, raiseNewPI: raiseNewPI)
+                vc.view.showAcceptedPIView(controller: vc, entityId: code, date: lastUpdatedDate , data: object, containsOld: containsOld, raiseNewPI: raiseNewPI, isPI: true)
                 vc.hideLoading()
             }
            
@@ -320,14 +321,20 @@ extension EnquiryDetailsService {
         }.dispose(in: vc.bag)
     }
     
-    func closeOrder(enquiryId: Int, enquiryCode: String, vc: UIViewController){
+    func closeOrder(enquiryId: Int, enquiryCode: String, productStatusId: Int, vc: UIViewController){
+        
         self.closeOrder(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
         if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
             if json["valid"] as? Bool == true {
                 DispatchQueue.main.async {
-                    vc.hideLoading()
-                    vc.view.hideCloseOrderView()
-                    vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: enquiryCode, confirmQuestion: "Is Partial Refund Received?")
+                    if productStatusId == 2{
+                        self.completeOrder(enquiryId: enquiryId, vc: vc)
+                    }else{
+                        vc.hideLoading()
+                        vc.view.hideCloseOrderView()
+                        vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: enquiryCode, confirmQuestion: "Is Partial Refund Received?")
+                    }
+                    
                 }
             }
             }
