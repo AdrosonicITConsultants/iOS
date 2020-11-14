@@ -22,6 +22,7 @@ class NotificationController: UIViewController {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var notificationCount: Int = 0
+    let realm = try? Realm()
     let reuseIdentifier = "NotificationCell"
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var notificationsLabel: UILabel!
@@ -33,12 +34,33 @@ class NotificationController: UIViewController {
        
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        viewWillAppear?()
+        allNotifications = realm?.objects(Notifications.self).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        
+        notificationCount = allNotifications?.count ?? 0
+        let count =  notificationCount
+        if count == 0 {
+            self.notificationsLabel?.text = "No new notifications".localized
+        }
+        else {
+            self.notificationsLabel?.text = "\(count) " + "new notifications".localized
+        }
+        
+        
+        if tableView.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            tableView.refreshControl = refreshControl
+        }
+        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+       
     }
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-           viewWillAppear?()
-       }
+        super.viewWillAppear(animated)
+        viewWillAppear?()
+    }
+    @objc func pullToRefresh() {
+        viewWillAppear?()
+    }
        
        override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -48,6 +70,27 @@ class NotificationController: UIViewController {
     @IBAction func markAllAsReadAction(_ sender: Any) {
         markAsReadAllActions?()
         
+    }
+    
+    func endRefresh() {
+        if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
+        
+        allNotifications = []
+        self.allNotifications = realm?.objects(Notifications.self).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        
+        notificationCount = allNotifications?.count ?? 0
+        let count =  notificationCount
+        if count == 0 {
+            self.notificationsLabel?.text = "No new notifications".localized
+        }
+        else {
+            self.notificationsLabel?.text = "\(count) " + "new notifications".localized
+        }
+        
+        self.hideLoading()
+        self.tableView.reloadData()
     }
 }
 
@@ -68,7 +111,13 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
         cell.enquiryId.text = "Enquiry Id: \(notification?.code ?? "")"
         cell.createdOn.text = Date().ttceFormatter(isoDate: "\(notification?.createdOn ?? "")")
         cell.companyName.text = notification?.companyName
-        cell.type.text = notification?.type
+        if notification?.type == "Qc Received" {
+            cell.type.text = (notification?.type ?? "") + " for " + (notification?.details ?? "")
+        }else if notification?.type == "Yarn dye" {
+            cell.type.text = (notification?.type ?? "") + " " + (notification?.details ?? "")
+        }else{
+           cell.type.text = notification?.type
+        }
         cell.productDesc.text = notification?.productDesc
         
         let notificationType = notification?.type
@@ -97,8 +146,8 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
         let markAsRead = UIContextualAction(style: .normal, title: "\u{2713}\u{2713}\n Mark as read") { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let notification = self.allNotifications?[indexPath.row]
             let index = indexPath.row
-            let id = notification?.notificationId
-            self.markasRead?(id!, index)
+            let id = notification?.entityID ?? 0
+            self.markasRead?(id, index)
             success(true)
         }
         markAsRead.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)

@@ -11,15 +11,17 @@ import Realm
 import RealmSwift
 
 class Notifications: Object, Decodable {
+    @objc dynamic var notificationId: String?
+    @objc dynamic var entityID: Int = 0
     @objc dynamic var code: String?
     @objc dynamic var companyName: String?
     @objc dynamic var createdOn: String?
     @objc dynamic var productDesc: String?
     @objc dynamic var notificationTypeId: Int = 0
     @objc dynamic var seen: Int = 0
-    @objc dynamic var notificationId: Int = 0
     @objc dynamic var customProduct: String?
     @objc dynamic var type: String?
+    @objc dynamic var details: String?
     
     enum CodingKeys: String, CodingKey {
         case code = "code"
@@ -31,17 +33,20 @@ class Notifications: Object, Decodable {
         case notificationId = "notificationId"
         case customProduct = "customProduct"
         case type = "type"
+        case details = "details"
        
     }
-//    override class func primaryKey() -> String? {
-//        return "notificationId"
-//    }
+    
+    override class func primaryKey() -> String? {
+        return "notificationId"
+    }
 
 
     convenience required init(from decoder: Decoder) throws {
       self.init()
       let values = try decoder.container(keyedBy: CodingKeys.self)
-      
+      entityID = try (values.decodeIfPresent(Int.self, forKey: .notificationId) ?? 0)
+        notificationId = "\(entityID)"
         code = try? values.decodeIfPresent(String.self, forKey: .code)
       companyName = try? values.decodeIfPresent(String.self, forKey: .companyName)
       createdOn = try? values.decodeIfPresent(String.self, forKey: .createdOn)
@@ -49,8 +54,8 @@ class Notifications: Object, Decodable {
       seen = try (values.decodeIfPresent(Int.self, forKey: .seen) ?? 0)
       productDesc = try? values.decodeIfPresent(String.self, forKey: .productDesc)
       
-      notificationId = try (values.decodeIfPresent(Int.self, forKey: .notificationId) ?? 0)
       customProduct = try? values.decodeIfPresent(String.self, forKey: .customProduct)
       type = try? values.decodeIfPresent(String.self, forKey: .type)
+      details = try? values.decodeIfPresent(String.self, forKey: .details)
     }
 }

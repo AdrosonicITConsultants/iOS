@@ -29,6 +29,7 @@ extension ChatDetailsService {
         }
         
         func performSync() {
+            controller.messageObject = []
             getConversation(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if let dataArray = json["data"] as? [[String: Any]] {
@@ -64,11 +65,13 @@ extension ChatDetailsService {
                 }
             }.dispose(in: controller.bag)
             
+            controller.hideLoading()
         }
         
         func syncData() {
             guard controller.reachabilityManager?.connection != .unavailable else {
                 DispatchQueue.main.async {
+                    controller.messageObject = []
                     controller.endRefresh()
                 }
                 return

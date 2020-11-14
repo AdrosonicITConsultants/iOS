@@ -22,6 +22,7 @@ class OrderListController: UIViewController {
     var applicationEnteredForeground: (() -> ())?
     var getDeliveryTimes: (() -> ())?
     var getCurrencySigns: (() -> ())?
+    var getReviewAndRatingData: (() -> ())?
     var allOrders: [Order]?
     var ongoingOrders: [Int] = []
     var closedOrders: [Int] = []
@@ -35,6 +36,7 @@ class OrderListController: UIViewController {
         super.viewDidLoad()
         getDeliveryTimes?()
         getCurrencySigns?()
+        getReviewAndRatingData?()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
         allOrders = []

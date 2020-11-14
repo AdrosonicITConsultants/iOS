@@ -78,7 +78,14 @@ class ChatListController: UIViewController {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
-        allChatResults = realm?.objects(Chat.self).filter("%K IN %@","entityID",chatList ).sorted(byKeyPath: "lastChatDate", ascending: false)
+        if self.reachabilityManager?.connection == .unavailable {
+        
+             self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+         
+         
+         }else{
+            allChatResults = realm?.objects(Chat.self).filter("%K IN %@","entityID",chatList ).sorted(byKeyPath: "lastChatDate", ascending: false)
+        }
 
             allChat = allChatResults?.compactMap({$0})
         
@@ -91,6 +98,7 @@ class ChatListController: UIViewController {
             
                }
         emptyView.isHidden = allChat?.count == 0 ? false : true
+        self.hideLoading()
         self.tableView.reloadData()
     }
     
@@ -117,8 +125,8 @@ extension ChatListController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ChatCell
         if let obj = allChat?[indexPath.row] {
              cell.configure(obj)
-                cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastChatDate!)
-            cell.lastUpdatedTime.text = Date().ttceFormatterTime(isoDate: obj.lastChatDate!)
+                cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastChatDate ?? "" )
+            cell.lastUpdatedTime.text = Date().ttceFormatterTime(isoDate: obj.lastChatDate ?? "")
         }
         
         return cell
