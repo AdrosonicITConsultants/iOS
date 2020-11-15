@@ -95,7 +95,7 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
     private func presentInputActionsheet(){
         let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
         
-        let escalationCategories = (realm?.objects(EscalationCategory.self).filter("%K IN %@","id", catId))!
+        if let escalationCategories = realm?.objects(EscalationCategory.self).filter("%K IN %@","id", catId) {
         
         for category in escalationCategories {
             let change = UIAlertAction.init(title: category.category, style: .default) { (action) in
@@ -103,6 +103,7 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
             }
             alert.addAction(change)
         }
+    }
         
         let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
         }

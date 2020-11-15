@@ -71,10 +71,16 @@ class ChatNewListController: UIViewController {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+        if self.reachabilityManager?.connection == .unavailable {
         
-        allChatResults = realm?.objects(Chat.self).filter("%K IN %@","entityID",newChatList ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
-
-                   allChat = allChatResults?.compactMap({$0})
+             self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",false ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+         
+         
+         }else{
+           allChatResults = realm?.objects(Chat.self).filter("%K IN %@","entityID",newChatList ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+        }
+        
+            allChat = allChatResults?.compactMap({$0})
                
                if searchText != "" {
                 let query = NSCompoundPredicate(type: .or, subpredicates:
@@ -86,6 +92,7 @@ class ChatNewListController: UIViewController {
                       }
         
         emptyView.isHidden = allChat?.count == 0 ? false : true
+        self.hideLoading()
         self.tableView.reloadData()
     }
     

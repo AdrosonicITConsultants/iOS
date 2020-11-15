@@ -262,12 +262,18 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     }
     
     func endRefresh() {
+        if self.reachabilityManager?.connection == .unavailable {
         
+            messages = realm?.objects(Conversation.self).filter("%K == %@","enquiryId", chatObj?.enquiryId ?? 0 ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
+         
+         }else{
+            messages = realm?.objects(Conversation.self).filter("%K IN %@","entityID", id ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
+        }
 
-        messages = realm?.objects(Conversation.self).filter("%K IN %@","entityID", id ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
+        
         otherUser = Sender(senderId: "\(chatObj.buyerId)", displayName: chatObj.buyerCompanyName!)
 
-        messageObject = []
+      //  messageObject = []
         if messages != []{
             for obj in messages! {
                 if self.chatObj?.buyerId != obj.messageFrom {
@@ -277,7 +283,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
                 }
             }
         }
-        
+        self.hideLoading()
         messagesCollectionView.reloadData()
         DispatchQueue.main.async {
             self.messagesCollectionView.scrollToBottom(animated: true)

@@ -40,25 +40,17 @@ extension NotificationService {
                             if let notidata = try? JSONSerialization.data(withJSONObject: notiObj, options: .fragmentsAllowed) {
                                 if  let notiBuyer = try? JSONDecoder().decode([Notifications].self, from: notidata) {
                                     DispatchQueue.main.async {
-                                        controller.allNotifications = notiBuyer
-                                        controller.notificationCount = dataDict["count"]! as! Int
-                                        let count =  controller.notificationCount
-                                        if count == 0 {
-                                            controller.notificationsLabel?.text = "No new notifications".localized
+                                        notiBuyer.forEach { (obj) in
+                                            obj.saveOrUpdate()
                                         }
-                                        else {
-                                            controller.notificationsLabel?.text = "\(count) " + "new notifications".localized
-                                        }
-                                        
-                                        controller.tableView.reloadData()
-                                       
-                            
+                                        controller.endRefresh()
                                     }
                                 }
                             }
                         }
                     }
             }.dispose(in: controller.bag)
+            controller.hideLoading()
         }
         
         controller.markasRead = { (notificationId, index) in

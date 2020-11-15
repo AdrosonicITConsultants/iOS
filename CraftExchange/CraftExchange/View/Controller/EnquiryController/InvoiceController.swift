@@ -662,17 +662,17 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
         self.view.hidePreviewPIView()
     }
     
-    func downloadButtonSelected() {
-        if enquiryObject?.enquiryId == 2 {
-            self.viewModel.downloadPI?()
-        }
-        if self.isFI  {
-            print("download tax invoice")
-        }
-//        else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
-//           print("download tax invoice")
+//    func downloadButtonSelected() {
+//        if enquiryObject?.enquiryId == 2 {
+//            self.viewModel.downloadPI?()
 //        }
-    }
+//        if self.isFI  {
+//            print("download tax invoice")
+//        }
+////        else if self.orderObject?.productStatusId == 2 && self.orderObject?.enquiryStageId == 3 {
+////           print("download tax invoice")
+////        }
+//    }
     
     func sendButtonClicked() {
         self.showLoading()

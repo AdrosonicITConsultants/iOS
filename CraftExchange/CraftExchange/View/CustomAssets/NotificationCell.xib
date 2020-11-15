@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,10 +19,9 @@
                         <rect key="frame" x="10" y="35" width="19" height="30"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVH-Wy-H4q">
-                        <rect key="frame" x="45" y="10" width="200" height="15"/>
+                        <rect key="frame" x="45" y="10" width="249" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="4vR-sb-FtD"/>
-                            <constraint firstAttribute="width" constant="200" id="De4-eg-sb0"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <color key="textColor" red="0.44385224579999999" green="0.24117714169999999" blue="0.545127213" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -39,9 +38,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ro1-Li-yTM">
-                        <rect key="frame" x="45" y="75" width="200" height="15"/>
+                        <rect key="frame" x="45" y="75" width="349" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="200" id="eBb-PY-AI5"/>
                             <constraint firstAttribute="height" constant="15" id="p9a-lh-QWb"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -49,8 +47,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50p-FJ-Gqa">
-                        <rect key="frame" x="265" y="10" width="129" height="15"/>
+                        <rect key="frame" x="314" y="10" width="80" height="15"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="80" id="FJt-aV-eEc"/>
                             <constraint firstAttribute="height" constant="15" id="R5i-lb-aNS"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -73,6 +72,7 @@
                     <constraint firstItem="lf3-88-ICA" firstAttribute="leading" secondItem="CrS-Ak-0jZ" secondAttribute="trailing" priority="900" constant="20" id="8nf-6t-NDx"/>
                     <constraint firstItem="50p-FJ-Gqa" firstAttribute="top" secondItem="o4U-ss-b5g" secondAttribute="top" constant="10" id="BKH-p2-HEv"/>
                     <constraint firstItem="lf3-88-ICA" firstAttribute="top" secondItem="50p-FJ-Gqa" secondAttribute="bottom" constant="10" id="RTE-b8-ytc"/>
+                    <constraint firstAttribute="trailing" secondItem="ro1-Li-yTM" secondAttribute="trailing" constant="20" id="SxI-Vm-HkU"/>
                     <constraint firstItem="iVH-Wy-H4q" firstAttribute="top" secondItem="o4U-ss-b5g" secondAttribute="top" constant="10" id="TN5-nC-lhV"/>
                     <constraint firstItem="CrS-Ak-0jZ" firstAttribute="top" secondItem="iVH-Wy-H4q" secondAttribute="bottom" constant="10" id="Zfa-EC-M83"/>
                     <constraint firstAttribute="trailing" secondItem="50p-FJ-Gqa" secondAttribute="trailing" constant="20" id="dl9-At-OxI"/>
@@ -90,8 +90,8 @@
                 <outlet property="createdOn" destination="50p-FJ-Gqa" id="N4H-SA-0dp"/>
                 <outlet property="enquiryIcon" destination="JIM-30-wpt" id="PMq-Xx-pQQ"/>
                 <outlet property="enquiryId" destination="iVH-Wy-H4q" id="DtQ-Xj-03u"/>
-                <outlet property="productDesc" destination="ro1-Li-yTM" id="Hi0-rY-Pk8"/>
-                <outlet property="type" destination="lf3-88-ICA" id="kiS-s6-m3G"/>
+                <outlet property="productDesc" destination="lf3-88-ICA" id="wha-6N-TIh"/>
+                <outlet property="type" destination="ro1-Li-yTM" id="eCD-po-DMP"/>
             </connections>
             <point key="canvasLocation" x="44.927536231884062" y="56.919642857142854"/>
         </tableViewCell>

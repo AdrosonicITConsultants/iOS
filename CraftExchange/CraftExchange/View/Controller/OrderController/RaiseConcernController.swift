@@ -1398,7 +1398,7 @@ class RaiseConcernController: FormViewController {
                         
                     }.cellUpdate({ (cell, row) in
                         row.cell.isUserInteractionEnabled = false
-                        row.cell.actionButton.setTitle("Action: " + (ArtisanFaultyOrder.getReviewType(searchId: self.orderProgress!.artisanReviewId!)?.comment ?? ""), for: .normal)
+                        row.cell.actionButton.setTitle("Action: " + (ArtisanFaultyOrder.getReviewType(searchId: self.orderProgress?.artisanReviewId ?? "1")?.comment ?? ""), for: .normal)
                         
                     })
                     

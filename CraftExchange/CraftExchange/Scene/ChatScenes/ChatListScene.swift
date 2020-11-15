@@ -32,7 +32,8 @@ extension ChatListService {
                    controller.endRefresh()
                 }
             }.dispose(in: controller.bag)
-            
+           
+            controller.hideLoading()
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
@@ -50,6 +51,7 @@ extension ChatListService {
                                 esclation += chatObj.escalation
                                 if chatObj.buyerCompanyName != nil{
                                     chatObj.saveOrUpdate()
+                                    chatObj.updateAddonDetails(isOld: isOngoing)
                                     eqArray.append(chatObj.entityID)
                                     if i == array.count {
                                         if isOngoing {
@@ -117,7 +119,7 @@ extension ChatListService {
                     parseEnquiry(json: json, isOngoing: false)
                 }
             }.dispose(in: controller.bag)
-            
+            controller.hideLoading()
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
@@ -134,6 +136,7 @@ extension ChatListService {
                                 
                                 if chatObj.buyerCompanyName != nil{
                                     chatObj.saveOrUpdate()
+                                    chatObj.updateAddonDetails(isOld: isOngoing)
                                     eqArray.append(chatObj.entityID)
                                     if i == array.count {
                                         if !isOngoing {

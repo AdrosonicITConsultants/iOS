@@ -53,7 +53,7 @@ class OrderDetailController: FormViewController {
     var goToEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadEnquiry: ((_ enquiryId: Int) -> ())?
     var viewPI: ((_ isOld: Int) -> ())?
-    var downloadPI: (() -> ())?
+    var downloadPI: ((_ isPI: Bool) -> ())?
     var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
     var downloadFinalReceipt: ((_ enquiryId: Int) -> ())?
     var downloadDeliveryReceipt: ((_ enquiryId: Int, _ imageName: String) -> ())?
@@ -76,8 +76,8 @@ class OrderDetailController: FormViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-        allDeliveryTimes = realm!.objects(EnquiryMOQDeliveryTimes.self).sorted(byKeyPath: "entityID")
-        innerStages = realm!.objects(EnquiryInnerStages.self).sorted(byKeyPath: "entityID")
+        allDeliveryTimes = realm?.objects(EnquiryMOQDeliveryTimes.self).sorted(byKeyPath: "entityID")
+        innerStages = realm?.objects(EnquiryInnerStages.self).sorted(byKeyPath: "entityID")
         allBuyerRatingResponse = realm!.objects(RatingResponseBuyer.self).filter("%K == %@", "enquiryId", orderObject?.enquiryId ?? 0).sorted(byKeyPath: "entityID")
         // checkMOQ?()
         // checkMOQs?()
@@ -935,6 +935,11 @@ class OrderDetailController: FormViewController {
             row?.hidden = false
             row?.evaluateHidden()
              self.form.allSections.first?.reload(with: .none)
+        }else{
+            let row = form.rowBy(tag: "Order under Recreation")
+            row?.hidden = true
+            row?.evaluateHidden()
+             self.form.allSections.first?.reload(with: .none)
         }
         
         if orderObject?.isReprocess == 1 && User.loggedIn()?.refRoleId == "1"  {
@@ -942,6 +947,11 @@ class OrderDetailController: FormViewController {
             row?.hidden = false
             row?.evaluateHidden()
              self.form.allSections.first?.reload(with: .none)
+        }else{
+            let row = form.rowBy(tag: "Mark order dispatched after recreation".localized)
+            row?.hidden = true
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
         }
                                    
         if orderObject != nil {
@@ -1623,7 +1633,12 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     }
     
     func downloadButtonSelected() {
-        self.downloadPI?()
+     //   let view = self.view.
+        self.downloadPI?(true)
+    }
+    
+    func TIdownloadButtonSelected() {
+        self.downloadPI?(false)
     }
     
     

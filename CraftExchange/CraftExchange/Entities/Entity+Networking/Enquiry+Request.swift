@@ -368,6 +368,21 @@ extension Enquiry {
         )
     }
     
+    public static func downloadTaxInvoice(enquiryId: Int, isOld: Int) -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "application/pdf"]
+        var str = "enquiry/getTaxInvPDFoice?enquiryId=\(enquiryId)&isOld=\(isOld)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "download tax invocie failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
     public  static func getMOQDeliveryTimes() -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         var str = "enquiry/getMoqDeliveryTimes"

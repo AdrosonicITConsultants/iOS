@@ -178,9 +178,9 @@ extension OrderDetailsService {
             }
         }
         
-        vc.downloadPI = {
+        vc.downloadPI = { (isPI) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
+            service.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: isPI)
         }
         
         vc.getPI = {
