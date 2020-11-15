@@ -22,4 +22,5 @@ target 'CraftExchange' do
   pod 'FBSDKLoginKit'
   pod 'GoogleSignIn'
   pod 'Cosmos'
+  pod 'iOSPhotoEditor'
 end

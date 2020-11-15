@@ -21,3 +21,4 @@ ${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework
 ${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework
 ${BUILT_PRODUCTS_DIR}/ViewRow/ViewRow.framework
 ${BUILT_PRODUCTS_DIR}/WMSegmentControl/WMSegmentControl.framework
+${BUILT_PRODUCTS_DIR}/iOSPhotoEditor/iOSPhotoEditor.framework

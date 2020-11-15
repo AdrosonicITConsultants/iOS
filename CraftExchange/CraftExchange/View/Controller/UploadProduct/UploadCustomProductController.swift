@@ -19,6 +19,7 @@ import JGProgressHUD
 import RealmSwift
 import Realm
 import ViewRow
+import iOSPhotoEditor
 
 enum CustomProductState: Int {
     case addPhotos
@@ -78,6 +79,7 @@ class UploadCustomProductController: FormViewController {
     var product: CustomProduct?
     var viewWillAppear: (() -> ())?
     var fromEnquiry = false
+    var editImageIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -1199,7 +1201,16 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
     }
     
     func editImageSelected(atIndex: Int) {
-        
+        if let image = self.viewModel.productImages.value?[atIndex] {
+            editImageIndex = atIndex
+            let photoEditor = PhotoEditorViewController(nibName:"PhotoEditorViewController",bundle: Bundle(for: PhotoEditorViewController.self))
+            photoEditor.photoEditorDelegate = self
+            photoEditor.image = image
+            //To hide controls - array of enum control
+            photoEditor.hiddenControls = [.sticker, .draw, .text, .save, .share, .clear]
+            photoEditor.modalPresentationStyle = UIModalPresentationStyle.overFullScreen //or .overFullScreen for transparency
+            present(photoEditor, animated: true, completion: nil)
+        }
     }
     
     func reloadAddPhotoRow() {
@@ -1230,6 +1241,20 @@ extension UploadCustomProductController: UIImagePickerControllerDelegate, UINavi
         picker.dismiss(animated: true) {
             self.reloadAddPhotoRow()
         }
+    }
+}
+
+extension UploadCustomProductController: PhotoEditorDelegate {
+    
+    func doneEditing(image: UIImage) {
+        self.viewModel.productImages.value?[editImageIndex] = image
+        reloadAddPhotoRow()
+        editImageIndex = -1
+    }
+    
+    func canceledEditing() {
+        print("Canceled")
+        editImageIndex = -1
     }
 }
 
