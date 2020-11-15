@@ -374,7 +374,6 @@ class OrderDetailController: FormViewController {
                 }
                 if self.orderObject?.enquiryStageId == 10 {
                     cell.nextStatusLbl.text = "Completed"
-                    
                 }
                 if (self.orderObject?.isBlue ?? false == true) && (self.orderObject?.enquiryStageId == 3){
                     cell.actionLbl.text = "Advance payment Awaiting"

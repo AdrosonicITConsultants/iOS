@@ -66,26 +66,13 @@ extension SearchTableViewController {
     }
     
     func listSearchProduct(searchString: String, type: Int) {
-        if KeychainManager.standard.userRoleId == 1 {
-            //Artisan Product Catalog
-            do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = ProductCatalogService(client: client).createScene(for: searchString, suggestionType: type)
-                vc.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc, animated: true)
-            }catch {
-                print(error.localizedDescription)
-            }
-        }else {
-            //Buyer Product Catalog
-            do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = ProductCatalogService(client: client).createScene(forBuyer: searchString, suggestionType: type)
-                vc.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc, animated: true)
-            }catch {
-                print(error.localizedDescription)
-            }
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = SearchService(client: client).createResultScene(for: searchString, suggestionType: type)
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
         }
     }
     

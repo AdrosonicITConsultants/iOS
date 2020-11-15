@@ -244,7 +244,7 @@ extension Product {
                 object.productCategoryId = productCategoryId
                 object.productTypeId = productTypeId
                 object.clusterId = clusterId
-                
+                object.isDeleted = false
                 let idsToCheck = productImages.compactMap { $0.entityID }
                 var imgsToDelete: [ProductImage] = []
                 object.productImages .forEach { (img) in

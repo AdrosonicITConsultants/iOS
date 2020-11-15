@@ -283,6 +283,8 @@
 		C074EE3724EEC1A300B0973B /* WishlistScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3624EEC1A300B0973B /* WishlistScene.swift */; };
 		C074EE3A24EEC1DF00B0973B /* WishlistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3924EEC1DF00B0973B /* WishlistController.swift */; };
 		C074EE3C24EEC3DD00B0973B /* WishlistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C074EE3B24EEC3DD00B0973B /* WishlistService.swift */; };
+		C0792E76255F3303004D05D0 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0792E75255F3303004D05D0 /* SearchResultController.swift */; };
+		C0792E78255F3732004D05D0 /* SearchResultScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0792E77255F3732004D05D0 /* SearchResultScene.swift */; };
 		C07D69A22477EB8500B0B0FA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A12477EB8500B0B0FA /* RoundedButton.swift */; };
 		C07D69A62478394700B0B0FA /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07D69A52478394700B0B0FA /* RoundedTextField.swift */; };
 		C08C168C24F4431500D3100A /* BuyerProductDetailsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08C168B24F4431500D3100A /* BuyerProductDetailsScene.swift */; };
@@ -815,6 +817,8 @@
 		C074EE3624EEC1A300B0973B /* WishlistScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistScene.swift; sourceTree = "<group>"; };
 		C074EE3924EEC1DF00B0973B /* WishlistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistController.swift; sourceTree = "<group>"; };
 		C074EE3B24EEC3DD00B0973B /* WishlistService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistService.swift; sourceTree = "<group>"; };
+		C0792E75255F3303004D05D0 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
+		C0792E77255F3732004D05D0 /* SearchResultScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultScene.swift; sourceTree = "<group>"; };
 		C07D69A12477EB8500B0B0FA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C07D69A52478394700B0B0FA /* RoundedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		C07D69AA247874BF00B0B0FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -1206,6 +1210,7 @@
 			isa = PBXGroup;
 			children = (
 				C02DC54F24F4F02B00805C98 /* SearchTableViewController.swift */,
+				C0792E75255F3303004D05D0 /* SearchResultController.swift */,
 			);
 			path = SearchController;
 			sourceTree = "<group>";
@@ -1214,6 +1219,7 @@
 			isa = PBXGroup;
 			children = (
 				C02DC55424F4F1D000805C98 /* SearchScene.swift */,
+				C0792E77255F3732004D05D0 /* SearchResultScene.swift */,
 			);
 			path = SearchScene;
 			sourceTree = "<group>";
@@ -2463,6 +2469,7 @@
 				C06DCAC924D346F100F1435F /* OrderAvailabilityCell.swift in Sources */,
 				C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */,
 				C0925798249F7009006C4C05 /* BuyerHomeController.swift in Sources */,
+				C0792E78255F3732004D05D0 /* SearchResultScene.swift in Sources */,
 				C005BCB624C1AB2F00197519 /* Product.swift in Sources */,
 				309796A22552640C00851ECA /* OrderProgress.swift in Sources */,
 				C0FBE34C24C6B6560037347A /* RealmChanges.swift in Sources */,
@@ -2572,6 +2579,7 @@
 				C0995BFE24C8D15F00EC4CC3 /* BuyerProductCell.swift in Sources */,
 				C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */,
 				C0930D3F2506231100DC9274 /* MOQSectionTitle.swift in Sources */,
+				C0792E76255F3303004D05D0 /* SearchResultController.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
 				309247142535EE030073463E /* ChatCell.swift in Sources */,
 				C09905E02546C73700F00E50 /* ChangeRequest+Transaction.swift in Sources */,

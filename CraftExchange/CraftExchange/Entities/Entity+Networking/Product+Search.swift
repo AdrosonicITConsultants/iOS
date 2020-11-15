@@ -33,8 +33,9 @@ extension Product {
         )
     }
     
-    public static func searchArtisanProduct(page: Int, searchString: String, suggectionType: Int) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["pageNo":page,
+    public static func searchArtisanProduct(page: Int, searchString: String, suggectionType: Int, madeWithAntaran: Int) -> Request<Data, APIError> {
+      let parameters: [String: Any] = ["madeWithAntaran": madeWithAntaran,
+                                       "pageNo":page,
                                        "searchString": searchString,
                                        "searchType":suggectionType]
         return Request(
@@ -48,8 +49,9 @@ extension Product {
         )
     }
     
-    public static func searchBuyerProduct(page: Int, searchString: String, suggectionType: Int) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["pageNo":page,
+    public static func searchBuyerProduct(page: Int, searchString: String, suggectionType: Int, madeWithAntaran: Int) -> Request<Data, APIError> {
+      let parameters: [String: Any] = ["madeWithAntaran": madeWithAntaran,
+                                       "pageNo":page,
                                        "searchString": searchString,
                                        "searchType":suggectionType]
         return Request(

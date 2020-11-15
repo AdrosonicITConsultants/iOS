@@ -57,4 +57,36 @@ class ArtisanProductCell: UITableViewCell {
             }
         }
     }
+    
+    func configure(_ productObj: [String: Any]) {
+        productTag.text = productObj["tag"] as? String ?? ""
+        productDesc.text = productObj["productDesc"] as? String ?? ""
+        inStock.isHidden = true
+        exclusive.isHidden = true
+        if productObj["madeWithAnthran"] as? Int == 1 {
+            designedByImage.image = UIImage.init(named: "iosAntaranSelfDesign")
+            productImage.image = UIImage.init(named: "iosAntaranSelfDesign")
+        }else {
+            designedByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+            productImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+        }
+        if let tag = (productObj["images"] as? String)?.components(separatedBy: ",").first, let prodId = productObj["id"] as? Int {
+            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.productImage.image = downloadedImage
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = ProductImageService.init(client: client)
+                    service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                            self.productImage.image = UIImage.init(data: attachment)
+                        }
+                    }.dispose(in: delegate?.bag ?? bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
 }
