@@ -12,6 +12,7 @@ import UIKit
 protocol AddImageProtocol {
     func addImageSelected(atIndex: Int)
     func deleteImageSelected(atIndex: Int)
+    func editImageSelected(atIndex: Int)
 }
 
 class ImageSelectorCell: UICollectionViewCell {
@@ -30,5 +31,10 @@ class ImageSelectorCell: UICollectionViewCell {
     @IBAction func deleteProductSelected(_ sender: Any) {
         let btn = sender as! UIButton
         delegate?.deleteImageSelected(atIndex: btn.tag)
+    }
+    
+    @IBAction func editProductImageSelected(_ sender: Any) {
+        let btn = sender as! UIButton
+        delegate?.editImageSelected(atIndex: btn.tag)
     }
 }

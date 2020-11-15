@@ -1176,6 +1176,7 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
             cell.deleteImageButton.tag = indexPath.row
             cell.editImageButton.isHidden = false
             cell.editImageButton.isUserInteractionEnabled = true
+            cell.editImageButton.tag = indexPath.row
             cell.lineView.isHidden = false
         }
         cell.delegate = self
@@ -1195,6 +1196,10 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
     func deleteImageSelected(atIndex: Int) {
         self.viewModel.productImages.value?.remove(at: atIndex)
         reloadAddPhotoRow()
+    }
+    
+    func editImageSelected(atIndex: Int) {
+        
     }
     
     func reloadAddPhotoRow() {

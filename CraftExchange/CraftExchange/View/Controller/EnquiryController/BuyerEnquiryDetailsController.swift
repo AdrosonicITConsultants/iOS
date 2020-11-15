@@ -353,7 +353,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                 row5?.evaluateHidden()
                 row6?.evaluateHidden()
                 self.form.allSections.first?.reload(with: .none)
-
             })
             <<< LabelRow() {
                 $0.cell.height = { 60.0 }

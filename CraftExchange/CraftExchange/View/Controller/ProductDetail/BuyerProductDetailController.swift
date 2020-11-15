@@ -465,6 +465,10 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
         
     }
     
+    func editImageSelected(atIndex: Int) {
+        
+    }
+    
     func reloadAddPhotoRow() {
         let row = self.form.rowBy(tag: "AddPhotoRow") as? CollectionViewRow
         row?.reload()
