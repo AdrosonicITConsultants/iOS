@@ -41,7 +41,9 @@ class BuyerProfileAddrInfo: FormViewController {
             }.cellUpdate({ (cell, row) in
                 var addressString = ""
                 User.loggedIn()?.addressList .forEach({ (address) in
-                    if address.addressType?.entityID == 2 {
+                    if address.addressType?.entityID == 2 && address.pincode?.isNotBlank ?? false && address.line1?.isNotBlank ?? false{
+                        addressString = address.addressString
+                    }else if address.addressType?.entityID == 1 {
                         addressString = address.addressString
                     }
                 })

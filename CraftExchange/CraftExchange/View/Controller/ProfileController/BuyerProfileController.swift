@@ -257,14 +257,23 @@ class BuyerProfileController: UIViewController {
     }
     
     @IBAction func saveSelected(_ sender: Any) {
-        self.cancelSelected(sender)
 
         var newUser = CXUser()
 
         newUser.alternateMobile = self.viewModel.alternateMobile.value ?? ""
         newUser.designation = self.viewModel.designation.value ?? ""
-        newUser.pancard = self.viewModel.pancard.value ?? ""
-        
+
+        if self.viewModel.pancard.value != nil && self.viewModel.pancard.value?.isNotBlank ?? false {
+            if self.viewModel.pancard.value?.isValidPAN ?? false {
+                newUser.pancard = self.viewModel.pancard.value ?? ""
+          } else {
+              alert("Please enter valid PAN")
+              return
+          }
+        }else {
+            newUser.pancard = ""
+        }
+   
         let selectedCountryObj = self.allCountries?.filter("%K == %@", "name", self.viewModel.country.value).first
         let addr1 = self.viewModel.addr1.value ?? nil
         let addr2 = self.viewModel.addr2.value ?? nil
@@ -278,20 +287,68 @@ class BuyerProfileController: UIViewController {
         let newAddr = LocalAddress.init(id: 0, addrType: nil, country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: district, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: User.loggedIn()?.entityID ?? 0)
         newUser.address = newAddr
         
-        let cin = self.viewModel.cin.value ?? nil
-        let gstNo = self.viewModel.gst.value ?? nil
+        var cinNo = ""
+        if self.viewModel.cin.value != nil && self.viewModel.cin.value?.isNotBlank ?? false {
+            if self.viewModel.cin.value?.isValidCIN ?? false {
+              cinNo = self.viewModel.cin.value ?? ""
+          } else {
+              alert("Please enter valid CIN")
+              return
+          }
+        }
         
-        let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: User.loggedIn()?.buyerCompanyDetails.first?.companyName ?? "", cin: cin, contact: User.loggedIn()?.buyerCompanyDetails.first?.contact ?? "", gstNo: gstNo, logo: nil, compDesc: User.loggedIn()?.buyerCompanyDetails.first?.compDesc ?? "")
+        var gstNo = ""
+        if self.viewModel.gst.value != nil && self.viewModel.gst.value?.isNotBlank ?? false {
+            if self.viewModel.gst.value?.isValidGST ?? false {
+              gstNo = self.viewModel.gst.value ?? ""
+          } else {
+              alert("Please enter valid GST")
+              return
+          }
+        }
+        
+        let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: User.loggedIn()?.buyerCompanyDetails.first?.companyName ?? "", cin: cinNo, contact: User.loggedIn()?.buyerCompanyDetails.first?.contact ?? "", gstNo: gstNo, logo: nil, compDesc: User.loggedIn()?.buyerCompanyDetails.first?.compDesc ?? "")
         newUser.buyerCompanyDetails = newCompDetails
         
-        let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: self.viewModel.pocContact.value ?? "", email: self.viewModel.pocEmail.value ?? "", firstName: self.viewModel.pocFirstName.value ?? "")
-        newUser.buyerPointOfContact = newPointOfContact
+        if (self.viewModel.pocFirstName.value != nil && self.viewModel.pocFirstName.value?.isNotBlank ?? false) ||
+          (self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false) ||
+          self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
+          
+            let pocName = self.viewModel.pocFirstName.value ?? ""
+                        
+          var pocEmail = ""
+          if self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
+              if self.viewModel.pocEmail.value?.isValidEmailAddress ?? false {
+                pocEmail = self.viewModel.pocEmail.value ?? ""
+            } else {
+                alert("Please enter valid email id of point of contact.")
+                return
+            }
+          }
+            
+          var pocMob = ""
+          if self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false {
+              if self.viewModel.pocContact.value?.isValidPhoneNumber ?? false {
+                pocMob = self.viewModel.pocContact.value ?? ""
+            } else {
+                alert("Please enter valid phone number of point of contact.")
+                return
+            }
+          }
+            
+          let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
+          newUser.buyerPointOfContact = newPointOfContact
+        }else {
+            let newPointOfContact = pointOfContact.init(id: 0, contactNo: "", email: "", firstName: "")
+            newUser.buyerPointOfContact = newPointOfContact
+        }
         
         if self.viewModel.imageData.value != nil {
             self.viewModel.updateBuyerDetails?(newUser.toJSON(updateAddress: true, buyerComp: true), self.viewModel.imageData.value?.0, self.viewModel.imageData.value?.1)
         }else {
             self.viewModel.updateBuyerDetails?(newUser.toJSON(updateAddress: true, buyerComp: true), nil, nil)
         }
+        self.cancelSelected(sender)
     }
 
     private func add(asChildViewController viewController: FormViewController) {

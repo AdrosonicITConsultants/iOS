@@ -339,20 +339,109 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {
                 var finalJson: [[String: Any]]?
-                let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.accNo.value, accType: (accId: 1, accDesc: "bank"), bankName: self.viewModel.bankName.value, branchName: self.viewModel.branchName.value, ifsc: self.viewModel.ifsc.value, name: self.viewModel.benficiaryName.value)
+
+                var accountNo = ""
+                if self.viewModel.accNo.value != nil && self.viewModel.accNo.value?.isNotBlank ?? false {
+                    if self.viewModel.accNo.value?.isValidNumber ?? false {
+                      accountNo = self.viewModel.accNo.value ?? ""
+                  } else {
+                      alert("Please enter valid account number.")
+                      isEditable = true
+                      btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                      btnRow?.cell.buttonView.borderColour = .red
+                      btnRow?.cell.buttonView.backgroundColor = .red
+                      return
+                  }
+                }else {
+                    alert("Please enter valid account number.")
+                    isEditable = true
+                    btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                    btnRow?.cell.buttonView.borderColour = .red
+                    btnRow?.cell.buttonView.backgroundColor = .red
+                    return
+                }
+                
+                var ifscCode = ""
+                if self.viewModel.ifsc.value != nil && self.viewModel.ifsc.value?.isNotBlank ?? false {
+                    if self.viewModel.ifsc.value?.isValidIFSC ?? false {
+                      ifscCode = self.viewModel.ifsc.value ?? ""
+                  } else {
+                      alert("Please enter valid IFSC code.")
+                      isEditable = true
+                      btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                      btnRow?.cell.buttonView.borderColour = .red
+                      btnRow?.cell.buttonView.backgroundColor = .red
+                      return
+                  }
+                }else {
+                    alert("Please enter valid IFSC code.")
+                    isEditable = true
+                    btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                    btnRow?.cell.buttonView.borderColour = .red
+                    btnRow?.cell.buttonView.backgroundColor = .red
+                    return
+                }
+                
+                let newBankDetails = bankDetails.init(id: 0, accNo: accountNo, accType: (accId: 1, accDesc: "bank"), bankName: self.viewModel.bankName.value, branchName: self.viewModel.branchName.value, ifsc: ifscCode, name: self.viewModel.benficiaryName.value)
                 finalJson = [newBankDetails.toJSON()]
+                
+                
                 if self.viewModel.gpayId.value != "" {
-                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.gpayId.value, accType: (accId: 2, accDesc: "gpay"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
+                    var gpay = ""
+                    if self.viewModel.gpayId.value != nil && self.viewModel.gpayId.value?.isNotBlank ?? false {
+                        if self.viewModel.gpayId.value?.isValidPhoneNumber ?? false {
+                            gpay = self.viewModel.gpayId.value ?? ""
+                      } else {
+                          alert("Please enter valid Google Pay number.")
+                          isEditable = true
+                          btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                          btnRow?.cell.buttonView.borderColour = .red
+                          btnRow?.cell.buttonView.backgroundColor = .red
+                          return
+                      }
+                    }
+                    let newBankDetails = bankDetails.init(id: 0, accNo: gpay, accType: (accId: 2, accDesc: "gpay"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
                 }
+                
+                
                 if self.viewModel.paytm.value != "" {
-                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.paytm.value, accType: (accId: 4, accDesc: "paytm"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
+                    var paytmNo = ""
+                    if self.viewModel.paytm.value != nil && self.viewModel.paytm.value?.isNotBlank ?? false {
+                        if self.viewModel.paytm.value?.isValidPhoneNumber ?? false {
+                            paytmNo = self.viewModel.paytm.value ?? ""
+                      } else {
+                          alert("Please enter valid Paytm number.")
+                          isEditable = true
+                          btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                          btnRow?.cell.buttonView.borderColour = .red
+                          btnRow?.cell.buttonView.backgroundColor = .red
+                          return
+                      }
+                    }
+                    let newBankDetails = bankDetails.init(id: 0, accNo: paytmNo, accType: (accId: 4, accDesc: "paytm"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
                 }
+                
+                
                 if self.viewModel.phonePay.value != "" {
-                    let newBankDetails = bankDetails.init(id: 0, accNo: self.viewModel.phonePay.value, accType: (accId: 3, accDesc: "phonp"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
+                    var phonePayNo = ""
+                    if self.viewModel.phonePay.value != nil && self.viewModel.phonePay.value?.isNotBlank ?? false {
+                        if self.viewModel.phonePay.value?.isValidPhoneNumber ?? false {
+                            phonePayNo = self.viewModel.phonePay.value ?? ""
+                      } else {
+                          alert("Please enter valid PhonePe number.")
+                          isEditable = true
+                          btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                          btnRow?.cell.buttonView.borderColour = .red
+                          btnRow?.cell.buttonView.backgroundColor = .red
+                          return
+                      }
+                    }
+                    let newBankDetails = bankDetails.init(id: 0, accNo: phonePayNo, accType: (accId: 3, accDesc: "phonp"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
                 }
+
                 if let _ = finalJson {
                     parentVC.viewModel.updateArtisanBankDetails?(finalJson!)
                 }
