@@ -63,6 +63,27 @@ extension String {
       let result = panTest.evaluate(with: self)
       return result
   }
+  
+  var isValidIFSC: Bool {
+      let ifscRegEx = "[A-Z]{4}[0]{1}[0-9]{6}"
+      let ifscTest = NSPredicate(format:"SELF MATCHES %@", ifscRegEx)
+      let result = ifscTest.evaluate(with: self)
+      return result
+  }
+    
+  var isValidGST: Bool {
+      let gstRegEx = "[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9][Z][0-9]"
+      let gstTest = NSPredicate(format:"SELF MATCHES %@", gstRegEx)
+      let result = gstTest.evaluate(with: self)
+      return result
+  }
+    
+  var isValidCIN: Bool {
+      let cinRegEx = "[A-Z][0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}"
+      let cinTest = NSPredicate(format:"SELF MATCHES %@", cinRegEx)
+      let result = cinTest.evaluate(with: self)
+      return result
+  }
     
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")

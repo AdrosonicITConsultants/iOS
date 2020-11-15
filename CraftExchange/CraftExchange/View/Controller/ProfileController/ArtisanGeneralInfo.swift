@@ -279,14 +279,38 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.borderColour = .black
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {
+                var pin = ""
+                if self.viewModel.pincode.value?.isNotBlank ?? false {
+                    if self.viewModel.pincode.value != nil {
+                        if self.viewModel.pincode.value?.isValidPincode ?? false {
+                          pin = self.viewModel.pincode.value ?? ""
+                      } else {
+                          alert("Please enter valid pincode")
+                          editEnabled = true
+                          secRow?.hidden = false
+                          secRow?.evaluateHidden()
+                          btnRow?.cell.buttonView.setTitle("Save your details".localized, for: .normal)
+                          btnRow?.cell.buttonView.borderColour = .red
+                          btnRow?.cell.buttonView.backgroundColor = .red
+                          return
+                      }
+                    }
+                }else {
+                      return
+                }
+                
                 let selectedCountryObj = self.allCountries?.filter("%K == %@", "name", self.viewModel.country.value).first
-                let newAddr = LocalAddress.init(id: User.loggedIn()?.addressList.first?.entityID ?? 0, addrType: (1,"Registered"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: nil, district: self.viewModel.district.value, landmark: nil, line1: self.viewModel.addr1.value, line2: nil, pincode: self.viewModel.pincode.value, state: self.viewModel.state.value , street: nil, userId: User.loggedIn()?.entityID ?? 0)
+                let newAddr = LocalAddress.init(id: User.loggedIn()?.addressList.first?.entityID ?? 0, addrType: (1,"Registered"), country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: nil, district: self.viewModel.district.value, landmark: nil, line1: self.viewModel.addr1.value, line2: nil, pincode: pin, state: self.viewModel.state.value , street: nil, userId: User.loggedIn()?.entityID ?? 0)
+                
                 if self.viewModel.profileImageData.value != nil {
                     parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON(),self.viewModel.profileImageData.value?.0,self.viewModel.profileImageData.value?.1)
                 }else {
                     parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON(),nil,nil)
+//                    let profileRow = self.form.rowBy(tag: "ProfileView")
+//                    profileRow?.reload()
+//                    self.refreshProfile?()
+//                    navigationController?.popViewController(animated: true)
                 }
-                
             }
         }
         let profileRow = self.form.rowBy(tag: "ProfileView")

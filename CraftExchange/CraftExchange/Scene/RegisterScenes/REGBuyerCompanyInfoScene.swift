@@ -28,10 +28,26 @@ extension REGBuyerCompanyInfoService {
           vc.viewModel.panNo.value != nil && vc.viewModel.panNo.value?.isNotBlank ?? false {
           if vc.viewModel.panNo.value?.isValidPAN ?? false {
             var isValid = true
+            var errorIn = ""
+            if vc.viewModel.gstNo.value != nil && vc.viewModel.gstNo.value?.isNotBlank ?? false {
+              let val = vc.viewModel.gstNo.value?.isValidGST ?? false
+              if val == false {
+                isValid = false
+                errorIn = "gst"
+              }
+            }
+            if vc.viewModel.cinNo.value != nil && vc.viewModel.cinNo.value?.isNotBlank ?? false {
+              let val = vc.viewModel.cinNo.value?.isValidCIN ?? false
+              if val == false {
+                isValid = false
+                errorIn = "cin"
+              }
+            }
             if vc.viewModel.pocEmailId.value != nil && vc.viewModel.pocEmailId.value?.isNotBlank ?? false {
               let val = vc.viewModel.pocEmailId.value?.isValidEmailAddress ?? false
               if val == false {
                 isValid = false
+                errorIn = "poc"
               }
             }
             if isValid {
@@ -39,7 +55,16 @@ extension REGBuyerCompanyInfoService {
               let controller = REGBuyerAddressInfoService(client: self.client).createScene(existingUser: newUser)
               vc.navigationController?.pushViewController(controller, animated: true)
             }else {
-              vc.alert("Please enter valid email id and phone number of point of contact.")
+                if errorIn == "poc" {
+                  vc.alert("Please enter valid email id and phone number of point of contact.")
+                }
+                if errorIn == "gst" {
+                  vc.alert("Please enter valid GST")
+                }
+                if errorIn == "cin" {
+                  vc.alert("Please enter valid CIN")
+                }
+                
             }
           }else {
             vc.alert("Please enter valid PAN")
