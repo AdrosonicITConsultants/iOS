@@ -346,6 +346,14 @@ class BuyerEnquiryDetailsController: FormViewController {
                     row5?.hidden = true
                     row6?.hidden = true
                 }
+                row1?.evaluateHidden()
+                row2?.evaluateHidden()
+                row3?.evaluateHidden()
+                row4?.evaluateHidden()
+                row5?.evaluateHidden()
+                row6?.evaluateHidden()
+                self.form.allSections.first?.reload(with: .none)
+
             })
             <<< LabelRow() {
                 $0.cell.height = { 60.0 }
