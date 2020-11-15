@@ -55,26 +55,37 @@ extension EnquiryListService {
             if let array = json["data"] as? [[String: Any]] {
                 var i = 0
                 var eqArray: [Int] = []
-                array.forEach { (dataDict) in
-                    i+=1
-                    if let prodDict = dataDict["openEnquiriesResponse"] as? [String: Any] {
-                        if let proddata = try? JSONSerialization.data(withJSONObject: prodDict, options: .fragmentsAllowed) {
-                            if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: proddata) {
-                                DispatchQueue.main.async {
-                                    enquiryObj.saveOrUpdate()
-                                    enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false, isOpen: isOngoing)
-                                    eqArray.append(enquiryObj.entityID)
-                                    if i == array.count {
-                                        if isOngoing {
-                                            controller.ongoingEnquiries = eqArray
-                                        }else {
-                                            controller.closedEnquiries = eqArray
+                if array.count > 0 {
+                    array.forEach { (dataDict) in
+                        i+=1
+                        if let prodDict = dataDict["openEnquiriesResponse"] as? [String: Any] {
+                            if let proddata = try? JSONSerialization.data(withJSONObject: prodDict, options: .fragmentsAllowed) {
+                                if let enquiryObj = try? JSONDecoder().decode(Enquiry.self, from: proddata) {
+                                    DispatchQueue.main.async {
+                                        enquiryObj.saveOrUpdate()
+                                        enquiryObj.updateAddonDetails(blue: dataDict["isBlue"] as? Bool ?? false, name: dataDict["brandName"] as? String ?? "", moqRejected: dataDict["isMoqRejected"] as? Bool ?? false, isOpen: isOngoing)
+                                        eqArray.append(enquiryObj.entityID)
+                                        if i == array.count {
+                                            if isOngoing {
+                                                controller.ongoingEnquiries = eqArray
+                                            }else {
+                                                controller.closedEnquiries = eqArray
+                                            }
+                                            controller.endRefresh()
                                         }
-                                        controller.endRefresh()
                                     }
                                 }
                             }
                         }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        if isOngoing {
+                            controller.ongoingEnquiries = eqArray
+                        }else {
+                            controller.closedEnquiries = eqArray
+                        }
+                        controller.endRefresh()
                     }
                 }
             }
