@@ -28,21 +28,34 @@ extension ProductCatalogService {
             }.dispose(in: controller.bag)
         }
         
-        func loadInitialEmails() {
-            fetchAllArtisanProduct().bind(to: controller, context: .global(qos: .background)) { _, sync in
-//                self.update(sync)
-                DispatchQueue.main.async {
-                    controller.endRefresh()
-                }
-            }.dispose(in: controller.bag)
-        }
-        
         func performSync() {
-            fetchAllArtisanProduct().toLoadingSignal().consumeLoadingState(by: controller)
-                .bind(to: controller, context: .global(qos: .background)) { _, sync in
+            fetchAllArtisanProduct().bind(to: controller, context: .global(qos: .background)) { (_, responseData) in
 //                    self.update(sync)
-                    DispatchQueue.main.async {
-                        controller.endRefresh()
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            for obj in array {
+                                if let prodArray = obj["products"] as? [[String: Any]] {
+                                    if let proddata = try? JSONSerialization.data(withJSONObject: prodArray, options: .fragmentsAllowed) {
+                                        if let object = try? JSONDecoder().decode([Product].self, from: proddata) {
+                                            DispatchQueue.main.async {
+                                                object .forEach { (prodObj) in
+                                                    prodObj.saveOrUpdate()
+                                                    if prodObj == object.last {
+                                                        DispatchQueue.main.async {
+                                                            controller.endRefresh()
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }else {
+                            DispatchQueue.main.async {
+                                controller.endRefresh()
+                            }
+                        }
                     }
             }.dispose(in: controller.bag)
         }
@@ -57,7 +70,9 @@ extension ProductCatalogService {
             }
             performSync()
         }
-        
+        controller.refreshData = {
+            syncData()
+        }
         controller.title = selectedProductCat.prodCatDescription
         controller.dataSource = nil
         let dataSource = TableViewRealmDataSource<Results<Product>>()

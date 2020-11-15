@@ -20,14 +20,14 @@ class ArtisanProdCatalogueController: UITableViewController {
     let reuseIdentifier = "ArtisanProductCell"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
-    var viewWillAppear: (() -> ())?
-    var viewDidAppear: (() -> ())?
     var refreshCategory: ((_ catId: Int) -> ())?
+    var refreshData: (() -> ())?
     var fromFilter: Bool = false
     var loadPage = 1
     var searchLimitReached = false
     var refreshSearchResult: ((_ loadPage: Int) -> ())?
-
+    var currentCat: ProductCategory?
+    
     override init(style: UITableView.Style) {
         super.init(style: style)
         initTable()
@@ -44,14 +44,15 @@ class ArtisanProdCatalogueController: UITableViewController {
     }
     
     func initTable() {
-//        refreshControl = UIRefreshControl()
-//        tableView.refreshControl = refreshControl
+        if tableView.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            tableView.refreshControl = refreshControl
+        }
+        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshControl?.beginRefreshing()
-        refreshControl?.sendActions(for: .valueChanged)
         try? reachabilityManager?.startNotifier()
         self.setupSideMenu(true)
         definesPresentationContext = false
@@ -69,19 +70,15 @@ class ArtisanProdCatalogueController: UITableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewWillAppear?()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-      viewDidAppear?()
+    @objc func pullToRefresh() {
+        refreshData?()
     }
     
     func endRefresh() {
         if let refreshControl = refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+        self.refreshCategory?(currentCat?.entityID ?? 0)
     }
     
     @objc func showCategory() {
@@ -91,7 +88,7 @@ class ArtisanProdCatalogueController: UITableViewController {
             let action = UIAlertAction.init(title: option.prodCatDescription?.localized ?? "", style: .default) { (action) in
                 self.title = option.prodCatDescription?.localized
                 self.refreshCategory?(option.entityID)
-                
+                self.currentCat = option
           }
           alert.addAction(action)
         }
@@ -129,7 +126,6 @@ class ArtisanProdCatalogueController: UITableViewController {
         reachabilityManager?.whenReachable = nil
         reachabilityManager?.whenUnreachable = nil
         reachabilityManager?.stopNotifier()
-        viewWillAppear = nil
         applicationEnteredForeground = nil
     }
 }
