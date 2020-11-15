@@ -109,7 +109,7 @@ extension EnquiryDetailsService {
                                                                         DispatchQueue.main.async {
                                                                             
                                                                             if let object = json["data"] as? String {
-                                                                                print(object)
+                                                                                
                                                                                 if vc.orderObject?.orderCode != nil && vc.orderObject?.lastUpdated != nil{
                                                                                     let date = Date().ttceISOString(isoDate: vc.orderObject?.lastUpdated ?? Date())
                                                                                     vc.view.showPreviewPIView(controller: vc, entityId: (vc.orderObject?.orderCode ?? "\(vc.orderObject?.enquiryId ?? 0)"), date: date, data: object, isPI: false)
@@ -215,10 +215,10 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)
         }
         
-        vc.viewModel.downloadPI = {
-            vc.showLoading()
-            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
-        }
+//        vc.viewModel.downloadPI = {
+//            vc.showLoading()
+//            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: true)
+//        }
         
         vc.viewModel.sendPI = {
             self.sendPI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(vc.viewModel.hsn.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
@@ -246,14 +246,26 @@ extension EnquiryDetailsService {
         return vc
     }
     
-    func downloadAndSharePI(vc:UIViewController, enquiryId: Int) {
-        self.downloadPI(enquiryId: enquiryId, isOld: 1).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-            DispatchQueue.main.async {
-                vc.hideLoading()
-                if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/pdfFile.pdf") {
-                    vc.sharePdf(path: url)
+    func downloadAndSharePI(vc:UIViewController, enquiryId: Int, isPI: Bool) {
+        if isPI{
+            self.downloadPI(enquiryId: enquiryId, isOld: 0).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                    if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/pdfFile.pdf") {
+                        vc.sharePdf(path: url)
+                    }
                 }
-            }
-        }.dispose(in: vc.bag)
+            }.dispose(in: vc.bag)
+        }else{
+            self.downloadTaxInvoice(enquiryId: enquiryId, isOld: 0).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                DispatchQueue.main.async {
+                    vc.hideLoading()
+                    if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/taxinvoice/pdfFile.pdf") {
+                        vc.sharePdf(path: url)
+                    }
+                }
+            }.dispose(in: vc.bag)
+        }
+        
     }
 }

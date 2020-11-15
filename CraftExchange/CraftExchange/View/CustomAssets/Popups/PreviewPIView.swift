@@ -12,7 +12,7 @@ import WebKit
 
 protocol PreviewPIViewProtocol {
     func backButtonSelected()
-    func downloadButtonSelected()
+   // func downloadButtonSelected()
     func sendButtonClicked()
 }
 
@@ -30,9 +30,9 @@ class PreviewPIView: UIView, WKUIDelegate {
     @IBAction func backButtonSelected(_ sender: Any) {
         delegate?.backButtonSelected()
     }
-    @IBAction func downloadButtonSelected(_ sender: Any) {
-        delegate?.downloadButtonSelected()
-    }
+//    @IBAction func downloadButtonSelected(_ sender: Any) {
+//        delegate?.downloadButtonSelected()
+//    }
     @IBAction func sendButtonClicked(_ sender: Any) {
         delegate?.sendButtonClicked()
     }

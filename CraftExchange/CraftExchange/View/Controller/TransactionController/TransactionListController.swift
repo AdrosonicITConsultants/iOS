@@ -18,7 +18,7 @@ class TransactionListViewModel {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int, _ isPI: Bool) -> ())?
-    var downloadPI: ((_ enquiryId: Int) -> ())?
+    var downloadPI: ((_ enquiryId: Int, _ isPI: Bool) -> ())?
     var goToEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
@@ -177,7 +177,13 @@ extension TransactionListController: TransactionListProtocol, AcceptedPIViewProt
     func downloadButtonSelected() {
         let view = self.view.viewWithTag(129) as! AcceptedPIView
         let entityId = view.entityIdLabel.text?.components(separatedBy: "-").last ?? "0"
-        self.viewModel.downloadPI?(Int(entityId) ?? 0)
+        self.viewModel.downloadPI?(Int(entityId) ?? 0, true)
+    }
+    
+    func TIdownloadButtonSelected() {
+        let view = self.view.viewWithTag(129) as! AcceptedPIView
+        let entityId = view.entityIdLabel.text?.components(separatedBy: "-").last ?? "0"
+        self.viewModel.downloadPI?(Int(entityId) ?? 0, false)
     }
     
     func cancelBtnSelected() {

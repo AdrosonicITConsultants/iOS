@@ -94,9 +94,9 @@ extension TransactionService {
             }
         }
         
-        controller.viewModel.downloadPI = { (enquiryId) in
+        controller.viewModel.downloadPI = { (enquiryId, isPI) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.downloadAndSharePI(vc: controller, enquiryId: enquiryId)
+            service.downloadAndSharePI(vc: controller, enquiryId: enquiryId, isPI: isPI)
         }
         
         controller.viewModel.downloadEnquiry = { (enquiryId) in

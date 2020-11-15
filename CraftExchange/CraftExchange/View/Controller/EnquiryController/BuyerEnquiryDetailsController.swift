@@ -38,7 +38,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var acceptMOQ: (() -> ())?
     var sentMOQ: Int = 0
     var viewPI: ((_ isOld: Int) -> ())?
-    var downloadPI: (() -> ())?
+    var downloadPI: ((_ isPI: Bool) -> ())?
     var isMOQNeedToAccept: Int = 0
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
@@ -1107,6 +1107,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     
 }
 extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
+    
     func viewProformaInvoiceBtnSelected(tag: Int) {
         self.showLoading()
         self.viewPI?(0)
@@ -1146,7 +1147,10 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
     }
     
     func downloadButtonSelected() {
-        self.downloadPI?()
+        self.downloadPI?(true)
+    }
+    func TIdownloadButtonSelected() {
+        print("do nothing")
     }
     
     

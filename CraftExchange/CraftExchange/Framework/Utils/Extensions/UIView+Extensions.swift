@@ -182,7 +182,7 @@ extension UIView {
             
             if isPI == false{
                initiationView?.entityIdLabel.text = "Tax invoice for " + entityId
-                initiationView?.sendButton.setTitle("Generate Tax Invoice", for: .normal)
+                initiationView?.sendButton.setTitle(" " + "Generate Tax Invoice", for: .normal)
             }
             initiationView?.dateLabel.text = "Date accepted " + date
             initiationView?.data = data
@@ -207,6 +207,7 @@ extension UIView {
             initiationView.entityIdLabel.text = "Pro forma invoice for " + entityId
             if isPI == false{
                 initiationView.entityIdLabel.text = "Tax invoice for " + entityId
+                initiationView.isTIDownload = true
             }
             initiationView.dateLabel.text = "Date accepted " + date
             initiationView.data = data
@@ -229,6 +230,7 @@ extension UIView {
             initiationView?.entityIdLabel.text = "Pro forma invoice for ".localized + entityId
             if isPI == false{
                 initiationView?.entityIdLabel.text = "Tax invoice for " + entityId
+                initiationView?.isTIDownload = true
             }
             initiationView?.dateLabel.text = "Date accepted " + date
             initiationView?.data = data

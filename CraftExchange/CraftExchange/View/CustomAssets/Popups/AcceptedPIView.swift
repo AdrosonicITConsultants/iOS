@@ -12,7 +12,8 @@ import WebKit
 
 @objc protocol AcceptedPIViewProtocol {
     func backButtonSelected()
-    func downloadButtonSelected()
+    @objc func downloadButtonSelected()
+    @objc func TIdownloadButtonSelected()
     @objc optional func viewOldPI()
     @objc optional func raiseNewPI()
 }
@@ -30,6 +31,7 @@ class AcceptedPIView: UIView, WKUIDelegate {
     var showRaisePI: Bool = false
     var delegate: AcceptedPIViewProtocol?
     var data: String = ""
+    var isTIDownload = false
     
     override func layoutSubviews() {
         previewPI.loadHTMLString( data, baseURL: nil)
@@ -49,7 +51,12 @@ class AcceptedPIView: UIView, WKUIDelegate {
     }
     
     @IBAction func downloadButtonSelected(_ sender: Any) {
-        delegate?.downloadButtonSelected()
+        if isTIDownload {
+            delegate?.TIdownloadButtonSelected()
+        }else{
+           delegate?.downloadButtonSelected()
+        }
+        
     }
     
     @IBAction func oldPISelected(_ sender: Any) {

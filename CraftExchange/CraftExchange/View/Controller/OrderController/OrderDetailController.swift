@@ -53,7 +53,7 @@ class OrderDetailController: FormViewController {
     var goToEnquiry: ((_ enquiryId: Int) -> ())?
     var downloadEnquiry: ((_ enquiryId: Int) -> ())?
     var viewPI: ((_ isOld: Int) -> ())?
-    var downloadPI: (() -> ())?
+    var downloadPI: ((_ isPI: Bool) -> ())?
     var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
     var downloadFinalReceipt: ((_ enquiryId: Int) -> ())?
     var downloadDeliveryReceipt: ((_ enquiryId: Int, _ imageName: String) -> ())?
@@ -1716,7 +1716,12 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     }
     
     func downloadButtonSelected() {
-        self.downloadPI?()
+     //   let view = self.view.
+        self.downloadPI?(true)
+    }
+    
+    func TIdownloadButtonSelected() {
+        self.downloadPI?(false)
     }
     
     
