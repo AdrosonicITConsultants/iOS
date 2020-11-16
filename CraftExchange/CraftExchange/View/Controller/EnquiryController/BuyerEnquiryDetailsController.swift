@@ -61,7 +61,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         if User.loggedIn()?.refRoleId == "1" {
             shouldShowOption = false
         }else {
-            if enquiryObject?.enquiryStageId ?? 0 > 3 {
+            if enquiryObject?.enquiryStageId ?? 0 > 8 {
                 shouldShowOption = false
             }else {
                 shouldShowOption = true
@@ -898,7 +898,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             viewModel.additionalNote.value = MOQ.additionalInfo
             viewModel.estimatedDays.value = EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: MOQ.deliveryTimeId)
             viewModel.minimumQuantity.value = "\(MOQ.moq)"
-            viewModel.pricePerUnit.value = MOQ.ppu
+            viewModel.pricePerUnit.value = "₹ " + (MOQ.ppu ?? "")
             sentMOQ = 1
             let row = self.form.rowBy(tag: "createMOQ6")
             row?.hidden = true
@@ -939,7 +939,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
         switch tag{
         case 3:
             self.showLoading()
-            self.viewPI?(1)
+            self.viewPI?(0)
         default:
             print("do nothing")
         }

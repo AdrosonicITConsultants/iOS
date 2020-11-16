@@ -13,6 +13,16 @@ import Bond
 import ReactiveKit
 
 extension Notifications {
+    
+    func updateAddonDetails(userID: Int) {
+        let realm = try! Realm()
+        if let object = realm.objects(Notifications.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.userID = userID
+                
+            }
+        }
+    }
 
     func saveOrUpdate() {
         let realm = try! Realm()

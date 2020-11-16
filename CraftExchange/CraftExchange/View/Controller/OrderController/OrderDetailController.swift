@@ -1722,7 +1722,7 @@ extension OrderDetailController: TransactionListProtocol, TransactionReceiptView
                 else if finalPaymentarray.contains(obj.accomplishedStatus){
                     self.downloadFinalReceipt?(obj.enquiryId)
                 }else if taxInvoiceArray.contains(obj.accomplishedStatus) {
-                    self.viewTransactionReceipt?(obj, 1, false)
+                    self.viewTransactionReceipt?(obj, 0, false)
                 }
                 else if deliveryReciptArray.contains(obj.accomplishedStatus) {
                     if self.orderObject != nil {

@@ -42,6 +42,7 @@ extension NotificationService {
                                     DispatchQueue.main.async {
                                         notiBuyer.forEach { (obj) in
                                             obj.saveOrUpdate()
+                                            obj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0)
                                         }
                                         controller.endRefresh()
                                     }

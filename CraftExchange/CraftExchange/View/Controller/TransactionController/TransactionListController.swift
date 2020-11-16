@@ -158,14 +158,14 @@ extension TransactionListController: TransactionListProtocol, AcceptedPIViewProt
             let taxInvoiceArray = [12,13]
             let finalPaymentarray = [14,16,18]
             if invoiceStateArray.contains(transaction.accomplishedStatus) {
-                self.viewModel.viewTransactionReceipt?(transaction, 1, true)
+                self.viewModel.viewTransactionReceipt?(transaction, 0, true)
             }else if advancePaymentArray.contains(transaction.accomplishedStatus){
                 self.viewModel.downloadAdvReceipt?(transaction.enquiryId)
             }
             else if finalPaymentarray.contains(transaction.accomplishedStatus){
                 self.viewModel.downloadFinalReceipt?(transaction.enquiryId)
             }else if taxInvoiceArray.contains(transaction.accomplishedStatus) {
-                self.viewModel.viewTransactionReceipt?(transaction, 1, false)
+                self.viewModel.viewTransactionReceipt?(transaction, 0, false)
             }
         }
     }

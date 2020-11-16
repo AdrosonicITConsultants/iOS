@@ -13,6 +13,7 @@ import RealmSwift
 class Notifications: Object, Decodable {
     @objc dynamic var notificationId: String?
     @objc dynamic var entityID: Int = 0
+    @objc dynamic var userID: Int = 0
     @objc dynamic var code: String?
     @objc dynamic var companyName: String?
     @objc dynamic var createdOn: String?

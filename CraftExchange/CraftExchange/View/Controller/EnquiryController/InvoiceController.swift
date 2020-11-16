@@ -675,9 +675,10 @@ extension InvoiceController:  SingleButtonActionProtocol, PreviewPIViewProtocol,
 //    }
     
     func sendButtonClicked() {
+        print("button working")
         self.showLoading()
         
-        if enquiryObject?.enquiryId == 2 {
+        if enquiryObject?.enquiryStageId == 2 {
             self.viewModel.sendPI?()
         }
         if self.isFI  {

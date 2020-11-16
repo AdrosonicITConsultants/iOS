@@ -34,7 +34,7 @@ class NotificationController: UIViewController {
        
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        allNotifications = realm?.objects(Notifications.self).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        allNotifications = realm?.objects(Notifications.self).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         
         notificationCount = allNotifications?.count ?? 0
         let count =  notificationCount
@@ -78,7 +78,7 @@ class NotificationController: UIViewController {
         }
         
         allNotifications = []
-        self.allNotifications = realm?.objects(Notifications.self).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        self.allNotifications = realm?.objects(Notifications.self).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         
         notificationCount = allNotifications?.count ?? 0
         let count =  notificationCount
