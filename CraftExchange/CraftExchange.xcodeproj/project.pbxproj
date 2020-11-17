@@ -25,6 +25,8 @@
 		115338B52547FB8800BF4204 /* ProdImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338B32547FB8800BF4204 /* ProdImagesView.swift */; };
 		115338B62547FB8800BF4204 /* ProdImagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 115338B42547FB8800BF4204 /* ProdImagesView.xib */; };
 		115338B825494D9900BF4204 /* AdminUploadProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115338B725494D9700BF4204 /* AdminUploadProductController.swift */; };
+		116F5B23255E7C5C0052CBBE /* SearchTeammateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F5B22255E7C5C0052CBBE /* SearchTeammateController.swift */; };
+		116F5B25255E7C840052CBBE /* SearchedTeammateInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F5B24255E7C840052CBBE /* SearchedTeammateInfoController.swift */; };
 		118F70402552C3AD0075F998 /* AdminNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118F703E2552C3AD0075F998 /* AdminNotificationView.swift */; };
 		118F70412552C3AD0075F998 /* AdminNotificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 118F703F2552C3AD0075F998 /* AdminNotificationView.xib */; };
 		118F70432552EE4F0075F998 /* AdminNotification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 118F70422552EE4E0075F998 /* AdminNotification.storyboard */; };
@@ -396,6 +398,8 @@
 		115338B32547FB8800BF4204 /* ProdImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdImagesView.swift; sourceTree = "<group>"; };
 		115338B42547FB8800BF4204 /* ProdImagesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProdImagesView.xib; sourceTree = "<group>"; };
 		115338B725494D9700BF4204 /* AdminUploadProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUploadProductController.swift; sourceTree = "<group>"; };
+		116F5B22255E7C5C0052CBBE /* SearchTeammateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTeammateController.swift; sourceTree = "<group>"; };
+		116F5B24255E7C840052CBBE /* SearchedTeammateInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedTeammateInfoController.swift; sourceTree = "<group>"; };
 		118F703E2552C3AD0075F998 /* AdminNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNotificationView.swift; sourceTree = "<group>"; };
 		118F703F2552C3AD0075F998 /* AdminNotificationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminNotificationView.xib; sourceTree = "<group>"; };
 		118F70422552EE4E0075F998 /* AdminNotification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdminNotification.storyboard; sourceTree = "<group>"; };
@@ -1113,6 +1117,8 @@
 				C0144ABF248443BB006FF4AB /* ForgotPasswordControllers */,
 				C0144ABE24844390006FF4AB /* LoginControllers */,
 				11173F5E2541A9830027B9C3 /* AdminUserDetailController.swift */,
+				116F5B22255E7C5C0052CBBE /* SearchTeammateController.swift */,
+				116F5B24255E7C840052CBBE /* SearchedTeammateInfoController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1941,6 +1947,7 @@
 				C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */,
 				C09C8C29250D7A7000950526 /* EnquiryArtisanDetailsController.swift in Sources */,
 				C02DC55524F4F1D000805C98 /* SearchScene.swift in Sources */,
+				116F5B25255E7C840052CBBE /* SearchedTeammateInfoController.swift in Sources */,
 				C0917DEA24D461FD006B6664 /* YarnCount.swift in Sources */,
 				C0930D3725061D4300DC9274 /* EnquiryDetailRow.swift in Sources */,
 				C04F72D924C611D500E8122E /* ArtisanProductCell.swift in Sources */,
@@ -1999,6 +2006,7 @@
 				C04842BE24E7D46200D3207F /* CustomProduct+Transaction.swift in Sources */,
 				C016EC132510D1A30039B7AF /* NotificationService.swift in Sources */,
 				C09C970024B908C500FD97E9 /* MyProfileService.swift in Sources */,
+				116F5B23255E7C5C0052CBBE /* SearchTeammateController.swift in Sources */,
 				C05836B924C867B50027FF44 /* ProductImageService.swift in Sources */,
 				C04842B424E7BB9D00D3207F /* CustomProductService.swift in Sources */,
 				C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */,
