@@ -370,7 +370,7 @@ extension Enquiry {
     
     public static func downloadTaxInvoice(enquiryId: Int, isOld: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "application/pdf"]
-        var str = "enquiry/getTaxInvPDFoice?enquiryId=\(enquiryId)&isOld=\(isOld)"
+        var str = "enquiry/getTaxInvoicePDF?enquiryId=\(enquiryId)&isOld=\(isOld)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,
