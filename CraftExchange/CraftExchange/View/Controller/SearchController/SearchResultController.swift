@@ -61,6 +61,7 @@ class SearchResultController: UITableViewController {
                         self.catId = -1
                     }
                     self.loadPage = 1
+                    self.reachedSearchLimit = false
                     self.suggestionArray?.removeAll()
                     self.tableView.reloadData()
                     self.refreshSearchResult?(self.loadPage, self.catId)

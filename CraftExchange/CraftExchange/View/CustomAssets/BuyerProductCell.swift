@@ -58,7 +58,7 @@ class BuyerProductCell: UITableViewCell {
             inStock.text = "Exclusively Made to order".localized
             inStock.textColor = .red
         }
-        if byAntaran == true {
+        if productObj.madeWithAnthran == 1 {
             designedByImage.image = UIImage.init(named: "iosAntaranSelfDesign")
             productImage.image = UIImage.init(named: "iosAntaranSelfDesign")
         }else {
@@ -125,7 +125,7 @@ class BuyerProductCell: UITableViewCell {
                 do {
                     let client = try SafeClient(wrapping: CraftExchangeImageClient())
                     let service = ProductImageService.init(client: client)
-                    service.fetch().observeNext { (attachment) in
+                    service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
                         DispatchQueue.main.async {
                             _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
                             self.productImage.image = UIImage.init(data: attachment)

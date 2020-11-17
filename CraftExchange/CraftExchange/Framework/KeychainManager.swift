@@ -86,8 +86,8 @@ class KeychainManager {
     }
     
     var faqBaseURL: String {
-            return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
-        }
+        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+    }
   
     var cmsBaseURL: String {
         //UAT

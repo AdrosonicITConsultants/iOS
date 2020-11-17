@@ -30,7 +30,13 @@ extension SearchService {
                                         vc.reachedSearchLimit = true
                                     }else {
                                         DispatchQueue.main.async {
-                                            vc.suggestionArray = array
+                                            for objects in array {
+                                                if !(vc.suggestionArray?.contains(where: { (value) -> Bool in
+                                                    return value["id"] as? Int == objects["id"] as? Int
+                                                }) ?? false){
+                                                    vc.suggestionArray?.append(objects)
+                                                }
+                                            }
                                             vc.tableView.reloadData()
                                         }
                                     }
@@ -49,7 +55,13 @@ extension SearchService {
                                         vc.reachedSearchLimit = true
                                     }else {
                                         DispatchQueue.main.async {
-                                            vc.suggestionArray?.append(contentsOf: array)
+                                            for objects in array {
+                                                if !(vc.suggestionArray?.contains(where: { (value) -> Bool in
+                                                    return value["id"] as? Int == objects["id"] as? Int
+                                                }) ?? false){
+                                                    vc.suggestionArray?.append(objects)
+                                                }
+                                            }
                                             vc.tableView.reloadData()
                                         }
                                     }
