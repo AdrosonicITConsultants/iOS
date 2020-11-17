@@ -55,15 +55,29 @@ extension UIView {
 
     
     func showEnquiryInitiationView() {
-        if let _ = self.viewWithTag(123) {
-            print("do nothing")
+        if self.isKind(of: UITableView.self) {
+            let window = UIApplication.shared.windows.first!
+            if let _ = window.viewWithTag(123) {
+                print("do nothing")
+            }else {
+                let initiationView = Bundle.main.loadNibNamed("EnquiryInitiationView", owner:
+                    self, options: nil)?.first as? UIView
+                initiationView?.tag = 123
+                window.addSubview(initiationView!)
+                initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+                window.bringSubviewToFront(initiationView!)
+            }
         }else {
-            let initiationView = Bundle.main.loadNibNamed("EnquiryInitiationView", owner:
-                self, options: nil)?.first as? UIView
-            initiationView?.tag = 123
-            self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
-            self.bringSubviewToFront(initiationView!)
+            if let _ = self.viewWithTag(123) {
+                print("do nothing")
+            }else {
+                let initiationView = Bundle.main.loadNibNamed("EnquiryInitiationView", owner:
+                    self, options: nil)?.first as? UIView
+                initiationView?.tag = 123
+                self.addSubview(initiationView!)
+                initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+                self.bringSubviewToFront(initiationView!)
+            }
         }
     }
     
@@ -71,11 +85,16 @@ extension UIView {
         if let initialView = self.viewWithTag(123) {
             self.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
+        }else if let initialView = UIApplication.shared.windows.first!.viewWithTag(123) {
+            UIApplication.shared.windows.first!.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
         }
     }
     
     func showEnquiryExistsView(controller: UIViewController, prodName: String, enquiryCode: String, enquiryId: Int, prodId: Int) {
         if let _ = self.viewWithTag(124) {
+            print("do nothing")
+        }else if let _ = UIApplication.shared.windows.first!.viewWithTag(124) {
             print("do nothing")
         }else {
             let initiationView = Bundle.main.loadNibNamed("EnquiryExistsView", owner:
@@ -86,9 +105,16 @@ extension UIView {
             initiationView?.enquiryId = enquiryId
             initiationView?.delegate = controller as? EnquiryExistsViewProtocol
             initiationView?.tag = 124
-            self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
-            self.bringSubviewToFront(initiationView!)
+            if self.isKind(of: UITableView.self) {
+                let window = UIApplication.shared.windows.first!
+                window.addSubview(initiationView!)
+                initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+                window.bringSubviewToFront(initiationView!)
+            }else {
+                self.addSubview(initiationView!)
+                initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+                self.bringSubviewToFront(initiationView!)
+            }
         }
     }
     
@@ -96,11 +122,16 @@ extension UIView {
         if let initialView = self.viewWithTag(124) {
             self.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
+        }else if let initialView = UIApplication.shared.windows.first!.viewWithTag(124) {
+            UIApplication.shared.windows.first!.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
         }
     }
     
     func showEnquiryGenerateView(controller: UIViewController, enquiryId: Int, enquiryCode: String) {
         if let _ = self.viewWithTag(125) {
+            print("do nothing")
+        }else if let _ = UIApplication.shared.windows.first!.viewWithTag(125) {
             print("do nothing")
         }else {
             let initiationView = Bundle.main.loadNibNamed("EnquiryGeneratedView", owner:
@@ -109,15 +140,25 @@ extension UIView {
             initiationView?.enquiryId = enquiryId
             initiationView?.delegate = controller as? EnquiryGeneratedViewProtocol
             initiationView?.tag = 125
-            self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
-            self.bringSubviewToFront(initiationView!)
+            if self.isKind(of: UITableView.self) {
+                let window = UIApplication.shared.windows.first!
+                window.addSubview(initiationView!)
+                initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+                window.bringSubviewToFront(initiationView!)
+            }else {
+                self.addSubview(initiationView!)
+                initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+                self.bringSubviewToFront(initiationView!)
+            }
         }
     }
     
     func hideEnquiryGenerateView() {
         if let initialView = self.viewWithTag(125) {
             self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }else if let initialView = UIApplication.shared.windows.first!.viewWithTag(125) {
+            UIApplication.shared.windows.first!.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
         }
     }
@@ -224,6 +265,7 @@ extension UIView {
                 initiationView.showOldPI = false
                 initiationView.showRaisePI = false
             }
+            initiationView.previewPI.loadHTMLString( data, baseURL: nil)
         }else {
             let initiationView = Bundle.main.loadNibNamed("AcceptedPIView", owner:
                 self, options: nil)?.first as? AcceptedPIView

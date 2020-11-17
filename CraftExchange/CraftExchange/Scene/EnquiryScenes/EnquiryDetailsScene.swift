@@ -208,8 +208,8 @@ extension EnquiryDetailsService {
             self.getPreviewPI(enquiryId: enquiryId,isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc, containsOld: false, raiseNewPI: false)
         }
         
-        vc.downloadPI = { (isPI) in
-            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: isPI)
+        vc.downloadPI = { (isPI, isOld) in
+            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: isPI, isOld: isOld == true ? 1 : 0)
         }
         
         vc.getPI = {

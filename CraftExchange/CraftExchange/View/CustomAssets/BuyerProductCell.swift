@@ -96,6 +96,48 @@ class BuyerProductCell: UITableViewCell {
         }
     }
     
+    func configure(_ productObj: [String: Any]) {
+        viewMoreButton.layer.borderColor = UIColor.lightGray.cgColor
+        viewMoreButton.layer.borderWidth = 1
+        wishlistButton.tag = productObj["id"] as? Int ?? 0
+        productTag.text = productObj["tag"] as? String ?? ""
+        productDesc.text = productObj["productDesc"] as? String ?? ""
+        inStock.isHidden = true
+        if productObj["madeWithAnthran"] as? Int == 1 {
+            designedByImage.image = UIImage.init(named: "iosAntaranSelfDesign")
+            productImage.image = UIImage.init(named: "iosAntaranSelfDesign")
+        }else {
+            designedByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+            productImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+        }
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
+            obj == wishlistButton.tag
+        }) ?? false {
+            wishlistButton.setImage(UIImage.init(named: "red heart"), for: .normal)
+        }else {
+            wishlistButton.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
+        }
+        if let tag = (productObj["images"] as? String)?.components(separatedBy: ",").first, let prodId = productObj["id"] as? Int {
+            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.productImage.image = downloadedImage
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = ProductImageService.init(client: client)
+                    service.fetch().observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                            self.productImage.image = UIImage.init(data: attachment)
+                        }
+                    }.dispose(in: (delegate as? UIViewController)?.bag ?? bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     @IBAction func wishlistSelected(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in

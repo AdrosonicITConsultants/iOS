@@ -174,10 +174,10 @@ extension TransactionListController: TransactionListProtocol, AcceptedPIViewProt
         self.view.hideAcceptedPIView()
     }
 
-    func downloadButtonSelected() {
+    func downloadButtonSelected(isOld: Bool) {
         let view = self.view.viewWithTag(129) as! AcceptedPIView
         let entityId = view.entityIdLabel.text?.components(separatedBy: "-").last ?? "0"
-        self.viewModel.downloadPI?(Int(entityId) ?? 0, true)
+        self.viewModel.downloadPI?(Int(entityId) ?? 0, isOld)
     }
     
     func TIdownloadButtonSelected() {

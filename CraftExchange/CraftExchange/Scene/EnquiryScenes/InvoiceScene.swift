@@ -246,13 +246,19 @@ extension EnquiryDetailsService {
         return vc
     }
     
-    func downloadAndSharePI(vc:UIViewController, enquiryId: Int, isPI: Bool) {
+    func downloadAndSharePI(vc:UIViewController, enquiryId: Int, isPI: Bool, isOld: Int) {
         if isPI{
-            self.downloadPI(enquiryId: enquiryId, isOld: 0).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+            self.downloadPI(enquiryId: enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
                 DispatchQueue.main.async {
                     vc.hideLoading()
-                    if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/pdfFile.pdf") {
-                        vc.sharePdf(path: url)
+                    if isOld == 1 {
+                        if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/oldPI/pdfFile.pdf") {
+                            vc.sharePdf(path: url)
+                        }
+                    }else {
+                        if let url = try? Disk.saveAndURL(responseData, to: .caches, as: "\(enquiryId)/pdfFile.pdf") {
+                            vc.sharePdf(path: url)
+                        }
                     }
                 }
             }.dispose(in: vc.bag)

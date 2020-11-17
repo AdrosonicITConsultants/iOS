@@ -28,6 +28,12 @@ extension OrderDetailsService {
             let service  = HomeScreenService.init(client: self.client)
             service.fetchChangeRequestData(vc: vc)
             
+            self.getOldPIDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if responseData.count != 0 {
+                    vc.containsOldPI = true
+                }
+            }
+            
             if vc.isClosed {
                 self.getClosedOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -42,12 +48,6 @@ extension OrderDetailsService {
                 
                 
             } else {
-                self.getOldPIDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                    if responseData.count != 0 {
-                        vc.containsOldPI = true
-                    }
-                }
-                
                 self.getOpenOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                         if json["valid"] as? Bool == true {
@@ -178,9 +178,9 @@ extension OrderDetailsService {
             }
         }
         
-        vc.downloadPI = { (isPI) in
+        vc.downloadPI = { (isPI, isOld) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: isPI)
+            service.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: isPI, isOld: isOld == true ? 1 : 0)
         }
         
         vc.getPI = {

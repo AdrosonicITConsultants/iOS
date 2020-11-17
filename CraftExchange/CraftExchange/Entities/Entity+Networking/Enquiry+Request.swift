@@ -355,7 +355,7 @@ extension Enquiry {
     
     public static func downloadPreviewPI(enquiryId: Int, isOld: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "application/pdf"]
-        var str = "enquiry/getPreviewPiPDF?enquiryId=\(enquiryId)&isOld=\(isOld)"
+        var str = "enquiry/getPreviewPiPDF?enquiryId=\(enquiryId)&isOld=\(isOld == 1 ? true : false)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,

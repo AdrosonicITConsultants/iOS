@@ -69,6 +69,54 @@ extension SearchService {
             searchResult(page: loadPage, madeWithAntaran: madeWithAntaran)
         }
         vc.title = "Search Results"
+        
+        vc.addToWishlist = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.addProductToWishlist(prodId: prodId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        DispatchQueue.main.async {
+                            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                            appDelegate?.wishlistIds?.append(prodId)
+                        }
+                    }
+                }
+            }.dispose(in: vc.bag)
+        }
+        
+        vc.removeFromWishlist = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.removeProductFromWishlist(prodId: prodId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        DispatchQueue.main.async {
+                            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                            if let index = appDelegate?.wishlistIds?.firstIndex(where: { (obj) -> Bool in
+                                obj == prodId
+                            }) {
+                                appDelegate?.wishlistIds?.remove(at: index)
+                            }
+                        }
+                    }
+                }
+            }.dispose(in: vc.bag)
+        }
+        
+        vc.generateEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.checkEnquiryExists(for: vc, prodId: prodId, isCustom: false)
+        }
+        
+        vc.generateNewEnquiry = { (prodId) in
+            let service = ProductCatalogService.init(client: self.client)
+            service.generateNewEnquiry(controller: vc, prodId: prodId, isCustom: false)
+        }
+        
+        vc.showNewEnquiry = { (enquiryId) in
+            let service = WishlistService.init(client: self.client)
+            service.showEnquiry(enquiryId: enquiryId, controller: vc)
+        }
+        
         return vc
     }
 }

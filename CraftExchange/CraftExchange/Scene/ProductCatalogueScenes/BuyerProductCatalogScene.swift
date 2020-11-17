@@ -139,7 +139,9 @@ extension ProductCatalogService {
     }
     
     public func checkEnquiryExists(for controller: UIViewController, prodId: Int, isCustom: Bool) {
-        controller.view.showEnquiryInitiationView()
+        DispatchQueue.main.async {
+            controller.view.showEnquiryInitiationView()
+        }
         self.checkIfEnquiryExists(prodId: prodId, isCustom: isCustom).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                 if json["valid"] as? Bool == true {

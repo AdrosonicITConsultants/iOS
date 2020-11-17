@@ -24,9 +24,19 @@ class SearchResultController: UITableViewController {
     var reachabilityManager = try? Reachability()
     var refreshCategory: ((_ catId: Int) -> ())?
     var catId = 0
+    var addToWishlist: ((_ prodId: Int) -> ())?
+    var removeFromWishlist: ((_ prodId: Int) -> ())?
+    var generateEnquiry: ((_ prodId: Int) -> ())?
+    var generateNewEnquiry: ((_ prodId: Int) -> ())?
+    var showNewEnquiry: ((_ enquiryId: Int) -> ())?
     
     override func viewDidLoad() {
         suggestionArray = []
+        if User.loggedIn()?.refRoleId == "1" {
+            reuseId = "ArtisanProductCell"
+        }else {
+            reuseId = "BuyerProductCell"
+        }
         tableView.register(UINib.init(nibName: reuseId, bundle: nil), forCellReuseIdentifier: reuseId)
         let rightButtonItem = UIBarButtonItem.init(title: "Filter by Collection".localized, style: .plain, target: self, action: #selector(showCreatorOptions))
         self.navigationItem.rightBarButtonItem = rightButtonItem
@@ -77,16 +87,28 @@ extension SearchResultController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        if User.loggedIn()?.refRoleId == "1" {
+            return 120
+        }else {
+            return 180
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! ArtisanProductCell
-        if let obj = suggestionArray?[indexPath.row] {
-            cell.configure(obj)
+        if User.loggedIn()?.refRoleId == "1" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! ArtisanProductCell
+            if let obj = suggestionArray?[indexPath.row] {
+                cell.configure(obj)
+            }
+            return cell
+        }else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! BuyerProductCell
+            if let obj = suggestionArray?[indexPath.row] {
+                cell.configure(obj)
+            }
+            cell.delegate = self
+            return cell
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -129,5 +151,78 @@ extension SearchResultController {
                 self.refreshSearchResult?(loadPage, catId)
             }
         }
+    }
+}
+
+extension SearchResultController: WishlistProtocol{
+    func wishlistSelected(prodId: Int) {
+        if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
+            value["id"] as? Int == prodId
+            }).first {
+            //add to wishlist Selected
+            addToWishlist?(selectedSuggestion["id"] as? Int ?? 0)
+        }
+    }
+    
+    func removeFromWishlist(prodId: Int) {
+        if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
+        value["id"] as? Int == prodId
+        }).first {
+            //removeFromWishlist
+            removeFromWishlist?(selectedSuggestion["id"] as? Int ?? 0)
+        }
+    }
+    
+    func loadProduct(prodId: Int) {
+        if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
+        value["id"] as? Int == prodId
+        }).first {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let service = ProductCatalogService.init(client: client)
+                service.showSelectedProduct(for: self, prodId: selectedSuggestion["id"] as? Int ?? 0)
+                self.hideLoading()
+            }catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func generateEnquiryForProduct(prodId: Int) {
+        if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
+        value["id"] as? Int == prodId
+        }).first {
+            //generate enquiry
+            self.generateEnquiry?(selectedSuggestion["id"] as? Int ?? 0)
+        }
+    }
+}
+
+extension SearchResultController: EnquiryExistsViewProtocol, EnquiryGeneratedViewProtocol {
+    func closeButtonSelected() {
+        self.view.hideEnquiryGenerateView()
+    }
+    
+    func viewEnquiryButtonSelected(enquiryId: Int) {
+        goToEnquiry(enquiryId: enquiryId)
+    }
+    
+    func cancelButtonSelected() {
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func viewEnquiryButtonSelected(eqId: Int) {
+        goToEnquiry(enquiryId: eqId)
+    }
+    
+    func generateEnquiryButtonSelected(prodId: Int) {
+        self.generateNewEnquiry?(prodId)
+        self.view.hideEnquiryExistsView()
+    }
+    
+    func goToEnquiry(enquiryId: Int) {
+        self.view.hideEnquiryGenerateView()
+        self.view.hideEnquiryExistsView()
+        self.showNewEnquiry?(enquiryId)
     }
 }
