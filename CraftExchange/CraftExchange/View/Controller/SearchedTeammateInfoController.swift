@@ -32,6 +32,7 @@ class SearchedTeammateInfoController: UIViewController {
     @IBOutlet weak var adminPositionLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var InformationLabel: UILabel!
+    @IBOutlet weak var statusBtn: RoundedButton!
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
     let realm = try! Realm()
