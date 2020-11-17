@@ -21,6 +21,12 @@ extension EnquiryDetailsService {
         vc.title = forEnquiry?.enquiryCode ?? ""
         vc.viewWillAppear = {
             vc.showLoading()
+            let service = OrderDetailsService.init(client: self.client)
+            service.getOldPIDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if responseData.count != 0 {
+                    vc.containsOldPI = true
+                }
+            }
             if vc.isClosed {
                 self.getClosedEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -205,7 +211,15 @@ extension EnquiryDetailsService {
         
         vc.viewPI = { (isOld) in
             let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
-            self.getPreviewPI(enquiryId: enquiryId,isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc, containsOld: false, raiseNewPI: false)
+            if isOld == 1 {
+                self.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc, containsOld: false, raiseNewPI: false)
+            }else {
+                if vc.containsOldPI {
+                    self.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc, containsOld: true, raiseNewPI: false)
+                }else {
+                    self.getPreviewPI(enquiryId: enquiryId, isOld: isOld, lastUpdatedDate: date, code: vc.enquiryObject?.enquiryCode ?? "\(enquiryId)", vc: vc, containsOld: false, raiseNewPI: false)
+                }
+            }
         }
         
         vc.downloadPI = { (isPI, isOld) in

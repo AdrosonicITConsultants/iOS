@@ -32,18 +32,20 @@ extension QCService {
                 do {
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                         if let arr = json["data"] as? [[String: Any]] {
-                            try arr .forEach { (dict) in
-                                let data = try JSONSerialization.data(withJSONObject: dict, options: .fragmentsAllowed)
-                                let question = try JSONDecoder().decode(QualityCheck.self, from: data)
-                                question.saveOrUpdate()
-                                DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                                    vc.orderQCStageId = question.stageId
-                                    vc.reloadData()
+                            DispatchQueue.main.async {
+                                try? arr .forEach { (dict) in
+                                    let data = try JSONSerialization.data(withJSONObject: dict, options: .fragmentsAllowed)
+                                    let question = try JSONDecoder().decode(QualityCheck.self, from: data)
+                                    question.saveOrUpdate()
+                                    DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                                        vc.orderQCStageId = question.stageId
+                                        vc.reloadData()
+                                    }
                                 }
-                            }
-                            if arr.count == 0 {
-                                DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
-                                    vc.reloadData()
+                                if arr.count == 0 {
+                                    DispatchQueue.main.asyncAfter(deadline: .now()+0.25) {
+                                        vc.reloadData()
+                                    }
                                 }
                             }
                         }
