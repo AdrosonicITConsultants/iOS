@@ -160,7 +160,7 @@ extension OrderDetailsService {
 //            service.checkMOQ(enquiryId: enquiryId, vc: vc)
 //        }
         
-        vc.viewPI = {(isOld) in
+        vc.viewPI = { (isOld) in
             let date = Date().ttceISOString(isoDate: vc.orderObject!.lastUpdated!)
             let service = EnquiryDetailsService.init(client: self.client)
             if isOld == 1 {

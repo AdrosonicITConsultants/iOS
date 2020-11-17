@@ -46,6 +46,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var closeEnquiry: ((_ enquiryId: Int) -> ())?
     let realm = try? Realm()
     var isClosed = false
+    var containsOldPI = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -943,6 +944,11 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
         default:
             print("do nothing")
         }
+    }
+    
+    func viewOldPI() {
+        self.showLoading()
+        self.viewPI?(1)
     }
     
     
