@@ -85,6 +85,12 @@ extension String {
       return result
   }
     
+  var isValidIndianPhoneNumber: Bool {
+      let phoneRegex = "^[0-9]{10}$"
+      let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+      return phoneTest.evaluate(with: self)
+  }
+    
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }

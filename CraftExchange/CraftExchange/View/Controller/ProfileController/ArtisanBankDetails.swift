@@ -389,7 +389,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 if self.viewModel.gpayId.value != "" {
                     var gpay = ""
                     if self.viewModel.gpayId.value != nil && self.viewModel.gpayId.value?.isNotBlank ?? false {
-                        if self.viewModel.gpayId.value?.isValidPhoneNumber ?? false {
+                        if self.viewModel.gpayId.value?.isValidIndianPhoneNumber ?? false {
                             gpay = self.viewModel.gpayId.value ?? ""
                       } else {
                           alert("Please enter valid Google Pay number.")
@@ -408,7 +408,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 if self.viewModel.paytm.value != "" {
                     var paytmNo = ""
                     if self.viewModel.paytm.value != nil && self.viewModel.paytm.value?.isNotBlank ?? false {
-                        if self.viewModel.paytm.value?.isValidPhoneNumber ?? false {
+                        if self.viewModel.paytm.value?.isValidIndianPhoneNumber ?? false {
                             paytmNo = self.viewModel.paytm.value ?? ""
                       } else {
                           alert("Please enter valid Paytm number.")
@@ -427,7 +427,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 if self.viewModel.phonePay.value != "" {
                     var phonePayNo = ""
                     if self.viewModel.phonePay.value != nil && self.viewModel.phonePay.value?.isNotBlank ?? false {
-                        if self.viewModel.phonePay.value?.isValidPhoneNumber ?? false {
+                        if self.viewModel.phonePay.value?.isValidIndianPhoneNumber ?? false {
                             phonePayNo = self.viewModel.phonePay.value ?? ""
                       } else {
                           alert("Please enter valid PhonePe number.")
