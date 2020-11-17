@@ -45,17 +45,15 @@ class SearchResultController: UITableViewController {
                 if let index = textArray.firstIndex(of: option) {
                     if index == 2 {
                         self.catId = 1
-                        self.loadPage = 1
-                        self.suggestionArray?.removeAll()
-                        self.tableView.reloadData()
-                        self.refreshSearchResult?(self.loadPage, self.catId)
-                    }else {
+                    }else if index == 1{
                         self.catId = 0
-                        self.loadPage = 1
-                        self.suggestionArray?.removeAll()
-                        self.tableView.reloadData()
-                        self.refreshSearchResult?(self.loadPage, self.catId)
+                    }else {
+                        self.catId = -1
                     }
+                    self.loadPage = 1
+                    self.suggestionArray?.removeAll()
+                    self.tableView.reloadData()
+                    self.refreshSearchResult?(self.loadPage, self.catId)
                 }else {
                     self.catId = 0
                     self.loadPage = 1

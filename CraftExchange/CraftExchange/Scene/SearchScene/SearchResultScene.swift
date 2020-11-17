@@ -14,7 +14,7 @@ extension SearchService {
         
         vc.viewWillAppear = {
             if vc.reachabilityManager?.connection != .unavailable {
-                searchResult(page: 1, madeWithAntaran: 0)
+                searchResult(page: 1, madeWithAntaran: -1)
             }
         }
         
