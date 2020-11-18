@@ -3175,7 +3175,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adrosonic.beta.CraftExchange;
 				PRODUCT_NAME = "Craft Xchange";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";
@@ -3198,7 +3198,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adrosonic.beta.CraftExchange;
 				PRODUCT_NAME = "Craft Xchange";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";
