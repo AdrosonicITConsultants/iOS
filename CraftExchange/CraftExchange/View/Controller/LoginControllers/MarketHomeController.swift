@@ -27,13 +27,14 @@ class MarketHomeController: FormViewController {
     var viewWillAppear: (() -> ())?
     let realm = try? Realm()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
         form
             +++ Section()
-
+            
             <<< AdminLabelRow(){
                 $0.tag = "AdminLabelRow-1"
                 $0.cell.AdminLabel.text = "Report"
@@ -42,28 +43,67 @@ class MarketHomeController: FormViewController {
             <<< AdminCardsRow () {
                 $0.tag = "Myrow"
                 $0.cell.height = { 200.0 }
+                let gradient = CAGradientLayer()
+                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.B1.bounds.width, height: $0.cell.B1.bounds.height)
+                gradient.startPoint = CGPoint(x:0, y:0)
+                gradient.endPoint = CGPoint(x:1, y:1)
+                gradient.colors = [UIColor(red: 0.0863, green: 0.3098, blue: 0.8784, alpha: 1.0).cgColor, UIColor(red: 0.5529, green: 0.6549, blue: 0.9098, alpha: 1.0).cgColor]
+                gradient.cornerRadius = 10
+                $0.cell.B1.layer.addSublayer(gradient)
+                
+                
+                let gradient1 = CAGradientLayer()
+                gradient1.frame = CGRect(x: 0, y: 0, width: $0.cell.b2.bounds.width, height: $0.cell.b2.bounds.height)
+                gradient1.startPoint = CGPoint(x:0, y:0)
+                gradient1.endPoint = CGPoint(x:1, y:1)
+                gradient1.colors = [UIColor(red: 0.898, green: 0.0431, blue: 0.698, alpha: 1.0).cgColor,UIColor(red: 0.8275, green: 0.0431, blue: 0.898, alpha: 1.0).cgColor, UIColor(red: 0.0863, green: 0.3098, blue: 0.8784, alpha: 1.0).cgColor]
+                gradient1.cornerRadius = 10
+                $0.cell.b2.layer.addSublayer(gradient1)
+                
+                let gradient2 = CAGradientLayer()
+                gradient2.frame = CGRect(x: 0, y: 0, width: $0.cell.b3.bounds.width, height: $0.cell.b3.bounds.height)
+                gradient2.startPoint = CGPoint(x:0, y:0)
+                gradient2.endPoint = CGPoint(x:1, y:1)
+                gradient2.colors = [UIColor(red: 0.2471, green: 0.749, blue: 0.1686, alpha: 1.0).cgColor, UIColor(red: 0.0549, green: 0.2902, blue: 0.4314, alpha: 1.0).cgColor]
+                gradient2.cornerRadius = 10
+                $0.cell.b3.layer.addSublayer(gradient2)
+                
             }
             <<< AdminLabelRow(){
                 $0.tag = "AdminLabelRow-2"
                 $0.cell.AdminLabel.text = "Quick Actions"
                 $0.cell.height = { 40.0 }
             }
+            
             <<< MarketActionsRow() {
                 $0.tag = "HorizonatalAdmin1"
                 $0.cell.backgroundColor = UIColor.black
-                $0.cell.ActionBtn.backgroundColor = UIColor.red
-               $0.cell.delegate = self
+                let gradient = CAGradientLayer()
+                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.ActionBtn.bounds.width, height: 60)
+                gradient.startPoint = CGPoint(x:0.0, y:1)
+                gradient.endPoint = CGPoint(x:1.0, y:1)
+                gradient.colors = [UIColor.red.cgColor,UIColor(red: 0.6275, green: 0.1059, blue: 0.1765, alpha: 1.0).cgColor]
+                gradient.cornerRadius = 10
+                $0.cell.ActionBtn.layer.addSublayer(gradient)
+                $0.cell.delegate = self
                 $0.cell.tag = 109
                 $0.cell.ActionLabel.text = "Fault and Escalations"
                 $0.cell.LowerActionLabel.text = "3454"
                 $0.cell.ColorLine.isHidden = true
                 $0.cell.ActionImg.image = UIImage(named: "Icon ionic-ios-alert (1)")
                 $0.cell.height = { 80.0 }
+                
             }
             <<< MarketActionsRow() {
                 $0.tag = "HorizonatalAdmin2"
                 $0.cell.backgroundColor = UIColor.black
-                $0.cell.ActionBtn.backgroundColor = UIColor.systemYellow
+                let gradient = CAGradientLayer()
+                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.ActionBtn.bounds.width, height: 60)
+                gradient.startPoint = CGPoint(x:0.0, y:1)
+                gradient.endPoint = CGPoint(x:1.0, y:1)
+                gradient.colors = [UIColor.yellow.cgColor, UIColor(red: 0.5961, green: 0.6275, blue: 0, alpha: 1.0).cgColor]
+                gradient.cornerRadius = 10
+                $0.cell.ActionBtn.layer.addSublayer(gradient)
                 $0.cell.ActionLabel.text = "Add a Product"
                 $0.cell.ColorLine.isHidden = true
                 $0.cell.LowerActionLabel.text = " to Antaran Co Design"
@@ -73,7 +113,13 @@ class MarketHomeController: FormViewController {
             <<< MarketActionsRow() {
                 $0.tag = "HorizonatalAdmin3"
                 $0.cell.backgroundColor = UIColor.black
-                $0.cell.ActionBtn.backgroundColor = UIColor.gray
+                let gradient = CAGradientLayer()
+                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.ActionBtn.bounds.width, height: 60)
+                gradient.startPoint = CGPoint(x:0.0, y:1)
+                gradient.endPoint = CGPoint(x:1.0, y:1)
+                gradient.colors = [UIColor.lightGray.cgColor, UIColor(red: 0.3176, green: 0.3176, blue: 0.302, alpha: 1.0).cgColor]
+                gradient.cornerRadius = 10
+                $0.cell.ActionBtn.layer.addSublayer(gradient)
                 $0.cell.ActionLabel.text = "Redirect Custom enquiries"
                 $0.cell.ColorLine.isHidden = true
                 $0.cell.LowerActionLabel.text = "awaiting MOQs"
@@ -82,6 +128,9 @@ class MarketHomeController: FormViewController {
             }
             <<< AdminHomeBottomRow() {
                 $0.cell.height = { 142.0 }
+                $0.cell.OngoingBtn.backgroundColor = UIColor(red: 0.051, green: 0.1882, blue: 0.6471, alpha: 1.0)
+                $0.cell.ClosedBtn.backgroundColor = UIColor(red: 0.3804, green: 0.6627, blue: 0.4314, alpha: 1.0)
+                
             }
             <<< ButtonRow() {
                 $0.title = "Logout"
@@ -111,7 +160,7 @@ class MarketHomeController: FormViewController {
 }
 
 extension MarketHomeController: MarketActionsProtocol {
-
+    
     func ArrowBtnSelected(tag: Int) {
         
     }
