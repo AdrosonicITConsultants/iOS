@@ -276,10 +276,6 @@ class PaymentUploadController: FormViewController{
                 }
                             
                             $0.value = Date()
-//                            let dateFormatter = DateFormatter()
-//                            dateFormatter.dateFormat = "yyyy-MM-dd"
-//                            let date = dateFormatter.string(from: $0.value!)
-//                            self.viewModel.orderDispatchDate.value = date + " 10:00:00"
                         }.onChange({ (row) in
                             if let value = row.value {
                                 let dateFormatter = DateFormatter()
@@ -307,14 +303,10 @@ class PaymentUploadController: FormViewController{
                             }
 
                             $0.value = nil
-            //                let dateFormatter = DateFormatter()
-            //                dateFormatter.dateFormat = "yyyy-MM-dd"
-            //                let date = dateFormatter.string(from: $0.value!)
-            //                self.viewModel.ETA.value = date + " 10:00:00"
                         }.onChange({ (row) in
                             if let value = row.value {
                                 let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+                                dateFormatter.dateFormat = "yyyy-MM-dd"
                                 let date = dateFormatter.string(from: value)
                                 self.viewModel.ETA.value = date
                             }
