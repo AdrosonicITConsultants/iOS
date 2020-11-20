@@ -58,6 +58,9 @@
                                     <segment title="Buyers"/>
                                 </segments>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="EtR-pA-IKX" eventType="valueChanged" id="MN7-jb-sff"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Artisians: 35000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO9-ip-2Mz">
                                 <rect key="frame" x="20" y="193" width="374" height="21"/>
@@ -111,15 +114,6 @@
                                 <color key="barTintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ln7-Oo-gIe">
-                                <rect key="frame" x="216" y="352" width="102" height="34"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="ClusterTexField:" destination="9Ou-l7-Qre" eventType="editingDidEnd" id="wxN-H8-PJ7"/>
-                                </connections>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCU-pd-GWd">
                                 <rect key="frame" x="20" y="326" width="70" height="18"/>
                                 <constraints>
@@ -138,34 +132,48 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BqS-sJ-4wY">
-                                <rect key="frame" x="98" y="352" width="102" height="34"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="102" id="FcI-Bm-fOs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="RatingTextField:" destination="9Ou-l7-Qre" eventType="editingDidEnd" id="96Y-ab-YVC"/>
-                                </connections>
-                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GKm-vR-3wO" customClass="SpreadsheetView" customModule="SpreadsheetView">
                                 <rect key="frame" x="0.0" y="443" width="414" height="370"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRq-Xr-eGI">
+                                <rect key="frame" x="82" y="355" width="102" height="30"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="mXd-aE-XsA"/>
+                                    <constraint firstAttribute="width" constant="102" id="u6N-jH-gOZ"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Cluster" image="arrow.down" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="clusterSelected:" destination="EtR-pA-IKX" eventType="touchUpInside" id="6fq-A0-ABY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuE-wz-RDo">
+                                <rect key="frame" x="197" y="355" width="102" height="30"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Rating" image="arrow.down" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="ratingSelected:" destination="EtR-pA-IKX" eventType="touchUpInside" id="wj3-MK-Oap"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="NRq-Xr-eGI" firstAttribute="centerX" secondItem="fo2-12-Zbi" secondAttribute="centerX" id="01V-df-MiK"/>
+                            <constraint firstItem="iuE-wz-RDo" firstAttribute="height" secondItem="NRq-Xr-eGI" secondAttribute="height" id="1Vg-9b-cWc"/>
+                            <constraint firstItem="NRq-Xr-eGI" firstAttribute="baseline" secondItem="iuE-wz-RDo" secondAttribute="baseline" id="2Py-Ka-50l"/>
                             <constraint firstItem="ZVz-Ja-LEc" firstAttribute="leading" secondItem="Nb1-JE-Tg6" secondAttribute="leading" constant="20" id="4Wh-Qp-iuF"/>
                             <constraint firstItem="Nb1-JE-Tg6" firstAttribute="trailing" secondItem="hz5-Z3-gGn" secondAttribute="trailing" constant="20" id="4v0-SH-dZO"/>
                             <constraint firstItem="obK-EX-e8r" firstAttribute="leading" secondItem="ZVz-Ja-LEc" secondAttribute="trailing" constant="7" id="4zT-lr-3uz"/>
-                            <constraint firstItem="BqS-sJ-4wY" firstAttribute="baseline" secondItem="ln7-Oo-gIe" secondAttribute="baseline" id="5ua-zk-3B8"/>
                             <constraint firstItem="fo2-12-Zbi" firstAttribute="leading" secondItem="tCU-pd-GWd" secondAttribute="trailing" constant="8" id="98Z-uG-j3I"/>
                             <constraint firstItem="Hjz-Fc-XAv" firstAttribute="top" secondItem="obK-EX-e8r" secondAttribute="bottom" constant="82" id="9L2-eu-VYS"/>
-                            <constraint firstItem="BqS-sJ-4wY" firstAttribute="leading" secondItem="fo2-12-Zbi" secondAttribute="leading" id="Bme-xn-tX3"/>
                             <constraint firstItem="tCU-pd-GWd" firstAttribute="leading" secondItem="Nb1-JE-Tg6" secondAttribute="leading" constant="20" id="Dhc-Kq-pHV"/>
-                            <constraint firstItem="ln7-Oo-gIe" firstAttribute="width" secondItem="BqS-sJ-4wY" secondAttribute="width" id="FCP-A5-gs4"/>
                             <constraint firstItem="fo2-12-Zbi" firstAttribute="top" secondItem="ZVz-Ja-LEc" secondAttribute="bottom" constant="13" id="FkO-7W-NDw"/>
                             <constraint firstItem="ZVz-Ja-LEc" firstAttribute="top" secondItem="hz5-Z3-gGn" secondAttribute="bottom" constant="15" id="Fwh-ed-Jlc"/>
                             <constraint firstItem="hz5-Z3-gGn" firstAttribute="leading" secondItem="Nb1-JE-Tg6" secondAttribute="leading" constant="20" id="H4U-zf-6Ys"/>
@@ -177,6 +185,7 @@
                             <constraint firstItem="tCU-pd-GWd" firstAttribute="top" secondItem="ZVz-Ja-LEc" secondAttribute="bottom" constant="13" id="VQI-x0-dev"/>
                             <constraint firstItem="iHq-HJ-YB5" firstAttribute="leading" secondItem="fo2-12-Zbi" secondAttribute="trailing" constant="45" id="WtV-yt-4vW"/>
                             <constraint firstItem="hz5-Z3-gGn" firstAttribute="leading" secondItem="ZVz-Ja-LEc" secondAttribute="leading" id="Ybn-OB-aPb"/>
+                            <constraint firstItem="iuE-wz-RDo" firstAttribute="leading" secondItem="NRq-Xr-eGI" secondAttribute="trailing" constant="13" id="YnL-ak-Oux"/>
                             <constraint firstItem="obK-EX-e8r" firstAttribute="top" secondItem="hz5-Z3-gGn" secondAttribute="bottom" constant="15" id="ajq-Bk-bPq"/>
                             <constraint firstItem="QO9-ip-2Mz" firstAttribute="leading" secondItem="Nb1-JE-Tg6" secondAttribute="leading" constant="20" id="ba4-hq-gEf"/>
                             <constraint firstItem="obK-EX-e8r" firstAttribute="top" secondItem="hz5-Z3-gGn" secondAttribute="bottom" constant="15" id="c1h-oH-nzZ"/>
@@ -185,10 +194,10 @@
                             <constraint firstItem="iHq-HJ-YB5" firstAttribute="top" secondItem="ZVz-Ja-LEc" secondAttribute="bottom" constant="13" id="ffF-H5-ykB"/>
                             <constraint firstItem="Hjz-Fc-XAv" firstAttribute="leading" secondItem="Nb1-JE-Tg6" secondAttribute="leading" constant="315" id="foX-gp-wWz"/>
                             <constraint firstItem="GKm-vR-3wO" firstAttribute="bottom" secondItem="Nb1-JE-Tg6" secondAttribute="bottom" id="ge7-w3-WMr"/>
-                            <constraint firstItem="ln7-Oo-gIe" firstAttribute="leading" secondItem="BqS-sJ-4wY" secondAttribute="trailing" constant="16" id="jwt-ap-UnR"/>
+                            <constraint firstItem="iuE-wz-RDo" firstAttribute="width" secondItem="NRq-Xr-eGI" secondAttribute="width" id="mxh-nM-8Ib"/>
                             <constraint firstItem="GKm-vR-3wO" firstAttribute="top" secondItem="Hjz-Fc-XAv" secondAttribute="bottom" constant="18" id="oSp-Nl-T9R"/>
-                            <constraint firstItem="BqS-sJ-4wY" firstAttribute="top" secondItem="fo2-12-Zbi" secondAttribute="bottom" constant="10" id="pA0-2N-zsR"/>
                             <constraint firstItem="tSh-NO-4uf" firstAttribute="top" secondItem="Nb1-JE-Tg6" secondAttribute="top" constant="42" id="sOz-hD-Ynf"/>
+                            <constraint firstItem="NRq-Xr-eGI" firstAttribute="top" secondItem="tCU-pd-GWd" secondAttribute="bottom" constant="11" id="tyP-uf-oSt"/>
                             <constraint firstItem="Nb1-JE-Tg6" firstAttribute="trailing" secondItem="Hjz-Fc-XAv" secondAttribute="trailing" constant="31" id="wa9-90-0Gs"/>
                             <constraint firstItem="QO9-ip-2Mz" firstAttribute="top" secondItem="1vP-Fe-lrb" secondAttribute="bottom" constant="2" id="xI6-pK-enM"/>
                             <constraint firstItem="tSh-NO-4uf" firstAttribute="leading" secondItem="Nb1-JE-Tg6" secondAttribute="leading" constant="20" id="yQF-8f-7BH"/>
@@ -204,12 +213,14 @@
                         <outlet property="CountLabel" destination="QO9-ip-2Mz" id="3oB-xK-orU"/>
                         <outlet property="FilterLabel" destination="tCU-pd-GWd" id="FiQ-Gi-1Nj"/>
                         <outlet property="Img" destination="1vP-Fe-lrb" id="2ML-YD-PBu"/>
+                        <outlet property="applyBtn" destination="Hjz-Fc-XAv" id="1ZY-2S-YbB"/>
+                        <outlet property="clusterBtn" destination="NRq-Xr-eGI" id="abg-6X-dYU"/>
+                        <outlet property="ratingBtn" destination="iuE-wz-RDo" id="Q6a-Vm-ZPm"/>
                         <outlet property="segmentedControl" destination="hz5-Z3-gGn" id="Nzs-YW-ywM"/>
                         <outlet property="spreadsheetView" destination="GKm-vR-3wO" id="eSq-Lq-yqP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTd-vh-uJY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="9Ou-l7-Qre" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-759.4202898550725" y="604.6875"/>
         </scene>
@@ -1172,6 +1183,7 @@
     <resources>
         <image name="ArtisanSelfDesigniconiOS" width="27" height="21"/>
         <image name="Icon awesome-long-arrow-alt-right" width="22" height="11"/>
+        <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="artisan screen logo" width="138" height="58"/>
         <image name="buyer screen logo" width="138" height="59"/>
         <image name="line.horizontal.3" catalog="system" width="64" height="32"/>

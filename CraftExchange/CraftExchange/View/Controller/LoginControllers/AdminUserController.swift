@@ -15,18 +15,13 @@ import Bond
 import Reachability
 import SpreadsheetView
 
-class AdminUserViewModel {
-    var viewWillAppear: (() -> ())?
-    var viewDidAppear: (() -> ())?
-}
-
 class AdminUserController: UIViewController {
     @IBOutlet weak var spreadsheetView: SpreadsheetView!
     var header = [String]()
-    var data = [[String]]()
     var reachabilityManager = try? Reachability()
-    var applicationEnteredForeground: (() -> ())?
-    var allProducts: [Product]?
+    var viewWillAppear: (() -> ())?
+    var loadMetaData: (() -> ())?
+    var allUsers: Results<AdminUser>?
     let realm = try! Realm()
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -36,8 +31,15 @@ class AdminUserController: UIViewController {
     @IBOutlet weak var Img: UIImageView!
     @IBOutlet weak var AdminDbSearch: UISearchBar!
     @IBOutlet weak var Cluster: UILabel!
-    lazy var viewModel = AdminUserViewModel()
     @IBOutlet weak var AdminUserLabel: UILabel!
+    @IBOutlet weak var clusterBtn: UIButton!
+    @IBOutlet weak var ratingBtn: UIButton!
+    @IBOutlet weak var applyBtn: UIButton!
+    
+    var pageNo = 1
+    var selectedCluster: ClusterDetails?
+    var selectedRating = -1.0
+    var reachedLimit = false
     
     enum Sorting {
         case ascending
@@ -56,36 +58,120 @@ class AdminUserController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .black
+        self.spreadsheetView.backgroundColor = .black
+        
         let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
         let titleTextAttributes2 = [NSAttributedString.Key.foregroundColor: UIColor.black]
         segmentedControl.setTitleTextAttributes(titleTextAttributes2, for: .selected)
-        header = ["brandname", "artisan id", "name", "email", "cluster", "rating date"]
+        header = ["Artisan id", "Name", "Email", "Cluster", "Brand", "Rating", "Date"]
         spreadsheetView.dataSource = self
         spreadsheetView.delegate = self
 
         spreadsheetView.register(HeaderCell.self, forCellWithReuseIdentifier: String(describing: HeaderCell.self))
         spreadsheetView.register(TextCell.self, forCellWithReuseIdentifier: String(describing: TextCell.self))
+        AdminDbSearch.delegate = self
+        loadMetaData?()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.viewWillAppear?()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        viewModel.viewDidAppear?()
-    }
-    
-    func endRefresh() {
-        
+        viewWillAppear?()
     }
     
     @IBAction func ApplyBtnPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "AdminProductCatalogue", bundle: nil)
-        let vc1 = storyboard.instantiateViewController(withIdentifier: "AdminUploadProductController") as! AdminUploadProductController
-        vc1.modalPresentationStyle = .fullScreen
-        self.present(vc1, animated: true, completion: nil)
+        pageNo = 1
+        AdminDbSearch.resignFirstResponder()
+        viewWillAppear?()
+    }
+    
+    @IBAction func segmentValueChanged(_ sender: Any) {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            header = ["Artisan id", "Name", "Email", "Cluster", "Brand", "Rating", "Date"]
+            clusterBtn.isHidden = false
+            Cluster.isHidden = false
+        }else {
+            header = ["Name", "Email", "Phone Number", "Brand", "Rating", "Date"]
+            clusterBtn.isHidden = true
+            Cluster.isHidden = true
+            clusterBtn.setTitle(" Cluster", for: .normal)
+        }
+        ratingBtn.setTitle(" Rating", for: .normal)
+        pageNo = 1
+        reachedLimit = false
+        selectedRating = -1
+        selectedCluster = nil
+        AdminDbSearch.searchTextField.text = nil
+        AdminDbSearch.resignFirstResponder()
+        viewWillAppear?()
+    }
+    
+    @IBAction func clusterSelected(_ sender: Any) {
+        let button = sender as! UIButton
+        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let all = UIAlertAction.init(title: "All".localized, style: .default) { (action) in
+            self.selectedCluster = nil
+            button.setTitle("  Cluster", for: .normal)
+        }
+        alert.addAction(all)
+        let catgories = realm.objects(ClusterDetails.self)
+        for option in catgories {
+            let action = UIAlertAction.init(title: option.clusterDescription ?? "", style: .default) { (action) in
+                button.setTitle("  \(option.clusterDescription ?? "")", for: .normal)
+                self.selectedCluster = option
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func ratingSelected(_ sender: Any) {
+        let button = sender as! UIButton
+        let ratingArray = ["Greater than 3", "Greater than 6", "Greater than 8"]
+        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let all = UIAlertAction.init(title: "All".localized, style: .default) { (action) in
+            self.selectedRating = -1
+            button.setTitle("  Rating", for: .normal)
+        }
+        alert.addAction(all)
+        for option in ratingArray {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                switch(option) {
+                case "Greater than 3":
+                    self.selectedRating = 3.0
+                    button.setTitle("Rating >= 3", for: .normal)
+                case "Greater than 6":
+                    self.selectedRating = 6.0
+                    button.setTitle("Rating >= 6", for: .normal)
+                case "Greater than 8":
+                    self.selectedRating = 8.0
+                    button.setTitle("Rating >= 8", for: .normal)
+                default:
+                    self.selectedRating = -1.0
+                    button.setTitle("  Rating", for: .normal)
+                }
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension AdminUserController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        applyBtn.sendActions(for: .touchUpInside)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 
@@ -96,7 +182,7 @@ extension AdminUserController: SpreadsheetViewDataSource, SpreadsheetViewDelegat
     }
 
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
-        return 1 + 30//data.count
+        return 1 + (allUsers?.count ?? 0)
     }
 
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
@@ -134,7 +220,44 @@ extension AdminUserController: SpreadsheetViewDataSource, SpreadsheetViewDelegat
             return cell
         } else {
             let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: String(describing: TextCell.self), for: indexPath) as! TextCell
-            cell.label.text = "text \(indexPath.row - 1)\(indexPath.column)"//data[indexPath.row - 1][indexPath.column]
+            if segmentedControl.selectedSegmentIndex == 0 {
+                switch indexPath.column {
+                case 0:
+                    cell.label.text = "\(allUsers?[indexPath.row - 1].weaverId ?? "")"
+                case 1:
+                    cell.label.text = (allUsers?[indexPath.row - 1].firstName ?? "") + (allUsers?[indexPath.row - 1].lastName ?? "")
+                case 2:
+                    cell.label.text = allUsers?[indexPath.row - 1].email ?? ""
+                case 3:
+                    cell.label.text = allUsers?[indexPath.row - 1].cluster ?? ""
+                case 4:
+                    cell.label.text = allUsers?[indexPath.row - 1].brandName ?? ""
+                case 5:
+                    cell.label.text = "\(allUsers?[indexPath.row - 1].rating ?? 0)"
+                case 6:
+                    cell.label.text = Date().ttceISOString(isoDate: allUsers?[indexPath.row - 1].dateAdded ?? Date())
+                default:
+                    cell.label.text = ""
+                }
+            }else {
+                switch indexPath.column {
+                case 0:
+                    cell.label.text = (allUsers?[indexPath.row - 1].firstName ?? "") + (allUsers?[indexPath.row - 1].lastName ?? "")
+                case 1:
+                    cell.label.text = allUsers?[indexPath.row - 1].email ?? ""
+                case 2:
+                    cell.label.text = allUsers?[indexPath.row - 1].mobile ?? ""
+                case 3:
+                    cell.label.text = allUsers?[indexPath.row - 1].brandName ?? ""
+                case 4:
+                    cell.label.text = "\(allUsers?[indexPath.row - 1].rating ?? 0)"
+                case 5:
+                    cell.label.text = Date().ttceISOString(isoDate: allUsers?[indexPath.row - 1].dateAdded ?? Date())
+                default:
+                    cell.label.text = ""
+                }
+            }
+            
             return cell
         }
     }
@@ -147,12 +270,61 @@ extension AdminUserController: SpreadsheetViewDataSource, SpreadsheetViewDelegat
             } else {
                 sortedColumn = (indexPath.column, .ascending)
             }
-            data.sort {
-                let ascending = $0[sortedColumn.column] < $1[sortedColumn.column]
-                return sortedColumn.sorting == .ascending ? ascending : !ascending
+            sortTable()
+        }else {
+            if segmentedControl.selectedSegmentIndex == 0 {
+                if let vc = storyboard?.instantiateViewController(identifier: "AdminUserDetailController") {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            }else {
+                if let vc = storyboard?.instantiateViewController(identifier: "AdminBuyerUserDetailController") {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
-            spreadsheetView.reloadData()
         }
+    }
+    
+    func sortTable() {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            switch sortedColumn.column {
+            case 0:
+                allUsers = allUsers?.sorted(byKeyPath: "weaverId", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 1:
+                allUsers = allUsers?.sorted(byKeyPath: "firstName", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 2:
+                allUsers = allUsers?.sorted(byKeyPath: "email", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 3:
+                allUsers = allUsers?.sorted(byKeyPath: "cluster", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 4:
+                allUsers = allUsers?.sorted(byKeyPath: "brandName", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 5:
+                allUsers = allUsers?.sorted(byKeyPath: "rating", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 6:
+                allUsers = allUsers?.sorted(byKeyPath: "dateAdded", ascending: sortedColumn.sorting == .ascending ? true : false)
+            default:
+                print("do nothing")
+            }
+        }else {
+            switch sortedColumn.column {
+            case 0:
+                allUsers = allUsers?.sorted(byKeyPath: "firstName", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 1:
+                allUsers = allUsers?.sorted(byKeyPath: "email", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 2:
+                allUsers = allUsers?.sorted(byKeyPath: "mobile", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 3:
+                allUsers = allUsers?.sorted(byKeyPath: "brandName", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 4:
+                allUsers = allUsers?.sorted(byKeyPath: "rating", ascending: sortedColumn.sorting == .ascending ? true : false)
+            case 5:
+                allUsers = allUsers?.sorted(byKeyPath: "dateAdded", ascending: sortedColumn.sorting == .ascending ? true : false)
+            default:
+                print("do nothing")
+            }
+        }
+        
+        spreadsheetView.reloadData()
     }
 }
 
