@@ -26,10 +26,11 @@ class User: Object, Decodable {
   var buyerCompanyDetails = List<BuyerCompanyDetails>()
   @objc dynamic var weaverDetails: Weaver?
   @objc dynamic var cluster: ClusterDetails?
+    @objc dynamic var clusterString: String?
   @objc dynamic var refRoleId: String?
   @objc dynamic var registeredOn: String?
-  dynamic var status: Int?
-  dynamic var emailVerified: Int?
+  @objc dynamic var status: Int = 0
+  @objc dynamic var emailVerified: Int = 0
   @objc dynamic var lastLoggedIn: String?
   @objc dynamic var profilePic: String?
   @objc dynamic var logo: String?
@@ -37,15 +38,17 @@ class User: Object, Decodable {
   var addressList = List<Address>()
   var paymentAccountList = List<PaymentAccDetails>()
   var userProductCategories = List<UserProductCategory>()
-  dynamic var rating: Int?
+  @objc dynamic var productCategories: String?
+  @objc dynamic var rating: Float = 0.0
   @objc dynamic var userName: String?
-  dynamic var enabled: Bool?
+  @objc dynamic var enabled: Bool = false
   @objc dynamic var authorities: String?
-  dynamic var accountNonExpired: Bool?
-  dynamic var accountNonLocked: Bool?
-  dynamic var credentialsNonExpired: Bool?
+  @objc dynamic var accountNonExpired: Bool = false
+  @objc dynamic var accountNonLocked: Bool = false
+  @objc dynamic var credentialsNonExpired: Bool = false
   @objc dynamic var logoUrl: String?
   @objc dynamic var profilePicUrl: String?
+    @objc dynamic var weaverId: String?
     
     override class func primaryKey() -> String? {
         return "id"
@@ -83,7 +86,11 @@ class User: Object, Decodable {
     case accountNonLocked = "accountNonLocked"
     case credentialsNonExpired = "credentialsNonExpired"
     case userProductCategories = "userProductCategories"
+    case productCategories = "productCategories"
     case logo = "logo"
+    case registeredAddress = "registeredAddress"
+    case deliveryAddress = "deliveryAddress"
+    case weaverId = "weaverId"
   }
 
   convenience required init(from decoder: Decoder) throws {
@@ -108,33 +115,48 @@ class User: Object, Decodable {
         pointOfContact.append(list)
     }
     weaverDetails = try? values.decodeIfPresent(Weaver.self, forKey: .weaverDetails)
-    cluster = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster)
+    if let obj = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster) {
+        cluster = obj
+    }else if let obj = try? values.decodeIfPresent(String.self, forKey: .cluster) {
+        clusterString = obj
+    }
+    
     if let roleId = try? values.decodeIfPresent(Int.self, forKey: .refRoleId) {
         refRoleId = "\(roleId)"
     }else if let roleId = try? values.decodeIfPresent(String.self, forKey: .refRoleId) {
         refRoleId = roleId
     }
     registeredOn = try? values.decodeIfPresent(String.self, forKey: .registeredOn)
-    status = try? values.decodeIfPresent(Int.self, forKey: .status)
-    emailVerified = try? values.decodeIfPresent(Int.self, forKey: .emailVerified)
+    status = try values.decodeIfPresent(Int.self, forKey: .status) ?? 0
+    emailVerified = try values.decodeIfPresent(Int.self, forKey: .emailVerified) ?? 0
     lastLoggedIn = try? values.decodeIfPresent(String.self, forKey: .lastLoggedIn)
     profilePic = try? values.decodeIfPresent(String.self, forKey: .profilePic)
     if let list = try? values.decodeIfPresent([Address].self, forKey: .addressList) {
         addressList.append(objectsIn: list)
     }
-    rating = try? values.decodeIfPresent(Int.self, forKey: .rating)
+    if let list = try? values.decodeIfPresent(Address.self, forKey: .registeredAddress) {
+        addressList.append(list)
+    }
+    if let list = try? values.decodeIfPresent(Address.self, forKey: .deliveryAddress) {
+        addressList.append(list)
+    }
+    rating = try values.decodeIfPresent(Float.self, forKey: .rating) ?? 0.0
     if let list = try? values.decodeIfPresent([PaymentAccDetails].self, forKey: .paymentAccountList) {
         paymentAccountList.append(objectsIn: list)
     }
     userName = try? values.decodeIfPresent(String.self, forKey: .userName)
-    enabled = try? values.decodeIfPresent(Bool.self, forKey: .enabled)
-    accountNonLocked = try? values.decodeIfPresent(Bool.self, forKey: .accountNonLocked)
-    accountNonExpired = try? values.decodeIfPresent(Bool.self, forKey: .accountNonExpired)
-    credentialsNonExpired = try? values.decodeIfPresent(Bool.self, forKey: .credentialsNonExpired)
+    enabled = try values.decodeIfPresent(Bool.self, forKey: .enabled) ?? false
+    accountNonLocked = try values.decodeIfPresent(Bool.self, forKey: .accountNonLocked) ?? false
+    accountNonExpired = try values.decodeIfPresent(Bool.self, forKey: .accountNonExpired) ?? false
+    credentialsNonExpired = try values.decodeIfPresent(Bool.self, forKey: .credentialsNonExpired) ?? false
     if let list = try? values.decodeIfPresent([UserProductCategory].self, forKey: .userProductCategories) {
         userProductCategories.append(objectsIn: list)
     }
+    if let list = try? values.decodeIfPresent([String].self, forKey: .productCategories) {
+        productCategories = list.joined(separator: ",")
+    }
     logo = try? values.decodeIfPresent(String.self, forKey: .logo)
+    weaverId = try? values.decodeIfPresent(String.self, forKey: .weaverId)
     }
     
 }

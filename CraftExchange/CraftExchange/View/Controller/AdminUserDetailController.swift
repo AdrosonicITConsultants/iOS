@@ -23,6 +23,7 @@ import Photos
 
 class AdminUserDetailViewModel {
     var viewDidLoad: (() -> Void)?
+    var refreshProfile: (() -> Void)?
 }
 
 class AdminUserDetailController: UIViewController {
@@ -41,37 +42,76 @@ class AdminUserDetailController: UIViewController {
     @IBOutlet weak var Rating: UILabel!
     @IBOutlet weak var Segment: UISegmentedControl!
     @IBOutlet weak var childview: UIView!
+    var userObject: User?
     
     private lazy var AdminInfoViewController: AdminGeneralInfo = {
         var viewController = AdminGeneralInfo.init()
+        viewController.userObject = userObject
         self.add(asChildViewController: viewController)
         return viewController
     }()
     
     private lazy var AdminBrandInfoViewController: AdminBrandDetails = {
         var viewController = AdminBrandDetails.init()
+        viewController.userObject = userObject
         self.add(asChildViewController: viewController)
         return viewController
     }()
     
     private lazy var AdminBankInfoViewController: AdminBankDetails = {
         var viewController = AdminBankDetails.init()
+        viewController.userObject = userObject
         self.add(asChildViewController: viewController)
         return viewController
     }()
+    
     override func viewDidLoad() {
         viewModel.viewDidLoad?()
-        let realm = try! Realm()
-        
+        Segment.setBlackControl()
+        self.viewModel.refreshProfile?()
+        self.setupUser()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init("UserProfileReceived"), object: nil, queue: .main) { (notif) in
+            self.viewModel.refreshProfile?()
+            self.Segment.selectedSegmentIndex = 0
+            self.Segment.sendActions(for: .valueChanged)
+            self.setupUser()
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-          var AdminInfoViewController: AdminGeneralInfo = {
-               var viewController = AdminGeneralInfo.init()
-               self.add(asChildViewController: viewController)
-               return viewController
-           }()
-       }
+        super.viewWillAppear(animated)
+        var _: AdminGeneralInfo = {
+             let viewController = AdminGeneralInfo.init()
+             viewController.userObject = userObject
+             self.add(asChildViewController: viewController)
+             return viewController
+        }()
+    }
+    
+    func setupUser() {
+        self.Username.text = "\(self.userObject?.firstName ?? "") \(self.userObject?.lastName ?? "")"
+        self.Value.text = self.userObject?.weaverId ?? ""
+        self.Rating.text = "\(self.userObject?.rating ?? 0.0)"
+        if let tag = self.userObject?.profilePic, let userId = self.userObject?.entityID, self.userObject?.profilePic != "" {
+            if let downloadedImage = try? Disk.retrieve("\(userId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.ProfileImg.image = downloadedImage
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = UserProfilePicService.init(client: client)
+                    service.fetch(forUser: userId, img: tag).observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(userId)/\(tag)")
+                            self.ProfileImg.image = UIImage.init(data: attachment)
+                        }
+                    }.dispose(in: self.bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     @IBAction func segmentValueChanged(_ sender: Any) {
         if Segment.selectedSegmentIndex == 0 {
             add(asChildViewController: AdminInfoViewController)

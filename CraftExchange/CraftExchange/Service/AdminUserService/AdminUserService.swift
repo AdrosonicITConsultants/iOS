@@ -17,7 +17,12 @@ class AdminUserService: BaseService<Data> {
     required init() {
         super.init()
     }
+    
     func getAllUsers(clusterId: Int, pageNo: Int, rating: Int, roleId: Int, searchStr: String, sortBy: String, sortType: String) -> SafeSignal<Data> {
         return AdminUser.getUsers(clusterId: clusterId, pageNo: pageNo, rating: rating, roleId: roleId, searchStr: searchStr, sortBy: sortBy, sortType: sortType).response(using: client).debug()
+    }
+    
+    func fetchUserProfile(userId: Int) -> SafeSignal<Data> {
+        return AdminUser.getUserProfile(userId: userId).response(using: client).debug()
     }
 }

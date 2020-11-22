@@ -27,4 +27,16 @@ extension AdminUser {
             needsAuthorization: false
         )
     }
+    
+    public static func getUserProfile(userId: Int) -> Request<Data, APIError> {
+        return Request(
+            path: "marketingTeam/userProfile/\(userId)",
+            method: .get,
+            resource: { print(String(data: $0, encoding: .utf8) ?? "marketingTeam/userProfile failed")
+            return $0
+        },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }

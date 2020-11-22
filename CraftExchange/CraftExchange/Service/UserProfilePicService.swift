@@ -13,7 +13,7 @@ import Realm
 import RealmSwift
 
 class UserProfilePicService: BaseService<URL> {
-    var userObject: User!
+    var userObject: User?
 
     convenience init(client: SafeClient, userObject: User) {
         self.init(client: client)
@@ -29,7 +29,11 @@ class UserProfilePicService: BaseService<URL> {
     }
 
     func fetch() -> Signal<Data, Never> {
-        return User.fetchProfileImage(with: userObject.entityID, name: userObject.profilePic ?? "") .response(using: client).debug()
+        return User.fetchProfileImage(with: userObject?.entityID ?? 0, name: userObject?.profilePic ?? "") .response(using: client).debug()
+    }
+    
+    func fetch(forUser: Int, img: String) -> Signal<Data, Never> {
+        return User.fetchProfileImage(with: forUser, name: img) .response(using: client).debug()
     }
 }
 

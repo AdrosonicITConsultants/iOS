@@ -13,7 +13,7 @@ import Realm
 import RealmSwift
 
 class BrandLogoService: BaseService<URL> {
-    var userObject: User!
+    var userObject: User?
 
     convenience init(client: SafeClient, userObject: User) {
         self.init(client: client)
@@ -29,6 +29,10 @@ class BrandLogoService: BaseService<URL> {
     }
 
     func fetch() -> Signal<Data, Never> {
-        return User.fetchBrandImage(with: userObject.entityID, name: userObject.buyerCompanyDetails.first?.logo ?? "") .response(using: client).debug()
+        return User.fetchBrandImage(with: userObject?.entityID ?? 0, name: userObject?.buyerCompanyDetails.first?.logo ?? "") .response(using: client).debug()
+    }
+    
+    func fetch(forUser: Int, img: String) -> Signal<Data, Never> {
+        return User.fetchBrandImage(with: forUser, name: img) .response(using: client).debug()
     }
 }

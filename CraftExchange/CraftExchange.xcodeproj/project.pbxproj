@@ -140,6 +140,8 @@
 		C04842BE24E7D46200D3207F /* CustomProduct+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04842BD24E7D46200D3207F /* CustomProduct+Transaction.swift */; };
 		C04842C024E7E0AE00D3207F /* CustomProductImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04842BF24E7E0AE00D3207F /* CustomProductImageService.swift */; };
 		C04842C224E7E70A00D3207F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04842C124E7E70A00D3207F /* Date+Extensions.swift */; };
+		C04A6148256A7334003E7A65 /* AdminUserProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04A6147256A7334003E7A65 /* AdminUserProfileScene.swift */; };
+		C04A614A256ACDCC003E7A65 /* UISegmentControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04A6149256ACDCC003E7A65 /* UISegmentControl+Extensions.swift */; };
 		C04F72D924C611D500E8122E /* ArtisanProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04F72D824C611D400E8122E /* ArtisanProductCell.swift */; };
 		C04F72DB24C611E700E8122E /* ArtisanProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C04F72DA24C611E700E8122E /* ArtisanProductCell.xib */; };
 		C04F72DE24C6276B00E8122E /* ArtisanProdCatalogueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04F72DD24C6276B00E8122E /* ArtisanProdCatalogueController.swift */; };
@@ -520,6 +522,8 @@
 		C04842BD24E7D46200D3207F /* CustomProduct+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomProduct+Transaction.swift"; sourceTree = "<group>"; };
 		C04842BF24E7E0AE00D3207F /* CustomProductImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProductImageService.swift; sourceTree = "<group>"; };
 		C04842C124E7E70A00D3207F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		C04A6147256A7334003E7A65 /* AdminUserProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUserProfileScene.swift; sourceTree = "<group>"; };
+		C04A6149256ACDCC003E7A65 /* UISegmentControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentControl+Extensions.swift"; sourceTree = "<group>"; };
 		C04F72D824C611D400E8122E /* ArtisanProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanProductCell.swift; sourceTree = "<group>"; };
 		C04F72DA24C611E700E8122E /* ArtisanProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtisanProductCell.xib; sourceTree = "<group>"; };
 		C04F72DD24C6276B00E8122E /* ArtisanProdCatalogueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanProdCatalogueController.swift; sourceTree = "<group>"; };
@@ -1294,6 +1298,7 @@
 				C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */,
 				C09B3F1824BA6DF500FBC115 /* UIImageView+Extensions.swift */,
 				C04842C124E7E70A00D3207F /* Date+Extensions.swift */,
+				C04A6149256ACDCC003E7A65 /* UISegmentControl+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1687,6 +1692,7 @@
 			isa = PBXGroup;
 			children = (
 				C0E2353B25667B1D00A1F268 /* AdminUserScene.swift */,
+				C04A6147256A7334003E7A65 /* AdminUserProfileScene.swift */,
 			);
 			path = AdminUserTabScenes;
 			sourceTree = "<group>";
@@ -2022,6 +2028,7 @@
 				C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */,
 				C05E3AD424D177EA00963FAA /* UploadProductController.swift in Sources */,
 				C0B2311A24F8F64C00193ABB /* UILabel+Extensions.swift in Sources */,
+				C04A614A256ACDCC003E7A65 /* UISegmentControl+Extensions.swift in Sources */,
 				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
 				C005BCB124C16EF100197519 /* HomeScreenService.swift in Sources */,
 				C0A0AC5E24E6A98B00F7492E /* UploadCustomProductController.swift in Sources */,
@@ -2088,6 +2095,7 @@
 				309BFD2A251C6FF3001FAC7F /* MOQSelectedDetailsRow.swift in Sources */,
 				C0285AA124CF4E4F0045623A /* BuyerProductCatalogController.swift in Sources */,
 				C0A29FFC24B8A72300A49E56 /* CompanyPointOfContact.swift in Sources */,
+				C04A6148256A7334003E7A65 /* AdminUserProfileScene.swift in Sources */,
 				C09B3EFC24BA38B500FBC115 /* UserProductCategories+Transaction.swift in Sources */,
 				C0ACE99E2485916400EFA4ED /* ProductCategory+Request.swift in Sources */,
 				C09C8C21250CBDBC00950526 /* Enquiry+Transactions.swift in Sources */,

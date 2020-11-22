@@ -22,11 +22,10 @@ import ImageRow
 import ViewRow
 import WebKit
 
-
 class AdminBuyerUserDetailViewModel {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
-    
+    var refreshProfile: (() -> ())?
 }
 
 class AdminBuyerUserDetailController: UIViewController {
@@ -38,12 +37,14 @@ class AdminBuyerUserDetailController: UIViewController {
     @IBOutlet weak var BuyerNumberLabel: UILabel!
     @IBOutlet weak var BuyerRatingLabel: UILabel!
     var reachabilityManager = try? Reachability()
-    let realm = try! Realm()
     lazy var viewModel = AdminBuyerUserDetailViewModel()
+    var userObject: User?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        var AdminBuyerInfoViewController: AdminBuyerInfo = {
-            var viewController = AdminBuyerInfo.init()
+        var _: AdminBuyerInfo = {
+            let viewController = AdminBuyerInfo.init()
+            viewController.userObject = userObject
             self.add(asChildViewController: viewController)
             return viewController
         }()
@@ -63,11 +64,41 @@ class AdminBuyerUserDetailController: UIViewController {
         // Notify Child View Controller
         viewController.didMove(toParent: self)
     }
+    
     override func viewDidLoad() {
-     super.viewDidLoad()
-     let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
-     let rightBarButtomItem2 = self.searchBarButton()
-     navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
-     self.view.backgroundColor = .black
-}
+        super.viewDidLoad()
+        self.viewModel.viewWillAppear?()
+        self.viewModel.refreshProfile?()
+        self.setupUser()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init("UserProfileReceived"), object: nil, queue: .main) { (notif) in
+            self.viewModel.refreshProfile?()
+            let viewController = AdminBuyerInfo.init()
+            viewController.userObject = self.userObject
+            self.add(asChildViewController: viewController)
+            self.setupUser()
+        }
+    }
+    func setupUser() {
+        self.BuyerUserLabel.text = "\(self.userObject?.firstName ?? "") \(self.userObject?.lastName ?? "")"
+        self.BuyerNumberLabel.text = self.userObject?.buyerCompanyDetails.first?.companyName ?? ""
+        self.BuyerRatingLabel.text = "\(self.userObject?.rating ?? 0.0)"
+        if let tag = self.userObject?.buyerCompanyDetails.first?.logo, let userId = self.userObject?.entityID, self.userObject?.buyerCompanyDetails.first?.logo != "" {
+            if let downloadedImage = try? Disk.retrieve("\(userId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.BuyerScreenLogo.image = downloadedImage
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = BrandLogoService.init(client: client)
+                    service.fetch(forUser: userId, img: tag).observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(userId)/\(tag)")
+                            self.BuyerScreenLogo.image = UIImage.init(data: attachment)
+                        }
+                    }.dispose(in: self.bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
 }

@@ -61,10 +61,7 @@ class AdminUserController: UIViewController {
         self.view.backgroundColor = .black
         self.spreadsheetView.backgroundColor = .black
         
-        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        segmentedControl.setTitleTextAttributes(titleTextAttributes, for: .normal)
-        let titleTextAttributes2 = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        segmentedControl.setTitleTextAttributes(titleTextAttributes2, for: .selected)
+        segmentedControl.setBlackControl()
         header = ["Artisan id", "Name", "Email", "Cluster", "Brand", "Rating", "Date"]
         spreadsheetView.dataSource = self
         spreadsheetView.delegate = self
@@ -273,13 +270,20 @@ extension AdminUserController: SpreadsheetViewDataSource, SpreadsheetViewDelegat
             sortTable()
         }else {
             if segmentedControl.selectedSegmentIndex == 0 {
-                if let vc = storyboard?.instantiateViewController(identifier: "AdminUserDetailController") {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = AdminUserService(client: client).createArtisanProfileScene(forUser: allUsers?[indexPath.row - 1].entityID ?? 0)
                     self.navigationController?.pushViewController(vc, animated: true)
+                } catch let error {
+                  print("Unable to load view:\n\(error.localizedDescription)")
                 }
-                
             }else {
-                if let vc = storyboard?.instantiateViewController(identifier: "AdminBuyerUserDetailController") {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = AdminUserService(client: client).createBuyerProfileScene(forUser: allUsers?[indexPath.row - 1].entityID ?? 0)
                     self.navigationController?.pushViewController(vc, animated: true)
+                } catch let error {
+                  print("Unable to load view:\n\(error.localizedDescription)")
                 }
             }
         }
