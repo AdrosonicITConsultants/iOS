@@ -25,4 +25,8 @@ class AdminUserService: BaseService<Data> {
     func fetchUserProfile(userId: Int) -> SafeSignal<Data> {
         return AdminUser.getUserProfile(userId: userId).response(using: client).debug()
     }
+    
+    func updateUserRating(userId: Int, rating: Float) -> SafeSignal<Data> {
+        return AdminUser.editUserRating(userId: userId, rating: rating).response(using: client).debug()
+    }
 }

@@ -27,6 +27,9 @@ extension AdminUserService {
             let realm = try? Realm()
             controller.userObject = realm?.objects(User.self).filter("%K == %@","entityID",forUser).first
         }
+        controller.viewModel.updateRating = { (value) in
+            self.changeRating(forUser: forUser, value: value, controller: controller)
+        }
         return controller
     }
     
@@ -41,7 +44,22 @@ extension AdminUserService {
             let realm = try? Realm()
             controller.userObject = realm?.objects(User.self).filter("%K == %@","entityID",forUser).first
         }
+        controller.viewModel.updateRating = { (value) in
+            self.changeRating(forUser: forUser, value: value, controller: controller)
+        }
         return controller
+    }
+    
+    func changeRating(forUser: Int, value: Float, controller: UIViewController) {
+        self.updateUserRating(userId: forUser, rating: value).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                if let isValid = json["valid"] as? Bool, isValid == true {
+                    DispatchQueue.main.async {
+                        controller.alert("Success", "\(json["data"] as? String ?? "Rating updated")", callback: nil)
+                    }
+                }
+            }
+        }
     }
     
     func loadUser(userId: Int, vc: UIViewController) {

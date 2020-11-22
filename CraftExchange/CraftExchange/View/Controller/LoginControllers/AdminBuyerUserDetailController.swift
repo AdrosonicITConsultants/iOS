@@ -26,6 +26,7 @@ class AdminBuyerUserDetailViewModel {
     var viewWillAppear: (() -> ())?
     var viewDidAppear: (() -> ())?
     var refreshProfile: (() -> ())?
+    var updateRating: ((_ newRating: Float) -> Void)?
 }
 
 class AdminBuyerUserDetailController: UIViewController {
@@ -35,7 +36,7 @@ class AdminBuyerUserDetailController: UIViewController {
     @IBOutlet weak var BuyerUserImg: UIImageView!
     @IBOutlet weak var BuyerUserLabel: UILabel!
     @IBOutlet weak var BuyerNumberLabel: UILabel!
-    @IBOutlet weak var BuyerRatingLabel: UILabel!
+    @IBOutlet weak var ratingBtn: UIButton!
     var reachabilityManager = try? Reachability()
     lazy var viewModel = AdminBuyerUserDetailViewModel()
     var userObject: User?
@@ -81,7 +82,7 @@ class AdminBuyerUserDetailController: UIViewController {
     func setupUser() {
         self.BuyerUserLabel.text = "\(self.userObject?.firstName ?? "") \(self.userObject?.lastName ?? "")"
         self.BuyerNumberLabel.text = self.userObject?.buyerCompanyDetails.first?.companyName ?? ""
-        self.BuyerRatingLabel.text = "\(self.userObject?.rating ?? 0.0)"
+        self.ratingBtn.setTitle(" Rating \(self.userObject?.rating ?? 0.0)", for: .normal)
         if let tag = self.userObject?.buyerCompanyDetails.first?.logo, let userId = self.userObject?.entityID, self.userObject?.buyerCompanyDetails.first?.logo != "" {
             if let downloadedImage = try? Disk.retrieve("\(userId)/\(tag)", from: .caches, as: UIImage.self) {
                 self.BuyerScreenLogo.image = downloadedImage
@@ -100,5 +101,8 @@ class AdminBuyerUserDetailController: UIViewController {
                 }
             }
         }
+    }
+    @IBAction func editRatingSelected(_ sender: Any) {
+        self.showRatingSlider(sliderVal: userObject?.rating ?? 0.0)
     }
 }

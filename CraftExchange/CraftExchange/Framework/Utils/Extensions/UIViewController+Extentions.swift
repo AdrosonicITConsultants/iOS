@@ -42,6 +42,80 @@ extension UIViewController {
         self.present(vc, animated: true, completion: nil)
     }
     
+    func showRatingSlider(sliderVal: Float) {
+        let alert = UIAlertController.init(title: "Update Rating", message: "", preferredStyle: .alert)
+        
+        let slider = UISlider.init(frame: CGRect.init(x: 70, y: 35, width: 120, height: 30))
+        slider.minimumValue = 0.0
+        slider.maximumValue = 10.0
+        slider.value = sliderVal
+        slider.tintColor = UIColor.red
+        slider.addTarget(self, action: #selector(ratingChanged(_:)), for: .valueChanged)
+        alert.view.addSubview(slider)
+        
+        if let handleView = slider.subviews.last as? UIImageView {
+            let val = (slider.value * 10).rounded(.toNearestOrEven) / 10
+
+            if let label = handleView.viewWithTag(1000) as? UILabel {
+                label.text = "\(val)"
+            }else {
+                let label = UILabel.init(frame: handleView.bounds)
+                label.tag = 1000;
+
+                label.font = .systemFont(ofSize: 12)
+                label.textColor = .red
+                label.backgroundColor = .clear
+                label.text = "\(val)"
+                
+                label.textAlignment = .center
+                handleView.addSubview(label)
+            }
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+        }))
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            if let vc = self as? AdminUserDetailController {
+                if vc.userObject?.rating != slider.value {
+                    let val = (slider.value * 10).rounded(.toNearestOrEven) / 10
+                    vc.ratingBtn.setTitle(" Rating \(val)", for: .normal)
+                    vc.viewModel.updateRating?(val)
+                }
+            }else if let vc = self as? AdminBuyerUserDetailController {
+                if vc.userObject?.rating != slider.value {
+                    let val = (slider.value * 10).rounded(.toNearestOrEven) / 10
+                    vc.ratingBtn.setTitle(" Rating \(val)", for: .normal)
+                    vc.viewModel.updateRating?(val)
+                }
+            }
+        }))
+        alert.view.center = self.view.center
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc @IBAction func ratingChanged(_ sender: Any) {
+        if let slider = sender as? UISlider {
+            if let handleView = slider.subviews.last as? UIImageView {
+                let val = (slider.value * 10).rounded(.toNearestOrEven) / 10
+
+                if let label = handleView.viewWithTag(1000) as? UILabel {
+                    label.text = "\(val)"
+                }else {
+                    let label = UILabel.init(frame: handleView.bounds)
+                    label.tag = 1000;
+
+                    label.font = .systemFont(ofSize: 12)
+                    label.textColor = .red
+                    label.backgroundColor = .clear
+                    label.text = "\(val)"
+                    
+                    label.textAlignment = .center
+                    handleView.addSubview(label)
+                }
+            }
+        }
+    }
+    
     func showImagePickerAlert() {
         let alert = UIAlertController.init(title: "Please Select:".localized, message: "Options:".localized, preferredStyle: .actionSheet)
         let action1 = UIAlertAction.init(title: "Camera".localized, style: .default) { (action) in
