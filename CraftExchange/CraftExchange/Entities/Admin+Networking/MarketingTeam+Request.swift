@@ -45,7 +45,7 @@ extension AdminTeammate {
    
     public static func getAdminTeam(pageNo: Int) -> Request<Data, APIError> {
         let parameters: [String: Any] = ["pageNo": pageNo,
-                                        "refRoleId": 0,
+                                        "refRoleId": -1,
                                        "searchStr": ""]
         print(parameters)
         return Request(

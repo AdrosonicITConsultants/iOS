@@ -46,4 +46,8 @@ class HomeScreenService: BaseService<Data> {
     func fetchAllWishlistIds() -> SafeSignal<Data> {
       return Product.getAllProductIdsInWishlist().response(using: client).debug()
     }
+        
+    func fetchAllAdminEnquiryAndOrder() -> SafeSignal<Data> {
+        return MarketingCount.getAdminEnquiryAndOrder().response(using: client).debug()
+    }
 }

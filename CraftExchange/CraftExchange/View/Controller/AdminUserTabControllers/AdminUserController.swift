@@ -40,6 +40,7 @@ class AdminUserController: UIViewController {
     var selectedCluster: ClusterDetails?
     var selectedRating = -1.0
     var reachedLimit = false
+    var totalCount: Int?
     
     enum Sorting {
         case ascending
@@ -85,10 +86,12 @@ class AdminUserController: UIViewController {
     
     @IBAction func segmentValueChanged(_ sender: Any) {
         if segmentedControl.selectedSegmentIndex == 0 {
+            CountLabel.text = "Total Artisans: \(totalCount ?? 0)"
             header = ["Artisan id", "Name", "Email", "Cluster", "Brand", "Rating", "Date"]
             clusterBtn.isHidden = false
             Cluster.isHidden = false
         }else {
+            CountLabel.text = "Total Artisans: \(totalCount ?? 0)"
             header = ["Name", "Email", "Phone Number", "Brand", "Rating", "Date"]
             clusterBtn.isHidden = true
             Cluster.isHidden = true

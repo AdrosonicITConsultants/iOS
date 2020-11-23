@@ -51,4 +51,23 @@ extension AdminUser {
             needsAuthorization: false
         )
     }
+    
+    public static func getAllUsersCount(clusterId: Int, pageNo: Int, rating: Int, roleId: Int, searchStr: String, sortBy: String, sortType: String) -> Request<Data, APIError> {
+      let parameters: [String: Any] = [ "clusterId": clusterId,
+                                        "pageNo": pageNo,
+                                        "rating": rating,
+                                        "roleId": roleId,
+                                        "searchStr": searchStr,
+                                        "sortBy": sortBy,
+                                        "sortType": sortType]
+        return Request(
+            path: "marketingTeam/getUserCount",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "marketingTeam/getUserCount failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }
