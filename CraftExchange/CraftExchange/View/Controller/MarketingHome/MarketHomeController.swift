@@ -83,14 +83,14 @@ class MarketHomeController: FormViewController {
             <<< MarketActionsRow() {
                 $0.tag = "HorizonatalAdmin1"
                 $0.cell.backgroundColor = UIColor.black
-                $0.cell.ActionBtn.backgroundColor = UIColor.red
+                $0.cell.backgroundGradientView.backgroundColor = UIColor.red
                 let gradient = CAGradientLayer()
-                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.ActionBtn.bounds.width, height: 60)
+                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.backgroundGradientView.bounds.width, height: 60)
                 gradient.startPoint = CGPoint(x:0.0, y:1)
                 gradient.endPoint = CGPoint(x:1.0, y:1)
                 gradient.colors = [UIColor.red.cgColor,UIColor(red: 0.6275, green: 0.1059, blue: 0.1765, alpha: 1.0).cgColor]
                 gradient.cornerRadius = 10
-                $0.cell.ActionBtn.layer.addSublayer(gradient)
+                $0.cell.backgroundGradientView.layer.addSublayer(gradient)
                 $0.cell.delegate = self
                 $0.cell.tag = 109
                 $0.cell.ActionLabel.text = "Fault and Escalations"
@@ -107,12 +107,12 @@ class MarketHomeController: FormViewController {
                 $0.tag = "HorizonatalAdmin2"
                 $0.cell.backgroundColor = UIColor.black
                 let gradient = CAGradientLayer()
-                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.ActionBtn.bounds.width, height: 60)
+                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.backgroundGradientView.bounds.width, height: 60)
                 gradient.startPoint = CGPoint(x:0.0, y:1)
                 gradient.endPoint = CGPoint(x:1.0, y:1)
                 gradient.colors = [UIColor.yellow.cgColor, UIColor(red: 0.5961, green: 0.6275, blue: 0, alpha: 1.0).cgColor]
                 gradient.cornerRadius = 10
-                $0.cell.ActionBtn.layer.addSublayer(gradient)
+                $0.cell.backgroundGradientView.layer.addSublayer(gradient)
                 $0.cell.ActionLabel.text = "Add a Product"
                 $0.cell.ColorLine.isHidden = true
                 $0.cell.LowerActionLabel.text = " to Antaran Co Design"
@@ -123,12 +123,12 @@ class MarketHomeController: FormViewController {
                 $0.tag = "HorizonatalAdmin3"
                 $0.cell.backgroundColor = UIColor.black
                 let gradient = CAGradientLayer()
-                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.ActionBtn.bounds.width, height: 60)
+                gradient.frame = CGRect(x: 0, y: 0, width: $0.cell.backgroundGradientView.bounds.width, height: 60)
                 gradient.startPoint = CGPoint(x:0.0, y:1)
                 gradient.endPoint = CGPoint(x:1.0, y:1)
                 gradient.colors = [UIColor.lightGray.cgColor, UIColor(red: 0.3176, green: 0.3176, blue: 0.302, alpha: 1.0).cgColor]
                 gradient.cornerRadius = 10
-                $0.cell.ActionBtn.layer.addSublayer(gradient)
+                $0.cell.backgroundGradientView.layer.addSublayer(gradient)
                 $0.cell.ActionLabel.text = "Redirect Custom enquiries"
                 $0.cell.ColorLine.isHidden = true
                 $0.cell.LowerActionLabel.text = "awaiting MOQs"

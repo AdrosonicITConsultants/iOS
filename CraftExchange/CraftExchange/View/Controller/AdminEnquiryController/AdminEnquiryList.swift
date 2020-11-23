@@ -34,14 +34,13 @@ class AdminEnquiryList: FormViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         self.tableView?.backgroundColor = .black
-        
-        let realm = try! Realm()
+
         form +++
             Section()
             <<< MarketActionsRow() {
                 $0.tag = "Ongoing Enquiries"
                 $0.cell.backgroundColor = UIColor.black
-                $0.cell.ActionBtn.backgroundColor = UIColor.black
+                $0.cell.backgroundGradientView.backgroundColor = UIColor.black
                 $0.cell.ActionLabel.text = "Ongoing Enquiries"
                 $0.cell.LowerActionLabel.text = "87,56,565"
                 $0.cell.ColorLine.backgroundColor = UIColor.blue
@@ -50,12 +49,21 @@ class AdminEnquiryList: FormViewController {
             }.cellUpdate({ (cell, row) in
                 let app = UIApplication.shared.delegate as? AppDelegate
                 cell.LowerActionLabel.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
+            }).onCellSelection({ (cell, row) in
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = AdminEnquiryListService(client: client).createScene()
+                    vc.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }catch {
+                    print(error.localizedDescription)
+                }
             })
             
             <<< MarketActionsRow() {
                 $0.tag = "Incomplete & closed"
                 $0.cell.backgroundColor = UIColor.black
-                $0.cell.ActionBtn.backgroundColor = UIColor.black
+                $0.cell.backgroundGradientView.backgroundColor = UIColor.black
                 $0.cell.ColorLine.backgroundColor = UIColor.red
                 
                 $0.cell.ActionLabel.text = "Incomplete & closed"

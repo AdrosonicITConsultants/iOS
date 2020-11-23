@@ -38,45 +38,39 @@ class AdminTabbarController: UIViewController {
         let app = UIApplication.shared.delegate as? AppDelegate
         valueLabel1.text = "\(app?.countData?.totalEnquiries ?? 0)"
         valueLabel2.text = "\(app?.countData?.escaltions ?? 0)"
-        var AdminEnquiryListViewController: AdminEnquiryList = {
-            var viewController = AdminEnquiryList.init()
-            self.add(asChildViewController: viewController)
-            return viewController
-        }()
+        segment.selectedSegmentIndex = 0
+        segment.sendActions(for: .valueChanged)
+//        var AdminEnquiryListViewController: AdminEnquiryList = {
+//            var viewController = AdminEnquiryList.init()
+//            self.add(asChildViewController: viewController)
+//            return viewController
+//        }()
     }
     override func viewDidLoad() {
         let realm = try! Realm()
+        segment.setBlackControl()
     }
+    
     private lazy var AdminEnquiryListViewController: AdminEnquiryList = {
-           var viewController = AdminEnquiryList.init()
-           self.add(asChildViewController: viewController)
-           return viewController
-       }()
+       var viewController = AdminEnquiryList.init()
+       self.add(asChildViewController: viewController)
+       return viewController
+    }()
        
-       private lazy var AdminOrderListViewController: AdminOrderList = {
-           var viewController = AdminOrderList.init()
-           self.add(asChildViewController: viewController)
-           return viewController
-       }()
+   private lazy var AdminOrderListViewController: AdminOrderList = {
+       var viewController = AdminOrderList.init()
+       self.add(asChildViewController: viewController)
+       return viewController
+   }()
+    
    @IBAction func segmentValueChanged(_ sender: Any) {
-    if segment.selectedSegmentIndex == 0 {
-        add(asChildViewController: AdminEnquiryListViewController)
-        remove(asChildViewController: AdminOrderListViewController)
-        
-    } else if segment.selectedSegmentIndex == 1 {
-        remove(asChildViewController: AdminEnquiryListViewController)
-        add(asChildViewController: AdminOrderListViewController)
-    }else {
-        add(asChildViewController: AdminEnquiryListViewController)
-        remove(asChildViewController: AdminOrderListViewController)
-    }
-//        if segment.selectedSegmentIndex == 0 {
-//            add(asChildViewController: AdminEnquiryListViewController)
-//            remove(asChildViewController: AdminOrderListViewController)
-//        }else if segment.selectedSegmentIndex == 1 {
-//            remove(asChildViewController: AdminEnquiryListViewController)
-//            add(asChildViewController: AdminOrderListViewController)
-//        }
+        if segment.selectedSegmentIndex == 0 {
+            add(asChildViewController: AdminEnquiryListViewController)
+            remove(asChildViewController: AdminOrderListViewController)
+        } else if segment.selectedSegmentIndex == 1 {
+            remove(asChildViewController: AdminEnquiryListViewController)
+            add(asChildViewController: AdminOrderListViewController)
+        }
     }
     
     private func add(asChildViewController viewController: FormViewController) {
@@ -93,6 +87,7 @@ class AdminTabbarController: UIViewController {
         // Notify Child View Controller
         viewController.didMove(toParent: self)
     }
+    
     private func remove(asChildViewController viewController: FormViewController) {
         // Notify Child View Controller
         viewController.willMove(toParent: nil)

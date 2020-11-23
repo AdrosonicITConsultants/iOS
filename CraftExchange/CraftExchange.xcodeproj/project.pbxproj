@@ -354,6 +354,13 @@
 		C0AE9CF924ED7E970037ECB3 /* ToggleOptionRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0AE9CF824ED7E970037ECB3 /* ToggleOptionRow.xib */; };
 		C0AE9CFB24ED842F0037ECB3 /* ToggleOptionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AE9CFA24ED842F0037ECB3 /* ToggleOptionRow.swift */; };
 		C0B2311A24F8F64C00193ABB /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B2311924F8F64C00193ABB /* UILabel+Extensions.swift */; };
+		C0B6633D256BFE6300DADAA4 /* AdminEnquiryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B6633C256BFE6300DADAA4 /* AdminEnquiryListCell.xib */; };
+		C0B6633F256BFF5800DADAA4 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B6633E256BFF5800DADAA4 /* GradientView.swift */; };
+		C0B66341256C1EFB00DADAA4 /* AdminEnquiryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B66340256C1EFB00DADAA4 /* AdminEnquiryListCell.swift */; };
+		C0B66343256C25F700DADAA4 /* AdminEnquiryTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0B66342256C25F700DADAA4 /* AdminEnquiryTab.storyboard */; };
+		C0B66345256C31AE00DADAA4 /* AdminEnquiryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B66344256C31AE00DADAA4 /* AdminEnquiryListViewController.swift */; };
+		C0B66347256C380200DADAA4 /* AdminEnquiryListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B66346256C380200DADAA4 /* AdminEnquiryListService.swift */; };
+		C0B6634A256C384C00DADAA4 /* AdminEnquiryListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B66349256C384C00DADAA4 /* AdminEnquiryListScene.swift */; };
 		C0C4CD85250BCD7100017889 /* EnquiryListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD84250BCD7100017889 /* EnquiryListService.swift */; };
 		C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */; };
 		C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */; };
@@ -737,6 +744,13 @@
 		C0AE9CF824ED7E970037ECB3 /* ToggleOptionRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleOptionRow.xib; sourceTree = "<group>"; };
 		C0AE9CFA24ED842F0037ECB3 /* ToggleOptionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleOptionRow.swift; sourceTree = "<group>"; };
 		C0B2311924F8F64C00193ABB /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		C0B6633C256BFE6300DADAA4 /* AdminEnquiryListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminEnquiryListCell.xib; sourceTree = "<group>"; };
+		C0B6633E256BFF5800DADAA4 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		C0B66340256C1EFB00DADAA4 /* AdminEnquiryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryListCell.swift; sourceTree = "<group>"; };
+		C0B66342256C25F700DADAA4 /* AdminEnquiryTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdminEnquiryTab.storyboard; sourceTree = "<group>"; };
+		C0B66344256C31AE00DADAA4 /* AdminEnquiryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryListViewController.swift; sourceTree = "<group>"; };
+		C0B66346256C380200DADAA4 /* AdminEnquiryListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryListService.swift; sourceTree = "<group>"; };
+		C0B66349256C384C00DADAA4 /* AdminEnquiryListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryListScene.swift; sourceTree = "<group>"; };
 		C0C4CD84250BCD7100017889 /* EnquiryListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListService.swift; sourceTree = "<group>"; };
 		C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryStages.swift; sourceTree = "<group>"; };
 		C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListScene.swift; sourceTree = "<group>"; };
@@ -1030,6 +1044,7 @@
 		C03BD88F2476F83100279D7F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C0B66348256C383600DADAA4 /* AdminEnquiryTabScenes */,
 				A94D236625658F9900CDF674 /* TeammateScenes */,
 				C0E2353A25667A9D00A1F268 /* AdminUserTabScenes */,
 				C06570B8252BB4C7001140C7 /* TransactionScenes */,
@@ -1172,6 +1187,7 @@
 				30E3C639252B340600AB95E5 /* Payment.storyboard */,
 				118F70422552EE4E0075F998 /* AdminNotification.storyboard */,
 				C095391325597E2E00D0E3FC /* MarketingTabbar.storyboard */,
+				C0B66342256C25F700DADAA4 /* AdminEnquiryTab.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1410,6 +1426,7 @@
 		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
 			isa = PBXGroup;
 			children = (
+				C0B6633B256BFE4500DADAA4 /* EnquiryTab */,
 				C0D8D959255AA63E0082AC4F /* UserDB */,
 				C02131C62559C86200269991 /* MarketingHomeRows */,
 				115338B22547FB3B00BF4204 /* AdminProductCatalogueCells */,
@@ -1638,11 +1655,30 @@
 			path = Playfair;
 			sourceTree = "<group>";
 		};
+		C0B6633B256BFE4500DADAA4 /* EnquiryTab */ = {
+			isa = PBXGroup;
+			children = (
+				C0B6633E256BFF5800DADAA4 /* GradientView.swift */,
+				C0B6633C256BFE6300DADAA4 /* AdminEnquiryListCell.xib */,
+				C0B66340256C1EFB00DADAA4 /* AdminEnquiryListCell.swift */,
+			);
+			path = EnquiryTab;
+			sourceTree = "<group>";
+		};
+		C0B66348256C383600DADAA4 /* AdminEnquiryTabScenes */ = {
+			isa = PBXGroup;
+			children = (
+				C0B66349256C384C00DADAA4 /* AdminEnquiryListScene.swift */,
+			);
+			path = AdminEnquiryTabScenes;
+			sourceTree = "<group>";
+		};
 		C0C4CD83250BCD0600017889 /* EnquiryService */ = {
 			isa = PBXGroup;
 			children = (
 				C0C4CD84250BCD7100017889 /* EnquiryListService.swift */,
 				C09C8C26250D4DA400950526 /* EnquiryDetailsService.swift */,
+				C0B66346256C380200DADAA4 /* AdminEnquiryListService.swift */,
 			);
 			path = EnquiryService;
 			sourceTree = "<group>";
@@ -1662,6 +1698,7 @@
 			isa = PBXGroup;
 			children = (
 				118F7053255557C50075F998 /* AdminEnquiryList.swift */,
+				C0B66344256C31AE00DADAA4 /* AdminEnquiryListViewController.swift */,
 			);
 			path = AdminEnquiryController;
 			sourceTree = "<group>";
@@ -1937,12 +1974,14 @@
 				307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */,
 				C099E3EF24FE9252003B6E3B /* EnquiryExistsView.xib in Resources */,
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
+				C0B66343256C25F700DADAA4 /* AdminEnquiryTab.storyboard in Resources */,
 				C06570A9252B9128001140C7 /* TransactionTitleRow.xib in Resources */,
 				3089DED8252B31C2003184FA /* uploadRecieptView.xib in Resources */,
 				C0E6D03B24EBD7D0008CFB1F /* ProductDetailInfoRow.xib in Resources */,
 				309787792524136000F9B608 /* PreviewPIView.xib in Resources */,
 				C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */,
 				C04F72DB24C611E700E8122E /* ArtisanProductCell.xib in Resources */,
+				C0B6633D256BFE6300DADAA4 /* AdminEnquiryListCell.xib in Resources */,
 				C0A9108D247CD8D000852695 /* Lato-Bold.ttf in Resources */,
 				C0A91092247CD8D000852695 /* Lato-BoldItalic.ttf in Resources */,
 				C05E3AE524D2839E00963FAA /* CollectionViewRow.xib in Resources */,
@@ -2027,6 +2066,7 @@
 				C0917DE624D46099006B6664 /* Yarn.swift in Sources */,
 				C071E247247EE59E0085805B /* Result.swift in Sources */,
 				C0A8EE9F24C0ED070074C620 /* ProductCategoryCell.swift in Sources */,
+				C0B66345256C31AE00DADAA4 /* AdminEnquiryListViewController.swift in Sources */,
 				C02131CE2559C8AE00269991 /* MarketActions.swift in Sources */,
 				C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */,
 				C05E3AD424D177EA00963FAA /* UploadProductController.swift in Sources */,
@@ -2049,6 +2089,7 @@
 				A94D236C2565A27D00CDF674 /* AdminTeammate+Transaction.swift in Sources */,
 				A9678416256427680066C147 /* MarketingTeam+Request.swift in Sources */,
 				C06570A0252B82D3001140C7 /* TransactionStatus+Request.swift in Sources */,
+				C0B66347256C380200DADAA4 /* AdminEnquiryListService.swift in Sources */,
 				115338A12542BB8300BF4204 /* BrandDetailView.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
 				C06DCAC924D346F100F1435F /* OrderAvailabilityCell.swift in Sources */,
@@ -2186,6 +2227,7 @@
 				C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */,
 				C0AE9CF124ECDA2B0037ECB3 /* ProdDetailYarnRow.swift in Sources */,
 				C02DC55024F4F02B00805C98 /* SearchTableViewController.swift in Sources */,
+				C0B6634A256C384C00DADAA4 /* AdminEnquiryListScene.swift in Sources */,
 				C0917DF424D47361006B6664 /* Yarn+Transaction.swift in Sources */,
 				C0995BF424C8C88100EC4CC3 /* CategoryBrandCell.swift in Sources */,
 				307B3985252C917D000028AC /* TransactionReceiptView.swift in Sources */,
@@ -2209,6 +2251,7 @@
 				C0E2353F25667B4700A1F268 /* AdminUserService.swift in Sources */,
 				C02EE1A5253DC9150039B1C9 /* DefaultViewController.swift in Sources */,
 				308D5F672514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift in Sources */,
+				C0B6633F256BFF5800DADAA4 /* GradientView.swift in Sources */,
 				115338A42542D8E900BF4204 /* AdminBuyerUserDetailController.swift in Sources */,
 				114186B92535C90F0039B80F /* AdminLabelCell.swift in Sources */,
 				C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */,
@@ -2281,6 +2324,7 @@
 				A9678419256428090066C147 /* MarketingTeammateService.swift in Sources */,
 				11173F5D254192A40027B9C3 /* AdminUserController.swift in Sources */,
 				C06DCAC524D33DBB00F1435F /* lengthWidthRow.swift in Sources */,
+				C0B66341256C1EFB00DADAA4 /* AdminEnquiryListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

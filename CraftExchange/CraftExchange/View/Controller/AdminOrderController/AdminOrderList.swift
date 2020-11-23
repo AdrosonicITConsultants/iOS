@@ -41,7 +41,7 @@ class AdminOrderList: FormViewController {
             <<< MarketActionsRow() {
                     $0.tag = "Ongoing Orders"
                     $0.cell.backgroundColor = UIColor.black
-                    $0.cell.ActionBtn.backgroundColor = UIColor.black
+                    $0.cell.backgroundGradientView.backgroundColor = UIColor.black
                     $0.cell.ColorLine.backgroundColor = UIColor.blue
                     
                     $0.cell.ActionLabel.text = "Ongoing Orders"
@@ -56,7 +56,7 @@ class AdminOrderList: FormViewController {
            <<< MarketActionsRow() {
                    $0.tag = "Incomplete & closed"
                    $0.cell.backgroundColor = UIColor.black
-                   $0.cell.ActionBtn.backgroundColor = UIColor.black
+                   $0.cell.backgroundGradientView.backgroundColor = UIColor.black
                    $0.cell.ColorLine.backgroundColor = UIColor.red
                    
                    $0.cell.ActionLabel.text = "Incomplete & closed"
@@ -69,19 +69,19 @@ class AdminOrderList: FormViewController {
            })
             
         <<< MarketActionsRow() {
-                          $0.tag = "Complete Successfully"
-                          $0.cell.backgroundColor = UIColor.black
-                          $0.cell.ActionBtn.backgroundColor = UIColor.black
-                          $0.cell.ColorLine.backgroundColor = UIColor.green
-                          
-                          $0.cell.ActionLabel.text = "Complete Successfully"
-                          $0.cell.LowerActionLabel.text = "87,56,565"
-                          $0.cell.ActionImg.isHidden = true
-                          $0.cell.height = { 100.0 }
-                  }.cellUpdate({ (cell, row) in
-                      let app = UIApplication.shared.delegate as? AppDelegate
-                      cell.LowerActionLabel.text = "\(app?.countData?.orderCompletedSuccessfully ?? 0)"
-                  })
+              $0.tag = "Complete Successfully"
+              $0.cell.backgroundColor = UIColor.black
+              $0.cell.backgroundGradientView.backgroundColor = UIColor.black
+              $0.cell.ColorLine.backgroundColor = UIColor.green
+              
+              $0.cell.ActionLabel.text = "Complete Successfully"
+              $0.cell.LowerActionLabel.text = "87,56,565"
+              $0.cell.ActionImg.isHidden = true
+              $0.cell.height = { 100.0 }
+      }.cellUpdate({ (cell, row) in
+          let app = UIApplication.shared.delegate as? AppDelegate
+          cell.LowerActionLabel.text = "\(app?.countData?.orderCompletedSuccessfully ?? 0)"
+      })
     
     
     

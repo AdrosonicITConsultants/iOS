@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OCz-pL-aja">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OCz-pL-aja">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1131,7 +1131,7 @@
                                 <color key="backgroundColor" red="1" green="0.026023234579999999" blue="0.2418186179" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="l0t-cq-XwD">
-                                <rect key="frame" x="20" y="340" width="289" height="32"/>
+                                <rect key="frame" x="20" y="340" width="374" height="32"/>
                                 <segments>
                                     <segment title="Enquiries"/>
                                     <segment title="Orders"/>
@@ -1150,7 +1150,7 @@
                             <constraint firstItem="l0t-cq-XwD" firstAttribute="top" secondItem="6a5-qp-Jkp" secondAttribute="bottom" constant="30" id="EBc-Zo-Elg"/>
                             <constraint firstItem="IFB-tC-3TP" firstAttribute="leading" secondItem="BC5-D9-3Cm" secondAttribute="leading" id="K2B-f2-mO3"/>
                             <constraint firstItem="l0t-cq-XwD" firstAttribute="top" secondItem="ycc-se-DKN" secondAttribute="top" constant="340" id="KMi-sN-7Eh"/>
-                            <constraint firstItem="k3h-KX-JmZ" firstAttribute="trailing" secondItem="l0t-cq-XwD" secondAttribute="trailing" constant="105" id="Qau-pu-Rv1"/>
+                            <constraint firstItem="k3h-KX-JmZ" firstAttribute="trailing" secondItem="l0t-cq-XwD" secondAttribute="trailing" constant="20" id="Qau-pu-Rv1"/>
                             <constraint firstItem="IFB-tC-3TP" firstAttribute="leading" secondItem="l0t-cq-XwD" secondAttribute="leading" id="RFS-AI-OFu"/>
                             <constraint firstItem="k3h-KX-JmZ" firstAttribute="trailing" secondItem="BC5-D9-3Cm" secondAttribute="trailing" constant="10" id="S59-oL-1cX"/>
                             <constraint firstItem="6a5-qp-Jkp" firstAttribute="top" secondItem="IFB-tC-3TP" secondAttribute="bottom" constant="21" id="VpW-sD-9CI"/>
