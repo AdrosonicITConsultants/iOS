@@ -47,7 +47,11 @@ class AdminEnquiryList: FormViewController {
                 $0.cell.ColorLine.backgroundColor = UIColor.blue
                 $0.cell.ActionImg.isHidden = true
                 $0.cell.height = { 100.0 }
-            }
+            }.cellUpdate({ (cell, row) in
+                let app = UIApplication.shared.delegate as? AppDelegate
+                cell.LowerActionLabel.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
+            })
+            
             <<< MarketActionsRow() {
                 $0.tag = "Incomplete & closed"
                 $0.cell.backgroundColor = UIColor.black
@@ -58,7 +62,10 @@ class AdminEnquiryList: FormViewController {
                 $0.cell.LowerActionLabel.text = "87,56,565"
                 $0.cell.ActionImg.isHidden = true
                 $0.cell.height = { 100.0 }
-        }
+        }.cellUpdate({ (cell, row) in
+            let app = UIApplication.shared.delegate as? AppDelegate
+            cell.LowerActionLabel.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
+        })
         
             <<< AdminHomeBottomRow() {
                 $0.tag = "Converted Enquiries"
@@ -69,7 +76,12 @@ class AdminEnquiryList: FormViewController {
                 $0.cell.BottomLabel2.text = "897835"
                 $0.cell.topLabel1.text = "Enquiries Converted"
                 $0.cell.BottomLabel1.text = "897835"
-        }
+        }.cellUpdate({ (cell, row) in
+            let app = UIApplication.shared.delegate as? AppDelegate
+            cell.BottomLabel1.text = "\(app?.countData?.enquiriesConverted ?? 0)"
+            cell.BottomLabel2.text = "\(app?.countData?.awaitingMoqResponse ?? 0)"
+           
+        })
         
     }
     

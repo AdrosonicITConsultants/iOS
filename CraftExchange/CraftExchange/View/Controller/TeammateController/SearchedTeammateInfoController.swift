@@ -20,7 +20,7 @@ class SearchedTeammateInfoControllerModel {
 }
 
 class SearchedTeammateInfoController: UIViewController {
-    
+    var viewWillAppear: (() -> ())?
     @IBOutlet weak var whiteLineView: UIView!
     @IBOutlet weak var MobNoValue: UILabel!
     @IBOutlet weak var EmailValue: UILabel!
@@ -35,10 +35,14 @@ class SearchedTeammateInfoController: UIViewController {
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
     let realm = try! Realm()
+    var textValues: AdminTeamUserProfile!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewWillAppear?()
     }
 }
 

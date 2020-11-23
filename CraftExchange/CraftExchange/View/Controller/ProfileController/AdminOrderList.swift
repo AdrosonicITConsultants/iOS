@@ -48,7 +48,11 @@ class AdminOrderList: FormViewController {
                     $0.cell.LowerActionLabel.text = "87,56,565"
                     $0.cell.ActionImg.isHidden = true
                     $0.cell.height = { 100.0 }
-            }
+            }.cellUpdate({ (cell, row) in
+                let app = UIApplication.shared.delegate as? AppDelegate
+                cell.LowerActionLabel.text = "\(app?.countData?.ongoingOrders ?? 0)"
+            })
+            
            <<< MarketActionsRow() {
                    $0.tag = "Incomplete & closed"
                    $0.cell.backgroundColor = UIColor.black
@@ -59,7 +63,11 @@ class AdminOrderList: FormViewController {
                    $0.cell.LowerActionLabel.text = "87,56,565"
                    $0.cell.ActionImg.isHidden = true
                    $0.cell.height = { 100.0 }
-           }
+           }.cellUpdate({ (cell, row) in
+               let app = UIApplication.shared.delegate as? AppDelegate
+               cell.LowerActionLabel.text = "\(app?.countData?.incompleteAndClosedOrders ?? 0)"
+           })
+            
         <<< MarketActionsRow() {
                           $0.tag = "Complete Successfully"
                           $0.cell.backgroundColor = UIColor.black
@@ -70,7 +78,10 @@ class AdminOrderList: FormViewController {
                           $0.cell.LowerActionLabel.text = "87,56,565"
                           $0.cell.ActionImg.isHidden = true
                           $0.cell.height = { 100.0 }
-                  }
+                  }.cellUpdate({ (cell, row) in
+                      let app = UIApplication.shared.delegate as? AppDelegate
+                      cell.LowerActionLabel.text = "\(app?.countData?.orderCompletedSuccessfully ?? 0)"
+                  })
     
     
     

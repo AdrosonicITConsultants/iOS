@@ -20,18 +20,28 @@ class DashboardController: UIViewController, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var param = " "
+        var param = ""
         var components = URLComponents()
         components.scheme = "https"
         components.host = "datastudio.google.com"
         
-        if roleId == 1 {
-            components.path = "/embed/reporting/cef7a3b2-e37f-48a2-9f28-0c3f45a07585/page/RJ8dB"
-            param = "{\"ds0.Token\":\"\(token)\",\"ds2.Token\":\"\(token)\",\"ds12.Token\":\"\(token)\",\"ds16.Token\":\"\(token)\",\"ds18.Token\":\"\(token)\",\"ds22.Token\":\"\(token)\",\"ds30.Token\":\"\(token)\"}"
-        }else {
-            components.path = "/embed/reporting/0ede1d26-5dbf-4564-a7c4-4f850493a89f/page/i56cB"
-            param = "{\"ds0.email\":\"\(userEmail)\",\"ds0.Token\":\"\(token)\",\"ds44.Token\":\"\(token)\"}"
+        let app = UIApplication.shared.delegate as? AppDelegate
+        let type = app?.dashboardType
+        
+        switch type {
+        case 101:
+            components.path = "/embed/reporting/133984b5-f5c7-4b86-a1a5-89da5e85182c/page/beNoB?params"
+            param = "{\"ds0.Token\":\"\(token)\",\"ds4.Token\":\"\(token)\",\"ds7.Token\":\"\(token)\",\"ds8.Token\":\"\(token)\",\"ds9.Token\":\"\(token)\"}"
+        case 102:
+            components.path = "/embed/reporting/a6280307-c9d1-4a70-a7b2-593b3ea9e30c/page/3qVoB?params"
+            param = "{\"ds0.Token\":\"\(token)\"}"
+        case 103:
+            components.path = "/embed/reporting/eb79b078-f612-48d2-877b-11f1ae8dff59/page/y2VoB?params"
+            param = "{\"ds0.Token\":\"\(token)\"}"
+        default:
+            print("Error")
         }
+        
         param = param.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         components.queryItems = [URLQueryItem(name: "params", value: param), ]
         dashboardView.load(URLRequest(url: components.url!))

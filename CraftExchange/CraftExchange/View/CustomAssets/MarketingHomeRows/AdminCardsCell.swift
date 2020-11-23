@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Eureka
 protocol ArrowBtnProtocol {
-    func ArrowSelected(atIndex: Int)
+    func ArrowSelected(tag: Int)
 }
 
 class AdminCardsCell: Cell<String>, CellType {
@@ -29,13 +29,31 @@ class AdminCardsCell: Cell<String>, CellType {
     @IBOutlet weak var Lb2: UIButton!
     @IBOutlet weak var Lb3: UIButton!
     @IBOutlet weak var Lb4: UIButton!
+    
     var delegate: ArrowBtnProtocol?
     
-    @IBAction func ArrowBtnSelected(_ sender: Any) {
-        let btn = sender as! UIButton
-        delegate?.ArrowSelected(atIndex: btn.tag)
+    let userEmail = User.loggedIn()?.email ?? ""
+    var token = KeychainManager.standard.userAccessToken ?? ""
+    
+    public override func setup() {
+        super.setup()
+        B1.addTarget(self, action: #selector(ArrowBtnSelected(_:)), for: .touchUpInside)
+        b2.addTarget(self, action: #selector(ArrowBtnSelected(_:)), for: .touchUpInside)
+        b3.addTarget(self, action: #selector(ArrowBtnSelected(_:)), for: .touchUpInside)
+    }
+
+    public override func update() {
+        super.update()
     }
     
+    @IBAction func ArrowBtnSelected(_ sender: UIButton) {
+        
+        let app = UIApplication.shared.delegate as? AppDelegate
+        app?.dashboardType = sender.tag
+        
+        delegate?.ArrowSelected(tag: tag)
+         
+    }
    
 }
 

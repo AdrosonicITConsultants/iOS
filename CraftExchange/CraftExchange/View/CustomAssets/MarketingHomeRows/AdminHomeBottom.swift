@@ -24,7 +24,9 @@ class AdminHomeBottom: Cell<String>, CellType {
     @IBOutlet weak var Logout: UIButton!
     public override func setup() {
         super.setup()
-       
+//        let app = UIApplication.shared.delegate as? AppDelegate
+//        BottomLabel1.text = "\(app?.countData?.escaltions ?? 0)"
+//        BottomLabel2.text = "\(app?.countData?.escaltions ?? 0)"
     }
 
     public override func update() {

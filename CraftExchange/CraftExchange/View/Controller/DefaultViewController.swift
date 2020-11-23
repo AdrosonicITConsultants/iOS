@@ -24,6 +24,7 @@ class DefaultViewController: UIViewController {
             _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
             return
         }
+        MarketingTeammateService().getEnquiryAndOrderCount()
         let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
         let tab = storyboard.instantiateViewController(withIdentifier: "MarketingTabbarController") as! MarketingTabbarController
         tab.modalPresentationStyle = .fullScreen

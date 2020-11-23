@@ -13,11 +13,23 @@ class MarketingTabbarController: UITabBarController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    appDelegate?.marketingTabbar = self
   }
 }
 
 extension MarketingTabbarController {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.title == "Team" {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = MarketingTeammateService(client: client).createScene()
+                let nav = self.customizableViewControllers?[4] as! UINavigationController
+                nav.setViewControllers([vc], animated: false)
+            } catch let error {
+              print("Unable to load view:\n\(error.localizedDescription)")
+            }
+        }
         /*if item.title == "Wishlist" {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
