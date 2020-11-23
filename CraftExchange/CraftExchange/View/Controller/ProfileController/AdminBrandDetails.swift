@@ -32,6 +32,7 @@ class AdminBrandDetails: FormViewController {
     var isEditable = false
     var viewModel = AdminBrandDetailsViewModel()
     var allCategories: Results<ProductCategory>?
+    var userObject: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,49 +40,6 @@ class AdminBrandDetails: FormViewController {
         self.tableView?.backgroundColor = .black
         NotificationCenter.default.addObserver(self, selector: #selector(updateLogoPic), name: NSNotification.Name("loadLogoImage"), object: nil)
         self.view.backgroundColor = .white
-        let parentVC = self.parent as? BuyerProfileController
-        let realm = try! Realm()
-        allCategories = realm.objects(ProductCategory.self).sorted(byKeyPath: "entityID")
-        let catTypeSection = Section(){ section in
-            section.tag = "CategorySection"
-            section.header?.title = "Product Category".localized
-        }
-        
-        var strArr:[String] = []
-        self.viewModel.productCatIds.value = []
-        User.loggedIn()?.userProductCategories .forEach({ (cat) in
-            strArr.append("\(ProductCategory.getProductCat(catId: cat.productCategoryId)?.prodCatDescription ?? "")")
-            self.viewModel.productCatIds.value?.append(cat.productCategoryId)
-        })
-        
-        if let setWeave = allCategories?.compactMap({$0}) {
-            setWeave.forEach({ (cat) in
-                catTypeSection <<< ToggleOptionRow() {
-                    $0.cell.height = { 45.0 }
-                    $0.cell.titleLbl.text = cat.prodCatDescription ?? ""
-                    if strArr.contains(cat.prodCatDescription ?? "") {
-                        $0.cell.titleLbl.textColor = UIColor().menuSelectorBlue()
-                        $0.cell.toggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
-                    }else {
-                        $0.cell.titleLbl.textColor = .lightGray
-                        $0.cell.toggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
-                    }
-                    $0.cell.washCare = false
-                    $0.cell.toggleButton.tag = cat.entityID
-                    }.cellUpdate({ (cell, row) in
-                        if self.isEditable {
-                            cell.isUserInteractionEnabled = true
-                            cell.toggleButton.isUserInteractionEnabled = true
-                        }else {
-                            cell.isUserInteractionEnabled = false
-                            cell.toggleButton.isUserInteractionEnabled = false
-                        }
-                    }).onCellSelection({ (cell, row) in
-                    cell.toggleButton.sendActions(for: .touchUpInside)
-                    cell.contentView.backgroundColor = .white
-                })
-            })
-        }
         
         form +++
             Section()
@@ -89,16 +47,27 @@ class AdminBrandDetails: FormViewController {
                 $0.tag = "BrandLogo"
                 $0.cell.height = { 100.0 }
                 $0.cell.backgroundColor = .black
-                $0.cell.BrandName.text = "Chidiya"
-            }
+                $0.cell.BrandName.text = userObject?.buyerCompanyDetails.first?.companyName
+            }.cellUpdate({ (cell, row) in
+                cell.BrandLogo.image = UIImage.init(named: "user")
+                if let _ = self.userObject?.logoUrl, let name = self.userObject?.buyerCompanyDetails.first?.logo, let userID = self.userObject?.entityID {
+                    do {
+                        let downloadedImage = try Disk.retrieve("\(userID)/\(name)", from: .caches, as: UIImage.self)
+                        cell.BrandLogo.image = downloadedImage
+                    }catch {
+                        print(error)
+                    }
+                    self.refreshProfileImage()
+                } else {
+                    self.refreshProfileImage()
+                }
+            })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Product Category"
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .black
-                $0.cell.valueTextField.text = "Sareee"
-
-//                $0.cell.valueTextField.text = User.loggedIn()?.buyerCompanyDetails.first?.companyName ?? ""
+                $0.cell.valueTextField.text = userObject?.productCategories ?? ""
                 $0.cell.valueTextField.textColor = .white
                 $0.cell.valueTextField.leftPadding = 0
                 self.viewModel.companyName.value = $0.cell.valueTextField.text
@@ -127,8 +96,7 @@ class AdminBrandDetails: FormViewController {
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.valueTextField.isUserInteractionEnabled = false
                 $0.cell.backgroundColor = .black
-                $0.cell.valueTextField.text = "Nagaland"
-//                $0.cell.valueTextField.text = User.loggedIn()?.cluster?.clusterDescription ?? ""
+                $0.cell.valueTextField.text = userObject?.cluster?.clusterDescription ?? userObject?.clusterString ?? ""
                 $0.cell.valueTextField.textColor = .white
 //                $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 $0.cell.valueTextField.leftPadding = 0
@@ -139,14 +107,10 @@ class AdminBrandDetails: FormViewController {
                 cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
                 cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
             })
-            
-            +++ catTypeSection
-            +++ Section()
-            
     }
     
     func refreshBrandLogo() {
-        if let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
+        if let name = userObject?.buyerCompanyDetails.first?.logo, let userID = userObject?.entityID {
             let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/CompanyDetails/Logo/\(name)")
             URLSession.shared.dataTask(with: url!) { data, response, error in
                 // do your stuff here...
@@ -154,7 +118,7 @@ class AdminBrandDetails: FormViewController {
                     // do something on the main queue
                     if error == nil {
                         if let finalData = data {
-                            User.loggedIn()?.saveOrUpdateBrandLogo(data: finalData)
+                            self.userObject?.saveOrUpdateBrandLogo(data: finalData)
                             NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
                         }
                     }
@@ -163,14 +127,30 @@ class AdminBrandDetails: FormViewController {
         }
     }
     
-   
+   func refreshProfileImage() {
+       if let name = userObject?.buyerCompanyDetails.first?.logo, let userID = userObject?.entityID  {
+           let url = URL(string: "\(KeychainManager.standard.imageBaseURL)/User/\(userID)/CompanyDetails/Logo/\(name)")
+           URLSession.shared.dataTask(with: url!) { data, response, error in
+               // do your stuff here...
+               DispatchQueue.main.async {
+                   // do something on the main queue
+                   if error == nil {
+                       if let finalData = data {
+                        self.userObject?.saveOrUpdateBrandLogo(data: finalData)
+                           NotificationCenter.default.post(name: Notification.Name("loadLogoImage"), object: nil)
+                       }
+                   }
+               }
+           }.resume()
+       }
+   }
     
     @objc func updateLogoPic() {
-        if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo, let userID = User.loggedIn()?.entityID {
-            let row = self.form.rowBy(tag: "ProfileView") as? ProfileImageRow
+        if let _ = userObject?.logoUrl, let name = userObject?.buyerCompanyDetails.first?.logo, let userID = userObject?.entityID {
+            let row = self.form.rowBy(tag: "BrandLogo") as? BrandDetailRow
             do {
                 let downloadedImage = try Disk.retrieve("\(userID)/\(name)", from: .caches, as: UIImage.self)
-                row?.cell.actionButton.setImage(downloadedImage, for: .normal)
+                row?.cell.BrandLogo.image = downloadedImage
             }catch {
                 print(error)
             }

@@ -30,24 +30,15 @@ extension MarketingTabbarController {
               print("Unable to load view:\n\(error.localizedDescription)")
             }
         }
-        /*if item.title == "Wishlist" {
+        else if item.title == "User" {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = WishlistService(client: client).createScene()
-                let nav = self.customizableViewControllers?[2] as! UINavigationController
-                nav.setViewControllers([vc], animated: false)
-            } catch let error {
-              print("Unable to load view:\n\(error.localizedDescription)")
-            }
-        }else if item.title == "Enquiries" {
-            do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = EnquiryListService(client: client).createScene()
+                let vc = AdminUserService(client: client).createScene()
                 let nav = self.customizableViewControllers?[1] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
               print("Unable to load view:\n\(error.localizedDescription)")
             }
-        }*/
+        }
     }
 }

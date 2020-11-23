@@ -23,6 +23,8 @@ import Photos
 
 class AdminUserDetailViewModel {
     var viewDidLoad: (() -> Void)?
+    var refreshProfile: (() -> Void)?
+    var updateRating: ((_ newRating: Float) -> Void)?
 }
 
 class AdminUserDetailController: UIViewController {
@@ -38,40 +40,79 @@ class AdminUserDetailController: UIViewController {
     @IBOutlet weak var ProfileImg: UIImageView!
     @IBOutlet weak var Username: UILabel!
     @IBOutlet weak var Value: UILabel!
-    @IBOutlet weak var Rating: UILabel!
+    @IBOutlet weak var ratingBtn: UIButton!
     @IBOutlet weak var Segment: UISegmentedControl!
     @IBOutlet weak var childview: UIView!
+    var userObject: User?
     
     private lazy var AdminInfoViewController: AdminGeneralInfo = {
         var viewController = AdminGeneralInfo.init()
+        viewController.userObject = userObject
         self.add(asChildViewController: viewController)
         return viewController
     }()
     
     private lazy var AdminBrandInfoViewController: AdminBrandDetails = {
         var viewController = AdminBrandDetails.init()
+        viewController.userObject = userObject
         self.add(asChildViewController: viewController)
         return viewController
     }()
     
     private lazy var AdminBankInfoViewController: AdminBankDetails = {
         var viewController = AdminBankDetails.init()
+        viewController.userObject = userObject
         self.add(asChildViewController: viewController)
         return viewController
     }()
+    
     override func viewDidLoad() {
         viewModel.viewDidLoad?()
-        let realm = try! Realm()
-        
+        Segment.setBlackControl()
+        self.viewModel.refreshProfile?()
+        self.setupUser()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init("UserProfileReceived"), object: nil, queue: .main) { (notif) in
+            self.viewModel.refreshProfile?()
+            self.Segment.selectedSegmentIndex = 0
+            self.Segment.sendActions(for: .valueChanged)
+            self.setupUser()
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-           super.viewWillAppear(animated)
-          var AdminInfoViewController: AdminGeneralInfo = {
-               var viewController = AdminGeneralInfo.init()
-               self.add(asChildViewController: viewController)
-               return viewController
-           }()
-       }
+        super.viewWillAppear(animated)
+        var _: AdminGeneralInfo = {
+             let viewController = AdminGeneralInfo.init()
+             viewController.userObject = userObject
+             self.add(asChildViewController: viewController)
+             return viewController
+        }()
+    }
+    
+    func setupUser() {
+        self.Username.text = "\(self.userObject?.firstName ?? "") \(self.userObject?.lastName ?? "")"
+        self.Value.text = self.userObject?.weaverId ?? ""
+        self.ratingBtn.setTitle(" Rating \(self.userObject?.rating ?? 0.0)", for: .normal)
+        if let tag = self.userObject?.profilePic, let userId = self.userObject?.entityID, self.userObject?.profilePic != "" {
+            if let downloadedImage = try? Disk.retrieve("\(userId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.ProfileImg.image = downloadedImage
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = UserProfilePicService.init(client: client)
+                    service.fetch(forUser: userId, img: tag).observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(userId)/\(tag)")
+                            self.ProfileImg.image = UIImage.init(data: attachment)
+                        }
+                    }.dispose(in: self.bag)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     @IBAction func segmentValueChanged(_ sender: Any) {
         if Segment.selectedSegmentIndex == 0 {
             add(asChildViewController: AdminInfoViewController)
@@ -88,6 +129,10 @@ class AdminUserDetailController: UIViewController {
         }
     }
     
+    @IBAction func editRatingSelected(_ sender: Any) {
+        self.showRatingSlider(sliderVal: userObject?.rating ?? 0.0)
+    }
+    
     private func add(asChildViewController viewController: FormViewController) {
         // Add Child View Controller
         addChild(viewController)
@@ -102,6 +147,7 @@ class AdminUserDetailController: UIViewController {
         // Notify Child View Controller
         viewController.didMove(toParent: self)
     }
+    
     private func remove(asChildViewController viewController: FormViewController) {
         // Notify Child View Controller
         viewController.willMove(toParent: nil)

@@ -28,18 +28,12 @@ class AdminBankDetails: FormViewController{
     
     var isEditable = false
     var viewModel = AdminBankDetailsViewModel()
+    var userObject: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         self.tableView?.backgroundColor = .black
-        var addressString = ""
-        User.loggedIn()?.paymentAccountList .forEach({ (account) in
-            if account.accType == 1 {
-                addressString = account.AccNoUpiMobile ?? ""
-            }
-        })
-        
         self.view.backgroundColor = .white
         form +++
             Section()
@@ -48,15 +42,14 @@ class AdminBankDetails: FormViewController{
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .black
-                $0.cell.valueTextField.text = " 8733473853"
                 $0.cell.valueTextField.textColor = .white
                 var valueString = ""
-                User.loggedIn()?.paymentAccountList .forEach({ (account) in
+                userObject?.paymentAccountList .forEach({ (account) in
                     if account.accType == 1 {
                         valueString = account.AccNoUpiMobile ?? ""
                     }
                 })
-                //                $0.cell.valueTextField.text = valueString
+                $0.cell.valueTextField.text = valueString
                 //                self.viewModel.accNo.value = $0.cell.valueTextField.text
                 //                self.viewModel.accNo.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -82,15 +75,14 @@ class AdminBankDetails: FormViewController{
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .black
-                $0.cell.valueTextField.text = "Bikas Singh"
                 $0.cell.valueTextField.textColor = .white
                 var valueString = ""
-                User.loggedIn()?.paymentAccountList .forEach({ (account) in
+                userObject?.paymentAccountList .forEach({ (account) in
                     if account.accType == 1 {
                         valueString = account.name ?? ""
                     }
                 })
-                ////                           $0.cell.valueTextField.text = valueString
+                $0.cell.valueTextField.text = valueString
                 //                           self.viewModel.benficiaryName.value = $0.cell.valueTextField.text
                 //                           self.viewModel.benficiaryName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -116,15 +108,14 @@ class AdminBankDetails: FormViewController{
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .black
-                $0.cell.valueTextField.text = "Nagaland Sahakari Bank"
                 $0.cell.valueTextField.textColor = .white
                 var valueString = ""
-                User.loggedIn()?.paymentAccountList .forEach({ (account) in
+                userObject?.paymentAccountList .forEach({ (account) in
                     if account.accType == 1 {
                         valueString = account.bankName ?? ""
                     }
                 })
-                //                $0.cell.valueTextField.text = valueString
+                $0.cell.valueTextField.text = valueString
                 //                self.viewModel.bankName.value = $0.cell.valueTextField.text
                 //                self.viewModel.bankName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
             }.cellUpdate({ (cell, row) in
@@ -151,17 +142,14 @@ class AdminBankDetails: FormViewController{
                 $0.cell.height = { 80.0 }
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.backgroundColor = .black
-                $0.cell.valueTextField.text = "Nagaland Mall"
                 $0.cell.valueTextField.textColor = .white
                 var valueString = ""
-                User.loggedIn()?.paymentAccountList .forEach({ (account) in
+                userObject?.paymentAccountList .forEach({ (account) in
                     if account.accType == 1 {
                         valueString = account.branchName ?? ""
                     }
                 })
-                //                $0.cell.valueTextField.text = valueString
-                //                self.viewModel.branchName.value = $0.cell.valueTextField.text
-                //                self.viewModel.branchName.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+                $0.cell.valueTextField.text = valueString
             }.cellUpdate({ (cell, row) in
                 cell.titleLabel.text = "Branch Name".localized
                 cell.titleLabel.textColor = .white
@@ -181,6 +169,100 @@ class AdminBankDetails: FormViewController{
                 }
             })
         
+        <<< RoundedTextFieldRow() {
+            $0.tag = "IFSCCode"
+            $0.cell.height = { 80.0 }
+            $0.cell.compulsoryIcon.isHidden = true
+            $0.cell.backgroundColor = .black
+            $0.cell.valueTextField.textColor = .white
+            var valueString = ""
+            userObject?.paymentAccountList .forEach({ (account) in
+                if account.accType == 1 {
+                    valueString = account.ifsc ?? ""
+                }
+            })
+            $0.cell.valueTextField.text = valueString
+        }.cellUpdate({ (cell, row) in
+            cell.titleLabel.text = "IFSC Code".localized
+            cell.titleLabel.textColor = .white
+            cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
+            cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
+            cell.isUserInteractionEnabled = false
+            cell.valueTextField.isUserInteractionEnabled = false
+            cell.valueTextField.leftPadding = 0
+        })
+            <<< LabelRow() {
+                $0.tag = "OtherDetails"
+                $0.cell.height = { 60.0 }
+                $0.cell.backgroundColor = .black
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.text = "Digital Payment Details".localized
+                cell.textLabel?.textColor = .white
+                cell.textLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+            })
+        <<< TextRow() {
+            $0.tag = "gpay"
+            $0.cell.height = { 60.0 }
+            $0.title = "Google Pay".localized
+            $0.cell.imageView?.image = UIImage.init(named: "gPayIcon")
+            $0.cell.backgroundColor = .black
+        }.cellUpdate({ (cell, row) in
+            cell.isUserInteractionEnabled = false
+            cell.textField.isUserInteractionEnabled = false
+            cell.textLabel?.textColor = .white
+            cell.textLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+            cell.textField.textColor = .white
+            cell.textField.font = .systemFont(ofSize: 16, weight: .regular)
+            var valueString = ""
+            self.userObject?.paymentAccountList .forEach({ (account) in
+                if account.accType == 2 {
+                    valueString = account.AccNoUpiMobile ?? ""
+                }
+            })
+            cell.textField.text = valueString
+        })
+        <<< TextRow() {
+            $0.tag = "paytm"
+            $0.cell.height = { 60.0 }
+            $0.title = "Paytm".localized
+            $0.cell.backgroundColor = .black
+            $0.cell.imageView?.image = UIImage.init(named: "paytmIcon")
+        }.cellUpdate({ (cell, row) in
+            cell.isUserInteractionEnabled = false
+            cell.textField.isUserInteractionEnabled = false
+            cell.textLabel?.textColor = .white
+            cell.textLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+            cell.textField.textColor = .white
+            cell.textField.font = .systemFont(ofSize: 16, weight: .regular)
+            var valueString = ""
+            self.userObject?.paymentAccountList .forEach({ (account) in
+                if account.accType == 4 {
+                    valueString = account.AccNoUpiMobile ?? ""
+                }
+            })
+            cell.textField.text = valueString
+        })
+        <<< TextRow() {
+            $0.tag = "phonepay"
+            $0.cell.height = { 60.0 }
+            $0.title = "Phone Pay".localized
+            $0.cell.backgroundColor = .black
+            $0.cell.imageView?.image = UIImage.init(named: "phone-pe")
+        }.cellUpdate({ (cell, row) in
+            cell.isUserInteractionEnabled = false
+            cell.textField.isUserInteractionEnabled = false
+            cell.textLabel?.textColor = .white
+            cell.textLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+            cell.textField.textColor = .white
+            cell.textField.font = .systemFont(ofSize: 16, weight: .regular)
+            var valueString = ""
+            self.userObject?.paymentAccountList .forEach({ (account) in
+                if account.accType == 3 {
+                    valueString = account.AccNoUpiMobile ?? ""
+                }
+            })
+            cell.textField.text = valueString
+        })
     }
 }
 

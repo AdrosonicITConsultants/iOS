@@ -29,13 +29,13 @@ class AdminGeneralInfo: FormViewController {
     var editEnabled = false
     var viewModel = AdminGeneralInfoViewModel()
     var allCountries: Results<Country>?
+    var userObject: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         self.tableView?.backgroundColor = .black
 
-        let realm = try! Realm()
         form +++
             Section()
            
@@ -47,7 +47,7 @@ class AdminGeneralInfo: FormViewController {
                 $0.cell.backgroundColor = .black
                 $0.cell.valueTextField.text = "\(User.loggedIn()?.firstName ?? "") \(User.loggedIn()?.lastName ?? "")"
                 $0.cell.valueTextField.textColor = .white
-                $0.cell.valueTextField.text = "Surya Gupta"
+                $0.cell.valueTextField.text = "\(userObject?.firstName ?? "") \(userObject?.lastName ?? "")"
 //                $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 $0.cell.valueTextField.leftPadding = 0
                 $0.cell.isUserInteractionEnabled = false
@@ -63,7 +63,7 @@ class AdminGeneralInfo: FormViewController {
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.valueTextField.isUserInteractionEnabled = false
                 $0.cell.backgroundColor = .black
-                $0.cell.valueTextField.text = User.loggedIn()?.email ?? ""
+                $0.cell.valueTextField.text = userObject?.email ?? ""
                 $0.cell.valueTextField.textColor = .white
 //                $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 $0.cell.valueTextField.leftPadding = 0
@@ -80,8 +80,7 @@ class AdminGeneralInfo: FormViewController {
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.valueTextField.isUserInteractionEnabled = false
                 $0.cell.backgroundColor = .black
-                 $0.cell.valueTextField.text = "8776655434"
-//                $0.cell.valueTextField.text = User.loggedIn()?.mobile ?? ""
+                $0.cell.valueTextField.text = userObject?.mobile ?? ""
                 $0.cell.valueTextField.textColor = .white
 //                $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 $0.cell.valueTextField.leftPadding = 0
@@ -98,13 +97,19 @@ class AdminGeneralInfo: FormViewController {
                $0.cell.compulsoryIcon.isHidden = true
                $0.cell.valueTextField.isUserInteractionEnabled = false
                $0.cell.backgroundColor = .black
-               $0.cell.valueTextField.text = "30b, Royal Park Behind hdfc"
                $0.cell.valueTextField.textColor = .white
 //               $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                $0.cell.valueTextField.leftPadding = 0
                $0.cell.isUserInteractionEnabled = false
+            var addressString = ""
+            userObject?.addressList .forEach({ (account) in
+                if account.addressType?.entityID == 1 {
+                    addressString = account.addressString
+                }
+            })
+            $0.cell.valueTextField.text = addressString
            }.cellUpdate({ (cell, row) in
-               cell.titleLabel.text = "Address: ".localized
+               cell.titleLabel.text = "Registered Address".localized
                cell.titleLabel.textColor = .white
                cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
                cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
@@ -115,13 +120,19 @@ class AdminGeneralInfo: FormViewController {
                 $0.cell.compulsoryIcon.isHidden = true
                 $0.cell.valueTextField.isUserInteractionEnabled = false
                 $0.cell.backgroundColor = .black
-                 $0.cell.valueTextField.text = "Excellent!!!!!!"
                 $0.cell.valueTextField.textColor = .white
 //                $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 $0.cell.valueTextField.leftPadding = 0
                 $0.cell.isUserInteractionEnabled = false
+                var addressString = ""
+                userObject?.addressList .forEach({ (account) in
+                    if account.addressType?.entityID == 2 {
+                        addressString = account.addressString
+                    }
+                })
+                $0.cell.valueTextField.text = addressString
             }.cellUpdate({ (cell, row) in
-                cell.titleLabel.text = "Details".localized
+                cell.titleLabel.text = "Delivery Address".localized
                 cell.titleLabel.textColor = .white
                 cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
                 cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)

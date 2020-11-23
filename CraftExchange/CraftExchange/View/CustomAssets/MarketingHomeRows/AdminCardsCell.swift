@@ -21,6 +21,10 @@ class AdminCardsCell: Cell<String>, CellType {
     @IBOutlet weak var b3: UIButton!
     @IBOutlet weak var b2: UIButton!
     
+    @IBOutlet weak var Label4: UILabel!
+    @IBOutlet weak var Label3: UILabel!
+    @IBOutlet weak var Label2: UILabel!
+    @IBOutlet weak var Label1: UILabel!
     @IBOutlet weak var Rb1: UIButton!
     @IBOutlet weak var Rb2: UIButton!
     @IBOutlet weak var Rb3: UIButton!
