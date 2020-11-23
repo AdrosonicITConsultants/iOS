@@ -95,7 +95,11 @@ extension AdminUserService {
                     if let count = json["data"] as? Int {
                         DispatchQueue.main.async {
                             controller.totalCount = count
-                            controller.CountLabel.text = "Total Artisans: \(count)"
+                            if controller.segmentedControl.selectedSegmentIndex == 0 {
+                                controller.CountLabel.text = "Total Artisans: \(count)"
+                            }else {
+                                controller.CountLabel.text = "Total Buyers: \(count)"
+                            }
                         }
                     }
                 }

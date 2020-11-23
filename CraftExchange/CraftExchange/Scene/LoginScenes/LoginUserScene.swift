@@ -52,12 +52,8 @@ extension LoginUserService {
                         KeychainManager.standard.username = userObj["firstName"] as? String ?? ""
                         let app = UIApplication.shared.delegate as? AppDelegate
                         app?.showDemoVideo = true
-//                        let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
-//                        let tab = storyboard.instantiateViewController(withIdentifier: "MarketingTabbarController") as! MarketingTabbarController
-//                        tab.modalPresentationStyle = .fullScreen
-//                        vc.present(tab, animated: true, completion: nil)
                         let controller = AdminHomeScreenService(client: self.client).createScene()
-                        vc.navigationController?.present(controller, animated: true, completion: nil)
+                        vc.present(controller, animated: true, completion: nil)
                     }
                   }else {
                     DispatchQueue.main.async {

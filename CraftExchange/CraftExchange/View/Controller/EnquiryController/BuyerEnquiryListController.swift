@@ -39,7 +39,7 @@ class BuyerEnquiryListController: UIViewController {
         try? reachabilityManager?.startNotifier()
         allEnquiries = []
         definesPresentationContext = false
-        self.setupSideMenu(false)
+//        self.setupSideMenu(false)
         let center = NotificationCenter.default
         center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
             self.applicationEnteredForeground?()

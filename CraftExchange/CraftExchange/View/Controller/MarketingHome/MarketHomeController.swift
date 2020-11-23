@@ -154,8 +154,7 @@ class MarketHomeController: FormViewController {
                 cell.tintColor = .white
             }).onCellSelection({ (cell, row) in
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                appDelegate?.tabbar = nil
-                appDelegate?.artisanTabbar = nil
+                appDelegate?.marketingTabbar = nil
                 KeychainManager.standard.deleteAll()
                 UIApplication.shared.unregisterForRemoteNotifications()
                 UIApplication.shared.applicationIconBadgeNumber = 0

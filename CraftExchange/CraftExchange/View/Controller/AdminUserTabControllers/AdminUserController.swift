@@ -91,7 +91,7 @@ class AdminUserController: UIViewController {
             clusterBtn.isHidden = false
             Cluster.isHidden = false
         }else {
-            CountLabel.text = "Total Artisans: \(totalCount ?? 0)"
+            CountLabel.text = "Total Buyers: \(totalCount ?? 0)"
             header = ["Name", "Email", "Phone Number", "Brand", "Rating", "Date"]
             clusterBtn.isHidden = true
             Cluster.isHidden = true

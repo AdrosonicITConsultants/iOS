@@ -24,10 +24,6 @@ class DefaultViewController: UIViewController {
             _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
             return
         }
-//        let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
-//        let tab = storyboard.instantiateViewController(withIdentifier: "MarketingTabbarController") as! MarketingTabbarController
-//        tab.modalPresentationStyle = .fullScreen
-//        self.present(tab, animated: true, completion: nil)
         let controller = AdminHomeScreenService(client: client).createScene()
         self.present(controller, animated: true, completion: nil)
     }else {

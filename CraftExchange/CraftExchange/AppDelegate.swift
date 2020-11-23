@@ -15,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var showDemoVideo: Bool = false
     var registerUser: CXUser?
     var marketingTabbar: MarketingTabbarController?
-    var tabbar: BuyerTabbarController?
-    var artisanTabbar: ArtisanTabbarController?
     var wishlistIds: [Int]?
     var notificationToken: String?
     var notificationObject: [AnyHashable: Any]?
