@@ -36,10 +36,9 @@ extension MarketingTeammateService {
                                             controller.EmailValue.text = chat.email
                                             controller.MemberSinceValue.text = (Date().ttceFormatter(isoDate: chat.memberSince ?? ""))
                                             controller.MobNoValue.text = chat.mobile
-//                                            if chat.status == 1 {
-//                                                controller.StatusLabel.text = "Active"
-//                                            }
-//                                            controller.s
+                                            if chat.status != 1 {
+                                                controller.statusBtn.backgroundColor = UIColor.red
+                                            }
                                         }
                                     }
                                 }

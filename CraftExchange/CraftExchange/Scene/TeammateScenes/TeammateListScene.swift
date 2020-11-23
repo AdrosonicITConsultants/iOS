@@ -108,42 +108,39 @@ extension MarketingTeammateService {
         return controller
     }
     
-        func getEnquiryAndOrderCount(){
-            let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "SearchTeammateController") as! SearchTeammateController
+    func getEnquiryAndOrderCount(){
+        let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "SearchTeammateController") as! SearchTeammateController
 
-            let service = MarketingTeammateService.init(client: self.client)
-            
-            service.fetchAllAdminEnquiryAndOrder().bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        if let dataArray = json["data"] as? [[String: Any]] {
-                            if let chatdata = try? JSONSerialization.data(withJSONObject: dataArray, options: .fragmentsAllowed) {
-                                if  let chatObj = try? JSONDecoder().decode([MarketingCount].self, from: chatdata) {
-                                    DispatchQueue.main.async {
-                                        for chat in chatObj {
-                                            print(chat)
-                                            DispatchQueue.main.async {
-                                                let app = UIApplication.shared.delegate as? AppDelegate
-                                                app?.countData = chat
-                                                let row = MarketHomeController().form.rowBy(tag: "HorizonatalAdmin1")
-                                                row?.updateCell()
-                                                row?.reload()
-    //                                            AdminHomeBottom.
-                                            }
-                                            MarketHomeController().refreshCountForTag()
+        let service = HomeScreenService.init(client: self.client)
+        
+        service.fetchAllAdminEnquiryAndOrder().bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    if let dataArray = json["data"] as? [[String: Any]] {
+                        if let chatdata = try? JSONSerialization.data(withJSONObject: dataArray, options: .fragmentsAllowed) {
+                            if  let chatObj = try? JSONDecoder().decode([MarketingCount].self, from: chatdata) {
+                                DispatchQueue.main.async {
+                                    for chat in chatObj {
+                                        print(chat)
+                                        DispatchQueue.main.async {
+                                            let app = UIApplication.shared.delegate as? AppDelegate
+                                            app?.countData = chat
+                                            let row = MarketHomeController().form.rowBy(tag: "HorizonatalAdmin1")
+                                            row?.updateCell()
+                                            row?.reload()
                                         }
+                                        MarketHomeController().refreshCountForTag()
                                     }
                                 }
                             }
                         }
                     }
                 }
-                DispatchQueue.main.async {
-                    controller.hideLoading()
-                }
-            }.dispose(in: controller.bag)
-            
-        }
-    
+            }
+            DispatchQueue.main.async {
+                controller.hideLoading()
+            }
+        }.dispose(in: controller.bag)
+    }
 }

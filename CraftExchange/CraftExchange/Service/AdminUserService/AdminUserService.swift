@@ -29,4 +29,8 @@ class AdminUserService: BaseService<Data> {
     func updateUserRating(userId: Int, rating: Float) -> SafeSignal<Data> {
         return AdminUser.editUserRating(userId: userId, rating: rating).response(using: client).debug()
     }
+    
+    func getAllUsersCount(clusterId: Int, pageNo: Int, rating: Int, roleId: Int, searchStr: String, sortBy: String, sortType: String) -> SafeSignal<Data>{
+        return AdminUser.getAllUsersCount(clusterId: clusterId, pageNo: pageNo, rating: rating, roleId: roleId, searchStr: searchStr, sortBy: sortBy, sortType: sortType).response(using: client).debug()
+    }
 }

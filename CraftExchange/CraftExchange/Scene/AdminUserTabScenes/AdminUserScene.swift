@@ -26,6 +26,7 @@ extension AdminUserService {
         }
         
         controller.viewWillAppear = {
+            getUsersCount()
             setupRefreshActions()
         }
         
@@ -87,6 +88,20 @@ extension AdminUserService {
                 setupRefreshActions()
             }
         }
+        
+        func getUsersCount(){
+            self.getAllUsersCount(clusterId: -1, pageNo: 1, rating: -1, roleId: controller.segmentedControl.selectedSegmentIndex == 0 ? 1 : 2, searchStr: "", sortBy: "", sortType: "").bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let count = json["data"] as? Int {
+                        DispatchQueue.main.async {
+                            controller.totalCount = count
+                            controller.CountLabel.text = "Total Artisans: \(count)"
+                        }
+                    }
+                }
+            }.dispose(in: controller.bag)
+        }
+        
         return controller
     }
 }

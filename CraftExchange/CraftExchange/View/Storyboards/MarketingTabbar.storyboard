@@ -958,7 +958,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5do-0g-oFn" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
-                                        <rect key="frame" x="92" y="493" width="22" height="23"/>
+                                        <rect key="frame" x="96" y="489" width="22" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.1109315442" green="0.47360802660000001" blue="0.36077384649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
