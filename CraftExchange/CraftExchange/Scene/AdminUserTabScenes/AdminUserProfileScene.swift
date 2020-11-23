@@ -30,6 +30,10 @@ extension AdminUserService {
         controller.viewModel.updateRating = { (value) in
             self.changeRating(forUser: forUser, value: value, controller: controller)
         }
+        controller.viewModel.updateProfileActiveStatus = {
+            controller.showLoading()
+            self.changeUserStatus(forUser: forUser, userObject: controller.userObject, controller: controller)
+        }
         return controller
     }
     
@@ -47,7 +51,49 @@ extension AdminUserService {
         controller.viewModel.updateRating = { (value) in
             self.changeRating(forUser: forUser, value: value, controller: controller)
         }
+        controller.viewModel.updateProfileActiveStatus = {
+            controller.showLoading()
+            self.changeUserStatus(forUser: forUser, userObject: controller.userObject, controller: controller)
+        }
         return controller
+    }
+    
+    func changeUserStatus(forUser: Int, userObject: User?, controller: UIViewController) {
+        if userObject?.status == 1 {
+            //Deactivate User
+            self.deActivateUser(userId: forUser).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let isValid = json["valid"] as? Bool, isValid == true {
+                        DispatchQueue.main.async {
+                            controller.hideLoading()
+                            userObject?.saveOrUpdateProfileStatus(newStatus: 2)
+                            controller.alert("Success", "\(json["data"] as? String ?? "User Deactivated")", callback: nil)
+                            if let rightButtonItem = controller.navigationItem.rightBarButtonItem {
+                                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
+                                rightButtonItem.tintColor = .systemRed
+                            }
+                        }
+                    }
+                }
+            }
+        }else {
+            //Activate User
+            self.activateUser(userId: forUser).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let isValid = json["valid"] as? Bool, isValid == true {
+                        DispatchQueue.main.async {
+                            controller.hideLoading()
+                            userObject?.saveOrUpdateProfileStatus(newStatus: 1)
+                            controller.alert("Success", "\(json["data"] as? String ?? "User Activated")", callback: nil)
+                            if let rightButtonItem = controller.navigationItem.rightBarButtonItem {
+                                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
+                                rightButtonItem.tintColor = UIColor().CEGreen()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func changeRating(forUser: Int, value: Float, controller: UIViewController) {

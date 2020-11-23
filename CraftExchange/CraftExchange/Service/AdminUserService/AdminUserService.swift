@@ -33,4 +33,12 @@ class AdminUserService: BaseService<Data> {
     func getAllUsersCount(clusterId: Int, pageNo: Int, rating: Int, roleId: Int, searchStr: String, sortBy: String, sortType: String) -> SafeSignal<Data>{
         return AdminUser.getAllUsersCount(clusterId: clusterId, pageNo: pageNo, rating: rating, roleId: roleId, searchStr: searchStr, sortBy: sortBy, sortType: sortType).response(using: client).debug()
     }
+    
+    func activateUser(userId: Int) -> SafeSignal<Data> {
+        return AdminUser.activateUser(userId: userId).response(using: client).debug()
+    }
+    
+    func deActivateUser(userId: Int) -> SafeSignal<Data> {
+        return AdminUser.deActivateUser(userId: userId).response(using: client).debug()
+    }
 }

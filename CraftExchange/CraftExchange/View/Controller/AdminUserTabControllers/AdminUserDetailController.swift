@@ -25,6 +25,7 @@ class AdminUserDetailViewModel {
     var viewDidLoad: (() -> Void)?
     var refreshProfile: (() -> Void)?
     var updateRating: ((_ newRating: Float) -> Void)?
+    var updateProfileActiveStatus: (() -> Void)?
 }
 
 class AdminUserDetailController: UIViewController {
@@ -71,6 +72,7 @@ class AdminUserDetailController: UIViewController {
         Segment.setBlackControl()
         self.viewModel.refreshProfile?()
         self.setupUser()
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init("UserProfileReceived"), object: nil, queue: .main) { (notif) in
             self.viewModel.refreshProfile?()
             self.Segment.selectedSegmentIndex = 0
@@ -111,6 +113,25 @@ class AdminUserDetailController: UIViewController {
                 }
             }
         }
+        if let rightButtonItem = self.navigationItem.rightBarButtonItem {
+            if userObject?.status == 1 {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
+                rightButtonItem.tintColor = UIColor().CEGreen()
+            }else {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
+                rightButtonItem.tintColor = .systemRed
+            }
+        }else {
+            let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(editUserActiveStatus))
+            if userObject?.status == 1 {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
+                rightButtonItem.tintColor = UIColor().CEGreen()
+            }else {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
+                rightButtonItem.tintColor = .systemRed
+            }
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }
     }
     
     @IBAction func segmentValueChanged(_ sender: Any) {
@@ -131,6 +152,14 @@ class AdminUserDetailController: UIViewController {
     
     @IBAction func editRatingSelected(_ sender: Any) {
         self.showRatingSlider(sliderVal: userObject?.rating ?? 0.0)
+    }
+    
+    @objc func editUserActiveStatus(_ sender: Any) {
+        self.confirmAction("Are you sure?", "You want to \(userObject?.status == 1 ? "Deactivate" : "Activate") the user", confirmedCallback: { (action) in
+            self.viewModel.updateProfileActiveStatus?()
+        }) { (action) in
+            
+        }
     }
     
     private func add(asChildViewController viewController: FormViewController) {

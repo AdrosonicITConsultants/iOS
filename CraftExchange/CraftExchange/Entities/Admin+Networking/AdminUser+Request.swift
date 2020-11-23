@@ -70,4 +70,28 @@ extension AdminUser {
             needsAuthorization: false
         )
     }
+    
+    public static func activateUser(userId: Int) -> Request<Data, APIError> {
+        return Request(
+            path: "marketingTeam/activateUser/\(userId)",
+            method: .post,
+            resource: { print(String(data: $0, encoding: .utf8) ?? "marketingTeam/activateUser failed")
+            return $0
+        },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func deActivateUser(userId: Int) -> Request<Data, APIError> {
+        return Request(
+            path: "marketingTeam/deactivateUser/\(userId)",
+            method: .post,
+            resource: { print(String(data: $0, encoding: .utf8) ?? "marketingTeam/editRating failed")
+            return $0
+        },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }

@@ -27,6 +27,7 @@ class AdminBuyerUserDetailViewModel {
     var viewDidAppear: (() -> ())?
     var refreshProfile: (() -> ())?
     var updateRating: ((_ newRating: Float) -> Void)?
+    var updateProfileActiveStatus: (() -> Void)?
 }
 
 class AdminBuyerUserDetailController: UIViewController {
@@ -101,8 +102,36 @@ class AdminBuyerUserDetailController: UIViewController {
                 }
             }
         }
+        if let rightButtonItem = self.navigationItem.rightBarButtonItem {
+            if userObject?.status == 1 {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
+                rightButtonItem.tintColor = UIColor().CEGreen()
+            }else {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
+                rightButtonItem.tintColor = .systemRed
+            }
+        }else {
+            let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(editUserActiveStatus))
+            if userObject?.status == 1 {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
+                rightButtonItem.tintColor = UIColor().CEGreen()
+            }else {
+                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
+                rightButtonItem.tintColor = .systemRed
+            }
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }
     }
+    
     @IBAction func editRatingSelected(_ sender: Any) {
         self.showRatingSlider(sliderVal: userObject?.rating ?? 0.0)
+    }
+    
+    @objc func editUserActiveStatus(_ sender: Any) {
+        self.confirmAction("Are you sure?", "You want to \(userObject?.status == 1 ? "Deactivate" : "Activate") the user", confirmedCallback: { (action) in
+            self.viewModel.updateProfileActiveStatus?()
+        }) { (action) in
+            
+        }
     }
 }
