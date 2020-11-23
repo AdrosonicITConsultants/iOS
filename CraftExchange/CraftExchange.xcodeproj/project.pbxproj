@@ -898,9 +898,6 @@
 			isa = PBXGroup;
 			children = (
 				11C849B225304C3C00729355 /* LoginMarketController.swift */,
-				11C849B4253054B200729355 /* MarketHomeController.swift */,
-				11173F5C254192A30027B9C3 /* AdminUserController.swift */,
-				115338A32542D8E800BF4204 /* AdminBuyerUserDetailController.swift */,
 			);
 			path = LoginControllers;
 			sourceTree = "<group>";
@@ -1154,10 +1151,6 @@
 				C06570A1252B86A7001140C7 /* Transaction.swift */,
 				C06570A3252B86B8001140C7 /* TransactionObject.swift */,
 				307B3982252C8602000028AC /* PaymentArtist.swift */,
-				A9678413256427010066C147 /* MarketingCount.swift */,
-				A967841C2564F7E20066C147 /* AdminRoles.swift */,
-				A94D23692565938B00CDF674 /* AdminTeammate.swift */,
-				A94D236F25667C0800CDF674 /* AdminTeamUserProfile.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1175,6 +1168,7 @@
 		C03BD8932476F87E00279D7F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C04B1316256BAFBB004AB282 /* AdminUserTabControllers */,
 				A96784122563F98A0066C147 /* TeammateController */,
 				C02EE1A4253DC9150039B1C9 /* DefaultViewController.swift */,
 				C09539152559BA7800D0E3FC /* MarketingHome */,
@@ -1194,7 +1188,6 @@
 				C0925796249F6FE7006C4C05 /* BuyerHome */,
 				C0144ABF248443BB006FF4AB /* ForgotPasswordControllers */,
 				C0144ABE24844390006FF4AB /* LoginControllers */,
-				11173F5E2541A9830027B9C3 /* AdminUserDetailController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1240,6 +1233,20 @@
 				C04842B924E7C43000D3207F /* CustomProductListController.swift */,
 			);
 			path = CustomProduct;
+			sourceTree = "<group>";
+		};
+		C04B1316256BAFBB004AB282 /* AdminUserTabControllers */ = {
+			isa = PBXGroup;
+			children = (
+				11173F5C254192A30027B9C3 /* AdminUserController.swift */,
+				11173F5E2541A9830027B9C3 /* AdminUserDetailController.swift */,
+				1148DB972541D5BA0052B8D6 /* AdminGeneralInfo.swift */,
+				1148DB992541D5D20052B8D6 /* AdminBrandDetails.swift */,
+				1148DB9B2541D5E20052B8D6 /* AdminBankDetails.swift */,
+				115338A32542D8E800BF4204 /* AdminBuyerUserDetailController.swift */,
+				115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */,
+			);
+			path = AdminUserTabControllers;
 			sourceTree = "<group>";
 		};
 		C04F72DC24C6272900E8122E /* ArtisanProductCatalogue */ = {
@@ -1414,8 +1421,6 @@
 				C016EC1D2510D4F20039B7AF /* Notification+Request.swift */,
 				C065709F252B82D3001140C7 /* TransactionStatus+Request.swift */,
 				C06570A5252B8E87001140C7 /* TransactionObject+Request.swift */,
-				A9678415256427680066C147 /* MarketingTeam+Request.swift */,
-				A983D99A256A7D1700F6D8E9 /* MarketingEnquiryAndOrderCount+Request.swift */,
 			);
 			path = "Entity+Networking";
 			sourceTree = "<group>";
@@ -1511,6 +1516,7 @@
 			isa = PBXGroup;
 			children = (
 				C09539162559BADD00D0E3FC /* MarketingTabbarController.swift */,
+				11C849B4253054B200729355 /* MarketHomeController.swift */,
 			);
 			path = MarketingHome;
 			sourceTree = "<group>";
@@ -1599,8 +1605,6 @@
 				309787882524CEAE00F9B608 /* CurrencySigns+Transaction.swift */,
 				C06570AC252B9B25001140C7 /* TransactionStatus+Transaction.swift */,
 				C06570AE252B9F72001140C7 /* TransactionObject+Transaction.swift */,
-				A94D236B2565A27D00CDF674 /* AdminTeammate+Transaction.swift */,
-				A983D9982569564D00F6D8E9 /* AdminRoles+Transaction.swift */,
 			);
 			path = "Entity+Transaction";
 			sourceTree = "<group>";
@@ -1668,10 +1672,6 @@
 				C09C970424B919D300FD97E9 /* ArtisanGeneralInfo.swift */,
 				C09C970624B919EE00FD97E9 /* ArtisanBrandDetails.swift */,
 				C09C970824B919FC00FD97E9 /* ArtisanBankDetails.swift */,
-				1148DB972541D5BA0052B8D6 /* AdminGeneralInfo.swift */,
-				1148DB992541D5D20052B8D6 /* AdminBrandDetails.swift */,
-				1148DB9B2541D5E20052B8D6 /* AdminBankDetails.swift */,
-				115338A92542E08F00BF4204 /* AdminBuyerInfo.swift */,
 				118F7053255557C50075F998 /* AdminEnquiryList.swift */,
 				118F70552555582A0075F998 /* AdminOrderList.swift */,
 			);
@@ -1772,6 +1772,10 @@
 			isa = PBXGroup;
 			children = (
 				C0E2354125667B9400A1F268 /* AdminUser.swift */,
+				A9678413256427010066C147 /* MarketingCount.swift */,
+				A967841C2564F7E20066C147 /* AdminRoles.swift */,
+				A94D23692565938B00CDF674 /* AdminTeammate.swift */,
+				A94D236F25667C0800CDF674 /* AdminTeamUserProfile.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -1780,6 +1784,8 @@
 			isa = PBXGroup;
 			children = (
 				C0E2354725668C5400A1F268 /* AdminUser+Transactions.swift */,
+				A94D236B2565A27D00CDF674 /* AdminTeammate+Transaction.swift */,
+				A983D9982569564D00F6D8E9 /* AdminRoles+Transaction.swift */,
 			);
 			path = "Admin+Transactions";
 			sourceTree = "<group>";
@@ -1788,6 +1794,8 @@
 			isa = PBXGroup;
 			children = (
 				C0E235452566891700A1F268 /* AdminUser+Request.swift */,
+				A9678415256427680066C147 /* MarketingTeam+Request.swift */,
+				A983D99A256A7D1700F6D8E9 /* MarketingEnquiryAndOrderCount+Request.swift */,
 			);
 			path = "Admin+Networking";
 			sourceTree = "<group>";
