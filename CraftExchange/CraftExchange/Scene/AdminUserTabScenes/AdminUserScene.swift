@@ -79,7 +79,7 @@ extension AdminUserService {
                 }
             }
             if let searchtext = controller.AdminDbSearch.searchTextField.text, searchtext != "" {
-                let predicate = NSPredicate.init(format: "%K contains[cd] %@ OR %K contains[cd] %@ OR %K contains[cd] %@","email",searchtext,"firstName",searchtext,"brandName",searchtext)
+                let predicate = NSPredicate.init(format: "%K contains[cd] %@ OR %K contains[cd] %@ OR %K contains[cd] %@ OR %K contains[cd] %@","email",searchtext,"firstName",searchtext,"brandName",searchtext,"mobile",searchtext)
                 controller.allUsers = controller.allUsers?.filter(predicate)
             }
             controller.sortTable()

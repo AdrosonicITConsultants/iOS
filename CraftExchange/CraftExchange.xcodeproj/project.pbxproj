@@ -515,7 +515,7 @@
 		C02EE1A4253DC9150039B1C9 /* DefaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
 		C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductType+Transaction.swift"; sourceTree = "<group>"; };
 		C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YarnCount+Transaction.swift"; sourceTree = "<group>"; };
-		C03BD8772476F0BC00279D7F /* Craft Xchange Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Craft Xchange Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C03BD8772476F0BC00279D7F /* Craft-Xchange-Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Craft-Xchange-Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03BD87A2476F0BC00279D7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C03BD87C2476F0BC00279D7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C03BD8812476F0BC00279D7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -992,7 +992,7 @@
 		C03BD8782476F0BC00279D7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C03BD8772476F0BC00279D7F /* Craft Xchange Admin.app */,
+				C03BD8772476F0BC00279D7F /* Craft-Xchange-Admin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1814,7 +1814,7 @@
 			);
 			name = CraftExchange;
 			productName = CraftExchange;
-			productReference = C03BD8772476F0BC00279D7F /* Craft Xchange Admin.app */;
+			productReference = C03BD8772476F0BC00279D7F /* Craft-Xchange-Admin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2445,7 +2445,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.adrosonic.beta.CraftExchangeAdmin;
-				PRODUCT_NAME = "Craft Xchange Admin";
+				PRODUCT_NAME = "Craft-Xchange-Admin";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2467,7 +2467,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.adrosonic.beta.CraftExchangeAdmin;
-				PRODUCT_NAME = "Craft Xchange Admin";
+				PRODUCT_NAME = "Craft-Xchange-Admin";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
