@@ -21,7 +21,7 @@ extension AdminUserService {
         let controller = storyboard.instantiateViewController(withIdentifier: "AdminUserController") as! AdminUserController
         
         controller.loadMetaData = {
-            let service = HomeScreenService.init(client: self.client)
+            let service = AdminHomeScreenService.init(client: self.client)
             service.fetchClusterData(vc: controller)
         }
         

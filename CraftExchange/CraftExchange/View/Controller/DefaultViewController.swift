@@ -24,16 +24,13 @@ class DefaultViewController: UIViewController {
             _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
             return
         }
-        MarketingTeammateService().getEnquiryAndOrderCount()
-        let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
-        let tab = storyboard.instantiateViewController(withIdentifier: "MarketingTabbarController") as! MarketingTabbarController
-        tab.modalPresentationStyle = .fullScreen
-//        let nav = tab.customizableViewControllers?.first as! UINavigationController
-//        let vc = nav.topViewController as! MarketHomeController
-        self.present(tab, animated: true, completion: nil)
+//        let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
+//        let tab = storyboard.instantiateViewController(withIdentifier: "MarketingTabbarController") as! MarketingTabbarController
+//        tab.modalPresentationStyle = .fullScreen
+//        self.present(tab, animated: true, completion: nil)
+        let controller = AdminHomeScreenService(client: client).createScene()
+        self.present(controller, animated: true, completion: nil)
     }else {
-//        let vc = storyboard.instantiateViewController(withIdentifier: "LoginMarketController") as! LoginMarketController
-//        self.present(vc, animated: true, completion: nil)
         guard let client = try? SafeClient(wrapping: CraftExchangeClient()) else {
             _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
             return

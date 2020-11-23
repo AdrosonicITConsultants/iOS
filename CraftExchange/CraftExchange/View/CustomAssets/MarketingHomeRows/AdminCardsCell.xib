@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -49,20 +49,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Xk8-nH-HeO" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
-                                        <rect key="frame" x="452" y="43" width="141" height="133"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.94353491067886353" green="0.95877832174301147" blue="0.18982550501823425" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                        <state key="normal">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vls-UA-NQu">
                                         <rect key="frame" x="91" y="139" width="38" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -73,11 +59,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFw-dk-Ijm">
-                                        <rect key="frame" x="545" y="142" width="37" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dt8-xD-NfH">
                                         <rect key="frame" x="18" y="139" width="21" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -85,11 +66,6 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2l-9w-2oQ">
                                         <rect key="frame" x="315" y="142" width="22" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="Icon open-graph"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nc-Xh-mn9">
-                                        <rect key="frame" x="466" y="142" width="22" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="Icon open-graph"/>
                                     </button>
@@ -191,14 +167,11 @@
                 <outlet property="Label4" destination="xcc-0c-ifV" id="dpw-o7-aKS"/>
                 <outlet property="Lb1" destination="Dt8-xD-NfH" id="6gc-bn-qUU"/>
                 <outlet property="Lb3" destination="b2l-9w-2oQ" id="aSx-4u-TqH"/>
-                <outlet property="Lb4" destination="6nc-Xh-mn9" id="QTV-aQ-d55"/>
                 <outlet property="Rb1" destination="vls-UA-NQu" id="Stg-Pe-eDK"/>
                 <outlet property="Rb3" destination="zD9-8q-aqs" id="FbV-yu-FLe"/>
-                <outlet property="Rb4" destination="LFw-dk-Ijm" id="4ER-7l-1UD"/>
                 <outlet property="Scrollview" destination="2e9-Pv-1nH" id="e9p-Ak-pet"/>
                 <outlet property="b2" destination="CMr-yk-fbd" id="J4g-J8-8zh"/>
                 <outlet property="b3" destination="QvL-hT-1ZK" id="b5l-mb-EBF"/>
-                <outlet property="b4" destination="Xk8-nH-HeO" id="OQe-YP-dQ2"/>
             </connections>
             <point key="canvasLocation" x="57.24637681159421" y="120.20089285714285"/>
         </tableViewCell>

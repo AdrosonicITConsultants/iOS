@@ -27,16 +27,13 @@ class MarketHomeController: FormViewController {
     var viewWillAppear: (() -> ())?
     let realm = try? Realm()
     var chatCount = 0
-    
-    override func viewWillAppear(_ animated: Bool) {
-        MarketingTeammateService().getEnquiryAndOrderCount()
-    }
-    
+    var reachabilityManager = try? Reachability()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
+        viewWillAppear?()
         refreshCountForTag()
         form
             +++ Section()
@@ -139,14 +136,14 @@ class MarketHomeController: FormViewController {
                 $0.cell.height = { 80.0 }
             }
             <<< AdminHomeBottomRow() {
+                $0.tag = "AdminHomeBottomRow"
                 $0.cell.height = { 142.0 }
                 $0.cell.OngoingBtn.backgroundColor = UIColor(red: 0.051, green: 0.1882, blue: 0.6471, alpha: 1.0)
                 $0.cell.ClosedBtn.backgroundColor = UIColor(red: 0.3804, green: 0.6627, blue: 0.4314, alpha: 1.0)
             }.cellUpdate({ (cell, row) in
                 let app = UIApplication.shared.delegate as? AppDelegate
-//                AdminHomeBottom.botto
-//                BottomLabel1.text = "\(app?.countData?.escaltions ?? 0)"
-//                BottomLabel2.text = "\(app?.countData?.escaltions ?? 0)"
+                cell.BottomLabel1.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
+                cell.BottomLabel2.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
             })
             
             <<< ButtonRow() {
@@ -197,5 +194,7 @@ extension MarketHomeController: MarketActionsProtocol, ArrowBtnProtocol {
         self.form.allSections.first?.reload()
         let row = self.form.rowBy(tag: "HorizonatalAdmin1")
         row?.updateCell()
+        let row2 = self.form.rowBy(tag: "AdminHomeBottomRow")
+        row2?.updateCell()
     }
 }

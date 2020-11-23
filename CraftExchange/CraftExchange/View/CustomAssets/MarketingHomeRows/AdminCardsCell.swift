@@ -17,7 +17,6 @@ class AdminCardsCell: Cell<String>, CellType {
 
     @IBOutlet weak var Scrollview: UIScrollView!
     @IBOutlet weak var B1: UIButton!
-    @IBOutlet weak var b4: UIButton!
     @IBOutlet weak var b3: UIButton!
     @IBOutlet weak var b2: UIButton!
     
@@ -28,11 +27,9 @@ class AdminCardsCell: Cell<String>, CellType {
     @IBOutlet weak var Rb1: UIButton!
     @IBOutlet weak var Rb2: UIButton!
     @IBOutlet weak var Rb3: UIButton!
-    @IBOutlet weak var Rb4: UIButton!
     @IBOutlet weak var Lb1: UIButton!
     @IBOutlet weak var Lb2: UIButton!
     @IBOutlet weak var Lb3: UIButton!
-    @IBOutlet weak var Lb4: UIButton!
     
     var delegate: ArrowBtnProtocol?
     

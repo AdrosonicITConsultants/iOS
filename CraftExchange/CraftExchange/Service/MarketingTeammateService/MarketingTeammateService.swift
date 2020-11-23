@@ -18,20 +18,16 @@ class MarketingTeammateService: BaseService<Data> {
         super.init()
     }
     
-    func fetchAllAdminEnquiryAndOrder() -> SafeSignal<Data> {
-        return MarketingCount.getAdminEnquiryAndOrder().response(using: client).debug()
-    }
-    
-    func fetchAdminRoles() -> SafeSignal<Data> {
-        return AdminTeammate.getAdminRoles().response(using: client).debug()
-    }
-    
     func fetchAdminProfile(userId: Int) -> SafeSignal<Data> {
         return AdminTeammate.getAdminProfile(userId: userId).response(using: client).debug()
     }
     
     func fetchAdminTeam(pageNo:Int) -> SafeSignal<Data> {
         return AdminTeammate.getAdminTeam(pageNo: pageNo).response(using: client).debug()
+    }
+    
+    func fetchAdminRoles() -> SafeSignal<Data> {
+        return AdminTeammate.getAdminRoles().response(using: client).debug()
     }
 
 }
