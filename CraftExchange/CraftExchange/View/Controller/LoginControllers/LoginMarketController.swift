@@ -24,6 +24,7 @@ class LoginMarketController: UIViewController {
     @IBOutlet weak var usernameField: RoundedTextField!
     @IBOutlet weak var passwordField: RoundedTextField!
     var viewModel = LoginMarketViewModel()
+    var viewWillAppear: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,10 @@ class LoginMarketController: UIViewController {
         self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
         self.viewModel.password.bidirectionalBind(to: passwordField.reactive.text)
         self.navigationItem.rightBarButtonItem = roleBarButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewWillAppear?()
     }
     
     @IBAction func loginButtonSelected(_ sender: Any) {

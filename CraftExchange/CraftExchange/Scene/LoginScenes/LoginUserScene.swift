@@ -87,6 +87,11 @@ extension LoginUserService {
         vc.present(controller, animated: true, completion: nil)
     }
     
+    vc.viewWillAppear = {
+        vc.usernameField.text = ""
+        vc.passwordField.text = ""
+    }
+    
     return vc
   }
 }

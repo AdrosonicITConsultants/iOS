@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OCz-pL-aja">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OCz-pL-aja">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -702,8 +702,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Search Teammate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfw-iO-VX7">
-                                <rect key="frame" x="42" y="139" width="358" height="27.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Teammate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfw-iO-VX7">
+                                <rect key="frame" x="20" y="139" width="358" height="27.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="358" id="LgN-ua-d6i"/>
                                 </constraints>
@@ -788,14 +788,6 @@
                                     <constraint firstAttribute="trailing" secondItem="hRM-Js-ffs" secondAttribute="trailing" constant="8" id="vHn-f5-JHt"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzi-OO-dIf">
-                                <rect key="frame" x="7" y="139" width="36" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="36" id="UGw-AG-9B2"/>
-                                    <constraint firstAttribute="height" constant="40" id="z7N-xS-BBO"/>
-                                </constraints>
-                                <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-gR-1Rr" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
                                 <rect key="frame" x="20" y="221.5" width="374" height="30"/>
                                 <color key="backgroundColor" red="0.063450228329999997" green="0.27916798860000003" blue="0.1846678004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -831,11 +823,9 @@
                             <constraint firstItem="DVD-su-wXJ" firstAttribute="leading" secondItem="ioj-5i-5Dj" secondAttribute="leading" constant="20" id="XTL-A3-Kwd"/>
                             <constraint firstItem="ioj-5i-5Dj" firstAttribute="trailing" secondItem="Keg-gR-1Rr" secondAttribute="trailing" constant="20" id="Yti-EQ-vHu"/>
                             <constraint firstItem="m6b-p9-HwI" firstAttribute="trailing" secondItem="hRM-Js-ffs" secondAttribute="trailing" id="fq7-jl-rsh"/>
-                            <constraint firstItem="Lzi-OO-dIf" firstAttribute="top" secondItem="ioj-5i-5Dj" secondAttribute="top" constant="51" id="fuz-hQ-09j"/>
-                            <constraint firstItem="Nfw-iO-VX7" firstAttribute="leading" secondItem="ioj-5i-5Dj" secondAttribute="leading" constant="42" id="hfG-TP-qYu"/>
+                            <constraint firstItem="Nfw-iO-VX7" firstAttribute="leading" secondItem="ioj-5i-5Dj" secondAttribute="leading" constant="20" id="hfG-TP-qYu"/>
                             <constraint firstItem="ioj-5i-5Dj" firstAttribute="trailing" secondItem="2jS-j8-xWu" secondAttribute="trailing" constant="20" id="iR5-bJ-Vtq"/>
                             <constraint firstItem="Keg-gR-1Rr" firstAttribute="top" secondItem="DVD-su-wXJ" secondAttribute="bottom" constant="19" id="lct-J5-bfJ"/>
-                            <constraint firstItem="Lzi-OO-dIf" firstAttribute="leading" secondItem="ioj-5i-5Dj" secondAttribute="leading" constant="7" id="swO-k6-QL3"/>
                             <constraint firstItem="hRM-Js-ffs" firstAttribute="leading" secondItem="YgY-FJ-5nO" secondAttribute="trailing" constant="6" id="vOG-Oz-Ge7"/>
                             <constraint firstItem="2jS-j8-xWu" firstAttribute="leading" secondItem="DVD-su-wXJ" secondAttribute="trailing" constant="39" id="wVH-91-cQh"/>
                         </constraints>
@@ -844,7 +834,6 @@
                     <navigationItem key="navigationItem" id="OQy-00-bov"/>
                     <connections>
                         <outlet property="SearchTeammateLabel" destination="Nfw-iO-VX7" id="GN0-vG-A0e"/>
-                        <outlet property="backArrowBtn" destination="Lzi-OO-dIf" id="eX6-Qi-FuV"/>
                         <outlet property="backgroundView" destination="7OI-UW-LsB" id="m4b-47-YW2"/>
                         <outlet property="btnSearch" destination="hRM-Js-ffs" id="wL7-bb-opo"/>
                         <outlet property="roleFilterButton" destination="Keg-gR-1Rr" id="PaR-Rz-yWK"/>
@@ -996,16 +985,8 @@
                                     <constraint firstItem="Sn4-I7-5S6" firstAttribute="top" secondItem="0lO-nt-IFC" secondAttribute="bottom" constant="10" id="oqd-3q-clP"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZT9-UL-bTP">
-                                <rect key="frame" x="8" y="95" width="36" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="36" id="L5x-dc-GUd"/>
-                                    <constraint firstAttribute="height" constant="29" id="ztF-jx-Nso"/>
-                                </constraints>
-                                <state key="normal" image="Icon awesome-long-arrow-alt-right"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGv-pl-x2w">
-                                <rect key="frame" x="52" y="95" width="325" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGv-pl-x2w">
+                                <rect key="frame" x="20" y="95" width="325" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="pab-EF-mXL"/>
                                     <constraint firstAttribute="width" constant="325" id="tki-ze-Y6T"/>
@@ -1019,13 +1000,10 @@
                         <constraints>
                             <constraint firstItem="tYi-Nq-Hih" firstAttribute="top" secondItem="WGv-pl-x2w" secondAttribute="bottom" constant="25" id="6N6-3u-WxG"/>
                             <constraint firstItem="tYi-Nq-Hih" firstAttribute="trailing" secondItem="2Ba-dG-qei" secondAttribute="trailingMargin" id="8ZK-fr-IVK"/>
+                            <constraint firstItem="WGv-pl-x2w" firstAttribute="leading" secondItem="RfN-ti-BbD" secondAttribute="leading" constant="20" id="LzM-H9-JbX"/>
                             <constraint firstItem="WGv-pl-x2w" firstAttribute="top" secondItem="RfN-ti-BbD" secondAttribute="top" constant="51" id="Nn1-h4-bK8"/>
                             <constraint firstItem="RfN-ti-BbD" firstAttribute="bottom" secondItem="tYi-Nq-Hih" secondAttribute="bottom" constant="80" id="QN6-fc-hXs"/>
-                            <constraint firstItem="ZT9-UL-bTP" firstAttribute="top" secondItem="RfN-ti-BbD" secondAttribute="top" constant="51" id="bfq-lo-8lP"/>
-                            <constraint firstItem="WGv-pl-x2w" firstAttribute="leading" secondItem="ZT9-UL-bTP" secondAttribute="trailing" constant="8" id="d8C-bJ-3i7"/>
                             <constraint firstItem="tYi-Nq-Hih" firstAttribute="leading" secondItem="2Ba-dG-qei" secondAttribute="leadingMargin" id="iov-LU-lRv"/>
-                            <constraint firstItem="RfN-ti-BbD" firstAttribute="trailing" secondItem="WGv-pl-x2w" secondAttribute="trailing" constant="37" id="wUl-4Z-1dR"/>
-                            <constraint firstItem="ZT9-UL-bTP" firstAttribute="leading" secondItem="RfN-ti-BbD" secondAttribute="leading" constant="8" id="xf6-BE-RKB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RfN-ti-BbD"/>
                     </view>
@@ -1223,7 +1201,6 @@
     </scenes>
     <resources>
         <image name="ArtisanSelfDesigniconiOS" width="27" height="21"/>
-        <image name="Icon awesome-long-arrow-alt-right" width="22" height="11"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="artisan screen logo" width="138" height="58"/>
         <image name="buyer screen logo" width="138" height="59"/>
