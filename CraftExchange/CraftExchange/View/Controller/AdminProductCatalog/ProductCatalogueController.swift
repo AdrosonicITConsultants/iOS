@@ -250,49 +250,39 @@ class ProductCatalogueController: UIViewController {
     }
     
     func checkFilter() {
-        
         if self.clusterFilterValue != "All" {
             if self.availabilityFilterValue != "All" {
                 if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
                 }else {
                     
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
                 }
             }else{
                 if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.filter("%K == %@","clusterName",clusterFilterValue ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
                 }else {
                     
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.filter("%K == %@","clusterName",clusterFilterValue ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
                 }
             }
         }else{
             if self.availabilityFilterValue != "All" {
                 if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.filter("%K == %@","availability",availabilityFilterValue ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
                 }else {
                     
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.filter("%K == %@","availability",availabilityFilterValue ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
                 }
             }else{
                 if self.segmentView.selectedSegmentIndex == 0 {
                     self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
                 }else {
-                    
                     self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                    self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
                 }
-                
             }
         }
+        self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
     }
     
 }
