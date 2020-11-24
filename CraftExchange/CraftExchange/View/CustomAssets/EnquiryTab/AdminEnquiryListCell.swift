@@ -39,4 +39,23 @@ class AdminEnquiryListCell: UITableViewCell {
 
        self.addSubview(separator)
     }
+    
+    func configureCell(_ enquiryObj: AdminEnquiry) {
+        enquiryCodeLabel.text = enquiryObj.code ?? ""
+        availabilityLabel.text = enquiryObj.productStatus == 2 ? "Available in stock" : "Make to order"
+        prodDetailLabel.text = enquiryObj.tag ?? enquiryObj.historyTag ?? ""
+        dateStarted.text = Date().ttceISOString(isoDate: enquiryObj.dateStarted ?? Date())
+        dateUpdated.text = Date().ttceISOString(isoDate: enquiryObj.lastUpdated ?? Date())
+        eta.text = enquiryObj.eta ?? "NA"
+        stateLabel.text = "\(enquiryObj.currenStageId)"
+        brandLabel.text = enquiryObj.buyerBrand
+        clusterLabel.text = "\(enquiryObj.artisanBrand ?? "NA"),\(enquiryObj.cluster ?? "NA")"
+        costLabel.text = "\(enquiryObj.amount)"
+        if enquiryObj.madeWithAntharan == 1 {
+            antaranImage.image = UIImage.init(named: "iosAntaranSelfDesign")
+        }else {
+            antaranImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+        }
+    }
+    
 }

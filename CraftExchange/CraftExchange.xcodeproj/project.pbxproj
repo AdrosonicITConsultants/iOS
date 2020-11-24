@@ -152,6 +152,9 @@
 		C04842C224E7E70A00D3207F /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04842C124E7E70A00D3207F /* Date+Extensions.swift */; };
 		C04A6148256A7334003E7A65 /* AdminUserProfileScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04A6147256A7334003E7A65 /* AdminUserProfileScene.swift */; };
 		C04A614A256ACDCC003E7A65 /* UISegmentControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04A6149256ACDCC003E7A65 /* UISegmentControl+Extensions.swift */; };
+		C04E6102256CC6D5001E2179 /* AdminEnquiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E6101256CC6D5001E2179 /* AdminEnquiry.swift */; };
+		C04E6104256CE511001E2179 /* AdminEnquiry+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E6103256CE511001E2179 /* AdminEnquiry+Transaction.swift */; };
+		C04E6106256CE65A001E2179 /* AdminEnquiry+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E6105256CE65A001E2179 /* AdminEnquiry+Request.swift */; };
 		C04F72D924C611D500E8122E /* ArtisanProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04F72D824C611D400E8122E /* ArtisanProductCell.swift */; };
 		C04F72DB24C611E700E8122E /* ArtisanProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C04F72DA24C611E700E8122E /* ArtisanProductCell.xib */; };
 		C04F72DE24C6276B00E8122E /* ArtisanProdCatalogueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04F72DD24C6276B00E8122E /* ArtisanProdCatalogueController.swift */; };
@@ -539,6 +542,9 @@
 		C04842C124E7E70A00D3207F /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		C04A6147256A7334003E7A65 /* AdminUserProfileScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminUserProfileScene.swift; sourceTree = "<group>"; };
 		C04A6149256ACDCC003E7A65 /* UISegmentControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentControl+Extensions.swift"; sourceTree = "<group>"; };
+		C04E6101256CC6D5001E2179 /* AdminEnquiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiry.swift; sourceTree = "<group>"; };
+		C04E6103256CE511001E2179 /* AdminEnquiry+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdminEnquiry+Transaction.swift"; sourceTree = "<group>"; };
+		C04E6105256CE65A001E2179 /* AdminEnquiry+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdminEnquiry+Request.swift"; sourceTree = "<group>"; };
 		C04F72D824C611D400E8122E /* ArtisanProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanProductCell.swift; sourceTree = "<group>"; };
 		C04F72DA24C611E700E8122E /* ArtisanProductCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtisanProductCell.xib; sourceTree = "<group>"; };
 		C04F72DD24C6276B00E8122E /* ArtisanProdCatalogueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanProdCatalogueController.swift; sourceTree = "<group>"; };
@@ -1744,6 +1750,7 @@
 				A967841C2564F7E20066C147 /* AdminRoles.swift */,
 				A94D23692565938B00CDF674 /* AdminTeammate.swift */,
 				A94D236F25667C0800CDF674 /* AdminTeamUserProfile.swift */,
+				C04E6101256CC6D5001E2179 /* AdminEnquiry.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -1754,6 +1761,7 @@
 				C0E2354725668C5400A1F268 /* AdminUser+Transactions.swift */,
 				A94D236B2565A27D00CDF674 /* AdminTeammate+Transaction.swift */,
 				A983D9982569564D00F6D8E9 /* AdminRoles+Transaction.swift */,
+				C04E6103256CE511001E2179 /* AdminEnquiry+Transaction.swift */,
 			);
 			path = "Admin+Transactions";
 			sourceTree = "<group>";
@@ -1764,6 +1772,7 @@
 				C0E235452566891700A1F268 /* AdminUser+Request.swift */,
 				A9678415256427680066C147 /* MarketingTeam+Request.swift */,
 				A983D99A256A7D1700F6D8E9 /* MarketingEnquiryAndOrderCount+Request.swift */,
+				C04E6105256CE65A001E2179 /* AdminEnquiry+Request.swift */,
 			);
 			path = "Admin+Networking";
 			sourceTree = "<group>";
@@ -2105,6 +2114,7 @@
 				C06570AB252B958F001140C7 /* TransactionTitleRow.swift in Sources */,
 				1148DB9C2541D5E20052B8D6 /* AdminBankDetails.swift in Sources */,
 				C016EC1B2510D3590039B7AF /* NotificationCell.swift in Sources */,
+				C04E6102256CC6D5001E2179 /* AdminEnquiry.swift in Sources */,
 				C0917DF024D4660E006B6664 /* ProductCare.swift in Sources */,
 				C0930D3B250620E000DC9274 /* TransactionReceiptRow.swift in Sources */,
 				C01AA7BF24FD739F00F66A62 /* Enquiry.swift in Sources */,
@@ -2118,6 +2128,7 @@
 				C0144AAD2483FC4B006FF4AB /* ResetPasswordScene.swift in Sources */,
 				C097949C24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift in Sources */,
 				A94D236825658FB000CDF674 /* TeammateListScene.swift in Sources */,
+				C04E6106256CE65A001E2179 /* AdminEnquiry+Request.swift in Sources */,
 				C0A997112483ADFA0035A33D /* LoginUserService.swift in Sources */,
 				C071E22D247E810D0085805B /* Strings+Extensions.swift in Sources */,
 				C09B3F1524BA615900FBC115 /* Disk+Codable.swift in Sources */,
@@ -2284,6 +2295,7 @@
 				C09B3F1924BA6DF500FBC115 /* UIImageView+Extensions.swift in Sources */,
 				C09F97DC25021BD80076F917 /* BuyerEnquiryCell.swift in Sources */,
 				C0E6D04624EC0984008CFB1F /* ProdDetailDescriptionRow.swift in Sources */,
+				C04E6104256CE511001E2179 /* AdminEnquiry+Transaction.swift in Sources */,
 				C04F72DE24C6276B00E8122E /* ArtisanProdCatalogueController.swift in Sources */,
 				118F7054255557C60075F998 /* AdminEnquiryList.swift in Sources */,
 				C071E251247EE5C80085805B /* Activity.swift in Sources */,

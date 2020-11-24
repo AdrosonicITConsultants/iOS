@@ -73,6 +73,16 @@ class AdminEnquiryList: FormViewController {
         }.cellUpdate({ (cell, row) in
             let app = UIApplication.shared.delegate as? AppDelegate
             cell.LowerActionLabel.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
+        }).onCellSelection({ (cell, row) in
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
+                vc.modalPresentationStyle = .fullScreen
+                vc.isIncompleteClosed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
         })
         
             <<< AdminHomeBottomRow() {
