@@ -22,7 +22,7 @@ import ViewRow
 import WebKit
 
 class BuyerEnquiryDetailsController: FormViewController {
-    var enquiryObject: Enquiry?
+    var enquiryObject: AdminEnquiry?
     var getMOQ: GetMOQ?
     var getMOQs: GetMOQ?
     var listMOQs: [GetMOQs]?
@@ -59,7 +59,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         if User.loggedIn()?.refRoleId == "1" {
             shouldShowOption = false
         }else {
-            if enquiryObject?.enquiryStageId ?? 0 > 3 {
+            if enquiryObject?.currenStageId ?? 0 > 3 {
                 shouldShowOption = false
             }else {
                 shouldShowOption = true
@@ -78,72 +78,21 @@ class BuyerEnquiryDetailsController: FormViewController {
         
         form
             +++ Section()
-            <<< EnquiryDetailsRow(){
-                $0.tag = "EnquiryDetailsRow"
-                $0.cell.height = { 220.0 }
-                $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
-                if enquiryObject?.productType == "Custom Product" {
-                    $0.cell.designByLbl.text = "Requested Custom Design"
-                }else {
-                    $0.cell.designByLbl.text = enquiryObject?.brandName
-                }
-                $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
-                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if enquiryObject?.enquiryStageId ?? 0 < 5 {
-                    $0.cell.statusLbl.textColor = .black
-                    $0.cell.statusDotView.backgroundColor = .black
-                }else if enquiryObject?.enquiryStageId ?? 0 < 9 {
-                    $0.cell.statusLbl.textColor = .systemYellow
-                    $0.cell.statusDotView.backgroundColor = .systemYellow
-                }else {
-                    $0.cell.statusLbl.textColor = UIColor().CEGreen()
-                    $0.cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
-                if let date = enquiryObject?.lastUpdated {
-                    $0.cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
-                }
-                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId {
-                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                        $0.cell.productImage.image = downloadedImage
-                    }else {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                            let service = ProductImageService.init(client: client)
-                            service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
-                                DispatchQueue.main.async {
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                    let row = self.form.rowBy(tag: "EnquiryDetailsRow") as! EnquiryDetailsRow
-                                    row.cell.productImage.image = UIImage.init(data: attachment)
-                                    row.reload()
-                                }
-                            }.dispose(in: bag)
-                        }catch {
-                            print(error.localizedDescription)
-                        }
-                        
-                    }
+            <<< AdminEnquiryDetailRow() {
+                $0.cell.height = { 590.0 }
+                if let eqObj = enquiryObject {
+                    $0.cell.configureCell(eqObj)
                 }
             }
             <<< LabelRow(){
                 $0.title = "Enquiry Details"
-            }
-            <<< StatusRow() {
-                $0.cell.height = { 110.0 }
-                $0.cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
-                $0.cell.currentStatusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "NA")"
-                $0.cell.nextStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (enquiryObject?.enquiryStageId ?? 0) + 1)?.stageDescription ?? "NA")"
-                if (enquiryObject?.isBlue ?? false == true) && (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 9){
-                    $0.cell.actionLbl.text = "Advance payment Awaiting"
-                }else {
-                    $0.cell.actionLbl.text = ""
-                }
-                if isClosed {
-                    $0.hidden = true
-                }
-            }
+                $0.cell.contentView.backgroundColor = .black
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textColor = .white
+            })
             <<< EnquiryClosedRow() {
                 $0.cell.height = { 110.0 }
-                if enquiryObject?.enquiryStageId == 10 {
+                if enquiryObject?.currenStageId == 10 {
                     $0.cell.dotView.backgroundColor = UIColor().CEGreen()
                     $0.cell.enquiryLabel.text = "Enquiry Completed".localized
                     $0.cell.enquiryLabel.textColor = UIColor().CEGreen()
@@ -154,276 +103,31 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
                 $0.hidden = isClosed == true ? false : true
             }
-            <<< BuyerEnquirySectionViewRow() {
-                $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check PI"
-                if let date = enquiryObject?.lastUpdated {
-                    $0.cell.valueLbl.text = "Received: \(Date().ttceFormatter(isoDate: date))"
-                }
-                $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
-                $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
-                $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
-                if User.loggedIn()?.refRoleId == "1"  {
-                    $0.hidden = true
-                }else if ( enquiryObject?.isPiSend == 1 || enquiryObject?.enquiryStageId == 3  || enquiryObject?.enquiryStageId == 7 ){
-                    $0.hidden = false
-                }
-                    else {
-                    $0.hidden = true
-                }
-            }.onCellSelection({ (cell, row) in
-                let row = self.form.rowBy(tag: "Show PI")
-                 if row?.isHidden == true {
-                    row?.hidden = false
-                 }else {
-                    row?.hidden = true
-                }
-                row?.evaluateHidden()
-                self.form.allSections.first?.reload(with: .none)
-
-            })
-            
-            <<< AcceptedInvoiceRow() {
-                $0.cell.height = { 90.0 }
-                $0.cell.delegate = self
-                $0.cell.tag = 100
-                $0.tag = "Show PI"
-                if User.loggedIn()?.refRoleId == "1" && enquiryObject?.enquiryStageId == 3 {
-                     $0.hidden = false
-                }
-                else{
-                     $0.hidden = true
-                }
-            }
-            
-             <<< TransactionReceiptRow() {
-                           $0.cell.height = { 110.0 }
-                           $0.cell.delegate = self
-                           $0.tag = "UploadReceipt"
-                           $0.cell.tag = 100
-                           $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
-                           if (enquiryObject?.enquiryStageId == 3 || enquiryObject?.enquiryStageId == 8){
-                               $0.hidden = false
-                           }else {
-                               $0.hidden = true
-                           }
-                if User.loggedIn()?.refRoleId == "1" || isClosed {
-                               $0.hidden = true
-                           }
-                       }
-            
-            <<< ProFormaInvoiceRow() {
-                $0.cell.height = { 150.0 }
-                $0.cell.delegate = self
-                $0.tag = "CreatePI"
-                $0.cell.tag = 100
-                if (enquiryObject?.enquiryStageId == 2 || enquiryObject?.enquiryStageId == 7){
-                    $0.hidden = false
-                }else {
-                    $0.hidden = true
-                }
-              
-                if User.loggedIn()?.refRoleId == "2" || isClosed || enquiryObject?.isPiSend == 1{
-                    $0.hidden = true
-                }
-            }
-            
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                if User.loggedIn()?.refRoleId == "2" {
-                    $0.cell.titleLbl.text = "Check artisan's details"
-                }else {
-                    $0.cell.titleLbl.text = "Check buyer's details"
-                }
-                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.brandName ?? "NA")"
+                $0.cell.titleLbl.text = "Check artisan's details"
+                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.artisanBrand ?? "NA")"
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBlueText()
                 $0.cell.valueLbl.textColor = UIColor().EQBlueText()
             }.onCellSelection({ (cell, row) in
-                let vc = EnquiryArtisanDetailsController.init(style: .plain)
-                vc.enquiryObject = self.enquiryObject
-                self.navigationController?.pushViewController(vc, animated: true)
+//                let vc = EnquiryArtisanDetailsController.init(style: .plain)
+//                vc.enquiryObject = self.enquiryObject
+//                self.navigationController?.pushViewController(vc, animated: true)
             })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check MOQ"
-                $0.cell.valueLbl.text = ""
-                $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
-                $0.cell.titleLbl.textColor = UIColor().EQGreenText()
-                if User.loggedIn()?.refRoleId == "2" || isClosed
-                {
-                    $0.hidden = true
-                }else {
-                    $0.hidden = false
-                }
+                $0.cell.titleLbl.text = "Check buyer's details"
+                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.buyerBrand ?? "NA")"
+                $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
+                $0.cell.titleLbl.textColor = UIColor().EQBlueText()
+                $0.cell.valueLbl.textColor = UIColor().EQBlueText()
             }.onCellSelection({ (cell, row) in
-                let row1 = self.form.rowBy(tag: "createMOQ1")
-                let row2 = self.form.rowBy(tag: "createMOQ2")
-                let row3 = self.form.rowBy(tag: "createMOQ3")
-                let row4 = self.form.rowBy(tag: "createMOQ4")
-                let row5 = self.form.rowBy(tag: "createMOQ5")
-                let row6 = self.form.rowBy(tag: "createMOQ6")
-                if row1?.isHidden == true {
-                    row1?.hidden = false
-                    row2?.hidden = false
-                    row3?.hidden = false
-                    row4?.hidden = false
-                    row5?.hidden = false
-                    row6?.hidden = false
-                }else {
-                    row1?.hidden = true
-                    row2?.hidden = true
-                    row3?.hidden = true
-                    row4?.hidden = true
-                    row5?.hidden = true
-                    row6?.hidden = true
-                }
-                row1?.evaluateHidden()
-                row2?.evaluateHidden()
-                row3?.evaluateHidden()
-                row4?.evaluateHidden()
-                row5?.evaluateHidden()
-                row6?.evaluateHidden()
-                self.form.allSections.first?.reload(with: .none)
-            })
-            <<< LabelRow() {
-                $0.cell.height = { 60.0 }
-                $0.tag = "createMOQ1"
-                $0.hidden = true
-                if self.enquiryObject?.productType == "Custom Product" {
-                    $0.title = "Fill in MOQ to bid for this enquiry"
-                }else{
-                    $0.title = "MOQ Details"
-                }
-                $0.cell.isUserInteractionEnabled = false
-            }
-            <<< RoundedTextFieldRow() {
-                $0.cell.height = { 80.0 }
-                $0.tag = "createMOQ2"
-                $0.hidden = true
-                $0.cell.titleLabel.text = "Minimum Quantity"
-                $0.cell.valueTextField.keyboardType = .numberPad
-                $0.cell.titleLabel.textColor = .black
-                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.placeholder = "12"
-                self.viewModel.minimumQuantity.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.minimumQuantity.value ?? ""
-                self.viewModel.minimumQuantity.value = $0.cell.valueTextField.text
-                $0.cell.valueTextField.textColor = .darkGray
-            }.cellUpdate({ (cell, row) in
-                if self.sentMOQ == 1{
-                    cell.isUserInteractionEnabled = false
-                    cell.valueTextField.isUserInteractionEnabled = false
-                }
-                cell.valueTextField.maxLength = 2
-                cell.valueTextField.text = self.viewModel.minimumQuantity.value ?? ""
-                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                cell.valueTextField.leftPadding = 0
-            })
-            
-            <<< RoundedTextFieldRow() {
-                $0.cell.height = { 80.0 }
-                $0.tag = "createMOQ3"
-                $0.hidden = true
-                $0.cell.titleLabel.text = "Price per unit"
-                $0.cell.valueTextField.keyboardType = .numberPad
-                $0.cell.titleLabel.textColor = .black
-                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.placeholder = "123456"
-                $0.cell.valueTextField.textColor = .darkGray
-                self.viewModel.pricePerUnit.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.pricePerUnit.value ?? ""
-                self.viewModel.pricePerUnit.value = $0.cell.valueTextField.text
-                
-            }.cellUpdate({ (cell, row) in
-                if self.sentMOQ == 1{
-                    cell.isUserInteractionEnabled = false
-                    cell.valueTextField.isUserInteractionEnabled = false
-                }
-                cell.valueTextField.maxLength = 6
-                cell.valueTextField.text = self.viewModel.pricePerUnit.value ?? ""
-                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                cell.valueTextField.leftPadding = 0
-            })
-            
-            <<< RoundedActionSheetRow() {
-                $0.tag = "createMOQ4"
-                $0.cell.titleLabel.text = "Estimated Days"
-                $0.cell.titleLabel.textColor = .black
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.options = allDeliveryTimes?.compactMap { $0.deliveryDesc }
-                self.viewModel.estimatedDays.value = EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: getMOQ?.deliveryTimeId ?? 1)
-                if let selectedTiming = self.viewModel.estimatedDays.value {
-                    $0.cell.selectedVal = selectedTiming.deliveryDesc
-                    $0.value = selectedTiming.deliveryDesc
-                }
-                $0.cell.actionButton.setTitle($0.value, for: .normal)
-                $0.cell.delegate = self
-                $0.cell.height = { 80.0 }
-                $0.hidden = true
-            }.onChange({ (row) in
-                print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-                let selectedTimingObj = self.allDeliveryTimes?.filter({ (obj) -> Bool in
-                    obj.deliveryDesc == row.value
-                }).first
-                self.viewModel.estimatedDays.value = selectedTimingObj
-            }).cellUpdate({ (cell, row) in
-                if self.sentMOQ == 1{
-                    cell.options = []
-                    cell.isUserInteractionEnabled = false
-                }
-                if let selectedTiming = self.viewModel.estimatedDays.value {
-                    cell.selectedVal = selectedTiming.deliveryDesc
-                    cell.row.value = selectedTiming.deliveryDesc
-                }
-                cell.actionButton.setTitle(cell.row.value, for: .normal)
-            })
-            
-            <<< RoundedTextFieldRow() {
-                $0.cell.height = { 80.0 }
-                $0.tag = "createMOQ5"
-                $0.hidden = true
-                $0.cell.titleLabel.text = "Additional note"
-                $0.cell.titleLabel.textColor = .black
-                $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.placeholder = "Type your note here"
-                self.viewModel.additionalNote.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = self.viewModel.additionalNote.value ?? ""
-                self.viewModel.additionalNote.value = $0.cell.valueTextField.text
-                $0.cell.valueTextField.textColor = .darkGray
-            }.cellUpdate({ (cell, row) in
-                if self.sentMOQ == 1{
-                    cell.isUserInteractionEnabled = false
-                    cell.valueTextField.isUserInteractionEnabled = false
-                }
-                cell.valueTextField.maxLength = 500
-                cell.valueTextField.text = self.viewModel.additionalNote.value ?? ""
-                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                cell.valueTextField.leftPadding = 0
-            })
-            
-            <<< SingleButtonRow() {
-                $0.tag = "createMOQ6"
-                $0.cell.singleButton.backgroundColor = UIColor().CEGreen()
-                $0.cell.singleButton.setTitleColor(.white, for: .normal)
-                $0.cell.singleButton.setTitle("Send MOQ", for: .normal)
-                $0.cell.height = { 50.0 }
-                $0.cell.delegate = self as SingleButtonActionProtocol
-                $0.cell.tag = 101
-                $0.hidden = true
-            }.cellUpdate({ (cell, row) in
-                if self.sentMOQ == 1{
-                    cell.isHidden = true
-                    cell.height = { 0.0 }
-                }
+//                let vc = EnquiryArtisanDetailsController.init(style: .plain)
+//                vc.enquiryObject = self.enquiryObject
+//                self.navigationController?.pushViewController(vc, animated: true)
             })
             
             <<< MOQSectionTitleRow() {
@@ -438,11 +142,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.noOfUnitLbl.textColor = UIColor().EQGreenText()
                 $0.cell.costLbl.textColor = UIColor().EQGreenText()
                 $0.cell.etaLbl.textColor = UIColor().EQGreenText()
-                if (enquiryObject?.isMoqSend == 1 && User.loggedIn()?.refRoleId == "2"){
-                    $0.hidden = false
-                }else {
-                    $0.hidden = true
-                }
             }.onCellSelection({ (cell, row) in
                 let row1 = self.form.rowBy(tag: "MOQ1")
                 let row2 = self.form.rowBy(tag: "MOQ2")
@@ -469,6 +168,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
                 
             })
+            
             <<< MOQValueRow() {
                 $0.cell.height = { 60.0 }
                 $0.tag = "MOQ1"
@@ -479,7 +179,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                 if self.getMOQs != nil{
                     cell.valueLbl.text = "\(self.getMOQs!.moq) pcs"
                 }
-                
             })
             
             <<< MOQValueRow() {
@@ -509,56 +208,32 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check Product Details"
-                $0.cell.valueLbl.text = "\(enquiryObject?.productName ?? "Design By")"
-                $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
-                $0.cell.titleLbl.textColor = UIColor().EQBrownText()
-                $0.cell.valueLbl.textColor = UIColor().EQBrownText()
+                $0.cell.titleLbl.text = "Check PI".localized
+                $0.cell.valueLbl.text = "View".localized
+                $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
+                $0.cell.titleLbl.textColor = UIColor().EQBlueText()
+                $0.cell.valueLbl.textColor = UIColor().EQBlueText()
             }.onCellSelection({ (cell, row) in
-                if self.enquiryObject?.productType == "Custom Product" {
-                    self.showCustomProduct?()
-                }else if self.enquiryObject?.historyProductId != 0 {
-                    self.showHistoryProductDetails?()
-                }
-                else {
-                    self.showProductDetails?()
-                }
+                self.showLoading()
+                self.viewPI?()
             })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check MOQ"
-                $0.tag = "Check MOQs"
-                $0.cell.valueLbl.text = ""
-                $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
-                $0.cell.titleLbl.textColor = UIColor().EQGreenText()
-                if (enquiryObject?.isMoqSend == 1 || User.loggedIn()?.refRoleId == "1"){
-                    $0.hidden = true
-                }else {
-                    $0.hidden = false
-                }
+                $0.cell.titleLbl.text = "Check Product Details"
+                $0.cell.valueLbl.text = "\(enquiryObject?.tag ?? "View")"
+                $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
+                $0.cell.titleLbl.textColor = UIColor().EQBrownText()
+                $0.cell.valueLbl.textColor = UIColor().EQBrownText()
             }.onCellSelection({ (cell, row) in
-                let section = self.form.sectionBy(tag: "list MOQs")
-                if section?.isEmpty == true {
-                    self.listMOQsFunc()
+                if self.enquiryObject?.customProductId != 0 {
+                    self.showCustomProduct?()
+                }else if self.enquiryObject?.productHistoryId != 0 {
+                    self.showHistoryProductDetails?()
                 }else {
-                    section?.removeAll()
-                }
-                section?.reload()
-                
-            }).cellUpdate({ (cell, row) in
-                if (self.enquiryObject?.isMoqSend == 1 || User.loggedIn()?.refRoleId == "1"){
-                    cell.isHidden = true
-                }else {
-                    cell.isHidden = false
+                    self.showProductDetails?()
                 }
             })
-            
-            +++ Section(){ section in
-                section.tag = "list MOQs"
-        }
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -593,7 +268,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     }
     
     func reloadFormData() {
-        enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
+        enquiryObject = realm?.objects(AdminEnquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
         form.allRows .forEach { (row) in
             row.reload()
         }
@@ -606,7 +281,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             listMOQSection <<< LabelRow() {
                 $0.cell.height = { 25.0 }
                 $0.tag = "list MOQs label"
-                if self.enquiryObject?.productType == "Custom Product" {
+                if self.enquiryObject?.customProductId != 0 {
                     $0.title = "Accept MOQ from this list"
                 }else{
                     $0.title = "Accept MOQ"
@@ -614,7 +289,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.isUserInteractionEnabled = false
             }
             
-            if self.enquiryObject?.productType == "Custom Product" {
+            if self.enquiryObject?.customProductId != 0 {
                 listMOQSection <<< MOQSortButtonsRow() {
                     //   $0.hidden = true
                     $0.cell.height = { 30.0 }
@@ -705,23 +380,6 @@ class BuyerEnquiryDetailsController: FormViewController {
             self.form.sectionBy(tag: "list MOQs")?.reload()
         }
     }
-    func reloadMOQ() {
-        DispatchQueue.main.async(){
-            let row1 = self.form.rowBy(tag: "createMOQ1")
-            let row2 = self.form.rowBy(tag: "createMOQ2")
-            let row3 = self.form.rowBy(tag: "createMOQ3")
-            let row4 = self.form.rowBy(tag: "createMOQ4")
-            let row5 = self.form.rowBy(tag: "createMOQ5")
-            let row6 = self.form.rowBy(tag: "createMOQ6")
-            row1?.reload()
-            row2?.reload()
-            row3?.reload()
-            row4?.reload()
-            row5?.reload()
-            row6?.reload()
-            self.form.allSections.first?.reload(with: .none)
-        }
-    }
     
     func reloadBuyerMOQ() {
         DispatchQueue.main.async(){
@@ -737,24 +395,6 @@ class BuyerEnquiryDetailsController: FormViewController {
             self.hideLoading()
         }
     }
-    
-    func assignMOQ() {
-        if let MOQ = getMOQ {
-            viewModel.additionalNote.value = MOQ.additionalInfo
-            viewModel.estimatedDays.value = EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: MOQ.deliveryTimeId)
-            viewModel.minimumQuantity.value = "\(MOQ.moq)"
-            viewModel.pricePerUnit.value = MOQ.ppu
-            sentMOQ = 1
-            let row = self.form.rowBy(tag: "createMOQ6")
-            row?.hidden = true
-            row?.evaluateHidden()
-            self.form.allSections.first?.reload(with: .none)
-            reloadMOQ()
-        }
-        else{
-            print("novalue")
-        }
-    }
 }
 
 class CreateMOQModel {
@@ -765,7 +405,7 @@ class CreateMOQModel {
     var acceptMOQInfo = Observable<GetMOQs?>(nil)
 }
 
-extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonActionProtocol, MOQSortButtonsActionProtocol, InvoiceButtonProtocol, AcceptedInvoiceRowProtocol {
+extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, MOQSortButtonsActionProtocol, AcceptedInvoiceRowProtocol {
     func viewInvoiceButtonSelected(tag: Int) {
         switch tag{
         case 100:
@@ -776,34 +416,8 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
         }
     }
     
-    
-   func createSendInvoiceBtnSelected(tag: Int) {
-        switch tag{
-        case 100:
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.enquiryObject!.enquiryId) as! InvoiceController
-            vc1.modalPresentationStyle = .fullScreen
-            vc1.enquiryObject = self.enquiryObject
-            print("PI WORKING")
-            self.navigationController?.pushViewController(vc1, animated: true)
-            print("createSendInvoiceBtnSelected WORKING")
-        default:
-            print("NOt Working PI")
-        }
-    }
-    
-    func singleButtonSelected(tag: Int) {
-        switch tag {
-        case 101:
-            self.showLoading()
-            self.sendMOQ?()
-        default:
-            print("do nothing")
-        }
-    }
-    
     func detailsButtonSelected(tag: Int) {
-        let showMOQ = listMOQs!
+        /*let showMOQ = listMOQs!
         showMOQ.forEach({ (obj) in
             switch tag {
               
@@ -818,7 +432,7 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
             }
             
         })
-        
+        */
     }
     
     func quantityButtonSelected(tag: Int) {
@@ -847,32 +461,9 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
             print("do nothing")
         }
     }
-    
 }
-extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol, paymentButtonProtocol  {
-    func paymentBtnSelected(tag: Int) {
-        switch tag{
-        case 100:
-            if self.enquiryObject!.isBlue{
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
-                vc1.enquiryObject = self.enquiryObject
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-            }
-            else{
-            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
-            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
-            vc1.enquiryObject = self.enquiryObject
-            vc1.PI = self.PI
-            vc1.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc1, animated: true)
-            print("uploadReceiptBtnSelected")
-            }
-        default:
-            print("uploadReceiptBtnSelected Not WORKING")
-        }
-    }
+
+extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol  {
     
     func backButtonSelected() {
         self.view.hideAcceptedPIView()
@@ -881,7 +472,6 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
     func downloadButtonSelected() {
         self.downloadPI?()
     }
-    
     
     func cancelButtonSelected() {
         self.view.hideAcceptMOQView()

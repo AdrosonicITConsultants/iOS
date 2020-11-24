@@ -80,7 +80,7 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.editButton.tag = 101
                 $0.cell.tag = 101
                 $0.cell.editButton.isHidden = true
-                if product?.madeWithAnthran == 1{
+                if product?.madeWithAnthran == 1 {
                     $0.cell.editButton.isHidden = false
                 }
                 $0.cell.delegate2 = self
@@ -107,14 +107,14 @@ class AdminProductDetailController: FormViewController {
                 cell.textLabel?.textColor = .white
             }
             <<< ProdDetailDescriptionRow() {
-                let ht = UIView().heightForView(text: product?.productSpec ?? product?.productDesc ?? "", width: self.view.frame.size.width - 200)
+                let ht = UIView().heightForView(text: product?.productSpec ?? product?.productDesc ?? customProduct?.productSpec ?? "", width: self.view.frame.size.width - 200)
                 $0.cell.height = { ht < 80 ? 80 : ht+10 }
                 print("ht\(ht)")
-                $0.cell.productDescLbl.text = product?.productSpec ?? product?.productDesc ?? ""
+                $0.cell.productDescLbl.text = product?.productSpec ?? product?.productDesc ?? customProduct?.productSpec ?? ""
                 $0.cell.productDescLbl.textColor = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
                 $0.cell.productDescLbl.numberOfLines = 10
             }.cellUpdate({ (cell, row) in
-                cell.productDescLbl.text = self.product?.productSpec ?? self.product?.productDesc ?? ""
+                cell.productDescLbl.text = self.product?.productSpec ?? self.product?.productDesc ?? self.customProduct?.productSpec ?? ""
             })
             <<< LabelRow() {
                 $0.cell.height = { 30.0 }
@@ -126,13 +126,15 @@ class AdminProductDetailController: FormViewController {
             <<< ProductDetailInfoRow() {
                 $0.cell.height = { 100.0 }
             }.cellUpdate({ (cell, row) in
-                cell.productCatLbl.text = ProductCategory.getProductCat(catId: self.product?.productCategoryId ?? 0)?.prodCatDescription
-                cell.productTypeLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc
+                cell.productCatLbl.text = ProductCategory.getProductCat(catId: self.product?.productCategoryId ?? self.customProduct?.productCategoryId ?? 0)?.prodCatDescription
+                cell.productTypeLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc
                 cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: self.product?.clusterId ?? 0)?.clusterDescription ?? "-"
                 if self.product?.productStatusId == 2 {
                     cell.productAvailabilityLbl.text = "In Stock"
                     cell.productAvailabilityLbl.textColor = #colorLiteral(red: 0.6266219616, green: 0.8538652062, blue: 0.7403210998, alpha: 1)
                     cell.madeToOrderLbl.isHidden = true
+                }else if self.customProduct?.entityID != 0 {
+                    cell.productAvailabilityLbl.text = "Custom Product"
                 }
                 
             })
@@ -185,9 +187,9 @@ class AdminProductDetailController: FormViewController {
                 
             }.cellUpdate({ (cell, row) in
                 cell.titleLbl.text = " Yarn"
-                cell.valueLbl1.text = Yarn.getYarn(searchId: self.product?.warpYarnId ?? 0)?.yarnDesc ?? "-"
-                cell.valueLbl2.text = Yarn.getYarn(searchId: self.product?.weftYarnId ?? 0)?.yarnDesc ?? "-"
-                cell.valueLbl3.text = Yarn.getYarn(searchId: self.product?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-"
+                cell.valueLbl1.text = Yarn.getYarn(searchId: self.product?.warpYarnId ?? self.customProduct?.warpYarnId ?? 0)?.yarnDesc ?? "-"
+                cell.valueLbl2.text = Yarn.getYarn(searchId: self.product?.weftYarnId ?? self.customProduct?.weftYarnId ?? 0)?.yarnDesc ?? "-"
+                cell.valueLbl3.text = Yarn.getYarn(searchId: self.product?.extraWeftYarnId ?? self.customProduct?.weftYarnId ?? 0)?.yarnDesc ?? "-"
             })
             <<< ProdDetailYarnValueRow {
                 $0.cell.height = { 100.0 }
@@ -196,9 +198,9 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.rowImageWidthConstraint.constant = 0
                 
             }.cellUpdate({ (cell, row) in
-                cell.valueLbl1.text = self.product?.warpYarnCount ?? "-"
-                cell.valueLbl2.text = self.product?.weftYarnCount ?? "-"
-                cell.valueLbl3.text = self.product?.extraWeftYarnCount ?? "-"
+                cell.valueLbl1.text = self.product?.warpYarnCount ?? self.customProduct?.warpYarnCount ?? "-"
+                cell.valueLbl2.text = self.product?.weftYarnCount ?? self.customProduct?.weftYarnCount ?? "-"
+                cell.valueLbl3.text = self.product?.extraWeftYarnCount ?? self.customProduct?.extraWeftYarnCount ?? "-"
             })
             <<< ProdDetailYarnValueRow {
                 $0.cell.height = { 100.0 }
@@ -207,9 +209,9 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.rowImageWidthConstraint.constant = 0
                 
             }.cellUpdate({ (cell, row) in
-                cell.valueLbl1.text = Dye.getDyeType(searchId: self.product?.warpDyeId ?? 0)?.dyeDesc ?? "-"
-                cell.valueLbl2.text = Dye.getDyeType(searchId: self.product?.weftDyeId ?? 0)?.dyeDesc ?? "-"
-                cell.valueLbl3.text = Dye.getDyeType(searchId: self.product?.extraWeftDyeId ?? 0)?.dyeDesc ?? "-"
+                cell.valueLbl1.text = Dye.getDyeType(searchId: self.product?.warpDyeId ?? self.customProduct?.warpDyeId ?? 0)?.dyeDesc ?? "-"
+                cell.valueLbl2.text = Dye.getDyeType(searchId: self.product?.weftDyeId ?? self.customProduct?.weftDyeId ?? 0)?.dyeDesc ?? "-"
+                cell.valueLbl3.text = Dye.getDyeType(searchId: self.product?.extraWeftDyeId ?? self.customProduct?.extraWeftDyeId ?? 0)?.dyeDesc ?? "-"
             })
             <<< LabelRow {
                 $0.cell.height = { 1.0 }
@@ -226,7 +228,7 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.valueLbl1.text = ""
                 
             }.cellUpdate({ (cell, row) in
-                cell.valueLbl2.text = ReedCount.getReedCount(searchId: self.product?.reedCountId ?? 0)?.count ?? "-"
+                cell.valueLbl2.text = ReedCount.getReedCount(searchId: self.product?.reedCountId ?? self.customProduct?.reedCountId ?? 0)?.count ?? "-"
                 cell.valueLbl3.text = ""
             })
             <<< ProdDetailYarnValueRow {
@@ -336,14 +338,14 @@ class AdminProductDetailController: FormViewController {
             <<< LabelRow {
                 $0.cell.height = { 1.0 }
                 $0.cell.backgroundColor = .lightGray
-                let str = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
+                let str = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
                 if str == "Fabric" {
                     $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
             }.cellUpdate({ (cell, row) in
-                let str = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
+                let str = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
                 if str == "Fabric" {
                     cell.row.hidden = false
                 }else {
@@ -360,8 +362,8 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.titleLbl.textAlignment = .center
                 $0.cell.titleLbl.font = .systemFont(ofSize: 13)
                 $0.cell.valueLbl1.text = ""
-                $0.cell.valueLbl2.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.valueLbl3.text = self.product?.gsm ?? "-"
+                $0.cell.valueLbl2.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.valueLbl3.text = self.product?.gsm ?? self.customProduct?.gsm ?? "-"
                 if $0.cell.valueLbl2.text == "Fabric" {
                     $0.hidden = false
                 }else {
@@ -369,8 +371,8 @@ class AdminProductDetailController: FormViewController {
                 }
             }.cellUpdate({ (cell, row) in
                 cell.valueLbl1.text = ""
-                cell.valueLbl2.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
-                cell.valueLbl3.text = self.product?.gsm ?? "-"
+                cell.valueLbl2.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
+                cell.valueLbl3.text = self.product?.gsm ?? self.customProduct?.gsm ?? "-"
                 if cell.valueLbl2.text == "Fabric" {
                     cell.row.hidden = false
                 }else {
@@ -387,6 +389,9 @@ class AdminProductDetailController: FormViewController {
         
         var strArr:[String] = []
         product?.weaves .forEach({ (weave) in
+            strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+        })
+        customProduct?.weaves .forEach({ (weave) in
             strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
         })
         let setWeave = Set(strArr)

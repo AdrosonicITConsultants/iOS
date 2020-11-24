@@ -159,6 +159,8 @@
 		C02DC55724F4F26C00805C98 /* Product+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DC55624F4F26C00805C98 /* Product+Search.swift */; };
 		C02DC55A24F4F30800805C98 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02DC55924F4F30800805C98 /* SearchService.swift */; };
 		C02EE1A5253DC9150039B1C9 /* DefaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02EE1A4253DC9150039B1C9 /* DefaultViewController.swift */; };
+		C0330EC7256D71D5008D446E /* AdminEnquiryDetailRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0330EC6256D71D5008D446E /* AdminEnquiryDetailRow.xib */; };
+		C0330EC9256D7748008D446E /* AdminEnquiryDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0330EC8256D7748008D446E /* AdminEnquiryDetailRow.swift */; };
 		C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */; };
 		C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */; };
 		C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03BD87A2476F0BC00279D7F /* AppDelegate.swift */; };
@@ -559,6 +561,8 @@
 		C02DC55624F4F26C00805C98 /* Product+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Search.swift"; sourceTree = "<group>"; };
 		C02DC55924F4F30800805C98 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		C02EE1A4253DC9150039B1C9 /* DefaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
+		C0330EC6256D71D5008D446E /* AdminEnquiryDetailRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminEnquiryDetailRow.xib; sourceTree = "<group>"; };
+		C0330EC8256D7748008D446E /* AdminEnquiryDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryDetailRow.swift; sourceTree = "<group>"; };
 		C038EFC524D81D0D00C43C35 /* ProductType+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductType+Transaction.swift"; sourceTree = "<group>"; };
 		C038EFC724D85EA100C43C35 /* YarnCount+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YarnCount+Transaction.swift"; sourceTree = "<group>"; };
 		C03BD8772476F0BC00279D7F /* Craft-Xchange-Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Craft-Xchange-Admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1222,8 +1226,8 @@
 		C03BD8932476F87E00279D7F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				30B91DB7256D5FB600C4EC96 /* AdminProductCatalog */,
 				C02EE1A4253DC9150039B1C9 /* DefaultViewController.swift */,
+				30B91DB7256D5FB600C4EC96 /* AdminProductCatalog */,
 				C0D5F9A4256BCAF800E597CC /* AdminOrderController */,
 				C0D5F9A3256BCAE400E597CC /* AdminEnquiryController */,
 				C04B1316256BAFBB004AB282 /* AdminUserTabControllers */,
@@ -1716,6 +1720,8 @@
 				C0B6633E256BFF5800DADAA4 /* GradientView.swift */,
 				C0B6633C256BFE6300DADAA4 /* AdminEnquiryListCell.xib */,
 				C0B66340256C1EFB00DADAA4 /* AdminEnquiryListCell.swift */,
+				C0330EC6256D71D5008D446E /* AdminEnquiryDetailRow.xib */,
+				C0330EC8256D7748008D446E /* AdminEnquiryDetailRow.swift */,
 			);
 			path = EnquiryTab;
 			sourceTree = "<group>";
@@ -1939,6 +1945,7 @@
 			files = (
 				C0A910A2247CD90B00852695 /* PlayfairDisplay-Bold.ttf in Resources */,
 				30B91DB5256D5E5D00C4EC96 /* ProdDetailDescriptionRow.xib in Resources */,
+				C0330EC7256D71D5008D446E /* AdminEnquiryDetailRow.xib in Resources */,
 				C0A910A6247CD90B00852695 /* PlayfairDisplay-ExtraBoldItalic.ttf in Resources */,
 				3005D1EF2521C79300BF22C0 /* SingleLabelRow.xib in Resources */,
 				C095391425597E2E00D0E3FC /* MarketingTabbar.storyboard in Resources */,
@@ -2167,6 +2174,7 @@
 				116F5B23255E7C5C0052CBBE /* SearchTeammateController.swift in Sources */,
 				C05836B924C867B50027FF44 /* ProductImageService.swift in Sources */,
 				C04842B424E7BB9D00D3207F /* CustomProductService.swift in Sources */,
+				C0330EC9256D7748008D446E /* AdminEnquiryDetailRow.swift in Sources */,
 				C03BD87B2476F0BC00279D7F /* AppDelegate.swift in Sources */,
 				C0144AAD2483FC4B006FF4AB /* ResetPasswordScene.swift in Sources */,
 				C097949C24EA8E2A00C11AC7 /* BuyerCustomProductCell.swift in Sources */,

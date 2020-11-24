@@ -263,11 +263,13 @@ extension Enquiry {
     }
     
     public  static func getMOQDeliveryTimes() -> Request<Data, APIError> {
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         var str = "enquiry/getMoqDeliveryTimes"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,
             method: .get,
+            headers: headers,
             resource: { $0 },
             error: APIError.init,
             needsAuthorization: false

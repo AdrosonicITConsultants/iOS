@@ -102,12 +102,12 @@ extension TransactionService {
         }
         
         controller.viewModel.goToEnquiry = { (enquiryId) in
-            if let obj = Enquiry().searchEnquiry(searchId: enquiryId ) {
-                let vc = EnquiryDetailsService(client: self.client).createEnquiryDetailScene(forEnquiry: obj, enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
-                vc.modalPresentationStyle = .fullScreen
-                vc.isClosed = false
-                controller.navigationController?.pushViewController(vc, animated: true)
-            }
+//            if let obj = Enquiry().searchEnquiry(searchId: enquiryId ) {
+//                let vc = EnquiryDetailsService(client: self.client).createEnquiryDetailScene(forEnquiry: obj, enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
+//                vc.modalPresentationStyle = .fullScreen
+//                vc.isClosed = false
+//                controller.navigationController?.pushViewController(vc, animated: true)
+//            }
         }
         
         controller.viewModel.downloadAdvReceipt = { (enquiryId) in

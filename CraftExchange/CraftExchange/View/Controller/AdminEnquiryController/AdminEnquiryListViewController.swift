@@ -317,6 +317,20 @@ extension AdminEnquiryListViewController: UITableViewDelegate, UITableViewDataSo
         header.font = .systemFont(ofSize: 15)
         return header
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            if let obj = allEnquiries?[indexPath.row] {
+                let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row], enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
+                vc.modalPresentationStyle = .fullScreen
+                vc.isClosed = self.isIncompleteClosed
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 extension AdminEnquiryListViewController {

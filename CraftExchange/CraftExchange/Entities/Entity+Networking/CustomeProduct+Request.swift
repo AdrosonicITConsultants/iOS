@@ -32,7 +32,7 @@ extension CustomProduct {
       //
       let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
       return Request(
-          path: "buyerCustomProduct/getProduct/\(custProdId)",
+          path: "marketingTeam/getCustomProduct/\(custProdId)",
           method: .get,
           headers: headers,
           resource: {print(String(data: $0, encoding: .utf8) ?? "get custom product details failed")

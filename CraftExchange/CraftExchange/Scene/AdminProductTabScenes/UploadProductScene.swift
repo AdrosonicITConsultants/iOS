@@ -233,12 +233,14 @@ extension UploadProductService {
         self.getCustomProductDetails(withId: prodId).bind(to: vc, context: .global(qos: .userInteractive)) { (_,responseData) in
             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                 if json["valid"] as? Bool == true {
-                    if let prodDictionary = json["data"] as? [String: Any] {
-                        if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
-                            if let object = try? JSONDecoder().decode(CustomProduct.self, from: proddata) {
-                                DispatchQueue.main.async {
-                                    object.saveOrUpdate()
-                                    vc.hideLoading()
+                    if let prodDict = json["data"] as? [String: Any] {
+                        if let prodDictionary = prodDict["buyerCustomProduct"] as? [String: Any] {
+                            if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
+                                if let object = try? JSONDecoder().decode(CustomProduct.self, from: proddata) {
+                                    DispatchQueue.main.async {
+                                        object.saveOrUpdate()
+                                        vc.hideLoading()
+                                    }
                                 }
                             }
                         }

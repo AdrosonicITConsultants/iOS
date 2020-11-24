@@ -112,7 +112,7 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("*** object ***")
-        do {
+        /*do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
             if let obj = allEnquiries?[indexPath.row] {
                 let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row], enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
@@ -126,7 +126,7 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
             }
         }catch {
             print(error.localizedDescription)
-        }
+        }*/
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
