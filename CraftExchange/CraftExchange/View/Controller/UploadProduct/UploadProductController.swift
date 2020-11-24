@@ -158,7 +158,7 @@ class UploadProductController: FormViewController {
             viewModel.productAvailability.value = productObj.productStatusId == 2 ? true : false
             viewModel.gsm.value = productObj.gsm
             viewModel.prodDescription.value = productObj.productSpec
-            downloadProdImages()
+          //  downloadProdImages()
         }else {
             let rightButtonItem = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
             self.navigationItem.rightBarButtonItem = rightButtonItem
@@ -894,34 +894,34 @@ class UploadProductController: FormViewController {
         }
     }
 
-    func downloadProdImages() {
-        product?.productImages .forEach { (image) in
-            let tag = image.lable
-            let prodId = product?.entityID
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                viewModel.productImages.value?.append(downloadedImage)
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
-                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            let tag = image.lable ?? "name.jpg"
-                            let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                            self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
-                        }
-                    }.dispose(in: self.bag)
-                }catch {
-                    print(error.localizedDescription)
-                }
-            }
-            if image == product?.productImages.last {
-                let row = self.form.rowBy(tag: "AddPhotoRow") as? CollectionViewRow
-                row?.cell.collectionView.reloadData()
-            }
-        }
-    }
+//    func downloadProdImages() {
+//        product?.productImages .forEach { (image) in
+//            let tag = image.lable
+//            let prodId = product?.entityID
+//            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+//                viewModel.productImages.value?.append(downloadedImage)
+//            }else {
+//                do {
+//                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+//                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
+//                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
+//                        DispatchQueue.main.async {
+//                            let tag = image.lable ?? "name.jpg"
+//                            let prodId = self.product?.entityID
+//                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+//                            self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
+//                        }
+//                    }.dispose(in: self.bag)
+//                }catch {
+//                    print(error.localizedDescription)
+//                }
+//            }
+//            if image == product?.productImages.last {
+//                let row = self.form.rowBy(tag: "AddPhotoRow") as? CollectionViewRow
+//                row?.cell.collectionView.reloadData()
+//            }
+//        }
+//    }
     
     
     @objc func expandSectionSelected(sender: UIButton) {
@@ -1197,6 +1197,10 @@ extension UploadProductController: ButtonActionProtocol, DimensionCellProtocol, 
 }
 
 extension UploadProductController: UICollectionViewDelegate, UICollectionViewDataSource, AddImageProtocol {
+    func editImageSelected(atIndex: Int) {
+        print("edit image")
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if currentState == NewProductState.selectWarpWeftYarn {
             return 3

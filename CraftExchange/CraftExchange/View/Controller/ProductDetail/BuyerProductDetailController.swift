@@ -70,21 +70,21 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.title.isHidden = false
                 $0.cell.productCodeValue.isHidden = false
                 $0.cell.productCodeLbl.isHidden = false
-                $0.cell.wishlistBtn.isHidden = false
-                $0.cell.wishlistBtn.tag = product?.entityID ?? 0
-                $0.cell.delegate = self
+//                $0.cell.wishlistBtn.isHidden = false
+//                $0.cell.wishlistBtn.tag = product?.entityID ?? 0
+//                $0.cell.delegate = self
             }.cellUpdate({ (cell, row) in
                 let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
-                    obj == self.product?.entityID
-                }) ?? false {
-                    cell.wishlistBtn.setImage(UIImage.init(named: "red heart"), for: .normal)
-                }else {
-                    cell.wishlistBtn.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
-                }
-                if User.loggedIn()?.refRoleId == "1" {
-                    cell.wishlistBtn.isHidden = true
-                }
+//                if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
+//                    obj == self.product?.entityID
+//                }) ?? false {
+//                    cell.wishlistBtn.setImage(UIImage.init(named: "red heart"), for: .normal)
+//                }else {
+//                    cell.wishlistBtn.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
+//                }
+//                if User.loggedIn()?.refRoleId == "1" {
+//                    cell.wishlistBtn.isHidden = true
+//                }
             })
             <<< CollectionViewRow() {
                 $0.tag = "PhotoRow"
@@ -365,9 +365,9 @@ class BuyerProductDetailController: FormViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if productImages?.count ?? 0 == 0 {
-            downloadProdImages()
-        }
+//        if productImages?.count ?? 0 == 0 {
+//            downloadProdImages()
+//        }
         downloadArtisanBrandLogo()
         if let prodObj = product {
             suggestedProdArray = Product.getSuggestedProduct(forProdId: prodObj.entityID, catId: prodObj.productCategoryId, clusterID: prodObj.clusterId)
@@ -379,19 +379,23 @@ class BuyerProductDetailController: FormViewController {
     
 }
 
-extension BuyerProductDetailController: ProdDetailWishlistProtocol {
-    func addToWishlist(prodId: Int) {
-        print("add to wishlist")
-        addProdDetailToWishlist?(prodId)
-    }
-    
-    func deleteProdWishlist(prodId: Int) {
-        print("delete from wishlist")
-        deleteProdDetailToWishlist?(prodId)
-    }
-}
+//extension BuyerProductDetailController: ProdDetailWishlistProtocol {
+//    func addToWishlist(prodId: Int) {
+//        print("add to wishlist")
+//        addProdDetailToWishlist?(prodId)
+//    }
+//
+//    func deleteProdWishlist(prodId: Int) {
+//        print("delete from wishlist")
+//        deleteProdDetailToWishlist?(prodId)
+//    }
+//}
 
 extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionViewDataSource, AddImageProtocol {
+    func editImageSelected(atIndex: Int) {
+        print("edit image")
+    }
+    
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 2002 {
@@ -409,27 +413,27 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
         if collectionView.tag == 2002 {
             cell.addImageButton.tag = indexPath.row
             if let productObj = suggestedProdArray?[indexPath.row] {
-                if let tag = productObj.productImages.first?.lable {
-                    let prodId = productObj.entityID
-                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                        cell.addImageButton.setImage(downloadedImage, for: .normal)
-                    }else {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                            let service = ProductImageService.init(client: client, productObject: productObj)
-                            service.fetch().observeNext { (attachment) in
-                                DispatchQueue.main.async {
-                                    let tag = productObj.productImages.first?.lable ?? "name.jpg"
-                                    let prodId = productObj.entityID
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                    cell.addImageButton.setImage(UIImage.init(data: attachment), for: .normal)
-                                }
-                            }.dispose(in: self.bag)
-                        }catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                }
+//                if let tag = productObj.productImages.first?.lable {
+//                    let prodId = productObj.entityID
+//                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+//                        cell.addImageButton.setImage(downloadedImage, for: .normal)
+//                    }else {
+//                        do {
+//                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
+//                            let service = ProductImageService.init(client: client, productObject: productObj)
+//                            service.fetch().observeNext { (attachment) in
+//                                DispatchQueue.main.async {
+//                                    let tag = productObj.productImages.first?.lable ?? "name.jpg"
+//                                    let prodId = productObj.entityID
+//                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+//                                    cell.addImageButton.setImage(UIImage.init(data: attachment), for: .normal)
+//                                }
+//                            }.dispose(in: self.bag)
+//                        }catch {
+//                            print(error.localizedDescription)
+//                        }
+//                    }
+//                }
             }
         }else {
             cell.addImageButton.setImage(self.productImages?[indexPath.row], for: .normal)
@@ -471,38 +475,38 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
         row?.cell.collectionView.reloadData()
     }
     
-    func downloadProdImages() {
-        product?.productImages .forEach { (image) in
-            let tag = image.lable
-            let prodId = product?.entityID
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                self.productImages?.append(downloadedImage)
-                if image == product?.productImages.last {
-                    let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
-                    row?.cell.collectionView.reloadData()
-                }
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
-                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            let tag = image.lable ?? "name.jpg"
-                            let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                            self.productImages?.append(UIImage.init(data: attachment) ?? UIImage())
-                            if image == self.product?.productImages.last {
-                                let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
-                                row?.cell.collectionView.reloadData()
-                            }
-                        }
-                    }.dispose(in: self.bag)
-                }catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
+//    func downloadProdImages() {
+//        product?.productImages .forEach { (image) in
+//            let tag = image.lable
+//            let prodId = product?.entityID
+//            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+//                self.productImages?.append(downloadedImage)
+//                if image == product?.productImages.last {
+//                    let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+//                    row?.cell.collectionView.reloadData()
+//                }
+//            }else {
+//                do {
+//                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+//                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
+//                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
+//                        DispatchQueue.main.async {
+//                            let tag = image.lable ?? "name.jpg"
+//                            let prodId = self.product?.entityID
+//                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+//                            self.productImages?.append(UIImage.init(data: attachment) ?? UIImage())
+//                            if image == self.product?.productImages.last {
+//                                let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+//                                row?.cell.collectionView.reloadData()
+//                            }
+//                        }
+//                    }.dispose(in: self.bag)
+//                }catch {
+//                    print(error.localizedDescription)
+//                }
+//            }
+//        }
+//    }
     
     func downloadArtisanBrandLogo() {
         let artist = User.getUser(userId: product?.artitionId ?? 0)

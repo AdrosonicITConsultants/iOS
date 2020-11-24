@@ -35,26 +35,26 @@ class ArtisanProductCell: UITableViewCell {
             designedByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
             productImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
         }
-        if let tag = productObj.productImages.first?.lable {
-            let prodId = productObj.entityID
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                self.productImage.image = downloadedImage
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client, productObject: productObj)
-                    service.fetch().observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            let tag = productObj.productImages.first?.lable ?? "name.jpg"
-                            let prodId = productObj.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                            self.productImage.image = UIImage.init(data: attachment)
-                        }
-                    }.dispose(in: delegate?.bag ?? bag)
-                }catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
+//        if let tag = productObj.productImages.first?.lable {
+//            let prodId = productObj.entityID
+//            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+//                self.productImage.image = downloadedImage
+//            }else {
+//                do {
+//                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+//                    let service = ProductImageService.init(client: client, productObject: productObj)
+//                    service.fetch().observeNext { (attachment) in
+//                        DispatchQueue.main.async {
+//                            let tag = productObj.productImages.first?.lable ?? "name.jpg"
+//                            let prodId = productObj.entityID
+//                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+//                            self.productImage.image = UIImage.init(data: attachment)
+//                        }
+//                    }.dispose(in: delegate?.bag ?? bag)
+//                }catch {
+//                    print(error.localizedDescription)
+//                }
+//            }
+//        }
     }
 }

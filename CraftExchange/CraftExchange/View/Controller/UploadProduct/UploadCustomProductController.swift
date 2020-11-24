@@ -975,6 +975,10 @@ extension UploadCustomProductController: ButtonActionProtocol, DimensionCellProt
 }
 
 extension UploadCustomProductController: UICollectionViewDelegate, UICollectionViewDataSource, AddImageProtocol {
+    func editImageSelected(atIndex: Int) {
+        print("edit image")
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if currentState == CustomProductState.selectWarpWeftYarn {
             return 3

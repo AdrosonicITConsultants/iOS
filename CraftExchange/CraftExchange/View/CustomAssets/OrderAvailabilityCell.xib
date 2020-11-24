@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +21,7 @@
                             <constraint firstAttribute="width" constant="120" id="OGP-fo-gTt"/>
                             <constraint firstAttribute="height" constant="120" id="UIr-qZ-fPf"/>
                         </constraints>
-                        <state key="normal" image="made to order"/>
+                        <state key="normal" image="Made to order white"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIq-ks-faK">
                         <rect key="frame" x="232" y="10" width="120" height="120"/>
@@ -29,7 +29,7 @@
                             <constraint firstAttribute="height" constant="120" id="GSE-ia-CU8"/>
                             <constraint firstAttribute="width" constant="120" id="qvd-oj-uJI"/>
                         </constraints>
-                        <state key="normal" image="in stock"/>
+                        <state key="normal" image="Avlbl n sck white"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make to order" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgQ-ys-fF6">
                         <rect key="frame" x="45.5" y="138" width="107" height="21"/>
@@ -72,7 +72,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="in stock" width="41" height="45"/>
-        <image name="made to order" width="60" height="25"/>
+        <image name="Avlbl n sck white" width="41" height="45"/>
+        <image name="Made to order white" width="60" height="25"/>
     </resources>
 </document>

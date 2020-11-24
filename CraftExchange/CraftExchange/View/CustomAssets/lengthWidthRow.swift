@@ -27,12 +27,16 @@ class lengthWidthRowView: Cell<String>, CellType {
     
     public override func setup() {
         super.setup()
+        lengthTextField.layer.borderColor = UIColor.white.cgColor
+        widthTextField.layer.borderColor = UIColor.white.cgColor
+        
         length.addTarget(self, action: #selector(customButtonSelected(_:)), for: .touchUpInside)
         width.addTarget(self, action: #selector(customButtonSelected(_:)), for: .touchUpInside)
     }
 
     public override func update() {
         super.update()
+        
     }
     
     @IBAction func customButtonSelected(_ sender: Any) {

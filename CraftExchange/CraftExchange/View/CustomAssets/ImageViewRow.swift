@@ -10,9 +10,12 @@ import Foundation
 import UIKit
 import Eureka
 
-@objc protocol ProdDetailWishlistProtocol {
-    @objc optional func addToWishlist(prodId: Int)
-    @objc optional func deleteProdWishlist(prodId: Int)
+//@objc protocol ProdDetailWishlistProtocol {
+//    @objc optional func addToWishlist(prodId: Int)
+//    @objc optional func deleteProdWishlist(prodId: Int)
+//}
+protocol ProdDetailEditProtocol {
+    func editProductSelected(tag: Int)
 }
 
 class ImageViewRowView: Cell<String>, CellType {
@@ -21,30 +24,35 @@ class ImageViewRowView: Cell<String>, CellType {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var productCodeLbl: UILabel!
     @IBOutlet weak var productCodeValue: UILabel!
-    @IBOutlet weak var wishlistBtn: UIButton!
-    var delegate: ProdDetailWishlistProtocol?
+ //   @IBOutlet weak var wishlistBtn: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+   // var delegate: ProdDetailWishlistProtocol?
+    var delegate2: ProdDetailEditProtocol?
     
     public override func setup() {
         super.setup()
-        wishlistBtn.addTarget(self, action: #selector(wishlistSelected(_:)), for: .touchUpInside)
+     //   wishlistBtn.addTarget(self, action: #selector(wishlistSelected(_:)), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editButtonSelected(_:)), for: .touchUpInside)
     }
 
     public override func update() {
         super.update()
     }
-    
-    @objc @IBAction func wishlistSelected(_ sender: Any) {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
-            obj == wishlistBtn.tag
-        }) ?? false {
-            wishlistBtn.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
-            self.delegate?.deleteProdWishlist?(prodId: wishlistBtn.tag)
-        }else {
-            wishlistBtn.setImage(UIImage.init(named: "red heart"), for: .normal)
-            self.delegate?.addToWishlist?(prodId: wishlistBtn.tag)
-        }
+    @objc @IBAction func editButtonSelected(_ sender: Any) {
+        delegate2?.editProductSelected(tag: tag)
     }
+//    @objc @IBAction func wishlistSelected(_ sender: Any) {
+//        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//        if appDelegate?.wishlistIds?.contains(where: { (obj) -> Bool in
+//            obj == wishlistBtn.tag
+//        }) ?? false {
+//            wishlistBtn.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
+//            self.delegate?.deleteProdWishlist?(prodId: wishlistBtn.tag)
+//        }else {
+//            wishlistBtn.setImage(UIImage.init(named: "red heart"), for: .normal)
+//            self.delegate?.addToWishlist?(prodId: wishlistBtn.tag)
+//        }
+//    }
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value

@@ -46,3 +46,38 @@ class ProductImageService: BaseService<URL> {
     }
 }
 
+
+class AdminProductImageService: BaseService<URL> {
+    var productObject: CatalogueProduct?
+    var name: String?
+    
+    convenience init(client: SafeClient, productObject: CatalogueProduct) {
+        self.init(client: client)
+        self.productObject = productObject
+        if let name = productObject.images{
+            let prodId = productObject.entityID
+            _object.value = try? Disk.retrieveURL("\(prodId)/\(name)", from: .caches, as: Data.self)
+        }
+    }
+    
+    convenience init(client: SafeClient, productObject: CatalogueProduct, withName: String) {
+        self.init(client: client)
+        self.productObject = productObject
+        self.name = withName
+        let prodId = productObject.entityID
+        _object.value = try? Disk.retrieveURL("\(prodId)/\(withName)", from: .caches, as: Data.self)
+    }
+
+    func fetch() -> Signal<Data, Never> {
+        return Product.fetchProductImage(with: productObject?.entityID ?? 0, imageName: name ?? productObject?.images ?? "").response(using: client).debug()
+    }
+    
+    func fetch(withName: String) -> Signal<Data, Never> {
+        return Product.fetchProductImage(with: productObject?.entityID ?? 0, imageName: withName).response(using: client).debug()
+    }
+    
+    func fetch(withId: Int, withName: String) -> Signal<Data, Never> {
+        return Product.fetchProductImage(with: withId, imageName: withName).response(using: client).debug()
+    }
+}
+

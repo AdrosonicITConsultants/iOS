@@ -10,32 +10,23 @@ import Foundation
 import UIKit
 
 class MarketingTabbarController: UITabBarController {
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }
 
 extension MarketingTabbarController {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        /*if item.title == "Wishlist" {
+        if item.title == "Products" {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = WishlistService(client: client).createScene()
+                let vc = AdminProductCatalogueService(client: client).createAdminProductCatalogue()
                 let nav = self.customizableViewControllers?[2] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
-              print("Unable to load view:\n\(error.localizedDescription)")
+                print("Unable to load view:\n\(error.localizedDescription)")
             }
-        }else if item.title == "Enquiries" {
-            do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = EnquiryListService(client: client).createScene()
-                let nav = self.customizableViewControllers?[1] as! UINavigationController
-                nav.setViewControllers([vc], animated: false)
-            } catch let error {
-              print("Unable to load view:\n\(error.localizedDescription)")
-            }
-        }*/
+        }
     }
 }

@@ -16,8 +16,8 @@ import UIKit
 
 extension UploadProductService {
     func createScene(productObject: Product?) -> UIViewController {
-    
-        let vc = UploadProductController.init(style: .plain)
+        
+        let vc = AdminUploadProductController.init(style: .plain)
         vc.product = productObject
         vc.viewModel.saveProductSelected = {
             if let prodName = vc.viewModel.prodName.value,
@@ -34,7 +34,8 @@ extension UploadProductService {
                 let weftYarnId = vc.viewModel.weftYarn.value?.entityID,
                 let width = vc.viewModel.prodWidth.value,
                 let length = vc.viewModel.prodLength.value,
-                let reedCountId = vc.viewModel.reedCount.value?.entityID
+                let reedCountId = vc.viewModel.reedCount.value?.entityID,
+                productSpec.isNotBlank
             {
                 let statusId = vc.viewModel.productAvailability.value == true ? 2 : 1
                 let gsm = vc.viewModel.gsm.value ?? ""
@@ -91,13 +92,19 @@ extension UploadProductService {
                 }
                 if let existingProduct = vc.product {
                     newProductObj.id = existingProduct.entityID
-                    let request = OfflineProductRequest(type: .editProduct, imageData: imgData, json: newProductObj.editJSON())
+                    let request = OfflineProductRequest(type: .editProduct, imageData: imgData, json: newProductObj.editJSON(), artisanID: 0)
                     OfflineRequestManager.defaultManager.queueRequest(request)
-                    vc.navigationController?.popViewController(animated: true)
+                    //                    vc.navigationController?.popViewController(animated: true)
+                    vc.popBack(toControllerType: ProductCatalogueController.self)
                 }else {
-                    let request = OfflineProductRequest(type: .uploadProduct, imageData: imgData, json: newProductObj.toJSON())
-                    OfflineRequestManager.defaultManager.queueRequest(request)
-                    vc.navigationController?.popViewController(animated: true)
+                    //                    let request = OfflineProductRequest(type: .uploadProduct, imageData: imgData, json: newProductObj.toJSON(), artisanID: 0)
+                    //                    OfflineRequestManager.defaultManager.queueRequest(request)
+                    //                    vc.navigationController?.popViewController(animated: true)
+                    //
+                    let vc1 = self.createSelectArtisanScene(imageData: imgData, json: newProductObj.toJSON(), prodCat: vc.viewModel.prodCategory.value?.description  ?? "")
+                    vc1.modalPresentationStyle = .fullScreen
+                    vc.navigationController?.pushViewController(vc1, animated: true)
+                    
                 }
             }else {
                 vc.alert("Error".localized, "Please enter all required data".localized) { (alert) in
@@ -110,7 +117,9 @@ extension UploadProductService {
             self.deleteArtisanProduct(withId: productObject?.entityID ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,response) in
                 DispatchQueue.main.async {
                     Product.productIsDeleteTrue(forId: productObject?.entityID ?? 0)
-                    vc.navigationController?.popViewController(animated: true)
+                    CatalogueProduct.productIsDeleteTrue(forId: productObject?.entityID ?? 0)
+//                    vc.navigationController?.popViewController(animated: true)
+                    vc.popBack(toControllerType: ProductCatalogueController.self)
                 }
             }.dispose(in: vc.bag)
         }
@@ -119,7 +128,7 @@ extension UploadProductService {
     }
     
     func createCustomProductScene(productObject: CustomProduct?) -> UIViewController {
-    
+        
         let vc = UploadCustomProductController.init(style: .plain)
         vc.product = productObject
         
@@ -140,7 +149,8 @@ extension UploadProductService {
                 let weftYarnId = vc.viewModel.weftYarn.value?.entityID,
                 let width = vc.viewModel.prodWidth.value,
                 let length = vc.viewModel.prodLength.value,
-                let reedCountId = vc.viewModel.reedCount.value?.entityID
+                let reedCountId = vc.viewModel.reedCount.value?.entityID,
+                productSpec.isNotBlank
             {
                 let gsm = vc.viewModel.gsm.value ?? ""
                 let weaveIds = vc.viewModel.prodWeaveType.value?.compactMap({$0.entityID})
@@ -190,14 +200,14 @@ extension UploadProductService {
                 if let existingProduct = vc.product {
                     vc.showLoading()
                     newProductObj.id = existingProduct.entityID
-                    let request = OfflineProductRequest(type: .editCustomProd, imageData: imgData, json: newProductObj.editJSON())
+                    let request = OfflineProductRequest(type: .editCustomProd, imageData: imgData, json: newProductObj.editJSON(), artisanID: 0)
                     OfflineRequestManager.defaultManager.queueRequest(request)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         vc.hideLoading()
                         vc.navigationController?.popViewController(animated: true)
                     }
                 }else {
-                    let request = OfflineProductRequest(type: .uploadCustomProd, imageData: imgData, json: newProductObj.toJSON())
+                    let request = OfflineProductRequest(type: .uploadCustomProd, imageData: imgData, json: newProductObj.toJSON(), artisanID: 0)
                     OfflineRequestManager.defaultManager.queueRequest(request)
                     vc.navigationController?.popViewController(animated: true)
                 }
@@ -239,5 +249,68 @@ extension UploadProductService {
                 vc.hideLoading()
             }
         }.dispose(in: vc.bag)
+    }
+    
+    func createSelectArtisanScene(imageData: [(String,Data)]?, json: [String: Any], prodCat: String?) -> UIViewController {
+        let storyboard = UIStoryboard(name: "MarketingTabbar", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "SelectArtisanController") as! SelectArtisanController
+        //  vc.productCategoryLabel.text = prodCat ?? ""
+        func performSync(){
+            self.getFilteredAllArtisans().toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let artisanarray = json["data"] as? [[String: Any]] {
+                        var i = 0
+                        artisanarray.forEach { (dataDict) in
+                            i += 1
+                            if let artisandata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                                if let productObj = try? JSONDecoder().decode(SelectArtisanBrand.self, from: artisandata) {
+                                    DispatchQueue.main.async {
+                                        print("productObj: \(productObj)")
+                                        productObj.saveOrUpdate()
+                                        
+                                        if i == artisanarray.count {
+                                            vc.endRefresh()
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+                }else {
+                    vc.endRefresh()
+                }
+            }.dispose(in: vc.bag)
+            
+            vc.hideLoading()
+        }
+        
+        func syncData() {
+            guard !vc.isEditing else { return }
+            guard vc.reachabilityManager?.connection != .unavailable else {
+                DispatchQueue.main.async {
+                    vc.endRefresh()
+                }
+                return
+            }
+            performSync()
+        }
+        
+        vc.viewWillAppear = {
+            syncData()
+        }
+        
+        vc.saveProductSelected = { (artisanID) in
+            let request = OfflineProductRequest(type: .uploadProduct, imageData: imageData, json: json, artisanID: artisanID)
+            OfflineRequestManager.defaultManager.queueRequest(request)
+            //            vc.navigationController?.popViewController(animated: true)
+            vc.popBack(toControllerType: ProductCatalogueController.self)
+        }
+        
+        return vc
     }
 }

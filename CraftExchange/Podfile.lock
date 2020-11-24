@@ -6,6 +6,7 @@ PODS:
   - Eureka (5.2.1)
   - ImageRow (4.0.0):
     - Eureka (~> 5.0)
+  - iOSPhotoEditor (1.0.0)
   - JGProgressHUD (2.1)
   - ReachabilitySwift (5.0.0)
   - ReactiveKit (3.17.1)
@@ -27,6 +28,7 @@ DEPENDENCIES:
   - Bond
   - Eureka
   - ImageRow
+  - iOSPhotoEditor
   - JGProgressHUD
   - ReachabilitySwift
   - ReactiveKit
@@ -44,6 +46,7 @@ SPEC REPOS:
     - Differ
     - Eureka
     - ImageRow
+    - iOSPhotoEditor
     - JGProgressHUD
     - ReachabilitySwift
     - ReactiveKit
@@ -61,6 +64,7 @@ SPEC CHECKSUMS:
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   ImageRow: e65b2e1a33f89062bf2a553a2aad61d975eb7428
+  iOSPhotoEditor: 2951f35246a31dcb428b6292248a9c065582d03e
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   ReactiveKit: f578a74d3555296ea61fab228f5245a4ed7b4b27
@@ -73,6 +77,6 @@ SPEC CHECKSUMS:
   ViewRow: 8da541e9c019f3be63f4e28f311a62cac2045ecf
   WMSegmentControl: 00415dce32ed41ad7623ac6ac076eedbb8140a5e
 
-PODFILE CHECKSUM: 185b8d058c74197f78647ee82aa69f36e171bceb
+PODFILE CHECKSUM: b8d2815cef63598ef4cfe1bc749d3a78870d20c4
 
 COCOAPODS: 1.8.4

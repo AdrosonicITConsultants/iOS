@@ -57,12 +57,14 @@ class DimensionsCardCell: UICollectionViewCell {
                     self.buttonTwo.isHidden = true
                     self.buttonTwo.isUserInteractionEnabled = false
                     self.yarnCountTextField.text = ""
+                    self.yarnCountTextField.textColor = .white
                 }else {
                     self.yarnCountTextField.isHidden = true
                     self.buttonTwo.isHidden = false
                     self.buttonTwo.setTitle("", for: .normal)
                     self.buttonTwo.isUserInteractionEnabled = true
                     self.yarnCountTextField.text = ""
+                    self.buttonTwo.setTitleColor(.white, for: .normal)
                 }
             }
           }

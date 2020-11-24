@@ -28,4 +28,8 @@ class UploadProductService: BaseService<Data> {
     func getCustomProductDetails(withId: Int) -> SafeSignal<Data> {
       return CustomProduct.getCustomProductDetails(custProdId: withId).response(using: client).debug()
     }
+    
+    func getFilteredAllArtisans() -> SafeSignal<Data> {
+        return SelectArtisanBrand.getAllArtisans().response(using: client).debug()
+    }
 }

@@ -138,7 +138,7 @@ extension Product {
       //
       let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
       return Request(
-          path: "product/getProduct/\(prodId)",
+          path: "marketingTeam/getArtisanProduct/\(prodId)",
           method: .get,
           headers: headers,
           resource: {print(String(data: $0, encoding: .utf8) ?? "get product details failed")
@@ -148,7 +148,7 @@ extension Product {
       )
     }
     
-    public static func uploadProduct(json: [String: Any], imageData: [(String,Data)]) -> Request<Data, APIError> {
+    public static func uploadProduct(json: [String: Any], imageData: [(String,Data)], artisanID: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         var str = json.jsonString
         print("product: \n\n \(str)")
@@ -166,7 +166,8 @@ extension Product {
             ]
             let finalData = MultipartDataHelper().createBody(boundary: boundary, mimeType: "application/octet-stream", imageData: imageData)
             return Request(
-                path: "product/uploadProduct?productData=\(str)",
+                //marketingTeam/uploadProduct?artisanId=9&productData=9
+                path: "marketingTeam/uploadProduct?artisanId=\(artisanID)&productData=\(str)",
                 method: .post,
                 parameters: DataParameter(finalData),
                 headers: headers,
@@ -178,7 +179,7 @@ extension Product {
             )
         }else {
             return Request(
-                path: "product/uploadProduct?productData=\(str)",
+                path: "marketingTeam/uploadProduct?artisanId=\(artisanID)&productData=\(str)",
                 method: .post,
                 headers: headers,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artisan upload product failed")
@@ -207,7 +208,8 @@ extension Product {
             ]
             let finalData = MultipartDataHelper().createBody(boundary: boundary, mimeType: "application/octet-stream", imageData: imageData)
             return Request(
-                path: "product/edit/product?productData=\(str)",
+                //marketingTeam/edit/product?productData=2
+                path: "marketingTeam/edit/product?productData=\(str)",
                 method: .put,
                 parameters: DataParameter(finalData),
                 headers: headers,
@@ -219,7 +221,7 @@ extension Product {
             )
         }else {
             return Request(
-                path: "product/edit/product?productData=\(str)",
+                path: "marketingTeam/edit/product?productData=\(str)",
                 method: .put,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artisan edit product failed")
                   return $0},

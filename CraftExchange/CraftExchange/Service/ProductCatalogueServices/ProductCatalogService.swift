@@ -10,6 +10,7 @@ import Bond
 import Foundation
 import ReactiveKit
 import RealmSwift
+import Realm
 import SwiftKeychainWrapper
 
 class ProductCatalogService: BaseService<Data> {

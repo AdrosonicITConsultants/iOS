@@ -24,17 +24,19 @@ class OfflineProductRequest: NSObject, OfflineRequest {
     let type: ProductRequestType
     let imageData: [(String,Data)]?
     let json: [String: Any]?
+    let artisanID: Int
     
     /// Initializer with an arbitrary number to demonstrate data persistence
     ///
     /// - Parameter identifier: arbitrary number
-    init(type: ProductRequestType, imageData: [(String,Data)]?, json: [String: Any]) {
+    init(type: ProductRequestType, imageData: [(String,Data)]?, json: [String: Any], artisanID: Int) {
         self.type = type
         self.imageData = imageData
         self.json = json
+        self.artisanID = artisanID
         switch type {
         case .uploadProduct:
-            self.request = Product.uploadProduct(json: json, imageData: imageData ?? [])
+            self.request = Product.uploadProduct(json: json, imageData: imageData ?? [], artisanID: artisanID)
         case .editProduct:
             self.request = Product.editProduct(json: json, imageData: imageData ?? [])
         case .uploadCustomProd:
@@ -50,7 +52,8 @@ class OfflineProductRequest: NSObject, OfflineRequest {
         guard let json = dictionary["json"] as? [String: Any] else { return  nil }
         guard let type = dictionary["type"] as? ProductRequestType else { return  nil }
         guard let imageData = dictionary["imageData"] as? [(String,Data)] else { return nil }
-        self.init(type: type, imageData: imageData, json: json)
+        guard let artisanID = dictionary["artisanID"] as? Int else { return nil }
+        self.init(type: type, imageData: imageData, json: json, artisanID: artisanID)
     }
     
     var dictionaryRepresentation: [String : Any]? {

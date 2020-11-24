@@ -22,14 +22,25 @@ import ImageRow
 import ViewRow
 import WebKit
 
+class MarketHomeViewModel {
+    var artisanBrandUrl = Observable<String?>("")
+    var artisanName = Observable<String?>("")
+    var viewDidLoad: (() -> Void)?
+    var viewWillAppear: (() -> Void)?
+}
+
 class MarketHomeController: FormViewController {
     
     var viewWillAppear: (() -> ())?
     let realm = try? Realm()
+    var dataSource: [ProductCategory]?
+    lazy var viewModel = HomeViewModel()
+    var reachabilityManager = try? Reachability()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.viewDidLoad?()
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
         form

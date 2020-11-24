@@ -31,11 +31,11 @@ class ToggleOptionRowView: Cell<String>, CellType {
     }
     
     @IBAction func toggleSelected(_ sender:Any) {
-        if titleLbl.textColor == .lightGray {
+        if titleLbl.textColor == .white {
             titleLbl.textColor = UIColor().menuSelectorBlue()
             toggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
         }else {
-            titleLbl.textColor = .lightGray
+            titleLbl.textColor = .white
             toggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
         }
         toggleDelegate?.toggleButtonSelected(tag: toggleButton.tag, forWashCare: washCare)

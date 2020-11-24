@@ -19,4 +19,5 @@ target 'CraftExchange' do
   pod 'WMSegmentControl'
   pod 'ViewRow'
   pod 'SpreadsheetView'
+  pod 'iOSPhotoEditor'
 end

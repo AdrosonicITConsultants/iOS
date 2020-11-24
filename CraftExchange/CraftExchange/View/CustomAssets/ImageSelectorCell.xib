@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,6 +42,9 @@
                             <constraint firstAttribute="width" constant="30" id="nBS-Ut-zns"/>
                         </constraints>
                         <state key="normal" image="Icon feather-edit"/>
+                        <connections>
+                            <action selector="editProductImageSelected:" destination="Voa-ka-oYF" eventType="touchUpInside" id="x1U-1D-xAc"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KbQ-iX-JBw">
                         <rect key="frame" x="39" y="10" width="200" height="200"/>
@@ -51,7 +54,7 @@
                         </constraints>
                         <state key="normal" image="Add photo"/>
                         <connections>
-                            <action selector="addProductSelected:" destination="Voa-ka-oYF" eventType="touchUpInside" id="LwF-UY-HO3"/>
+                            <action selector="addProductSelected:" destination="Voa-ka-oYF" eventType="touchUpInside" id="RNb-u2-JL2"/>
                         </connections>
                     </button>
                 </subviews>
