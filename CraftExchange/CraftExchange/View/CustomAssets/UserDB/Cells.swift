@@ -33,6 +33,10 @@ class HeaderCell: Cell {
         sortArrow.font = UIFont.boldSystemFont(ofSize: 14)
         sortArrow.textAlignment = .center
         contentView.addSubview(sortArrow)
+        
+        label.textColor = .white
+        contentView.backgroundColor = .black
+        sortArrow.textColor = .white
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -67,7 +71,10 @@ class TextCell: Cell {
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
-
+        
+        label.textColor = .white
+        contentView.backgroundColor = .black
+        
         contentView.addSubview(label)
     }
 

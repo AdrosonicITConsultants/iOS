@@ -36,6 +36,8 @@ extension User {
                 object.pancard = pancard
                 object.profilePic = profilePic
                 object.logo = logo
+                object.rating = rating
+                object.status = status
                 if object.buyerCompanyDetails.count > 0 {
                     object.buyerCompanyDetails.first?.companyName = buyerCompanyDetails.first?.companyName
                     object.buyerCompanyDetails.first?.compDesc = buyerCompanyDetails.first?.compDesc
@@ -130,6 +132,19 @@ extension User {
             try? realm.write {
                 try Disk.save(data, to: .caches, as: "\(entityID)/\(buyerCompanyDetails.first?.logo ?? "")")
                 logoUrl = try? Disk.retrieveURL("\(entityID)/\(buyerCompanyDetails.first?.logo ?? "")", from: .caches, as: Data.self).absoluteString
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+    
+    func saveOrUpdateProfileStatus(newStatus: Int) {
+        let realm = try! Realm()
+        if let object = realm.objects(User.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.status = newStatus
             }
         } else {
             try? realm.write {

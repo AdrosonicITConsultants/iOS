@@ -14,17 +14,19 @@ protocol MarketActionsProtocol {
 }
 class MarketActions:Cell<String>, CellType {
 
-    @IBOutlet weak var ActionBtn: UIButton!
+//    @IBOutlet weak var ActionBtn: UIButton!
+    @IBOutlet weak var backgroundGradientView: UIView!
     
     @IBOutlet weak var ArrowBtn: UIButton!
     @IBOutlet weak var ActionImg: UIImageView!
     @IBOutlet weak var ActionLabel: UILabel!
     @IBOutlet weak var ColorLine: UIView!
     @IBOutlet weak var LowerActionLabel: UILabel!
-     var delegate: MarketActionsProtocol!
+    var delegate: MarketActionsProtocol!
+    
     public override func setup() {
         super.setup()
-       ArrowBtn.addTarget(self, action: #selector(ArrowButtonSelected), for: .touchUpInside)
+        ArrowBtn.addTarget(self, action: #selector(ArrowButtonSelected), for: .touchUpInside)
     }
 
     public override func update() {
@@ -32,9 +34,8 @@ class MarketActions:Cell<String>, CellType {
     }
     
     @IBAction func ArrowButtonSelected(_ sender: Any) {
-           delegate?.ArrowBtnSelected(tag: tag)
-          
-       }
+        delegate?.ArrowBtnSelected(tag: tag)
+    }
    
 }
 

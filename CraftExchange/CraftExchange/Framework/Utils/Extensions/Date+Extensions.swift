@@ -48,4 +48,10 @@ extension Date {
         formatter.dateFormat = "dd-MM-yyyy"
         return formatter.string(from: isoDate )
     }
+    
+    func filterDateString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: self)
+    }
 }

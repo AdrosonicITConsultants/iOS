@@ -65,7 +65,7 @@ extension EnquiryListService {
         }
         
         func performSync() {
-            let service = HomeScreenService.init(client: client)
+            let service = AdminHomeScreenService.init(client: client)
             service.fetchEnquiryStateData(vc: controller)
             
             if controller.segmentView.selectedSegmentIndex == 0 {

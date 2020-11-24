@@ -14,12 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var showDemoVideo: Bool = false
     var registerUser: CXUser?
-    var tabbar: BuyerTabbarController?
-    var artisanTabbar: ArtisanTabbarController?
+    var marketingTabbar: MarketingTabbarController?
     var wishlistIds: [Int]?
     var notificationToken: String?
     var notificationObject: [AnyHashable: Any]?
     var logStatement = ""
+    var countData: MarketingCount?
+    var dashboardType: Int?
     
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.

@@ -46,7 +46,7 @@ class TransactionListController: UIViewController {
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         tableView.register(UINib(nibName: detailRowIdentifier, bundle: nil), forCellReuseIdentifier: detailRowIdentifier)
         try? reachabilityManager?.startNotifier()
-        self.setupSideMenu(true)
+//        self.setupSideMenu(true)
         definesPresentationContext = false
         
         let center = NotificationCenter.default
