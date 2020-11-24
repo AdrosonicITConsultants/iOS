@@ -90,6 +90,7 @@ class SearchTeammateController: UIViewController {
     @IBAction func showAction(_ sender: Any) {
         self.searchText = searchBar.text ?? ""
         endRefresh()
+        searchBar.resignFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
