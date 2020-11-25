@@ -45,6 +45,9 @@ class MarketHomeController: FormViewController {
         self.tableView.backgroundColor = .black
         viewWillAppear?()
         refreshCountForTag()
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItems = [rightBarButtomItem]
+        
         form
             +++ Section()
             

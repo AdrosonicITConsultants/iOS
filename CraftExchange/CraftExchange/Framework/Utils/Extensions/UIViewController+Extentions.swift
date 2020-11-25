@@ -207,10 +207,10 @@ extension UIViewController {
     @objc func notificationButtonSelected() {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = NotificationService(client: client).createScene()
+            let vc = AdminNotificationService(client: client).createScene()
             vc.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
+        } catch {
             print(error.localizedDescription)
         }
     }
