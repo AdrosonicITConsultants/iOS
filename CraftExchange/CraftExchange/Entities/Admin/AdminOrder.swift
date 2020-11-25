@@ -13,7 +13,7 @@ import RealmSwift
 class AdminOrder: Object, Decodable {
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
-    @objc dynamic var amount: Int = 0
+    @objc dynamic var amount: Float = 0.0
     @objc dynamic var artisanBrand: String?
     @objc dynamic var artisanId: Int = 0
     @objc dynamic var buyerBrand: String?
@@ -83,7 +83,11 @@ class AdminOrder: Object, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
-        amount = try values.decodeIfPresent(Int.self, forKey: .amount) ?? 0
+        if let amt = try values.decodeIfPresent(Float.self, forKey: .amount) {
+            amount = amt
+        }else if let amt = try values.decodeIfPresent(Int.self, forKey: .amount) {
+            amount = Float(amt)
+        }
         artisanBrand = try? values.decodeIfPresent(String.self, forKey: .artisanBrand)
         artisanId = try values.decodeIfPresent(Int.self, forKey: .artisanId) ?? 0
         buyerBrand = try? values.decodeIfPresent(String.self, forKey: .buyerBrand)
