@@ -12,6 +12,7 @@ import Eureka
 
 class AdminEnquiryDetailView: Cell<String>, CellType {
     @IBOutlet weak var enquiryCodeLabel: UILabel!
+    @IBOutlet weak var availabilityImage: UIImageView!
     @IBOutlet weak var availabilityLabel: UILabel!
     @IBOutlet weak var prodDetailLabel: UILabel!
     @IBOutlet weak var dateStarted: UILabel!
@@ -26,7 +27,13 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
     
     func configureCell(_ enquiryObj: AdminEnquiry) {
         enquiryCodeLabel.text = enquiryObj.code ?? ""
-        availabilityLabel.text = enquiryObj.productStatus == 2 ? "Available in stock" : "Make to order"
+        if enquiryObj.productStatus == 2 {
+            availabilityLabel.text = "Available in stock"
+            availabilityImage.image = UIImage.init(named: "Avlbl n sck white")
+        }else {
+            availabilityLabel.text = "Make to order"
+            availabilityImage.image = UIImage.init(named: "Made to order white")
+        }
         prodDetailLabel.text = enquiryObj.tag ?? enquiryObj.historyTag ?? ""
         dateStarted.text = Date().ttceISOString(isoDate: enquiryObj.dateStarted ?? Date())
         dateUpdated.text = Date().ttceISOString(isoDate: enquiryObj.lastUpdated ?? Date())

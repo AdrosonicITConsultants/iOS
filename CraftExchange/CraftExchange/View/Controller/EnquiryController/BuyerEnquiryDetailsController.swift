@@ -80,7 +80,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         form
             +++ Section()
             <<< AdminEnquiryDetailRow() {
-                $0.cell.height = { 590.0 }
+                $0.cell.height = { 545.0 }
                 if let eqObj = enquiryObject {
                     $0.cell.configureCell(eqObj)
                 }
