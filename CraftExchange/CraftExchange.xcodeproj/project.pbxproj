@@ -119,6 +119,9 @@
 		A967841D2564F7E20066C147 /* AdminRoles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967841C2564F7E20066C147 /* AdminRoles.swift */; };
 		A983D9992569564D00F6D8E9 /* AdminRoles+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983D9982569564D00F6D8E9 /* AdminRoles+Transaction.swift */; };
 		A983D99B256A7D1700F6D8E9 /* MarketingEnquiryAndOrderCount+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983D99A256A7D1700F6D8E9 /* MarketingEnquiryAndOrderCount+Request.swift */; };
+		A983D9A1256E325400F6D8E9 /* AdminNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983D9A0256E325400F6D8E9 /* AdminNotifications.swift */; };
+		A983D9A3256E333C00F6D8E9 /* AdminNotifications+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983D9A2256E333C00F6D8E9 /* AdminNotifications+Request.swift */; };
+		A983D9A5256E341300F6D8E9 /* AdminNotifications+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A983D9A4256E341300F6D8E9 /* AdminNotifications+Transaction.swift */; };
 		C005BCB624C1AB2F00197519 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB524C1AB2F00197519 /* Product.swift */; };
 		C005BCB824C1DC9F00197519 /* Product+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB724C1DC9F00197519 /* Product+Request.swift */; };
 		C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB924C2335400197519 /* Product+Transaction.swift */; };
@@ -133,8 +136,8 @@
 		C0144AB12483FCB5006FF4AB /* ResetPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AB02483FCB5006FF4AB /* ResetPasswordService.swift */; };
 		C0144AB3248435F7006FF4AB /* PwdResetSuccessfulController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */; };
 		C0144AB924843D66006FF4AB /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0144ABB24843D66006FF4AB /* ForgotPassword.storyboard */; };
-		C016EC0F2510D16D0039B7AF /* BuyerNotificationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C016EC0D2510D16D0039B7AF /* BuyerNotificationScene.swift */; };
-		C016EC132510D1A30039B7AF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C016EC122510D1A20039B7AF /* NotificationService.swift */; };
+		C016EC0F2510D16D0039B7AF /* AdminNotificationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C016EC0D2510D16D0039B7AF /* AdminNotificationScene.swift */; };
+		C016EC132510D1A30039B7AF /* AdminNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C016EC122510D1A20039B7AF /* AdminNotificationService.swift */; };
 		C016EC152510D1C00039B7AF /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C016EC142510D1C00039B7AF /* Notifications.swift */; };
 		C016EC182510D3280039B7AF /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C016EC172510D3280039B7AF /* NotificationController.swift */; };
 		C016EC1B2510D3590039B7AF /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C016EC192510D3590039B7AF /* NotificationCell.swift */; };
@@ -520,6 +523,9 @@
 		A967841C2564F7E20066C147 /* AdminRoles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminRoles.swift; sourceTree = "<group>"; };
 		A983D9982569564D00F6D8E9 /* AdminRoles+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdminRoles+Transaction.swift"; sourceTree = "<group>"; };
 		A983D99A256A7D1700F6D8E9 /* MarketingEnquiryAndOrderCount+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarketingEnquiryAndOrderCount+Request.swift"; sourceTree = "<group>"; };
+		A983D9A0256E325400F6D8E9 /* AdminNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNotifications.swift; sourceTree = "<group>"; };
+		A983D9A2256E333C00F6D8E9 /* AdminNotifications+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdminNotifications+Request.swift"; sourceTree = "<group>"; };
+		A983D9A4256E341300F6D8E9 /* AdminNotifications+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdminNotifications+Transaction.swift"; sourceTree = "<group>"; };
 		C005BCB524C1AB2F00197519 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		C005BCB724C1DC9F00197519 /* Product+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Request.swift"; sourceTree = "<group>"; };
 		C005BCB924C2335400197519 /* Product+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Transaction.swift"; sourceTree = "<group>"; };
@@ -535,8 +541,8 @@
 		C0144AB2248435F7006FF4AB /* PwdResetSuccessfulController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdResetSuccessfulController.swift; sourceTree = "<group>"; };
 		C0144ABA24843D66006FF4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ForgotPassword.storyboard; sourceTree = "<group>"; };
 		C0144ABD24843D72006FF4AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ForgotPassword.strings; sourceTree = "<group>"; };
-		C016EC0D2510D16D0039B7AF /* BuyerNotificationScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerNotificationScene.swift; sourceTree = "<group>"; };
-		C016EC122510D1A20039B7AF /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C016EC0D2510D16D0039B7AF /* AdminNotificationScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminNotificationScene.swift; sourceTree = "<group>"; };
+		C016EC122510D1A20039B7AF /* AdminNotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminNotificationService.swift; sourceTree = "<group>"; };
 		C016EC142510D1C00039B7AF /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		C016EC172510D3280039B7AF /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		C016EC192510D3590039B7AF /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
@@ -1006,20 +1012,20 @@
 			path = ForgotPasswordScenes;
 			sourceTree = "<group>";
 		};
-		C016EC0C2510D1450039B7AF /* NotificationScenes */ = {
+		C016EC0C2510D1450039B7AF /* AdminNotificationScenes */ = {
 			isa = PBXGroup;
 			children = (
-				C016EC0D2510D16D0039B7AF /* BuyerNotificationScene.swift */,
+				C016EC0D2510D16D0039B7AF /* AdminNotificationScene.swift */,
 			);
-			path = NotificationScenes;
+			path = AdminNotificationScenes;
 			sourceTree = "<group>";
 		};
-		C016EC112510D1900039B7AF /* NotificationService */ = {
+		C016EC112510D1900039B7AF /* AdminNotificationService */ = {
 			isa = PBXGroup;
 			children = (
-				C016EC122510D1A20039B7AF /* NotificationService.swift */,
+				C016EC122510D1A20039B7AF /* AdminNotificationService.swift */,
 			);
-			path = NotificationService;
+			path = AdminNotificationService;
 			sourceTree = "<group>";
 		};
 		C016EC162510D3140039B7AF /* NotificationController */ = {
@@ -1124,7 +1130,7 @@
 				A94D236625658F9900CDF674 /* TeammateScenes */,
 				C0E2353A25667A9D00A1F268 /* AdminUserTabScenes */,
 				C06570B8252BB4C7001140C7 /* TransactionScenes */,
-				C016EC0C2510D1450039B7AF /* NotificationScenes */,
+				C016EC0C2510D1450039B7AF /* AdminNotificationScenes */,
 				C0C4CD88250BD28D00017889 /* EnquiryScenes */,
 				C02DC55324F4F1BA00805C98 /* SearchScene */,
 				C074EE3524EEC18500B0973B /* WishlistScenes */,
@@ -1148,7 +1154,7 @@
 				A9678417256427E20066C147 /* MarketingTeammateService */,
 				C0E2353D25667B3200A1F268 /* AdminUserService */,
 				C06570B5252BB445001140C7 /* TransactionService */,
-				C016EC112510D1900039B7AF /* NotificationService */,
+				C016EC112510D1900039B7AF /* AdminNotificationService */,
 				C0C4CD83250BCD0600017889 /* EnquiryService */,
 				C02DC55824F4F2F600805C98 /* SearchService */,
 				C04842B224E7BB7F00D3207F /* CustomProductService */,
@@ -1808,6 +1814,7 @@
 				A94D23692565938B00CDF674 /* AdminTeammate.swift */,
 				A94D236F25667C0800CDF674 /* AdminTeamUserProfile.swift */,
 				C04E6101256CC6D5001E2179 /* AdminEnquiry.swift */,
+				A983D9A0256E325400F6D8E9 /* AdminNotifications.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -1820,6 +1827,7 @@
 				A94D236B2565A27D00CDF674 /* AdminTeammate+Transaction.swift */,
 				A983D9982569564D00F6D8E9 /* AdminRoles+Transaction.swift */,
 				C04E6103256CE511001E2179 /* AdminEnquiry+Transaction.swift */,
+				A983D9A4256E341300F6D8E9 /* AdminNotifications+Transaction.swift */,
 			);
 			path = "Admin+Transactions";
 			sourceTree = "<group>";
@@ -1832,6 +1840,7 @@
 				A9678415256427680066C147 /* MarketingTeam+Request.swift */,
 				A983D99A256A7D1700F6D8E9 /* MarketingEnquiryAndOrderCount+Request.swift */,
 				C04E6105256CE65A001E2179 /* AdminEnquiry+Request.swift */,
+				A983D9A2256E333C00F6D8E9 /* AdminNotifications+Request.swift */,
 			);
 			path = "Admin+Networking";
 			sourceTree = "<group>";
@@ -2130,7 +2139,7 @@
 				C0918950248038E30058501C /* LoginUserScene.swift in Sources */,
 				C0A0AC5E24E6A98B00F7492E /* UploadCustomProductController.swift in Sources */,
 				C0917DE024D43355006B6664 /* ProductLength.swift in Sources */,
-				C016EC0F2510D16D0039B7AF /* BuyerNotificationScene.swift in Sources */,
+				C016EC0F2510D16D0039B7AF /* AdminNotificationScene.swift in Sources */,
 				C016EC202510D4FF0039B7AF /* OfflineNotificationRequest.swift in Sources */,
 				C0C4CD85250BCD7100017889 /* EnquiryListService.swift in Sources */,
 				C09C8C23250CF37F00950526 /* EnquiryStages+Transactions.swift in Sources */,
@@ -2144,6 +2153,7 @@
 				A9678416256427680066C147 /* MarketingTeam+Request.swift in Sources */,
 				C06570A0252B82D3001140C7 /* TransactionStatus+Request.swift in Sources */,
 				C0B66347256C380200DADAA4 /* AdminEnquiryListService.swift in Sources */,
+				A983D9A3256E333C00F6D8E9 /* AdminNotifications+Request.swift in Sources */,
 				30B91DB6256D5E5D00C4EC96 /* SelectArtisanBrandCell.swift in Sources */,
 				115338A12542BB8300BF4204 /* BrandDetailView.swift in Sources */,
 				C071E252247EE5C80085805B /* APIError.swift in Sources */,
@@ -2170,7 +2180,7 @@
 				C01AA7BF24FD739F00F66A62 /* Enquiry.swift in Sources */,
 				C0930D3525061A2F00DC9274 /* BuyerEnquiryDetailsController.swift in Sources */,
 				C04842BE24E7D46200D3207F /* CustomProduct+Transaction.swift in Sources */,
-				C016EC132510D1A30039B7AF /* NotificationService.swift in Sources */,
+				C016EC132510D1A30039B7AF /* AdminNotificationService.swift in Sources */,
 				116F5B23255E7C5C0052CBBE /* SearchTeammateController.swift in Sources */,
 				C05836B924C867B50027FF44 /* ProductImageService.swift in Sources */,
 				C04842B424E7BB9D00D3207F /* CustomProductService.swift in Sources */,
@@ -2390,9 +2400,11 @@
 				C04842B124E7BB0F00D3207F /* CustomeProduct+Request.swift in Sources */,
 				C0917DE224D43446006B6664 /* ProductWidth.swift in Sources */,
 				A9678419256428090066C147 /* MarketingTeammateService.swift in Sources */,
+				A983D9A1256E325400F6D8E9 /* AdminNotifications.swift in Sources */,
 				11173F5D254192A40027B9C3 /* AdminUserController.swift in Sources */,
 				C06DCAC524D33DBB00F1435F /* lengthWidthRow.swift in Sources */,
 				C0B66341256C1EFB00DADAA4 /* AdminEnquiryListCell.swift in Sources */,
+				A983D9A5256E341300F6D8E9 /* AdminNotifications+Transaction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
