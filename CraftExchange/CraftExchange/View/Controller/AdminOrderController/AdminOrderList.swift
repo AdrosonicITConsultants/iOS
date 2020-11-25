@@ -51,6 +51,16 @@ class AdminOrderList: FormViewController {
             }.cellUpdate({ (cell, row) in
                 let app = UIApplication.shared.delegate as? AppDelegate
                 cell.LowerActionLabel.text = "\(app?.countData?.ongoingOrders ?? 0)"
+            }).onCellSelection({ (cell, row) in
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.listType = .OngoingOrders
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }catch {
+                    print(error.localizedDescription)
+                }
             })
             
            <<< MarketActionsRow() {
@@ -66,6 +76,16 @@ class AdminOrderList: FormViewController {
            }.cellUpdate({ (cell, row) in
                let app = UIApplication.shared.delegate as? AppDelegate
                cell.LowerActionLabel.text = "\(app?.countData?.incompleteAndClosedOrders ?? 0)"
+           }).onCellSelection({ (cell, row) in
+               do {
+                   let client = try SafeClient(wrapping: CraftExchangeClient())
+                   let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
+                   vc.modalPresentationStyle = .fullScreen
+                   vc.listType = .ClosedOrders
+                   self.navigationController?.pushViewController(vc, animated: true)
+               }catch {
+                   print(error.localizedDescription)
+               }
            })
             
         <<< MarketActionsRow() {
@@ -81,9 +101,16 @@ class AdminOrderList: FormViewController {
       }.cellUpdate({ (cell, row) in
           let app = UIApplication.shared.delegate as? AppDelegate
           cell.LowerActionLabel.text = "\(app?.countData?.orderCompletedSuccessfully ?? 0)"
+      }).onCellSelection({ (cell, row) in
+          do {
+              let client = try SafeClient(wrapping: CraftExchangeClient())
+              let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
+              vc.modalPresentationStyle = .fullScreen
+              vc.listType = .CompletedOrders
+              self.navigationController?.pushViewController(vc, animated: true)
+          }catch {
+              print(error.localizedDescription)
+          }
       })
-    
-    
-    
 }
 }

@@ -307,6 +307,7 @@
                 <outlet property="dateUpdated" destination="LnH-IB-c9s" id="PcI-74-g9w"/>
                 <outlet property="enquiryCodeLabel" destination="fYk-y9-EtJ" id="s2w-Cm-IPN"/>
                 <outlet property="eta" destination="s7f-RT-K0w" id="o1z-oN-2oV"/>
+                <outlet property="finalStateLabel" destination="8Ni-Sq-Deg" id="m9U-fi-wA5"/>
                 <outlet property="prodDetailLabel" destination="s4T-1m-hrM" id="uLY-pt-5oC"/>
                 <outlet property="stateLabel" destination="ego-rV-7cY" id="wAc-wv-2uo"/>
                 <outlet property="statusLabel" destination="FbN-Gf-hcy" id="4hu-ZP-w74"/>

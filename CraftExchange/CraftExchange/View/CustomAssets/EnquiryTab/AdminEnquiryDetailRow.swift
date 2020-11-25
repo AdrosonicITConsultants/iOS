@@ -19,6 +19,7 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
     @IBOutlet weak var dateUpdated: UILabel!
     @IBOutlet weak var eta: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var finalStateLabel: UILabel!
     @IBOutlet weak var buyerBrandLabel: UILabel!
     @IBOutlet weak var artisanBrandLabel: UILabel!
     @IBOutlet weak var costLabel: UILabel!
@@ -48,6 +49,11 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
             antaranImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
         }
         statusLabel.text = enquiryObj.currenStage ?? ""
+        if enquiryObj.productId != 0 || enquiryObj.productHistoryId != 0 {
+            finalStateLabel.text = enquiryObj.productStatus == 2 ? "7" : "10"
+        }else if enquiryObj.customProductId != 0 || enquiryObj.customProductHistoryId != 0 {
+            finalStateLabel.text = "/10"
+        }
     }
 }
 

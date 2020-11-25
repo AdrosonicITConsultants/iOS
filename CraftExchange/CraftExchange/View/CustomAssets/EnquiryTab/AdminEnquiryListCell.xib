@@ -308,10 +308,11 @@
                 <outlet property="dateUpdated" destination="tvj-FZ-auQ" id="qSc-kp-Uwn"/>
                 <outlet property="enquiryCodeLabel" destination="DBO-Bs-kXh" id="acT-Yo-paT"/>
                 <outlet property="eta" destination="hKn-TS-g33" id="yM9-JH-1hG"/>
+                <outlet property="finalStateLabel" destination="7HW-DY-ph4" id="vTa-5d-5OZ"/>
                 <outlet property="prodDetailLabel" destination="N9e-Kh-VYO" id="kOj-n7-mH7"/>
                 <outlet property="stateLabel" destination="gzc-e3-wNR" id="wpq-dE-PO4"/>
             </connections>
-            <point key="canvasLocation" x="-319" y="-78"/>
+            <point key="canvasLocation" x="-641" y="-128"/>
         </tableViewCell>
     </objects>
     <resources>
