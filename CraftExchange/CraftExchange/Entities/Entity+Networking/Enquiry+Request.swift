@@ -234,7 +234,7 @@ extension Enquiry {
     
     public static func getPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "text/html"]
-        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)"
+        var str = "enquiry/getPreviewPiHTML?enquiryId=\(enquiryId)&isOld=false"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,
@@ -249,7 +249,7 @@ extension Enquiry {
     
     public static func downloadPreviewPI(enquiryId: Int) -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")",  "accept": "application/pdf"]
-        var str = "enquiry/getPreviewPiPDF?enquiryId=\(enquiryId)"
+        var str = "enquiry/getPreviewPiPDF?enquiryId=\(enquiryId)&isOld=false"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         return Request(
             path: str,

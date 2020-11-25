@@ -32,4 +32,15 @@ extension AdminEnquiry {
             needsAuthorization: false
         )
     }
+    
+    public static func getUserDetailsForEnquiry(enquiryId: Int) -> Request<Data, APIError> {
+        return Request(
+            path: "marketingTeam/getUserDetails?enquiryId=\(enquiryId)",
+            method: .get,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "marketingTeam/getUserDetails failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 }

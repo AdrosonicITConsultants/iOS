@@ -25,4 +25,8 @@ class AdminEnquiryListService: BaseService<Data> {
     func fetchIncompleteClosedEnquiries(parameter:[String: Any]) -> SafeSignal<Data> {
         return AdminEnquiry.getAdminIncompleteClosedEnquiries(parameters: parameter).response(using: client).debug()
     }
+    
+    func fetchUserDetailsForEnquiry(enquiryId: Int) -> SafeSignal<Data> {
+        return AdminEnquiry.getUserDetailsForEnquiry(enquiryId: enquiryId).response(using: client).debug()
+    }
 }

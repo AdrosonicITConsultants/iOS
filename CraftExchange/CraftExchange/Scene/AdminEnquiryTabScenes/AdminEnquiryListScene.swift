@@ -30,8 +30,22 @@ extension AdminEnquiryListService {
                                             "madeWithAntaran": controller.selectedCollection,
                                             "pageNo": controller.pageNo,
                                             "productCategory": controller.selectedProdCat?.entityID ?? -1,
-                                            "statusId": 2,
                                             "toDate": controller.toDate?.filterDateString() ?? ""]
+            switch controller.listType {
+            case .OngoingEnquiries:
+                parameter["statusId"] = 2
+            case .ClosedEnquiries, .ClosedOrders:
+                print("do nothing")
+            case .OngoingOrders:
+                parameter["statusId"] = 2
+            case .CompletedOrders:
+                parameter["statusId"] = 1
+            default:
+                print("do nothing")
+            }
+//            if !controller.isIncompleteClosed {
+//                parameter["statusId"] = 2
+//            }
             if let text = controller.enquirySearchBar.searchTextField.text, text != "" {
                 parameter["enquiryId"] = text
             }
@@ -41,7 +55,45 @@ extension AdminEnquiryListService {
             if let text = controller.artisanBrandTextField.text, text != "" {
                 parameter["weaverIdOrBrand"] = text
             }
-            if controller.isIncompleteClosed {
+            switch controller.listType {
+            case .OngoingEnquiries:
+                self.fetchEnquiries(parameter: parameter).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            parseAdminEnquiry(array: array)
+                        }
+                    }
+                }.dispose(in: controller.bag)
+            case .ClosedEnquiries:
+                self.fetchIncompleteClosedEnquiries(parameter: parameter).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            parseAdminEnquiry(array: array)
+                        }
+                    }
+                }.dispose(in: controller.bag)
+            case .OngoingOrders, .CompletedOrders:
+                let service = AdminOrderService.init(client: self.client)
+                service.fetchOrders(parameter: parameter).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            parseAdminEnquiry(array: array)
+                        }
+                    }
+                }.dispose(in: controller.bag)
+            case .ClosedOrders:
+                let service = AdminOrderService.init(client: self.client)
+                service.fetchIncompleteClosedOrders(parameter: parameter).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            parseAdminEnquiry(array: array)
+                        }
+                    }
+                }.dispose(in: controller.bag)
+            default:
+                print("do nothing")
+            }
+            /*if controller.isIncompleteClosed {
                 self.fetchIncompleteClosedEnquiries(parameter: parameter).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                         if let array = json["data"] as? [[String: Any]] {
@@ -57,7 +109,7 @@ extension AdminEnquiryListService {
                         }
                     }
                 }.dispose(in: controller.bag)
-            }
+            }*/
         }
         
         func parseAdminEnquiry(array: [[String: Any]]) {
@@ -72,21 +124,43 @@ extension AdminEnquiryListService {
                 array .forEach { (obj) in
                     i+=1
                     if let userdata = try? JSONSerialization.data(withJSONObject: obj, options: .fragmentsAllowed) {
-                        if let enquiry = try? JSONDecoder().decode(AdminEnquiry.self, from: userdata) {
-                            DispatchQueue.main.async {
-                                enquiry.saveOrUpdate()
-                                idsArray.append(enquiry.entityID)
-                                if i == array.count {
-                                    if controller.pageNo == 1 {
-                                        controller.eqArray = idsArray
-                                    }else {
-                                        controller.eqArray.append(contentsOf: idsArray)
+                        switch controller.listType {
+                        case .OngoingEnquiries, .ClosedEnquiries:
+                            if let enquiry = try? JSONDecoder().decode(AdminEnquiry.self, from: userdata) {
+                                DispatchQueue.main.async {
+                                    enquiry.saveOrUpdate()
+                                    idsArray.append(enquiry.entityID)
+                                    if i == array.count {
+                                        if controller.pageNo == 1 {
+                                            controller.eqArray = idsArray
+                                        }else {
+                                            controller.eqArray.append(contentsOf: idsArray)
+                                        }
+                                        refreshEnquiryList()
                                     }
-                                    refreshEnquiryList()
                                 }
+                            }else {
+                                print("Enquiry Obj not saved: \(obj)")
                             }
-                        }else {
-                            print("Enquiry Obj not saved: \(obj)")
+                        case .OngoingOrders, .ClosedOrders, .CompletedOrders:
+                            if let enquiry = try? JSONDecoder().decode(AdminOrder.self, from: userdata) {
+                                DispatchQueue.main.async {
+                                    enquiry.saveOrUpdate()
+                                    idsArray.append(enquiry.entityID)
+                                    if i == array.count {
+                                        if controller.pageNo == 1 {
+                                            controller.eqArray = idsArray
+                                        }else {
+                                            controller.eqArray.append(contentsOf: idsArray)
+                                        }
+                                        refreshEnquiryList()
+                                    }
+                                }
+                            }else {
+                                print("Enquiry Obj not saved: \(obj)")
+                            }
+                        default:
+                            print("do nothing")
                         }
                     }
                 }
@@ -95,7 +169,12 @@ extension AdminEnquiryListService {
         
         func refreshEnquiryList() {
             let realm = try? Realm()
-            controller.allEnquiries = realm?.objects(AdminEnquiry.self).filter("%K IN %@","entityID",controller.eqArray).sorted(byKeyPath: "entityID", ascending: false)
+            switch controller.listType {
+            case .OngoingEnquiries, .ClosedEnquiries:
+                controller.allEnquiries = realm?.objects(AdminEnquiry.self).filter("%K IN %@","entityID",controller.eqArray).sorted(byKeyPath: "entityID", ascending: false)
+            default:
+                controller.allOrders = realm?.objects(AdminOrder.self).filter("%K IN %@","entityID",controller.eqArray).sorted(byKeyPath: "entityID", ascending: false)
+            }
             controller.tableView.reloadData()
         }
         

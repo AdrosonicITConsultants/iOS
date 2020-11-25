@@ -39,6 +39,7 @@ class BuyerEnquiryDetailsController: FormViewController {
     var viewPI: (() -> ())?
     var downloadPI: (() -> ())?
     var isMOQNeedToAccept: Int = 0
+    var showUserDetails: ((_ isAdmin: Bool) -> ())?
     var showCustomProduct: (() -> ())?
     var showProductDetails: (() -> ())?
     var showHistoryProductDetails: (() -> ())?
@@ -79,7 +80,7 @@ class BuyerEnquiryDetailsController: FormViewController {
         form
             +++ Section()
             <<< AdminEnquiryDetailRow() {
-                $0.cell.height = { 590.0 }
+                $0.cell.height = { 545.0 }
                 if let eqObj = enquiryObject {
                     $0.cell.configureCell(eqObj)
                 }
@@ -104,32 +105,6 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.hidden = isClosed == true ? false : true
             }
             
-            <<< BuyerEnquirySectionViewRow() {
-                $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check artisan's details"
-                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.artisanBrand ?? "NA")"
-                $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
-                $0.cell.titleLbl.textColor = UIColor().EQBlueText()
-                $0.cell.valueLbl.textColor = UIColor().EQBlueText()
-            }.onCellSelection({ (cell, row) in
-//                let vc = EnquiryArtisanDetailsController.init(style: .plain)
-//                vc.enquiryObject = self.enquiryObject
-//                self.navigationController?.pushViewController(vc, animated: true)
-            })
-            
-            <<< BuyerEnquirySectionViewRow() {
-                $0.cell.height = { 44.0 }
-                $0.cell.titleLbl.text = "Check buyer's details"
-                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.buyerBrand ?? "NA")"
-                $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
-                $0.cell.titleLbl.textColor = UIColor().EQBlueText()
-                $0.cell.valueLbl.textColor = UIColor().EQBlueText()
-            }.onCellSelection({ (cell, row) in
-//                let vc = EnquiryArtisanDetailsController.init(style: .plain)
-//                vc.enquiryObject = self.enquiryObject
-//                self.navigationController?.pushViewController(vc, animated: true)
-            })
-            
             <<< MOQSectionTitleRow() {
                 $0.cell.height = { 44.0 }
                 $0.tag = "Check MOQ Buyer"
@@ -137,11 +112,11 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.noOfUnitLbl.text = "70 pcs"
                 $0.cell.costLbl.text = "Rs 1000"
                 $0.cell.etaLbl.text = "100 days"
-                $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
-                $0.cell.titleLbl.textColor = UIColor().EQGreenText()
-                $0.cell.noOfUnitLbl.textColor = UIColor().EQGreenText()
-                $0.cell.costLbl.textColor = UIColor().EQGreenText()
-                $0.cell.etaLbl.textColor = UIColor().EQGreenText()
+                $0.cell.contentView.backgroundColor = UIColor.init(named: "AdminGreenBG")
+                $0.cell.titleLbl.textColor = UIColor.init(named: "AdminGreenText")
+                $0.cell.noOfUnitLbl.textColor = UIColor.init(named: "AdminGreenText")
+                $0.cell.costLbl.textColor = UIColor.init(named: "AdminGreenText")
+                $0.cell.etaLbl.textColor = UIColor.init(named: "AdminGreenText")
             }.onCellSelection({ (cell, row) in
                 let row1 = self.form.rowBy(tag: "MOQ1")
                 let row2 = self.form.rowBy(tag: "MOQ2")
@@ -176,6 +151,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.valueLbl.text = "70 pcs"
                 $0.hidden = true
             }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = .black
                 if self.getMOQs != nil{
                     cell.valueLbl.text = "\(self.getMOQs!.moq) pcs"
                 }
@@ -188,6 +164,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.valueLbl.text = "Rs 1000"
                 $0.hidden = true
             }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = .black
                 if self.getMOQs != nil{
                     cell.valueLbl.text = "Rs " + self.getMOQs!.ppu!
                 }
@@ -200,6 +177,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.valueLbl.text = "100 days"
                 $0.hidden = true
             }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = .black
                 if self.getMOQs != nil{
                     let ETAdays = EnquiryMOQDeliveryTimes.getDeliveryType(TimeId: self.getMOQs!.deliveryTimeId)!.days
                     cell.valueLbl.text = "\(ETAdays) days"
@@ -210,21 +188,32 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check PI".localized
                 $0.cell.valueLbl.text = "View".localized
-                $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
-                $0.cell.titleLbl.textColor = UIColor().EQBlueText()
-                $0.cell.valueLbl.textColor = UIColor().EQBlueText()
+                $0.cell.contentView.backgroundColor = UIColor.init(named: "ArmyGreenBG")
+                $0.cell.titleLbl.textColor = UIColor.init(named: "ArmyGreenText")
+                $0.cell.valueLbl.textColor = UIColor.init(named: "ArmyGreenText")
+                if self.enquiryObject?.currenStageId ?? 0 >= 3 {
+                    $0.hidden = false
+                }else {
+                    $0.hidden = true
+                }
             }.onCellSelection({ (cell, row) in
                 self.showLoading()
                 self.viewPI?()
+            }).cellUpdate({ (cell, row) in
+                if self.enquiryObject?.currenStageId ?? 0 >= 3 {
+                    cell.row.hidden = false
+                }else {
+                    cell.row.hidden = true
+                }
             })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check Product Details"
                 $0.cell.valueLbl.text = "\(enquiryObject?.tag ?? "View")"
-                $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
-                $0.cell.titleLbl.textColor = UIColor().EQBrownText()
-                $0.cell.valueLbl.textColor = UIColor().EQBrownText()
+                $0.cell.contentView.backgroundColor = UIColor.init(named: "AdminBlueBG")
+                $0.cell.titleLbl.textColor = UIColor.init(named: "AdminBlueText")
+                $0.cell.valueLbl.textColor = UIColor.init(named: "AdminBlueText")
             }.onCellSelection({ (cell, row) in
                 if self.enquiryObject?.customProductId != 0 {
                     self.showCustomProduct?()
@@ -233,6 +222,28 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     self.showProductDetails?()
                 }
+            })
+        
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Check artisan's details"
+                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.artisanBrand ?? "NA")"
+                $0.cell.contentView.backgroundColor = UIColor.init(named: "AdminPurpleBG")
+                $0.cell.titleLbl.textColor = UIColor.init(named: "AdminPurpleText")
+                $0.cell.valueLbl.textColor = UIColor.init(named: "AdminPurpleText")
+            }.onCellSelection({ (cell, row) in
+                self.showUserDetails?(true)
+            })
+                        
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Check buyer's details"
+                $0.cell.valueLbl.text = "Brand: \(enquiryObject?.buyerBrand ?? "NA")"
+                $0.cell.contentView.backgroundColor = UIColor.init(named: "AdminGreenBG")
+                $0.cell.titleLbl.textColor = UIColor.init(named: "AdminGreenText")
+                $0.cell.valueLbl.textColor = UIColor.init(named: "AdminGreenText")
+            }.onCellSelection({ (cell, row) in
+                self.showUserDetails?(false)
             })
     }
     

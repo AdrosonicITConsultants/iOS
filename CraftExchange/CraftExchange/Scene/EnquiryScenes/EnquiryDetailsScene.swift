@@ -167,6 +167,37 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)
         }
         
+        vc.showUserDetails = { (isArtisan) in
+            vc.showLoading()
+            let service = AdminEnquiryListService.init(client: self.client)
+            service.fetchUserDetailsForEnquiry(enquiryId: vc.enquiryObject?.entityID ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    if let dataArray = json["data"] as? [[String: Any]] {
+                        if let dataDict = dataArray.first {
+                            DispatchQueue.main.async {
+                                if let eqObj = vc.enquiryObject {
+                                    eqObj.updateUserDetails(pocFName: dataDict["pocFirstName"] as? String,
+                                                            pocLName: dataDict["pocLastName"] as? String,
+                                                            pocEmailAdd: dataDict["pocEmail"] as? String,
+                                                            pocMob: dataDict["pocContact"] as? String,
+                                                            artisanMob: dataDict["artisanContact"] as? String,
+                                                            artisanMailAdd: dataDict["artisanMail"] as? String,
+                                                            buyerMailAdd: dataDict["buyerMail"] as? String,
+                                                            buyerMob: dataDict["buyerContact"] as? String,
+                                                            buyerAlternateMob: dataDict["buyerAlternateContact"] as? String)
+                                    vc.hideLoading()
+                                    let newVC = AdminEnquiryUserDetailsController.init(style: .plain)
+                                    newVC.enquiryObject = eqObj
+                                    newVC.isArtisan = isArtisan
+                                    vc.navigationController?.pushViewController(newVC, animated: true)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
         return vc
     }
     

@@ -52,7 +52,8 @@ class AdminEnquiryList: FormViewController {
             }).onCellSelection({ (cell, row) in
                 do {
                     let client = try SafeClient(wrapping: CraftExchangeClient())
-                    let vc = AdminEnquiryListService(client: client).createScene()
+                    let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
+                    vc.listType = .OngoingEnquiries
                     vc.modalPresentationStyle = .fullScreen
                     self.navigationController?.pushViewController(vc, animated: true)
                 }catch {
@@ -78,7 +79,7 @@ class AdminEnquiryList: FormViewController {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
                 vc.modalPresentationStyle = .fullScreen
-                vc.isIncompleteClosed = true
+                vc.listType = .ClosedEnquiries
                 self.navigationController?.pushViewController(vc, animated: true)
             }catch {
                 print(error.localizedDescription)

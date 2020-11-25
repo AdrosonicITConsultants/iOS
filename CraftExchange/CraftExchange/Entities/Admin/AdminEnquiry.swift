@@ -13,7 +13,7 @@ import RealmSwift
 class AdminEnquiry: Object, Decodable {
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
-    @objc dynamic var amount: Int = 0
+    @objc dynamic var amount: Float = 0.0
     @objc dynamic var artisanBrand: String?
     @objc dynamic var artisanId: Int = 0
     @objc dynamic var buyerBrand: String?
@@ -36,6 +36,16 @@ class AdminEnquiry: Object, Decodable {
     @objc dynamic var productId: Int = 0
     @objc dynamic var productStatus: Int = 0
     @objc dynamic var tag: String?
+    
+    @objc dynamic var pocLastName: String?
+    @objc dynamic var pocEmail: String?
+    @objc dynamic var pocContact: String?
+    @objc dynamic var buyerMail: String?
+    @objc dynamic var artisanContact: String?
+    @objc dynamic var buyerContact: String?
+    @objc dynamic var buyerAlternateContact: String?
+    @objc dynamic var pocFirstName: String?
+    @objc dynamic var artisanMail: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "eId"
@@ -73,7 +83,11 @@ class AdminEnquiry: Object, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
-        amount = try values.decodeIfPresent(Int.self, forKey: .amount) ?? 0
+        if let amt = try values.decodeIfPresent(Float.self, forKey: .amount) {
+            amount = amt
+        }else if let amt = try values.decodeIfPresent(Int.self, forKey: .amount) {
+            amount = Float(amt)
+        }
         artisanBrand = try? values.decodeIfPresent(String.self, forKey: .artisanBrand)
         artisanId = try values.decodeIfPresent(Int.self, forKey: .artisanId) ?? 0
         buyerBrand = try? values.decodeIfPresent(String.self, forKey: .buyerBrand)
