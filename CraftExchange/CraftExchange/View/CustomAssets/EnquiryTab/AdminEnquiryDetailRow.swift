@@ -40,6 +40,7 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
         }else {
             antaranImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
         }
+        statusLabel.text = enquiryObj.currenStage ?? ""
     }
 }
 

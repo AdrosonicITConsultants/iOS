@@ -36,6 +36,16 @@ class AdminEnquiry: Object, Decodable {
     @objc dynamic var productId: Int = 0
     @objc dynamic var productStatus: Int = 0
     @objc dynamic var tag: String?
+    
+    @objc dynamic var pocLastName: String?
+    @objc dynamic var pocEmail: String?
+    @objc dynamic var pocContact: String?
+    @objc dynamic var buyerMail: String?
+    @objc dynamic var artisanContact: String?
+    @objc dynamic var buyerContact: String?
+    @objc dynamic var buyerAlternateContact: String?
+    @objc dynamic var pocFirstName: String?
+    @objc dynamic var artisanMail: String?
 
     enum CodingKeys: String, CodingKey {
         case id = "eId"

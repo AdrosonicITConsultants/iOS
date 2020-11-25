@@ -384,6 +384,7 @@
 		C0B66345256C31AE00DADAA4 /* AdminEnquiryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B66344256C31AE00DADAA4 /* AdminEnquiryListViewController.swift */; };
 		C0B66347256C380200DADAA4 /* AdminEnquiryListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B66346256C380200DADAA4 /* AdminEnquiryListService.swift */; };
 		C0B6634A256C384C00DADAA4 /* AdminEnquiryListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B66349256C384C00DADAA4 /* AdminEnquiryListScene.swift */; };
+		C0BA854C256E340E00F64D93 /* AdminEnquiryUserDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BA854B256E340E00F64D93 /* AdminEnquiryUserDetailsController.swift */; };
 		C0C4CD85250BCD7100017889 /* EnquiryListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD84250BCD7100017889 /* EnquiryListService.swift */; };
 		C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */; };
 		C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */; };
@@ -791,6 +792,7 @@
 		C0B66344256C31AE00DADAA4 /* AdminEnquiryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryListViewController.swift; sourceTree = "<group>"; };
 		C0B66346256C380200DADAA4 /* AdminEnquiryListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryListService.swift; sourceTree = "<group>"; };
 		C0B66349256C384C00DADAA4 /* AdminEnquiryListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryListScene.swift; sourceTree = "<group>"; };
+		C0BA854B256E340E00F64D93 /* AdminEnquiryUserDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEnquiryUserDetailsController.swift; sourceTree = "<group>"; };
 		C0C4CD84250BCD7100017889 /* EnquiryListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListService.swift; sourceTree = "<group>"; };
 		C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryStages.swift; sourceTree = "<group>"; };
 		C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListScene.swift; sourceTree = "<group>"; };
@@ -1760,6 +1762,7 @@
 			children = (
 				118F7053255557C50075F998 /* AdminEnquiryList.swift */,
 				C0B66344256C31AE00DADAA4 /* AdminEnquiryListViewController.swift */,
+				C0BA854B256E340E00F64D93 /* AdminEnquiryUserDetailsController.swift */,
 			);
 			path = AdminEnquiryController;
 			sourceTree = "<group>";
@@ -2233,6 +2236,7 @@
 				A94D236A2565938B00CDF674 /* AdminTeammate.swift in Sources */,
 				C0E235462566891700A1F268 /* AdminUser+Request.swift in Sources */,
 				C0930D3D2506223200DC9274 /* BuyerEnquirySectionView.swift in Sources */,
+				C0BA854C256E340E00F64D93 /* AdminEnquiryUserDetailsController.swift in Sources */,
 				C09B3F1324BA615900FBC115 /* Disk+[UIImage].swift in Sources */,
 				C0D8D95B255AA65A0082AC4F /* Cells.swift in Sources */,
 				C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */,
