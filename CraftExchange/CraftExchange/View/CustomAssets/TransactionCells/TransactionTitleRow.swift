@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import Eureka
 
-class TransactionTitleRow: UITableViewCell {
+class TransactionTitleRow: Cell<String>, CellType {
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var enquiryCode: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -19,6 +20,7 @@ class TransactionTitleRow: UITableViewCell {
     var delegate: UIViewController!
     
     func configure(_ transaction: TransactionObject) {
+        self.contentView.backgroundColor = .darkGray
         if transaction.accomplishedStatus == 1 || transaction.accomplishedStatus == 4 {
             // PI
             icon.image = UIImage.init(named: "Group 1837")
@@ -64,5 +66,14 @@ class TransactionTitleRow: UITableViewCell {
             dateLabel.text = Date().ttceISOString(isoDate: date)
         }
         enquiryCode.text = transaction.enquiryCode ?? transaction.orderCode ?? ""
+    }
+}
+
+// The custom Row also has the cell: CustomCell and its correspond value
+final class TransactionTitleRowView: Row<TransactionTitleRow>, RowType {
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        // We set the cellProvider to load the .xib corresponding to our cell
+        cellProvider = CellProvider<TransactionTitleRow>(nibName: "TransactionTitleRow")
     }
 }

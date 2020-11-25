@@ -20,4 +20,5 @@ target 'CraftExchange' do
   pod 'ViewRow'
   pod 'SpreadsheetView'
   pod 'iOSPhotoEditor'
+  pod 'MessageKit'
 end

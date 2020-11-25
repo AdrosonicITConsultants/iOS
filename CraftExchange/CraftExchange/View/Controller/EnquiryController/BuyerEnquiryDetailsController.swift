@@ -475,13 +475,21 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, MOQSortButton
 }
 
 extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewProtocol, AcceptedPIViewProtocol  {
+    func downloadButtonSelected(isOld: Bool) {
+        self.downloadPI?()
+    }
+    
+    func TIdownloadButtonSelected() {
+        
+    }
+    
     
     func backButtonSelected() {
         self.view.hideAcceptedPIView()
     }
     
     func downloadButtonSelected() {
-        self.downloadPI?()
+        
     }
     
     func cancelButtonSelected() {

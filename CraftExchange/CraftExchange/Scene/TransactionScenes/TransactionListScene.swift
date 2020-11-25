@@ -73,10 +73,10 @@ extension TransactionService {
         
         controller.viewModel.viewTransactionReceipt = { (transaction) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.getPreviewPI(enquiryId: transaction.enquiryId).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+            service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: 0).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                DispatchQueue.main.async {
                 let object = String(data: responseData, encoding: .utf8) ?? ""
-                controller.view.showAcceptedPIView(controller: controller, entityId: transaction.enquiryCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object)
+                controller.view.showAcceptedPIView(controller: controller, entityId: transaction.enquiryCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
                    controller.hideLoading()
                }
             }.dispose(in: controller.bag)
@@ -84,7 +84,7 @@ extension TransactionService {
         
         controller.viewModel.downloadPI = { (enquiryId) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.downloadAndSharePI(vc: controller, enquiryId: enquiryId)
+            service.downloadAndSharePI(vc: controller, enquiryId: enquiryId, isPI: true, isOld: 0)
         }
         
         controller.viewModel.downloadEnquiry = { (enquiryId) in
@@ -113,7 +113,7 @@ extension TransactionService {
         controller.viewModel.downloadAdvReceipt = { (enquiryId) in
             let service = EnquiryDetailsService.init(client: self.client)
             controller.showLoading()
-            service.downloadAndViewReceipt(vc: controller, enquiryId: enquiryId)
+            service.downloadAndViewReceipt(vc: controller, enquiryId: enquiryId, typeId: 1)
         }
         
         return controller

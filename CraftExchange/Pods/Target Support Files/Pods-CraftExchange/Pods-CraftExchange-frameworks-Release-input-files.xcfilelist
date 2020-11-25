@@ -3,7 +3,9 @@ ${BUILT_PRODUCTS_DIR}/Bond/Bond.framework
 ${BUILT_PRODUCTS_DIR}/Differ/Differ.framework
 ${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework
 ${BUILT_PRODUCTS_DIR}/ImageRow/ImageRow.framework
+${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework
 ${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework
+${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework
 ${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework
 ${BUILT_PRODUCTS_DIR}/ReactiveKit/ReactiveKit.framework
 ${BUILT_PRODUCTS_DIR}/Realm/Realm.framework

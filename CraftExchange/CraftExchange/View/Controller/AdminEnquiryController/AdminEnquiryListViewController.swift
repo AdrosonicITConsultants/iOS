@@ -395,7 +395,23 @@ extension AdminEnquiryListViewController: UITableViewDelegate, UITableViewDataSo
                 print(error.localizedDescription)
             }
         default:
-            print("do nothing")
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                if let obj = allOrders?[indexPath.row] {
+                    let vc = OrderDetailsService(client: client).createOrderDetailScene(forOrder: obj, enquiryId: obj.entityID) as! OrderDetailController
+                    vc.modalPresentationStyle = .fullScreen
+                    switch listType {
+                    case .ClosedOrders, .CompletedOrders, .ClosedEnquiries:
+                        vc.isClosed = true
+                    default:
+                        vc.isClosed = false
+                    }
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }
