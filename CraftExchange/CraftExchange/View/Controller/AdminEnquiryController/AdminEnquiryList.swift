@@ -52,7 +52,8 @@ class AdminEnquiryList: FormViewController {
             }).onCellSelection({ (cell, row) in
                 do {
                     let client = try SafeClient(wrapping: CraftExchangeClient())
-                    let vc = AdminEnquiryListService(client: client).createScene()
+                    let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
+                    vc.listType = .OngoingEnquiries
                     vc.modalPresentationStyle = .fullScreen
                     self.navigationController?.pushViewController(vc, animated: true)
                 }catch {
@@ -78,22 +79,21 @@ class AdminEnquiryList: FormViewController {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = AdminEnquiryListService(client: client).createScene() as! AdminEnquiryListViewController
                 vc.modalPresentationStyle = .fullScreen
-                vc.isIncompleteClosed = true
+                vc.listType = .ClosedEnquiries
                 self.navigationController?.pushViewController(vc, animated: true)
             }catch {
                 print(error.localizedDescription)
             }
         })
-        
-            <<< AdminHomeBottomRow() {
-                $0.tag = "Converted Enquiries"
-                $0.cell.height = { 142.0 }
-                $0.cell.OngoingBtn.backgroundColor = UIColor.purple
-                $0.cell.ClosedBtn.backgroundColor = UIColor.purple
-                $0.cell.topLabel2.text = "Awaiting response over MOQ from buyer"
-                $0.cell.BottomLabel2.text = "897835"
-                $0.cell.topLabel1.text = "Enquiries Converted"
-                $0.cell.BottomLabel1.text = "897835"
+        <<< AdminHomeBottomRow() {
+            $0.tag = "Converted Enquiries"
+            $0.cell.height = { 142.0 }
+            $0.cell.OngoingBtn.backgroundColor = UIColor.purple
+            $0.cell.ClosedBtn.backgroundColor = UIColor.purple
+            $0.cell.topLabel2.text = "Awaiting response over MOQ from buyer"
+            $0.cell.BottomLabel2.text = "897835"
+            $0.cell.topLabel1.text = "Enquiries Converted"
+            $0.cell.BottomLabel1.text = "897835"
         }.cellUpdate({ (cell, row) in
             let app = UIApplication.shared.delegate as? AppDelegate
             cell.BottomLabel1.text = "\(app?.countData?.enquiriesConverted ?? 0)"
@@ -102,9 +102,5 @@ class AdminEnquiryList: FormViewController {
         })
         
     }
-    
-    
-    
-    
 }
 

@@ -48,4 +48,23 @@ extension AdminEnquiry {
             }
         }
     }
+   
+    func updateUserDetails(pocFName: String?, pocLName: String?, pocEmailAdd: String?, pocMob: String?, artisanMob:String?, artisanMailAdd: String?, buyerMailAdd: String?, buyerMob: String?, buyerAlternateMob: String?) {
+        let realm = try! Realm()
+        if let object = realm.objects(AdminEnquiry.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.pocFirstName = pocFName
+                object.pocLastName = pocLName
+                object.pocEmail = pocEmailAdd
+                object.pocContact = pocMob
+                
+                object.artisanContact = artisanMob
+                object.artisanMail = artisanMailAdd
+                
+                object.buyerMail = buyerMailAdd
+                object.buyerContact = buyerMob
+                object.buyerAlternateContact = buyerAlternateMob
+            }
+        }
+    }
 }

@@ -15,12 +15,13 @@ import RealmSwift
 import UIKit
 
 extension EnquiryDetailsService {
-    func createEnquiryDetailScene(forEnquiry: Enquiry?, enquiryId: Int) -> UIViewController {
+    
+    func createEnquiryDetailScene(forEnquiry: AdminEnquiry?, enquiryId: Int) -> UIViewController {
         let vc = BuyerEnquiryDetailsController.init(style: .plain)
         vc.enquiryObject = forEnquiry
         
         vc.viewWillAppear = {
-            vc.showLoading()
+            /*vc.showLoading()
             if vc.isClosed {
                 self.getClosedEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -42,19 +43,18 @@ extension EnquiryDetailsService {
                 DispatchQueue.main.async {
                     vc.hideLoading()
                 }
-            }.dispose(in: vc.bag)
+            }.dispose(in: vc.bag)*/
         }
         
         vc.showCustomProduct = {
             vc.showLoading()
             let service = UploadProductService.init(client: self.client)
-            service.getCustomProductDetails(prodId: forEnquiry?.productId ?? 0, vc: vc)
+            service.getCustomProductDetails(prodId: forEnquiry?.customProductId ?? 0, vc: vc)
             DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
                 vc.hideLoading()
                 let realm = try? Realm()
-                if let object = realm?.objects(CustomProduct.self).filter("%K == %@", "entityID", forEnquiry?.productId ?? 0).first {
-                    let newVC = UploadProductService(client: self.client).createCustomProductScene(productObject: object) as! UploadCustomProductController
-                    newVC.fromEnquiry = true
+                if let object = realm?.objects(CustomProduct.self).filter("%K == %@", "entityID", forEnquiry?.customProductId ?? 0).first {
+                    let newVC = ProductCatalogService(client: self.client).createAdminCustomProductDetailScene(forProduct: forEnquiry?.customProductId ?? 0)
                     newVC.modalPresentationStyle = .fullScreen
                     vc.navigationController?.pushViewController(newVC, animated: true)
                 }
@@ -65,11 +65,12 @@ extension EnquiryDetailsService {
             let service = ProductCatalogService.init(client: self.client)
             service.showSelectedProduct(for: vc, prodId: forEnquiry?.productId ?? 0)
             vc.hideLoading()
+            
         }
         
         vc.showHistoryProductDetails = {
             let service = ProductCatalogService.init(client: self.client)
-            service.showSelectedHistoryProduct(for: vc, prodId: forEnquiry?.historyProductId ?? 0)
+            service.showSelectedHistoryProduct(for: vc, prodId: forEnquiry?.productHistoryId ?? 0)
             vc.hideLoading()
         }
         
@@ -79,28 +80,6 @@ extension EnquiryDetailsService {
                     vc.navigationController?.popViewController(animated: true)
                 }
             }
-        }
-        vc.checkMOQ = {
-            vc.showLoading()
-            self.getMOQ(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
-                    if let dataDict = json["data"] as? Dictionary<String,Any>
-                    {
-                        guard let moqObj = dataDict["moq"] as? Dictionary<String,Any> else {
-                            return
-                        }
-                        if let moqdata = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
-                            if  let object = try? JSONDecoder().decode(GetMOQ.self, from: moqdata) {
-                                DispatchQueue.main.async {
-                                    vc.getMOQ = object
-                                    vc.assignMOQ()
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            }.dispose(in: vc.bag)
         }
         
         vc.checkMOQs = {
@@ -153,87 +132,21 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)
         }
         
-        vc.sendMOQ = {
-            if vc.viewModel.minimumQuantity.value != nil && vc.viewModel.minimumQuantity.value?.isNotBlank ?? false && vc.viewModel.pricePerUnit.value != nil && vc.viewModel.pricePerUnit.value?.isNotBlank ?? false &&  vc.viewModel.estimatedDays.value != nil {
-                
-                let minimumQuantity = vc.viewModel.minimumQuantity.value ?? ""
-                let pricePerUnit = vc.viewModel.pricePerUnit.value ?? ""
-                if minimumQuantity.isValidNumber && Int(vc.viewModel.minimumQuantity.value!)! > 0 {
-                    if pricePerUnit.isValidNumber && Int(vc.viewModel.pricePerUnit.value!)! > 0{
-                        self.sendMOQ(enquiryId: enquiryId, additionalInfo: vc.viewModel.additionalNote.value ?? "", deliveryTimeId: vc.viewModel.estimatedDays.value!.entityID , moq: Int(vc.viewModel.minimumQuantity.value!)!, ppu: vc.viewModel.pricePerUnit.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                                if json["valid"] as? Bool == true {
-                                    DispatchQueue.main.async {
-                                        print("sent MOQ")
-                                        vc.sentMOQ = 1
-                                        let row = vc.form.rowBy(tag: "createMOQ6")
-                                        row?.hidden = true
-                                        row?.evaluateHidden()
-                                        vc.form.allSections.first?.reload(with: .none)
-                                        vc.reloadMOQ()
-                                        vc.hideLoading()
-                                    }
-                                }
-                                else {
-                                    vc.alert("Send MOQ failed, please try again later")
-                                    vc.hideLoading()
-                                }
-                            }
-                        }.dispose(in: vc.bag)
-                        
-                    }else {
-                        vc.alert("Please enter valid price per unit")
-                        vc.hideLoading()
-                    }
-                }else {
-                    vc.alert("Please enter valid minimum order quantity")
-                    vc.hideLoading()
-                }
-            }else {
-                vc.alert("Please enter all mandatory fields")
-                vc.hideLoading()
-            }
-        }
-        
-        vc.acceptMOQ = {
-            self.acceptMOQ(enquiryId: enquiryId, moqId: vc.viewModel.acceptMOQInfo.value!.moq!.id, artisanId: vc.viewModel.acceptMOQInfo.value!.artisanId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        DispatchQueue.main.async {
-                            print("MOQ accepted")
-                            vc.form.sectionBy(tag: "list MOQs")?.removeAll()
-                            vc.form.sectionBy(tag: "list MOQs")?.reload()
-                            vc.form.rowBy(tag: "Check MOQs")?.hidden = true
-                            vc.form.rowBy(tag: "Check MOQs")?.evaluateHidden()
-                            vc.checkMOQs?()
-                            // vc.reloadBuyerMOQ()
-                            vc.view.hideAcceptMOQView()
-                            vc.view.showAcceptedMOQView(controller: vc, getMOQs: vc.viewModel.acceptMOQInfo.value!)
-                        }
-                    }
-                    else{
-                        vc.hideLoading()
-                        vc.view.hideAcceptMOQView()
-                        vc.alert("Accept MOQ failed, please try again later")
-                    }
-                }
-            }.dispose(in: vc.bag)
-        }
-        
         vc.viewPI = {
-            
-            self.getPreviewPI(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+            self.getPreviewPI(enquiryId: enquiryId, isOld: 0).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
                 DispatchQueue.main.async {
                     let object = String(data: responseData, encoding: .utf8) ?? ""
-                    let date = Date().ttceFormatter(isoDate: vc.enquiryObject!.lastUpdated!)
-                    vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.enquiryCode!)!, date: date , data: object)
+                    if let date = vc.enquiryObject?.lastUpdated {
+                        let dateStr = date.ttceISOString(isoDate: date)
+                        vc.view.showAcceptedPIView(controller: vc, entityId: (vc.enquiryObject?.code!)!, date: dateStr , data: object, containsOld: false, raiseNewPI: false, isPI: true)
+                    }
                     vc.hideLoading()
                 }
             }.dispose(in: vc.bag)
         }
         
         vc.downloadPI = {
-            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId)
+            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: false, isOld: 0)
         }
         
         vc.getPI = {
@@ -254,6 +167,11 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)
         }
         
+        vc.showUserDetails = { (isArtisan) in
+            vc.showLoading()
+            let service = AdminEnquiryListService.init(client: self.client)
+            service.showUser(vc: vc, isArtisan: isArtisan, enquiryId: vc.enquiryObject?.entityID ?? 0)
+        }
         return vc
     }
     

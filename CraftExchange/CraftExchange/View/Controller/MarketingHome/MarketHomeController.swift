@@ -45,6 +45,9 @@ class MarketHomeController: FormViewController {
         self.tableView.backgroundColor = .black
         viewWillAppear?()
         refreshCountForTag()
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItems = [rightBarButtomItem]
+        
         form
             +++ Section()
             
@@ -111,6 +114,16 @@ class MarketHomeController: FormViewController {
             }.cellUpdate({ (cell, row) in
                 let app = UIApplication.shared.delegate as? AppDelegate
                 cell.LowerActionLabel.text = "\(app?.countData?.escaltions ?? 0)"
+            }).onCellSelection({ (cell, row) in
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = AdminEscalationService(client: client).createScene() as! AdminEscalationController
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.catType = .Updates
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }catch {
+                    print(error.localizedDescription)
+                }
             })
                 
             <<< MarketActionsRow() {

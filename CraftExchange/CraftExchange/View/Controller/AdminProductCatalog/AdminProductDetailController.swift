@@ -97,7 +97,7 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.editButton.tag = 101
                 $0.cell.tag = 101
                 $0.cell.editButton.isHidden = true
-                if product?.madeWithAnthran == 1{
+                if product?.madeWithAnthran == 1 {
                     $0.cell.editButton.isHidden = false
                 }
                 $0.cell.delegate2 = self
@@ -147,16 +147,16 @@ class AdminProductDetailController: FormViewController {
             <<< ProductDetailInfoRow() {
                 $0.cell.height = { 100.0 }
             }.cellUpdate({ (cell, row) in
-               
+
                 cell.productCatLbl.text = ProductCategory.getProductCat(catId: self.product?.productCategoryId ?? self.customProduct?.productCategoryId ?? 0)?.prodCatDescription
                 cell.productTypeLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc
-                if !self.isCustom {
-                  cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: self.product?.clusterId ??  0)?.clusterDescription ?? "-"
-                }
+                cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: self.product?.clusterId ?? 0)?.clusterDescription ?? "-"
                 if self.product?.productStatusId == 2 {
                     cell.productAvailabilityLbl.text = "In Stock"
                     cell.productAvailabilityLbl.textColor = #colorLiteral(red: 0.6266219616, green: 0.8538652062, blue: 0.7403210998, alpha: 1)
                     cell.madeToOrderLbl.isHidden = true
+                }else if self.customProduct?.entityID != 0 {
+                    cell.productAvailabilityLbl.text = "Custom Product"
                 }
                 if self.isCustom {
                     cell.prodTypeTitle.text = "Product Type:"
@@ -217,7 +217,7 @@ class AdminProductDetailController: FormViewController {
                 cell.titleLbl.text = " Yarn"
                 cell.valueLbl1.text = Yarn.getYarn(searchId: self.product?.warpYarnId ?? self.customProduct?.warpYarnId ?? 0)?.yarnDesc ?? "-"
                 cell.valueLbl2.text = Yarn.getYarn(searchId: self.product?.weftYarnId ?? self.customProduct?.weftYarnId ?? 0)?.yarnDesc ?? "-"
-                cell.valueLbl3.text = Yarn.getYarn(searchId: self.product?.extraWeftYarnId ?? self.customProduct?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-"
+                cell.valueLbl3.text = Yarn.getYarn(searchId: self.product?.extraWeftYarnId ?? self.customProduct?.weftYarnId ?? 0)?.yarnDesc ?? "-"
             })
             <<< ProdDetailYarnValueRow {
                 $0.cell.height = { 100.0 }
@@ -419,16 +419,13 @@ class AdminProductDetailController: FormViewController {
             +++ Section()
         
         var strArr:[String] = []
-        
-        if isCustom {
-            customProduct?.weaves .forEach({ (weave) in
-                strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
-            })
-        }else{
-            product?.weaves .forEach({ (weave) in
-                strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
-            })
-        }
+
+        product?.weaves .forEach({ (weave) in
+            strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+        })
+        customProduct?.weaves .forEach({ (weave) in
+            strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+        })
         let setWeave = Set(strArr)
         setWeave.forEach({ (weave) in
             weaveTypeSection <<< LabelRow() {

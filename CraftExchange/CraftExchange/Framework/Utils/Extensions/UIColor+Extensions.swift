@@ -27,12 +27,16 @@ extension UIColor {
       return colorWith(r: 77, g: 157, b: 97)
     }
     
-    func customLightGray() -> UIColor {
-        return colorWith(r: 185, g: 185, b: 185, a: 21)
-    }
-    
     func CEMagenda() -> UIColor {
         return colorWith(r: 170, g: 39, b: 72)
+    }
+    
+    func CEMustard() -> UIColor {
+        return colorWith(r: 228, g: 175, b: 107)
+    }
+    
+    func customLightGray() -> UIColor {
+        return colorWith(r: 185, g: 185, b: 185, a: 21)
     }
     
     func EQBlueBg() -> UIColor {
@@ -65,6 +69,14 @@ extension UIColor {
     
     func EQBrownText() -> UIColor {
         return colorWith(r: 190, g: 144, b: 103)
+    }
+    
+    func EQPinkBg() -> UIColor {
+        return colorWith(r: 247, g: 221, b: 239)
+    }
+    
+    func EQPinkText() -> UIColor {
+        return colorWith(r: 199, g: 71, b: 147)
     }
 
     func colorWith(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) -> UIColor {

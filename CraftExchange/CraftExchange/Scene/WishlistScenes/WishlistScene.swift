@@ -144,11 +144,11 @@ extension WishlistService {
                             if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
                                 enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
                                 controller.hideLoading()
-                                let realm = try? Realm()
-                                let obj = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryId).first
-                                let new = service.createEnquiryDetailScene(forEnquiry: obj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
-                                new.modalPresentationStyle = .fullScreen
-                                controller.navigationController?.pushViewController(new, animated: true)
+//                                let realm = try? Realm()
+//                                let obj = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryId).first
+//                                let new = service.createEnquiryDetailScene(forEnquiry: obj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
+//                                new.modalPresentationStyle = .fullScreen
+//                                controller.navigationController?.pushViewController(new, animated: true)
                             }
                             }
                             }

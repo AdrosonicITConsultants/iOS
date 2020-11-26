@@ -33,10 +33,31 @@ extension AdminHomeScreenService {
                 self.fetchEnquiryStateData(vc: vc)
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
+                self.fetchMOQsDeliveryTimes(vc: vc)
             }
         }
         return tab
       }
+    
+    func fetchMOQsDeliveryTimes(vc: UIViewController) {
+        let service = EnquiryListService.init(client: self.client)
+        service.getMOQDeliveryTimes().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if let array = json["data"] as? [[String: Any]] {
+                    if let data = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                        if let object =  try? JSONDecoder().decode([EnquiryMOQDeliveryTimes].self, from: data) {
+                            DispatchQueue.main.async {
+                                for obj in object {
+                                    obj.saveOrUpdate()
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
     
     func getEnquiryAndOrderCount(vc: UIViewController){
         self.fetchAllAdminEnquiryAndOrder().bind(to: vc, context: .global(qos: .background)) { (_,responseData) in

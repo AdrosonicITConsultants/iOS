@@ -29,4 +29,20 @@ extension TransactionObject {
         )
       }
     
+    public static func getAllTransactionForEnquiry(enquiryId: Int) -> Request<Data, APIError> {
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      var str = "marketingTeam/getTransactions/\(enquiryId)"
+      str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+      return Request(
+          path: str,
+          method: .get,
+          headers: headers,
+          resource: {
+              print(String(data: $0, encoding: .utf8) ?? "getOngoingTransaction failed")
+              return $0
+      },
+          error: APIError.init,
+          needsAuthorization: false
+      )
+    }
 }

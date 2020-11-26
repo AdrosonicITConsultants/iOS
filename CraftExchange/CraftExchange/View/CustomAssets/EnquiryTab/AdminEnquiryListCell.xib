@@ -118,7 +118,7 @@
                                         <color key="textColor" red="0.69376987219999997" green="0.85979419950000002" blue="0.63133400679999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzc-e3-wNR">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzc-e3-wNR">
                                         <rect key="frame" x="8" y="19" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="fcT-4G-UcN"/>
@@ -160,15 +160,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bag" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Pfb-rk-Mjd">
-                                <rect key="frame" x="115" y="174.5" width="20" height="19"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="buyer icon" translatesAutoresizingMaskIntoConstraints="NO" id="Pfb-rk-Mjd">
+                                <rect key="frame" x="115" y="175" width="20" height="20"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="DAc-gX-LgV"/>
                                     <constraint firstAttribute="height" constant="20" id="ddR-7g-7HW"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="artisan screen logo" translatesAutoresizingMaskIntoConstraints="NO" id="C3y-q6-f1I">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="artisan icon" translatesAutoresizingMaskIntoConstraints="NO" id="C3y-q6-f1I">
                                 <rect key="frame" x="115" y="205" width="20" height="20"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -196,7 +196,7 @@
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ArtisanNewProductButtonIcon-iOS" translatesAutoresizingMaskIntoConstraints="NO" id="5rf-RW-BZn">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Product-box-Antaran" translatesAutoresizingMaskIntoConstraints="NO" id="5rf-RW-BZn">
                                 <rect key="frame" x="381" y="30" width="25" height="25"/>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -308,16 +308,17 @@
                 <outlet property="dateUpdated" destination="tvj-FZ-auQ" id="qSc-kp-Uwn"/>
                 <outlet property="enquiryCodeLabel" destination="DBO-Bs-kXh" id="acT-Yo-paT"/>
                 <outlet property="eta" destination="hKn-TS-g33" id="yM9-JH-1hG"/>
+                <outlet property="finalStateLabel" destination="7HW-DY-ph4" id="vTa-5d-5OZ"/>
                 <outlet property="prodDetailLabel" destination="N9e-Kh-VYO" id="kOj-n7-mH7"/>
                 <outlet property="stateLabel" destination="gzc-e3-wNR" id="wpq-dE-PO4"/>
             </connections>
-            <point key="canvasLocation" x="-71.014492753623188" y="-66.294642857142861"/>
+            <point key="canvasLocation" x="-641" y="-128"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ArtisanNewProductButtonIcon-iOS" width="26" height="28"/>
-        <image name="artisan screen logo" width="138" height="58"/>
-        <image name="bag" catalog="system" width="64" height="64"/>
+        <image name="Product-box-Antaran" width="198" height="198"/>
+        <image name="artisan icon" width="24" height="24"/>
+        <image name="buyer icon" width="21" height="29"/>
         <image name="iosAntaranSelfDesign" width="48" height="38"/>
     </resources>
 </document>

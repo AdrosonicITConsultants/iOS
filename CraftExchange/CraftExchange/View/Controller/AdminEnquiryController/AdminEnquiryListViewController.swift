@@ -17,6 +17,14 @@ import JGProgressHUD
 import RealmSwift
 import Realm
 
+enum ListOption {
+    case OngoingEnquiries
+    case ClosedEnquiries
+    case OngoingOrders
+    case CompletedOrders
+    case ClosedOrders
+}
+
 class AdminEnquiryListViewController: UIViewController {
     @IBOutlet weak var pageTitleLbl: UILabel!
     @IBOutlet weak var enquiryCountLbl: UILabel!
@@ -38,12 +46,14 @@ class AdminEnquiryListViewController: UIViewController {
     @IBOutlet weak var filterView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
-    var isIncompleteClosed = false
+    var listType: ListOption?
+//    var isIncompleteClosed = false
     
     var reusableIdentifier = "AdminEnquiryListCell"
     var viewWillAppear: (()->())?
     var reachedLimit = false
     var allEnquiries: Results<AdminEnquiry>?
+    var allOrders: Results<AdminOrder>?
     
     var pageNo = 1
     var selectedCluster: ClusterDetails?
@@ -63,13 +73,34 @@ class AdminEnquiryListViewController: UIViewController {
         filterViewHt.constant = 0
         filterView.isHidden = true
         let app = UIApplication.shared.delegate as? AppDelegate
+        switch listType {
+        case .OngoingEnquiries:
+            pageTitleLbl.text = "Ongoing Enquiries"
+            enquiryCountLbl.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
+        case .ClosedEnquiries:
+            pageTitleLbl.text = "Incomplete & Closed Enquiries"
+            enquiryCountLbl.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
+        case .OngoingOrders:
+            pageTitleLbl.text = "Ongoing Orders"
+            enquiryCountLbl.text = "\(app?.countData?.ongoingOrders ?? 0)"
+        case .ClosedOrders:
+            pageTitleLbl.text = "Incomplete & Closed Orders"
+            enquiryCountLbl.text = "\(app?.countData?.incompleteAndClosedOrders ?? 0)"
+        case .CompletedOrders:
+            pageTitleLbl.text = "Completed Orders"
+            enquiryCountLbl.text = "\(app?.countData?.orderCompletedSuccessfully ?? 0)"
+        case .none:
+            pageTitleLbl.text = "Ongoing Enquiries"
+            enquiryCountLbl.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
+        }
+        /*
         if isIncompleteClosed {
             pageTitleLbl.text = "Incomplete & Closed Enquiries"
             enquiryCountLbl.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
         }else {
             pageTitleLbl.text = "Ongoing Enquiries"
             enquiryCountLbl.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
-        }
+        }*/
         enquirySearchBar.returnKeyType = .search
         enquirySearchBar.delegate = self
         if let fromDate = Calendar.current.date(byAdding: .day, value: -30, to: Date()) {
@@ -274,7 +305,12 @@ extension AdminEnquiryListViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allEnquiries?.count ?? 0
+        switch listType {
+        case .OngoingEnquiries, .ClosedEnquiries:
+            return allEnquiries?.count ?? 0
+        default:
+            return allOrders?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -282,19 +318,39 @@ extension AdminEnquiryListViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reusableIdentifier) as! AdminEnquiryListCell
-        if let obj = allEnquiries?[indexPath.row] {
-            cell.configureCell(obj)
+        switch listType {
+        case .OngoingEnquiries, .ClosedEnquiries:
+            let cell = tableView.dequeueReusableCell(withIdentifier: reusableIdentifier) as! AdminEnquiryListCell
+            if let obj = allEnquiries?[indexPath.row] {
+                cell.configureCell(obj)
+            }
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: reusableIdentifier) as! AdminEnquiryListCell
+            if let obj = allOrders?[indexPath.row] {
+                cell.configureCell(obj)
+            }
+            return cell
         }
-        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if self.allEnquiries?.count ?? 0 > 0 && self.reachedLimit == false {
-            let lastElement = (allEnquiries?.count ?? 0) - 1
-            if indexPath.row == lastElement {
-                pageNo += 1
-                self.viewWillAppear?()
+        switch listType {
+        case .OngoingEnquiries, .ClosedEnquiries:
+            if self.allEnquiries?.count ?? 0 > 0 && self.reachedLimit == false {
+                let lastElement = (allEnquiries?.count ?? 0) - 1
+                if indexPath.row == lastElement {
+                    pageNo += 1
+                    self.viewWillAppear?()
+                }
+            }
+        default:
+            if self.allOrders?.count ?? 0 > 0 && self.reachedLimit == false {
+                let lastElement = (allOrders?.count ?? 0) - 1
+                if indexPath.row == lastElement {
+                    pageNo += 1
+                    self.viewWillAppear?()
+                }
             }
         }
     }
@@ -307,15 +363,56 @@ extension AdminEnquiryListViewController: UITableViewDelegate, UITableViewDataSo
         let header = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
         header.backgroundColor = .black
         header.textColor = .white
-        if allEnquiries?.count == 1 {
+        if allEnquiries?.count == 1 || allOrders?.count == 1 {
             header.text = " Found \(allEnquiries?.count ?? 0) item"
-        }else if allEnquiries?.count ?? 0 > 0 {
-            header.text = " Found \(allEnquiries?.count ?? 0) items"
+        }else if allEnquiries?.count ?? 0 > 0 || allOrders?.count ?? 0 > 0 {
+            header.text = " Found \(allEnquiries?.count ?? allOrders?.count ?? 0) items"
         }else {
             header.text = " No Results Found!"
         }
         header.font = .systemFont(ofSize: 15)
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch listType {
+        case .OngoingEnquiries, .ClosedEnquiries:
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                if let obj = allEnquiries?[indexPath.row] {
+                    let vc = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: allEnquiries?[indexPath.row], enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
+                    vc.modalPresentationStyle = .fullScreen
+                    switch listType {
+                    case .ClosedOrders, .CompletedOrders, .ClosedEnquiries:
+                        vc.isClosed = true
+                    default:
+                        vc.isClosed = false
+                    }
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }catch {
+                print(error.localizedDescription)
+            }
+        default:
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                if let obj = allOrders?[indexPath.row] {
+                    let vc = OrderDetailsService(client: client).createOrderDetailScene(forOrder: obj, enquiryId: obj.entityID) as! OrderDetailController
+                    vc.modalPresentationStyle = .fullScreen
+                    switch listType {
+                    case .ClosedOrders, .CompletedOrders, .ClosedEnquiries:
+                        vc.isClosed = true
+                    default:
+                        vc.isClosed = false
+                    }
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 

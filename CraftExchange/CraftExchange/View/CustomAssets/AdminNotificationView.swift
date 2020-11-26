@@ -13,11 +13,11 @@ import Eureka
 
 class AdminNotificationView: Cell<String>, CellType {
 
-    @IBOutlet weak var EnquiryId: UILabel!
     @IBOutlet weak var customEnquiry: UILabel!
-    @IBOutlet weak var RedirectRequired: UILabel!
+    @IBOutlet weak var enquiryCode: UILabel!
+    @IBOutlet weak var productDesc: UILabel!
     @IBOutlet weak var Date: UILabel!
-    @IBOutlet weak var TImeLabel: UILabel!
+    
     public override func setup() {
             super.setup()
         }

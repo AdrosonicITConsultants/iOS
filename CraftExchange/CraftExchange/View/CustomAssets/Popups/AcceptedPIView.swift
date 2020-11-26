@@ -10,9 +10,12 @@ import Foundation
 import UIKit
 import WebKit
 
-protocol AcceptedPIViewProtocol {
+@objc protocol AcceptedPIViewProtocol {
     func backButtonSelected()
-    func downloadButtonSelected()
+    @objc func downloadButtonSelected(isOld: Bool)
+    @objc func TIdownloadButtonSelected()
+    @objc optional func viewOldPI()
+    @objc optional func raiseNewPI()
 }
 
 class AcceptedPIView: UIView, WKUIDelegate {
@@ -21,7 +24,7 @@ class AcceptedPIView: UIView, WKUIDelegate {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var downloadButton: UIButton!
-    
+    var isTIDownload = false
     
     var delegate: AcceptedPIViewProtocol?
     var data: String = ""
@@ -30,7 +33,11 @@ class AcceptedPIView: UIView, WKUIDelegate {
         delegate?.backButtonSelected()
     }
     @IBAction func downloadButtonSelected(_ sender: Any) {
-        delegate?.downloadButtonSelected()
+        if isTIDownload {
+            delegate?.TIdownloadButtonSelected()
+        }else{
+            delegate?.downloadButtonSelected(isOld: false)
+        }
     }
     
     @IBOutlet weak var previewPI: WKWebView!

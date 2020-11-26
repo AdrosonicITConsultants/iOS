@@ -32,7 +32,6 @@ extension CustomProduct {
       //
       let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
       return Request(
-        //marketingTeam/getCustomProduct/227
           path: "marketingTeam/getCustomProduct/\(custProdId)",
           method: .get,
           headers: headers,

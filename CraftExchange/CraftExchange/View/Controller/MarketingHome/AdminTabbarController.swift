@@ -115,4 +115,16 @@ class AdminTabbarController: UIViewController {
         // Notify Child View Controller
         viewController.removeFromParent()
     }
+    
+    @IBAction func handleTap(_ sender: UITapGestureRecognizer) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = AdminEscalationService(client: client).createScene() as! AdminEscalationController
+            vc.modalPresentationStyle = .fullScreen
+            vc.catType = .Updates
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
 }

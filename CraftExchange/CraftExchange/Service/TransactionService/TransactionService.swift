@@ -23,5 +23,8 @@ class TransactionService: BaseService<Data> {
     func getTransactionStatus() -> SafeSignal<Data> {
         return TransactionStatus.getTransactionStatus().response(using: client).debug()
     }
+    func getAllTransactionsForEnquiry(enquiryId: Int) -> SafeSignal<Data> {
+        return TransactionObject.getAllTransactionForEnquiry(enquiryId: enquiryId).response(using: client).debug()
+    }
 }
 

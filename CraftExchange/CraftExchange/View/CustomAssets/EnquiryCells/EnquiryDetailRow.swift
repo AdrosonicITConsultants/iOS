@@ -38,3 +38,52 @@ final class EnquiryDetailsRow: Row<EnquiryDetailRowView>, RowType {
     }
 }
 
+extension EnquiryDetailsRow {
+    func configureRow(orderObject: Order?, enquiryObject: Enquiry?) {
+        self.tag = "EnquiryDetailsRow"
+        self.cell.height = { 220.0 }
+        self.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
+        if orderObject?.productType == "Custom Product" {
+            self.cell.designByLbl.text = "Requested Custom Design"
+        }else {
+            self.cell.designByLbl.text = orderObject?.brandName
+        }
+        self.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
+        if let tag = orderObject?.productImages?.components(separatedBy: ",").first, let prodId = orderObject?.productId {
+            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.cell.productImage.image = downloadedImage
+            }else {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                    let service = ProductImageService.init(client: client)
+                    service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
+                        DispatchQueue.main.async {
+                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                            self.cell.productImage.image = UIImage.init(data: attachment)
+                            self.reload()
+                        }
+                    }.dispose()
+                }catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func cellUpdate(orderObject: Order?, enquiryObject: Enquiry?) {
+        cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+        if orderObject?.enquiryStageId ?? 0 < 5 {
+            cell.statusLbl.textColor = .black
+            cell.statusDotView.backgroundColor = .black
+        }else if orderObject?.enquiryStageId ?? 0 < 9 {
+            cell.statusLbl.textColor = .systemYellow
+            cell.statusDotView.backgroundColor = .systemYellow
+        }else {
+            cell.statusLbl.textColor = UIColor().CEGreen()
+            cell.statusDotView.backgroundColor = UIColor().CEGreen()
+        }
+        if let date = orderObject?.lastUpdated {
+            cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
+        }
+    }
+}

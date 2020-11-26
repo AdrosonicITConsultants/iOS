@@ -88,14 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         defaults.set(token, forKey: "notification_token")
         defaults.set(true, forKey: "device_enabled")
         defaults.synchronize()
-        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
-            let service = NotificationService.init(client: client)
-            service.savePushNotificationToken(deviceId: UIDevice.current.identifierForVendor?.uuidString ?? "", token: token).bind(to: application, context: .global(qos: .background)) { _, responseData in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
-                        print(json)
-                    }
-            }.dispose(in: self.bag)
-        }
         debugPrint("Generated device token: \(token)")
     }
     

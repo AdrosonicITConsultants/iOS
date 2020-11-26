@@ -17,6 +17,7 @@ class AdminEnquiryListCell: UITableViewCell {
     @IBOutlet weak var dateUpdated: UILabel!
     @IBOutlet weak var eta: UILabel!
     @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var finalStateLabel: UILabel!
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var clusterLabel: UILabel!
     @IBOutlet weak var costLabel: UILabel!
@@ -55,6 +56,34 @@ class AdminEnquiryListCell: UITableViewCell {
             antaranImage.image = UIImage.init(named: "iosAntaranSelfDesign")
         }else {
             antaranImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+        }
+        if enquiryObj.productId != 0 || enquiryObj.productHistoryId != 0 {
+            finalStateLabel.text = enquiryObj.productStatus == 2 ? "/7" : "/10"
+        }else if enquiryObj.customProductId != 0 || enquiryObj.customProductHistoryId != 0 {
+            finalStateLabel.text = "/10"
+        }
+    }
+    
+    func configureCell(_ enquiryObj: AdminOrder) {
+        enquiryCodeLabel.text = enquiryObj.code ?? ""
+        availabilityLabel.text = enquiryObj.productStatus == 2 ? "Available in stock" : "Make to order"
+        prodDetailLabel.text = enquiryObj.tag ?? enquiryObj.historyTag ?? ""
+        dateStarted.text = Date().ttceISOString(isoDate: enquiryObj.dateStarted ?? Date())
+        dateUpdated.text = Date().ttceISOString(isoDate: enquiryObj.lastUpdated ?? Date())
+        eta.text = enquiryObj.eta ?? "NA"
+        stateLabel.text = "\(enquiryObj.currenStageId)"
+        brandLabel.text = enquiryObj.buyerBrand
+        clusterLabel.text = "\(enquiryObj.artisanBrand ?? "NA"),\(enquiryObj.cluster ?? "NA")"
+        costLabel.text = "\(enquiryObj.amount)"
+        if enquiryObj.madeWithAntharan == 1 {
+            antaranImage.image = UIImage.init(named: "iosAntaranSelfDesign")
+        }else {
+            antaranImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
+        }
+        if enquiryObj.productId != 0 || enquiryObj.productHistoryId != 0 {
+            finalStateLabel.text = enquiryObj.productStatus == 2 ? "/7" : "/10"
+        }else if enquiryObj.customProductId != 0 || enquiryObj.customProductHistoryId != 0 {
+            finalStateLabel.text = "/10"
         }
     }
     
