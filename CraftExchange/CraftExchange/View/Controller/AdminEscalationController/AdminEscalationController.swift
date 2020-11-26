@@ -43,6 +43,8 @@ class AdminEscalationController: UIViewController {
     
     let realm = try? Realm()
     
+    var showUser: ((_ enquiryId: Int,_ isArtisan: Bool)->())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: reusableIdentifier, bundle: nil), forCellReuseIdentifier: reusableIdentifier)
@@ -157,7 +159,120 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        switch catType {
+        case .Updates:
+            self.showUpdateAction(index: indexPath.row)
+        case .Chat:
+            self.showChatAction(index: indexPath.row)
+        case .Payment:
+            self.showPaymentAction(index: indexPath.row)
+        case .FaultyOrder:
+            self.showDefaultOrderAction(index: indexPath.row)
+        default:
+            print("do nothing")
+        }
+    }
+    
+    func showUpdateAction(index: Int) {
+        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let options = ["View Artisan Details", "View Buyer Details"]
+        for option in options {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                if let obj = self.allEscalations?[index] {
+                    switch option {
+                    case "View Artisan Details":
+                        self.showUser?(obj.enquiryId,true)
+                    case "View Buyer Details":
+                        self.showUser?(obj.enquiryId,false)
+                    default:
+                        print("do nothing")
+                    }
+                }
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showChatAction(index: Int) {
+        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let options = ["View Artisan Details", "View Buyer Details", "View Chat"]
+        for option in options {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                if let obj = self.allEscalations?[index] {
+                    switch option {
+                    case "View Artisan Details":
+                        self.showUser?(obj.enquiryId,true)
+                    case "View Buyer Details":
+                        self.showUser?(obj.enquiryId,false)
+                    case "View Chat":
+                        print("do nothing")
+                    default:
+                        print("do nothing")
+                    }
+                }
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showPaymentAction(index: Int) {
+        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let options = ["View Artisan Details", "View Buyer Details", "View Chat", "View Transactions"]
+        for option in options {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                if let obj = self.allEscalations?[index] {
+                    switch option {
+                    case "View Artisan Details":
+                        self.showUser?(obj.enquiryId,true)
+                    case "View Buyer Details":
+                        self.showUser?(obj.enquiryId,false)
+                    case "View Chat":
+                        print("do nothing")
+                    case "View Transactions":
+                        print("do nothing")
+                    default:
+                        print("do nothing")
+                    }
+                }
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showDefaultOrderAction(index: Int) {
+        let alert = UIAlertController.init(title: "Select", message: "", preferredStyle: .actionSheet)
+        let options = ["View Chat", "Mark Resolved", "Generate new enquiry & redirect"]
+        for option in options {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                switch option {
+                case "View Artisan Details":
+                    print("do nothing")
+                case "Mark Resolved":
+                    print("do nothing")
+                case "Generate new enquiry & redirect":
+                    print("do nothing")
+                default:
+                    print("do nothing")
+                }
+          }
+          alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

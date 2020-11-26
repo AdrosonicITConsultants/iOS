@@ -93,6 +93,12 @@ extension AdminEscalationService {
             controller.tableView.reloadData()
         }
         
+        controller.showUser = { (enquiryId, isArtisan) in
+            controller.showLoading()
+            let service = AdminEnquiryListService.init(client: self.client)
+            service.showUser(vc: controller, isArtisan: isArtisan, enquiryId: enquiryId)
+        }
+        
         return controller
     }
 }

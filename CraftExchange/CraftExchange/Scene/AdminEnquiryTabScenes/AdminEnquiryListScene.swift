@@ -93,23 +93,6 @@ extension AdminEnquiryListService {
             default:
                 print("do nothing")
             }
-            /*if controller.isIncompleteClosed {
-                self.fetchIncompleteClosedEnquiries(parameter: parameter).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if let array = json["data"] as? [[String: Any]] {
-                            parseAdminEnquiry(array: array)
-                        }
-                    }
-                }.dispose(in: controller.bag)
-            }else {
-                self.fetchEnquiries(parameter: parameter).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if let array = json["data"] as? [[String: Any]] {
-                            parseAdminEnquiry(array: array)
-                        }
-                    }
-                }.dispose(in: controller.bag)
-            }*/
         }
         
         func parseAdminEnquiry(array: [[String: Any]]) {
@@ -179,5 +162,55 @@ extension AdminEnquiryListService {
         }
         
         return controller
+    }
+    
+    func showUser(vc: UIViewController, isArtisan: Bool, enquiryId: Int) {
+        let service = AdminEnquiryListService.init(client: self.client)
+        service.fetchUserDetailsForEnquiry(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                if let dataArray = json["data"] as? [[String: Any]] {
+                    if let dataDict = dataArray.first {
+                        DispatchQueue.main.async {
+                            if let controller = vc as? BuyerEnquiryDetailsController {
+                                if let eqObj = controller.enquiryObject {
+                                    eqObj.updateUserDetails(pocFName: dataDict["pocFirstName"] as? String,
+                                                            pocLName: dataDict["pocLastName"] as? String,
+                                                            pocEmailAdd: dataDict["pocEmail"] as? String,
+                                                            pocMob: dataDict["pocContact"] as? String,
+                                                            artisanMob: dataDict["artisanContact"] as? String,
+                                                            artisanMailAdd: dataDict["artisanMail"] as? String,
+                                                            buyerMailAdd: dataDict["buyerMail"] as? String,
+                                                            buyerMob: dataDict["buyerContact"] as? String,
+                                                            buyerAlternateMob: dataDict["buyerAlternateContact"] as? String)
+                                    vc.hideLoading()
+                                    let newVC = AdminEnquiryUserDetailsController.init(style: .plain)
+                                    newVC.isArtisan = isArtisan
+                                    newVC.primaryEmail = isArtisan == true ? eqObj.artisanMail : eqObj.buyerMail
+                                    newVC.primaryContact = isArtisan == true ? eqObj.artisanContact : eqObj.buyerContact
+                                    newVC.secondaryContact = eqObj.buyerAlternateContact
+                                    newVC.pocFirstName = eqObj.pocFirstName
+                                    newVC.pocLastName = eqObj.pocLastName
+                                    newVC.pocEmail = eqObj.pocEmail
+                                    newVC.pocContact = eqObj.pocContact
+                                    vc.navigationController?.pushViewController(newVC, animated: true)
+                                }
+                            }else {
+                                vc.hideLoading()
+                                let newVC = AdminEnquiryUserDetailsController.init(style: .plain)
+                                newVC.isArtisan = isArtisan
+                                newVC.primaryEmail = isArtisan == true ? dataDict["artisanMail"] as? String : dataDict["buyerMail"] as? String
+                                newVC.primaryContact = isArtisan == true ? dataDict["artisanContact"] as? String : dataDict["buyerContact"] as? String
+                                newVC.secondaryContact = dataDict["buyerAlternateContact"] as? String
+                                newVC.pocFirstName = dataDict["pocFirstName"] as? String
+                                newVC.pocLastName = dataDict["pocLastName"] as? String
+                                newVC.pocEmail = dataDict["pocEmail"] as? String
+                                newVC.pocContact = dataDict["pocContact"] as? String
+                                vc.navigationController?.pushViewController(newVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -22,8 +22,14 @@ import ImageRow
 
 class AdminEnquiryUserDetailsController: FormViewController {
     
-    var enquiryObject: AdminEnquiry?
     var isArtisan = false
+    var primaryEmail: String?
+    var primaryContact: String?
+    var secondaryContact: String?
+    var pocFirstName: String?
+    var pocLastName: String?
+    var pocEmail: String?
+    var pocContact: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +60,7 @@ class AdminEnquiryUserDetailsController: FormViewController {
                 row.cell.textLabel?.textColor = .white
             })
             <<< LabelRow() {
-                $0.title = isArtisan == true ? enquiryObject?.artisanMail : enquiryObject?.buyerMail ?? ""
+                $0.title = primaryEmail
                 $0.cellStyle = .default
                 $0.cell.height = { 40.0 }
                 $0.cell.imageView?.image = UIImage(named: "emailIcon")
@@ -64,7 +70,7 @@ class AdminEnquiryUserDetailsController: FormViewController {
                 row.cell.textLabel?.textColor = .white
             })
             <<< LabelRow() { row in
-                row.title = isArtisan == true ? enquiryObject?.artisanContact : enquiryObject?.buyerContact ?? ""
+                row.title = primaryContact
                 row.cell.imageView?.image = UIImage(named: "phoneIcon")
                 row.cell.textLabel?.font = .systemFont(ofSize: 16, weight: .regular)
                 row.cell.height = { 40.0 }
@@ -73,14 +79,14 @@ class AdminEnquiryUserDetailsController: FormViewController {
                 row.cell.textLabel?.textColor = .white
             })
             <<< LabelRow() { row in
-                row.title = enquiryObject?.buyerAlternateContact ?? ""
+                row.title = secondaryContact
                 row.cell.imageView?.image = UIImage(named: "phoneIcon")
                 row.cell.textLabel?.font = .systemFont(ofSize: 16, weight: .regular)
                 row.cell.height = { 40.0 }
                 if isArtisan {
                     row.hidden = true
                 }else {
-                    if let text = enquiryObject?.buyerAlternateContact, text.isNotBlank {
+                    if let text = secondaryContact, text.isNotBlank {
                         row.hidden = false
                     }else {
                         row.hidden = true
@@ -98,21 +104,21 @@ class AdminEnquiryUserDetailsController: FormViewController {
                 row.cell.textLabel?.textColor = .white
             })
             <<< LabelRow() {
-                $0.title = "\(enquiryObject?.pocFirstName ?? "") \(enquiryObject?.pocLastName ?? "")"
+                $0.title = "\(pocFirstName ?? "NA") \(pocLastName ?? "")"
                 $0.hidden = isArtisan == true ? true : false
                 $0.cell.contentView.backgroundColor = .black
             }.cellUpdate({ (str, row) in
                 row.cell.textLabel?.textColor = .white
             })
             <<< LabelRow() {
-                $0.title = enquiryObject?.pocContact ?? ""
+                $0.title = pocContact ?? "NA"
                 $0.hidden = isArtisan == true ? true : false
                 $0.cell.contentView.backgroundColor = .black
             }.cellUpdate({ (str, row) in
                 row.cell.textLabel?.textColor = .white
             })
             <<< LabelRow() {
-                $0.title = enquiryObject?.pocEmail ?? ""
+                $0.title = pocEmail ?? "NA"
                 $0.hidden = isArtisan == true ? true : false
                 $0.cell.contentView.backgroundColor = .black
             }.cellUpdate({ (str, row) in
