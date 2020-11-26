@@ -183,7 +183,7 @@ extension Order {
             method: .post,
             parameters: JSONParameters(parameters),
             headers: headers,
-           resource: {print(String(data: $0, encoding: .utf8) ?? "marking concern reolved failed")
+           resource: {print(String(data: $0, encoding: .utf8) ?? "marking concern resolved failed")
             return $0},
             error: APIError.init,
             needsAuthorization: true

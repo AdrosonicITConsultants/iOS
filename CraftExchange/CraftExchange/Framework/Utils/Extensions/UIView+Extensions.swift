@@ -554,4 +554,43 @@ extension UIView {
                        effectView.removeFromSuperview()
         }
     }
+    
+    func showAdminResolveConcernView(controller: UIViewController, enquiryCode: String?, total: String?, category: String?, concern: String?) {
+          if let _ = self.viewWithTag(401) {
+              print("do nothing")
+          }else {
+              let initiationView = Bundle.main.loadNibNamed("ResolveConcernView", owner:
+                  self, options: nil)?.first as? ResolveConcernView
+              initiationView?.delegate =  controller as? ResolveConcernViewProtocol
+              initiationView?.tag = 401
+            initiationView?.category.text = category ?? "NA"
+            initiationView?.concern.text = concern ?? "NA"
+            initiationView?.enquiryCode.text = enquiryCode ?? "NA"
+            initiationView?.totalText.text = total ?? "NA"
+             
+              let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+             let effectView = UIVisualEffectView(effect: effect)
+              effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+              effectView.tag = 402
+              self.addSubview(effectView)
+               self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: 0, y: (self.frame.height/2) - 200, width: self.frame.width, height: 400)
+              initiationView?.dropShadow()
+              
+              self.bringSubviewToFront(initiationView!)
+             
+          }
+      }
+    
+      func hideAdminResolveConcernView() {
+          if let initialView = self.viewWithTag(401) {
+             // self.effectView.removeFromSuperview()
+              self.sendSubviewToBack(initialView)
+              initialView.removeFromSuperview()
+          }
+          if let effectView = self.viewWithTag(402) {
+              self.sendSubviewToBack(effectView)
+                         effectView.removeFromSuperview()
+          }
+      }
 }

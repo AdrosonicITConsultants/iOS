@@ -268,6 +268,7 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                 case "View Chat":
                     self.goTochat(enquiryId: obj.enquiryId)
                 case "Mark Resolved":
+                    self.view.showAdminResolveConcernView(controller: self, enquiryCode: obj.enquiryCode, total: "₹ \(obj.price)", category: obj.category, concern: obj.concern)
                     print("do nothing")
                 case "Generate new enquiry & redirect":
                     print("do nothing")
@@ -299,7 +300,18 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-extension AdminEscalationController: UISearchBarDelegate {
+extension AdminEscalationController: UISearchBarDelegate, ResolveConcernViewProtocol {
+    
+    /// Resolve concern
+    func closeButtonSelected() {
+        self.view.hideAdminResolveConcernView()
+    }
+    
+    func resolvebuttonSelected() {
+        print("resolve selected")
+    }
+    
+    ///Search methods
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         escalationSegmentControl.sendActions(for: .valueChanged)
     }

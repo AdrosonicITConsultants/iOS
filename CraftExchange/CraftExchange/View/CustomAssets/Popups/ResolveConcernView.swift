@@ -8,14 +8,26 @@
 
 import UIKit
 
+protocol ResolveConcernViewProtocol {
+    func closeButtonSelected()
+    func resolvebuttonSelected()
+}
+
 class ResolveConcernView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBOutlet weak var enquiryCode: UILabel!
+    @IBOutlet weak var totalText: UILabel!
+    @IBOutlet weak var category: UILabel!
+    @IBOutlet weak var concern: UILabel!
+    @IBOutlet weak var resolvebutton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
+    
+    var delegate: ResolveConcernViewProtocol?
+    @IBAction func resolveButtonSelected(_ sender: Any) {
+        delegate?.resolvebuttonSelected()
     }
-    */
-
+    @IBAction func closeButtonSelected(_ sender: Any) {
+        delegate?.closeButtonSelected()
+    }
+    
 }

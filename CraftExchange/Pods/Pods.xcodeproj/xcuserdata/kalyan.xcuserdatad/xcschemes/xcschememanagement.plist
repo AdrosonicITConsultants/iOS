@@ -35,7 +35,7 @@
 		<key>InputBarAccessoryView.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>18</integer>
 		</dict>
 		<key>JGProgressHUD.xcscheme</key>
 		<dict>
@@ -47,7 +47,7 @@
 		<key>MessageKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>19</integer>
 		</dict>
 		<key>Pods-CraftExchange.xcscheme</key>
 		<dict>
