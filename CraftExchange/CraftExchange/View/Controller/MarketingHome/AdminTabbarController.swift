@@ -22,6 +22,8 @@ import ImageRow
 
 class AdminTabbarController: UIViewController {
   
+    @IBOutlet weak var redirectEnquiriesView: UIView!
+    @IBOutlet weak var escalationsView: UIView!
     @IBOutlet weak var valueLabel1: UILabel!
     @IBOutlet weak var Label1: UILabel!
     @IBOutlet weak var redirectEnquiriesLabel: UILabel!
@@ -49,6 +51,21 @@ class AdminTabbarController: UIViewController {
     override func viewDidLoad() {
         let realm = try! Realm()
         segment.setBlackControl()
+        let clickGesture = UITapGestureRecognizer(target: self, action:  #selector(self.redirectEnquiriesCliked))
+        self.redirectEnquiriesView.addGestureRecognizer(clickGesture)
+
+        
+    }
+    @objc func redirectEnquiriesCliked(sender : UITapGestureRecognizer) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = AdminRedirectEnquiryService(client: client).createScene()
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+        
     }
     
     private lazy var AdminEnquiryListViewController: AdminEnquiryList = {

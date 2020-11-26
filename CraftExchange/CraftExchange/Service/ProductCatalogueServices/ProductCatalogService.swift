@@ -59,6 +59,10 @@ class ProductCatalogService: BaseService<Data> {
       return Product.getProductDetails(prodId: prodId).response(using: client).debug()
     }
     
+    func getCustomProductDetails(withId: Int) -> SafeSignal<Data> {
+      return CustomProduct.getCustomProductDetails(custProdId: withId).response(using: client).debug()
+    }
+    
     func checkIfEnquiryExists(prodId: Int, isCustom: Bool) -> SafeSignal<Data> {
         return Enquiry.checkIfEnquiryExists(for: prodId, isCustom: isCustom).response(using: client).debug()
     }

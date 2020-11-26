@@ -50,8 +50,8 @@ extension Product {
     }
     
     static func getProduct(searchId: Int) -> Product? {
-        let realm = try! Realm()
-        if let object = realm.objects(Product.self).filter("%K == %@", "entityID", searchId).first {
+        let realm = try? Realm()
+        if let object = realm?.objects(Product.self).filter("%K == %@", "entityID", searchId).first {
             return object
         }
         return nil

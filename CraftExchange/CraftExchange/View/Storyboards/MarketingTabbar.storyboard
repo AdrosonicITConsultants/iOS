@@ -1405,7 +1405,9 @@
                         <outlet property="Label1" destination="Ufm-Ir-zZ1" id="641-bf-INm"/>
                         <outlet property="childContentView" destination="BC5-D9-3Cm" id="gZ1-d3-lZc"/>
                         <outlet property="escalationsLabel" destination="I2K-Ao-e8c" id="yeR-ig-9ao"/>
+                        <outlet property="escalationsView" destination="6a5-qp-Jkp" id="83E-fq-SNm"/>
                         <outlet property="redirectEnquiriesLabel" destination="aEC-F6-tkt" id="8Uk-7P-ddm"/>
+                        <outlet property="redirectEnquiriesView" destination="IFB-tC-3TP" id="lOv-RV-UIA"/>
                         <outlet property="segment" destination="l0t-cq-XwD" id="nTu-ho-FKw"/>
                         <outlet property="valueLabel1" destination="fGS-tK-J7D" id="oqF-2T-blF"/>
                         <outlet property="valueLabel2" destination="YKM-CG-0S6" id="DUY-Ts-rVX"/>

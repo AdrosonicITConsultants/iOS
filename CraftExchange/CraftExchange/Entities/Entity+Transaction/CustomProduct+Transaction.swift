@@ -14,6 +14,14 @@ import ReactiveKit
 
 extension CustomProduct {
     
+    static func getCustomProduct(searchId: Int) -> CustomProduct? {
+           let realm = try? Realm()
+           if let object = realm?.objects(CustomProduct.self).filter("%K == %@", "entityID", searchId).first {
+               return object
+           }
+           return nil
+       }
+    
     static func allBuyerProducts() -> SafeSignal<Results<CustomProduct>> {
         let realm = try? Realm()
         guard let userId = KeychainManager.standard.userID else {
