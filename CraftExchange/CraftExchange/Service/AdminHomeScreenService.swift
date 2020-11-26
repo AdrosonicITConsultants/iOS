@@ -42,7 +42,7 @@ class AdminHomeScreenService: BaseService<Data> {
       return Product.getProductUploadData().response(using: client).debug()
     }
     
-//    func fetchChangeRequestData() -> SafeSignal<[ChangeRequestType]> {
-//      return Enquiry.getChangeRequestMetadata().response(using: client).debug()
-//    }
+    func fetchChangeRequestData() -> SafeSignal<[ChangeRequestType]> {
+      return Enquiry.getChangeRequestMetadata().response(using: client).debug()
+    }
 }

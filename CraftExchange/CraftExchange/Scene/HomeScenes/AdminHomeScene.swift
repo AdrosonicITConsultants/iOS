@@ -39,6 +39,19 @@ extension AdminHomeScreenService {
         return tab
       }
     
+    func fetchChangeRequestData(vc: UIViewController) {
+        self.fetchChangeRequestData().bind(to: vc, context: .global(qos: .background)) { (_, changeReqArray) in
+            do {
+                if (changeReqArray.count > 0) {
+                    changeReqArray.forEach( {CRObj in
+                        CRObj.saveOrUpdate()
+                        }
+                    )
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
+    
     func fetchMOQsDeliveryTimes(vc: UIViewController) {
         let service = EnquiryListService.init(client: self.client)
         service.getMOQDeliveryTimes().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in

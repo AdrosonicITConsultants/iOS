@@ -25,8 +25,8 @@ extension OrderDetailsService {
         vc.viewWillAppear = {
             vc.showLoading()
             
-//            let service  = HomeScreenService.init(client: self.client)
-//            service.fetchChangeRequestData(vc: vc)
+            let service  = AdminHomeScreenService.init(client: self.client)
+            service.fetchChangeRequestData(vc: vc)
             
             self.getOldPIDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                 if responseData.count != 0 {
@@ -470,11 +470,7 @@ extension OrderDetailsService {
         self.getChangeRequestDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                 if json["valid"] as? Bool == true {
-                    
-                    //TODO: Admin Side
-                }
-            }
-                    /*if let dataDict = json["data"] as? [String: Any] {
+                    if let dataDict = json["data"] as? [String: Any] {
                         if let crDict = dataDict["changeRequest"] as? [String: Any] {
                             if let crData = try? JSONSerialization.data(withJSONObject: crDict, options: .fragmentsAllowed) {
                                 if let changeReqObj = try? JSONDecoder().decode(ChangeRequest.self, from: crData) {
@@ -500,17 +496,13 @@ extension OrderDetailsService {
             }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 vc.hideLoading()
-                if let controller = vc as? ArtisanChangeRequestController {
+                if let controller = vc as? OrderDetailController {
                     controller.changeRequestObj = ChangeRequest().searchChangeRequest(searchEqId: enquiryId)
                     controller.allChangeRequests = ChangeRequestItem().searchChangeRequestItems(searchId: controller.changeRequestObj?.entityID ?? 0)
-                    controller.form.allSections .forEach { (section) in
-                        section.reload()
-                    }
-                }else if let controller = vc as? OrderDetailController {
-                    let newVC = OrderDetailsService(client: self.client).createArtisanChangeRequestScene(forEnquiry: enquiryId)
-                    controller.navigationController?.pushViewController(newVC, animated: false)
+                    controller.listCRs()
                 }
-            }*/
+            }
+            
         }.dispose(in: vc.bag)
     }
     

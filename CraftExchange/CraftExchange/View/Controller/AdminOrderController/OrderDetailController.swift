@@ -72,6 +72,8 @@ class OrderDetailController: FormViewController {
     var shouldCallToggle = true
     var containsOldPI = false
     var showChatDetails: (() -> ())?
+    var allChangeRequests: Results<ChangeRequestItem>?
+    var changeRequestObj: ChangeRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,12 +84,14 @@ class OrderDetailController: FormViewController {
 //        allBuyerRatingResponse = realm!.objects(RatingResponseBuyer.self).filter("%K == %@", "enquiryId", orderObject?.enquiryId ?? 0).sorted(byKeyPath: "entityID")
         // checkMOQ?()
         // checkMOQs?()
-        getPI?()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
+        
+//        let client = try! SafeClient(wrapping: CraftExchangeClient())
+//        let service = EnquiryDetailsService.init(client: client)
 //        service.advancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+        getPI?()
         checkTransactions?()
         getOrderProgress?()
+        fetchChangeRequest?()
 //        service.finalPaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
 //        service.finalPaymentDetails(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
         
@@ -949,6 +953,28 @@ class OrderDetailController: FormViewController {
             +++ Section(){ section in
                 section.tag = "list Transactions"
         }
+        +++ Section()
+        <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Change Request".localized
+                $0.cell.valueLbl.text = ""
+                $0.cell.contentView.backgroundColor = UIColor.init(named: "AdminBlueBG")
+                $0.cell.titleLbl.textColor = UIColor.init(named: "AdminBlueText")
+                $0.cell.valueLbl.textColor = UIColor.init(named: "AdminBlueText")
+            }.onCellSelection({ (cell, row) in
+                let section = self.form.sectionBy(tag: "list CR")
+                if section?.isEmpty == true {
+                    self.listCRs()
+                }else {
+                    section?.removeAll()
+                }
+                section?.reload()
+                
+            })
+            +++ Section(){ section in
+                section.tag = "list CR"
+        }
+        
         
         if tableView.refreshControl == nil {
             let refreshControl = UIRefreshControl()
@@ -1199,6 +1225,29 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+    }
+    
+    func listCRs() {
+        let listCRSection = self.form.sectionBy(tag: "list CR")!
+        allChangeRequests?.forEach({ (changeReq) in
+            listCRSection <<< CRArtisanRow() {
+                $0.cell.height = { 50.0 }
+                $0.cell.labelField.text = ChangeRequestType().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? ""
+                $0.cell.valuefield.text = changeReq.requestText ?? ""
+                $0.cell.tickBtn.tag = changeReq.entityID
+                $0.tag = changeReq.id
+                $0.cell.isUserInteractionEnabled = false
+                $0.cell.tickBtn.isUserInteractionEnabled = false
+                if changeReq.requestStatus == 1 {
+                    $0.cell.tickBtn.setImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+                    $0.cell.tickBtn.tintColor = UIColor().CEGreen()
+                }else {
+                    $0.cell.tickBtn.setImage(UIImage.init(systemName: "xmark.square.fill"), for: .normal)
+                    $0.cell.tickBtn.tintColor = .red
+                }
+            }
+        })
+        self.form.sectionBy(tag: "list CR")?.reload()
     }
     
     func listTransactionsFunc() {
