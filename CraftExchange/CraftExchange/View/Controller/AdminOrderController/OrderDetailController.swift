@@ -839,17 +839,10 @@ class OrderDetailController: FormViewController {
             }.onCellSelection({ (cell, row) in
                 do {
                     let client = try SafeClient(wrapping: CraftExchangeClient())
-//                    if User.loggedIn()?.refRoleId == "1" {
-//                        if let order = self.orderObject {
-//                            let vc = QCService(client: client).createQCArtisanScene(forOrder: order)
-//                            self.navigationController?.pushViewController(vc, animated: false)
-//                        }
-//                    }else {
-                        if let order = self.orderObject {
-                            let vc = QCService(client: client).createQCBuyerScene(forOrder: order)
-                            self.navigationController?.pushViewController(vc, animated: false)
-                        }
-//                    }
+                    if let order = self.orderObject {
+                        let vc = QCService(client: client).createQCBuyerScene(forOrder: order)
+                        self.navigationController?.pushViewController(vc, animated: false)
+                    }
                 }catch {
                     print(error.localizedDescription)
                 }
