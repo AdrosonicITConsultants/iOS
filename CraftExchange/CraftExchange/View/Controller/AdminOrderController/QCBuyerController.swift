@@ -34,7 +34,8 @@ class QCBuyerController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
+        self.tableView?.backgroundColor = .black
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.initialise?()
         
@@ -58,6 +59,10 @@ class QCBuyerController: FormViewController {
         let stageView = LabelRow("stageTypes") {
             $0.cell.height = { 30.0 }
             $0.title = "Quality Check".localized
+        }.cellUpdate { (cell, row) in
+            cell.contentView.backgroundColor = .black
+            cell.textLabel?.textColor = UIColor().CEMustard()
+            cell.textLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         }
         
         form
@@ -102,7 +107,8 @@ class QCBuyerController: FormViewController {
                 $0.title = "Not Available"
                 $0.tag = "QC-NA"
             }.cellUpdate({ (cell, row) in
-                cell.textLabel?.textColor = UIColor().CEMagenda()
+                cell.contentView.backgroundColor = .black
+                cell.textLabel?.textColor = .white
                 cell.textLabel?.textAlignment = .center
                 if self.buyerQCArray?.count == 0 {
                     cell.row.hidden = false
@@ -122,8 +128,9 @@ class QCBuyerController: FormViewController {
                         $0.cell.valueLbl.text = ""
                         $0.tag = "\(stage.entityID)"
                     }.cellUpdate({ (cell, row) in
+                        cell.contentView.backgroundColor = .black
                         cell.titleLbl.textColor = UIColor().CEMustard()
-                        cell.backgroundColor = .white
+                        cell.backgroundColor = .black
                         cell.titleLbl.font = .systemFont(ofSize: 15, weight: .light)
                         if self.orderQCStageId != 0 {
                             if self.orderQCStageId == 7 {
@@ -177,17 +184,19 @@ class QCBuyerController: FormViewController {
                                     $0.tag = "\(stage.entityID)-\(question.questionNo)-ans"
                                     $0.hidden = true
                                     $0.cell.titleLabel.text = question.question ?? ""
-                                    $0.cell.titleLabel.textColor = .black
+                                    $0.cell.titleLabel.textColor = UIColor.init(named: "AdminGreenText")
                                     $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                                     $0.cell.compulsoryIcon.isHidden = true
                                     $0.cell.backgroundColor = .white
-                                    $0.cell.valueTextField.text = getQC.answer ?? "NO RESPONSE".localized
-                                    $0.cell.valueTextField.textColor = .darkGray
+                                    $0.cell.valueTextField.text = getQC.answer?.isNotBlank ?? false ? getQC.answer ?? "NO RESPONSE" : "NO RESPONSE"
+                                    $0.cell.valueTextField.textColor = .white
                                 }.cellUpdate({ (cell, row) in
                                     cell.isUserInteractionEnabled = false
+                                    cell.contentView.backgroundColor = .darkGray
                                     cell.valueTextField.isUserInteractionEnabled = false
-                                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                                    cell.valueTextField.layer.borderColor = UIColor.darkGray.cgColor
                                     cell.valueTextField.leftPadding = 0
+                                    cell.valueTextField.textColor = .white
                                 })
                             }
                         }
@@ -206,10 +215,14 @@ class QCBuyerController: FormViewController {
     @objc func goToChat() {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = ChatDetailsService(client: client).createScene(enquiryId: orderObject?.entityID ?? 0)
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
             
         }catch {
             print(error.localizedDescription)
         }
+
     }
 }
 

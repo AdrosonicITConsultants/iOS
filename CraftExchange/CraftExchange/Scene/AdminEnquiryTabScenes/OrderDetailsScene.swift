@@ -25,8 +25,8 @@ extension OrderDetailsService {
         vc.viewWillAppear = {
             vc.showLoading()
             
-//            let service  = HomeScreenService.init(client: self.client)
-//            service.fetchChangeRequestData(vc: vc)
+            let service  = AdminHomeScreenService.init(client: self.client)
+            service.fetchChangeRequestData(vc: vc)
             
             self.getOldPIDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                 if responseData.count != 0 {
@@ -263,73 +263,7 @@ extension OrderDetailsService {
         }*/
         
         vc.checkTransactions = {
-            let service = TransactionService.init(client: self.client)
-            service.getAllTransactionsForEnquiry(enquiryId: vc.orderObject?.entityID ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                if let responseDict = json["data"] as? [String: Any] {
-                    if !vc.isClosed {
-                        if let transactionArray = responseDict["ongoingTransactionResponses"] as? [[String:Any]]  {
-                            var finalArray: [Int]? = []
-                            transactionArray.forEach { (dataDict) in
-                                if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
-                                    if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
-                                        if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
-                                            DispatchQueue.main.async {
-                                                transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
-                                                transactionObj.eta = dataDict["eta"] as? String
-                                                transactionObj.orderCode = dataDict["orderCode"] as? String
-                                                transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
-                                                transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
-                                                transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
-                                                transactionObj.saveOrUpdate()
-                                                finalArray?.append(transactionObj.entityID)
-                                                if finalArray?.count == transactionArray.count {
-                                                    let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
-                                                    vc.listTransactions = transactions.compactMap({$0})
-                                                    vc.listTransactionsFunc()
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if vc.isClosed {
-                        if let transactionArray = responseDict["completedTransactionResponses"] as? [[String:Any]]  {
-                            var finalArray: [Int]? = []
-                            transactionArray.forEach { (dataDict) in
-                                if let transactionDict = dataDict["transactionCompleted"] as? [String: Any] {
-                                    if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
-                                        if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
-                                            DispatchQueue.main.async {
-                                                transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
-                                                transactionObj.eta = dataDict["eta"] as? String
-                                                transactionObj.orderCode = dataDict["orderCode"] as? String
-                                                transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
-                                                transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
-                                                transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
-                                                transactionObj.saveOrUpdate()
-                                                finalArray?.append(transactionObj.entityID)
-                                                if finalArray?.count == transactionArray.count {
-                                                    let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
-                                                    vc.listTransactions = transactions.compactMap({$0})
-                                                    vc.listTransactionsFunc()
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    
-                }
-                }
-            }
-            let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
-            vc.listTransactions = transactions.compactMap({$0})
+            self.fetchTransactions(vc: vc, enquiryId: enquiryId)
         }
         
         vc.fetchChangeRequest = {
@@ -379,21 +313,7 @@ extension OrderDetailsService {
         }
         
         vc.downloadDeliveryReceipt = { (enquiryId, imageName) in
-            
-            let url = URL(string: KeychainManager.standard.imageBaseURL + "/deliveryChallanReceipt/\(enquiryId)/" + imageName)
-            URLSession.shared.dataTask(with: url!) { data, response, error in
-                DispatchQueue.main.async {
-                    if error == nil {
-                        if let finalData = data {
-                           
-                                vc.hideLoading()
-                                vc.view.showTransactionReceiptView(controller: vc, data: finalData)
-                           
-                        }
-                    }
-                    
-                }
-            }.resume()
+            self.viewDeliveryReceipt(vc: vc, enquiryId: enquiryId, imageName: imageName)
         }
         
         vc.downloadAdvReceipt = { (enquiryId) in
@@ -402,9 +322,9 @@ extension OrderDetailsService {
             service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 1)
         }
         vc.downloadFinalReceipt = { (enquiryId) in
-                   let service = EnquiryDetailsService.init(client: self.client)
-                   vc.showLoading()
-                   service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 2)
+           let service = EnquiryDetailsService.init(client: self.client)
+           vc.showLoading()
+           service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 2)
         }
         vc.viewFI = {
             vc.showLoading()
@@ -421,31 +341,131 @@ extension OrderDetailsService {
         }
         
         vc.viewTransactionReceipt = { (transaction, isOld, isPI) in
-            let service = EnquiryDetailsService.init(client: self.client)
-            if isPI {
-                service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                   DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
-                       vc.hideLoading()
-                   }
-                }.dispose(in: vc.bag)
-                vc.hideLoading()
-            }else{
-                service.getViewFI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                   DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
-                       vc.hideLoading()
-                   }
-                }.dispose(in: vc.bag)
-                vc.hideLoading()
-            }
-            
+            self.viewTransactionReceipt(vc: vc, transaction: transaction, isOld: isOld, isPI: isPI)
         }
         
         
         return vc
+    }
+    
+    func viewDeliveryReceipt(vc: UIViewController, enquiryId: Int, imageName: String) {
+        let url = URL(string: KeychainManager.standard.imageBaseURL + "/deliveryChallanReceipt/\(enquiryId)/" + imageName)
+        URLSession.shared.dataTask(with: url!) { data, response, error in
+            DispatchQueue.main.async {
+                if error == nil {
+                    if let finalData = data {
+                        vc.hideLoading()
+                        vc.view.showTransactionReceiptView(controller: vc, data: finalData)
+                    }
+                }
+            }
+        }.resume()
+    }
+    
+    func viewTransactionReceipt(vc: UIViewController, transaction: TransactionObject, isOld: Int, isPI: Bool) {
+        let service = EnquiryDetailsService.init(client: self.client)
+        if isPI {
+            service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+               DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
+                   vc.hideLoading()
+               }
+            }.dispose(in: vc.bag)
+            vc.hideLoading()
+        }else{
+            service.getViewFI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
+               DispatchQueue.main.async {
+                let object = String(data: responseData, encoding: .utf8) ?? ""
+                vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
+                   vc.hideLoading()
+               }
+            }.dispose(in: vc.bag)
+            vc.hideLoading()
+        }
+    }
+    
+    func fetchTransactions(vc: UIViewController, enquiryId: Int) {
+        let service = TransactionService.init(client: self.client)
+        service.getAllTransactionsForEnquiry(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+            if let responseDict = json["data"] as? [String: Any] {
+                if let transactionArray = responseDict["ongoingTransactionResponses"] as? [[String:Any]]  {
+                    var finalArray: [Int]? = []
+                    transactionArray.forEach { (dataDict) in
+                        if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
+                            if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                    DispatchQueue.main.async {
+                                        transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                        transactionObj.eta = dataDict["eta"] as? String
+                                        transactionObj.orderCode = dataDict["orderCode"] as? String
+                                        transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                        transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                        transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                        transactionObj.saveOrUpdate()
+                                        finalArray?.append(transactionObj.entityID)
+                                        if finalArray?.count == transactionArray.count {
+                                            if let controller = vc as? OrderDetailController {
+                                                let transactions = TransactionObject.getTransactionObjects(searchId: enquiryId)
+                                                controller.listTransactions = transactions.compactMap({$0})
+                                                controller.listTransactionsFunc()
+                                            }else if let controller = vc as? AdminTransactionController {
+                                                let transactions = TransactionObject.getTransactionObjects(searchId: enquiryId)
+                                                controller.listTransactions = transactions.compactMap({$0})
+                                                controller.listTransactionsFunc()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if let transactionArray = responseDict["completedTransactionResponses"] as? [[String:Any]]  {
+                    var finalArray: [Int]? = []
+                    transactionArray.forEach { (dataDict) in
+                        if let transactionDict = dataDict["transactionCompleted"] as? [String: Any] {
+                            if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                    DispatchQueue.main.async {
+                                        transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                        transactionObj.eta = dataDict["eta"] as? String
+                                        transactionObj.orderCode = dataDict["orderCode"] as? String
+                                        transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                        transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                        transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                        transactionObj.saveOrUpdate()
+                                        finalArray?.append(transactionObj.entityID)
+                                        if finalArray?.count == transactionArray.count {
+                                            if let controller = vc as? OrderDetailController {
+                                                let transactions = TransactionObject.getTransactionObjects(searchId: enquiryId)
+                                                controller.listTransactions = transactions.compactMap({$0})
+                                                controller.listTransactionsFunc()
+                                            }else if let controller = vc as? AdminTransactionController {
+                                                let transactions = TransactionObject.getTransactionObjects(searchId: enquiryId)
+                                                controller.listTransactions = transactions.compactMap({$0})
+                                                controller.listTransactionsFunc()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            }
+        }
+        if let controller = vc as? OrderDetailController {
+            let transactions = TransactionObject.getTransactionObjects(searchId: enquiryId)
+            controller.listTransactions = transactions.compactMap({$0})
+            controller.listTransactionsFunc()
+        }else if let controller = vc as? AdminTransactionController {
+            let transactions = TransactionObject.getTransactionObjects(searchId: enquiryId)
+            controller.listTransactions = transactions.compactMap({$0})
+            controller.listTransactionsFunc()
+        }
     }
     
     func fetchArtisanChangeRquest(vc: UIViewController, enquiryId: Int) {
@@ -453,11 +473,7 @@ extension OrderDetailsService {
         self.getChangeRequestDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                 if json["valid"] as? Bool == true {
-                    
-                    //TODO: Admin Side
-                }
-            }
-                    /*if let dataDict = json["data"] as? [String: Any] {
+                    if let dataDict = json["data"] as? [String: Any] {
                         if let crDict = dataDict["changeRequest"] as? [String: Any] {
                             if let crData = try? JSONSerialization.data(withJSONObject: crDict, options: .fragmentsAllowed) {
                                 if let changeReqObj = try? JSONDecoder().decode(ChangeRequest.self, from: crData) {
@@ -483,17 +499,13 @@ extension OrderDetailsService {
             }
             DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 vc.hideLoading()
-                if let controller = vc as? ArtisanChangeRequestController {
+                if let controller = vc as? OrderDetailController {
                     controller.changeRequestObj = ChangeRequest().searchChangeRequest(searchEqId: enquiryId)
                     controller.allChangeRequests = ChangeRequestItem().searchChangeRequestItems(searchId: controller.changeRequestObj?.entityID ?? 0)
-                    controller.form.allSections .forEach { (section) in
-                        section.reload()
-                    }
-                }else if let controller = vc as? OrderDetailController {
-                    let newVC = OrderDetailsService(client: self.client).createArtisanChangeRequestScene(forEnquiry: enquiryId)
-                    controller.navigationController?.pushViewController(newVC, animated: false)
+                    controller.listCRs()
                 }
-            }*/
+            }
+            
         }.dispose(in: vc.bag)
     }
     

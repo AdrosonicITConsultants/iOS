@@ -237,7 +237,14 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                     case "View Chat":
                         self.goTochat(enquiryId: obj.enquiryId)
                     case "View Transactions":
-                        print("do nothing")
+                        do {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            let vc = OrderDetailsService(client: client).createTransactionListScene(enquiryId: obj.enquiryId) as! AdminTransactionController
+                            vc.code = obj.enquiryCode ?? ""
+                            self.navigationController?.pushViewController(vc, animated: false)
+                        }catch {
+                            print(error.localizedDescription)
+                        }
                     default:
                         print("do nothing")
                     }

@@ -32,7 +32,7 @@ extension MarketingTabbarController {
               print("Unable to load view:\n\(error.localizedDescription)")
             }
         }
-        else if item.title == "User" {
+        else if item.title == "Users" {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = AdminUserService(client: client).createScene()

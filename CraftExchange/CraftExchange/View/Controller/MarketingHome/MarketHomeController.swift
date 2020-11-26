@@ -45,8 +45,7 @@ class MarketHomeController: FormViewController {
         self.tableView.backgroundColor = .black
         viewWillAppear?()
         refreshCountForTag()
-        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
-        navigationItem.rightBarButtonItems = [rightBarButtomItem]
+        
         
         form
             +++ Section()
@@ -210,6 +209,11 @@ class MarketHomeController: FormViewController {
                     self.present(controller, animated: true, completion: nil)
                 }
             })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItem = rightBarButtomItem
     }
 }
 

@@ -34,10 +34,25 @@ extension AdminHomeScreenService {
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
                 self.fetchMOQsDeliveryTimes(vc: vc)
+                let service = AdminNotificationService.init(client: self.client)
+                service.getAdminNotification(controller: vc)
             }
         }
         return tab
       }
+    
+    func fetchChangeRequestData(vc: UIViewController) {
+        self.fetchChangeRequestData().bind(to: vc, context: .global(qos: .background)) { (_, changeReqArray) in
+            do {
+                if (changeReqArray.count > 0) {
+                    changeReqArray.forEach( {CRObj in
+                        CRObj.saveOrUpdate()
+                        }
+                    )
+                }
+            }
+        }.dispose(in: vc.bag)
+    }
     
     func fetchMOQsDeliveryTimes(vc: UIViewController) {
         let service = EnquiryListService.init(client: self.client)

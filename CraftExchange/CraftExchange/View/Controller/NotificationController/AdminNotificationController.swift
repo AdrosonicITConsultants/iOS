@@ -28,6 +28,7 @@ class AdminNotificationController: UIViewController {
     var allNotificationIds: [Int] = []
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var countLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +57,7 @@ class AdminNotificationController: UIViewController {
         allNotifications = []
         self.allNotifications = realm?.objects(AdminNotifications.self).filter("%K IN %@","notificationId", allNotificationIds).sorted(byKeyPath: "notificationId", ascending: false).compactMap({$0})
         
-//        notificationCount = allNotifications?.count ?? 0
+        countLbl.text = "\(allNotifications?.count ?? 0)"
 //        let count =  notificationCount
 //        if count == 0 {
 //            self.notificationsLabel?.text = "No new notifications".localized

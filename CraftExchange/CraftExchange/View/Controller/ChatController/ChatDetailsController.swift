@@ -193,7 +193,6 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         messageObject.count
     }
     
-    
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         if messageObject[indexPath.section].sender.senderId == "1"{
             avatarView.initials = "B"

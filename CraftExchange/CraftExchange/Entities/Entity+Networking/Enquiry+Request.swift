@@ -487,7 +487,7 @@ extension Enquiry {
         )
     }
     public static func FinalPaymentReceit(enquiryId: Int) -> Request<Data, APIError> {
-        var str = "enquiry/getFinalPaymentReceipt/\(enquiryId)?enquiryId=\(enquiryId)"
+        var str = "enquiry/getFinalPaymentReceipt/\(enquiryId)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
@@ -596,4 +596,23 @@ extension Enquiry {
             needsAuthorization: true
           )
       }
+    
+    public static func getChangeRequestMetadata() -> Request<[ChangeRequestType], APIError> {
+      return Request(
+          path: "enquiry/getChangeRequestItemTable",
+          method: .get,
+          resource: { print(String(data: $0, encoding: .utf8) ?? "ChangeRequest fetch failed")
+            if let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as? [String: Any] {
+              if let array = json["data"] as? [[String: Any]] {
+                  let data = try JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed)
+                  let object = try JSONDecoder().decode([ChangeRequestType].self, from: data)
+                  return object
+              }
+            }
+            return []
+      },
+          error: APIError.init,
+          needsAuthorization: false
+      )
+    }
 }

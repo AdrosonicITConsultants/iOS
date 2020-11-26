@@ -107,11 +107,14 @@ class SearchTeammateController: UIViewController {
         allUsers = []
         allUserResults = realm?.objects(AdminTeammate.self).filter("%K IN %@","id", idList)
         allUsers = allUserResults?.compactMap({$0})
+        
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItem = rightBarButtomItem
     }
     
     func endRefresh() {
         allUserResults = realm?.objects(AdminTeammate.self).filter("%K IN %@","id", idList)
-        allUsers = allUserResults?.compactMap({$0})
+        allUsers = allUserResults?.sorted(byKeyPath: "id", ascending: false).compactMap({$0})
 
         self.searchText = searchBar.text ?? ""
         if searchText != "" {
