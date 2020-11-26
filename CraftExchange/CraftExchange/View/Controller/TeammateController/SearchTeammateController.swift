@@ -101,7 +101,7 @@ class SearchTeammateController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        searchBar.placeholder = "search by name, email"
+        searchBar.placeholder = "Search by name, email"
         
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         allUsers = []

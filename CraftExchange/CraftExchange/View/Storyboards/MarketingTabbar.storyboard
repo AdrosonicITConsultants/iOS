@@ -999,17 +999,17 @@
                                 <subviews>
                                     <searchBar contentMode="redraw" placeholder="Search by name, email" translatesAutoresizingMaskIntoConstraints="NO" id="YgY-FJ-5nO">
                                         <rect key="frame" x="8" y="8" width="282" height="56"/>
-                                        <color key="backgroundColor" red="0.072007701249709552" green="0.30446938450558381" blue="0.2095905051803704" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="282" id="qHH-D4-eY1"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="barTintColor" red="0.05439892473481487" green="0.29671637055837563" blue="0.22839719156988264" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="barTintColor" red="0.27235907320000002" green="0.57656842470000003" blue="0.56471121310000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRM-Js-ffs" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
                                         <rect key="frame" x="296" y="8" width="70" height="57"/>
-                                        <color key="backgroundColor" red="0.063450228328821606" green="0.27916798857868019" blue="0.18466780039477695" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.27235907320000002" green="0.57656842470000003" blue="0.56471121310000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="IaI-M8-ccW"/>
                                             <constraint firstAttribute="height" constant="57" id="KeM-lD-IqQ"/>
@@ -1054,7 +1054,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-gR-1Rr" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
                                 <rect key="frame" x="20" y="203" width="374" height="30"/>
-                                <color key="backgroundColor" red="0.063450228329999997" green="0.27916798860000003" blue="0.1846678004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.27235907320000002" green="0.57656842470000003" blue="0.56471121310000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="374" id="Aq9-fg-5Xs"/>
                                     <constraint firstAttribute="height" constant="30" id="pxz-Rd-fZB"/>
@@ -1074,7 +1074,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.12430039052814572" green="0.31372937817258884" blue="0.2114382294394673" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.13149508830000001" green="0.3198643625" blue="0.400013864" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="7OI-UW-LsB" firstAttribute="top" secondItem="Keg-gR-1Rr" secondAttribute="bottom" constant="29" id="0Ka-M0-gzE"/>
                             <constraint firstItem="2jS-j8-xWu" firstAttribute="top" secondItem="Nfw-iO-VX7" secondAttribute="bottom" constant="15" id="75x-aI-f8O"/>
@@ -1257,12 +1257,12 @@
                                     <constraint firstAttribute="height" constant="30" id="pab-EF-mXL"/>
                                     <constraint firstAttribute="width" constant="325" id="tki-ze-Y6T"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.043618862670486931" green="0.26380076142131981" blue="0.19082897665452062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.13149508830000001" green="0.3198643625" blue="0.400013864" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="tYi-Nq-Hih" firstAttribute="top" secondItem="WGv-pl-x2w" secondAttribute="bottom" constant="25" id="6N6-3u-WxG"/>
                             <constraint firstItem="tYi-Nq-Hih" firstAttribute="trailing" secondItem="2Ba-dG-qei" secondAttribute="trailingMargin" id="8ZK-fr-IVK"/>
