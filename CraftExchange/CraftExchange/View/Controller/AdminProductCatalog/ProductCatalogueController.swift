@@ -309,7 +309,8 @@ extension ProductCatalogueController: UITableViewDataSource, UITableViewDelegate
         print("*** object ***")
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = ProductCatalogService(client: client).createAdminProductDetailScene(forProduct: allProducts?[indexPath.row])
+            let vc = ProductCatalogService(client: client).createAdminProductDetailScene(forProductId: allProducts?[indexPath.row].entityID, isCustom: false, isRedirect: false, enquiryCode: nil, buyerBrand: nil, enquiryDate: nil, enquiryId: nil)
+
             vc.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc, animated: true)
         }catch {

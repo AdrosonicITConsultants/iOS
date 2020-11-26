@@ -34,12 +34,23 @@ class AdminProductDetailController: FormViewController {
     var checkEnquiry: ((_ prodId: Int) -> ())?
     var generateNewEnquiry: ((_ prodId: Int) -> ())?
     var showNewEnquiry: ((_ enquiryId: Int) -> ())?
+    var isCustom = false
+    var isRedirect = false
+    var enquiryCode: String?
+    var enquiryDate: String?
+    var buyerBrand: String?
+    var enquiryId: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
+        if isRedirect {
+            let rightButtonItem = UIBarButtonItem.init(title: "Redirect Enquiry", style: .plain, target: self, action: #selector(saveClicked))
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }
         
         let weaveTypeSection = Section() {
             $0.hidden = "$weaveTypes == false"
@@ -61,6 +72,9 @@ class AdminProductDetailController: FormViewController {
             $0.cell.height = { 30.0 }
             $0.title = "Wash Care Instructions"
             $0.cell.contentView.backgroundColor = .black
+            if isCustom {
+                $0.hidden = true
+            }
         }.cellUpdate { (cell, row) in
             cell.textLabel?.textColor = .white
         }
@@ -72,8 +86,11 @@ class AdminProductDetailController: FormViewController {
             <<< ImageViewRow() {
                 $0.tag = "ProductNameRow"
                 $0.cell.height = { 130.0 }
-                $0.cell.title.text = product?.productTag ?? ""
-                $0.cell.productCodeValue.text = product?.code ?? ""
+                $0.cell.title.text = product?.productTag ?? self.enquiryCode ?? ""
+                if isCustom {
+                    $0.cell.productCodeLbl.text = self.enquiryDate
+                }
+                $0.cell.productCodeValue.text = product?.code ?? self.buyerBrand ?? ""
                 $0.cell.title.isHidden = false
                 $0.cell.productCodeValue.isHidden = false
                 $0.cell.productCodeLbl.isHidden = false
@@ -84,9 +101,13 @@ class AdminProductDetailController: FormViewController {
                     $0.cell.editButton.isHidden = false
                 }
                 $0.cell.delegate2 = self
+                
             }.cellUpdate({ (cell, row) in
-                cell.title.text = self.product?.productTag ?? ""
-                cell.productCodeValue.text = self.product?.code ?? ""
+                cell.title.text = self.product?.productTag ?? self.enquiryCode ?? ""
+                if self.isCustom {
+                    cell.productCodeLbl.text = self.enquiryDate
+                }
+                cell.productCodeValue.text = self.product?.code ?? self.buyerBrand ?? ""
                 cell.editButton.isHidden = true
                 if self.product?.madeWithAnthran == 1{
                     cell.editButton.isHidden = false
@@ -126,6 +147,7 @@ class AdminProductDetailController: FormViewController {
             <<< ProductDetailInfoRow() {
                 $0.cell.height = { 100.0 }
             }.cellUpdate({ (cell, row) in
+
                 cell.productCatLbl.text = ProductCategory.getProductCat(catId: self.product?.productCategoryId ?? self.customProduct?.productCategoryId ?? 0)?.prodCatDescription
                 cell.productTypeLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc
                 cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: self.product?.clusterId ?? 0)?.clusterDescription ?? "-"
@@ -135,6 +157,12 @@ class AdminProductDetailController: FormViewController {
                     cell.madeToOrderLbl.isHidden = true
                 }else if self.customProduct?.entityID != 0 {
                     cell.productAvailabilityLbl.text = "Custom Product"
+                }
+                if self.isCustom {
+                    cell.prodTypeTitle.text = "Product Type:"
+                    cell.prodAvailableTitle.isHidden = true
+                    cell.productAvailabilityLbl.isHidden = true
+                    cell.madeToOrderLbl.isHidden = true
                 }
                 
             })
@@ -242,7 +270,7 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.valueLbl1.text = ""
                 $0.cell.valueLbl2.text = self.product?.weight ?? "-"
                 $0.cell.valueLbl3.text = ""
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0  {
                     $0.hidden = true
                 }else {
                     $0.hidden = false
@@ -250,7 +278,7 @@ class AdminProductDetailController: FormViewController {
             }.cellUpdate({ (cell, row) in
                 cell.valueLbl2.text = self.product?.weight ?? "-"
                 cell.valueLbl3.text = ""
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0 {
                     cell.row.hidden = true
                 }else {
                     cell.row.hidden = false
@@ -261,22 +289,22 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.rowImage.isHidden = false
                 $0.cell.rowImage.image = UIImage.init(named: "Icon weight white")
                 $0.cell.titleLbl.text = "Weight"
-                $0.cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
                 $0.cell.prodValueLbl.text = "\(self.product?.weight ?? "-")"
-                $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
+                $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? self.customProduct?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
                 $0.cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.weight ?? "-")"
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0  {
                     $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
                 
             }.cellUpdate({ (cell, row) in
-                cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
+                cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
                 cell.prodValueLbl.text = "\(self.product?.weight ?? "-")"
-                cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
+                cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? self.customProduct?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
                 cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.weight ?? "-")"
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0  {
                     cell.row.hidden = false
                 }else {
                     cell.row.hidden = true
@@ -292,9 +320,9 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.titleLbl.textAlignment = .center
                 $0.cell.titleLbl.font = .systemFont(ofSize: 14)
                 $0.cell.valueLbl1.text = ""
-                $0.cell.valueLbl2.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.valueLbl3.text = "\(self.product?.length ?? "-") X \(self.product?.width ?? "-")"
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                $0.cell.valueLbl2.text = ProductType.getProductType(searchId: self.product?.productTypeId ??  self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.valueLbl3.text = "\(self.product?.length ?? self.customProduct?.length ?? "-") X \(self.product?.width ?? self.customProduct?.width ?? "-")"
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0 {
                     $0.hidden = true
                 }else {
                     $0.hidden = false
@@ -302,8 +330,8 @@ class AdminProductDetailController: FormViewController {
             }.cellUpdate({ (cell, row) in
                 cell.valueLbl1.text = ""
                 cell.valueLbl2.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
-                cell.valueLbl3.text = "\(self.product?.length ?? "-") X \(self.product?.width ?? "-")"
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                cell.valueLbl3.text = "\(self.product?.length ?? self.customProduct?.length ?? "-") X \(self.product?.width ?? self.customProduct?.width ?? "-")"
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0 {
                     cell.row.hidden = true
                 }else {
                     cell.row.hidden = false
@@ -314,22 +342,22 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.rowImage.isHidden = false
                 $0.cell.rowImage.image = UIImage.init(named: "Dimension white")
                 $0.cell.titleLbl.text = "Dimensions\nL X W"
-                $0.cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.prodValueLbl.text = "\(self.product?.length ?? "-") X \(self.product?.width ?? "-")"
-                $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
-                $0.cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.length ?? "-") X \(self.product?.relatedProducts.first?.width ?? "-")"
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                $0.cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
+                $0.cell.prodValueLbl.text = "\(self.product?.length ?? self.customProduct?.length ?? "-") X \(self.product?.width ?? self.customProduct?.width ?? "-")"
+                $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ??  self.customProduct?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
+                $0.cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.length ?? self.customProduct?.relatedProducts.first?.length ?? "-") X \(self.product?.relatedProducts.first?.width ?? self.customProduct?.relatedProducts.first?.width ?? "-")"
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0 {
                     $0.hidden = false
                 }else {
                     $0.hidden = true
                 }
             }.cellUpdate({ (cell, row) in
                 cell.titleLbl.text = "Dimensions\nL X W"
-                cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? 0)?.productDesc ?? ""
-                cell.prodValueLbl.text = "\(self.product?.length ?? "-") X \(self.product?.width ?? "-")"
-                cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
-                cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.length ?? "-") X \(self.product?.relatedProducts.first?.width ?? "-")"
-                if self.product?.relatedProducts.count ?? 0 > 0 {
+                cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
+                cell.prodValueLbl.text = "\(self.product?.length ?? self.customProduct?.length ?? "-") X \(self.product?.width ?? self.customProduct?.width ?? "-")"
+                cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ??  self.customProduct?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
+                cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.length ?? self.customProduct?.relatedProducts.first?.length ?? "-") X \(self.product?.relatedProducts.first?.width ?? self.customProduct?.relatedProducts.first?.width ?? "-")"
+                if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0 {
                     cell.row.hidden = false
                 }else {
                     cell.row.hidden = true
@@ -382,12 +410,16 @@ class AdminProductDetailController: FormViewController {
             <<< LabelRow {
                 $0.cell.height = { 1.0 }
                 $0.cell.backgroundColor = .lightGray
+                if isCustom {
+                    $0.hidden = true
+                }
             }
             <<< washView
             +++ washSection
             +++ Section()
         
         var strArr:[String] = []
+
         product?.weaves .forEach({ (weave) in
             strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
         })
@@ -426,6 +458,18 @@ class AdminProductDetailController: FormViewController {
                 cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
             })
         })
+    }
+    
+    @objc func saveClicked() {
+         print("redirect clicked")
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = AdminRedirectEnquiryService(client: client).createRedirectArtisanScene(enquiryId: self.enquiryId ?? 0, enquiryCode: self.enquiryCode ?? "", enquiryDate: self.enquiryDate ?? "", productCategory: ProductCategory.getProductCat(catId: self.customProduct?.productCategoryId ?? 0)?.prodCatDescription )
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -552,35 +596,69 @@ extension AdminProductDetailController: UICollectionViewDelegate, UICollectionVi
     }
     
     func downloadProdImages() {
-        product?.productImages .forEach { (image) in
-            let tag = image.lable
-            let prodId = product?.entityID
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                self.productImages?.append(downloadedImage)
-                if image == product?.productImages.last {
-                    let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
-                    row?.cell.collectionView.reloadData()
-                }
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
-                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            let tag = image.lable ?? "name.jpg"
-                            let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                            self.productImages?.append(UIImage.init(data: attachment) ?? UIImage())
-                            if image == self.product?.productImages.last {
-                                let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
-                                row?.cell.collectionView.reloadData()
+        if isCustom {
+            customProduct?.productImages .forEach { (image) in
+                let tag = image.lable
+                let prodId = customProduct?.entityID
+                if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                    self.productImages?.append(downloadedImage)
+                    if image == customProduct?.productImages.last {
+                        let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+                        row?.cell.collectionView.reloadData()
+                    }
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = CustomProductImageService.init(client: client, productObject: customProduct!, withName: image.lable ?? "name.jpg")
+                        service.fetchCustomImage(withName: tag ?? "name.jpg").observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                let tag = image.lable ?? "name.jpg"
+                                let prodId = self.product?.entityID
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                self.productImages?.append(UIImage.init(data: attachment) ?? UIImage())
+                                if image == self.customProduct?.productImages.last {
+                                    let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+                                    row?.cell.collectionView.reloadData()
+                                }
                             }
-                        }
-                    }.dispose(in: self.bag)
-                }catch {
-                    print(error.localizedDescription)
+                        }.dispose(in: self.bag)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
+        } else{
+            product?.productImages .forEach { (image) in
+                let tag = image.lable
+                let prodId = product?.entityID
+                if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                    self.productImages?.append(downloadedImage)
+                    if image == product?.productImages.last {
+                        let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+                        row?.cell.collectionView.reloadData()
+                    }
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
+                        service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                let tag = image.lable ?? "name.jpg"
+                                let prodId = self.product?.entityID
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                self.productImages?.append(UIImage.init(data: attachment) ?? UIImage())
+                                if image == self.product?.productImages.last {
+                                    let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+                                    row?.cell.collectionView.reloadData()
+                                }
+                            }
+                        }.dispose(in: self.bag)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+
         }
     }
     

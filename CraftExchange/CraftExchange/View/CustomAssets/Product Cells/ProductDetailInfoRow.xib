@@ -104,6 +104,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="madeToOrderLbl" destination="KMo-Wc-PmT" id="VF3-24-U7J"/>
+                <outlet property="prodAvailableTitle" destination="2A8-bk-skG" id="ocP-v5-v9x"/>
+                <outlet property="prodCatTitle" destination="ycU-KQ-5rC" id="lYv-fA-2FN"/>
+                <outlet property="prodTypeTitle" destination="5gl-Ps-QZN" id="mDa-EU-EBq"/>
                 <outlet property="productAvailabilityLbl" destination="5Xb-0N-hs5" id="ILh-3t-uUB"/>
                 <outlet property="productCatLbl" destination="O9w-4B-gzy" id="YHY-qY-8nG"/>
                 <outlet property="productTypeLbl" destination="1q1-l8-6c3" id="eER-fY-BpQ"/>

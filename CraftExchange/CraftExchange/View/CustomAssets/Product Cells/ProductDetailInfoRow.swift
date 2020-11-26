@@ -12,6 +12,9 @@ import Eureka
 
 class ProductDetailInfoRowView: Cell<String>, CellType {
 
+    @IBOutlet weak var prodCatTitle: UILabel!
+    @IBOutlet weak var prodTypeTitle: UILabel!
+    @IBOutlet weak var prodAvailableTitle: UILabel!
     @IBOutlet weak var productCatLbl: UILabel!
     @IBOutlet weak var productTypeLbl: UILabel!
     @IBOutlet weak var productAvailabilityLbl: UILabel!
