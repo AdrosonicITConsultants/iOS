@@ -15,6 +15,7 @@ class Conversation: Object, Decodable {
     @objc dynamic var id: String?
     @objc dynamic var entityID: Int = 0
     @objc dynamic var enquiryId: Int = 0
+    @objc dynamic var isBuyer: Int = 0
     @objc dynamic var messageFrom: Int = 0
     @objc dynamic var messageTo: Int = 0
     @objc dynamic var messageString: String?

@@ -40,6 +40,7 @@ class AdminProductDetailController: FormViewController {
     var enquiryDate: String?
     var buyerBrand: String?
     var enquiryId: Int?
+    var isEdit = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,11 +49,12 @@ class AdminProductDetailController: FormViewController {
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
         if isRedirect {
-            let rightButtonItem = UIBarButtonItem.init(title: "Redirect Enquiry", style: .plain, target: self, action: #selector(saveClicked))
+            let rightButtonItem = UIBarButtonItem.init(title: "Select Artisan", style: .plain, target: self, action: #selector(saveClicked))
             self.navigationItem.rightBarButtonItem = rightButtonItem
         }
         
         let weaveTypeSection = Section() {
+            $0.tag = "weave section"
             $0.hidden = "$weaveTypes == false"
         }
         
@@ -65,6 +67,7 @@ class AdminProductDetailController: FormViewController {
         }
         
         let washSection = Section() {
+            $0.tag = "wash section"
             $0.hidden = "$washTypes == false"
         }
         
@@ -97,7 +100,7 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.editButton.tag = 101
                 $0.cell.tag = 101
                 $0.cell.editButton.isHidden = true
-                if product?.madeWithAnthran == 1 {
+                if product?.madeWithAnthran == 1 && isEdit {
                     $0.cell.editButton.isHidden = false
                 }
                 $0.cell.delegate2 = self
@@ -109,7 +112,7 @@ class AdminProductDetailController: FormViewController {
                 }
                 cell.productCodeValue.text = self.product?.code ?? self.buyerBrand ?? ""
                 cell.editButton.isHidden = true
-                if self.product?.madeWithAnthran == 1{
+                if self.product?.madeWithAnthran == 1 && self.isEdit{
                     cell.editButton.isHidden = false
                 }
             })
@@ -150,14 +153,18 @@ class AdminProductDetailController: FormViewController {
 
                 cell.productCatLbl.text = ProductCategory.getProductCat(catId: self.product?.productCategoryId ?? self.customProduct?.productCategoryId ?? 0)?.prodCatDescription
                 cell.productTypeLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc
-                cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: self.product?.clusterId ?? 0)?.clusterDescription ?? "-"
+                if !self.isCustom {
+                    cell.productTypeLbl.text = ClusterDetails.getCluster(clusterId: self.product?.clusterId ?? 0)?.clusterDescription ?? "-"
+                }
+                
                 if self.product?.productStatusId == 2 {
                     cell.productAvailabilityLbl.text = "In Stock"
                     cell.productAvailabilityLbl.textColor = #colorLiteral(red: 0.6266219616, green: 0.8538652062, blue: 0.7403210998, alpha: 1)
                     cell.madeToOrderLbl.isHidden = true
-                }else if self.customProduct?.entityID != 0 {
-                    cell.productAvailabilityLbl.text = "Custom Product"
                 }
+//                else if self.customProduct?.entityID != 0 {
+//                    cell.productAvailabilityLbl.text = "Custom Product"
+//                }
                 if self.isCustom {
                     cell.prodTypeTitle.text = "Product Type:"
                     cell.prodAvailableTitle.isHidden = true

@@ -216,10 +216,21 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.valueLbl.textColor = UIColor.init(named: "AdminBlueText")
             }.onCellSelection({ (cell, row) in
                 if self.enquiryObject?.customProductId != 0 {
-                    self.showCustomProduct?()
-                }else if self.enquiryObject?.productHistoryId != 0 {
-                    self.showHistoryProductDetails?()
-                }else {
+                   // self.showCustomProduct?()
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        let vc = ProductCatalogService(client: client).createAdminProductDetailScene(forProductId: self.enquiryObject?.customProductId, isCustom: true, isRedirect: false, enquiryCode: self.enquiryObject?.code, buyerBrand: self.enquiryObject?.buyerBrand, enquiryDate: Date().ttceISOString(isoDate: self.enquiryObject?.dateStarted ?? Date()) , enquiryId: self.enquiryObject?.entityID ?? 0)
+                        
+                        vc.modalPresentationStyle = .fullScreen
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }
+//                else if self.enquiryObject?.productHistoryId != 0 {
+//                    self.showHistoryProductDetails?()
+//                }
+                else {
                     self.showProductDetails?()
                 }
             })
@@ -275,7 +286,17 @@ class BuyerEnquiryDetailsController: FormViewController {
     }
     
     @objc func goToChat() {
-        
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            
+            let vc = ChatDetailsService(client: client).createScene( enquiryId: self.enquiryObject?.entityID ?? 0) as! ChatDetailsController
+                vc.modalPresentationStyle = .fullScreen
+                
+                navigationController?.pushViewController(vc, animated: true)
+            
+        }catch {
+            print(error.localizedDescription)
+        }
     }
     
     func reloadFormData() {

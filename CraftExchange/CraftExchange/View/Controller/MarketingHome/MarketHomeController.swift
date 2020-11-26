@@ -141,7 +141,16 @@ class MarketHomeController: FormViewController {
                 $0.cell.LowerActionLabel.text = " to Antaran Co Design"
                 $0.cell.ActionImg.image = UIImage(named: "Groupicon")
                 $0.cell.height = { 80.0 }
-            }
+            }.onCellSelection({ (cell, row) in
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = UploadProductService(client: client).createScene(productObject: nil)
+                    vc.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            })
             <<< MarketActionsRow() {
                 $0.tag = "HorizonatalAdmin3"
                 $0.cell.backgroundColor = UIColor.black
@@ -157,7 +166,16 @@ class MarketHomeController: FormViewController {
                 $0.cell.LowerActionLabel.text = "awaiting MOQs"
                 $0.cell.ActionImg.image = UIImage(named: "Icon awesome-route")
                 $0.cell.height = { 80.0 }
-            }
+            }.onCellSelection({ (cell, row) in
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = AdminRedirectEnquiryService(client: client).createScene()
+                    vc.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }catch {
+                    print(error.localizedDescription)
+                }
+            })
             <<< AdminHomeBottomRow() {
                 $0.tag = "AdminHomeBottomRow"
                 $0.cell.height = { 142.0 }

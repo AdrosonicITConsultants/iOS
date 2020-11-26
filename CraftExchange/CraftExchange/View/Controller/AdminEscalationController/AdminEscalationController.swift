@@ -209,7 +209,7 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                     case "View Buyer Details":
                         self.showUser?(obj.enquiryId,false)
                     case "View Chat":
-                        print("do nothing")
+                         self.goTochat(enquiryId: obj.enquiryId)
                     default:
                         print("do nothing")
                     }
@@ -235,7 +235,7 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                     case "View Buyer Details":
                         self.showUser?(obj.enquiryId,false)
                     case "View Chat":
-                        print("do nothing")
+                        self.goTochat(enquiryId: obj.enquiryId)
                     case "View Transactions":
                         print("do nothing")
                     default:
@@ -256,15 +256,17 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
         let options = ["View Chat", "Mark Resolved", "Generate new enquiry & redirect"]
         for option in options {
             let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                if let obj = self.allEscalations?[index] {
                 switch option {
-                case "View Artisan Details":
-                    print("do nothing")
+                case "View Chat":
+                    self.goTochat(enquiryId: obj.enquiryId)
                 case "Mark Resolved":
                     print("do nothing")
                 case "Generate new enquiry & redirect":
                     print("do nothing")
                 default:
                     print("do nothing")
+                }
                 }
           }
           alert.addAction(action)
@@ -273,6 +275,20 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func goTochat(enquiryId: Int) {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            
+            let vc = ChatDetailsService(client: client).createScene(enquiryId: enquiryId) as! ChatDetailsController
+            vc.modalPresentationStyle = .fullScreen
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }catch {
+            print(error.localizedDescription)
+        }
     }
 }
 

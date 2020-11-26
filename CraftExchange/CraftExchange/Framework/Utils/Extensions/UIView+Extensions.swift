@@ -355,100 +355,6 @@ extension UIView {
         }
     }
     
-    func showChatHeaderView(controller: UIViewController, chat: Chat) {
-        if let _ = self.viewWithTag(132) {
-            print("do nothing")
-        }else {
-            let initiationView = Bundle.main.loadNibNamed("ChatHeaderView", owner:
-                self, options: nil)?.first as? ChatHeaderView
-            initiationView?.buyerName.text = chat.buyerCompanyName
-            initiationView?.enquiryNumber.text = chat.enquiryNumber
-            initiationView?.orderStatus.text = chat.orderStatus
-            if chat.changeRequestDone == 0{
-                initiationView?.CRView.isHidden = true
-            }
-            initiationView?.imageButton.imageView?.layer.cornerRadius = 25
-            if let tag = chat.buyerLogo, chat.buyerLogo != "" {
-               let prodId = chat.buyerId
-              if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                initiationView?.imageButton.setImage(downloadedImage, for: .normal)
-              }else {
-                  do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = BrandLogoService.init(client: client)
-                    service.fetch(forUser: chat.buyerId, img: chat.buyerLogo ?? "name.jpg").observeNext { (attachment) in
-                      DispatchQueue.main.async {
-                        let tag = chat.buyerLogo ?? "name.jpg"
-                        let prodId = chat.buyerId
-                        _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                        initiationView?.imageButton.setImage(UIImage.init(data: attachment), for: .normal)
-                      }
-                      }.dispose(in: controller.bag)
-                  }catch {
-                      print(error.localizedDescription)
-                  }
-              }
-          }
-            initiationView?.delegate =  controller as? ChatHeaderViewProtocol
-            initiationView?.tag = 132
-            self.addSubview(initiationView!)
-            let safeAreaTop: CGFloat
-
-            if #available(iOS 11.0, *) {
-                safeAreaTop = controller.view.safeAreaInsets.top
-            } else {
-                safeAreaTop = controller.topLayoutGuide.length
-            }
-            initiationView?.frame = CGRect(x:0, y: safeAreaTop , width: self.frame.width, height: 120)
-            
-            self.bringSubviewToFront(initiationView!)
-        }
-    }
-    
-    func showChatHeaderDetailsView(controller: UIViewController, chat: Chat) {
-        /*if let _ = self.viewWithTag(133) {
-            print("do nothing")
-        }else {
-            let initiationView = Bundle.main.loadNibNamed("ChatHeaderDetailsView", owner:
-                self, options: nil)?.first as? ChatHeaderDetailsView
-            let date1 = Date().ttceFormatter(isoDate: chat.enquiryGeneratedOn!)
-            
-            initiationView?.enquiryStartedOn.text = "Date Started: ".localized + date1
-            
-            if chat.convertedToOrderDate != nil {
-                let date2 = Date().ttceFormatter(isoDate: chat.convertedToOrderDate!)
-                initiationView?.convertedToOrderOn.text = "Converted to order on: ".localized + date2
-            }else{
-                initiationView?.convertedToOrderOn.text = "Converted to order on: Not Converted".localized
-            }
-            
-            let date3 = Date().ttceFormatter(isoDate: chat.lastUpdatedOn!)
-            initiationView?.lastUpdatedOn.text = "Last updated on: ".localized + date3
-            initiationView?.productType.text = chat.productTypeId ?? "Custom design".localized
-            initiationView?.orderAmount.text = chat.orderAmount != nil ? "Order amount: ₹".localized + chat.orderAmount! : "Order amount: Not finalized".localized
-            initiationView?.delegate =  controller as? ChatHeaderDetailsViewProtocol
-            initiationView?.tag = 133
-            self.addSubview(initiationView!)
-            let safeAreaTop: CGFloat
-
-            if #available(iOS 11.0, *) {
-                safeAreaTop = controller.view.safeAreaInsets.top
-            } else {
-                safeAreaTop = controller.topLayoutGuide.length
-            }
-            initiationView?.frame = CGRect(x:0, y: safeAreaTop + 120, width: self.frame.width, height: 275)
-            self.bringSubviewToFront(initiationView!)
-            print(safeAreaTop)
-        }*/
-    }
-    
-    func hideChatHeaderDetailsView() {
-        if let initialView = self.viewWithTag(133) {
-            self.sendSubviewToBack(initialView)
-            initialView.removeFromSuperview()
-        }
-    }
-    
     func showOpenFAQView(controller: UIViewController, data: String) {
         if let _ = self.viewWithTag(134) {
             print("do nothing")
@@ -646,36 +552,6 @@ extension UIView {
         if let effectView = self.viewWithTag(143) {
             self.sendSubviewToBack(effectView)
                        effectView.removeFromSuperview()
-        }
-    }
-    
-    func showChatEscalationHeaderView(controller: UIViewController, chat: Chat) {
-        if let _ = self.viewWithTag(150) {
-            print("do nothing")
-        }else {
-            let initiationView = Bundle.main.loadNibNamed("ChatEscalationHeaderView", owner:
-                self, options: nil)?.first as? ChatEscalationHeaderView
-            initiationView?.enquiryNumber.text = chat.enquiryNumber
-            initiationView?.delegate =  controller as? ChatEscalationHeaderViewProtocol
-            initiationView?.tag = 150
-            self.addSubview(initiationView!)
-            let safeAreaTop: CGFloat
-
-            if #available(iOS 11.0, *) {
-                safeAreaTop = controller.view.safeAreaInsets.top
-            } else {
-                safeAreaTop = controller.topLayoutGuide.length
-            }
-            initiationView?.frame = CGRect(x:0, y: safeAreaTop , width: self.frame.width, height: 80)
-            
-            self.bringSubviewToFront(initiationView!)
-        }
-    }
-    
-    func hideChatEscalationHeaderDetailsView() {
-        if let initialView = self.viewWithTag(150) {
-            self.sendSubviewToBack(initialView)
-            initialView.removeFromSuperview()
         }
     }
 }

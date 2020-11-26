@@ -206,10 +206,7 @@ class QCBuyerController: FormViewController {
     @objc func goToChat() {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let service = ChatListService.init(client: client)
-            if let enquiryId = orderObject?.entityID {
-                service.initiateConversation(vc: self, enquiryId: enquiryId)
-            }
+            
         }catch {
             print(error.localizedDescription)
         }

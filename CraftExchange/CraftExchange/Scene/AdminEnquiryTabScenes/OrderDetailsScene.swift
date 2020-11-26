@@ -444,23 +444,6 @@ extension OrderDetailsService {
             
         }
         
-        vc.showChatDetails = {
-            let service = ChatDetailsService.init(client: self.client)
-            
-            /*
-             do {
-                 let client = try SafeClient(wrapping: CraftExchangeClient())
-                 if let obj = allChat?[indexPath.row] {
-                     let vc = ChatDetailsService(client: client).createScene(forChat: obj, enquiryId: obj.enquiryId) as! ChatDetailsController
-                     vc.modalPresentationStyle = .fullScreen
-                     
-                     navigationController?.pushViewController(vc, animated: true)
-                 }
-             }catch {
-                 print(error.localizedDescription)
-             }
-             */
-        }
         
         return vc
     }
