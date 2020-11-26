@@ -51,6 +51,8 @@ class ProductCatalogueController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItem = rightBarButtomItem
         categoryFilterButton.borderColour = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
         availabilityFilterButton.borderColour = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
         categoryLabel.text = "Cluster"

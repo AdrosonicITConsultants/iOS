@@ -42,6 +42,8 @@ class AdminTabbarController: UIViewController {
         valueLabel2.text = "\(app?.countData?.escaltions ?? 0)"
         segment.selectedSegmentIndex = 0
         segment.sendActions(for: .valueChanged)
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItem = rightBarButtomItem
 //        var AdminEnquiryListViewController: AdminEnquiryList = {
 //            var viewController = AdminEnquiryList.init()
 //            self.add(asChildViewController: viewController)

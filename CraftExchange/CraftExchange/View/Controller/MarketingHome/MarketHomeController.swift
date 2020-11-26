@@ -46,7 +46,7 @@ class MarketHomeController: FormViewController {
         viewWillAppear?()
         refreshCountForTag()
         let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
-        navigationItem.rightBarButtonItems = [rightBarButtomItem]
+        navigationItem.rightBarButtonItem = rightBarButtomItem
         
         form
             +++ Section()

@@ -34,6 +34,8 @@ extension AdminHomeScreenService {
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
                 self.fetchMOQsDeliveryTimes(vc: vc)
+                let service = AdminNotificationService.init(client: self.client)
+                service.getAdminNotification(controller: vc)
             }
         }
         return tab
