@@ -127,6 +127,14 @@
 		C005BCBA24C2335400197519 /* Product+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005BCB924C2335400197519 /* Product+Transaction.swift */; };
 		C006B3AF250E4FAC00882C4A /* ProFormaInvoiceRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */; };
 		C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */; };
+		C010370F256F46B90008DCE9 /* AdminEscalation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010370E256F46B90008DCE9 /* AdminEscalation.swift */; };
+		C0103711256F4A0B0008DCE9 /* AdminEscalation+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0103710256F4A0B0008DCE9 /* AdminEscalation+Transaction.swift */; };
+		C0103713256F4AD10008DCE9 /* AdminEscalation+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0103712256F4AD10008DCE9 /* AdminEscalation+Request.swift */; };
+		C0103716256F4BAE0008DCE9 /* AdminEscalationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0103715256F4BAE0008DCE9 /* AdminEscalationService.swift */; };
+		C0103719256F4C810008DCE9 /* AdminEscalationListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0103718256F4C810008DCE9 /* AdminEscalationListScene.swift */; };
+		C010371C256F4CB20008DCE9 /* AdminEscalationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010371B256F4CB20008DCE9 /* AdminEscalationController.swift */; };
+		C010371F256F50C80008DCE9 /* AdminEscalationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C010371E256F50C80008DCE9 /* AdminEscalationCell.xib */; };
+		C0103721256F51D50008DCE9 /* AdminEscalationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0103720256F51D50008DCE9 /* AdminEscalationCell.swift */; };
 		C0144AA52483EA22006FF4AB /* UIViewController+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */; };
 		C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */; };
 		C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */; };
@@ -454,6 +462,7 @@
 		C0F72C23256ED65C006C9B27 /* TransactionTitleRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F72C1F256ED65B006C9B27 /* TransactionTitleRow.xib */; };
 		C0F72C24256ED65C006C9B27 /* TransactionDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F72C20256ED65B006C9B27 /* TransactionDetailRow.swift */; };
 		C0F72C26256ED88A006C9B27 /* MessageKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F72C25256ED88A006C9B27 /* MessageKit.framework */; };
+		C0F72C2A256EEFFB006C9B27 /* AdminEscalationTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F72C29256EEFFB006C9B27 /* AdminEscalationTab.storyboard */; };
 		C0FBE34C24C6B6560037347A /* RealmChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBE34B24C6B6560037347A /* RealmChanges.swift */; };
 		C0FBE34F24C6F7420037347A /* ArtisanProductCatalogueScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBE34E24C6F7420037347A /* ArtisanProductCatalogueScene.swift */; };
 		C0FBE35224C6F7CB0037347A /* ProductCatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBE35124C6F7CB0037347A /* ProductCatalogService.swift */; };
@@ -579,6 +588,14 @@
 		C005BCB924C2335400197519 /* Product+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+Transaction.swift"; sourceTree = "<group>"; };
 		C006B3AE250E4FAC00882C4A /* ProFormaInvoiceRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProFormaInvoiceRow.xib; sourceTree = "<group>"; };
 		C006B3B0250E527B00882C4A /* ProFormaInvoiceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProFormaInvoiceRow.swift; sourceTree = "<group>"; };
+		C010370E256F46B90008DCE9 /* AdminEscalation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEscalation.swift; sourceTree = "<group>"; };
+		C0103710256F4A0B0008DCE9 /* AdminEscalation+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdminEscalation+Transaction.swift"; sourceTree = "<group>"; };
+		C0103712256F4AD10008DCE9 /* AdminEscalation+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdminEscalation+Request.swift"; sourceTree = "<group>"; };
+		C0103715256F4BAE0008DCE9 /* AdminEscalationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEscalationService.swift; sourceTree = "<group>"; };
+		C0103718256F4C810008DCE9 /* AdminEscalationListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEscalationListScene.swift; sourceTree = "<group>"; };
+		C010371B256F4CB20008DCE9 /* AdminEscalationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEscalationController.swift; sourceTree = "<group>"; };
+		C010371E256F50C80008DCE9 /* AdminEscalationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminEscalationCell.xib; sourceTree = "<group>"; };
+		C0103720256F51D50008DCE9 /* AdminEscalationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEscalationCell.swift; sourceTree = "<group>"; };
 		C0144AA42483EA22006FF4AB /* UIViewController+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extentions.swift"; sourceTree = "<group>"; };
 		C0144AA62483FA27006FF4AB /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
 		C0144AA82483FA39006FF4AB /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
@@ -912,6 +929,7 @@
 		C0F72C1F256ED65B006C9B27 /* TransactionTitleRow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionTitleRow.xib; sourceTree = "<group>"; };
 		C0F72C20256ED65B006C9B27 /* TransactionDetailRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailRow.swift; sourceTree = "<group>"; };
 		C0F72C25256ED88A006C9B27 /* MessageKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MessageKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0F72C29256EEFFB006C9B27 /* AdminEscalationTab.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdminEscalationTab.storyboard; sourceTree = "<group>"; };
 		C0FBE34B24C6B6560037347A /* RealmChanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmChanges.swift; sourceTree = "<group>"; };
 		C0FBE34E24C6F7420037347A /* ArtisanProductCatalogueScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanProductCatalogueScene.swift; sourceTree = "<group>"; };
 		C0FBE35124C6F7CB0037347A /* ProductCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCatalogService.swift; sourceTree = "<group>"; };
@@ -1054,6 +1072,39 @@
 				C0D5F99F256BB81C00E597CC /* AdminHomeScene.swift */,
 			);
 			path = HomeScenes;
+			sourceTree = "<group>";
+		};
+		C0103714256F4B960008DCE9 /* AdminEscalationService */ = {
+			isa = PBXGroup;
+			children = (
+				C0103715256F4BAE0008DCE9 /* AdminEscalationService.swift */,
+			);
+			path = AdminEscalationService;
+			sourceTree = "<group>";
+		};
+		C0103717256F4C640008DCE9 /* AdminEscalationScenes */ = {
+			isa = PBXGroup;
+			children = (
+				C0103718256F4C810008DCE9 /* AdminEscalationListScene.swift */,
+			);
+			path = AdminEscalationScenes;
+			sourceTree = "<group>";
+		};
+		C010371A256F4C9A0008DCE9 /* AdminEscalationController */ = {
+			isa = PBXGroup;
+			children = (
+				C010371B256F4CB20008DCE9 /* AdminEscalationController.swift */,
+			);
+			path = AdminEscalationController;
+			sourceTree = "<group>";
+		};
+		C010371D256F50990008DCE9 /* AdminEscalationCells */ = {
+			isa = PBXGroup;
+			children = (
+				C010371E256F50C80008DCE9 /* AdminEscalationCell.xib */,
+				C0103720256F51D50008DCE9 /* AdminEscalationCell.swift */,
+			);
+			path = AdminEscalationCells;
 			sourceTree = "<group>";
 		};
 		C0144ABE24844390006FF4AB /* LoginControllers */ = {
@@ -1222,6 +1273,7 @@
 		C03BD88F2476F83100279D7F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				C0103717256F4C640008DCE9 /* AdminEscalationScenes */,
 				C0DB81B5256E946400D61B9A /* ChatScenes */,
 				30B91DC8256D616E00C4EC96 /* AdminProductTabScenes */,
 				C0B66348256C383600DADAA4 /* AdminEnquiryTabScenes */,
@@ -1244,6 +1296,7 @@
 		C03BD8902476F83B00279D7F /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				C0103714256F4B960008DCE9 /* AdminEscalationService */,
 				C0DB81C5256E949600D61B9A /* ChatService */,
 				C05E4414256E570600570DDC /* AdminOrderService */,
 				30B91DCF256D621900C4EC96 /* AdminProductService */,
@@ -1341,6 +1394,7 @@
 		C03BD8932476F87E00279D7F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C010371A256F4C9A0008DCE9 /* AdminEscalationController */,
 				C02EE1A4253DC9150039B1C9 /* DefaultViewController.swift */,
 				C0DB81BC256E947E00D61B9A /* ChatController */,
 				30B91DB7256D5FB600C4EC96 /* AdminProductCatalog */,
@@ -1379,6 +1433,7 @@
 				118F70422552EE4E0075F998 /* AdminNotification.storyboard */,
 				C095391325597E2E00D0E3FC /* MarketingTabbar.storyboard */,
 				C0B66342256C25F700DADAA4 /* AdminEnquiryTab.storyboard */,
+				C0F72C29256EEFFB006C9B27 /* AdminEscalationTab.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -1606,6 +1661,7 @@
 		C07D699E2477EB2100B0B0FA /* CustomAssets */ = {
 			isa = PBXGroup;
 			children = (
+				C010371D256F50990008DCE9 /* AdminEscalationCells */,
 				C0F72C1C256ED65B006C9B27 /* TransactionCells */,
 				30B91D9A256D5E5D00C4EC96 /* Product Cells */,
 				C0B6633B256BFE4500DADAA4 /* EnquiryTab */,
@@ -1978,6 +2034,7 @@
 				C04E6101256CC6D5001E2179 /* AdminEnquiry.swift */,
 				A983D9A0256E325400F6D8E9 /* AdminNotifications.swift */,
 				C05E440E256E561900570DDC /* AdminOrder.swift */,
+				C010370E256F46B90008DCE9 /* AdminEscalation.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -1992,6 +2049,7 @@
 				C04E6103256CE511001E2179 /* AdminEnquiry+Transaction.swift */,
 				A983D9A4256E341300F6D8E9 /* AdminNotifications+Transaction.swift */,
 				C05E4410256E565C00570DDC /* AdminOrder+Transactions.swift */,
+				C0103710256F4A0B0008DCE9 /* AdminEscalation+Transaction.swift */,
 			);
 			path = "Admin+Transactions";
 			sourceTree = "<group>";
@@ -2006,6 +2064,7 @@
 				C04E6105256CE65A001E2179 /* AdminEnquiry+Request.swift */,
 				A983D9A2256E333C00F6D8E9 /* AdminNotifications+Request.swift */,
 				C05E4412256E56A200570DDC /* AdminOrder+Request.swift */,
+				C0103712256F4AD10008DCE9 /* AdminEscalation+Request.swift */,
 			);
 			path = "Admin+Networking";
 			sourceTree = "<group>";
@@ -2156,6 +2215,7 @@
 				115338A82542DB9200BF4204 /* LabelUnderlinedView.xib in Resources */,
 				C0ACA1C5250F32D400978CEA /* EnquiryClosedRow.xib in Resources */,
 				309BFD2B251C6FF3001FAC7F /* MOQSelectedDetailsRow.xib in Resources */,
+				C0F72C2A256EEFFB006C9B27 /* AdminEscalationTab.storyboard in Resources */,
 				C0DB81DF256EA59E00D61B9A /* OpenAttachmentView.xib in Resources */,
 				C0A910A4247CD90B00852695 /* PlayfairDisplay-Medium.ttf in Resources */,
 				C09B3F0024BA56AD00FBC115 /* ProfileImageRow.xib in Resources */,
@@ -2183,6 +2243,7 @@
 				C0A910A5247CD90B00852695 /* PlayfairDisplay-BoldItalic.ttf in Resources */,
 				C06AA3A025054FB200EF4B10 /* MOQSectionTitle.xib in Resources */,
 				3097877D252461BC00F9B608 /* Invoice.storyboard in Resources */,
+				C010371F256F50C80008DCE9 /* AdminEscalationCell.xib in Resources */,
 				115338A22542BB8300BF4204 /* BrandDetailView.xib in Resources */,
 				C0A910AD247CD90B00852695 /* PlayfairDisplay-ExtraBold.ttf in Resources */,
 				C06AA3A2250550D200EF4B10 /* MOQValueRow.xib in Resources */,
@@ -2326,6 +2387,7 @@
 				C0A0AC5E24E6A98B00F7492E /* UploadCustomProductController.swift in Sources */,
 				C0917DE024D43355006B6664 /* ProductLength.swift in Sources */,
 				C016EC0F2510D16D0039B7AF /* AdminNotificationScene.swift in Sources */,
+				C010371C256F4CB20008DCE9 /* AdminEscalationController.swift in Sources */,
 				C016EC202510D4FF0039B7AF /* OfflineNotificationRequest.swift in Sources */,
 				C0C4CD85250BCD7100017889 /* EnquiryListService.swift in Sources */,
 				C09C8C23250CF37F00950526 /* EnquiryStages+Transactions.swift in Sources */,
@@ -2397,6 +2459,7 @@
 				C06570AF252B9F72001140C7 /* TransactionObject+Transaction.swift in Sources */,
 				C0E2353C25667B1D00A1F268 /* AdminUserScene.swift in Sources */,
 				C02131CF2559C8AE00269991 /* AdminCardsCell.swift in Sources */,
+				C0103719256F4C810008DCE9 /* AdminEscalationListScene.swift in Sources */,
 				C0144AA72483FA27006FF4AB /* ForgotPasswordController.swift in Sources */,
 				307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */,
 				C071E25D247EF9280085805B /* ValidateUserService.swift in Sources */,
@@ -2422,6 +2485,7 @@
 				C0DB81B9256E946400D61B9A /* ChatListScene.swift in Sources */,
 				C04842C224E7E70A00D3207F /* Date+Extensions.swift in Sources */,
 				C071E238247ED41A0085805B /* User.swift in Sources */,
+				C0103721256F51D50008DCE9 /* AdminEscalationCell.swift in Sources */,
 				A967841D2564F7E20066C147 /* AdminRoles.swift in Sources */,
 				C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */,
 				C05836BB24C887AC0027FF44 /* ProductImage.swift in Sources */,
@@ -2463,6 +2527,7 @@
 				C0DB81BA256E946400D61B9A /* ChatEscalationScene.swift in Sources */,
 				11173F5F2541A9840027B9C3 /* AdminUserDetailController.swift in Sources */,
 				30B91DCE256D616E00C4EC96 /* UploadProductScene.swift in Sources */,
+				C0103711256F4A0B0008DCE9 /* AdminEscalation+Transaction.swift in Sources */,
 				C07721E3256E6C0400609468 /* QCBuyerScene.swift in Sources */,
 				C09B3F0E24BA615900FBC115 /* Disk+[Data].swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
@@ -2470,6 +2535,7 @@
 				C06570A6252B8E87001140C7 /* TransactionObject+Request.swift in Sources */,
 				C074EE3424EE7FD700B0973B /* CustomWeaveType.swift in Sources */,
 				C0ACE9962485895600EFA4ED /* Country.swift in Sources */,
+				C0103716256F4BAE0008DCE9 /* AdminEscalationService.swift in Sources */,
 				C0930D3925061F7C00DC9274 /* StatusRow.swift in Sources */,
 				C0F72C1B256ED1A0006C9B27 /* ChatEscalationHeaderView.swift in Sources */,
 				C0FBE35224C6F7CB0037347A /* ProductCatalogService.swift in Sources */,
@@ -2563,6 +2629,7 @@
 				C071E25F247EFAAB0085805B /* BaseService.swift in Sources */,
 				3089DEDA252B31CC003184FA /* uploadRecieptView.swift in Sources */,
 				C0917DF224D472C1006B6664 /* Weave+Transaction.swift in Sources */,
+				C0103713256F4AD10008DCE9 /* AdminEscalation+Request.swift in Sources */,
 				301B7EEC25235B6C0008DE3A /* GetPI.swift in Sources */,
 				30B91DA9256D5E5D00C4EC96 /* ProdDetailYarnRow.swift in Sources */,
 				C0917DEE24D463FB006B6664 /* Dye.swift in Sources */,
@@ -2570,6 +2637,7 @@
 				C071E25B247EF5C40085805B /* User+Request.swift in Sources */,
 				C06570BA252BB4F8001140C7 /* TransactionListScene.swift in Sources */,
 				C09B3F0C24BA615900FBC115 /* Disk.swift in Sources */,
+				C010370F256F46B90008DCE9 /* AdminEscalation.swift in Sources */,
 				C05E3AE724D283F700963FAA /* CollectionViewRow.swift in Sources */,
 				309787852524B40C00F9B608 /* AcceptedPIView.swift in Sources */,
 				C0285A9D24CF22CB0045623A /* BrandLogoService.swift in Sources */,
