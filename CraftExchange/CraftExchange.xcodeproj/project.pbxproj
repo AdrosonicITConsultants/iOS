@@ -443,6 +443,7 @@
 		C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */; };
 		C0D218B124FEC67A0071896E /* EnquiryGeneratedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */; };
 		C0D47E3425702C6F00BA3BC8 /* UnresolvedEscalationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D47E3325702C6F00BA3BC8 /* UnresolvedEscalationView.xib */; };
+		C0D47E362570310800BA3BC8 /* NewEnquiryDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D47E352570310800BA3BC8 /* NewEnquiryDetailsView.xib */; };
 		C0D5F9A0256BB81C00E597CC /* AdminHomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5F99F256BB81C00E597CC /* AdminHomeScene.swift */; };
 		C0D5F9A2256BB8E200E597CC /* AdminHomeScreenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5F9A1256BB8E200E597CC /* AdminHomeScreenService.swift */; };
 		C0D5F9A6256BCF8B00E597CC /* AdminTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D5F9A5256BCF8B00E597CC /* AdminTabbarController.swift */; };
@@ -924,6 +925,7 @@
 		C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryGeneratedView.swift; sourceTree = "<group>"; };
 		C0D47E3325702C6F00BA3BC8 /* UnresolvedEscalationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnresolvedEscalationView.xib; sourceTree = "<group>"; };
+		C0D47E352570310800BA3BC8 /* NewEnquiryDetailsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEnquiryDetailsView.xib; sourceTree = "<group>"; };
 		C0D5F99F256BB81C00E597CC /* AdminHomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHomeScene.swift; sourceTree = "<group>"; };
 		C0D5F9A1256BB8E200E597CC /* AdminHomeScreenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminHomeScreenService.swift; sourceTree = "<group>"; };
 		C0D5F9A5256BCF8B00E597CC /* AdminTabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminTabbarController.swift; sourceTree = "<group>"; };
@@ -1134,6 +1136,7 @@
 				303A8D08256FE00700E899CA /* AdminChatEscalationCell.swift */,
 				303A8D09256FE00700E899CA /* AdminChatEscalationCell.xib */,
 				C0D47E3325702C6F00BA3BC8 /* UnresolvedEscalationView.xib */,
+				C0D47E352570310800BA3BC8 /* NewEnquiryDetailsView.xib */,
 			);
 			path = AdminEscalationCells;
 			sourceTree = "<group>";
@@ -2328,6 +2331,7 @@
 				C0A910A8247CD90B00852695 /* PlayfairDisplay-Regular.ttf in Resources */,
 				C0B66343256C25F700DADAA4 /* AdminEnquiryTab.storyboard in Resources */,
 				3089DED8252B31C2003184FA /* uploadRecieptView.xib in Resources */,
+				C0D47E362570310800BA3BC8 /* NewEnquiryDetailsView.xib in Resources */,
 				309787792524136000F9B608 /* PreviewPIView.xib in Resources */,
 				C0AC755F249403380011B7D3 /* RoundedButtonViewRow.xib in Resources */,
 				C04F72DB24C611E700E8122E /* ArtisanProductCell.xib in Resources */,
