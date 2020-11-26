@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol NewEnquiryViewProtocol {
+protocol NewEnquiryDetailsViewProtocol {
     func chooseArtisanSelected(eqId: Int)
     func viewProductDetailSelected(prodId: Int)
 }
@@ -20,7 +20,7 @@ class NewEnquiryDetailsView: UIView {
     @IBOutlet var viewProductButton: UIButton!
     @IBOutlet var chooseArtisanButton: UIButton!
     
-    var delegate: NewEnquiryViewProtocol?
+    var delegate: NewEnquiryDetailsViewProtocol?
     
     @IBAction func chooseArtisanSelected(_ sender: Any) {
         delegate?.chooseArtisanSelected(eqId: chooseArtisanButton.tag)

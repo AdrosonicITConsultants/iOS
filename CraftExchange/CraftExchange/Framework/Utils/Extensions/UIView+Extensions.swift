@@ -555,3 +555,61 @@ extension UIView {
         }
     }
 }
+
+extension UIView {
+    func showUnresolvedEnquiryRedirectionView(eqObject: AdminEnquiry, controller: UIViewController) {
+        if let _ = self.viewWithTag(144) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("UnresolvedEscalationView", owner:
+                self, options: nil)?.first as? UnresolvedEscalationView
+            initiationView?.delegate =  controller as? UnresolvedEscalationViewProtocol
+            initiationView?.tag = 144
+            initiationView?.enquiryNumber.text = eqObject.code ?? ""
+            initiationView?.amountLabel.text = "\(eqObject.amount)"
+            initiationView?.buyerBrand.text = eqObject.buyerBrand ?? ""
+            initiationView?.artisanBrand.text = eqObject.artisanBrand ?? ""
+            initiationView?.generateNewEqButton.tag = eqObject.entityID
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    
+    func hideUnresolvedEnquiryRedirectionView() {
+        if let initialView = self.viewWithTag(144) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }else if let initialView = UIApplication.shared.windows.first!.viewWithTag(144) {
+            UIApplication.shared.windows.first!.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+    }
+    
+    func showNewEnquiryDetailsView(eqObject: AdminEnquiry, controller: UIViewController) {
+        if let _ = self.viewWithTag(145) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("NewEnquiryDetailsView", owner:
+                self, options: nil)?.first as? NewEnquiryDetailsView
+            initiationView?.delegate =  controller as? NewEnquiryDetailsViewProtocol
+            initiationView?.tag = 145
+            initiationView?.enquiryNumber.text = eqObject.code ?? ""
+            initiationView?.viewProductButton.tag = eqObject.productId
+            initiationView?.chooseArtisanButton.tag = eqObject.entityID
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
+            self.bringSubviewToFront(initiationView!)
+        }
+    }
+    
+    func hideNewEnquiryDetailsView() {
+        if let initialView = self.viewWithTag(145) {
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }else if let initialView = UIApplication.shared.windows.first!.viewWithTag(145) {
+            UIApplication.shared.windows.first!.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+    }
+}
