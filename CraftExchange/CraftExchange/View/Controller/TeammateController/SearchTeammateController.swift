@@ -111,7 +111,7 @@ class SearchTeammateController: UIViewController {
     
     func endRefresh() {
         allUserResults = realm?.objects(AdminTeammate.self).filter("%K IN %@","id", idList)
-        allUsers = allUserResults?.compactMap({$0})
+        allUsers = allUserResults?.sorted(byKeyPath: "id", ascending: false).compactMap({$0})
 
         self.searchText = searchBar.text ?? ""
         if searchText != "" {
