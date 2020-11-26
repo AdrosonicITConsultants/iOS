@@ -17,7 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UnresolvedEscalationView" customModule="Craft_Xchange_Admin" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -118,6 +118,21 @@
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Generate new enquiry"/>
+                    <connections>
+                        <action selector="createNewEqSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="KRY-ox-jSG"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2CR-4r-AjL">
+                    <rect key="frame" x="30" y="54" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="fpK-7Q-9H4"/>
+                        <constraint firstAttribute="width" constant="20" id="izE-ys-0OA"/>
+                    </constraints>
+                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="xmark" catalog="system"/>
+                    <connections>
+                        <action selector="closeSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="mKT-sA-CS4"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5E-WI-2G2">
                     <rect key="frame" x="20" y="502" width="374" height="100"/>
@@ -151,6 +166,8 @@
                 <constraint firstItem="DUO-mu-JlX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="YdO-e7-Esi"/>
                 <constraint firstItem="Laz-Hr-Prf" firstAttribute="top" secondItem="QYA-Xx-h4m" secondAttribute="bottom" constant="8" id="ajP-Od-znD"/>
                 <constraint firstItem="QYA-Xx-h4m" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="bD3-5O-hTa"/>
+                <constraint firstItem="2CR-4r-AjL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="bhc-ZO-OPi"/>
+                <constraint firstItem="2CR-4r-AjL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="dXI-mZ-teQ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4Jq-ih-aui" secondAttribute="trailing" constant="20" id="eGu-rJ-Ki5"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QYA-Xx-h4m" secondAttribute="trailing" constant="20" id="gkI-JK-bhb"/>
                 <constraint firstItem="REO-7B-u6y" firstAttribute="top" secondItem="P6s-dN-bTU" secondAttribute="bottom" constant="30" id="k7W-T6-omP"/>
@@ -168,11 +185,21 @@
                 <constraint firstItem="rIe-Bf-xhk" firstAttribute="top" secondItem="Laz-Hr-Prf" secondAttribute="bottom" constant="20" id="ybe-wX-BLr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="amountLabel" destination="P6s-dN-bTU" id="qXQ-tX-RCF"/>
+                <outlet property="artisanBrand" destination="REO-7B-u6y" id="QtX-oA-7mx"/>
+                <outlet property="buyerBrand" destination="4Jq-ih-aui" id="Ocb-ji-dxO"/>
+                <outlet property="closeButton" destination="2CR-4r-AjL" id="SGJ-IH-SSV"/>
+                <outlet property="concernLabel" destination="4e8-rv-dbn" id="dfQ-DL-35y"/>
+                <outlet property="enquiryNumber" destination="rIe-Bf-xhk" id="9G1-eW-1OD"/>
+                <outlet property="generateNewEqButton" destination="YBe-Vm-Ozr" id="hML-wC-WLB"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="128.57142857142856"/>
         </view>
     </objects>
     <resources>
         <image name="artisan icon" width="24" height="24"/>
         <image name="buyer icon" width="21" height="29"/>
+        <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
 </document>
