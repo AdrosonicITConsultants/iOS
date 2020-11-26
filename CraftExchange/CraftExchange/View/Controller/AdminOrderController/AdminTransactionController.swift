@@ -123,8 +123,12 @@ class AdminTransactionController: FormViewController {
     @objc func goToChat() {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let service = ChatListService.init(client: client)
-            service.initiateConversation(vc: self, enquiryId: enquiry)
+            
+            let vc = ChatDetailsService(client: client).createScene(enquiryId: enquiry) as! ChatDetailsController
+            vc.modalPresentationStyle = .fullScreen
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            
         }catch {
             print(error.localizedDescription)
         }

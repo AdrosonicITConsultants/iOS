@@ -46,20 +46,20 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)*/
         }
         
-        vc.showCustomProduct = {
-            vc.showLoading()
-            let service = UploadProductService.init(client: self.client)
-            service.getCustomProductDetails(prodId: forEnquiry?.customProductId ?? 0, vc: vc)
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-                vc.hideLoading()
-                let realm = try? Realm()
-                if let object = realm?.objects(CustomProduct.self).filter("%K == %@", "entityID", forEnquiry?.customProductId ?? 0).first {
-                    let newVC = ProductCatalogService(client: self.client).createAdminCustomProductDetailScene(forProduct: forEnquiry?.customProductId ?? 0)
-                    newVC.modalPresentationStyle = .fullScreen
-                    vc.navigationController?.pushViewController(newVC, animated: true)
-                }
-            }
-        }
+//        vc.showCustomProduct = {
+//            vc.showLoading()
+//            let service = UploadProductService.init(client: self.client)
+//            service.getCustomProductDetails(prodId: forEnquiry?.customProductId ?? 0, vc: vc)
+//            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
+//                vc.hideLoading()
+//                let realm = try? Realm()
+//                if let object = realm?.objects(CustomProduct.self).filter("%K == %@", "entityID", forEnquiry?.customProductId ?? 0).first {
+//                    let newVC = ProductCatalogService(client: self.client).createAdminCustomProductDetailScene(forProduct: forEnquiry?.customProductId ?? 0)
+//                    newVC.modalPresentationStyle = .fullScreen
+//                    vc.navigationController?.pushViewController(newVC, animated: true)
+//                }
+//            }
+//        }
         
         vc.showProductDetails = {
             let service = ProductCatalogService.init(client: self.client)
@@ -68,11 +68,11 @@ extension EnquiryDetailsService {
             
         }
         
-        vc.showHistoryProductDetails = {
-            let service = ProductCatalogService.init(client: self.client)
-            service.showSelectedHistoryProduct(for: vc, prodId: forEnquiry?.productHistoryId ?? 0)
-            vc.hideLoading()
-        }
+//        vc.showHistoryProductDetails = {
+//            let service = ProductCatalogService.init(client: self.client)
+//            service.showSelectedHistoryProduct(for: vc, prodId: forEnquiry?.productHistoryId ?? 0)
+//            vc.hideLoading()
+//        }
         
         vc.closeEnquiry = { (enquiryId) in
             self.closeEnquiry(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in

@@ -296,7 +296,7 @@ extension ProductCatalogService {
                                     controller.hideLoading()
                                     do {
                                         let client = try SafeClient(wrapping: CraftExchangeClient())
-                                        let vc = ProductCatalogService(client: client).createAdminProductDetailScene(forProduct: prodId)
+                                        let vc = ProductCatalogService(client: client).createAdminProductDetailScene(forProduct: prodId, isEdit: false)
                                         vc.modalPresentationStyle = .fullScreen
                                         controller.navigationController?.pushViewController(vc, animated: true)
                                     }catch {

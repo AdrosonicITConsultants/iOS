@@ -215,13 +215,14 @@ class QCBuyerController: FormViewController {
     @objc func goToChat() {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let service = ChatListService.init(client: client)
-            if let enquiryId = orderObject?.entityID {
-                service.initiateConversation(vc: self, enquiryId: enquiryId)
-            }
+            let vc = ChatDetailsService(client: client).createScene(enquiryId: orderObject?.entityID ?? 0)
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+            
         }catch {
             print(error.localizedDescription)
         }
+
     }
 }
 

@@ -51,6 +51,11 @@
 		301B7EE925223FDC0008DE3A /* MOQSortButtonsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */; };
 		301B7EEA25223FDC0008DE3A /* MOQSortButtonsRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */; };
 		301B7EEC25235B6C0008DE3A /* GetPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B7EEB25235B6C0008DE3A /* GetPI.swift */; };
+		303A8D05256FD53D00E899CA /* AdminChatEscalationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A8D04256FD53D00E899CA /* AdminChatEscalationObject.swift */; };
+		303A8D07256FDC5100E899CA /* AdminChatEscalationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A8D06256FDC5100E899CA /* AdminChatEscalationScene.swift */; };
+		303A8D0A256FE00700E899CA /* AdminChatEscalationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A8D08256FE00700E899CA /* AdminChatEscalationCell.swift */; };
+		303A8D0B256FE00700E899CA /* AdminChatEscalationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 303A8D09256FE00700E899CA /* AdminChatEscalationCell.xib */; };
+		303A8D0D256FE9FB00E899CA /* AdminChatEscalationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303A8D0C256FE9FB00E899CA /* AdminChatEscalationController.swift */; };
 		307B397D252C24DD000028AC /* AdvancePaymentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B397C252C24DD000028AC /* AdvancePaymentScene.swift */; };
 		307B3981252C73EE000028AC /* TransactionReceiptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 307B3980252C73EE000028AC /* TransactionReceiptView.xib */; };
 		307B3983252C8602000028AC /* PaymentArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307B3982252C8602000028AC /* PaymentArtist.swift */; };
@@ -443,23 +448,13 @@
 		C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0D6CF6224F518AE00287D7A /* LabelCell.xib */; };
 		C0D6CF6724F51D8200287D7A /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6CF6624F51D8200287D7A /* LabelCell.swift */; };
 		C0D8D95B255AA65A0082AC4F /* Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8D95A255AA65A0082AC4F /* Cells.swift */; };
-		C0DB81B9256E946400D61B9A /* ChatListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81B6256E946400D61B9A /* ChatListScene.swift */; };
-		C0DB81BA256E946400D61B9A /* ChatEscalationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81B7256E946400D61B9A /* ChatEscalationScene.swift */; };
 		C0DB81BB256E946400D61B9A /* ChatDetailsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81B8256E946400D61B9A /* ChatDetailsScene.swift */; };
-		C0DB81C1256E947E00D61B9A /* ChatEscalationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81BD256E947E00D61B9A /* ChatEscalationController.swift */; };
-		C0DB81C2256E947E00D61B9A /* ChatListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81BE256E947E00D61B9A /* ChatListController.swift */; };
 		C0DB81C3256E947E00D61B9A /* ChatDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81BF256E947E00D61B9A /* ChatDetailsController.swift */; };
-		C0DB81C4256E947E00D61B9A /* ChatNewListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81C0256E947E00D61B9A /* ChatNewListController.swift */; };
-		C0DB81C9256E949700D61B9A /* ChatListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81C6256E949600D61B9A /* ChatListService.swift */; };
-		C0DB81CA256E949700D61B9A /* ChatEscalationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81C7256E949600D61B9A /* ChatEscalationService.swift */; };
 		C0DB81CB256E949700D61B9A /* ChatDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81C8256E949600D61B9A /* ChatDetailsService.swift */; };
-		C0DB81CD256E957100D61B9A /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81CC256E957000D61B9A /* Chat.swift */; };
-		C0DB81D1256E958100D61B9A /* EscalationConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81CE256E958100D61B9A /* EscalationConversation.swift */; };
 		C0DB81D2256E958100D61B9A /* FaultyOrderReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81CF256E958100D61B9A /* FaultyOrderReview.swift */; };
-		C0DB81D3256E958100D61B9A /* EscalationCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81D0256E958100D61B9A /* EscalationCategory.swift */; };
-		C0DB81D6256E95BD00D61B9A /* Chat+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81D4256E95BD00D61B9A /* Chat+Transaction.swift */; };
+		C0DB81D6256E95BD00D61B9A /* Conversation+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81D4256E95BD00D61B9A /* Conversation+Transaction.swift */; };
 		C0DB81D7256E95BD00D61B9A /* FaultyOrderReview+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81D5256E95BD00D61B9A /* FaultyOrderReview+Transaction.swift */; };
-		C0DB81D9256E960300D61B9A /* Chat+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81D8256E960300D61B9A /* Chat+Request.swift */; };
+		C0DB81D9256E960300D61B9A /* Conversation+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81D8256E960300D61B9A /* Conversation+Request.swift */; };
 		C0DB81DB256EA3F000D61B9A /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81DA256EA3F000D61B9A /* Conversation.swift */; };
 		C0DB81DE256EA59E00D61B9A /* OpenAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB81DC256EA59E00D61B9A /* OpenAttachmentView.swift */; };
 		C0DB81DF256EA59E00D61B9A /* OpenAttachmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0DB81DD256EA59E00D61B9A /* OpenAttachmentView.xib */; };
@@ -473,8 +468,6 @@
 		C0E6D04224EBF84E008CFB1F /* BuyerProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6D04124EBF84E008CFB1F /* BuyerProductDetailController.swift */; };
 		C0F0653724BCC4C8004B5138 /* AccountType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0653624BCC4C8004B5138 /* AccountType.swift */; };
 		C0F4723324C9901900DB8F38 /* DesignCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F4723224C9901900DB8F38 /* DesignCollectionController.swift */; };
-		C0F72C16256ED03E006C9B27 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F72C14256ED03D006C9B27 /* ChatCell.swift */; };
-		C0F72C17256ED03E006C9B27 /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F72C15256ED03D006C9B27 /* ChatCell.xib */; };
 		C0F72C1A256ED1A0006C9B27 /* ChatEscalationHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0F72C18256ED1A0006C9B27 /* ChatEscalationHeaderView.xib */; };
 		C0F72C1B256ED1A0006C9B27 /* ChatEscalationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F72C19256ED1A0006C9B27 /* ChatEscalationHeaderView.swift */; };
 		C0F72C21256ED65C006C9B27 /* TransactionTitleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F72C1D256ED65B006C9B27 /* TransactionTitleRow.swift */; };
@@ -532,6 +525,11 @@
 		301B7EE725223FDC0008DE3A /* MOQSortButtonsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQSortButtonsRow.swift; sourceTree = "<group>"; };
 		301B7EE825223FDC0008DE3A /* MOQSortButtonsRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQSortButtonsRow.xib; sourceTree = "<group>"; };
 		301B7EEB25235B6C0008DE3A /* GetPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPI.swift; sourceTree = "<group>"; };
+		303A8D04256FD53D00E899CA /* AdminChatEscalationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminChatEscalationObject.swift; sourceTree = "<group>"; };
+		303A8D06256FDC5100E899CA /* AdminChatEscalationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminChatEscalationScene.swift; sourceTree = "<group>"; };
+		303A8D08256FE00700E899CA /* AdminChatEscalationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminChatEscalationCell.swift; sourceTree = "<group>"; };
+		303A8D09256FE00700E899CA /* AdminChatEscalationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminChatEscalationCell.xib; sourceTree = "<group>"; };
+		303A8D0C256FE9FB00E899CA /* AdminChatEscalationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminChatEscalationController.swift; sourceTree = "<group>"; };
 		307B397C252C24DD000028AC /* AdvancePaymentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancePaymentScene.swift; sourceTree = "<group>"; };
 		307B3980252C73EE000028AC /* TransactionReceiptView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionReceiptView.xib; sourceTree = "<group>"; };
 		307B3982252C8602000028AC /* PaymentArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentArtist.swift; sourceTree = "<group>"; };
@@ -930,23 +928,13 @@
 		C0D6CF6224F518AE00287D7A /* LabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		C0D6CF6624F51D8200287D7A /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		C0D8D95A255AA65A0082AC4F /* Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cells.swift; sourceTree = "<group>"; };
-		C0DB81B6256E946400D61B9A /* ChatListScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListScene.swift; sourceTree = "<group>"; };
-		C0DB81B7256E946400D61B9A /* ChatEscalationScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatEscalationScene.swift; sourceTree = "<group>"; };
 		C0DB81B8256E946400D61B9A /* ChatDetailsScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailsScene.swift; sourceTree = "<group>"; };
-		C0DB81BD256E947E00D61B9A /* ChatEscalationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatEscalationController.swift; sourceTree = "<group>"; };
-		C0DB81BE256E947E00D61B9A /* ChatListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListController.swift; sourceTree = "<group>"; };
 		C0DB81BF256E947E00D61B9A /* ChatDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailsController.swift; sourceTree = "<group>"; };
-		C0DB81C0256E947E00D61B9A /* ChatNewListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatNewListController.swift; sourceTree = "<group>"; };
-		C0DB81C6256E949600D61B9A /* ChatListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListService.swift; sourceTree = "<group>"; };
-		C0DB81C7256E949600D61B9A /* ChatEscalationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatEscalationService.swift; sourceTree = "<group>"; };
 		C0DB81C8256E949600D61B9A /* ChatDetailsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatDetailsService.swift; sourceTree = "<group>"; };
-		C0DB81CC256E957000D61B9A /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
-		C0DB81CE256E958100D61B9A /* EscalationConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscalationConversation.swift; sourceTree = "<group>"; };
 		C0DB81CF256E958100D61B9A /* FaultyOrderReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaultyOrderReview.swift; sourceTree = "<group>"; };
-		C0DB81D0256E958100D61B9A /* EscalationCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscalationCategory.swift; sourceTree = "<group>"; };
-		C0DB81D4256E95BD00D61B9A /* Chat+Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Chat+Transaction.swift"; path = "CraftExchange/Entities/Entity+Transaction/Chat+Transaction.swift"; sourceTree = SOURCE_ROOT; };
+		C0DB81D4256E95BD00D61B9A /* Conversation+Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Conversation+Transaction.swift"; path = "CraftExchange/Entities/Admin+Transactions/Conversation+Transaction.swift"; sourceTree = SOURCE_ROOT; };
 		C0DB81D5256E95BD00D61B9A /* FaultyOrderReview+Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FaultyOrderReview+Transaction.swift"; path = "CraftExchange/Entities/Entity+Transaction/FaultyOrderReview+Transaction.swift"; sourceTree = SOURCE_ROOT; };
-		C0DB81D8256E960300D61B9A /* Chat+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chat+Request.swift"; sourceTree = "<group>"; };
+		C0DB81D8256E960300D61B9A /* Conversation+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Conversation+Request.swift"; sourceTree = "<group>"; };
 		C0DB81DA256EA3F000D61B9A /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		C0DB81DC256EA59E00D61B9A /* OpenAttachmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OpenAttachmentView.swift; path = CraftExchange/View/CustomAssets/OpenAttachmentView.swift; sourceTree = SOURCE_ROOT; };
 		C0DB81DD256EA59E00D61B9A /* OpenAttachmentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OpenAttachmentView.xib; path = CraftExchange/View/CustomAssets/OpenAttachmentView.xib; sourceTree = SOURCE_ROOT; };
@@ -960,8 +948,6 @@
 		C0E6D04124EBF84E008CFB1F /* BuyerProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProductDetailController.swift; sourceTree = "<group>"; };
 		C0F0653624BCC4C8004B5138 /* AccountType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountType.swift; sourceTree = "<group>"; };
 		C0F4723224C9901900DB8F38 /* DesignCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignCollectionController.swift; sourceTree = "<group>"; };
-		C0F72C14256ED03D006C9B27 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
-		C0F72C15256ED03D006C9B27 /* ChatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
 		C0F72C18256ED1A0006C9B27 /* ChatEscalationHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatEscalationHeaderView.xib; sourceTree = "<group>"; };
 		C0F72C19256ED1A0006C9B27 /* ChatEscalationHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatEscalationHeaderView.swift; sourceTree = "<group>"; };
 		C0F72C1D256ED65B006C9B27 /* TransactionTitleRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTitleRow.swift; sourceTree = "<group>"; };
@@ -1143,6 +1129,8 @@
 			children = (
 				C010371E256F50C80008DCE9 /* AdminEscalationCell.xib */,
 				C0103720256F51D50008DCE9 /* AdminEscalationCell.swift */,
+				303A8D08256FE00700E899CA /* AdminChatEscalationCell.swift */,
+				303A8D09256FE00700E899CA /* AdminChatEscalationCell.xib */,
 			);
 			path = AdminEscalationCells;
 			sourceTree = "<group>";
@@ -1382,12 +1370,9 @@
 				C05836BA24C887AC0027FF44 /* ProductImage.swift */,
 				C09794A224EABB7900C11AC7 /* CustomProductImage.swift */,
 				C07721ED256E701900609468 /* Order.swift */,
-				C0DB81CC256E957000D61B9A /* Chat.swift */,
 				C07721EF256E701A00609468 /* QCQuestions.swift */,
 				C07721EE256E701900609468 /* QCStages.swift */,
 				C07721F0256E701A00609468 /* QualityCheck.swift */,
-				C0DB81D0256E958100D61B9A /* EscalationCategory.swift */,
-				C0DB81CE256E958100D61B9A /* EscalationConversation.swift */,
 				C0DB81CF256E958100D61B9A /* FaultyOrderReview.swift */,
 				C071E235247EB69D0085805B /* Role.swift */,
 				C071E237247ED41A0085805B /* User.swift */,
@@ -1668,7 +1653,6 @@
 				C0ACE9912484EF3800EFA4ED /* Country+Request.swift */,
 				C0ACE99D2485916400EFA4ED /* ProductCategory+Request.swift */,
 				C0ACE9AF2485BD0C00EFA4ED /* ClusterDetails+Request.swift */,
-				C0DB81D8256E960300D61B9A /* Chat+Request.swift */,
 				C005BCB724C1DC9F00197519 /* Product+Request.swift */,
 				C04842B024E7BB0F00D3207F /* CustomeProduct+Request.swift */,
 				C02DC55624F4F26C00805C98 /* Product+Search.swift */,
@@ -1677,7 +1661,6 @@
 				C07721F9256E706100609468 /* QualityCheck+Request.swift */,
 				C099E3E924FE1BDF003B6E3B /* Enquiry+Request.swift */,
 				C016EC1D2510D4F20039B7AF /* Notification+Request.swift */,
-				C0DB81D4256E95BD00D61B9A /* Chat+Transaction.swift */,
 				C0DB81D5256E95BD00D61B9A /* FaultyOrderReview+Transaction.swift */,
 				C065709F252B82D3001140C7 /* TransactionStatus+Request.swift */,
 				C06570A5252B8E87001140C7 /* TransactionObject+Request.swift */,
@@ -1856,8 +1839,6 @@
 		C09F97DD25021BE30076F917 /* EnquiryCells */ = {
 			isa = PBXGroup;
 			children = (
-				C0F72C14256ED03D006C9B27 /* ChatCell.swift */,
-				C0F72C15256ED03D006C9B27 /* ChatCell.xib */,
 				C09F97DB25021BD80076F917 /* BuyerEnquiryCell.swift */,
 				C09F97DE25021C100076F917 /* BuyerEnquiryCell.xib */,
 				C06AA39725052A9B00EF4B10 /* EnquiryDetailsRow.xib */,
@@ -2032,9 +2013,8 @@
 		C0DB81B5256E946400D61B9A /* ChatScenes */ = {
 			isa = PBXGroup;
 			children = (
-				C0DB81B6256E946400D61B9A /* ChatListScene.swift */,
-				C0DB81B7256E946400D61B9A /* ChatEscalationScene.swift */,
 				C0DB81B8256E946400D61B9A /* ChatDetailsScene.swift */,
+				303A8D06256FDC5100E899CA /* AdminChatEscalationScene.swift */,
 			);
 			path = ChatScenes;
 			sourceTree = "<group>";
@@ -2042,10 +2022,8 @@
 		C0DB81BC256E947E00D61B9A /* ChatController */ = {
 			isa = PBXGroup;
 			children = (
-				C0DB81BD256E947E00D61B9A /* ChatEscalationController.swift */,
-				C0DB81BE256E947E00D61B9A /* ChatListController.swift */,
 				C0DB81BF256E947E00D61B9A /* ChatDetailsController.swift */,
-				C0DB81C0256E947E00D61B9A /* ChatNewListController.swift */,
+				303A8D0C256FE9FB00E899CA /* AdminChatEscalationController.swift */,
 			);
 			path = ChatController;
 			sourceTree = "<group>";
@@ -2053,8 +2031,6 @@
 		C0DB81C5256E949600D61B9A /* ChatService */ = {
 			isa = PBXGroup;
 			children = (
-				C0DB81C6256E949600D61B9A /* ChatListService.swift */,
-				C0DB81C7256E949600D61B9A /* ChatEscalationService.swift */,
 				C0DB81C8256E949600D61B9A /* ChatDetailsService.swift */,
 			);
 			path = ChatService;
@@ -2093,6 +2069,7 @@
 				A983D9A0256E325400F6D8E9 /* AdminNotifications.swift */,
 				C05E440E256E561900570DDC /* AdminOrder.swift */,
 				C010370E256F46B90008DCE9 /* AdminEscalation.swift */,
+				303A8D04256FD53D00E899CA /* AdminChatEscalationObject.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -2108,6 +2085,7 @@
 				30B91DD6256E46FA00C4EC96 /* AdminRedirectEnquiry+Transaction.swift */,
 				A983D9A4256E341300F6D8E9 /* AdminNotifications+Transaction.swift */,
 				C05E4410256E565C00570DDC /* AdminOrder+Transactions.swift */,
+				C0DB81D4256E95BD00D61B9A /* Conversation+Transaction.swift */,
 				C0103710256F4A0B0008DCE9 /* AdminEscalation+Transaction.swift */,
 			);
 			path = "Admin+Transactions";
@@ -2124,6 +2102,7 @@
 				300C6DE7256E8EED00AFFA1E /* AdminRedirectEnquiry+Request.swift */,
 				A983D9A2256E333C00F6D8E9 /* AdminNotifications+Request.swift */,
 				C05E4412256E56A200570DDC /* AdminOrder+Request.swift */,
+				C0DB81D8256E960300D61B9A /* Conversation+Request.swift */,
 				C0103712256F4AD10008DCE9 /* AdminEscalation+Request.swift */,
 			);
 			path = "Admin+Networking";
@@ -2262,7 +2241,6 @@
 				C0A9108E247CD8D000852695 /* Lato-Black.ttf in Resources */,
 				C0D6CF6324F518AE00287D7A /* LabelCell.xib in Resources */,
 				C0995BFC24C8CE5900EC4CC3 /* BuyerProductCell.xib in Resources */,
-				C0F72C17256ED03E006C9B27 /* ChatCell.xib in Resources */,
 				C016EC1C2510D3590039B7AF /* NotificationCell.xib in Resources */,
 				C0A9108B247CD8D000852695 /* Lato-LightItalic.ttf in Resources */,
 				300C6DF0256EBFD700AFFA1E /* AdminRedirectArtisansCell.xib in Resources */,
@@ -2279,6 +2257,7 @@
 				C0F72C2A256EEFFB006C9B27 /* AdminEscalationTab.storyboard in Resources */,
 				C0DB81DF256EA59E00D61B9A /* OpenAttachmentView.xib in Resources */,
 				C0A910A4247CD90B00852695 /* PlayfairDisplay-Medium.ttf in Resources */,
+				303A8D0B256FE00700E899CA /* AdminChatEscalationCell.xib in Resources */,
 				C09B3F0024BA56AD00FBC115 /* ProfileImageRow.xib in Resources */,
 				3005D1E72521AEE200BF22C0 /* MOQAcceptedView.xib in Resources */,
 				C0A910AC247CD90B00852695 /* PlayfairDisplay-BlackItalic.ttf in Resources */,
@@ -2443,7 +2422,6 @@
 				C02131CE2559C8AE00269991 /* MarketActions.swift in Sources */,
 				C0A2A00224B8B9A900A49E56 /* PaymentAccDetails.swift in Sources */,
 				C05E3AD424D177EA00963FAA /* UploadProductController.swift in Sources */,
-				C0DB81CD256E957100D61B9A /* Chat.swift in Sources */,
 				C07721F7256E703700609468 /* QualityCheck+Transactions.swift in Sources */,
 				C0D5F9A6256BCF8B00E597CC /* AdminTabbarController.swift in Sources */,
 				C0B2311A24F8F64C00193ABB /* UILabel+Extensions.swift in Sources */,
@@ -2466,7 +2444,6 @@
 				C02DC55724F4F26C00805C98 /* Product+Search.swift in Sources */,
 				A94D236C2565A27D00CDF674 /* AdminTeammate+Transaction.swift in Sources */,
 				A9678416256427680066C147 /* MarketingTeam+Request.swift in Sources */,
-				C0DB81CA256E949700D61B9A /* ChatEscalationService.swift in Sources */,
 				C06570A0252B82D3001140C7 /* TransactionStatus+Request.swift in Sources */,
 				C07721FC256E706100609468 /* Order+Request.swift in Sources */,
 				C0B66347256C380200DADAA4 /* AdminEnquiryListService.swift in Sources */,
@@ -2478,9 +2455,9 @@
 				C09B3EF824BA1B9200FBC115 /* CompanyPointOfContact+Transaction.swift in Sources */,
 				C0DB81CB256E949700D61B9A /* ChatDetailsService.swift in Sources */,
 				C005BCB624C1AB2F00197519 /* Product.swift in Sources */,
+				303A8D07256FDC5100E899CA /* AdminChatEscalationScene.swift in Sources */,
 				C0FBE34C24C6B6560037347A /* RealmChanges.swift in Sources */,
 				C02DC55A24F4F30800805C98 /* SearchService.swift in Sources */,
-				C0DB81C4256E947E00D61B9A /* ChatNewListController.swift in Sources */,
 				C02DC55224F4F0AE00805C98 /* Searchable.swift in Sources */,
 				C09C8C25250D496700950526 /* EnquiryDetailsScene.swift in Sources */,
 				C09B3F1124BA615900FBC115 /* Disk+Helpers.swift in Sources */,
@@ -2514,8 +2491,8 @@
 				C09B3F1524BA615900FBC115 /* Disk+Codable.swift in Sources */,
 				C05E440F256E561900570DDC /* AdminOrder.swift in Sources */,
 				C0772200256E70B700609468 /* QCService.swift in Sources */,
+				303A8D0A256FE00700E899CA /* AdminChatEscalationCell.swift in Sources */,
 				C016EC1E2510D4F20039B7AF /* Notification+Request.swift in Sources */,
-				C0DB81C9256E949700D61B9A /* ChatListService.swift in Sources */,
 				C038EFC624D81D0D00C43C35 /* ProductType+Transaction.swift in Sources */,
 				C03BD87D2476F0BC00279D7F /* SceneDelegate.swift in Sources */,
 				115338B52547FB8800BF4204 /* ProdImagesView.swift in Sources */,
@@ -2552,7 +2529,6 @@
 				C071E256247EE6CD0085805B /* KeychainManager.swift in Sources */,
 				C0144AB12483FCB5006FF4AB /* ResetPasswordService.swift in Sources */,
 				3005D1EE2521C79300BF22C0 /* SingleLabelRow.swift in Sources */,
-				C0DB81B9256E946400D61B9A /* ChatListScene.swift in Sources */,
 				C04842C224E7E70A00D3207F /* Date+Extensions.swift in Sources */,
 				C071E238247ED41A0085805B /* User.swift in Sources */,
 				C0103721256F51D50008DCE9 /* AdminEscalationCell.swift in Sources */,
@@ -2584,7 +2560,7 @@
 				C0995BF824C8CB8C00EC4CC3 /* RegionCell.swift in Sources */,
 				30B91DAF256D5E5D00C4EC96 /* ProductCatalogueCell.swift in Sources */,
 				C0A0D76624BE442F0089CC47 /* OfflineProfileActionsRequest.swift in Sources */,
-				C0DB81D6256E95BD00D61B9A /* Chat+Transaction.swift in Sources */,
+				C0DB81D6256E95BD00D61B9A /* Conversation+Transaction.swift in Sources */,
 				3005D1E12521966200BF22C0 /* MOQAcceptView.swift in Sources */,
 				30B91DC2256D603A00C4EC96 /* CatalogueProduct.swift in Sources */,
 				3005D1E52521AE4000BF22C0 /* MOQAcceptedView.swift in Sources */,
@@ -2597,14 +2573,12 @@
 				30B91DBE256D5FB600C4EC96 /* AdminUploadProductController.swift in Sources */,
 				C071E262247EFCC60085805B /* OfflineRequestsManager.swift in Sources */,
 				300C6DEC256EBCF000AFFA1E /* AdminRedirectArtisansController.swift in Sources */,
-				C0DB81BA256E946400D61B9A /* ChatEscalationScene.swift in Sources */,
 				11173F5F2541A9840027B9C3 /* AdminUserDetailController.swift in Sources */,
 				30B91DCE256D616E00C4EC96 /* UploadProductScene.swift in Sources */,
 				C0103711256F4A0B0008DCE9 /* AdminEscalation+Transaction.swift in Sources */,
 				C07721E3256E6C0400609468 /* QCBuyerScene.swift in Sources */,
 				C09B3F0E24BA615900FBC115 /* Disk+[Data].swift in Sources */,
 				C071E23C247EDDF90085805B /* ClusterProductCategory.swift in Sources */,
-				C0DB81D1256E958100D61B9A /* EscalationConversation.swift in Sources */,
 				C06570A6252B8E87001140C7 /* TransactionObject+Request.swift in Sources */,
 				C074EE3424EE7FD700B0973B /* CustomWeaveType.swift in Sources */,
 				C0ACE9962485895600EFA4ED /* Country.swift in Sources */,
@@ -2613,6 +2587,7 @@
 				C0F72C1B256ED1A0006C9B27 /* ChatEscalationHeaderView.swift in Sources */,
 				C0FBE35224C6F7CB0037347A /* ProductCatalogService.swift in Sources */,
 				C06570A4252B86B8001140C7 /* TransactionObject.swift in Sources */,
+				303A8D0D256FE9FB00E899CA /* AdminChatEscalationController.swift in Sources */,
 				C09C8C27250D4DA400950526 /* EnquiryDetailsService.swift in Sources */,
 				C0285A9F24CF22ED0045623A /* UserProfilePicService.swift in Sources */,
 				C09B3EFE24BA569300FBC115 /* ProfileImageRow.swift in Sources */,
@@ -2642,7 +2617,6 @@
 				C0A29FFE24B8ABC500A49E56 /* Weaver.swift in Sources */,
 				C0B86A6E256FE4C100C1F620 /* AdminTransactionListScene.swift in Sources */,
 				C05E3AE324D1F2E700963FAA /* iCarousel.m in Sources */,
-				C0DB81C2256E947E00D61B9A /* ChatListController.swift in Sources */,
 				C0E6D04224EBF84E008CFB1F /* BuyerProductDetailController.swift in Sources */,
 				C07721E0256E6A0900609468 /* OrderDetailController.swift in Sources */,
 				C0E2354225667B9400A1F268 /* AdminUser.swift in Sources */,
@@ -2652,9 +2626,7 @@
 				C07721F1256E701A00609468 /* Order.swift in Sources */,
 				C071E22B247E7F820085805B /* Address.swift in Sources */,
 				C09794A324EABB7900C11AC7 /* CustomProductImage.swift in Sources */,
-				C0DB81D3256E958100D61B9A /* EscalationCategory.swift in Sources */,
 				C07721FB256E706100609468 /* QualityCheck+Request.swift in Sources */,
-				C0DB81C1256E947E00D61B9A /* ChatEscalationController.swift in Sources */,
 				C0DB81C3256E947E00D61B9A /* ChatDetailsController.swift in Sources */,
 				309787772524133600F9B608 /* PreviewPIView.swift in Sources */,
 				C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */,
@@ -2748,12 +2720,13 @@
 				C04842B724E7C2ED00D3207F /* CustomProductListScene.swift in Sources */,
 				C074EE3A24EEC1DF00B0973B /* WishlistController.swift in Sources */,
 				C0DB81DB256EA3F000D61B9A /* Conversation.swift in Sources */,
-				C0DB81D9256E960300D61B9A /* Chat+Request.swift in Sources */,
+				C0DB81D9256E960300D61B9A /* Conversation+Request.swift in Sources */,
 				C09980AF24D5A74500BE86D0 /* OfflineProductRequest.swift in Sources */,
 				C0144AAB2483FC38006FF4AB /* ForgotPasswordScene.swift in Sources */,
 				C0ACE9922484EF3800EFA4ED /* Country+Request.swift in Sources */,
 				C0144AA92483FA39006FF4AB /* ResetPasswordController.swift in Sources */,
 				118F70562555582A0075F998 /* AdminOrderList.swift in Sources */,
+				303A8D05256FD53D00E899CA /* AdminChatEscalationObject.swift in Sources */,
 				C09B3EFA24BA1BBD00FBC115 /* BuyerCompanyDetails+Transaction.swift in Sources */,
 				C0A0D76324BD7B360089CC47 /* PaymentAccDetails+Transaction.swift in Sources */,
 				30B91DDA256E681E00C4EC96 /* AdminRedirectEnquiryCell.swift in Sources */,
@@ -2767,7 +2740,6 @@
 				C05E3ADC24D1EEA500963FAA /* ImageSelectorCell.swift in Sources */,
 				A94D237025667C0800CDF674 /* AdminTeamUserProfile.swift in Sources */,
 				C04842B124E7BB0F00D3207F /* CustomeProduct+Request.swift in Sources */,
-				C0F72C16256ED03E006C9B27 /* ChatCell.swift in Sources */,
 				C0917DE224D43446006B6664 /* ProductWidth.swift in Sources */,
 				C0F72C24256ED65C006C9B27 /* TransactionDetailRow.swift in Sources */,
 				A9678419256428090066C147 /* MarketingTeammateService.swift in Sources */,

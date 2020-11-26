@@ -22,31 +22,7 @@ extension AdminNotificationService {
         let controller = storyboard.instantiateViewController(withIdentifier: "AdminNotificationController") as! AdminNotificationController
        
         func performSync(){
-            getAllTheNotifications().bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        if let dataDict = json["data"] as? Dictionary<String,Any> {
-                            guard let notiObj = dataDict["getAllNotifications"] as? [[String: Any]] else {
-                                return
-                            }
-                            if let notidata = try? JSONSerialization.data(withJSONObject: notiObj, options: .fragmentsAllowed) {
-                                if  let notiAdmin = try? JSONDecoder().decode([AdminNotifications].self, from: notidata) {
-                                    DispatchQueue.main.async {
-                                       notiAdmin.forEach { (obj) in
-                                            obj.saveOrUpdate()
-                                            controller.allNotificationIds.append(obj.notificationId)
-                                       }
-                                       controller.endRefresh()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                DispatchQueue.main.async {
-                    controller.hideLoading()
-                }
-            }.dispose(in: controller.bag)
+            self.getAdminNotification(controller: controller)
         }
                 
         
@@ -59,5 +35,39 @@ extension AdminNotificationService {
         }
         
         return controller
+    }
+    
+    func getAdminNotification(controller: UIViewController) {
+        getAllTheNotifications().bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    if let dataDict = json["data"] as? Dictionary<String,Any> {
+                        guard let notiObj = dataDict["getAllNotifications"] as? [[String: Any]] else {
+                            return
+                        }
+                        if let notidata = try? JSONSerialization.data(withJSONObject: notiObj, options: .fragmentsAllowed) {
+                            if  let notiAdmin = try? JSONDecoder().decode([AdminNotifications].self, from: notidata) {
+                                DispatchQueue.main.async {
+                                   notiAdmin.forEach { (obj) in
+                                        obj.saveOrUpdate()
+                                    if let vc = controller as? AdminNotificationController {
+                                        vc.allNotificationIds.append(obj.notificationId)
+                                    }
+                                        
+                                   }
+                                    UIApplication.shared.applicationIconBadgeNumber = notiAdmin.count
+                                    if let vc = controller as? AdminNotificationController {
+                                        vc.endRefresh()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                controller.hideLoading()
+            }
+        }.dispose(in: controller.bag)
     }
 }

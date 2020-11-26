@@ -51,6 +51,8 @@ class ProductCatalogueController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItem = rightBarButtomItem
         categoryFilterButton.borderColour = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
         availabilityFilterButton.borderColour = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
         categoryLabel.text = "Cluster"
@@ -59,10 +61,10 @@ class ProductCatalogueController: UIViewController {
         try? reachabilityManager?.startNotifier()
         allProducts = []
         if self.segmentView.selectedSegmentIndex == 0 {
-            self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
+            self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
             self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {
-            self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
+            self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
             self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }
         addTopBorderWithColor(tableView, color: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1), width: 1)
@@ -96,7 +98,7 @@ class ProductCatalogueController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         viewWillAppear?()
-        segmentView.buttonTitles = "Antaran Co design, Artisan Self Design".localized
+        segmentView.buttonTitles = "Artisan Self Design, Antaran Co design".localized
         segmentView.type = .normal
     }
     
@@ -104,19 +106,6 @@ class ProductCatalogueController: UIViewController {
         viewWillAppear?()
     }
     
-//    func hideShowFilter(isHidden: Bool){
-//        filterView.isHidden = isHidden
-//        if isHidden == true{
-//            var newFrame = filterView.frame
-//            newFrame.size.height = 0
-//            filterView.frame = newFrame
-//            // filterView.remo
-//        }else{
-//            var newFrame = filterView.frame
-//            newFrame.size.height = 116
-//            filterView.frame = newFrame
-//        }
-//    }
     func endRefresh() {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
@@ -124,10 +113,10 @@ class ProductCatalogueController: UIViewController {
         if self.reachabilityManager?.connection == .unavailable {
             
             if self.segmentView.selectedSegmentIndex == 0 {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
+                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
                 self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }else {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
+                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
                 self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }
              self.hideLoading()
@@ -135,22 +124,15 @@ class ProductCatalogueController: UIViewController {
         }else{
             
             if self.segmentView.selectedSegmentIndex == 0 {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
+                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
                 self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }else {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
+                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
                 self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }
         }
         checkFilter()
-        if searchText != "" {
-            let query = NSCompoundPredicate(type: .or, subpredicates:
-                [NSPredicate(format: "code contains[c] %@",searchText),
-                 NSPredicate(format: "name contains[c] %@",searchText), NSPredicate(format: "category contains[c] %@",searchText), NSPredicate(format: "brand contains[c] %@",searchText)])
-            
-            allProducts = allProductsResults?.filter(query).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-            
-        }
+        
         let count = allProducts?.count ?? 0
         self.totalLabel.text = "Total Products: \(count)"
         
@@ -158,13 +140,6 @@ class ProductCatalogueController: UIViewController {
         self.tableView.reloadData()
     }
     
-//    @IBAction func activeFilterBtnSelected(_ sender: Any) {
-//        if filterView.isHidden == true {
-//            hideShowFilter(isHidden: false)
-//        }else{
-//            hideShowFilter(isHidden: true)
-//        }
-//    }
     
     @IBAction func segmentValueChanged(_ sender: Any) {
         self.allProducts?.removeAll()
@@ -253,36 +228,46 @@ class ProductCatalogueController: UIViewController {
         if self.clusterFilterValue != "All" {
             if self.availabilityFilterValue != "All" {
                 if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
                 }else {
                     
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
                 }
             }else{
                 if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
                 }else {
                     
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
                 }
             }
         }else{
             if self.availabilityFilterValue != "All" {
                 if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
                 }else {
                     
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
                 }
             }else{
                 if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                }else {
                     self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
+                }else {
+                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
                 }
             }
         }
+        
         self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        
+        if searchText != "" {
+            let query = NSCompoundPredicate(type: .or, subpredicates:
+                [NSPredicate(format: "code contains[c] %@",searchText),
+                 NSPredicate(format: "name contains[c] %@",searchText), NSPredicate(format: "category contains[c] %@",searchText), NSPredicate(format: "brand contains[c] %@",searchText)])
+            
+            allProducts = allProductsResults?.filter(query).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            
+        }
     }
     
 }
@@ -328,7 +313,8 @@ extension ProductCatalogueController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchBar.text ?? ""
-        endRefresh()
+       // endRefresh()
+         applyBtn.sendActions(for: .touchUpInside)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -339,9 +325,14 @@ extension ProductCatalogueController: UISearchBarDelegate {
         searchBar.showsCancelButton = true
         searchBar.text = ""
         searchText = ""
-        endRefresh()
+        applyBtn.sendActions(for: .touchUpInside)
         searchBar.resignFirstResponder()
     }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        applyBtn.sendActions(for: .touchUpInside)
+    }
+   
+    
 }
 
 

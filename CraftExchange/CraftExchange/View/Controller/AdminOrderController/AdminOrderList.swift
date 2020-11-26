@@ -34,6 +34,9 @@ class AdminOrderList: FormViewController {
         self.view.backgroundColor = .black
         self.tableView?.backgroundColor = .black
 
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItem = rightBarButtomItem
+        
         let realm = try! Realm()
         form +++
             Section()

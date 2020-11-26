@@ -17,11 +17,11 @@ class AdminRedirectEnquiryCell: UITableViewCell {
     @IBOutlet weak var weaveUsed: UILabel!
     
     func configure(_ obj: AdminRedirectEnquiry) {
-        enquiryDate.text = obj.date ?? ""
-        enquiryCode.text = obj.code ?? ""
-        brand.text = obj.companyName ?? ""
-        productCategory.text = obj.productCategory ?? ""
-        weaveUsed.text = obj.weave ?? ""
+        enquiryDate.text = obj.date ?? "NA"
+        enquiryCode.text = obj.code ?? "NA"
+        brand.text = obj.companyName ?? "NA"
+        productCategory.text = obj.productCategory ?? "NA"
+        weaveUsed.text = obj.weave ?? "NA"
     }
     
     

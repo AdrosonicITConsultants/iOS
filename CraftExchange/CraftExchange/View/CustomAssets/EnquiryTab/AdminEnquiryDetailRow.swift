@@ -53,6 +53,8 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
             finalStateLabel.text = enquiryObj.productStatus == 2 ? "7" : "10"
         }else if enquiryObj.customProductId != 0 || enquiryObj.customProductHistoryId != 0 {
             finalStateLabel.text = "/10"
+            availabilityLabel.text = "Custom Product"
+            availabilityImage.isHidden = true
         }
     }
     
@@ -83,6 +85,8 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
             finalStateLabel.text = enquiryObj.productStatus == 2 ? "7" : "10"
         }else if enquiryObj.customProductId != 0 || enquiryObj.customProductHistoryId != 0 {
             finalStateLabel.text = "/10"
+            availabilityLabel.text = "Custom Product"
+            availabilityImage.isHidden = true
         }
     }
 }

@@ -62,6 +62,9 @@ class AdminUserController: UIViewController {
         self.view.backgroundColor = .black
         self.spreadsheetView.backgroundColor = .black
         
+        let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
+        navigationItem.rightBarButtonItem = rightBarButtomItem
+        
         segmentedControl.setBlackControl()
         header = ["Artisan id", "Name", "Email", "Cluster", "Brand", "Rating", "Date"]
         spreadsheetView.dataSource = self

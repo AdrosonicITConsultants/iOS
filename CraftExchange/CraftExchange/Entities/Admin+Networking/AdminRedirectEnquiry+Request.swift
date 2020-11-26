@@ -62,10 +62,11 @@ extension AdminRedirectEnquiry {
         var str = ""
         if searchString != ""{
             str = "marketingTeam/getArtisansLessThan8Rating?clusterId=\(clusterId)&searchString=\(searchString ?? "")&enquiryId=\(enquiryId)"
+           
         }else{
             str = "marketingTeam/getArtisansLessThan8Rating?clusterId=\(clusterId)&enquiryId=\(enquiryId)"
         }
-        
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
       let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
       return Request(
           path: str,
