@@ -122,6 +122,9 @@ extension EnquiryDetailsService {
                                                     }*/else if let controller = vc as? OrderDetailController {
                                                         controller.hideLoading()
                                                         controller.view.showTransactionReceiptView(controller: controller, data: finalData)
+                                                    }else if let controller = vc as? AdminTransactionController {
+                                                        controller.hideLoading()
+                                                        controller.view.showTransactionReceiptView(controller: controller, data: finalData)
                                                     }
                                                 }
                                             }

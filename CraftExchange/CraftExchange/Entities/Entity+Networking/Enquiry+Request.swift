@@ -487,7 +487,7 @@ extension Enquiry {
         )
     }
     public static func FinalPaymentReceit(enquiryId: Int) -> Request<Data, APIError> {
-        var str = "enquiry/getFinalPaymentReceipt/\(enquiryId)?enquiryId=\(enquiryId)"
+        var str = "enquiry/getFinalPaymentReceipt/\(enquiryId)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(

@@ -1244,7 +1244,7 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
     }
     
     func listTransactionsFunc() {
-        let listMOQSection = self.form.sectionBy(tag: "list Transactions")!
+        if let listMOQSection = self.form.sectionBy(tag: "list Transactions") {
         let showTransactions = listTransactions!
         showTransactions.forEach({ (obj) in
             listMOQSection <<< TransactionTitleRowView() {
@@ -1278,6 +1278,7 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
 
                 })
         })
+        }
         self.form.sectionBy(tag: "list Transactions")?.reload()
     }
 }
@@ -1680,7 +1681,7 @@ extension OrderDetailController: TransactionListProtocol, TransactionReceiptView
                 else if deliveryReciptArray.contains(obj.accomplishedStatus) {
                     if self.orderObject != nil {
                         self.showLoading()
-//                        self.downloadDeliveryReceipt?(self.orderObject?.enquiryId ?? 0, self.orderObject?.deliveryChallanLabel ?? "")
+                        self.downloadDeliveryReceipt?(obj.enquiryId, "")
                     }
                 }
             default:
