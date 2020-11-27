@@ -100,6 +100,7 @@ class ProductCatalogueController: UIViewController {
         viewWillAppear?()
         segmentView.buttonTitles = "Artisan Self Design, Antaran Co design".localized
         segmentView.type = .normal
+        refreshAllCounts()
     }
     
     @objc func pullToRefresh() {

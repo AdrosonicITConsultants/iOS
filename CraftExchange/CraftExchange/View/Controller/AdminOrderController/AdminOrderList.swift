@@ -37,7 +37,6 @@ class AdminOrderList: FormViewController {
         let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
         navigationItem.rightBarButtonItem = rightBarButtomItem
         
-        let realm = try! Realm()
         form +++
             Section()
            
@@ -133,4 +132,10 @@ class AdminOrderList: FormViewController {
             cell.LowerActionLabel.text = "\(app?.countData?.faultyInResolution ?? 0)"
         })
 }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.form.allRows .forEach { (row) in
+            row.reload()
+        }
+    }
 }

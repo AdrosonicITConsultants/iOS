@@ -346,3 +346,15 @@ extension UIViewController {
         }
     }
 }
+
+extension UIViewController {
+    func refreshAllCounts() {
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let service = AdminHomeScreenService(client: client)
+            service.getEnquiryAndOrderCount(vc: self)
+        } catch let error {
+          print("Unable to load view:\n\(error.localizedDescription)")
+        }
+    }
+}

@@ -27,6 +27,7 @@ class MarketActions:Cell<String>, CellType {
     public override func setup() {
         super.setup()
         ArrowBtn.addTarget(self, action: #selector(ArrowButtonSelected), for: .touchUpInside)
+        self.selectionStyle = .none
     }
 
     public override func update() {

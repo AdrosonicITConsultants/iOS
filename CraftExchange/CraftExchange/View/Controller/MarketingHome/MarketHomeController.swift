@@ -214,6 +214,8 @@ class MarketHomeController: FormViewController {
     override func viewWillAppear(_ animated: Bool) {
         let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
         navigationItem.rightBarButtonItem = rightBarButtomItem
+        let row = self.form.rowBy(tag: "HorizonatalAdmin1")
+        row?.reload()
     }
 }
 

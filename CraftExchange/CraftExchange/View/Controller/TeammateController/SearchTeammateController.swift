@@ -95,6 +95,7 @@ class SearchTeammateController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+        refreshAllCounts()
     }
     
     override func viewDidLoad() {

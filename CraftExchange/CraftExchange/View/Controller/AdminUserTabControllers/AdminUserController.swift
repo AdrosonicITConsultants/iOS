@@ -88,6 +88,7 @@ class AdminUserController: UIViewController {
         pageNo = 1
         AdminDbSearch.resignFirstResponder()
         viewWillAppear?()
+        refreshAllCounts()
     }
     
     @IBAction func segmentValueChanged(_ sender: Any) {

@@ -103,7 +103,12 @@ class AdminEnquiryList: FormViewController {
             cell.BottomLabel2.text = "\(app?.countData?.awaitingMoqResponse ?? 0)"
            
         })
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.form.allRows .forEach { (row) in
+            row.updateCell()
+        }
     }
 }
 

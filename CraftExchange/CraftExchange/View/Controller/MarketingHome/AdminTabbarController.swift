@@ -44,20 +44,15 @@ class AdminTabbarController: UIViewController {
         segment.sendActions(for: .valueChanged)
         let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
         navigationItem.rightBarButtonItem = rightBarButtomItem
-//        var AdminEnquiryListViewController: AdminEnquiryList = {
-//            var viewController = AdminEnquiryList.init()
-//            self.add(asChildViewController: viewController)
-//            return viewController
-//        }()
+        refreshAllCounts()
     }
+    
     override func viewDidLoad() {
-        let realm = try! Realm()
         segment.setBlackControl()
         let clickGesture = UITapGestureRecognizer(target: self, action:  #selector(self.redirectEnquiriesCliked))
         self.redirectEnquiriesView.addGestureRecognizer(clickGesture)
-
-        
     }
+    
     @objc func redirectEnquiriesCliked(sender : UITapGestureRecognizer) {
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
@@ -67,7 +62,6 @@ class AdminTabbarController: UIViewController {
         }catch {
             print(error.localizedDescription)
         }
-        
     }
     
     private lazy var AdminEnquiryListViewController: AdminEnquiryList = {

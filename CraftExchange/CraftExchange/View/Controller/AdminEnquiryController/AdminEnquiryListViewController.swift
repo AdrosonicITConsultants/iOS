@@ -72,6 +72,18 @@ class AdminEnquiryListViewController: UIViewController {
         tableView.separatorStyle = .none
         filterViewHt.constant = 0
         filterView.isHidden = true
+        enquirySearchBar.returnKeyType = .search
+        enquirySearchBar.delegate = self
+        if let fromDate = Calendar.current.date(byAdding: .day, value: -30, to: Date()) {
+            self.fromDate = fromDate
+            self.toDate = Date()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewWillAppear?()
+        refreshAllCounts()
         let app = UIApplication.shared.delegate as? AppDelegate
         switch listType {
         case .OngoingEnquiries:
@@ -93,25 +105,6 @@ class AdminEnquiryListViewController: UIViewController {
             pageTitleLbl.text = "Ongoing Enquiries"
             enquiryCountLbl.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
         }
-        /*
-        if isIncompleteClosed {
-            pageTitleLbl.text = "Incomplete & Closed Enquiries"
-            enquiryCountLbl.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
-        }else {
-            pageTitleLbl.text = "Ongoing Enquiries"
-            enquiryCountLbl.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
-        }*/
-        enquirySearchBar.returnKeyType = .search
-        enquirySearchBar.delegate = self
-        if let fromDate = Calendar.current.date(byAdding: .day, value: -30, to: Date()) {
-            self.fromDate = fromDate
-            self.toDate = Date()
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewWillAppear?()
     }
     
     @IBAction func toggleFilterSelected(_ sender: Any) {

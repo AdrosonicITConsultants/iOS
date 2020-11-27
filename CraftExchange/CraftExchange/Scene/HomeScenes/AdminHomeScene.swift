@@ -74,7 +74,7 @@ extension AdminHomeScreenService {
         }.dispose(in: vc.bag)
     }
     
-    func getEnquiryAndOrderCount(vc: UIViewController){
+    func getEnquiryAndOrderCount(vc: UIViewController) {
         self.fetchAllAdminEnquiryAndOrder().bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                 if json["valid"] as? Bool == true {
@@ -86,13 +86,9 @@ extension AdminHomeScreenService {
                                         print(chat)
                                         let app = UIApplication.shared.delegate as? AppDelegate
                                         app?.countData = chat
-//                                        let row = MarketHomeController().form.rowBy(tag: "HorizonatalAdmin1")
-//                                        row?.updateCell()
-//                                        row?.reload()
                                         if let controller = vc as? MarketHomeController {
                                             controller.refreshCountForTag()
                                         }
-                                        
                                     }
                                 }
                             }
