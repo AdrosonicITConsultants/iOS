@@ -115,5 +115,22 @@ class AdminOrderList: FormViewController {
               print(error.localizedDescription)
           }
       })
+        
+        <<< MarketActionsRow() {
+            $0.tag = "Faulty-In Resolution"
+            $0.cell.backgroundColor = .darkGray
+            $0.cell.backgroundGradientView.backgroundColor = .darkGray
+            $0.cell.ColorLine.backgroundColor = .clear
+            
+            $0.cell.ActionLabel.text = "Faulty-In Resolution"
+            $0.cell.LowerActionLabel.text = "87,56,565"
+            $0.cell.ActionImg.isHidden = true
+            $0.cell.ArrowBtn.isHidden = true
+            $0.cell.height = { 100.0 }
+            $0.cell.isUserInteractionEnabled = false
+        }.cellUpdate({ (cell, row) in
+            let app = UIApplication.shared.delegate as? AppDelegate
+            cell.LowerActionLabel.text = "\(app?.countData?.faultyInResolution ?? 0)"
+        })
 }
 }

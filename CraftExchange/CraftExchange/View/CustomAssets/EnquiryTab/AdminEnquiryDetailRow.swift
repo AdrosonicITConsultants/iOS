@@ -27,6 +27,7 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
     @IBOutlet weak var statusLabel: UILabel!
     
     func configureCell(_ enquiryObj: AdminEnquiry) {
+        self.isUserInteractionEnabled = false
         enquiryCodeLabel.text = enquiryObj.code ?? ""
         if enquiryObj.productStatus == 2 {
             availabilityLabel.text = "Available in stock"
@@ -59,6 +60,7 @@ class AdminEnquiryDetailView: Cell<String>, CellType {
     }
     
     func configureCell(_ enquiryObj: AdminOrder) {
+        self.isUserInteractionEnabled = false
         enquiryCodeLabel.text = enquiryObj.code ?? ""
         if enquiryObj.productStatus == 2 {
             availabilityLabel.text = "Available in stock"
