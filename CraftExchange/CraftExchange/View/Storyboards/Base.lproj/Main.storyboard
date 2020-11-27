@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IIa-Rr-mp0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IIa-Rr-mp0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,7 +48,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXR-ee-VTo">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-underlying-text" translatesAutoresizingMaskIntoConstraints="NO" id="B9z-kI-Xd7">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="logo-underlying-text" translatesAutoresizingMaskIntoConstraints="NO" id="B9z-kI-Xd7">
                                                 <rect key="frame" x="19.5" y="10" width="375" height="180"/>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Enter Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fIe-lL-2BD" customClass="RoundedTextField" customModule="Craft_Xchange_Admin" customModuleProvider="target">
@@ -71,12 +71,6 @@
                                                     <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="lock"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mW3-pX-gwT">
-                                                <rect key="frame" x="98" y="703" width="218" height="30"/>
-                                                <state key="normal" title="Privacy Policy">
-                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUQ-tC-MvQ">
                                                 <rect key="frame" x="234.5" y="394" width="123" height="30"/>
                                                 <constraints>
@@ -118,22 +112,17 @@
                                             <constraint firstItem="vUQ-tC-MvQ" firstAttribute="top" secondItem="fIe-lL-2BD" secondAttribute="bottom" constant="16" id="1xe-bU-XhK"/>
                                             <constraint firstItem="fIe-lL-2BD" firstAttribute="top" secondItem="VWJ-hF-pAR" secondAttribute="bottom" constant="26" id="3F3-MP-c5h"/>
                                             <constraint firstItem="fIe-lL-2BD" firstAttribute="top" secondItem="VWJ-hF-pAR" secondAttribute="bottom" constant="26" id="4kR-15-n6D"/>
-                                            <constraint firstItem="mW3-pX-gwT" firstAttribute="centerX" secondItem="fIe-lL-2BD" secondAttribute="centerX" id="8Zt-RR-XeQ"/>
                                             <constraint firstItem="fIe-lL-2BD" firstAttribute="leading" secondItem="VWJ-hF-pAR" secondAttribute="leading" id="9D8-BP-agP"/>
                                             <constraint firstAttribute="trailing" secondItem="lUg-r1-gf3" secondAttribute="trailing" constant="21" id="AOs-gw-aMl"/>
                                             <constraint firstItem="fIe-lL-2BD" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="80" id="GYl-wF-m8W"/>
                                             <constraint firstItem="VWJ-hF-pAR" firstAttribute="top" secondItem="lUg-r1-gf3" secondAttribute="bottom" constant="25" id="HJB-rG-AOr"/>
                                             <constraint firstAttribute="trailing" secondItem="vUQ-tC-MvQ" secondAttribute="trailing" constant="56.5" id="KMZ-hE-wya"/>
-                                            <constraint firstAttribute="bottom" secondItem="mW3-pX-gwT" secondAttribute="bottom" constant="79" id="USr-5w-wZf"/>
                                             <constraint firstItem="VWJ-hF-pAR" firstAttribute="top" secondItem="B9z-kI-Xd7" secondAttribute="bottom" constant="82" id="Ub5-GH-gTO"/>
-                                            <constraint firstItem="mW3-pX-gwT" firstAttribute="centerX" secondItem="VWJ-hF-pAR" secondAttribute="centerX" id="Vbd-8z-XKy"/>
                                             <constraint firstItem="VWJ-hF-pAR" firstAttribute="top" secondItem="lUg-r1-gf3" secondAttribute="bottom" constant="25" id="bsZ-KV-haa"/>
                                             <constraint firstAttribute="trailing" secondItem="VWJ-hF-pAR" secondAttribute="trailing" constant="80" id="eEx-F8-gxn"/>
-                                            <constraint firstItem="mW3-pX-gwT" firstAttribute="centerX" secondItem="B9z-kI-Xd7" secondAttribute="centerX" id="gsC-C9-JS0"/>
                                             <constraint firstItem="fIe-lL-2BD" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="80" id="hZV-Y1-5GG"/>
                                             <constraint firstItem="VWJ-hF-pAR" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="80" id="jKU-Ow-6OL"/>
                                             <constraint firstItem="lUg-r1-gf3" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="19" id="mry-EM-OBF"/>
-                                            <constraint firstItem="mW3-pX-gwT" firstAttribute="leading" secondItem="OXR-ee-VTo" secondAttribute="leading" constant="98" id="n2T-4P-0uq"/>
                                             <constraint firstItem="vUQ-tC-MvQ" firstAttribute="top" secondItem="fIe-lL-2BD" secondAttribute="bottom" constant="16" id="n3C-lf-hPM"/>
                                             <constraint firstAttribute="trailing" secondItem="fIe-lL-2BD" secondAttribute="trailing" constant="80" id="qc4-yQ-Gua"/>
                                             <constraint firstItem="lUg-r1-gf3" firstAttribute="top" secondItem="OXR-ee-VTo" secondAttribute="top" constant="177" id="qvz-hj-1yb"/>
