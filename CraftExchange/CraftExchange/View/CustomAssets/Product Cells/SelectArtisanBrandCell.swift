@@ -16,9 +16,9 @@ class SelectArtisanBrandCell: UITableViewCell {
     @IBOutlet weak var artisanCluster: UILabel!
     
     func configure(_ artisanObj: SelectArtisanBrand) {
-        weaverID.text = (artisanObj.weaverId ?? "") + " \(artisanObj.entityID)"
+        weaverID.text = artisanObj.weaverId ?? "NA"
         artisanBrand.text = artisanObj.brand ?? "NA"
-        artisanCluster.text = (artisanObj.cluster ?? "NA") + ", " + (artisanObj.state ?? "")
+        artisanCluster.text = (artisanObj.cluster ?? "NA") + " " + (artisanObj.state ?? "")
     }
     
 }
