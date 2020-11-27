@@ -310,7 +310,12 @@ extension UploadProductService {
             let request = OfflineProductRequest(type: .uploadProduct, imageData: imageData, json: json, artisanID: artisanID)
             OfflineRequestManager.defaultManager.queueRequest(request)
             //            vc.navigationController?.popViewController(animated: true)
-            vc.popBack(toControllerType: ProductCatalogueController.self)
+//            vc.popBack(toControllerType: ProductCatalogueController.self)
+//            let viewControllers = vc.navigationController!.viewControllers
+//            if viewControllers.count >= 2 {
+//                vc.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
+//            }
+            vc.navigationController?.popToRootViewController(animated: true)
         }
         
         return vc

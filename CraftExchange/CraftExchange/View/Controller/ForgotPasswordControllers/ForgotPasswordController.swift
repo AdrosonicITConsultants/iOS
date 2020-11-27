@@ -34,6 +34,8 @@ class ForgotPasswordController: UIViewController {
     self.viewModel.username.bidirectionalBind(to: usernameField.reactive.text)
     self.viewModel.otp.bidirectionalBind(to: otpField.reactive.text)
     self.navigationItem.rightBarButtonItem = roleBarButton()
+    self.otpField.textColor = .black
+    self.usernameField.textColor = .black
   }
   
   @IBAction func nextButtonSelected(_ sender: Any) {
