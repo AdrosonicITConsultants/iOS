@@ -945,6 +945,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.contentView.backgroundColor = UIColor.init(named: "AdminBlueBG")
                 $0.cell.titleLbl.textColor = UIColor.init(named: "AdminBlueText")
                 $0.cell.valueLbl.textColor = UIColor.init(named: "AdminBlueText")
+                $0.tag = "CRHeader"
             }.onCellSelection({ (cell, row) in
                 let section = self.form.sectionBy(tag: "list CR")
                 if section?.isEmpty == true {
@@ -953,7 +954,12 @@ class OrderDetailController: FormViewController {
                     section?.removeAll()
                 }
                 section?.reload()
-                
+            }).cellUpdate({ (cell, row) in
+                if self.allChangeRequests?.count == 0 {
+                    cell.valueLbl.text = "CR Not Available"
+                }else {
+                    cell.valueLbl.text = ""
+                }
             })
             +++ Section(){ section in
                 section.tag = "list CR"
@@ -1234,25 +1240,29 @@ class OrderDetailController: FormViewController {
     }
     
     func listCRs() {
-        let listCRSection = self.form.sectionBy(tag: "list CR")!
-        allChangeRequests?.forEach({ (changeReq) in
-            listCRSection <<< CRArtisanRow() {
-                $0.cell.height = { 50.0 }
-                $0.cell.labelField.text = ChangeRequestType().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? ""
-                $0.cell.valuefield.text = changeReq.requestText ?? ""
-                $0.cell.tickBtn.tag = changeReq.entityID
-                $0.tag = changeReq.id
-                $0.cell.isUserInteractionEnabled = false
-                $0.cell.tickBtn.isUserInteractionEnabled = false
-                if changeReq.requestStatus == 1 {
-                    $0.cell.tickBtn.setImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
-                    $0.cell.tickBtn.tintColor = UIColor().CEGreen()
-                }else {
-                    $0.cell.tickBtn.setImage(UIImage.init(systemName: "xmark.square.fill"), for: .normal)
-                    $0.cell.tickBtn.tintColor = .red
+        if let listCRSection = self.form.sectionBy(tag: "list CR") {
+            allChangeRequests?.forEach({ (changeReq) in
+                listCRSection <<< CRArtisanRow() {
+                    $0.cell.height = { 50.0 }
+                    $0.cell.labelField.text = ChangeRequestType().searchChangeRequest(searchId: changeReq.requestItemsId)?.item ?? ""
+                    $0.cell.valuefield.text = changeReq.requestText ?? ""
+                    $0.cell.tickBtn.tag = changeReq.entityID
+                    $0.tag = changeReq.id
+                    $0.cell.isUserInteractionEnabled = false
+                    $0.cell.tickBtn.isUserInteractionEnabled = false
+                    if changeReq.requestStatus == 1 {
+                        $0.cell.tickBtn.setImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+                        $0.cell.tickBtn.tintColor = UIColor().CEGreen()
+                    }else {
+                        $0.cell.tickBtn.setImage(UIImage.init(systemName: "xmark.square.fill"), for: .normal)
+                        $0.cell.tickBtn.tintColor = .red
+                    }
                 }
+            })
+            if allChangeRequests?.count == 0 {
+                
             }
-        })
+        }
         self.form.sectionBy(tag: "list CR")?.reload()
     }
     
