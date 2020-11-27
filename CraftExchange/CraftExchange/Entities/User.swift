@@ -28,6 +28,7 @@ class User: Object, Decodable {
   @objc dynamic var cluster: ClusterDetails?
     @objc dynamic var clusterString: String?
   @objc dynamic var refRoleId: String?
+    @objc dynamic var refMarketingRoleId: Int = 0
   @objc dynamic var registeredOn: String?
   @objc dynamic var status: Int = 0
   @objc dynamic var emailVerified: Int = 0
@@ -70,6 +71,7 @@ class User: Object, Decodable {
     case weaverDetails = "weaverDetails"
     case cluster = "cluster"
     case refRoleId = "refRoleId"
+    case refMarketingRoleId = "refMarketingRoleId"
     case registeredOn = "registeredOn"
     case status = "status"
     case emailVerified = "emailVerified"
@@ -126,6 +128,7 @@ class User: Object, Decodable {
     }else if let roleId = try? values.decodeIfPresent(String.self, forKey: .refRoleId) {
         refRoleId = roleId
     }
+    refMarketingRoleId = try values.decodeIfPresent(Int.self, forKey: .refMarketingRoleId) ?? 0
     registeredOn = try? values.decodeIfPresent(String.self, forKey: .registeredOn)
     status = try values.decodeIfPresent(Int.self, forKey: .status) ?? 0
     emailVerified = try values.decodeIfPresent(Int.self, forKey: .emailVerified) ?? 0
