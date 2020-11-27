@@ -38,7 +38,7 @@ class AdminTabbarController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let app = UIApplication.shared.delegate as? AppDelegate
-        valueLabel1.text = "\(app?.countData?.totalEnquiries ?? 0)"
+        valueLabel1.text = "\(app?.countData?.awaitingMoq ?? 0)"
         valueLabel2.text = "\(app?.countData?.escaltions ?? 0)"
         segment.selectedSegmentIndex = 0
         segment.sendActions(for: .valueChanged)

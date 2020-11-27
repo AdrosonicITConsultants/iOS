@@ -71,6 +71,12 @@ extension ChatDetailsService {
                                 
                             }
                         }
+                        if dataArray.count == 0 {
+                             DispatchQueue.main.async {
+                            controller.noChatsFound()
+                            }
+                            
+                        }
                     }
                     
                 }

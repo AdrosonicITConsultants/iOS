@@ -16,8 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVy-HA-pgB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bVy-HA-pgB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AB-NM-J89">
                                 <rect key="frame" x="5" y="10" width="25" height="30"/>
@@ -27,6 +27,9 @@
                                 </constraints>
                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="circle" catalog="system"/>
+                                <connections>
+                                    <action selector="SingleAerisancheckBtnSelected:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ALt-fv-y4Z"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AX-CX-TX-50" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMS-Mb-4W9">
                                 <rect key="frame" x="40" y="0.0" width="103" height="50"/>
@@ -65,11 +68,21 @@
                             <constraint firstItem="pMS-Mb-4W9" firstAttribute="leading" secondItem="8AB-NM-J89" secondAttribute="trailing" constant="10" id="zps-R4-WEH"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VTk-Ob-zTn">
+                        <rect key="frame" x="0.0" y="49" width="414" height="1"/>
+                        <color key="backgroundColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="oWy-ai-Lot"/>
+                        </constraints>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="bVy-HA-pgB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="2Xg-14-Aaa"/>
+                    <constraint firstItem="VTk-Ob-zTn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Bsl-3w-h1e"/>
                     <constraint firstAttribute="trailing" secondItem="bVy-HA-pgB" secondAttribute="trailing" id="Dge-mD-oci"/>
                     <constraint firstItem="bVy-HA-pgB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KaU-bk-8WW"/>
+                    <constraint firstAttribute="bottom" secondItem="VTk-Ob-zTn" secondAttribute="bottom" id="TKx-jU-gK2"/>
+                    <constraint firstAttribute="trailing" secondItem="VTk-Ob-zTn" secondAttribute="trailing" id="YkL-YH-PVq"/>
                     <constraint firstAttribute="bottom" secondItem="bVy-HA-pgB" secondAttribute="bottom" id="pWc-ou-e6J"/>
                 </constraints>
             </tableViewCellContentView>

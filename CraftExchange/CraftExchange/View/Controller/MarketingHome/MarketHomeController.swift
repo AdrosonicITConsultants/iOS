@@ -176,16 +176,23 @@ class MarketHomeController: FormViewController {
                     print(error.localizedDescription)
                 }
             })
-            <<< AdminHomeBottomRow() {
-                $0.tag = "AdminHomeBottomRow"
-                $0.cell.height = { 142.0 }
-                $0.cell.OngoingBtn.backgroundColor = UIColor(red: 0.051, green: 0.1882, blue: 0.6471, alpha: 1.0)
-                $0.cell.ClosedBtn.backgroundColor = UIColor(red: 0.3804, green: 0.6627, blue: 0.4314, alpha: 1.0)
-            }.cellUpdate({ (cell, row) in
-                let app = UIApplication.shared.delegate as? AppDelegate
-                cell.BottomLabel1.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
-                cell.BottomLabel2.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
-            })
+//            <<< AdminHomeBottomRow() {
+//                $0.tag = "AdminHomeBottomRow"
+//                $0.cell.height = { 142.0 }
+//                $0.cell.OngoingBtn.backgroundColor = UIColor(red: 0.051, green: 0.1882, blue: 0.6471, alpha: 1.0)
+//                $0.cell.ClosedBtn.backgroundColor = UIColor(red: 0.3804, green: 0.6627, blue: 0.4314, alpha: 1.0)
+//            }.cellUpdate({ (cell, row) in
+//                let app = UIApplication.shared.delegate as? AppDelegate
+//                cell.BottomLabel1.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
+  //              cell.BottomLabel2.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
+//            })
+            
+            <<< LabelRow() {
+                $0.cell.height = {50.0}
+                $0.title = ""
+                $0.cell.backgroundColor = .black
+                $0.cell.isUserInteractionEnabled = false
+            }
             
             <<< ButtonRow() {
                 $0.title = "Logout"

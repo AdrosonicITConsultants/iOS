@@ -21,13 +21,22 @@ class AdminRedirectEnquiryService: BaseService<Data> {
     func fetchCustomRedirectEnquiries(pageNo: Int, sortBy: String, sortType: String ) -> SafeSignal<Data> {
         return AdminRedirectEnquiry.getCustomRedirectEnquiries(pageNo: pageNo, sortBy: sortBy, sortType: sortType).response(using: client).debug()
     }
+    func fetchCustomRedirectEnquiriesCount() -> SafeSignal<Data> {
+        return AdminRedirectEnquiry.getCustomRedirectEnquiriesCount().response(using: client).debug()
+    }
     
     func fetchFaultyRedirectEnquiries(pageNo: Int, sortBy: String, sortType: String ) -> SafeSignal<Data> {
         return AdminRedirectEnquiry.getFaultyRedirectEnquiries(pageNo: pageNo, sortBy: sortBy, sortType: sortType).response(using: client).debug()
     }
+    func fetchFaultyRedirectEnquiriesCount() -> SafeSignal<Data> {
+        return AdminRedirectEnquiry.getFaultyRedirectEnquiriesCount().response(using: client).debug()
+    }
     
     func fetchOtherRedirectEnquiries(pageNo: Int, sortBy: String, sortType: String ) -> SafeSignal<Data> {
         return AdminRedirectEnquiry.getOtherRedirectEnquiries(pageNo: pageNo, sortBy: sortBy, sortType: sortType).response(using: client).debug()
+    }
+    func fetchOtherRedirectEnquiriesCount() -> SafeSignal<Data> {
+        return AdminRedirectEnquiry.getOtherRedirectEnquiriesCount().response(using: client).debug()
     }
     
     func fetchLessThanEightRatingArtisans(clusterId: Int, searchString: String?, enquiryId: Int ) -> SafeSignal<Data> {

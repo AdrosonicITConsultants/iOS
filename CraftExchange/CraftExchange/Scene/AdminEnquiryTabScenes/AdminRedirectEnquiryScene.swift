@@ -42,6 +42,21 @@ extension AdminRedirectEnquiryService {
                     }
                 }
             }.dispose(in: vc.bag)
+            
+            self.fetchCustomRedirectEnquiriesCount().bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                    if let data = json["data"] as? Int {
+                        DispatchQueue.main.async {
+                        print(data)
+                            vc.redirectEnquiriesCount.text = "\(data )"
+                        }
+                    }
+                }
+                }else{
+                    vc.redirectEnquiriesCount.text = "0"
+                }
+            }.dispose(in: vc.bag)
         }
         
         vc.viewWillAppear1 = { (sortType) in
@@ -67,6 +82,20 @@ extension AdminRedirectEnquiryService {
                     }
                 }
             }.dispose(in: vc.bag)
+            self.fetchFaultyRedirectEnquiriesCount().bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                    if let data = json["data"] as? Int {
+                        DispatchQueue.main.async {
+                        print(data)
+                            vc.redirectEnquiriesCount.text = "\(data )"
+                        }
+                    }
+                }
+                }else{
+                    vc.redirectEnquiriesCount.text = "0"
+                }
+            }.dispose(in: vc.bag)
         }
         
         vc.viewWillAppear2 = { (sortType) in
@@ -90,6 +119,20 @@ extension AdminRedirectEnquiryService {
                             
                         }
                     }
+                }
+            }.dispose(in: vc.bag)
+            self.fetchOtherRedirectEnquiriesCount().bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                    if let data = json["data"] as? Int {
+                        DispatchQueue.main.async {
+                        print(data)
+                            vc.redirectEnquiriesCount.text = "\(data )"
+                        }
+                    }
+                }
+                }else{
+                    vc.redirectEnquiriesCount.text = "0"
                 }
             }.dispose(in: vc.bag)
         }

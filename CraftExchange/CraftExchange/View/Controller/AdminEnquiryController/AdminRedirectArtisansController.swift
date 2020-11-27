@@ -249,6 +249,13 @@ extension AdminRedirectArtisansController: UITableViewDataSource, UITableViewDel
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           
+          tableView.deselectRow(at: indexPath, animated: false)
+           
+           
+       }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
@@ -258,6 +265,7 @@ extension AdminRedirectArtisansController: UITableViewDataSource, UITableViewDel
 
 extension AdminRedirectArtisansController: UISearchBarDelegate, AdminRedirectArtisansProtocol{
     
+    ///check button methods
     func checkButtonSelected(tag: IndexPath) {
         guard let cell = tableView.cellForRow(at: tag) as? AdminRedirectArtisansCell else { return }
         
@@ -292,6 +300,7 @@ extension AdminRedirectArtisansController: UISearchBarDelegate, AdminRedirectArt
         
     }
     
+    /// search methods
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         applyFilterButton.sendActions(for: .touchUpInside)
     }

@@ -190,6 +190,8 @@ extension SelectArtisanController: UITableViewDataSource, UITableViewDelegate, P
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! SelectArtisanBrandCell
         if let obj = allArtisans?[indexPath.row] {
             cell.configure(obj)
+            cell.delegate = self
+            cell.indexpath = indexPath
             if self.artisanID == obj.entityID {
                 cell.selectToggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
             }else{
@@ -204,36 +206,39 @@ extension SelectArtisanController: UITableViewDataSource, UITableViewDelegate, P
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath)
-        print(indexPath.row)
-        //   guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
-        tableView.deselectRow(at: indexPath, animated: false)
-        let selectedFilterRow = self.indexRow
-        if selectedFilterRow == indexPath.row {
-            return
-        }
+       tableView.deselectRow(at: indexPath, animated: false)
         
-        // Remove the checkmark from the previously selected filter item.
-        if let cell3 = tableView.cellForRow(at: IndexPath(row: selectedFilterRow, section: indexPath.section)) as? SelectArtisanBrandCell {
-            cell3.selectToggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
-        }
-        
-        // Remember this selected filter item.
-        if let obj = allArtisans?[indexPath.row] {
-            let cell2 = tableView.cellForRow(at: IndexPath(row: indexPath.row, section: indexPath.section)) as! SelectArtisanBrandCell
-            cell2.selectToggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
-            
-            self.indexRow = indexPath.row
-            self.artisanID = obj.entityID
-        }
         
     }
     
 }
 
-extension SelectArtisanController: UISearchBarDelegate {
+extension SelectArtisanController: UISearchBarDelegate, SelectArtisanBrandProtocol {
     
+    //check button methods
+    func SingleAerisancheckBtnSelected(tag: IndexPath) {
+        let selectedFilterRow = self.indexRow
+        if selectedFilterRow == tag.row {
+            return
+        }
+        
+        // Remove the checkmark from the previously selected filter item.
+        if let cell3 = tableView.cellForRow(at: IndexPath(row: selectedFilterRow, section: tag.section)) as? SelectArtisanBrandCell {
+            cell3.selectToggleButton.setImage(UIImage.init(systemName: "circle"), for: .normal)
+        }
+        
+        // Remember this selected filter item.
+        if let obj = allArtisans?[tag.row] {
+            let cell2 = tableView.cellForRow(at: IndexPath(row: tag.row, section: tag.section)) as! SelectArtisanBrandCell
+            cell2.selectToggleButton.setImage(UIImage.init(named: "blue tick"), for: .normal)
+            
+            self.indexRow = tag.row
+            self.artisanID = obj.entityID
+        }
+    }
+    
+    /// search methods
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }
