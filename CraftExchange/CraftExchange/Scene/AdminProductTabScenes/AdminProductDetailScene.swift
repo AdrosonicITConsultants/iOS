@@ -12,7 +12,7 @@ import RealmSwift
 extension ProductCatalogService {
     func createAdminProductDetailScene(forProductId: Int?, isCustom: Bool, isRedirect: Bool, enquiryCode: String?, buyerBrand: String?, enquiryDate: String?, enquiryId: Int?) -> UIViewController {
         let vc = AdminProductDetailController.init(style: .plain)
-          vc.isRedirect = isRedirect
+        vc.isRedirect = isRedirect
         if isCustom {
             vc.customProduct = CustomProduct.getCustomProduct(searchId: forProductId ?? 0)
             vc.isCustom = isCustom
@@ -21,7 +21,7 @@ extension ProductCatalogService {
             vc.buyerBrand = buyerBrand
             vc.enquiryId = enquiryId
         }else{
-           vc.product = Product.getProduct(searchId: forProductId ?? 0)
+            vc.product = Product.getProduct(searchId: forProductId ?? 0)
             vc.isCustom = isCustom
         }
         
@@ -44,6 +44,13 @@ extension ProductCatalogService {
                                                     row.updateCell()
                                                     row.reload()
                                                 }
+                                                if let section1 = vc.form.sectionBy(tag: "weave section") {
+                                                    if section1.isEmpty == true {
+                                                        vc.weavesFunc()
+                                                    }
+                                                }
+                                               
+                                                vc.tableView?.reloadData()
                                                 vc.hideLoading()
                                             }
                                         }
@@ -56,20 +63,26 @@ extension ProductCatalogService {
                                     if json["valid"] as? Bool == true {
                                         if let dataDictionary = json["data"] as? [String: Any] {
                                             
-                                                if let proddata = try? JSONSerialization.data(withJSONObject: dataDictionary, options: .fragmentsAllowed) {
-                                                    if let object = try? JSONDecoder().decode(CustomProduct.self, from: proddata) {
-                                                        DispatchQueue.main.async {
-                                                            print(object)
-                                                            object.saveOrUpdate()
-                                                            vc.customProduct = object
-                                                            vc.form.allRows.forEach { (row) in
-                                                                row.updateCell()
-                                                                row.reload()
-                                                            }
-                                                            vc.hideLoading()
+                                            if let proddata = try? JSONSerialization.data(withJSONObject: dataDictionary, options: .fragmentsAllowed) {
+                                                if let object = try? JSONDecoder().decode(CustomProduct.self, from: proddata) {
+                                                    DispatchQueue.main.async {
+                                                        print(object)
+                                                        object.saveOrUpdate()
+                                                        vc.customProduct = object
+                                                        vc.form.allRows.forEach { (row) in
+                                                            row.updateCell()
+                                                            row.reload()
                                                         }
+                                                        if let section1 = vc.form.sectionBy(tag: "weave section") {
+                                                            if section1.isEmpty == true {
+                                                                vc.weavesFunc()
+                                                            }
+                                                        }
+                                                        
+                                                        vc.hideLoading()
                                                     }
                                                 }
+                                            }
                                             
                                         }
                                     }else {
@@ -102,11 +115,18 @@ extension ProductCatalogService {
                                                     row.updateCell()
                                                     row.reload()
                                                 }
-                                                vc.form.sectionBy(tag: "weave section")?.reload()
-                                                vc.form.sectionBy(tag: "wash section")?.reload()
-                                                vc.form.allSections.forEach { (section) in
-                                                    section.reload()
+                                                if let section1 = vc.form.sectionBy(tag: "weave section") {
+                                                    if section1.isEmpty == true {
+                                                        vc.weavesFunc()
+                                                    }
                                                 }
+                                                if let section2 = vc.form.sectionBy(tag: "wash section") {
+                                                    if section2.isEmpty == true {
+                                                        vc.washFunc()
+                                                    }
+                                                }
+                                            
+                                                vc.tableView?.reloadData()
                                                 vc.hideLoading()
                                             }
                                         }
@@ -150,11 +170,16 @@ extension ProductCatalogService {
                                                 row.updateCell()
                                                 row.reload()
                                             }
-//                                            vc.form.sectionBy(tag: "weave section")?.reload()
-//                                            vc.form.sectionBy(tag: "wash section")?.reload()
-//                                            vc.form.allSections.forEach { (section) in
-//                                                section.reload()
-//                                            }
+                                            if let section1 = vc.form.sectionBy(tag: "weave section") {
+                                                if section1.isEmpty == true {
+                                                    vc.weavesFunc()
+                                                }
+                                            }
+                                            if let section2 = vc.form.sectionBy(tag: "wash section") {
+                                                if section2.isEmpty == true {
+                                                    vc.washFunc()
+                                                }
+                                            }
                                             vc.tableView?.reloadData()
                                             vc.hideLoading()
                                         }
@@ -174,30 +199,5 @@ extension ProductCatalogService {
         return vc
     }
     
-//    func createAdminCustomProductDetailScene(forProduct: Int) -> UIViewController {
-//        let vc = AdminProductDetailController.init(style: .plain)
-//        //  vc.product = forProduct
-//        
-//        vc.viewWillAppear = {
-//            vc.showLoading()
-//            let service = UploadProductService.init(client: self.client)
-//            service.getCustomProductDetails(prodId: forProduct, vc: vc)
-//            DispatchQueue.main.asyncAfter(deadline: .now()+0.3) {
-//                vc.hideLoading()
-//                let realm = try? Realm()
-//                if let object = realm?.objects(CustomProduct.self).filter("%K == %@", "entityID", forProduct).first {
-//                    vc.customProduct = object
-//                    vc.form.allRows.forEach { (row) in
-//                        row.updateCell()
-//                        row.reload()
-//                    }
-//                    vc.hideLoading()
-//                }
-//            }
-//            vc.hideLoading()
-//        }
-//        
-//        return vc
-//    }
 }
 

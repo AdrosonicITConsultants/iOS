@@ -118,8 +118,8 @@ class AdminRedirectEnquiryController: UIViewController {
             refreshControl.endRefreshing()
         }
         
-        let count = allRedirectEnquiries?.count ?? 0
-        self.redirectEnquiriesCount.text = "\(count)"
+      //  let count = allRedirectEnquiries?.count ?? 0
+       
         if sortTypeValue == "desc" {
             oldestFilterButton.setTitle("Showing newest first", for: .normal)
         }else{

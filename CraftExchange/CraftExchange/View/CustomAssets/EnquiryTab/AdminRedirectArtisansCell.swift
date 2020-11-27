@@ -35,13 +35,19 @@ class AdminRedirectArtisansCell: UITableViewCell {
         
         if artisanObj?.isMailSent == 1{
            statusButton.setImage(UIImage.init(named: "eye-grey"), for: .normal)
-            checkButton.isHidden = true
+            //checkmark.circle
+            checkButton.setImage(UIImage.init(systemName: "checkmark.circle"), for: .normal)
+            checkButton.tintColor = #colorLiteral(red: 0, green: 1, blue: 0, alpha: 1)
+            checkButton.isUserInteractionEnabled = false
         }else if artisanObj?.artisan?.status == 2 {
             statusButton.setImage(UIImage.init(named: "eye-pink"), for: .normal)
-            checkButton.isHidden = true
+            checkButton.setImage(UIImage.init(systemName: "checkmark.circle"), for: .normal)
+            checkButton.tintColor = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+            checkButton.isUserInteractionEnabled = false
         }else {
             statusButton.setImage(UIImage.init(named: "eye-white"), for: .normal)
-            checkButton.isHidden = false
+            checkButton.isUserInteractionEnabled = true
+             checkButton.tintColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 1)
         }
         checkButton.tag = artisanObj?.artisan?.entityID ?? 0
         

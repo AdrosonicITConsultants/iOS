@@ -210,8 +210,7 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                     case "View Buyer Details":
                         self.showUser?(obj.enquiryId,false)
                     case "View Chat":
-                        self.view.showAdminResolveConcernView(controller: self, enquiryCode: obj.enquiryCode, total: "₹ \(obj.price)", category: obj.category, concern: obj.concern, escalationId: obj.entityID)
-                    // self.goTochat(enquiryId: obj.enquiryId)
+                       self.goTochat(enquiryId: obj.enquiryId)
                     default:
                         print("do nothing")
                     }

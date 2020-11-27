@@ -424,34 +424,43 @@ class AdminProductDetailController: FormViewController {
             <<< washView
             +++ washSection
             +++ Section()
+        self.weavesFunc()
+        self.washFunc()
         
-        var strArr:[String] = []
+    }
+    
+    func weavesFunc() {
+    var strArr:[String] = []
 
-        product?.weaves .forEach({ (weave) in
-            strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+    product?.weaves .forEach({ (weave) in
+        strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+    })
+    customProduct?.weaves .forEach({ (weave) in
+        strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
+    })
+    let setWeave = Set(strArr)
+        if let weaveTypeSection = self.form.sectionBy(tag: "weave section") {
+    setWeave.forEach({ (weave) in
+        weaveTypeSection <<< LabelRow() {
+            $0.cell.height = { 30.0 }
+            $0.title = weave
+            $0.cell.contentView.backgroundColor = .black
+            // $0.cell.textLabel?.textColor = .white
+        }.cellUpdate({ (cell, row) in
+            cell.row.title = weave
+            cell.textLabel?.textColor = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
+            cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
         })
-        customProduct?.weaves .forEach({ (weave) in
-            strArr.append("\(Weave.getWeaveType(searchId: weave.weaveId)?.weaveDesc ?? "")")
-        })
-        let setWeave = Set(strArr)
-        setWeave.forEach({ (weave) in
-            weaveTypeSection <<< LabelRow() {
-                $0.cell.height = { 30.0 }
-                $0.title = weave
-                $0.cell.contentView.backgroundColor = .black
-                // $0.cell.textLabel?.textColor = .white
-            }.cellUpdate({ (cell, row) in
-                cell.row.title = weave
-                cell.textLabel?.textColor = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
-                cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
-            })
-        })
-        
+    })
+    }
+    }
+    func washFunc(){
         var washArr:[String] = []
         product?.productCares .forEach({ (obj) in
             washArr.append("\(ProductCare.getCareType(searchId: obj.productCareId)?.productCareDesc ?? "")")
         })
         let setCare = Set(washArr)
+        if let washSection = self.form.sectionBy(tag: "wash section") {
         setCare.forEach({ (obj) in
             washSection <<< LabelRow() {
                 $0.cell.height = { 60.0 }
@@ -465,6 +474,7 @@ class AdminProductDetailController: FormViewController {
                 cell.textLabel?.font = .systemFont(ofSize: 15, weight: .regular)
             })
         })
+    }
     }
     
     @objc func saveClicked() {

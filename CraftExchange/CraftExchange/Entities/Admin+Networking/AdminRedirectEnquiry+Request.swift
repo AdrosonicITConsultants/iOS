@@ -28,6 +28,19 @@ extension AdminRedirectEnquiry {
           needsAuthorization: true
       )
     }
+    public static func getCustomRedirectEnquiriesCount() -> Request<Data, APIError> {
+        
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "marketingTeam/getTotalAdminIncomingEnquiries",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "get redirect enquries count failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
     
     public static func getFaultyRedirectEnquiries(pageNo: Int, sortBy: String, sortType: String ) -> Request<Data, APIError> {
         
@@ -42,6 +55,19 @@ extension AdminRedirectEnquiry {
           needsAuthorization: true
       )
     }
+    public static func getFaultyRedirectEnquiriesCount() -> Request<Data, APIError> {
+        
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "marketingTeam/getTotalAdminFaultyIncomingEnquiries",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "get redirect enquries count failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
     
     public static func getOtherRedirectEnquiries(pageNo: Int, sortBy: String, sortType: String ) -> Request<Data, APIError> {
         
@@ -51,6 +77,19 @@ extension AdminRedirectEnquiry {
           method: .get,
           headers: headers,
           resource: {print(String(data: $0, encoding: .utf8) ?? "get redirect enquries failed")
+          return $0},
+          error: APIError.init,
+          needsAuthorization: true
+      )
+    }
+    public static func getOtherRedirectEnquiriesCount() -> Request<Data, APIError> {
+        
+      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+      return Request(
+          path: "marketingTeam/getTotalAdminOtherIncomingEnquiries",
+          method: .get,
+          headers: headers,
+          resource: {print(String(data: $0, encoding: .utf8) ?? "get redirect enquries count failed")
           return $0},
           error: APIError.init,
           needsAuthorization: true

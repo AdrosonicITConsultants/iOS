@@ -57,11 +57,12 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     var messageObject = [MessageType]()
     var user: User?
     var enquiryId: Int?
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        messagesCollectionView.contentInset.top = 50
+        messagesCollectionView.contentInset.top = 75
         self.inputAccessoryView?.isHidden = true
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
@@ -117,6 +118,27 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
                     showMessage(obj: obj, user: otherUser)
                 }
             }
+            let safeAreaTop: CGFloat
+
+            if #available(iOS 11.0, *) {
+                safeAreaTop = self.view.safeAreaInsets.top
+            } else {
+                safeAreaTop = self.topLayoutGuide.length
+            }
+            let header = UILabel.init(frame: CGRect.init(x: 0, y: safeAreaTop, width: self.messagesCollectionView.frame.size.width, height: 50))
+            header.backgroundColor = .black
+            header.textColor = .white
+            header.font = .systemFont(ofSize: 15)
+            if messageObject.count == 1 {
+                header.text = " Found \(messageObject.count ) Chat"
+            }else if messageObject.count > 0 {
+                header.text = " Found \(messageObject.count ) Chats"
+            }else {
+                header.text = " No Chats Found!"
+            }
+            
+            view.addSubview(header)
+            
         }
         
         self.hideLoading()
@@ -127,6 +149,24 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
 //        if messages?.count == 0{
 //            self.alert("No Messages found")
 //        }
+    }
+    
+    func noChatsFound() {
+        let safeAreaTop: CGFloat
+
+        if #available(iOS 11.0, *) {
+            safeAreaTop = self.view.safeAreaInsets.top
+        } else {
+            safeAreaTop = self.topLayoutGuide.length
+        }
+        let header = UILabel.init(frame: CGRect.init(x: 0, y: safeAreaTop , width: self.messagesCollectionView.frame.size.width, height: 50))
+        header.backgroundColor = .black
+        header.textColor = .white
+        header.font = .systemFont(ofSize: 15)
+        header.text = " No Chats Found!"
+        self.view.addSubview(header)
+        self.hideLoading()
+        messagesCollectionView.reloadData()
     }
     
     func showMessage(obj: Conversation, user: SenderType){
@@ -179,6 +219,27 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     
     func currentSender() -> SenderType {
         return currentUser
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//           return 50
+//    }
+    
+    //func height
+    
+    func messageHeaderView(for indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageReusableView {
+        let header = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: messagesCollectionView.frame.size.width, height: 50))
+        header.backgroundColor = .black
+        header.textColor = .white
+        if messageObject.count == 1 {
+            header.text = " Found \(messageObject.count ) message"
+        }else if messageObject.count > 0 {
+            header.text = " Found \(messageObject.count ) messages"
+        }else {
+            header.text = " No messages found!"
+        }
+        header.font = .systemFont(ofSize: 15)
+        return (header as? MessageReusableView)!
     }
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
