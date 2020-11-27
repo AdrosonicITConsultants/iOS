@@ -74,6 +74,9 @@ class AdminUserController: UIViewController {
         spreadsheetView.register(TextCell.self, forCellWithReuseIdentifier: String(describing: TextCell.self))
         AdminDbSearch.delegate = self
         loadMetaData?()
+        if User.loggedIn()?.refMarketingRoleId == 3 {
+            segmentedControl.removeSegment(at: 1, animated: false)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
