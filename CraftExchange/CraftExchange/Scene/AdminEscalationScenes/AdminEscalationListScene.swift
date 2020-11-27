@@ -99,6 +99,75 @@ extension AdminEscalationService {
             service.showUser(vc: controller, isArtisan: isArtisan, enquiryId: enquiryId)
         }
         
+        controller.resolveEscalation = { (escalationId) in
+            controller.showLoading()
+            self.resolveEscalation(escalationId: escalationId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        DispatchQueue.main.async {
+                            controller.view.hideAdminResolveConcernView()
+                            controller.viewWillAppear?()
+                            controller.hideLoading()
+                        }
+                    }
+                }
+                else {
+                    controller.alert("Sending message failed, please try again later")
+                    controller.hideLoading()
+                }
+            }.dispose(in: controller.bag)
+        }
+        
+        controller.generateEnquiryFaulty = { (enquiryId) in
+            controller.showLoading()
+            self.generateNewEnquiryFaulty(enquiryId: enquiryId).bind(to: controller, context: .global(qos: .background)) {_,responseData in
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        if let data = json["data"] as? [String: Any] {
+                            if let enquiryCode = data["code"] as? String{
+                                print(enquiryCode)
+                                if let productId = data["productId"] as? Int{
+                                    print(productId)
+                                    if let enquiryId = data["id"] as? Int{
+                                        print(enquiryId)
+                                        DispatchQueue.main.async {
+                                            print(enquiryCode)
+                                            print(productId)
+                                            print(enquiryId)
+                                            controller.hideLoading()
+                                            controller.view.hideUnresolvedEnquiryRedirectionView()
+                                            controller.view.showNewEnquiryDetailsView(enquiryCode: enquiryCode, productId: productId, isCustom: false, enquiryId: enquiryId, controller: controller)
+                                        }
+                                    }
+                                    
+                                }else{
+                                    if let customProductId = data["customProductId"] as? Int{
+                                        print(customProductId)
+                                        if let enquiryId = data["id"] as? Int{
+                                            print(enquiryId)
+                                            DispatchQueue.main.async {
+                                                print(enquiryCode)
+                                                print(customProductId)
+                                                controller.hideLoading()
+                                                controller.view.hideUnresolvedEnquiryRedirectionView()
+                                                controller.view.showNewEnquiryDetailsView(enquiryCode: enquiryCode, productId: customProductId, isCustom: true, enquiryId: enquiryId, controller: controller)
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        
+                    }else{
+                        controller.hideLoading()
+                        controller.alert("Sorry, could not create new enquiry")
+                    }
+                }
+                
+            }.dispose(in: controller.bag)
+        }
+        
         return controller
     }
 }

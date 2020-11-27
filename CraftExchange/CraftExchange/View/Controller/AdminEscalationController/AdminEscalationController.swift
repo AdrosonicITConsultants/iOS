@@ -40,7 +40,8 @@ class AdminEscalationController: UIViewController {
     var allEscalations: Results<AdminEscalation>?
     var pageNo = 1
     var eqArray: [Int] = []
-    
+    var resolveEscalation: ((_ escalationId: Int)->())?
+    var generateEnquiryFaulty: ((_ enquiryId: Int)->())?
     let realm = try? Realm()
     
     var showUser: ((_ enquiryId: Int,_ isArtisan: Bool)->())?
@@ -108,7 +109,7 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
             }else if obj.raisedBy == 2 {
                 cell.titleLabel4.addImageWith(name: "buyer icon", behindText: true)
             }else {
-               cell.titleLabel4.addImageWith(name: "Icon metro-flag", behindText: true)
+                cell.titleLabel4.addImageWith(name: "Icon metro-flag", behindText: true)
             }
             switch catType {
             case .Updates:
@@ -142,7 +143,7 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = Bundle.main.loadNibNamed(reusableIdentifier, owner:
-        self, options: nil)?.first as! AdminEscalationCell
+            self, options: nil)?.first as! AdminEscalationCell
         header.titleLabel1.text = "Enquiry Id"
         switch catType {
         case .Updates:
@@ -188,8 +189,8 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                         print("do nothing")
                     }
                 }
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
         }
@@ -209,13 +210,14 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                     case "View Buyer Details":
                         self.showUser?(obj.enquiryId,false)
                     case "View Chat":
-                         self.goTochat(enquiryId: obj.enquiryId)
+                        self.view.showAdminResolveConcernView(controller: self, enquiryCode: obj.enquiryCode, total: "₹ \(obj.price)", category: obj.category, concern: obj.concern, escalationId: obj.entityID)
+                    // self.goTochat(enquiryId: obj.enquiryId)
                     default:
                         print("do nothing")
                     }
                 }
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
         }
@@ -234,6 +236,7 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                         self.showUser?(obj.enquiryId,true)
                     case "View Buyer Details":
                         self.showUser?(obj.enquiryId,false)
+                        
                     case "View Chat":
                         self.goTochat(enquiryId: obj.enquiryId)
                     case "View Transactions":
@@ -249,8 +252,8 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
                         print("do nothing")
                     }
                 }
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
         }
@@ -264,20 +267,21 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
         for option in options {
             let action = UIAlertAction.init(title: option, style: .default) { (action) in
                 if let obj = self.allEscalations?[index] {
-                switch option {
-                case "View Chat":
-                    self.goTochat(enquiryId: obj.enquiryId)
-                case "Mark Resolved":
-                    self.view.showAdminResolveConcernView(controller: self, enquiryCode: obj.enquiryCode, total: "₹ \(obj.price)", category: obj.category, concern: obj.concern)
-                    print("do nothing")
-                case "Generate new enquiry & redirect":
-                    print("do nothing")
-                default:
-                    print("do nothing")
+                    switch option {
+                    case "View Chat":
+                        self.goTochat(enquiryId: obj.enquiryId)
+                    case "Mark Resolved":
+                        self.view.showAdminResolveConcernView(controller: self, enquiryCode: obj.enquiryCode, total: "₹ \(obj.price)", category: obj.category, concern: obj.concern, escalationId: obj.entityID)
+                        print("do nothing")
+                    case "Generate new enquiry & redirect":
+                        self.view.showUnresolvedEnquiryRedirectionView(eqObject: obj, controller: self)
+                        print("do nothing")
+                    default:
+                        print("do nothing")
+                    }
                 }
-                }
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
         }
@@ -300,15 +304,72 @@ extension AdminEscalationController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-extension AdminEscalationController: UISearchBarDelegate, ResolveConcernViewProtocol {
+extension AdminEscalationController: UISearchBarDelegate, ResolveConcernViewProtocol, NewEnquiryDetailsViewProtocol, UnresolvedEscalationViewProtocol
+{
+    
+    
+    //Redirect enquiry
+    func chooseArtisanSelected(eqId: Int, enquiryCode: String?) {
+        self.view.hideNewEnquiryDetailsView()
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let vc = AdminRedirectEnquiryService(client: client).createRedirectArtisanScene(enquiryId: eqId , enquiryCode: enquiryCode ?? "", enquiryDate: nil, productCategory: nil,isAll: true)
+            vc.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(vc, animated: true)
+        }catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func viewProductDetailSelected(isCustom: Bool, prodId: Int, enquiryCode: String?) {
+        if isCustom {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = ProductCatalogService(client: client).createAdminProductDetailScene(forProductId: prodId, isCustom: true, isRedirect: false, enquiryCode: enquiryCode, buyerBrand: nil, enquiryDate: nil , enquiryId: nil)
+                
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
+        }else{
+            //createAdminProductDetailScene(forProduct: Int, isEdit: Bool)
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = ProductCatalogService(client: client).createAdminProductDetailScene(forProduct: prodId, isEdit: false)
+                
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func closeRedirectButtonSelected() {
+        self.view.hideNewEnquiryDetailsView()
+    }
+    
+    
+    //create new enquiry
+    
+    func generateNewEqSelected(eqId: Int) {
+        print("generate enquiry selected")
+        self.generateEnquiryFaulty?(eqId)
+    }
+    
+    func closeGenerateEnquirySelected() {
+        self.view.hideUnresolvedEnquiryRedirectionView()
+    }
     
     /// Resolve concern
     func closeButtonSelected() {
         self.view.hideAdminResolveConcernView()
     }
     
-    func resolvebuttonSelected() {
+    func resolvebuttonSelected(eqId: Int) {
         print("resolve selected")
+        self.resolveEscalation?(eqId)
     }
     
     ///Search methods

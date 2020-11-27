@@ -10,7 +10,7 @@ import UIKit
 
 protocol ResolveConcernViewProtocol {
     func closeButtonSelected()
-    func resolvebuttonSelected()
+    func resolvebuttonSelected(eqId: Int)
 }
 
 class ResolveConcernView: UIView {
@@ -24,7 +24,7 @@ class ResolveConcernView: UIView {
     
     var delegate: ResolveConcernViewProtocol?
     @IBAction func resolveButtonSelected(_ sender: Any) {
-        delegate?.resolvebuttonSelected()
+        delegate?.resolvebuttonSelected(eqId: resolvebutton.tag)
     }
     @IBAction func closeButtonSelected(_ sender: Any) {
         delegate?.closeButtonSelected()

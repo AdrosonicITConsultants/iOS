@@ -25,4 +25,12 @@ class AdminEscalationService: BaseService<Data> {
     func fetchAdminEscalationCount(cat: String, pageNo: Int, searchString: String) -> SafeSignal<Data> {
         return AdminEscalation.getAdminEscalationsCount(cat: cat, pageNo: pageNo, searchString: searchString).response(using: client).debug()
     }
+    
+    func resolveEscalation(escalationId: Int) -> SafeSignal<Data> {
+        return AdminEscalation.resolveEscalation(escalationId: escalationId).response(using: client).debug()
+    }
+    
+    func generateNewEnquiryFaulty(enquiryId: Int) -> SafeSignal<Data> {
+        return AdminEscalation.generateNewEnquiryFaulty(enquiryId: enquiryId).response(using: client).debug()
+    }
 }

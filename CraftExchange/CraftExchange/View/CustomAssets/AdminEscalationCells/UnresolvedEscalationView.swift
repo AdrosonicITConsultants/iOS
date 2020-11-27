@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol UnresolvedEscalationViewProtocol {
-    func closeSelected()
+    func closeGenerateEnquirySelected()
     func generateNewEqSelected(eqId: Int)
 }
 
@@ -27,7 +27,7 @@ class UnresolvedEscalationView: UIView {
     var delegate: UnresolvedEscalationViewProtocol?
     
     @IBAction func closeSelected(_ sender: Any) {
-        delegate?.closeSelected()
+        delegate?.closeGenerateEnquirySelected()
     }
     
     @IBAction func createNewEqSelected(_ sender: Any) {

@@ -471,7 +471,7 @@ class AdminProductDetailController: FormViewController {
          print("redirect clicked")
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = AdminRedirectEnquiryService(client: client).createRedirectArtisanScene(enquiryId: self.enquiryId ?? 0, enquiryCode: self.enquiryCode ?? "", enquiryDate: self.enquiryDate ?? "", productCategory: ProductCategory.getProductCat(catId: self.customProduct?.productCategoryId ?? 0)?.prodCatDescription, isAll: true)
+            let vc = AdminRedirectEnquiryService(client: client).createRedirectArtisanScene(enquiryId: self.enquiryId ?? 0, enquiryCode: self.enquiryCode ?? "", enquiryDate: self.enquiryDate ?? "", productCategory: ProductCategory.getProductCat(catId: self.customProduct?.productCategoryId ?? 0)?.prodCatDescription, isAll: false)
             vc.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc, animated: true)
         }catch {

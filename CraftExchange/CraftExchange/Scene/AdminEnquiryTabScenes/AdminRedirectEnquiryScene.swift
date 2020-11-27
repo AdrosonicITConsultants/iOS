@@ -107,6 +107,9 @@ extension AdminRedirectEnquiryService {
             vc.enquiryDate.text = enquiryDate ?? ""
             vc.productCategory.text = productCategory ?? ""
             if isAll {
+                
+                vc.enquiryDate.isHidden = true
+                vc.productCategory.isHidden = true
                 self.getAllArtisansRedirect(clusterId: vc.clusterFilterValue, enquiryId: enquiryId, searchString: vc.artisansSearchBar.searchTextField.text ?? "" ).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                         if let array = json["data"] as? [[String: Any]] {
