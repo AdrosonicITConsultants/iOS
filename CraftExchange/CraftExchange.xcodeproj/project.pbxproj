@@ -34,6 +34,8 @@
 		11C849B5253054B200729355 /* MarketHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C849B4253054B200729355 /* MarketHomeController.swift */; };
 		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
 		3001A8AE2518894E00CFC32A /* GetMOQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3001A8AD2518894D00CFC32A /* GetMOQ.swift */; };
+		3001D95E25702DA200873DCB /* ResolveConcernView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3001D95D25702DA200873DCB /* ResolveConcernView.swift */; };
+		3001D96025702E4900873DCB /* ResolveConcernView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3001D95F25702E4900873DCB /* ResolveConcernView.xib */; };
 		3005D1E12521966200BF22C0 /* MOQAcceptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005D1E02521966200BF22C0 /* MOQAcceptView.swift */; };
 		3005D1E32521978200BF22C0 /* MOQAcceptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3005D1E22521978100BF22C0 /* MOQAcceptView.xib */; };
 		3005D1E52521AE4000BF22C0 /* MOQAcceptedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005D1E42521AE4000BF22C0 /* MOQAcceptedView.swift */; };
@@ -512,6 +514,8 @@
 		11C849B225304C3C00729355 /* LoginMarketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMarketController.swift; sourceTree = "<group>"; };
 		11C849B4253054B200729355 /* MarketHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHomeController.swift; sourceTree = "<group>"; };
 		3001A8AD2518894D00CFC32A /* GetMOQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMOQ.swift; sourceTree = "<group>"; };
+		3001D95D25702DA200873DCB /* ResolveConcernView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolveConcernView.swift; sourceTree = "<group>"; };
+		3001D95F25702E4900873DCB /* ResolveConcernView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResolveConcernView.xib; sourceTree = "<group>"; };
 		3005D1E02521966200BF22C0 /* MOQAcceptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQAcceptView.swift; sourceTree = "<group>"; };
 		3005D1E22521978100BF22C0 /* MOQAcceptView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MOQAcceptView.xib; sourceTree = "<group>"; };
 		3005D1E42521AE4000BF22C0 /* MOQAcceptedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOQAcceptedView.swift; sourceTree = "<group>"; };
@@ -1793,6 +1797,8 @@
 				307B3980252C73EE000028AC /* TransactionReceiptView.xib */,
 				114186B72535C90F0039B80F /* AdminLabelCell.swift */,
 				114186B82535C90F0039B80F /* AdminLabelCell.xib */,
+				3001D95D25702DA200873DCB /* ResolveConcernView.swift */,
+				3001D95F25702E4900873DCB /* ResolveConcernView.xib */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -2303,6 +2309,7 @@
 				309598862510FC8100491E33 /* OrderAvailabilityCell.xib in Resources */,
 				C06AA39825052A9B00EF4B10 /* EnquiryDetailsRow.xib in Resources */,
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
+				3001D96025702E4900873DCB /* ResolveConcernView.xib in Resources */,
 				C0F72C23256ED65C006C9B27 /* TransactionTitleRow.xib in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
 				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
@@ -2673,6 +2680,7 @@
 				308D5F672514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift in Sources */,
 				C0B6633F256BFF5800DADAA4 /* GradientView.swift in Sources */,
 				115338A42542D8E900BF4204 /* AdminBuyerUserDetailController.swift in Sources */,
+				3001D95E25702DA200873DCB /* ResolveConcernView.swift in Sources */,
 				114186B92535C90F0039B80F /* AdminLabelCell.swift in Sources */,
 				C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */,
 				C099E3EA24FE1BDF003B6E3B /* Enquiry+Request.swift in Sources */,

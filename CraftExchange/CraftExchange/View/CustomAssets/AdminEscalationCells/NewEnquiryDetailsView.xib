@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -74,10 +74,22 @@
                         <action selector="viewProductDetailSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="GTX-eH-T84"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNN-sD-LEf">
+                    <rect key="frame" x="364" y="59" width="30" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="xJq-sD-L2D"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="X"/>
+                    <connections>
+                        <action selector="closeButtonSelected:" destination="iN0-l3-epB" eventType="touchUpInside" id="3q1-Ne-ngW"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="x3k-9i-Tbq" secondAttribute="trailing" constant="20" id="5Sv-9X-8ZH"/>
+                <constraint firstItem="BNN-sD-LEf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="8Z9-a7-hLF"/>
                 <constraint firstItem="vWL-Ec-XzZ" firstAttribute="top" secondItem="I2K-vQ-E7M" secondAttribute="bottom" constant="30" id="IF5-2z-mWv"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dll-WZ-NJ9" secondAttribute="trailing" constant="20" id="J41-Ol-akP"/>
                 <constraint firstItem="vWL-Ec-XzZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="JPc-4z-h2F"/>
@@ -87,6 +99,7 @@
                 <constraint firstItem="dll-WZ-NJ9" firstAttribute="top" secondItem="vWL-Ec-XzZ" secondAttribute="bottom" constant="40" id="To3-ub-bsa"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="I2K-vQ-E7M" secondAttribute="trailing" constant="20" id="WHL-qy-3Z8"/>
                 <constraint firstItem="x3k-9i-Tbq" firstAttribute="top" secondItem="dll-WZ-NJ9" secondAttribute="bottom" constant="40" id="WYa-Va-XHK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BNN-sD-LEf" secondAttribute="trailing" constant="20" id="YWM-Qs-ec3"/>
                 <constraint firstItem="x3k-9i-Tbq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="cFd-Ra-B0J"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vWL-Ec-XzZ" secondAttribute="trailing" constant="20" id="mDc-iE-aSo"/>
                 <constraint firstItem="kgR-Bn-ZjO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="xCG-Ka-O9H"/>
@@ -96,6 +109,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="chooseArtisanButton" destination="kgR-Bn-ZjO" id="qDZ-HD-gQo"/>
+                <outlet property="closeButton" destination="BNN-sD-LEf" id="hZX-80-BVa"/>
                 <outlet property="enquiryNumber" destination="vWL-Ec-XzZ" id="OCx-qq-Z4s"/>
                 <outlet property="viewProductButton" destination="dll-WZ-NJ9" id="Fdd-TF-XMX"/>
             </connections>

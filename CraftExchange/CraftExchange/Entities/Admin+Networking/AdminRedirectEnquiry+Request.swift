@@ -79,6 +79,23 @@ extension AdminRedirectEnquiry {
       )
     }
     
+    public static func getAllArtisansRedirect(clusterId: Int, enquiryId: Int, searchString: String) -> Request<Data, APIError> {
+        
+      let parameters: [String: Any] = [ "clusterId": clusterId,
+                                        "enquiryId": enquiryId,
+                                        "searchString": searchString
+                                    ]
+        return Request(
+            path: "marketingTeam/getArtisansForNewEnquiry",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get artisans failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
     public static func sendCustomEnquiry(enquiryId: Int, userIds: String) -> Request<Data, APIError> {
         let parameters: [String: Any] = ["enquiryId":enquiryId, "userIds":userIds]
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]

@@ -97,7 +97,7 @@ extension AdminRedirectEnquiryService {
         return vc
     }
     
-    func createRedirectArtisanScene(enquiryId: Int, enquiryCode: String?, enquiryDate: String?, productCategory: String?) -> UIViewController {
+    func createRedirectArtisanScene(enquiryId: Int, enquiryCode: String?, enquiryDate: String?, productCategory: String?, isAll: Bool) -> UIViewController {
         
         let storyboard = UIStoryboard(name: "AdminEnquiryTab", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "AdminRedirectArtisansController") as! AdminRedirectArtisansController
@@ -106,29 +106,58 @@ extension AdminRedirectEnquiryService {
             vc.enquiryCode.text = enquiryCode ?? ""
             vc.enquiryDate.text = enquiryDate ?? ""
             vc.productCategory.text = productCategory ?? ""
-            
-            self.fetchLessThanEightRatingArtisans(clusterId: vc.clusterFilterValue, searchString: vc.artisansSearchBar.searchTextField.text, enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if let array = json["data"] as? [[String: Any]] {
-                        if let enquirydata = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
-                            if array.count == 0 {
-                                DispatchQueue.main.async {
-                                    
-                                    vc.endRefresh()
-                                }
-                            }else{
-                                if let object = try? JSONDecoder().decode([AdminRedirectArtisan].self, from: enquirydata) {
-                                DispatchQueue.main.async {
-                                    vc.allArtisans =  object
-                                    vc.endRefresh()
+            if isAll {
+                
+                vc.enquiryDate.isHidden = true
+                vc.productCategory.isHidden = true
+                self.getAllArtisansRedirect(clusterId: vc.clusterFilterValue, enquiryId: enquiryId, searchString: vc.artisansSearchBar.searchTextField.text ?? "" ).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            if let enquirydata = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                                if array.count == 0 {
+                                    DispatchQueue.main.async {
+                                        
+                                        vc.endRefresh()
+                                    }
+                                }else{
+                                    if let object = try? JSONDecoder().decode([AdminRedirectArtisan].self, from: enquirydata) {
+                                    DispatchQueue.main.async {
+                                        vc.allArtisans =  object
+                                        vc.endRefresh()
+                                        }
                                     }
                                 }
+                                
                             }
-                            
                         }
                     }
-                }
-            }.dispose(in: vc.bag)
+                }.dispose(in: vc.bag)
+
+            }else{
+                self.fetchLessThanEightRatingArtisans(clusterId: vc.clusterFilterValue, searchString: vc.artisansSearchBar.searchTextField.text, enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if let array = json["data"] as? [[String: Any]] {
+                            if let enquirydata = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                                if array.count == 0 {
+                                    DispatchQueue.main.async {
+                                        
+                                        vc.endRefresh()
+                                    }
+                                }else{
+                                    if let object = try? JSONDecoder().decode([AdminRedirectArtisan].self, from: enquirydata) {
+                                    DispatchQueue.main.async {
+                                        vc.allArtisans =  object
+                                        vc.endRefresh()
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }.dispose(in: vc.bag)
+
+            }
         }
         vc.redirectEnquiry = {(userIds) in
             vc.showLoading()
@@ -138,7 +167,12 @@ extension AdminRedirectEnquiryService {
                         DispatchQueue.main.async {
                             print("redirected to artisans")
                             vc.hideLoading()
-                            vc.popBack(toControllerType: AdminRedirectEnquiryController.self)
+                            if isAll {
+                               vc.popBack(toControllerType: AdminEscalationController.self)
+                            }else{
+                              vc.popBack(toControllerType: AdminRedirectEnquiryController.self)
+                            }
+                            
                         }
                     }
                     else {

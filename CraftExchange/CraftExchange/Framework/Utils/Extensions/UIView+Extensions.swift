@@ -554,10 +554,49 @@ extension UIView {
                        effectView.removeFromSuperview()
         }
     }
+    
+    func showAdminResolveConcernView(controller: UIViewController, enquiryCode: String?, total: String?, category: String?, concern: String?, escalationId: Int) {
+          if let _ = self.viewWithTag(401) {
+              print("do nothing")
+          }else {
+              let initiationView = Bundle.main.loadNibNamed("ResolveConcernView", owner:
+                  self, options: nil)?.first as? ResolveConcernView
+              initiationView?.delegate =  controller as? ResolveConcernViewProtocol
+              initiationView?.tag = 401
+            initiationView?.category.text = category ?? "NA"
+            initiationView?.concern.text = concern ?? "NA"
+            initiationView?.enquiryCode.text = enquiryCode ?? "NA"
+            initiationView?.totalText.text = total ?? "NA"
+            initiationView?.resolvebutton.tag = escalationId
+              let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+             let effectView = UIVisualEffectView(effect: effect)
+              effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+              effectView.tag = 402
+              self.addSubview(effectView)
+               self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: 0, y: (self.frame.height/2) - 200, width: self.frame.width, height: 400)
+              initiationView?.dropShadow()
+              
+              self.bringSubviewToFront(initiationView!)
+             
+          }
+      }
+    
+      func hideAdminResolveConcernView() {
+          if let initialView = self.viewWithTag(401) {
+             // self.effectView.removeFromSuperview()
+              self.sendSubviewToBack(initialView)
+              initialView.removeFromSuperview()
+          }
+          if let effectView = self.viewWithTag(402) {
+              self.sendSubviewToBack(effectView)
+                         effectView.removeFromSuperview()
+          }
+      }
 }
 
 extension UIView {
-    func showUnresolvedEnquiryRedirectionView(eqObject: AdminEnquiry, controller: UIViewController) {
+    func showUnresolvedEnquiryRedirectionView(eqObject: AdminEscalation, controller: UIViewController) {
         if let _ = self.viewWithTag(144) {
             print("do nothing")
         }else {
@@ -565,13 +604,13 @@ extension UIView {
                 self, options: nil)?.first as? UnresolvedEscalationView
             initiationView?.delegate =  controller as? UnresolvedEscalationViewProtocol
             initiationView?.tag = 144
-            initiationView?.enquiryNumber.text = eqObject.code ?? ""
-            initiationView?.amountLabel.text = "\(eqObject.amount)"
+            initiationView?.enquiryNumber.text = eqObject.enquiryCode ?? ""
+            initiationView?.amountLabel.text = "\(eqObject.price)"
             initiationView?.buyerBrand.text = eqObject.buyerBrand ?? ""
-            initiationView?.artisanBrand.text = eqObject.artisanBrand ?? ""
-            initiationView?.generateNewEqButton.tag = eqObject.entityID
+            initiationView?.artisanBrand.text = eqObject.artistBrand ?? ""
+            initiationView?.generateNewEqButton.tag = eqObject.enquiryId
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
+            initiationView?.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             self.bringSubviewToFront(initiationView!)
         }
     }
@@ -586,7 +625,7 @@ extension UIView {
         }
     }
     
-    func showNewEnquiryDetailsView(eqObject: AdminEnquiry, controller: UIViewController) {
+    func showNewEnquiryDetailsView(enquiryCode: String?, productId:Int?, isCustom: Bool, enquiryId: Int, controller: UIViewController) {
         if let _ = self.viewWithTag(145) {
             print("do nothing")
         }else {
@@ -594,11 +633,20 @@ extension UIView {
                 self, options: nil)?.first as? NewEnquiryDetailsView
             initiationView?.delegate =  controller as? NewEnquiryDetailsViewProtocol
             initiationView?.tag = 145
-            initiationView?.enquiryNumber.text = eqObject.code ?? ""
-            initiationView?.viewProductButton.tag = eqObject.productId
-            initiationView?.chooseArtisanButton.tag = eqObject.entityID
+            initiationView?.enquiryNumber.text = enquiryCode ?? ""
+            initiationView?.viewProductButton.tag = productId ?? 0
+            initiationView?.isCustom = isCustom
+            initiationView?.chooseArtisanButton.tag = enquiryId
+            
+            let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let effectView = UIVisualEffectView(effect: effect)
+             effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+             effectView.tag = 146
+             self.addSubview(effectView)
+            
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
+            initiationView?.frame = CGRect(x: 0, y: (self.frame.height/2) - 225, width: self.frame.width, height: 450)
+             initiationView?.dropShadow()
             self.bringSubviewToFront(initiationView!)
         }
     }
@@ -611,5 +659,11 @@ extension UIView {
             UIApplication.shared.windows.first!.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
         }
+        if let effectView = self.viewWithTag(146) {
+            self.sendSubviewToBack(effectView)
+            effectView.removeFromSuperview()
+        }
     }
 }
+
+

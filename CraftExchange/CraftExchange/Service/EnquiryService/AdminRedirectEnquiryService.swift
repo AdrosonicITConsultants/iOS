@@ -34,6 +34,10 @@ class AdminRedirectEnquiryService: BaseService<Data> {
         return AdminRedirectEnquiry.getLessThanEightRatingArtisans(clusterId: clusterId, searchString: searchString, enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func getAllArtisansRedirect(clusterId: Int, enquiryId: Int, searchString: String) -> SafeSignal<Data> {
+        return AdminRedirectEnquiry.getAllArtisansRedirect(clusterId: clusterId, enquiryId: enquiryId, searchString: searchString).response(using: client).debug()
+    }
+    
     func sendCustomEnquiry(enquiryId: Int, userIds: String) -> SafeSignal<Data> {
         return AdminRedirectEnquiry.sendCustomEnquiry(enquiryId: enquiryId, userIds: userIds).response(using: client).debug()
     }
