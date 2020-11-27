@@ -84,7 +84,7 @@ class ProductCatalogueController: UIViewController {
         }
         tableView.refreshControl?.beginRefreshing()
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
-        
+        viewWillAppear?()
     }
     
     func addTopBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
@@ -97,7 +97,6 @@ class ProductCatalogueController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        viewWillAppear?()
         segmentView.buttonTitles = "Artisan Self Design, Antaran Co design".localized
         segmentView.type = .normal
         refreshAllCounts()

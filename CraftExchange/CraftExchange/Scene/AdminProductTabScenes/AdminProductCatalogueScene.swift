@@ -20,7 +20,7 @@ extension AdminProductCatalogueService {
         func performSync(){
             controller.showLoading()
             CatalogueProduct.setAllArtisanProductIsDeleteTrue()
-            self.getAllCatalogueProducts().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+            self.getAllCatalogueProducts().bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if let productarray = json["data"] as? [[String: Any]] {
                         var i = 0
@@ -32,19 +32,14 @@ extension AdminProductCatalogueService {
                                         print("productObj: \(productObj)")
                                         productObj.saveOrUpdate()
                                         productObj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0, isDeleted: 0)
-                                        
                                         if i == productarray.count {
+                                            controller.hideLoading()
                                             controller.endRefresh()
-                                            
                                         }
-                                        
                                     }
-                                    
                                 }
                             }
-                            
                         }
-                        
                     }
                 }else {
                     controller.endRefresh()

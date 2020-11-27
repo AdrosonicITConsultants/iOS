@@ -21,4 +21,7 @@ class AdminNotificationService: BaseService<Data> {
     func getAllTheNotifications() -> SafeSignal<Data> {
         return AdminNotifications.getAllAdminNotifications().response(using: client).debug()
     }
+    func savePushNotificationToken(deviceId: String, token: String) -> SafeSignal<Data> {
+        return AdminNotifications.saveDeviceToken(deviceId: deviceId, token: token).response(using: client).debug()
+    }
 }

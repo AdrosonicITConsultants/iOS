@@ -154,7 +154,7 @@
                                     <constraint firstAttribute="width" constant="102" id="u6N-jH-gOZ"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Cluster" image="arrow.down" catalog="system">
+                                <state key="normal" title="Cluster" image="chevron.down" catalog="system">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -165,7 +165,7 @@
                                 <rect key="frame" x="197" y="343" width="102" height="30"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Rating" image="arrow.down" catalog="system">
+                                <state key="normal" title="Rating" image="chevron.down" catalog="system">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -301,7 +301,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="All" image="arrowtriangle.down.fill" catalog="system">
+                                <state key="normal" title="All" image="chevron.down" catalog="system">
                                     <color key="titleColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -739,7 +739,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAA-eM-DUQ">
-                                <rect key="frame" x="344" y="116" width="50" height="70"/>
+                                <rect key="frame" x="344" y="116" width="50" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="rPR-Sr-W2y"/>
                                 </constraints>
@@ -817,23 +817,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cluster" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSe-bY-871">
-                                        <rect key="frame" x="64" y="0.0" width="150" height="16"/>
+                                        <rect key="frame" x="70" y="0.0" width="147" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgA-D9-ZFj" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
-                                        <rect key="frame" x="64" y="21" width="150" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgA-D9-ZFj" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+                                        <rect key="frame" x="70" y="21" width="147" height="40"/>
                                         <color key="backgroundColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="9uB-wj-brS"/>
-                                            <constraint firstAttribute="width" constant="150" id="ony-1n-2gz"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="tintColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="titleEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="130" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="All" image="arrowtriangle.down.fill" catalog="system">
+                                        <state key="normal" title="All" image="chevron.down" catalog="system">
                                             <color key="titleColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -849,19 +846,17 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Availability" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIW-rC-UZd">
-                                        <rect key="frame" x="224" y="0.0" width="150" height="16"/>
+                                        <rect key="frame" x="227" y="0.0" width="147" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ii9-2p-tUE" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
-                                        <rect key="frame" x="224" y="21" width="150" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ii9-2p-tUE" customClass="RoundedButton" customModule="Craft_Xchange_Admin" customModuleProvider="target">
+                                        <rect key="frame" x="227" y="21" width="147" height="40"/>
                                         <color key="backgroundColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="tintColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <inset key="titleEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <inset key="imageEdgeInsets" minX="130" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="All" image="arrowtriangle.down.fill" catalog="system"/>
+                                        <state key="normal" title="All" image="chevron.down" catalog="system"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColour">
                                                 <color key="value" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -892,6 +887,7 @@
                                 <constraints>
                                     <constraint firstItem="yIW-rC-UZd" firstAttribute="leading" secondItem="SSe-bY-871" secondAttribute="trailing" constant="10" id="0uG-jY-kDI"/>
                                     <constraint firstItem="Ii9-2p-tUE" firstAttribute="width" secondItem="SSe-bY-871" secondAttribute="width" id="4dr-1e-K5x"/>
+                                    <constraint firstItem="SSe-bY-871" firstAttribute="leading" secondItem="Teq-AS-dPy" secondAttribute="trailing" id="8jA-Pv-06E"/>
                                     <constraint firstItem="BgA-D9-ZFj" firstAttribute="width" secondItem="SSe-bY-871" secondAttribute="width" id="CHB-4d-8c5"/>
                                     <constraint firstItem="Ii9-2p-tUE" firstAttribute="top" secondItem="yIW-rC-UZd" secondAttribute="bottom" constant="5" id="F7u-wB-eUu"/>
                                     <constraint firstAttribute="trailing" secondItem="Ii9-2p-tUE" secondAttribute="trailing" id="FgT-gi-UnS"/>
@@ -1541,11 +1537,10 @@
     </scenes>
     <resources>
         <image name="ArtisanSelfDesigniconiOS" width="27" height="21"/>
-        <image name="arrow.down" catalog="system" width="60" height="64"/>
-        <image name="arrowtriangle.down.fill" catalog="system" width="64" height="62"/>
         <image name="artisan screen logo" width="138" height="58"/>
         <image name="button" width="35" height="35"/>
         <image name="buyer screen logo" width="138" height="59"/>
+        <image name="chevron.down" catalog="system" width="64" height="36"/>
         <image name="edit" width="15" height="15"/>
         <image name="list.bullet.indent" catalog="system" width="64" height="36"/>
         <image name="my-profile-icon" width="20" height="20"/>
