@@ -148,6 +148,8 @@ class SearchTeammateController: UIViewController {
                 cell.name.text = obj.username
                 cell.role.text = obj.role
             }
+            cell.contentView.backgroundColor = .black
+            cell.backgroundColor = .black
             return cell
         }
         

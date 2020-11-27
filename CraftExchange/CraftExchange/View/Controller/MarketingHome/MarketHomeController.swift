@@ -43,6 +43,7 @@ class MarketHomeController: FormViewController {
         viewModel.viewDidLoad?()
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
+        self.tableView.separatorStyle = .none
         viewWillAppear?()
         refreshCountForTag()
         

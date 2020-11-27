@@ -42,11 +42,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW1-xi-56N">
-                                <rect key="frame" x="0.0" y="84" width="414" height="812"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fW1-xi-56N">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="980"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXR-ee-VTo">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="936"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-underlying-text" translatesAutoresizingMaskIntoConstraints="NO" id="B9z-kI-Xd7">
                                                 <rect key="frame" x="20" y="20" width="374" height="200"/>
@@ -151,7 +151,7 @@
                                 <constraints>
                                     <constraint firstItem="OXR-ee-VTo" firstAttribute="centerX" secondItem="fW1-xi-56N" secondAttribute="centerX" id="B3s-TH-buP"/>
                                     <constraint firstItem="OXR-ee-VTo" firstAttribute="leading" secondItem="dRK-yk-TjE" secondAttribute="leading" id="JB6-nt-kde"/>
-                                    <constraint firstAttribute="bottom" secondItem="OXR-ee-VTo" secondAttribute="bottom" id="JOP-Rz-1A4"/>
+                                    <constraint firstAttribute="bottom" secondItem="OXR-ee-VTo" secondAttribute="bottom" constant="50" id="JOP-Rz-1A4"/>
                                     <constraint firstItem="OXR-ee-VTo" firstAttribute="bottom" secondItem="dRK-yk-TjE" secondAttribute="bottom" id="WrD-6Q-5HY"/>
                                     <constraint firstAttribute="trailing" secondItem="OXR-ee-VTo" secondAttribute="trailing" id="XtI-89-5vT"/>
                                     <constraint firstItem="OXR-ee-VTo" firstAttribute="top" secondItem="lcY-K9-qLe" secondAttribute="top" id="aT1-jP-xdd"/>
@@ -168,7 +168,7 @@
                             <constraint firstItem="fW1-xi-56N" firstAttribute="leading" secondItem="OHd-LR-w0N" secondAttribute="leading" id="6Tz-RR-4c2"/>
                             <constraint firstItem="fW1-xi-56N" firstAttribute="leading" secondItem="SO8-1I-sGx" secondAttribute="leading" id="9ga-1L-fxa"/>
                             <constraint firstItem="fW1-xi-56N" firstAttribute="centerY" secondItem="SO8-1I-sGx" secondAttribute="centerY" constant="42" id="FsE-9y-uxm"/>
-                            <constraint firstItem="fW1-xi-56N" firstAttribute="top" secondItem="SO8-1I-sGx" secondAttribute="top" constant="84" id="KuA-29-Slg"/>
+                            <constraint firstItem="fW1-xi-56N" firstAttribute="top" secondItem="SO8-1I-sGx" secondAttribute="top" id="KuA-29-Slg"/>
                             <constraint firstItem="fW1-xi-56N" firstAttribute="centerX" secondItem="SO8-1I-sGx" secondAttribute="centerX" id="OuI-MZ-LU0"/>
                             <constraint firstItem="OHd-LR-w0N" firstAttribute="trailing" secondItem="fW1-xi-56N" secondAttribute="trailing" id="oP9-iL-43Z"/>
                         </constraints>

@@ -114,15 +114,6 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcc-0c-ifV">
-                                        <rect key="frame" x="459" y="53" width="123" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <string key="text"> Other reports 
- for order</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBX-2u-Vnb">
                                         <rect key="frame" x="155" y="50" width="115" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -164,7 +155,6 @@
                 <outlet property="Label1" destination="3qk-Z9-c7Z" id="qww-YC-r6J"/>
                 <outlet property="Label2" destination="aBX-2u-Vnb" id="rTq-vW-jCK"/>
                 <outlet property="Label3" destination="eYe-Ec-a6f" id="MPy-Id-5Q8"/>
-                <outlet property="Label4" destination="xcc-0c-ifV" id="dpw-o7-aKS"/>
                 <outlet property="Lb1" destination="Dt8-xD-NfH" id="6gc-bn-qUU"/>
                 <outlet property="Lb3" destination="b2l-9w-2oQ" id="aSx-4u-TqH"/>
                 <outlet property="Rb1" destination="vls-UA-NQu" id="Stg-Pe-eDK"/>

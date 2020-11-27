@@ -197,7 +197,7 @@ extension UIViewController {
 
         let rightBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         rightBarButton.tintColor = .lightGray
-        rightBarButton.setBackgroundImage(UIImage(named: "ios_bell"), for: .normal)
+        rightBarButton.setBackgroundImage(UIImage(named: "Icon awesome-bell"), for: .normal)
         rightBarButton.addTarget(self, action: #selector(self.notificationButtonSelected), for: .touchUpInside)
         rightBarButton.addSubview(badgeCount)
         
