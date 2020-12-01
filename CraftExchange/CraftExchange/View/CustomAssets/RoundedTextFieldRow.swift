@@ -19,6 +19,7 @@ class RoundedTextFieldView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
         valueTextField.delegate = self
+        valueTextField.layer.borderColor = UIColor.white.cgColor
     }
 
     public override func update() {

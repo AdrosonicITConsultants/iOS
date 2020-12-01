@@ -203,6 +203,15 @@ class MarketHomeController: FormViewController {
             }).onCellSelection({ (cell, row) in
                 self.sendInputActionsheet()
             })
+            <<< ButtonRow() {
+                let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+                $0.title = "27-11-2020 V\(appVersion ?? "1.0")"
+                $0.cell.contentView.backgroundColor = .black
+                $0.cell.isUserInteractionEnabled = false
+            }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = .black
+                cell.tintColor = .lightGray
+            })
     }
     
     func sendInputActionsheet(){

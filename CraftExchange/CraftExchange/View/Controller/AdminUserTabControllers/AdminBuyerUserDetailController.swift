@@ -102,24 +102,26 @@ class AdminBuyerUserDetailController: UIViewController {
                 }
             }
         }
-        if let rightButtonItem = self.navigationItem.rightBarButtonItem {
-            if userObject?.status == 1 {
-                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
-                rightButtonItem.tintColor = UIColor().CEGreen()
+        if User.loggedIn()?.refMarketingRoleId == 1 {
+            if let rightButtonItem = self.navigationItem.rightBarButtonItem {
+                if userObject?.status == 1 {
+                    rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
+                    rightButtonItem.tintColor = UIColor().CEGreen()
+                }else {
+                    rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
+                    rightButtonItem.tintColor = .systemRed
+                }
             }else {
-                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
-                rightButtonItem.tintColor = .systemRed
+                let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(editUserActiveStatus))
+                if userObject?.status == 1 {
+                    rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
+                    rightButtonItem.tintColor = UIColor().CEGreen()
+                }else {
+                    rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
+                    rightButtonItem.tintColor = .systemRed
+                }
+                self.navigationItem.rightBarButtonItem = rightButtonItem
             }
-        }else {
-            let rightButtonItem = UIBarButtonItem.init(title: "".localized, style: .plain, target: self, action: #selector(editUserActiveStatus))
-            if userObject?.status == 1 {
-                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.checkmark")
-                rightButtonItem.tintColor = UIColor().CEGreen()
-            }else {
-                rightButtonItem.image = UIImage.init(systemName: "person.crop.circle.badge.xmark")
-                rightButtonItem.tintColor = .systemRed
-            }
-            self.navigationItem.rightBarButtonItem = rightButtonItem
         }
     }
     
