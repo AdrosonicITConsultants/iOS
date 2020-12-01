@@ -34,7 +34,7 @@ extension AdminNotifications {
       //
       let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
       return Request(
-          path: "user/saveDeviceToken/\(deviceId)/iOS/\(token)",
+          path: "marketingTeam/saveDeviceToken/iOS/\(token)?deviceId=\(deviceId)",
           method: .post,
           headers: headers,
           resource: {print(String(data: $0, encoding: .utf8) ?? "failed to save notification token")
