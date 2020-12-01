@@ -21,4 +21,8 @@ class LoginUserService: BaseService<Data> {
     func fetch(username: String, password: String) -> SafeSignal<Data> {
       return User.authenticate(username: username, password: password).response(using: client).debug()
     }
+    
+    func logout() -> SafeSignal<Data> {
+      return User.logout().response(using: client).debug()
+    }
 }

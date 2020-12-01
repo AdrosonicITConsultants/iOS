@@ -31,6 +31,30 @@ extension CatalogueProduct {
           needsAuthorization: true
       )
     }
+    
+    public static func getCatalogueProducts(parameters: [String: Any]) -> Request<Data, APIError> {
+        return Request(
+            path: "marketingTeam/v1/getArtisanProducts",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get Artisan Products failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func getCatalogueProductsCount(parameters: [String: Any]) -> Request<Data, APIError> {
+        return Request(
+            path: "marketingTeam/v1/getArtisanProductsCount",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get Artisan Products Count failed")
+              return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
 
 }
 
