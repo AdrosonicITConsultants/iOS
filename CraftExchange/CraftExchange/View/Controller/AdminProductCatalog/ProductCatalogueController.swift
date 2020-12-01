@@ -45,9 +45,13 @@ class ProductCatalogueController: UIViewController {
     var allProducts: [CatalogueProduct]?
     var allProductsResults: Results<CatalogueProduct>?
     var viewWillAppear: (() -> ())?
-    var clusterFilterValue = "All"
-    var availabilityFilterValue = "All"
-    var searchText: String = ""
+    var clusterFilterValue = -1
+    var availabilityFilterValue = -1
+   // var searchText: String = ""
+   // var madeWithAntaran = 0
+    var reachedLimit = false
+    var pageNo = 1
+    var eqArray: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,92 +62,28 @@ class ProductCatalogueController: UIViewController {
         categoryLabel.text = "Cluster"
         productSearchBar.placeholder = "search by name, code, brand, category"
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
-        try? reachabilityManager?.startNotifier()
-        allProducts = []
-        if self.segmentView.selectedSegmentIndex == 0 {
-            self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-            self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        }else {
-            self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-            self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        }
-        addTopBorderWithColor(tableView, color: #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1), width: 1)
-        //  hideShowFilter(isHidden: true)
         definesPresentationContext = false
-        //  self.setupSideMenu(false)
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-        let center = NotificationCenter.default
-        center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
-            self.applicationEnteredForeground?()
-        }
-        if tableView.refreshControl == nil {
-            let refreshControl = UIRefreshControl()
-            tableView.refreshControl = refreshControl
-        }
-        tableView.refreshControl?.beginRefreshing()
-        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
-        viewWillAppear?()
+        productSearchBar.returnKeyType = .search
+        totalLabel.text = "Total Products: 0"
+        
     }
-    
-    func addTopBorderWithColor(_ objView : UIView, color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: 0, width: objView.frame.size.width, height: width)
-        objView.layer.addSublayer(border)
-    }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         segmentView.buttonTitles = "Artisan Self Design, Antaran Co design".localized
         segmentView.type = .normal
+        viewWillAppear?()
         refreshAllCounts()
     }
     
-    @objc func pullToRefresh() {
-        viewWillAppear?()
-    }
-    
-    func endRefresh() {
-        if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
-            refreshControl.endRefreshing()
-        }
-        if self.reachabilityManager?.connection == .unavailable {
-            
-            if self.segmentView.selectedSegmentIndex == 0 {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-            }else {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-            }
-             self.hideLoading()
-            
-        }else{
-            
-            if self.segmentView.selectedSegmentIndex == 0 {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-            }else {
-                self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon",1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-            }
-        }
-        checkFilter()
-        
-        let count = allProducts?.count ?? 0
-        self.totalLabel.text = "Total Products: \(count)"
-        
-       
-        self.tableView.reloadData()
-    }
-    
-    
     @IBAction func segmentValueChanged(_ sender: Any) {
         self.allProducts?.removeAll()
-        
+        self.pageNo = 1
+        self.reachedLimit = false
+        totalLabel.text = "Total Products: 0"
         viewWillAppear?()
     }
     
@@ -167,7 +107,7 @@ class ProductCatalogueController: UIViewController {
         let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
         
         let all = UIAlertAction.init(title: "All", style: .default) { (action) in
-            self.clusterFilterValue = "All"
+            self.clusterFilterValue = -1
             self.categoryFilterButton.setTitle("All", for: .normal)
         }
         alert.addAction(all)
@@ -177,7 +117,7 @@ class ProductCatalogueController: UIViewController {
             for cluster in allClusters {
                 let change = UIAlertAction.init(title: cluster.clusterDescription, style: .default) { (action) in
                     self.categoryFilterButton.setTitle(cluster.clusterDescription, for: .normal)
-                    self.clusterFilterValue = cluster.clusterDescription ?? ""
+                    self.clusterFilterValue = cluster.entityID
                 }
                 alert.addAction(change)
             }
@@ -194,19 +134,19 @@ class ProductCatalogueController: UIViewController {
         
         let all = UIAlertAction.init(title: "All", style: .default) { (action) in
             self.availabilityFilterButton.setTitle("All", for: .normal)
-            self.availabilityFilterValue = "All"
+            self.availabilityFilterValue = -1
         }
         alert.addAction(all)
         
         let madetoOrder = UIAlertAction.init(title: "Made to order", style: .default) { (action) in
             self.availabilityFilterButton.setTitle("Made to order", for: .normal)
-            self.availabilityFilterValue = "Made to order"
+            self.availabilityFilterValue = 1
         }
         alert.addAction(madetoOrder)
         
         let availableInStock = UIAlertAction.init(title: "Available in stock", style: .default) { (action) in
             self.availabilityFilterButton.setTitle("Available in stock", for: .normal)
-            self.availabilityFilterValue = "Available in Stock"
+            self.availabilityFilterValue = 2
         }
         alert.addAction(availableInStock)
         
@@ -217,64 +157,28 @@ class ProductCatalogueController: UIViewController {
     
     
     @IBAction func applyFilterBtnSelected(_ sender: Any) {
-        checkFilter()
-        let count = allProducts?.count ?? 0
-        self.totalLabel.text = "Total Products: \(count)"
-        self.hideLoading()
-        self.tableView.reloadData()
-    }
-    
-    func checkFilter() {
-        if self.clusterFilterValue != "All" {
-            if self.availabilityFilterValue != "All" {
-                if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
-                }else {
-                    
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue ).filter("%K == %@","availability",availabilityFilterValue )
-                }
-            }else{
-                if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
-                }else {
-                    
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","clusterName",clusterFilterValue )
-                }
-            }
-        }else{
-            if self.availabilityFilterValue != "All" {
-                if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
-                }else {
-                    
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","availability",availabilityFilterValue )
-                }
-            }else{
-                if self.segmentView.selectedSegmentIndex == 0 {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 0 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                }else {
-                    self.allProductsResults = realm?.objects(CatalogueProduct.self).filter("%K == %@","isDeleted", 0 ).filter("%K == %@","icon", 1 ).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 )
-                }
-            }
-        }
-        
-        self.allProducts = allProductsResults?.sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        
-        if searchText != "" {
-            let query = NSCompoundPredicate(type: .or, subpredicates:
-                [NSPredicate(format: "code contains[c] %@",searchText),
-                 NSPredicate(format: "name contains[c] %@",searchText), NSPredicate(format: "category contains[c] %@",searchText), NSPredicate(format: "brand contains[c] %@",searchText)])
-            
-            allProducts = allProductsResults?.filter(query).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-            
-        }
+        pageNo = 1
+        reachedLimit = false
+        productSearchBar.resignFirstResponder()
+        eqArray = []
+        viewWillAppear?()
+
     }
     
 }
 
 extension ProductCatalogueController: UITableViewDataSource, UITableViewDelegate, ProductCatalogueProtocol{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allProducts?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 170
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -286,8 +190,34 @@ extension ProductCatalogueController: UITableViewDataSource, UITableViewDelegate
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+          
+               if self.allProducts?.count ?? 0 > 0 && self.reachedLimit == false {
+                   let lastElement = (allProducts?.count ?? 0) - 1
+                   if indexPath.row == lastElement {
+                       pageNo += 1
+                       self.viewWillAppear?()
+                   }
+               }
+       }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        header.backgroundColor = .black
+        header.textColor = .white
+        if allProducts?.count == 1 {
+            header.text = " Found \(allProducts?.count ?? 0) item"
+        }else if allProducts?.count ?? 0 > 0{
+            header.text = " Found \(allProducts?.count ?? 0) items"
+        }else {
+            header.text = " No Results Found!"
+        }
+        header.font = .systemFont(ofSize: 15)
+        return header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -307,30 +237,12 @@ extension ProductCatalogueController: UITableViewDataSource, UITableViewDelegate
 
 extension ProductCatalogueController: UISearchBarDelegate {
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchText = searchBar.text ?? ""
-       // endRefresh()
-         applyBtn.sendActions(for: .touchUpInside)
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
-        searchBar.text = ""
-        searchText = ""
-        applyBtn.sendActions(for: .touchUpInside)
-        searchBar.resignFirstResponder()
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        applyBtn.sendActions(for: .touchUpInside)
-    }
+     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+           applyBtn.sendActions(for: .touchUpInside)
+       }
+       func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+           searchBar.resignFirstResponder()
+       }
    
     
 }

@@ -201,22 +201,28 @@ class MarketHomeController: FormViewController {
                 cell.backgroundColor = .black
                 cell.tintColor = .white
             }).onCellSelection({ (cell, row) in
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                appDelegate?.marketingTabbar = nil
-                KeychainManager.standard.deleteAll()
-                UIApplication.shared.unregisterForRemoteNotifications()
-                UIApplication.shared.applicationIconBadgeNumber = 0
-                self.showLoading()
-                guard let client = try? SafeClient(wrapping: CraftExchangeClient()) else {
-                    _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
-                    return
-                }
-                let controller = LoginUserService(client: client).createScene()
-                controller.modalPresentationStyle = .fullScreen
-                self.dismiss(animated: true) {
-                    self.present(controller, animated: true, completion: nil)
-                }
+                self.sendInputActionsheet()
             })
+    }
+    
+    func sendInputActionsheet(){
+        let alert = UIAlertController.init(title: "Are you sure".localized, message: "you want to logout?", preferredStyle: .actionSheet)
+        
+        let save = UIAlertAction.init(title: "Logout".localized, style: .default) { (action) in
+           
+            guard let client = try? SafeClient(wrapping: CraftExchangeClient()) else {
+                _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
+                return
+            }
+            LoginUserService(client: client).logoutFunc(vc: self)
+            
+        }
+        alert.addAction(save)
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
+            
+        }
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -423,7 +423,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "66C82382-7602-4E3B-B3AD-789273EF4700"
+            uuid = "2AF294B4-F461-4028-B461-947EACAF1171"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -432,72 +432,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
             endingLineNumber = "207"
-            landmarkName = "presentAvailabilityInputActionsheet()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "66C82382-7602-4E3B-B3AD-789273EF4700 - 898dbb1f834add10"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Craft_Xchange_Admin.ProductCatalogueController.(presentAvailabilityInputActionsheet in _FC6F2BD4EDE7E6C965E470E9A9AA23A6)() -&gt; ()"
-                  moduleName = "Craft-Xchange-Admin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/Admin-TTCE/CraftExchange/CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "207"
-                  endingLineNumber = "207"
-                  offsetFromSymbolStart = "489">
-               </Location>
-               <Location
-                  uuid = "66C82382-7602-4E3B-B3AD-789273EF4700 - 65f57a38527032a2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #3 (__C.UIAlertAction) -&gt; () in Craft_Xchange_Admin.ProductCatalogueController.(presentAvailabilityInputActionsheet in _FC6F2BD4EDE7E6C965E470E9A9AA23A6)() -&gt; ()"
-                  moduleName = "Craft-Xchange-Admin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/Admin-TTCE/CraftExchange/CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "208"
-                  endingLineNumber = "208"
-                  offsetFromSymbolStart = "95">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EBD6F6D9-A45A-4B5F-8579-D8DB68DA953F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "presentAvailabilityInputActionsheet()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2AF294B4-F461-4028-B461-947EACAF1171"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "applyFilterBtnSelected(_:)"
-            landmarkType = "7">
+            landmarkName = "ProductCatalogueController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -510,9 +446,9 @@
             filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "availabilityFilterBtnSelected(_:)"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -526,42 +462,10 @@
             filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "presentAvailabilityInputActionsheet()"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6719B18A-2C65-4C6C-8575-4ECC9981A310 - 898dbb1f834add10"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Craft_Xchange_Admin.ProductCatalogueController.(presentAvailabilityInputActionsheet in _FC6F2BD4EDE7E6C965E470E9A9AA23A6)() -&gt; ()"
-                  moduleName = "Craft-Xchange-Admin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/Admin-TTCE/CraftExchange/CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "195"
-                  endingLineNumber = "195"
-                  offsetFromSymbolStart = "162">
-               </Location>
-               <Location
-                  uuid = "6719B18A-2C65-4C6C-8575-4ECC9981A310 - a132ab3105b42a4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in Craft_Xchange_Admin.ProductCatalogueController.(presentAvailabilityInputActionsheet in _FC6F2BD4EDE7E6C965E470E9A9AA23A6)() -&gt; ()"
-                  moduleName = "Craft-Xchange-Admin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/Admin-TTCE/CraftExchange/CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "196"
-                  endingLineNumber = "196"
-                  offsetFromSymbolStart = "95">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -574,9 +478,9 @@
             filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "presentAvailabilityInputActionsheet()"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -590,56 +494,10 @@
             filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "presentAvailabilityInputActionsheet()"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "113AD592-8A61-441E-ABB9-B72181D44CBF - 898dbb1f834add10"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Craft_Xchange_Admin.ProductCatalogueController.(presentAvailabilityInputActionsheet in _FC6F2BD4EDE7E6C965E470E9A9AA23A6)() -&gt; ()"
-                  moduleName = "Craft-Xchange-Admin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/Admin-TTCE/CraftExchange/CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "201"
-                  endingLineNumber = "201"
-                  offsetFromSymbolStart = "338">
-               </Location>
-               <Location
-                  uuid = "113AD592-8A61-441E-ABB9-B72181D44CBF - 13c65276b1679aa3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (__C.UIAlertAction) -&gt; () in Craft_Xchange_Admin.ProductCatalogueController.(presentAvailabilityInputActionsheet in _FC6F2BD4EDE7E6C965E470E9A9AA23A6)() -&gt; ()"
-                  moduleName = "Craft-Xchange-Admin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kalyan/Documents/Admin-TTCE/CraftExchange/CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "202"
-                  endingLineNumber = "202"
-                  offsetFromSymbolStart = "95">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4EEDAFA3-EC67-45BF-BF25-0622BC22176B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1839,6 +1697,54 @@
             startingLineNumber = "129"
             endingLineNumber = "129"
             landmarkName = "createAdminProductDetailScene(forProductId:isCustom:isRedirect:enquiryCode:buyerBrand:enquiryDate:enquiryId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BE037821-1F2E-4D19-9540-DADAF7779C7E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/View/Controller/AdminProductCatalog/ProductCatalogueController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5F25404B-22FE-40FD-866D-EF775AB30E78"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Scene/LoginScenes/LoginUserScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "logoutFunc(vc:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "964CE0D4-DB87-42CF-BDBC-D7947D19A58D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/View/Controller/MarketingHome/MarketHomeController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "sendInputActionsheet()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

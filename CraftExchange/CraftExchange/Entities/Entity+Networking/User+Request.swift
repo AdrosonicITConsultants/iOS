@@ -38,6 +38,20 @@ extension User {
           needsAuthorization: false
       )
   }
+    
+  public static func logout() -> Request<Data, APIError> {
+    let deviceId = "iOS"
+    let parameters: [String: Any] = ["deviceId":deviceId]
+      return Request(
+          path: "user/logoutMobile?deviceId=\(deviceId)",
+          method: .post,
+          parameters: JSONParameters(parameters),
+          resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
+            return $0},
+          error: APIError.init,
+          needsAuthorization: false
+      )
+  }
   
   public static func sendOTP(username: String) -> Request<Data, APIError> {
       return Request(

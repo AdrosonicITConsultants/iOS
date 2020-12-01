@@ -21,4 +21,12 @@ class AdminProductCatalogueService: BaseService<Data> {
     func getAllCatalogueProducts () -> SafeSignal<Data> {
       return CatalogueProduct.getAllCatalogueProducts().response(using: client).debug()
     }
+    
+    func fetchCatalogueProducts(parameters: [String: Any]) -> SafeSignal<Data> {
+      return CatalogueProduct.getCatalogueProducts(parameters: parameters).response(using: client).debug()
+    }
+    
+    func fetchCatalogueProductsCount(parameters: [String: Any]) -> SafeSignal<Data> {
+      return CatalogueProduct.getCatalogueProductsCount(parameters: parameters).response(using: client).debug()
+    }
 }
