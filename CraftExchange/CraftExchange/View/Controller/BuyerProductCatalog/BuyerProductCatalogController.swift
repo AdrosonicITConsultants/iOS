@@ -118,7 +118,7 @@ class BuyerProductCatalogController: UIViewController {
         
         switch selectedCluster?.entityID {
         case selectedCluster?.entityID:
-            return CMSRegionACF.getRegionType(ClusterId: selectedCluster!.entityID)!.regDescription!
+            return CMSRegionACF.getRegionType(ClusterId: selectedCluster?.entityID ?? 0)?.regDescription ?? ""
 
         default:
             return selectedCluster?.adjective ?? ""
@@ -129,7 +129,7 @@ class BuyerProductCatalogController: UIViewController {
         
         switch selectedCategory?.entityID {
         case selectedCategory?.entityID:
-            return CMSCategoryACF.getCategoryType(CategoryId: selectedCategory!.entityID)!.catDescription!
+            return CMSCategoryACF.getCategoryType(CategoryId: selectedCategory?.entityID ?? 0)?.catDescription ?? ""
 
         default:
             return selectedCategory?.description ?? ""
@@ -145,11 +145,11 @@ class BuyerProductCatalogController: UIViewController {
                 }else {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                        let service = BrandLogoService.init(client: client, userObject: selectedArtisan!)
+                        let service = BrandLogoService.init(client: client, userObject: artisan)
                         service.fetch().observeNext { (attachment) in
                             DispatchQueue.main.async {
                                 let tag = artisan.buyerCompanyDetails.first?.logo ?? "name.jpg"
-                                let prodId = artisan.entityID ?? 0
+                                let prodId = artisan.entityID
                                 _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
                                 self.brandLogoImage.image = UIImage.init(data: attachment)
                             }
@@ -166,7 +166,7 @@ class BuyerProductCatalogController: UIViewController {
                 }else {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                        let service = UserProfilePicService.init(client: client, userObject: selectedArtisan!)
+                        let service = UserProfilePicService.init(client: client, userObject: artisan)
                         service.fetch().observeNext { (attachment) in
                             DispatchQueue.main.async {
                                 let tag = artisan.profilePic ?? "name.jpg"

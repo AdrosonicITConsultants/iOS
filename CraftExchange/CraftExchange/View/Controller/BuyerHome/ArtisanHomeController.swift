@@ -35,6 +35,7 @@ class ArtisanHomeController: UIViewController {
     let realm = try? Realm()
     lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
+    var categoryData: Results<CMSCategoryACF>?
     
     override func viewDidLoad() {
         
@@ -46,7 +47,7 @@ class ArtisanHomeController: UIViewController {
         loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
         self.setupSideMenu(false)
         super.viewDidLoad()
-        
+        categoryData = realm?.objects(CMSCategoryACF.self).sorted(byKeyPath: "entityID")
         viewModel.viewDidLoad?()
         let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
         let rightBarButtomItem2 = self.searchBarButton()
@@ -156,6 +157,33 @@ extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataS
         cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription
         cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
         cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription?.localized
+        cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
+        if let image = CMSCategoryACF.getCategoryType(CategoryId: (dataSource?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((dataSource?[indexPath.row].entityID) ?? 0))?.image != "" {
+            print(image)
+            if let url = URL(string: image){
+                print(url.lastPathComponent)
+            if let downloadedImage = try? Disk.retrieve("\(url.lastPathComponent)", from: .caches, as: UIImage.self) {
+                cell.categoryCover.image = downloadedImage
+            }
+            else{
+                let url = URL(string: image)
+                URLSession.shared.dataTask(with: url!) { data, response, error in
+                    // do your stuff here...
+                    DispatchQueue.main.async {
+                        if error == nil {
+                            if let finalData = data {
+                                // do something on the main queue
+                                cell.categoryCover.image = UIImage.init(data: finalData)
+                                cell.categoryCover.contentMode = .scaleAspectFill
+                            }
+                        }
+                    }
+                }.resume()
+                }
+        }
+
+            
+        }
         return cell
     }
     

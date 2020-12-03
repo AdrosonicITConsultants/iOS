@@ -164,8 +164,9 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegionCell", for: indexPath) as! RegionCell
             cell.titleLabel.text = allRegions?.compactMap{$0}[indexPath.row].clusterDescription
             cell.adjectiveLabel.text = allRegions?[indexPath.row].adjective
-            cell.logoImage.image = UIImage.init(named: "coverImage")
-            if let image = CMSRegionACF.getRegionType(ClusterId: (allRegions?[indexPath.row].entityID) ?? 0)?.image, CMSRegionACF.getRegionType(ClusterId: ((allRegions?[indexPath.row].entityID)!))!.image != "" {
+            cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "coverImage")
+            cell.logoImage.contentMode = .scaleAspectFill
+            if let image = CMSRegionACF.getRegionType(ClusterId: (allRegions?[indexPath.row].entityID) ?? 0)?.image, CMSRegionACF.getRegionType(ClusterId: ((allRegions?[indexPath.row].entityID) ?? 0))?.image != "" {
                       
                            let url = URL(string: image)
                        URLSession.shared.dataTask(with: url!) { data, response, error in
@@ -191,8 +192,8 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryBrandCell", for: indexPath) as! CategoryBrandCell
             cell.titleLabel.text = allCategories?[indexPath.row].prodCatDescription
             cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "Saree")
-            if let image = CMSCategoryACF.getCategoryType(CategoryId: (allCategories?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((allCategories?[indexPath.row].entityID)!))!.image != "" {
-           
+            cell.logoImage.contentMode = .scaleAspectFill
+            if let image = CMSCategoryACF.getCategoryType(CategoryId: (allCategories?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((allCategories?[indexPath.row].entityID) ?? 0))?.image != "" {
                 let url = URL(string: image)
             URLSession.shared.dataTask(with: url!) { data, response, error in
                 // do your stuff here...

@@ -100,5 +100,29 @@ extension LoginUserService {
     
     return vc
   }
+    func logoutFunc(vc: UIViewController) {
+        self.logout().bind(to: vc, context: .global(qos: .background)) { (_, responseData) in
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+                        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                        appDelegate?.tabbar = nil
+                        appDelegate?.artisanTabbar = nil
+                        KeychainManager.standard.deleteAll()
+                        UIApplication.shared.unregisterForRemoteNotifications()
+                        UIApplication.shared.applicationIconBadgeNumber = 0
+                        vc.showLoading()
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc1 = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
+                        vc1.modalPresentationStyle = .fullScreen
+                        vc.present(vc1, animated: true, completion: {
+                          vc.hideLoading()
+                        })
+                    }
+                }
+            }
+        }
+    }
+
 }
 

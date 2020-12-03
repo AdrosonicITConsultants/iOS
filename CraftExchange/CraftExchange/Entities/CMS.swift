@@ -12,9 +12,9 @@ import RealmSwift
 
 class CMSCategoryACF: Object, Decodable {
     
- @objc dynamic var id: String = ""
+    @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
- @objc dynamic var image: String?
+    @objc dynamic var image: String?
     @objc dynamic var catDescription: String?
     
     enum CodingKeys: String, CodingKey  {
@@ -30,9 +30,8 @@ class CMSCategoryACF: Object, Decodable {
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
-       let entity = try? values.decodeIfPresent(String.self, forKey: .id) ?? "0"
-        entityID = Int(entity!)!
-        id = entity!
+        id = try (values.decodeIfPresent(String.self, forKey: .id) ?? "0")
+        entityID = Int(id) ?? 0
         image = try? values.decodeIfPresent(String.self, forKey: .image)
         catDescription = try? values.decodeIfPresent(String.self, forKey: .catDescription)
     }
@@ -40,15 +39,15 @@ class CMSCategoryACF: Object, Decodable {
 
 class CMSRegionACF: Object, Decodable {
     
- @objc dynamic var id: String = ""
+    @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
- @objc dynamic var image: String?
+    @objc dynamic var image: String?
     @objc dynamic var regDescription: String?
     
     enum CodingKeys: String, CodingKey  {
         case id = "cluster_id"
         case image = "image"
-         case regDescription = "description"
+        case regDescription = "description"
     }
     
     override class func primaryKey() -> String? {
@@ -58,9 +57,8 @@ class CMSRegionACF: Object, Decodable {
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
-       let entity = try? values.decodeIfPresent(String.self, forKey: .id) ?? "0"
-        entityID = Int(entity!)!
-        id = entity!
+        id = try (values.decodeIfPresent(String.self, forKey: .id) ?? "0")
+        entityID = Int(id) ?? 0
         image = try? values.decodeIfPresent(String.self, forKey: .image)
         regDescription = try? values.decodeIfPresent(String.self, forKey: .regDescription)
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -438,6 +438,65 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hp-jO-ylb">
+                                <rect key="frame" x="20" y="159" width="374" height="120"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_bg_2" translatesAutoresizingMaskIntoConstraints="NO" id="jnN-ft-Zpb">
+                                        <rect key="frame" x="254" y="0.0" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="vvc-iE-YGq"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sOZ-eI-E9p">
+                                        <rect key="frame" x="0.0" y="0.0" width="254" height="120"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" image="card_bg_1" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-hL-dXA">
+                                                <rect key="frame" x="0.0" y="1" width="254" height="118"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brocades of Benaras" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8I-e2-DJo">
+                                                <rect key="frame" x="20" y="15" width="214" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="26" id="jcB-kZ-hFx"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="23"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beautifully handcrafted collection from Varanasi’s traditional handlooms, spun to the sound of holy Ganga river." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ol2-bG-daB">
+                                                <rect key="frame" x="20" y="56" width="224" height="59"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="P8I-e2-DJo" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="leading" constant="20" id="AGT-po-8j3"/>
+                                            <constraint firstItem="ol2-bG-daB" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="leading" constant="20" id="BXr-0x-EUn"/>
+                                            <constraint firstItem="Ecx-hL-dXA" firstAttribute="top" secondItem="sOZ-eI-E9p" secondAttribute="top" constant="1" id="C7w-6g-DYa"/>
+                                            <constraint firstAttribute="trailing" secondItem="P8I-e2-DJo" secondAttribute="trailing" constant="20" id="EWn-4S-LxT"/>
+                                            <constraint firstItem="Ecx-hL-dXA" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="leading" id="XO0-bZ-Sia"/>
+                                            <constraint firstAttribute="bottom" secondItem="ol2-bG-daB" secondAttribute="bottom" constant="5" id="cUv-VY-Uh0"/>
+                                            <constraint firstItem="P8I-e2-DJo" firstAttribute="top" secondItem="sOZ-eI-E9p" secondAttribute="top" constant="15" id="dgG-fI-wRR"/>
+                                            <constraint firstItem="ol2-bG-daB" firstAttribute="top" secondItem="P8I-e2-DJo" secondAttribute="bottom" constant="15" id="faj-DY-0Yt"/>
+                                            <constraint firstAttribute="bottom" secondItem="Ecx-hL-dXA" secondAttribute="bottom" constant="1" id="jVe-RE-3eT"/>
+                                            <constraint firstAttribute="trailing" secondItem="ol2-bG-daB" secondAttribute="trailing" constant="10" id="ypW-pz-mA8"/>
+                                            <constraint firstAttribute="trailing" secondItem="Ecx-hL-dXA" secondAttribute="trailing" id="zuO-KM-mO3"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="jnN-ft-Zpb" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="trailing" id="0hI-B5-gyk"/>
+                                    <constraint firstAttribute="bottom" secondItem="sOZ-eI-E9p" secondAttribute="bottom" id="NDh-Bd-h05"/>
+                                    <constraint firstAttribute="trailing" secondItem="jnN-ft-Zpb" secondAttribute="trailing" id="Sf9-Zg-foE"/>
+                                    <constraint firstItem="jnN-ft-Zpb" firstAttribute="top" secondItem="3hp-jO-ylb" secondAttribute="top" id="eqG-Gz-YUP"/>
+                                    <constraint firstItem="sOZ-eI-E9p" firstAttribute="leading" secondItem="3hp-jO-ylb" secondAttribute="leading" id="h0j-G5-RUY"/>
+                                    <constraint firstAttribute="height" constant="120" id="j9L-ql-yas"/>
+                                    <constraint firstAttribute="bottom" secondItem="jnN-ft-Zpb" secondAttribute="bottom" id="mYU-ND-SFi"/>
+                                    <constraint firstItem="sOZ-eI-E9p" firstAttribute="top" secondItem="3hp-jO-ylb" secondAttribute="top" id="r96-BE-kGm"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Browse the latest collection of" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="od1-jO-7LF">
                                 <rect key="frame" x="20" y="136" width="374" height="15"/>
                                 <constraints>
@@ -447,12 +506,6 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="coverImage" translatesAutoresizingMaskIntoConstraints="NO" id="bE3-oy-alz">
-                                <rect key="frame" x="20" y="159" width="374" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="N6q-3c-ZUB"/>
-                                </constraints>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xyb-gH-Nbd">
                                 <rect key="frame" x="0.0" y="310" width="414" height="352"/>
                                 <subviews>
@@ -460,14 +513,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="352"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgx-zE-xrF">
-                                        <rect key="frame" x="20" y="40" width="177" height="309"/>
+                                        <rect key="frame" x="20" y="40" width="177" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-artist-self-design" translatesAutoresizingMaskIntoConstraints="NO" id="xva-Ze-XaK">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
                                                 <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="71" id="Az2-R2-Ffm"/>
+                                                </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcb-iM-Ra2">
-                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="ZKR-Fj-nNP"/>
                                                     <constraint firstAttribute="height" constant="15" id="m12-4Z-Irr"/>
@@ -482,7 +538,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7A-JW-g3T">
-                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
+                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <state key="normal" title="Artisan Self Design">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -516,14 +572,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-Eu-hdm">
-                                        <rect key="frame" x="217" y="40" width="177" height="309"/>
+                                        <rect key="frame" x="217" y="40" width="177" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-antaran-design" translatesAutoresizingMaskIntoConstraints="NO" id="jEi-z8-Xys">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="142"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="71"/>
                                                 <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="71" id="jsI-Yh-pIg"/>
+                                                </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-xP-551">
-                                                <rect key="frame" x="97" y="284" width="70" height="15"/>
+                                                <rect key="frame" x="97" y="142" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="eir-EC-szw"/>
                                                     <constraint firstAttribute="height" constant="15" id="rI2-cj-RH4"/>
@@ -538,7 +597,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Cq6-bf-nZ4">
-                                                <rect key="frame" x="15" y="142" width="147" height="142"/>
+                                                <rect key="frame" x="15" y="71" width="147" height="71"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <state key="normal" title="Antaran co-design collection">
                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -600,7 +659,7 @@
                                             <constraint firstAttribute="width" constant="300" id="kWk-o7-Dsl"/>
                                             <constraint firstAttribute="height" constant="40" id="qAX-5S-jsV"/>
                                         </constraints>
-                                        <state key="normal" title="Customise your own design" image="custom-design-icon">
+                                        <state key="normal" title=" Share your own design" image="custom-design-icon">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -645,24 +704,25 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="cMV-4D-SqG" firstAttribute="trailing" secondItem="3hp-jO-ylb" secondAttribute="trailing" constant="20" id="2Kg-VX-Iwu"/>
                             <constraint firstItem="ppN-FD-5ap" firstAttribute="leading" secondItem="67E-za-AHH" secondAttribute="leading" id="4TB-Qu-5cO"/>
                             <constraint firstItem="6b9-uT-U7A" firstAttribute="trailing" secondItem="cMV-4D-SqG" secondAttribute="trailing" id="4W5-3J-YOq"/>
                             <constraint firstItem="cMV-4D-SqG" firstAttribute="trailing" secondItem="od1-jO-7LF" secondAttribute="trailing" constant="20" id="5YN-kq-Ezx"/>
                             <constraint firstItem="od1-jO-7LF" firstAttribute="top" secondItem="CFS-hb-Jhu" secondAttribute="bottom" constant="20" id="5qA-D6-gH2"/>
+                            <constraint firstItem="67E-za-AHH" firstAttribute="centerX" secondItem="rIN-PO-eyg" secondAttribute="centerX" id="7Na-Ot-j4p"/>
                             <constraint firstItem="od1-jO-7LF" firstAttribute="leading" secondItem="cMV-4D-SqG" secondAttribute="leading" constant="20" id="8KD-Cp-PY8"/>
-                            <constraint firstItem="cMV-4D-SqG" firstAttribute="trailing" secondItem="bE3-oy-alz" secondAttribute="trailing" constant="20" id="8jS-4i-2XR"/>
                             <constraint firstItem="Xyb-gH-Nbd" firstAttribute="trailing" secondItem="cMV-4D-SqG" secondAttribute="trailing" id="AZe-Kb-idP"/>
                             <constraint firstItem="Xyb-gH-Nbd" firstAttribute="leading" secondItem="cMV-4D-SqG" secondAttribute="leading" id="CEP-zu-Vze"/>
                             <constraint firstItem="Xyb-gH-Nbd" firstAttribute="top" secondItem="67E-za-AHH" secondAttribute="bottom" constant="15" id="L1n-tO-pMh"/>
                             <constraint firstItem="6b9-uT-U7A" firstAttribute="top" secondItem="ppN-FD-5ap" secondAttribute="bottom" constant="15" id="OsL-jc-tNm"/>
-                            <constraint firstItem="67E-za-AHH" firstAttribute="top" secondItem="bE3-oy-alz" secondAttribute="bottom" constant="15" id="Rqn-C5-VNh"/>
+                            <constraint firstItem="3hp-jO-ylb" firstAttribute="centerX" secondItem="rIN-PO-eyg" secondAttribute="centerX" id="QDh-9C-tDA"/>
                             <constraint firstItem="6b9-uT-U7A" firstAttribute="leading" secondItem="cMV-4D-SqG" secondAttribute="leading" id="U0r-WC-k6g"/>
-                            <constraint firstItem="bE3-oy-alz" firstAttribute="leading" secondItem="cMV-4D-SqG" secondAttribute="leading" constant="20" id="ZvC-OG-w05"/>
-                            <constraint firstItem="67E-za-AHH" firstAttribute="centerX" secondItem="bE3-oy-alz" secondAttribute="centerX" id="cLc-48-UWz"/>
+                            <constraint firstItem="67E-za-AHH" firstAttribute="top" secondItem="3hp-jO-ylb" secondAttribute="bottom" constant="15" id="b7x-LT-Iaz"/>
+                            <constraint firstItem="3hp-jO-ylb" firstAttribute="top" secondItem="od1-jO-7LF" secondAttribute="bottom" constant="8" id="efj-Km-Wgw"/>
                             <constraint firstItem="CFS-hb-Jhu" firstAttribute="leading" secondItem="cMV-4D-SqG" secondAttribute="leading" constant="20" id="rBr-X8-GDs"/>
                             <constraint firstItem="CFS-hb-Jhu" firstAttribute="top" secondItem="cMV-4D-SqG" secondAttribute="top" constant="8" id="sO1-0T-CYU"/>
+                            <constraint firstItem="3hp-jO-ylb" firstAttribute="leading" secondItem="cMV-4D-SqG" secondAttribute="leading" constant="20" id="tdg-JN-yLf"/>
                             <constraint firstItem="6b9-uT-U7A" firstAttribute="bottom" secondItem="cMV-4D-SqG" secondAttribute="bottom" id="u50-m8-jHV"/>
-                            <constraint firstItem="bE3-oy-alz" firstAttribute="top" secondItem="od1-jO-7LF" secondAttribute="bottom" constant="8" id="voL-Ip-uSc"/>
                             <constraint firstItem="ppN-FD-5ap" firstAttribute="top" secondItem="Xyb-gH-Nbd" secondAttribute="bottom" priority="800" constant="15" id="yA8-kn-8A9"/>
                             <constraint firstItem="cMV-4D-SqG" firstAttribute="trailing" secondItem="CFS-hb-Jhu" secondAttribute="trailing" constant="20" id="z74-fB-wVO"/>
                         </constraints>
@@ -685,8 +745,13 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="antaranBackground" destination="jEi-z8-Xys" id="6Ox-Kb-66P"/>
                         <outlet property="antaranDesignView" destination="SMV-Eu-hdm" id="XbI-Iz-Khr"/>
-                        <outlet property="buyerCover" destination="bE3-oy-alz" id="55g-Jl-TXH"/>
+                        <outlet property="artisanBackground" destination="xva-Ze-XaK" id="iXW-aT-KOI"/>
+                        <outlet property="cardBg1" destination="Ecx-hL-dXA" id="8Q7-0Q-gJF"/>
+                        <outlet property="cardBg2" destination="jnN-ft-Zpb" id="iLj-mw-Dj5"/>
+                        <outlet property="cardText" destination="ol2-bG-daB" id="w3i-Gv-g2u"/>
+                        <outlet property="cardTitle" destination="P8I-e2-DJo" id="ZxY-k2-g9v"/>
                         <outlet property="customDesignButton" destination="Lcj-dI-h1s" id="KI6-XX-v1F"/>
                         <outlet property="loggedInUserName" destination="CFS-hb-Jhu" id="CCd-tz-OSR"/>
                         <outlet property="notificationButton" destination="f5N-yE-UHz" id="aSK-HJ-NSO"/>
@@ -695,7 +760,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ez-Xs-w64" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-907" y="1599"/>
+            <point key="canvasLocation" x="-907.24637681159425" y="1598.4375"/>
         </scene>
         <!--Buyer Enquiry List Controller-->
         <scene sceneID="JKa-ZE-wi7">
@@ -1242,10 +1307,11 @@
         <image name="arrow.clockwise" catalog="system" width="56" height="64"/>
         <image name="arrow.down" catalog="system" width="60" height="64"/>
         <image name="bell" catalog="system" width="64" height="62"/>
-        <image name="coverImage" width="374" height="128"/>
+        <image name="card_bg_1" width="1298" height="333"/>
+        <image name="card_bg_2" width="730" height="347"/>
         <image name="custom-design-icon" width="31" height="22"/>
         <image name="exclamationmark.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="home-antaran-design" width="169" height="71"/>
+        <image name="home-antaran-design" width="657" height="384"/>
         <image name="home-artist-self-design" width="169" height="71"/>
         <image name="ios - back 0 enq " width="287" height="287"/>
         <image name="ios-blink heart" width="53" height="53"/>

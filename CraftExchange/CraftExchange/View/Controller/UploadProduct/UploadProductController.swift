@@ -767,8 +767,10 @@ class UploadProductController: FormViewController {
         }
         <<< TextAreaRow() {
             $0.cell.height = { 180.0 }
-            $0.placeholder = "Describe your product".localized
+           // $0.placeholder = "Describe your product".localized
             $0.hidden = true
+            $0.cell.textView.layer.borderWidth = 1
+            $0.cell.textView.layer.borderColor = UIColor.black.cgColor
             self.viewModel.prodDescription.bidirectionalBind(to: $0.cell.textView.reactive.text)
             $0.cell.textView.text = self.viewModel.prodDescription.value ?? ""
             $0.value = self.viewModel.prodDescription.value ?? ""

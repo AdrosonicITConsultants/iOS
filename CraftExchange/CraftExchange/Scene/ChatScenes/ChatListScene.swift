@@ -25,15 +25,19 @@ extension ChatListService {
         }
         
         func performSync() {
-            getChatList().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+             controller.showLoading()
+            getChatList().bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     parseEnquiry(json: json, isOngoing: true)
                 }else {
-                   controller.endRefresh()
+                    DispatchQueue.main.async {
+                        controller.hideLoading()
+                        controller.endRefresh()
+                    }
                 }
             }.dispose(in: controller.bag)
            
-            controller.hideLoading()
+            
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
@@ -41,7 +45,11 @@ extension ChatListService {
                 var i = 0
                 var esclation = 0
                 var eqArray: [Int] = []
-                
+                if array.count == 0 {
+                     DispatchQueue.main.async {
+                       controller.endRefresh()
+                    }
+                }else {
                 array.forEach { (dataDict) in
                     i+=1
                     if let chatdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
@@ -73,6 +81,7 @@ extension ChatListService {
                     }
                     
                 }
+            }
                 
             }
         }
@@ -117,9 +126,14 @@ extension ChatListService {
             getNewChatList().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     parseEnquiry(json: json, isOngoing: false)
+                }else {
+                    DispatchQueue.main.async {
+                        controller.hideLoading()
+                        controller.endRefresh()
+                    }
                 }
             }.dispose(in: controller.bag)
-            controller.hideLoading()
+           
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
@@ -151,7 +165,9 @@ extension ChatListService {
                     
                 }
                 }else{
+                     DispatchQueue.main.async {
                      controller.endRefresh()
+                    }
                 }
             }
         }

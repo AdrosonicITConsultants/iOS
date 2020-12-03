@@ -205,19 +205,8 @@ class SideMenuController: FormViewController {
             row.cell.imageView?.image = UIImage(named: "ios_logout")
             row.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            appDelegate?.tabbar = nil
-            appDelegate?.artisanTabbar = nil
-            KeychainManager.standard.deleteAll()
-            UIApplication.shared.unregisterForRemoteNotifications()
-            UIApplication.shared.applicationIconBadgeNumber = 0
-            self.showLoading()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: {
-              self.hideLoading()
-            })
+            self.sendInputActionsheet()
+            
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })
@@ -237,6 +226,26 @@ class SideMenuController: FormViewController {
     self.view.addSubview(lbl)
     self.view.addSubview(view)
   }
+    
+    func sendInputActionsheet(){
+        let alert = UIAlertController.init(title: "Are you sure".localized, message: "you want to logout?", preferredStyle: .actionSheet)
+        
+        let save = UIAlertAction.init(title: "Logout".localized, style: .default) { (action) in
+            
+            guard let client = try? SafeClient(wrapping: CraftExchangeClient()) else {
+                _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
+                return
+            }
+            LoginUserService(client: client).logoutFunc(vc: self)
+            
+        }
+        alert.addAction(save)
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
+            
+        }
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
   
     func getNavBar() -> UINavigationController? {
         var nav: UINavigationController?
