@@ -40,10 +40,10 @@ extension User {
   }
     
   public static func logout() -> Request<Data, APIError> {
-    let deviceId = "iOS"
-    let parameters: [String: Any] = ["deviceId":deviceId]
+    let token = UserDefaults.standard.value(forKey: "notification_token") as? String
+    let parameters: [String: Any] = ["token":token ?? ""]
       return Request(
-          path: "user/logoutMobile?deviceId=\(deviceId)",
+          path: "marketingTeam/logoutMobile?token=\(token ?? "")",
           method: .post,
           parameters: JSONParameters(parameters),
           resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
