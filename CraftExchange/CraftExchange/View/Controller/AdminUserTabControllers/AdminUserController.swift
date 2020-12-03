@@ -35,6 +35,8 @@ class AdminUserController: UIViewController {
     @IBOutlet weak var clusterBtn: UIButton!
     @IBOutlet weak var ratingBtn: UIButton!
     @IBOutlet weak var applyBtn: UIButton!
+    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var filterViewHt: NSLayoutConstraint!
     
     var pageNo = 1
     var selectedCluster: ClusterDetails?
@@ -61,7 +63,8 @@ class AdminUserController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black
         self.spreadsheetView.backgroundColor = .black
-        
+        filterViewHt.constant = 0
+        filterView.isHidden = true
         let rightBarButtomItem = UIBarButtonItem(customView: self.notificationBarButton())
         navigationItem.rightBarButtonItem = rightBarButtomItem
         
@@ -83,8 +86,23 @@ class AdminUserController: UIViewController {
         super.viewWillAppear(animated)
         viewWillAppear?()
     }
+    @IBAction func arrangeButtonSelected(_ sender: Any) {
+        AdminDbSearch.resignFirstResponder()
+        if filterViewHt.constant == 0 {
+            //Show Filter
+            filterViewHt.constant = 100
+            filterView.isHidden = false
+        }else {
+            //Hide Filter
+            filterViewHt.constant = 0
+            filterView.isHidden = true
+        }
+
+    }
     
     @IBAction func ApplyBtnPressed(_ sender: Any) {
+        filterViewHt.constant = 0
+        filterView.isHidden = true
         pageNo = 1
         AdminDbSearch.resignFirstResponder()
         viewWillAppear?()

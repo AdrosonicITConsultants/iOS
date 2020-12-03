@@ -802,9 +802,11 @@ class AdminUploadProductController: FormViewController {
             }
             <<< TextAreaRow() {
                 $0.cell.height = { 180.0 }
-                $0.placeholder = "Describe your product".localized
+                // $0.placeholder = "Describe your product".localized
                 //   $0.placeholderColor = .white
                 $0.hidden = true
+                $0.cell.textView.layer.borderWidth = 1
+                $0.cell.textView.layer.borderColor = UIColor.white.cgColor
                 $0.cell.contentView.backgroundColor = .black
                 $0.cell.textView.backgroundColor = .black
                 $0.cell.textView.textColor = .white

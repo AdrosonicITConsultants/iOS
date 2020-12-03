@@ -275,7 +275,7 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.titleLbl.textColor = .white
                 $0.cell.titleLbl.textAlignment = .center
                 $0.cell.valueLbl1.text = ""
-                $0.cell.valueLbl2.text = self.product?.weight ?? "-"
+                $0.cell.valueLbl2.text = self.product?.weight ?? self.customProduct?.weight ?? "-"
                 $0.cell.valueLbl3.text = ""
                 if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0  {
                     $0.hidden = true
@@ -283,7 +283,7 @@ class AdminProductDetailController: FormViewController {
                     $0.hidden = false
                 }
             }.cellUpdate({ (cell, row) in
-                cell.valueLbl2.text = self.product?.weight ?? "-"
+                cell.valueLbl2.text = self.product?.weight ?? self.customProduct?.weight ?? "-"
                 cell.valueLbl3.text = ""
                 if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0 {
                     cell.row.hidden = true
@@ -297,7 +297,7 @@ class AdminProductDetailController: FormViewController {
                 $0.cell.rowImage.image = UIImage.init(named: "Icon weight white")
                 $0.cell.titleLbl.text = "Weight"
                 $0.cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
-                $0.cell.prodValueLbl.text = "\(self.product?.weight ?? "-")"
+                $0.cell.prodValueLbl.text = "\(self.product?.weight ?? self.customProduct?.weight ?? "-")"
                 $0.cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? self.customProduct?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
                 $0.cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.weight ?? "-")"
                 if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0  {
@@ -308,9 +308,9 @@ class AdminProductDetailController: FormViewController {
                 
             }.cellUpdate({ (cell, row) in
                 cell.prodLbl.text = ProductType.getProductType(searchId: self.product?.productTypeId ?? self.customProduct?.productTypeId ?? 0)?.productDesc ?? ""
-                cell.prodValueLbl.text = "\(self.product?.weight ?? "-")"
+                cell.prodValueLbl.text = "\(self.product?.weight ?? self.customProduct?.weight ?? "-")"
                 cell.relatedProdLbl.text = ProductType.getProductType(searchId: self.product?.relatedProducts.first?.entityID ?? self.customProduct?.relatedProducts.first?.entityID ?? 0)?.productDesc ?? "Blouse"
-                cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.weight ?? "-")"
+                cell.relatedProdValueLbl.text = "\(self.product?.relatedProducts.first?.weight ?? self.customProduct?.relatedProducts.first?.weight ?? "-")"
                 if self.product?.relatedProducts.count ?? self.customProduct?.relatedProducts.count ?? 0 > 0  {
                     cell.row.hidden = false
                 }else {

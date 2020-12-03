@@ -27,6 +27,7 @@ class CustomProduct: Object, Decodable {
     @objc dynamic var width: String?
     @objc dynamic var reedCountId: Int = 0
     @objc dynamic var gsm: String?
+    @objc dynamic var weight: String?
     @objc dynamic var createdOn: Date?
     @objc dynamic var modifiedOn: Date?
     @objc dynamic var isDeleted: Bool = false
@@ -53,6 +54,7 @@ class CustomProduct: Object, Decodable {
         case width = "width"
         case reedCountId = "reedCount"
         case gsm = "gsm"
+        case weight = "weight"
         case createdOn = "createdOn"
         case modifiedOn = "modified_on"
         case buyerId = "buyerId"
@@ -104,6 +106,7 @@ class CustomProduct: Object, Decodable {
             reedCountId = obj.entityID
         }
         gsm = try? values.decodeIfPresent(String.self, forKey: .gsm)
+        weight = try? values.decodeIfPresent(String.self, forKey: .weight)
         createdOn = try? values.decodeIfPresent(Date.self, forKey: .createdOn)
         modifiedOn = try? values.decodeIfPresent(Date.self, forKey: .modifiedOn)
         buyerId = try (values.decodeIfPresent(Int.self, forKey: .buyerId) ?? 0)

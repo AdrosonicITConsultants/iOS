@@ -87,6 +87,7 @@ extension CustomProduct {
                 object.width = width
                 object.reedCountId = reedCountId
                 object.gsm = gsm
+                object.weight = weight
                 object.createdOn = createdOn
                 object.modifiedOn = modifiedOn
                 object.isDeleted = isDeleted

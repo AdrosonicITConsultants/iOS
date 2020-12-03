@@ -38,6 +38,8 @@ class ProductCatalogueController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var segmentView: WMSegment!
     @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var filterViewHt: NSLayoutConstraint!
+    @IBOutlet weak var showHideFiltetButton: UIButton!
     
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
@@ -63,6 +65,8 @@ class ProductCatalogueController: UIViewController {
         productSearchBar.placeholder = "search by name, code, brand, category"
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         definesPresentationContext = false
+        filterViewHt.constant = 0
+        filterView.isHidden = true
         self.view.backgroundColor = .black
         self.tableView.backgroundColor = .black
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -98,6 +102,19 @@ class ProductCatalogueController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    @IBAction func showHideFilterButtonSelected(_ sender: Any) {
+        productSearchBar.resignFirstResponder()
+        if filterViewHt.constant == 0 {
+            //Show Filter
+            filterViewHt.constant = 116
+            filterView.isHidden = false
+        }else {
+            //Hide Filter
+            filterViewHt.constant = 0
+            filterView.isHidden = true
+        }
+    }
+    
     @IBAction func categoryFilterBtnselected(_ sender: Any) {
         self.presentClusterInputActionsheet()
         
@@ -157,6 +174,8 @@ class ProductCatalogueController: UIViewController {
     
     
     @IBAction func applyFilterBtnSelected(_ sender: Any) {
+        filterViewHt.constant = 0
+        filterView.isHidden = true
         pageNo = 1
         reachedLimit = false
         productSearchBar.resignFirstResponder()
@@ -202,7 +221,7 @@ extension ProductCatalogueController: UITableViewDataSource, UITableViewDelegate
        }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 25
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
