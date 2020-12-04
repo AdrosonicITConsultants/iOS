@@ -103,7 +103,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type")
+                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type", isCompulsory: false)
                   return view
                 }))
                 header.height = { ht }
@@ -204,7 +204,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 1, title: "Add Photos")
+                    let view = self.createSectionView(forStep: 1, title: "Add Photos", isCompulsory: true)
                   return view
                 }))
                 header.height = { ht }
@@ -238,7 +238,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 2, title: "Add General Details")
+                    let view = self.createSectionView(forStep: 2, title: "Add General Details", isCompulsory: true)
                   return view
                 }))
                 header.height = { ht }
@@ -366,7 +366,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 4, title: "Select Warp - Weft & Yarn")
+                    let view = self.createSectionView(forStep: 4, title: "Select Warp - Weft & Yarn", isCompulsory: false)
                   return view
                 }))
                 header.height = { ht }
@@ -400,7 +400,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 5, title: "Enter the reed count")
+                    let view = self.createSectionView(forStep: 5, title: "Enter the reed count", isCompulsory: false)
                   return view
                 }))
                 header.height = { ht }
@@ -456,7 +456,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 6, title: "Enter the dimensions")
+                    let view = self.createSectionView(forStep: 6, title: "Enter the dimensions", isCompulsory: false)
                   return view
                 }))
                 header.height = { ht }
@@ -582,7 +582,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 7, title: "Enter the GSM value of fabric")
+                    let view = self.createSectionView(forStep: 7, title: "Enter the GSM value of fabric", isCompulsory: false)
                   return view
                 }))
                 header.height = { ht }
@@ -645,7 +645,7 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 8, title: "Description")
+                    let view = self.createSectionView(forStep: 8, title: "Description", isCompulsory: true)
                   return view
                 }))
                 header.height = { ht }
@@ -824,7 +824,7 @@ class UploadCustomProductController: FormViewController {
         }
     }
     
-    func createSectionView(forStep:Int, title:String) -> UIView {
+    func createSectionView(forStep:Int, title:String, isCompulsory: Bool) -> UIView {
         let ht: CGFloat = 60.0
         let width: CGFloat = self.view.frame.width
         let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: ht))
@@ -842,8 +842,15 @@ class UploadCustomProductController: FormViewController {
         stepLbl.text = "Step \(forStep):".localized
         stepLbl.tag = 444
         view.addSubview(stepLbl)
+        
+        let newX = stepLbl.frame.origin.x + stepLbl.frame.size.width
+        if isCompulsory {
+            let star = UIImageView.init(image: UIImage(named: "star-red"))
+            star.frame = CGRect(x: newX, y: 15, width: 7, height: 7)
+            view.addSubview(star)
+        }
           
-        let stepTitle = UILabel.init(frame: CGRect(x: stepLbl.frame.origin.x + stepLbl.frame.size.width + 5, y: CGFloat(y), width: CGFloat(250), height: CGFloat(lblHt)))
+        let stepTitle = UILabel.init(frame: CGRect(x: newX + 7, y: CGFloat(y), width: CGFloat(250), height: CGFloat(lblHt)))
         stepTitle.font = .systemFont(ofSize: 17, weight: .medium)
         stepTitle.textColor = .black
         stepTitle.text = title.localized

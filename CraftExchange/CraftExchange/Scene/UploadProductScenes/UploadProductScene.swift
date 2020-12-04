@@ -133,7 +133,8 @@ extension UploadProductService {
             if let productCategoryId = vc.viewModel.prodCategory.value?.entityID,
                 let productTypeId = vc.viewModel.prodType.value?.entityID,
                 let productSpec = vc.viewModel.prodDescription.value,
-                productSpec.isNotBlank
+                productSpec.isNotBlank,
+                vc.viewModel.productImages.value?.count ?? 0 > 0
             {
                 let gsm = vc.viewModel.gsm.value ?? ""
                 let weaveIds = vc.viewModel.prodWeaveType.value?.compactMap({$0.entityID})
