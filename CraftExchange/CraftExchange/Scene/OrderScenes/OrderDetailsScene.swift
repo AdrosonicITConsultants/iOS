@@ -339,25 +339,44 @@ extension OrderDetailsService {
         
         vc.downloadEnquiry = { (enquiryId) in
             let service = EnquiryDetailsService.init(client: self.client)
-            service.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                    if json["valid"] as? Bool == true {
-                        service.pasrseEnquiryJson(json: json, vc: vc)
+            if vc.isClosed == false {
+                service.getOpenEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            service.pasrseEnquiryJson(json: json, vc: vc)
+                        }
                     }
-                }
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                }
-            }.dispose(in: vc.bag)
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                    }
+                }.dispose(in: vc.bag)
+            }else {
+                service.getClosedEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                                   if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                                       if json["valid"] as? Bool == true {
+                                           service.pasrseEnquiryJson(json: json, vc: vc)
+                                       }
+                                   }
+                                   DispatchQueue.main.async {
+                                       vc.hideLoading()
+                                   }
+                               }.dispose(in: vc.bag)
+            }
         }
         
         vc.goToEnquiry = { (enquiryId) in
-            if let obj = Enquiry().searchEnquiry(searchId: enquiryId ) {
+            if let obj = Enquiry().searchEnquiry(searchId: enquiryId) {
                 let vc1 = EnquiryDetailsService(client: self.client).createEnquiryDetailScene(forEnquiry: obj, enquiryId: obj.entityID) as! BuyerEnquiryDetailsController
                 vc1.modalPresentationStyle = .fullScreen
                 vc1.isClosed = vc.isClosed
-                vc.navigationController?.pushViewController(vc1, animated: true)
+                if vc.navigationController?.viewControllers.previous is BuyerEnquiryDetailsController {
+                    vc.navigationController?.popViewController(animated: true)
+                } else {
+                    vc.navigationController?.pushViewController(vc1, animated: true)
+                }
+                
             }
+            
         }
         
         vc.downloadDeliveryReceipt = { (enquiryId, imageName) in
@@ -447,7 +466,7 @@ extension OrderDetailsService {
                                                     if let parsedCatList = try? JSONDecoder().decode([UserProductCategory].self, from: catdata) {
                                                         enquiryObj.updateArtistDetails(blue: eqObj["isBlue"] as? Bool ?? false, user: eqObj["userId"] as? Int ?? 0, accDetails: parsedAccList, catIds: parsedCatList.compactMap({ $0.productCategoryId }), cluster: eqObj["clusterName"] as? String ?? "")
                                                         if let controller = vc as? BuyerEnquiryDetailsController {
-                                                            controller.reloadFormData()
+                                                            controller.goToOrder?(enquiryObj.enquiryId)
                                                         }else if let controller = vc as? TransactionListController {
                                                             controller.viewModel.goToEnquiry?(enquiryObj.enquiryId)
                                                         }else if let controller = vc as? OrderDetailController {

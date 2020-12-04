@@ -119,6 +119,21 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         
     }
     
+    func getPreviousViewController() -> UIViewController? {
+        guard let _ = self.navigationController else {
+            return nil
+        }
+
+        guard let viewControllers = self.navigationController?.viewControllers else {
+            return nil
+        }
+
+        guard viewControllers.count >= 2 else {
+            return nil
+        }
+        return viewControllers[viewControllers.count - 2]
+    }
+    
     private func setupInputButton() {
         let button = InputBarButtonItem()
         button.setSize(CGSize(width: 45, height: 45), animated: false)

@@ -120,8 +120,12 @@ extension ChatDetailsService {
                 }else{
                     vc.isClosed = true
                 }
+                if controller.navigationController?.viewControllers.previous is BuyerEnquiryDetailsController {
+                    controller.navigationController?.popViewController(animated: true)
+                } else {
+                    controller.navigationController?.pushViewController(vc, animated: true)
+                }
                 
-                controller.navigationController?.pushViewController(vc, animated: true)
             }
         }
         

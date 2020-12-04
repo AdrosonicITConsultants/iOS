@@ -159,9 +159,9 @@ extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataS
         cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription?.localized
         cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
         if let image = CMSCategoryACF.getCategoryType(CategoryId: (dataSource?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((dataSource?[indexPath.row].entityID) ?? 0))?.image != "" {
-            print(image)
+           // print(image)
             if let url = URL(string: image){
-                print(url.lastPathComponent)
+               // print(url.lastPathComponent)
             if let downloadedImage = try? Disk.retrieve("\(url.lastPathComponent)", from: .caches, as: UIImage.self) {
                 cell.categoryCover.image = downloadedImage
             }

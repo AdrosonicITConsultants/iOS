@@ -40,10 +40,12 @@ extension NotificationService {
                             if let notidata = try? JSONSerialization.data(withJSONObject: notiObj, options: .fragmentsAllowed) {
                                 if  let notiBuyer = try? JSONDecoder().decode([Notifications].self, from: notidata) {
                                     DispatchQueue.main.async {
+                                        Notifications.setAllNotificationIsDeleteTrue()
                                         notiBuyer.forEach { (obj) in
                                             obj.saveOrUpdate()
-                                            obj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0)
+                                            obj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0, isDeleted: false)
                                         }
+                                        Notifications.deleteAllNotificationsWithIsDeleteTrue()
                                         controller.endRefresh()
                                     }
                                 }
@@ -59,6 +61,8 @@ extension NotificationService {
             OfflineRequestManager.defaultManager.queueRequest(request)
             DispatchQueue.main.async {
                 controller.allNotifications?.remove(at: index)
+                Notifications.notificationIsDeleteTrue(forId: notificationId)
+                Notifications.deleteAllNotificationsWithIsDeleteTrue()
                 controller.tableView.reloadData()
                 controller.notificationCount = controller.allNotifications?.count ?? 0
                 let count =  controller.notificationCount
@@ -86,6 +90,13 @@ extension NotificationService {
         }
         
         func syncData() {
+            guard !controller.isEditing else { return }
+            guard controller.reachabilityManager?.connection != .unavailable else {
+                DispatchQueue.main.async {
+                    controller.endRefresh()
+                }
+                return
+            }
             performSync()
             
         }

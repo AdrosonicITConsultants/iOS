@@ -218,9 +218,11 @@ class OrderDetailController: FormViewController {
                         cell.isUserInteractionEnabled = true
                     }else {
                         cell.isUserInteractionEnabled = false
+                        cell.switchControl.onTintColor = .lightGray
                     }
                 }else {
                     cell.isUserInteractionEnabled = false
+                    cell.switchControl.onTintColor = .lightGray
                 }
             })
            <<< LabelRow(){
@@ -351,7 +353,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 110.0 }
             }.cellUpdate({ (cell, row) in
                 cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.orderObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
-                if self.orderObject!.enquiryStageId == 3 && self.orderObject?.productStatusId == 2 {
+                if self.orderObject?.enquiryStageId == 7 && self.orderObject?.productStatusId == 2 {
                     cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.orderObject?.enquiryStageId ?? 0) - 4)?.stageDescription ?? "NA")"
                 }
                 if self.orderObject?.enquiryStageId == 5 && self.orderObject!.innerEnquiryStageId >= 2{
@@ -644,6 +646,23 @@ class OrderDetailController: FormViewController {
                 if self.orderObject?.isReprocess == 1 && User.loggedIn()?.refRoleId == "1"  {
                     cell.row.hidden = false
                 }
+            })
+            
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Enquiry Details".localized
+                $0.cell.valueLbl.text = "View"
+                $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
+                $0.cell.titleLbl.textColor = UIColor().EQPinkText()
+                $0.cell.valueLbl.textColor = UIColor().EQPinkText()
+            }.onCellSelection({ (cell, row) in
+                if let obj = Enquiry().searchEnquiry(searchId: self.orderObject?.enquiryId ?? 0) {
+                    self.goToEnquiry?(obj.enquiryId)
+                }else {
+                    self.downloadEnquiry?(self.orderObject?.enquiryId ?? 0 )
+                }
+                
+                
             })
             
             <<< BuyerEnquirySectionViewRow() {

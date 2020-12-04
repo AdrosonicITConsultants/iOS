@@ -687,9 +687,13 @@ class UploadCustomProductController: FormViewController {
     }
     
     @objc func backSelected(_ sender: Any) {
-        self.confirmAction("Warning", "Are you sure you don't want to save this new product?", confirmedCallback: { (action) in
+        if User.loggedIn()?.refRoleId == "1" && fromEnquiry{
             self.navigationController?.popViewController(animated: true)
-        }) { (action) in
+        }else {
+            self.confirmAction("Warning", "Are you sure you don't want to save this new product?", confirmedCallback: { (action) in
+                self.navigationController?.popViewController(animated: true)
+            }) { (action) in
+            }
         }
     }
     
