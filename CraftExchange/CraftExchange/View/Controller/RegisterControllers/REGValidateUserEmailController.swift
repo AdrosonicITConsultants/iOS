@@ -43,10 +43,14 @@ class REGValidateUserEmailController: UIViewController {
     }
   
   @IBAction func nextButtonSelected(_ sender: Any) {
+    usernameField.resignFirstResponder()
+    otpField.resignFirstResponder()
       self.viewModel.validateOTP?()
     }
   
   @IBAction func sendOTPSelected(_ sender: Any) {
+    usernameField.resignFirstResponder()
+    otpField.resignFirstResponder()
     self.viewModel.sendOTP?()
   }
     
