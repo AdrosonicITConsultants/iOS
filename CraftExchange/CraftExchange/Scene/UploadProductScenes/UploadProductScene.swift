@@ -133,16 +133,8 @@ extension UploadProductService {
             if let productCategoryId = vc.viewModel.prodCategory.value?.entityID,
                 let productTypeId = vc.viewModel.prodType.value?.entityID,
                 let productSpec = vc.viewModel.prodDescription.value,
-                let warpDyeId = vc.viewModel.warpDye.value?.entityID,
-                let warpYarnCount = vc.viewModel.warpYarnCnt.value?.count ?? vc.viewModel.custWarpYarnCnt.value,
-                let warpYarnId = vc.viewModel.warpYarn.value?.entityID,
-                let weftDyeId = vc.viewModel.weftDye.value?.entityID,
-                let weftYarnCount = vc.viewModel.weftYarnCnt.value?.count ?? vc.viewModel.custWeftYarnCnt.value,
-                let weftYarnId = vc.viewModel.weftYarn.value?.entityID,
-                let width = vc.viewModel.prodWidth.value,
-                let length = vc.viewModel.prodLength.value,
-                let reedCountId = vc.viewModel.reedCount.value?.entityID,
-                productSpec.isNotBlank
+                productSpec.isNotBlank,
+                vc.viewModel.productImages.value?.count ?? 0 > 0
             {
                 let gsm = vc.viewModel.gsm.value ?? ""
                 let weaveIds = vc.viewModel.prodWeaveType.value?.compactMap({$0.entityID})
@@ -152,6 +144,15 @@ extension UploadProductService {
                 let extraWeftDyeId = vc.viewModel.exWeftDye.value?.entityID
                 let extraWeftYarnCount = vc.viewModel.exWeftYarnCnt.value?.count ?? vc.viewModel.custExWeftYarnCnt.value
                 let extraWeftYarnId = vc.viewModel.exWeftYarn.value?.entityID
+                let warpDyeId = vc.viewModel.warpDye.value?.entityID
+                let warpYarnCount = vc.viewModel.warpYarnCnt.value?.count ?? vc.viewModel.custWarpYarnCnt.value
+                let warpYarnId = vc.viewModel.warpYarn.value?.entityID
+                let weftDyeId = vc.viewModel.weftDye.value?.entityID
+                let weftYarnCount = vc.viewModel.weftYarnCnt.value?.count ?? vc.viewModel.custWeftYarnCnt.value
+                let weftYarnId = vc.viewModel.weftYarn.value?.entityID
+                let width = vc.viewModel.prodWidth.value
+                let length = vc.viewModel.prodLength.value
+                let reedCountId = vc.viewModel.reedCount.value?.entityID
                 
                 var newProductObj = productDetails()
                 newProductObj.productCategoryId = productCategoryId
@@ -168,7 +169,7 @@ extension UploadProductService {
                 newProductObj.extraWeftYarnId = extraWeftYarnId
                 newProductObj.width = width
                 newProductObj.length = length
-                newProductObj.reedCountId = "\(reedCountId)"
+                newProductObj.reedCountId = "\(reedCountId ?? 0)"
                 newProductObj.gsm = gsm
                 newProductObj.weaveIds = weaveIds
                 

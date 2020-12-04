@@ -95,11 +95,13 @@ class RegisterArtisanDataController: FormViewController {
     $0.cell.height = { 80.0 }
     }.onChange({ (row) in
       print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-        let selectedClusterObj = self.allClusters?.filter({ (obj) -> Bool in
-            obj.clusterDescription == row.value
+        DispatchQueue.main.async {
+            let selectedClusterObj = self.allClusters?.filter({ (obj) -> Bool in
+                obj.clusterDescription == row.value
             }).first
-        self.viewModel.selectedClusterId.value = selectedClusterObj?.entityID
-        })
+            self.viewModel.selectedClusterId.value = selectedClusterObj?.entityID
+        }
+    })
     <<< RoundedTextFieldRow() {
       $0.cell.titleLabel.text = "District".localized
       $0.cell.height = { 80.0 }

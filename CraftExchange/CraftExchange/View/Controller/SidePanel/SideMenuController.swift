@@ -206,7 +206,6 @@ class SideMenuController: FormViewController {
             row.cell.height = { 56.0 }
           }.onCellSelection { (cell, row) in
             self.sendInputActionsheet()
-            
           }.cellUpdate({ (str, row) in
             row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
           })

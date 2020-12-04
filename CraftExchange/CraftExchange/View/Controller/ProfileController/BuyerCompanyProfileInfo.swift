@@ -97,6 +97,7 @@ class BuyerCompanyProfileInfo: FormViewController {
                 $0.cell.height = { 80.0 }
                 parentVC.viewModel.pancard.value = $0.cell.valueTextField.text
                 parentVC.viewModel.pancard.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+                $0.cell.valueTextField.autocapitalizationType = .allCharacters
                 }.cellUpdate({ (cell, row) in
                     parentVC.viewModel.pancard.value = cell.valueTextField.text
                     if self.isEditable {
