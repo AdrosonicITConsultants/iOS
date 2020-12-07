@@ -52,6 +52,7 @@ class PaymentBuyerOneController: FormViewController{
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
+                $0.cell.selectionStyle = .none
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if enquiryObject?.productType ?? orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"

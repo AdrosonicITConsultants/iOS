@@ -85,6 +85,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             +++ Section()
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
+                $0.cell.selectionStyle = .none
                 $0.cell.height = { 220.0 }
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if enquiryObject?.productType == "Custom Product" {
@@ -227,6 +228,8 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Order Details".localized
                 $0.cell.valueLbl.text = "View"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQPinkText()
                 $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPinkText()
                 $0.cell.valueLbl.textColor = UIColor().EQPinkText()
@@ -249,6 +252,8 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check advance Payment receipt".localized
                 $0.cell.valueLbl.text = "View"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQPurpleText()
                 $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
                 $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
@@ -328,6 +333,8 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
                 $0.cell.valueLbl.text = "Brand: \(enquiryObject?.brandName ?? "NA")"
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBlueText()
                 $0.cell.titleLbl.textColor = UIColor().EQBlueText()
                 $0.cell.valueLbl.textColor = UIColor().EQBlueText()
             }.onCellSelection({ (cell, row) in
@@ -338,6 +345,8 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.down")
+                $0.cell.arrow.tintColor = UIColor().EQGreenText()
                 $0.cell.titleLbl.text = "Check MOQ".localized
                 $0.cell.valueLbl.text = ""
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
@@ -530,6 +539,8 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.noOfUnitLbl.text = "70 pcs"
                 $0.cell.costLbl.text = "Rs 1000"
                 $0.cell.etaLbl.text = "100 days"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.down")
+                $0.cell.arrow.tintColor = UIColor().EQGreenText()
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
                 $0.cell.noOfUnitLbl.textColor = UIColor().EQGreenText()
@@ -616,6 +627,8 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBrownText()
                 $0.cell.valueLbl.textColor = UIColor().EQBrownText()
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBrownText()
             }.onCellSelection({ (cell, row) in
                 if self.enquiryObject?.productType == "Custom Product" {
                     self.showCustomProduct?()
@@ -639,7 +652,10 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }else {
                     $0.hidden = false
                 }
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.down")
+                $0.cell.arrow.tintColor = UIColor().EQGreenText()
             }.onCellSelection({ (cell, row) in
+                if self.listMOQs != [] {
                 let section = self.form.sectionBy(tag: "list MOQs")
                 if section?.isEmpty == true && !self.isClosed {
                     self.listMOQsFunc()
@@ -647,6 +663,9 @@ class BuyerEnquiryDetailsController: FormViewController {
                     section?.removeAll()
                 }
                 section?.reload()
+                }else {
+                    self.alert("No MOQs available yet")
+                }
                 
             }).cellUpdate({ (cell, row) in
                 if (self.enquiryObject?.isMoqSend == 1 || User.loggedIn()?.refRoleId == "1"){

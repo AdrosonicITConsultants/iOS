@@ -61,6 +61,9 @@ extension EnquiryDetailsService {
                                     vc.hideLoading()
                                     vc.popBack(toControllerType: OrderDetailController.self)
                                 }
+                            }else{
+                                vc.hideLoading()
+                                vc.popBack(toControllerType: OrderDetailController.self)
                             }
                         }
                     }.dispose(in: vc.bag)
@@ -210,7 +213,7 @@ extension EnquiryDetailsService {
                                     if let controller = vc as? PaymentArtistController{
                                        // controller.hideLoading()
                                         let row = controller.form.rowBy(tag: "PaymentArtist-1") as? ArtistReceitImgRow
-                                        row?.cell.AmountLabel.text = "Amount to be Paid as per PI:".localized +  "\(object.paidAmount)"
+                                        row?.cell.AmountLabel.text = "Advance amount paid by buyer: ".localized +  "\(object.paidAmount)"
                                        
                                       
                                     }else if let controller = vc as? OrderDetailController{

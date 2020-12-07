@@ -83,8 +83,8 @@ extension EnquiryDetailsService {
                 
                 let quantity = vc.viewModel.quantity.value ?? ""
                 let pricePerUnitPI = vc.viewModel.pricePerUnitPI.value ?? ""
-                let finalamount = vc.viewModel.finalamount.value ?? ""
-                let amountToBePaid = vc.viewModel.amountToBePaid.value ?? ""
+//                let finalamount = vc.viewModel.finalamount.value ?? ""
+//                let amountToBePaid = vc.viewModel.amountToBePaid.value ?? ""
                 let cgst = vc.viewModel.cgst.value ?? ""
                 let sgst = vc.viewModel.sgst.value ?? ""
                 let deliveryCharges = vc.viewModel.deliveryCharges.value ?? ""
@@ -99,67 +99,58 @@ extension EnquiryDetailsService {
                                 if advancePaidAmount.isValidNumber{
                                     if cgst.isValidNumber {
                                         if sgst.isValidNumber {
-                                            if finalamount.isValidNumber && Int(vc.viewModel.finalamount.value!)! > 0 {
-                                                if amountToBePaid.isValidNumber {
-                                                    if deliveryCharges.isValidNumber {
-                                                        if isSave == 1{
-                                                            self.previewFinalInvoice(enquiryId: "\(vc.orderObject!.enquiryId)", advancePaidAmount: vc.viewModel.advancePaidAmount.value!, finalTotalAmount: Int(vc.viewModel.finalamount.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, cgst: vc.viewModel.cgst.value!, sgst: vc.viewModel.sgst.value!, deliveryCharges: vc.viewModel.deliveryCharges.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                                                                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                                                                    if json["valid"] as? Bool == true {
-                                                                        DispatchQueue.main.async {
-                                                                            
-                                                                            if let object = json["data"] as? String {
-                                                                                
-                                                                                if vc.orderObject?.orderCode != nil && vc.orderObject?.lastUpdated != nil{
-                                                                                    let date = Date().ttceISOString(isoDate: vc.orderObject?.lastUpdated ?? Date())
-                                                                                    vc.view.showPreviewPIView(controller: vc, entityId: (vc.orderObject?.orderCode ?? "\(vc.orderObject?.enquiryId ?? 0)"), date: date, data: object, isPI: false)
-                                                                                    vc.hideLoading()
-                                                                                }
-                                                                            }
-                                                                            
-                                                                            
+                                            if deliveryCharges.isValidNumber {
+                                                if isSave == 1{
+                                                    self.previewFinalInvoice(enquiryId: "\(vc.orderObject!.enquiryId)", advancePaidAmount: vc.viewModel.advancePaidAmount.value!, finalTotalAmount: Int(vc.viewModel.finalamount.value ?? "0.0") ?? 0, quantity: Int(vc.viewModel.quantity.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, cgst: vc.viewModel.cgst.value!, sgst: vc.viewModel.sgst.value!, deliveryCharges: vc.viewModel.deliveryCharges.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                                                        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                                                            if json["valid"] as? Bool == true {
+                                                                DispatchQueue.main.async {
+                                                                    
+                                                                    if let object = json["data"] as? String {
+                                                                        
+                                                                        if vc.orderObject?.orderCode != nil && vc.orderObject?.lastUpdated != nil{
+                                                                            let date = Date().ttceISOString(isoDate: vc.orderObject?.lastUpdated ?? Date())
+                                                                            vc.view.showPreviewPIView(controller: vc, entityId: (vc.orderObject?.orderCode ?? "\(vc.orderObject?.enquiryId ?? 0)"), date: date, data: object, isPI: false)
                                                                             vc.hideLoading()
                                                                         }
-                                                                }
-                                                                    
-                                                                }
-                                                                
-                                                                
-                                                                
-                                                            }
-
-                                                        }
-                                                        if isSave == 2 {
-                                                        self.sendFinalInvoice(enquiryId: "\(vc.orderObject!.enquiryId)", advancePaidAmount: vc.viewModel.advancePaidAmount.value!, finalTotalAmount: Int(vc.viewModel.finalamount.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, cgst: vc.viewModel.cgst.value!, sgst: vc.viewModel.sgst.value!, deliveryCharges: vc.viewModel.deliveryCharges.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                                                            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                                                                if json["valid"] as? Bool == true {
-                                                                    DispatchQueue.main.async {
-                                                                        print("Final Invoice sent successfully")
-                                                                        vc.hideLoading()
-                                                                        vc.navigationController?.popViewController(animated: true)
-                                                                        
                                                                     }
-                                                                }
-                                                                else {
-                                                                    vc.alert("Sending final invoice failed, please try again later".localized)
+                                                                    
+                                                                    
                                                                     vc.hideLoading()
                                                                 }
                                                             }
-                                                        }.dispose(in: vc.bag)
-                                                    }
+                                                            
+                                                        }
                                                         
-                                                    }else {
-                                                        vc.alert("Please enter valid delivery charges".localized)
-                                                        vc.hideLoading()
+                                                        
+                                                        
                                                     }
-                                                }else {
-                                                    vc.alert("Please enter valid amount to be paid".localized)
-                                                    vc.hideLoading()
+                                                    
                                                 }
+                                                if isSave == 2 {
+                                                    self.sendFinalInvoice(enquiryId: "\(vc.orderObject!.enquiryId)", advancePaidAmount: vc.viewModel.advancePaidAmount.value!, finalTotalAmount: Int(vc.viewModel.finalamount.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, cgst: vc.viewModel.cgst.value!, sgst: vc.viewModel.sgst.value!, deliveryCharges: vc.viewModel.deliveryCharges.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                                                        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                                                            if json["valid"] as? Bool == true {
+                                                                DispatchQueue.main.async {
+                                                                    print("Final Invoice sent successfully")
+                                                                    vc.hideLoading()
+                                                                    vc.navigationController?.popViewController(animated: true)
+                                                                    
+                                                                }
+                                                            }
+                                                            else {
+                                                                vc.alert("Sending final invoice failed, please try again later".localized)
+                                                                vc.hideLoading()
+                                                            }
+                                                        }
+                                                    }.dispose(in: vc.bag)
+                                                }
+                                                
                                             }else {
-                                                vc.alert("Please enter valid final amount".localized)
+                                                vc.alert("Please enter valid delivery charges".localized)
                                                 vc.hideLoading()
                                             }
+                                            
                                         }else {
                                             vc.alert("Please enter valid SGST")
                                             vc.hideLoading()
@@ -215,10 +206,10 @@ extension EnquiryDetailsService {
             }.dispose(in: vc.bag)
         }
         
-//        vc.viewModel.downloadPI = {
-//            vc.showLoading()
-//            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: true)
-//        }
+        //        vc.viewModel.downloadPI = {
+        //            vc.showLoading()
+        //            self.downloadAndSharePI(vc: vc, enquiryId: enquiryId, isPI: true)
+        //        }
         
         vc.viewModel.sendPI = {
             self.sendPI(enquiryId: enquiryId, cgst: 0, expectedDateOfDelivery: vc.viewModel.expectedDateOfDelivery.value!, hsn: Int(vc.viewModel.hsn.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, quantity: Int(vc.viewModel.quantity.value!)!, sgst: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in

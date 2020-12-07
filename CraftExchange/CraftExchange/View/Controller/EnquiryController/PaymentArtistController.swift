@@ -42,10 +42,11 @@ class PaymentArtistController: FormViewController{
         
         let client = try! SafeClient(wrapping: CraftExchangeClient())
         let service = EnquiryDetailsService.init(client: client)
-        service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
+        
         if orderObject?.enquiryStageId == 8 {
             service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 2)
         }else{
+            service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
             service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 1)
         }
         
@@ -56,6 +57,7 @@ class PaymentArtistController: FormViewController{
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
+                $0.cell.selectionStyle = .none
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if enquiryObject?.productType == "Custom Product" || orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
@@ -116,6 +118,9 @@ class PaymentArtistController: FormViewController{
 //               $0.cell.delegate = self
                $0.tag = "PaymentArtist-1"
                $0.cell.tag = 4
+            if orderObject?.enquiryStageId == 8 {
+                $0.cell.AmountLabel.text = "Final amount paid by buyer: ".localized +  "\(finalPaymnetDetails?.payableAmount ?? 0)"
+            }
         }
             
         <<< ApprovePaymentRow() {

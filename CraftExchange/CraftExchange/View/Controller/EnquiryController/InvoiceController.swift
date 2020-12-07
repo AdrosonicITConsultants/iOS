@@ -95,6 +95,7 @@ class InvoiceController: FormViewController{
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
+                $0.cell.selectionStyle = .none
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if enquiryObject?.productType ?? orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
@@ -498,8 +499,8 @@ class InvoiceController: FormViewController{
                 let cgst = Double(self.viewModel.cgst.value ?? "0") ?? 0.0
                 let dCharges = Double(self.viewModel.deliveryCharges.value ?? "0") ?? 0.0
                 let total = ((quantity * price) * (1 + (sgst/100) + (cgst/100))) + dCharges
-                self.viewModel.finalamount.value = "\(total)"
-                cell.valueTextField.text = self.viewModel.finalamount.value
+                self.viewModel.finalamount.value = "\(Int(total))"
+                cell.valueTextField.text = "\(total)"
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
                 cell.selectionStyle = .none
@@ -661,8 +662,8 @@ class InvoiceController: FormViewController{
         let tax = (1 + ((sgst + cgst)/100.0))
         let total = (tot * tax) + dCharges
        // let total = ((quantity * price) * (1.0 + ((sgst + cgst)/100.0))) + dCharges
-        self.viewModel.finalamount.value = "\(total)"
-        row?.cell.valueTextField.text = self.viewModel.finalamount.value
+        self.viewModel.finalamount.value = "\(Int(total))"
+        row?.cell.valueTextField.text = "\(total)"
         row?.cell.update()
         row?.updateCell()
         row?.reload()

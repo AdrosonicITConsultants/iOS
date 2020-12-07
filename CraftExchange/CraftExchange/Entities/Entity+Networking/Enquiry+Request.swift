@@ -446,9 +446,9 @@ extension Enquiry {
     
     public static func uploadDeliveryChallan(enquiryId: Int,orderDispatchDate: String, ETA: String, imageData: Data?, filename: String?) -> Request<Data, APIError> {
         var str = "enquiry/submitDeliveryChallan?enquiryId=\(enquiryId)&orderDispatchDate=\(orderDispatchDate)&ETA=\(ETA)"
-           if ETA == "0"{
-               str = "enquiry/submitDeliveryChallan?enquiryId=\(enquiryId)&orderDispatchDate=\(orderDispatchDate)"
-           }
+//           if ETA == "0"{
+//               str = "enquiry/submitDeliveryChallan?enquiryId=\(enquiryId)&orderDispatchDate=\(orderDispatchDate)"
+//           }
          
            str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
            let content = imageData

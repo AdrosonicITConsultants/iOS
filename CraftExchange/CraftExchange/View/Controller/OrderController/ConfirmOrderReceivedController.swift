@@ -48,7 +48,7 @@ class ConfirmOrderReceivedController: FormViewController{
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
-                
+                $0.cell.selectionStyle = .none
                 if orderObject?.enquiryStageId == 9{
                     $0.cell.statusLbl.text = ""
                     // $0.cell.height = { 160.0 }

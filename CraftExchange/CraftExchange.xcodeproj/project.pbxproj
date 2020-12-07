@@ -100,6 +100,8 @@
 		30C8CDCA25500DF700AE6AEA /* CompleteOrderIconRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C8CDC825500DF700AE6AEA /* CompleteOrderIconRow.xib */; };
 		30C8CDCC25501B7700AE6AEA /* RatingInitaitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */; };
 		30C8CDCE25501B8600AE6AEA /* RatingInitaitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */; };
+		30DFF0F8257E0489000E662E /* AccountDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DFF0F6257E0489000E662E /* AccountDetailsCell.swift */; };
+		30DFF0F9257E0489000E662E /* AccountDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DFF0F7257E0489000E662E /* AccountDetailsCell.xib */; };
 		30EB8DE92537230800BA59E8 /* ChatNewListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB8DE82537230800BA59E8 /* ChatNewListController.swift */; };
 		30EB8DEB2537408D00BA59E8 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB8DEA2537408D00BA59E8 /* Conversation.swift */; };
 		30EB8DED253825FA00BA59E8 /* ChatDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB8DEC253825FA00BA59E8 /* ChatDetailsController.swift */; };
@@ -585,6 +587,8 @@
 		30C8CDC825500DF700AE6AEA /* CompleteOrderIconRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteOrderIconRow.xib; sourceTree = "<group>"; };
 		30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInitaitionView.swift; sourceTree = "<group>"; };
 		30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingInitaitionView.xib; sourceTree = "<group>"; };
+		30DFF0F6257E0489000E662E /* AccountDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsCell.swift; sourceTree = "<group>"; };
+		30DFF0F7257E0489000E662E /* AccountDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailsCell.xib; sourceTree = "<group>"; };
 		30EB8DE82537230800BA59E8 /* ChatNewListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNewListController.swift; sourceTree = "<group>"; };
 		30EB8DEA2537408D00BA59E8 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		30EB8DEC253825FA00BA59E8 /* ChatDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailsController.swift; sourceTree = "<group>"; };
@@ -1947,6 +1951,8 @@
 				30C8CDC825500DF700AE6AEA /* CompleteOrderIconRow.xib */,
 				3089685925512AF300F6E14D /* BuyerFaultyOrderOptionRow.swift */,
 				3089685A25512AF300F6E14D /* BuyerFaultyOrderOptionRow.xib */,
+				30DFF0F6257E0489000E662E /* AccountDetailsCell.swift */,
+				30DFF0F7257E0489000E662E /* AccountDetailsCell.xib */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -2303,6 +2309,7 @@
 				C0A910AA247CD90B00852695 /* PlayfairDisplay-SemiBoldItalic.ttf in Resources */,
 				C06DCAC124D2EC2B00F1435F /* DimensionsCardCell.xib in Resources */,
 				C05E3ADE24D1EEC100963FAA /* ImageSelectorCell.xib in Resources */,
+				30DFF0F9257E0489000E662E /* AccountDetailsCell.xib in Resources */,
 				C03BD8842476F0BF00279D7F /* Assets.xcassets in Resources */,
 				C0144AB424843D4A006FF4AB /* RegisterArtisan.storyboard in Resources */,
 				C099E3F324FEC31C003B6E3B /* EnquiryGeneratedView.xib in Resources */,
@@ -2727,6 +2734,7 @@
 				C09B3F0C24BA615900FBC115 /* Disk.swift in Sources */,
 				C05E3AE724D283F700963FAA /* CollectionViewRow.swift in Sources */,
 				309787852524B40C00F9B608 /* AcceptedPIView.swift in Sources */,
+				30DFF0F8257E0489000E662E /* AccountDetailsCell.swift in Sources */,
 				C0285A9D24CF22CB0045623A /* BrandLogoService.swift in Sources */,
 				3089DED0252B319D003184FA /* PaymentModeView.swift in Sources */,
 				C07376C0247BD9020014C3CA /* ValidateUserScene.swift in Sources */,

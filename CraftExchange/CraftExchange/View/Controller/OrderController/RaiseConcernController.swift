@@ -80,6 +80,7 @@ class RaiseConcernController: FormViewController {
             
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
+                $0.cell.selectionStyle = .none
                 $0.cell.height = { 220.0 }
                 $0.cell.statusLbl.text = ""
                 $0.cell.faultyStrings.isHidden = false

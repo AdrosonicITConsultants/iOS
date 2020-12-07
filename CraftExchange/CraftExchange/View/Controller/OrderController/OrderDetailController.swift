@@ -100,6 +100,7 @@ class OrderDetailController: FormViewController {
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
+                $0.cell.selectionStyle = .none
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
@@ -145,13 +146,13 @@ class OrderDetailController: FormViewController {
                 }
             })
             <<< BuyerEnquirySectionViewRow() {
-                          $0.cell.height = { 40.0 }
-                          $0.tag = "View Rating"
-                          $0.cell.titleLbl.text = "Buyer rated you!".localized
-                          $0.cell.valueLbl.text = "View"
-                          $0.cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.7554848031, blue: 0.2052248061, alpha: 1)
-                          $0.cell.titleLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
-                          $0.cell.valueLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
+                $0.cell.height = { 40.0 }
+                $0.tag = "View Rating"
+                $0.cell.titleLbl.text = "Buyer rated you!".localized
+                $0.cell.valueLbl.text = "View"
+                $0.cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.7554848031, blue: 0.2052248061, alpha: 1)
+                $0.cell.titleLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
+                $0.cell.valueLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
                 $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
                 $0.cell.arrow.tintColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
                           $0.hidden = true
@@ -443,12 +444,12 @@ class OrderDetailController: FormViewController {
                 }
             })
              
-            <<< LabelRow(){
-                $0.cell.height = {30.0}
-                $0.title = ""
-            }.cellUpdate({ (cell, row) in
-                cell.selectionStyle = .none
-            })
+//            <<< LabelRow(){
+//                $0.cell.height = {30.0}
+//                $0.title = ""
+//            }.cellUpdate({ (cell, row) in
+//                cell.selectionStyle = .none
+//            })
             
             <<< StartStageViewRow()
                 {
@@ -652,6 +653,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Enquiry Details".localized
                 $0.cell.valueLbl.text = "View"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQPinkText()
                 $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPinkText()
                 $0.cell.valueLbl.textColor = UIColor().EQPinkText()
@@ -668,6 +671,9 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.tag = "Raise Concern"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBrownText()
+                          $0.hidden = true
                 $0.cell.titleLbl.text = "Eh! Problem?".localized
                 $0.cell.valueLbl.text = "Raise a concern"
                 if User.loggedIn()?.refRoleId == "1"{
@@ -712,6 +718,8 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.tag = "Delivery Receipt"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBlueText()
                 $0.cell.titleLbl.text = "Delivery Receipt".localized
                 $0.cell.valueLbl.text = "View".localized
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
@@ -746,6 +754,8 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Tax Invoice".localized
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBrownText()
                 $0.cell.valueLbl.text = "View".localized
                 $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBrownText()
@@ -766,6 +776,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Quality Check".localized
                 $0.cell.valueLbl.text = ""
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQGreenText()
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
                 $0.cell.valueLbl.textColor = UIColor().EQGreenText()
@@ -791,6 +803,8 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Change Request".localized
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQPurpleText()
                 $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
                 $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
@@ -870,6 +884,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check PI".localized
                 $0.cell.valueLbl.text = "View".localized
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBlueText()
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBlueText()
                 $0.cell.valueLbl.textColor = UIColor().EQBlueText()
@@ -883,6 +899,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Your Transactions".localized
                 $0.cell.valueLbl.text = ""
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.down")
+                $0.cell.arrow.tintColor = UIColor().EQPinkText()
                 $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPinkText()
                 $0.cell.valueLbl.textColor = UIColor().EQPinkText()
