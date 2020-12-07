@@ -379,14 +379,14 @@ extension Product {
         let realm = try? Realm()
         try? realm?.write {
             let messagesToAddOrUpdate = realm?.objects(Product.self).filter { $0.isDeleted == false }
-
+            
             var emailUpdates: [Int: Product] = [:]
             let idsToCheck = messagesToAddOrUpdate?.compactMap { $0.entityID }
             let emailsPresent = realm?.objects(Product.self).filter("%K IN %@", "entityID", idsToCheck ?? [0])
             emailsPresent?.forEach({ (message) in
                 emailUpdates[message.entityID] = message
             })
-
+            
             messagesToAddOrUpdate?.forEach { (message) in
                 if emailUpdates[message.entityID] == nil {
                     realm?.add(message, update: .modified)

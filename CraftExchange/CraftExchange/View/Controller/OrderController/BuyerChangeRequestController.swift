@@ -35,37 +35,37 @@ class BuyerChangeRequestController: FormViewController {
         let changeReqTypeSection = Section() {
             $0.hidden = "$changeReqTypes == false"
         }
-
+        
         let changeReqTypeView = LabelRow("changeReqTypes") {
             $0.cell.height = { 30.0 }
             $0.title = "Change Request Details".localized
         }
         
         form
-        +++ Section()
-        <<< CRNoteViewRow() { (row) in
-            row.cell.Label1.text = "Please Note:\nChange request may be accepted or rejected subjective to the feasibility of the change by the artisan. If accepted, there may be a change in the final amount and hence the pro forma invoice.".localized
-            row.cell.Label2.text = "You can only submit this change request once. Be sure about the change requested before submitting it.".localized
-        }
-        <<< changeReqTypeView
-        +++ changeReqTypeSection
-        +++ Section()
-        <<< ButtonRow() {
-            $0.title = "REQUEST FOR CHANGE".localized
-        }.onCellSelection({ (cell, row) in
-            self.changeReqArray?.removeAll()
-            self.allChangeRequests?.forEach({ (changeReq) in
-                if let row = self.form.rowBy(tag: changeReq.id) as? CRBuyerRow {
-                    if row.cell.Tickbtn.image(for: .normal) == UIImage.init(systemName: "checkmark.square.fill") && row.cell.CRTextfield.text?.isNotBlank ?? false {
-                        let cr = changeRequest.init(changeRequestId: 0, id: 0, requestItemsId: changeReq.entityID, requestStatus: 0, requestText: row.cell.CRTextfield.text)
-                        self.changeReqArray?.append(cr)
+            +++ Section()
+            <<< CRNoteViewRow() { (row) in
+                row.cell.Label1.text = "Please Note:\nChange request may be accepted or rejected subjective to the feasibility of the change by the artisan. If accepted, there may be a change in the final amount and hence the pro forma invoice.".localized
+                row.cell.Label2.text = "You can only submit this change request once. Be sure about the change requested before submitting it.".localized
+            }
+            <<< changeReqTypeView
+            +++ changeReqTypeSection
+            +++ Section()
+            <<< ButtonRow() {
+                $0.title = "REQUEST FOR CHANGE".localized
+            }.onCellSelection({ (cell, row) in
+                self.changeReqArray?.removeAll()
+                self.allChangeRequests?.forEach({ (changeReq) in
+                    if let row = self.form.rowBy(tag: changeReq.id) as? CRBuyerRow {
+                        if row.cell.Tickbtn.image(for: .normal) == UIImage.init(systemName: "checkmark.square.fill") && row.cell.CRTextfield.text?.isNotBlank ?? false {
+                            let cr = changeRequest.init(changeRequestId: 0, id: 0, requestItemsId: changeReq.entityID, requestStatus: 0, requestText: row.cell.CRTextfield.text)
+                            self.changeReqArray?.append(cr)
+                        }
                     }
+                })
+                if self.changeReqArray?.count ?? 0 > 0 {
+                    self.showChangeRequestBuyerView()
                 }
             })
-            if self.changeReqArray?.count ?? 0 > 0 {
-                self.showChangeRequestBuyerView()
-            }
-        })
         
         allChangeRequests?.forEach({ (changeReq) in
             changeReqTypeSection <<< CRBuyerRow() {
@@ -84,19 +84,19 @@ class BuyerChangeRequestController: FormViewController {
     
     func showChangeRequestBuyerView() {
         if let _ = self.view.viewWithTag(134) {
-                print("do nothing")
-            }else {
+            print("do nothing")
+        }else {
             let ht = 220 + ((changeReqArray?.count ?? 0)*35)
             let greyView = UIView.init(frame: self.view.frame)
-                greyView.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
-                greyView.tag = 134
+            greyView.backgroundColor = UIColor.init(white: 0, alpha: 0.5)
+            greyView.tag = 134
             let initiationView = UIView.init(frame: CGRect.init(x: 0, y: 120, width: self.view.frame.size.width, height: CGFloat(ht)))
-                initiationView.backgroundColor = .white
+            initiationView.backgroundColor = .white
             let label = UILabel.init(frame: CGRect.init(x: 20, y: 20, width: self.view.frame.size.width - 40, height: 45))
             label.text = "Are you sure?".localized
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-                
+            
             let label2 = UILabel.init(frame: CGRect.init(x: 20, y: label.frame.origin.y + label.frame.size.height + 5, width: label.frame.size.width, height: 30))
             label2.text = "You are requesting changes for:".localized
             label2.textAlignment = .center
@@ -121,7 +121,7 @@ class BuyerChangeRequestController: FormViewController {
                 initiationView.addSubview(crTitle)
                 initiationView.addSubview(crValue)
             })
-                
+            
             let label3 = UILabel.init(frame: CGRect.init(x: 20, y: start, width: label.frame.size.width, height: 60))
             label3.numberOfLines = 3
             label3.font = .systemFont(ofSize: 14)
@@ -133,13 +133,13 @@ class BuyerChangeRequestController: FormViewController {
             cancelBtn.addTarget(self, action: #selector(hideChangeRequestBuyerView), for: .touchUpInside)
             cancelBtn.frame = CGRect.init(x: self.view.center.x - 80, y: label3.frame.origin.y + label3.frame.size.height + 10, width: 70, height: 30)
             cancelBtn.setTitleColor(.lightGray, for: .normal)
-                
+            
             let okBtn = UIButton.init(type: .custom)
             okBtn.setTitle("Ok".localized, for: .normal)
             okBtn.backgroundColor = UIColor().CEGreen()
             okBtn.addTarget(self, action: #selector(raiseChangeRequestBuyer), for: .touchUpInside)
             okBtn.frame = CGRect.init(x: self.view.center.x + 10, y: cancelBtn.frame.origin.y, width: 50, height: 30)
-                
+            
             initiationView.addSubview(label)
             initiationView.addSubview(label2)
             initiationView.addSubview(label3)

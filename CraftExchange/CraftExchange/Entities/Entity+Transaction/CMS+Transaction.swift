@@ -15,19 +15,19 @@ import ReactiveKit
 extension CMSCategoryACF {
     
     static func getCategoryType(CategoryId: Int) -> CMSCategoryACF? {
-           let realm = try! Realm()
-           if let object = realm.objects(CMSCategoryACF.self).filter("%K == %@", "entityID", CategoryId).first {
-               return object
-           }
-           return nil
-       }
+        let realm = try! Realm()
+        if let object = realm.objects(CMSCategoryACF.self).filter("%K == %@", "entityID", CategoryId).first {
+            return object
+        }
+        return nil
+    }
     
     
     func saveOrUpdate() {
         let realm = try! Realm()
         if let object = realm.objects(CMSCategoryACF.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-               image = object.image
+                image = object.image
                 catDescription = object.catDescription
             }
         } else {
@@ -36,26 +36,26 @@ extension CMSCategoryACF {
             }
         }
     }
-
+    
 }
 
 extension CMSRegionACF {
     
     static func getRegionType(ClusterId: Int) -> CMSRegionACF? {
-           let realm = try! Realm()
-           if let object = realm.objects(CMSRegionACF.self).filter("%K == %@", "entityID", ClusterId).first {
-               return object
-           }
-           return nil
-       }
+        let realm = try! Realm()
+        if let object = realm.objects(CMSRegionACF.self).filter("%K == %@", "entityID", ClusterId).first {
+            return object
+        }
+        return nil
+    }
     
     
     func saveOrUpdate() {
         let realm = try! Realm()
         if let object = realm.objects(CMSRegionACF.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-               image = object.image
-               regDescription = object.regDescription
+                image = object.image
+                regDescription = object.regDescription
             }
         } else {
             try? realm.write {
@@ -63,5 +63,5 @@ extension CMSRegionACF {
             }
         }
     }
-
+    
 }

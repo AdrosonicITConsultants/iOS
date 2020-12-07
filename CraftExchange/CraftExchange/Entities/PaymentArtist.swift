@@ -32,7 +32,7 @@ class PaymentArtist: Object, Decodable {
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
-
+        
         id = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         label = try? values.decodeIfPresent(String.self, forKey: .label)
         paymentId = try (values.decodeIfPresent(Int.self, forKey: .paymentId) ?? 0)

@@ -13,16 +13,16 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class REGArtisanInfoInputService: BaseService<[ClusterDetails]> {
-
-  required init() {
-    super.init()
-  }
-
-  override func fetch() -> SafeSignal<[ClusterDetails]> {
-    return ClusterDetails.getAllClusters().response(using: client).debug()
-  }
-  
-  func fetchProductCategory(forCluster: Int) -> SafeSignal<[ClusterDetails]> {
-    return ClusterDetails.getProductsForCluster(clusterId: forCluster).response(using: client).debug()
-  }
+    
+    required init() {
+        super.init()
+    }
+    
+    override func fetch() -> SafeSignal<[ClusterDetails]> {
+        return ClusterDetails.getAllClusters().response(using: client).debug()
+    }
+    
+    func fetchProductCategory(forCluster: Int) -> SafeSignal<[ClusterDetails]> {
+        return ClusterDetails.getProductsForCluster(clusterId: forCluster).response(using: client).debug()
+    }
 }

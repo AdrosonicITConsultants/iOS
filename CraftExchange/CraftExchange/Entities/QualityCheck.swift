@@ -21,7 +21,7 @@ class QualityCheck: Object, Decodable {
     @objc dynamic var enquiryId: Int = 0
     @objc dynamic var createdOn: Date?
     @objc dynamic var modifiedOn: Date?
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case questionId = "questionId"
@@ -37,7 +37,7 @@ class QualityCheck: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)

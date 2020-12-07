@@ -11,11 +11,11 @@ import UIKit
 import Eureka
 
 protocol LengthWidthCellProtocol {
-  func lengthWidthSelected(tag: Int, withValue: String)
+    func lengthWidthSelected(tag: Int, withValue: String)
 }
 
 class lengthWidthRowView: Cell<String>, CellType {
-
+    
     var lengthWidthDelegate: LengthWidthCellProtocol?
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var length: UIButton!
@@ -30,7 +30,7 @@ class lengthWidthRowView: Cell<String>, CellType {
         length.addTarget(self, action: #selector(customButtonSelected(_:)), for: .touchUpInside)
         width.addTarget(self, action: #selector(customButtonSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }
@@ -44,17 +44,17 @@ class lengthWidthRowView: Cell<String>, CellType {
             options = option2 ?? []
         }
         let alert = UIAlertController.init(title: "Please select".localized, message: "", preferredStyle: .actionSheet)
-      for option in options {
-        let action = UIAlertAction.init(title: option, style: .default) { (action) in
-          btn.setTitle(option, for: .normal)
-          self.lengthWidthDelegate?.lengthWidthSelected(tag: btn.tag, withValue: option)
+        for option in options {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                btn.setTitle(option, for: .normal)
+                self.lengthWidthDelegate?.lengthWidthSelected(tag: btn.tag, withValue: option)
+            }
+            alert.addAction(action)
+        }
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
         alert.addAction(action)
-      }
-        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
-      }
-      alert.addAction(action)
-      (lengthWidthDelegate as? UIViewController)?.present(alert, animated: true, completion: nil)
+        (lengthWidthDelegate as? UIViewController)?.present(alert, animated: true, completion: nil)
     }
     
 }

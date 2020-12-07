@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class ProdDetailYarnValueRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var valueLbl1: UILabel!
     @IBOutlet weak var valueLbl2: UILabel!
@@ -22,7 +22,7 @@ class ProdDetailYarnValueRowView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

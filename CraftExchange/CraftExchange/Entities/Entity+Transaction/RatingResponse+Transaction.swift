@@ -35,7 +35,7 @@ extension RatingResponseArtisan{
                 object.createdOn = createdOn
                 object.modifiedOn = modifiedOn
                 
-               
+                
             }
         } else {
             try? realm.write {
@@ -58,14 +58,14 @@ extension RatingResponseBuyer {
         let realm = try! Realm()
         if let object = realm.objects(RatingResponseBuyer.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                     object.enquiryId = enquiryId
-                     object.questionId = questionId
-                     object.response = response
-                     object.responseComment = responseComment
-                     object.givenBy = givenBy
-                     object.givenTo = givenTo
-                     object.createdOn = createdOn
-                     object.modifiedOn = modifiedOn
+                object.enquiryId = enquiryId
+                object.questionId = questionId
+                object.response = response
+                object.responseComment = responseComment
+                object.givenBy = givenBy
+                object.givenTo = givenTo
+                object.createdOn = createdOn
+                object.modifiedOn = modifiedOn
             }
         } else {
             try? realm.write {

@@ -23,6 +23,10 @@ extension OrderListService {
         func setupRefreshActions() {
             syncData()
         }
+        controller.fetchData = {
+            let service = HomeScreenService.init(client: self.client)
+            service.fetchEnquiryStateData(vc: controller)
+        }
         
         controller.getDeliveryTimes = {
             let service = EnquiryListService.init(client: self.client)
@@ -108,8 +112,6 @@ extension OrderListService {
         }
         
         func performSync() {
-            let service = HomeScreenService.init(client: client)
-            service.fetchEnquiryStateData(vc: controller)
             
             if controller.segmentView.selectedSegmentIndex == 0 {
                 getOngoingOrders().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in

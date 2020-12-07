@@ -10,15 +10,15 @@ import UIKit
 import Eureka
 
 class ArtistReceitImg: Cell<String>, CellType{
-
-   
+    
+    
     @IBOutlet weak var AmountLabel: UILabel!
     @IBOutlet weak var ImageReceit: UIImageView!
     
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

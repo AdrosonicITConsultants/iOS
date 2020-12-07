@@ -123,7 +123,7 @@ class BuyerGeneralInfo: FormViewController {
             })
             <<< LabelRow() { row in
                 row.cell.height = { 300.0 }
-            }
+        }
     }
     
     @objc func enableEditing() {

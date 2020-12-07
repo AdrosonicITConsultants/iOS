@@ -13,20 +13,20 @@ import ReactiveKit
 
 @IBDesignable
 class RoundedTextField: UITextField, UITextFieldDelegate {
-
+    
     // Provides left padding for images
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
         var textRect = super.leftViewRect(forBounds: bounds)
         textRect.origin.x += leftPadding
         return textRect
     }
-  
+    
     @IBInspectable var leftImage: UIImage? {
         didSet {
             updateView()
         }
     }
-  
+    
     @IBInspectable var rightImage: UIImage? {
         didSet {
             updateView()
@@ -35,13 +35,13 @@ class RoundedTextField: UITextField, UITextFieldDelegate {
     
     @IBInspectable var leftPadding: CGFloat = 0
     @IBInspectable var maxLength: Int = 500
-
+    
     @IBInspectable var color: UIColor = UIColor.black {
         didSet {
             updateView()
         }
     }
-
+    
     func updateView() {
         if let image = leftImage {
             leftViewMode = UITextField.ViewMode.always
@@ -62,9 +62,9 @@ class RoundedTextField: UITextField, UITextFieldDelegate {
             rightView = button
         }
         else {
-          let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 5))
-          leftView = paddingView
-          leftViewMode = .always
+            let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 5))
+            leftView = paddingView
+            leftViewMode = .always
         }
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.black.cgColor
@@ -73,16 +73,16 @@ class RoundedTextField: UITextField, UITextFieldDelegate {
         // Placeholder text color
         attributedPlaceholder = NSAttributedString(string: placeholder != nil ?  placeholder! : "", attributes:[NSAttributedString.Key.foregroundColor: color])
     }
-  
-  @objc func togglePasswordDisplay(_ sender: UIButton) {
-    self.isSecureTextEntry = !self.isSecureTextEntry
-    let button = self.viewWithTag(111) as! UIButton
-    if isSecureTextEntry == true {
-      button.setImage(UIImage.init(systemName: "eye"), for: .normal)
-    }else {
-      button.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
+    
+    @objc func togglePasswordDisplay(_ sender: UIButton) {
+        self.isSecureTextEntry = !self.isSecureTextEntry
+        let button = self.viewWithTag(111) as! UIButton
+        if isSecureTextEntry == true {
+            button.setImage(UIImage.init(systemName: "eye"), for: .normal)
+        }else {
+            button.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
+        }
     }
-  }
     
     override func shouldChangeText(in range: UITextRange, replacementText text: String) -> Bool {
         let typeCasteToStringFirst = self.text as NSString?
@@ -92,7 +92,7 @@ class RoundedTextField: UITextField, UITextFieldDelegate {
         }
         return true
     }
-
+    
 }
 
 extension UITextInput {

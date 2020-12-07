@@ -15,7 +15,7 @@ protocol InvoiceButtonProtocol {
 }
 
 class ProFormaInvoiceRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var nextStepsLabel: UILabel!
     @IBOutlet weak var createSendInvoiceBtn: UIButton!
     var delegate: InvoiceButtonProtocol?
@@ -24,7 +24,7 @@ class ProFormaInvoiceRowView: Cell<String>, CellType {
         super.setup()
         createSendInvoiceBtn.addTarget(self, action: #selector(createSendInvoiceBtnSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }

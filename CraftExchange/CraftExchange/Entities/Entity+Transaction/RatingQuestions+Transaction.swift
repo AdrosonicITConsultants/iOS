@@ -33,7 +33,7 @@ extension RatingQuestionsArtisan{
                 object.createdOn = createdOn
                 object.modifiedOn = modifiedOn
                 object.answerType = answerType
-               
+                
             }
         } else {
             try? realm.write {
@@ -56,13 +56,13 @@ extension RatingQuestionsBuyer {
         let realm = try! Realm()
         if let object = realm.objects(RatingQuestionsBuyer.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-                   object.question = question
-                   object.questionNo = questionNo
-                   object.type = type
-                   object.isDelete = isDelete
-                   object.createdOn = createdOn
-                   object.modifiedOn = modifiedOn
-                   object.answerType = answerType
+                object.question = question
+                object.questionNo = questionNo
+                object.type = type
+                object.isDelete = isDelete
+                object.createdOn = createdOn
+                object.modifiedOn = modifiedOn
+                object.answerType = answerType
             }
         } else {
             try? realm.write {

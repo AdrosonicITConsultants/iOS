@@ -12,11 +12,11 @@ import Eureka
 
 protocol BuyerFaultyOrderOptionProtocol {
     func reviewOptionBtnSelected(tag: Int)
-     
+    
 }
 
 class BuyerFaultyOrderOptionRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var reviewLabel: UILabel!
     @IBOutlet weak var reviewOptionButton: RoundedButton!
     
@@ -24,10 +24,10 @@ class BuyerFaultyOrderOptionRowView: Cell<String>, CellType {
     var buttonIsSelected = false
     
     public override func setup() {
-           super.setup()
-           reviewOptionButton.addTarget(self, action: #selector(reviewOptionBtnSelected(_:)), for: .touchUpInside)
+        super.setup()
+        reviewOptionButton.addTarget(self, action: #selector(reviewOptionBtnSelected(_:)), for: .touchUpInside)
         reviewOptionButton.layer.borderColor = #colorLiteral(red: 0.7411764706, green: 0.1725490196, blue: 0.1450980392, alpha: 1)
-       }
+    }
     
     public override func update() {
         super.update()
@@ -46,9 +46,9 @@ class BuyerFaultyOrderOptionRowView: Cell<String>, CellType {
             reviewOptionButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             reviewOptionButton.setTitleColor(#colorLiteral(red: 0.7411764706, green: 0.1725490196, blue: 0.1450980392, alpha: 1), for: .normal)
         }
-       
+        
         delegate?.reviewOptionBtnSelected(tag: tag)
-
+        
     }
 }
 

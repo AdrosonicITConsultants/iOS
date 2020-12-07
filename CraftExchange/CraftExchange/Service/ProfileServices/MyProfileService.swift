@@ -13,17 +13,17 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class MyProfileService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     override func fetch() -> SafeSignal<Data> {
-      return User.getProfile().response(using: client).debug()
+        return User.getProfile().response(using: client).debug()
     }
     
     func fetchAllProductCategory() -> SafeSignal<Data> {
-      return ProductCategory.getAllProducts().response(using: client).debug()
+        return ProductCategory.getAllProducts().response(using: client).debug()
     }
     
     func updateArtisanProfile(json: [String: Any], imageData: Data?, filename: String?) -> SafeSignal<Data> {

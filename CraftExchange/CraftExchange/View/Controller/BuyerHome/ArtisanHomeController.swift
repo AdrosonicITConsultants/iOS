@@ -22,7 +22,7 @@ class HomeViewModel {
 }
 
 class ArtisanHomeController: UIViewController {
-
+    
     @IBOutlet weak var loggedInUserName: UILabel!
     @IBOutlet weak var artisanBrand: UIImageView!
     @IBOutlet weak var customDesignButton: RoundedButton!
@@ -52,7 +52,7 @@ class ArtisanHomeController: UIViewController {
         let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
         let rightBarButtomItem2 = self.searchBarButton()
         navigationItem.rightBarButtonItems = [rightBarButtomItem1, rightBarButtomItem2]
-    
+        
         loggedInUserName.text = User.loggedIn()?.firstName ?? User.loggedIn()?.userName ?? ""
         if let _ = User.loggedIn()?.logoUrl, let name = User.loggedIn()?.buyerCompanyDetails.first?.logo {
             do {
@@ -86,11 +86,11 @@ class ArtisanHomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         dataSource = Product().getAllProductCatForUser()
-//        if dataSource?.count == 0 {
-            viewModel.viewWillAppear?()
-//        }else {
-            self.refreshLayout()
-//        }
+        //        if dataSource?.count == 0 {
+        viewModel.viewWillAppear?()
+        //        }else {
+        self.refreshLayout()
+        //        }
     }
     
     func refreshBrandLogo() {
@@ -159,29 +159,29 @@ extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataS
         cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription?.localized
         cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
         if let image = CMSCategoryACF.getCategoryType(CategoryId: (dataSource?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((dataSource?[indexPath.row].entityID) ?? 0))?.image != "" {
-           // print(image)
+            // print(image)
             if let url = URL(string: image){
-               // print(url.lastPathComponent)
-            if let downloadedImage = try? Disk.retrieve("\(url.lastPathComponent)", from: .caches, as: UIImage.self) {
-                cell.categoryCover.image = downloadedImage
-            }
-            else{
-                let url = URL(string: image)
-                URLSession.shared.dataTask(with: url!) { data, response, error in
-                    // do your stuff here...
-                    DispatchQueue.main.async {
-                        if error == nil {
-                            if let finalData = data {
-                                // do something on the main queue
-                                cell.categoryCover.image = UIImage.init(data: finalData)
-                                cell.categoryCover.contentMode = .scaleAspectFill
+                // print(url.lastPathComponent)
+                if let downloadedImage = try? Disk.retrieve("\(url.lastPathComponent)", from: .caches, as: UIImage.self) {
+                    cell.categoryCover.image = downloadedImage
+                }
+                else{
+                    let url = URL(string: image)
+                    URLSession.shared.dataTask(with: url!) { data, response, error in
+                        // do your stuff here...
+                        DispatchQueue.main.async {
+                            if error == nil {
+                                if let finalData = data {
+                                    // do something on the main queue
+                                    cell.categoryCover.image = UIImage.init(data: finalData)
+                                    cell.categoryCover.contentMode = .scaleAspectFill
+                                }
                             }
                         }
-                    }
-                }.resume()
+                    }.resume()
                 }
-        }
-
+            }
+            
             
         }
         return cell

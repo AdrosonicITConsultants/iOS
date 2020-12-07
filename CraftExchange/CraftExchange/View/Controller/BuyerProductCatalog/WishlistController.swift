@@ -40,6 +40,7 @@ class WishlistController: UIViewController {
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
         allProducts = []
+        self.setData()
         definesPresentationContext = false
         
         let center = NotificationCenter.default
@@ -148,7 +149,7 @@ extension WishlistController: EnquiryExistsViewProtocol, EnquiryGeneratedViewPro
     }
     
     func viewEnquiryButtonSelected(enquiryId: Int) {
-//       goToEnquiry(enquiryId: enquiryId)
+        //       goToEnquiry(enquiryId: enquiryId)
         self.view.hideEnquiryGenerateView()
         self.view.hideEnquiryExistsView()
         let item = self.navigationItem.rightBarButtonItem
@@ -163,7 +164,7 @@ extension WishlistController: EnquiryExistsViewProtocol, EnquiryGeneratedViewPro
     }
     
     func viewEnquiryButtonSelected(eqId: Int) {
-//        goToEnquiry(enquiryId: eqId)
+        //        goToEnquiry(enquiryId: eqId)
         self.view.hideEnquiryGenerateView()
         self.view.hideEnquiryExistsView()
         let item = self.navigationItem.rightBarButtonItem

@@ -55,7 +55,7 @@ class MyProfileViewModel {
 }
 
 class BuyerProfileController: UIViewController {
-
+    
     let viewModel = MyProfileViewModel()
     var reachabilityManager = try? Reachability()
     var isEditable = false
@@ -78,7 +78,7 @@ class BuyerProfileController: UIViewController {
         self.add(asChildViewController: viewController)
         return viewController
     }()
-
+    
     private lazy var CompanyProfileInfoViewController: BuyerCompanyProfileInfo = {
         var viewController = BuyerCompanyProfileInfo.init()
         viewController.isEditable = self.isEditable
@@ -98,7 +98,7 @@ class BuyerProfileController: UIViewController {
         self.add(asChildViewController: viewController)
         return viewController
     }()
-
+    
     private lazy var ArtisanBrandInfoViewController: ArtisanBrandDetails = {
         var viewController = ArtisanBrandDetails.init()
         self.add(asChildViewController: viewController)
@@ -257,23 +257,23 @@ class BuyerProfileController: UIViewController {
     }
     
     @IBAction func saveSelected(_ sender: Any) {
-
+        
         var newUser = CXUser()
-
+        
         newUser.alternateMobile = self.viewModel.alternateMobile.value ?? ""
         newUser.designation = self.viewModel.designation.value ?? ""
-
+        
         if self.viewModel.pancard.value != nil && self.viewModel.pancard.value?.isNotBlank ?? false {
             if self.viewModel.pancard.value?.isValidPAN ?? false {
                 newUser.pancard = self.viewModel.pancard.value ?? ""
-          } else {
-              alert("Please enter valid PAN")
-              return
-          }
+            } else {
+                alert("Please enter valid PAN")
+                return
+            }
         }else {
             newUser.pancard = ""
         }
-   
+        
         let selectedCountryObj = self.allCountries?.filter("%K == %@", "name", self.viewModel.country.value).first
         let addr1 = self.viewModel.addr1.value ?? nil
         let addr2 = self.viewModel.addr2.value ?? nil
@@ -283,61 +283,61 @@ class BuyerProfileController: UIViewController {
         let street = self.viewModel.street.value ?? nil
         let pin = self.viewModel.pincode.value ?? nil
         let district = self.viewModel.district.value ?? nil
-
+        
         let newAddr = LocalAddress.init(id: 0, addrType: nil, country: (countryId: selectedCountryObj?.entityID, countryName: selectedCountryObj?.name) as? (countryId: Int, countryName: String), city: city, district: district, landmark: landmark, line1: addr1, line2: addr2, pincode: pin, state: state, street: street, userId: User.loggedIn()?.entityID ?? 0)
         newUser.address = newAddr
         
         var cinNo = ""
         if self.viewModel.cin.value != nil && self.viewModel.cin.value?.isNotBlank ?? false {
             if self.viewModel.cin.value?.isValidCIN ?? false {
-              cinNo = self.viewModel.cin.value ?? ""
-          } else {
-              alert("Please enter valid CIN")
-              return
-          }
+                cinNo = self.viewModel.cin.value ?? ""
+            } else {
+                alert("Please enter valid CIN")
+                return
+            }
         }
         
         var gstNo = ""
         if self.viewModel.gst.value != nil && self.viewModel.gst.value?.isNotBlank ?? false {
             if self.viewModel.gst.value?.isValidGST ?? false {
-              gstNo = self.viewModel.gst.value ?? ""
-          } else {
-              alert("Please enter valid GST")
-              return
-          }
+                gstNo = self.viewModel.gst.value ?? ""
+            } else {
+                alert("Please enter valid GST")
+                return
+            }
         }
         
         let newCompDetails = buyerCompDetails.init(id: User.loggedIn()?.buyerCompanyDetails.first?.entityID ?? 0, companyName: User.loggedIn()?.buyerCompanyDetails.first?.companyName ?? "", cin: cinNo, contact: User.loggedIn()?.buyerCompanyDetails.first?.contact ?? "", gstNo: gstNo, logo: nil, compDesc: User.loggedIn()?.buyerCompanyDetails.first?.compDesc ?? "")
         newUser.buyerCompanyDetails = newCompDetails
         
         if (self.viewModel.pocFirstName.value != nil && self.viewModel.pocFirstName.value?.isNotBlank ?? false) ||
-          (self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false) ||
-          self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
-          
+            (self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false) ||
+            self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
+            
             let pocName = self.viewModel.pocFirstName.value ?? ""
-                        
-          var pocEmail = ""
-          if self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
-              if self.viewModel.pocEmail.value?.isValidEmailAddress ?? false {
-                pocEmail = self.viewModel.pocEmail.value ?? ""
-            } else {
-                alert("Please enter valid email id of point of contact.")
-                return
-            }
-          }
             
-          var pocMob = ""
-          if self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false {
-              if self.viewModel.pocContact.value?.isValidPhoneNumber ?? false {
-                pocMob = self.viewModel.pocContact.value ?? ""
-            } else {
-                alert("Please enter valid phone number of point of contact.")
-                return
+            var pocEmail = ""
+            if self.viewModel.pocEmail.value != nil && self.viewModel.pocEmail.value?.isNotBlank ?? false {
+                if self.viewModel.pocEmail.value?.isValidEmailAddress ?? false {
+                    pocEmail = self.viewModel.pocEmail.value ?? ""
+                } else {
+                    alert("Please enter valid email id of point of contact.")
+                    return
+                }
             }
-          }
             
-          let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
-          newUser.buyerPointOfContact = newPointOfContact
+            var pocMob = ""
+            if self.viewModel.pocContact.value != nil && self.viewModel.pocContact.value?.isNotBlank ?? false {
+                if self.viewModel.pocContact.value?.isValidPhoneNumber ?? false {
+                    pocMob = self.viewModel.pocContact.value ?? ""
+                } else {
+                    alert("Please enter valid phone number of point of contact.")
+                    return
+                }
+            }
+            
+            let newPointOfContact = pointOfContact.init(id: User.loggedIn()?.pointOfContact.first?.entityID ?? 0, contactNo: pocMob, email: pocEmail, firstName: pocName)
+            newUser.buyerPointOfContact = newPointOfContact
         }else {
             let newPointOfContact = pointOfContact.init(id: 0, contactNo: "", email: "", firstName: "")
             newUser.buyerPointOfContact = newPointOfContact
@@ -350,19 +350,19 @@ class BuyerProfileController: UIViewController {
         }
         self.cancelSelected(sender)
     }
-
+    
     private func add(asChildViewController viewController: FormViewController) {
         // Add Child View Controller
         addChild(viewController)
-
+        
         // Add Child View as Subview
         childContainerView.backgroundColor = .white
         childContainerView.addSubview(viewController.view)
-
+        
         // Configure Child View
         viewController.view.frame = childContainerView.bounds
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+        
         // Notify Child View Controller
         viewController.didMove(toParent: self)
     }
@@ -370,10 +370,10 @@ class BuyerProfileController: UIViewController {
     private func remove(asChildViewController viewController: FormViewController) {
         // Notify Child View Controller
         viewController.willMove(toParent: nil)
-
+        
         // Remove Child View From Superview
         viewController.view.removeFromSuperview()
-
+        
         // Notify Child View Controller
         viewController.removeFromParent()
     }

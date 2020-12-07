@@ -16,12 +16,12 @@ import UIKit
 
 extension EnquiryListService {
     func createScene() -> UIViewController {
-
+        
         let storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "BuyerEnquiryListController") as! BuyerEnquiryListController
-
+        
         func setupRefreshActions() {
-           syncData()
+            syncData()
         }
         
         controller.getDeliveryTimes = {
@@ -32,9 +32,12 @@ extension EnquiryListService {
             self.getCurrency(controller: controller)
         }
         
-        func performSync() {
-            let service = HomeScreenService.init(client: client)
+        controller.fetchData = {
+            let service = HomeScreenService.init(client: self.client)
             service.fetchEnquiryStateData(vc: controller)
+        }
+        
+        func performSync() {
             
             if controller.segmentView.selectedSegmentIndex == 0 {
                 getOngoingEnquiries().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in

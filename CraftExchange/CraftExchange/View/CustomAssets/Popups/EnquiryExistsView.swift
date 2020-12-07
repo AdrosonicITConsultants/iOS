@@ -24,16 +24,16 @@ class EnquiryExistsView: UIView {
     var delegate: EnquiryExistsViewProtocol?
     var productId: Int?
     var enquiryId: Int?
-
+    
     @IBAction func cancelButtonSelected(_ sender: Any) {
-      delegate?.cancelButtonSelected()
+        delegate?.cancelButtonSelected()
     }
     
     @IBAction func viewEnquiryButtonSelected(_ sender: Any) {
-      delegate?.viewEnquiryButtonSelected(eqId: enquiryId ?? 0)
+        delegate?.viewEnquiryButtonSelected(eqId: enquiryId ?? 0)
     }
     
     @IBAction func generateEnquiryButtonSelected(_ sender: Any) {
-      delegate?.generateEnquiryButtonSelected(prodId: productId ?? 0)
+        delegate?.generateEnquiryButtonSelected(prodId: productId ?? 0)
     }
 }

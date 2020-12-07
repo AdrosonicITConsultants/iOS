@@ -656,13 +656,13 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.arrow.tintColor = UIColor().EQGreenText()
             }.onCellSelection({ (cell, row) in
                 if self.listMOQs != [] {
-                let section = self.form.sectionBy(tag: "list MOQs")
-                if section?.isEmpty == true && !self.isClosed {
-                    self.listMOQsFunc()
-                }else {
-                    section?.removeAll()
-                }
-                section?.reload()
+                    let section = self.form.sectionBy(tag: "list MOQs")
+                    if section?.isEmpty == true && !self.isClosed {
+                        self.listMOQsFunc()
+                    }else {
+                        section?.removeAll()
+                    }
+                    section?.reload()
                 }else {
                     self.alert("No MOQs available yet")
                 }

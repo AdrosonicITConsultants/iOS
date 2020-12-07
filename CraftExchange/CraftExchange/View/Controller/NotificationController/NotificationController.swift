@@ -31,20 +31,10 @@ class NotificationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         OfflineRequestManager.defaultManager.delegate = self
-       
+        
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        allNotifications = realm?.objects(Notifications.self).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        
-        notificationCount = allNotifications?.count ?? 0
-        let count =  notificationCount
-        if count == 0 {
-            self.notificationsLabel?.text = "No new notifications".localized
-        }
-        else {
-            self.notificationsLabel?.text = "\(count) " + "new notifications".localized
-        }
-        
+        self.setData()
         
         if tableView.refreshControl == nil {
             let refreshControl = UIRefreshControl()
@@ -52,7 +42,7 @@ class NotificationController: UIViewController {
         }
         tableView.refreshControl?.beginRefreshing()
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
-       
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -61,11 +51,11 @@ class NotificationController: UIViewController {
     @objc func pullToRefresh() {
         viewWillAppear?()
     }
-       
-       override func viewDidAppear(_ animated: Bool) {
+    
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-           viewDidAppear?()
-       }
+        viewDidAppear?()
+    }
     
     @IBAction func markAllAsReadAction(_ sender: Any) {
         markAsReadAllActions?()
@@ -76,7 +66,11 @@ class NotificationController: UIViewController {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
-        
+        self.setData()
+        self.hideLoading()
+    }
+    
+    func setData() {
         allNotifications = []
         self.allNotifications = realm?.objects(Notifications.self).filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         
@@ -88,8 +82,6 @@ class NotificationController: UIViewController {
         else {
             self.notificationsLabel?.text = "\(count) " + "new notifications".localized
         }
-        
-        self.hideLoading()
         self.tableView.reloadData()
     }
 }
@@ -106,7 +98,7 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let notification = allNotifications?[indexPath.row]
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! NotificationCell
         cell.enquiryId.text = "Enquiry Id: \(notification?.code ?? "")"
         cell.createdOn.text = Date().ttceFormatter(isoDate: "\(notification?.createdOn ?? "")")
@@ -116,7 +108,7 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
         }else if notification?.type == "Yarn dye" {
             cell.type.text = (notification?.type ?? "") + " " + (notification?.details ?? "")
         }else{
-           cell.type.text = notification?.type
+            cell.type.text = notification?.type
         }
         cell.productDesc.text = notification?.productDesc
         
@@ -124,18 +116,18 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
         var enquiryImage: UIImage!
         
         switch notificationType {
-            case "Enquiry Generated", "Enquiry Closed":
-                enquiryImage = UIImage.init(named: "Enquiry")
-            case "Moq Received","Moq accepted":
-                enquiryImage = UIImage.init(named: "MOQ")
-            case "Pi finalized", "Tax Invoice Raised", "Delivery Challan Uploaded", "Order Received":
-                enquiryImage = UIImage.init(named: "Pi")
-            case "Advance Payment Received", "Advanced Payment Accepted":
-                enquiryImage = UIImage.init(named: "AdvancePayment")
-            case "Change Requested Initiated","Change Requested Accepted":
-                enquiryImage = UIImage.init(named: "ChangeRequest")
-            default:
-                enquiryImage = UIImage.init(named: "Enquiry")
+        case "Enquiry Generated", "Enquiry Closed":
+            enquiryImage = UIImage.init(named: "Enquiry")
+        case "Moq Received","Moq accepted":
+            enquiryImage = UIImage.init(named: "MOQ")
+        case "Pi finalized", "Tax Invoice Raised", "Delivery Challan Uploaded", "Order Received":
+            enquiryImage = UIImage.init(named: "Pi")
+        case "Advance Payment Received", "Advanced Payment Accepted":
+            enquiryImage = UIImage.init(named: "AdvancePayment")
+        case "Change Requested Initiated","Change Requested Accepted":
+            enquiryImage = UIImage.init(named: "ChangeRequest")
+        default:
+            enquiryImage = UIImage.init(named: "Enquiry")
         }
         cell.enquiryIcon.image = enquiryImage
         
@@ -151,7 +143,7 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
             success(true)
         }
         markAsRead.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-//        markAsRead.image = UIImage.init(named: "delete")
+        //        markAsRead.image = UIImage.init(named: "delete")
         
         return UISwipeActionsConfiguration(actions: [markAsRead])
     }
@@ -171,7 +163,7 @@ extension NotificationController: OfflineRequestManagerDelegate {
     }
     
     func offlineRequestManager(_ manager: OfflineRequestManager, didFinishRequest request: OfflineRequest) {
-      
+        
     }
     
     func offlineRequestManager(_ manager: OfflineRequestManager, requestDidFail request: OfflineRequest, withError error: Error) {

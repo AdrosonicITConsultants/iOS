@@ -321,7 +321,7 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
             }
             <<< LabelRow() { row in
                 row.cell.height = { 300.0 }
-            }
+        }
     }
     
     func customButtonSelected(tag: Int) {
@@ -339,19 +339,19 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
             btnRow?.cell.buttonView.backgroundColor = .black
             if let parentVC = self.parent as? BuyerProfileController {
                 var finalJson: [[String: Any]]?
-
+                
                 var accountNo = ""
                 if self.viewModel.accNo.value != nil && self.viewModel.accNo.value?.isNotBlank ?? false {
                     if self.viewModel.accNo.value?.isValidNumber ?? false {
-                      accountNo = self.viewModel.accNo.value ?? ""
-                  } else {
-                      alert("Please enter valid account number.")
-                      isEditable = true
-                      btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
-                      btnRow?.cell.buttonView.borderColour = .red
-                      btnRow?.cell.buttonView.backgroundColor = .red
-                      return
-                  }
+                        accountNo = self.viewModel.accNo.value ?? ""
+                    } else {
+                        alert("Please enter valid account number.")
+                        isEditable = true
+                        btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                        btnRow?.cell.buttonView.borderColour = .red
+                        btnRow?.cell.buttonView.backgroundColor = .red
+                        return
+                    }
                 }else {
                     alert("Please enter valid account number.")
                     isEditable = true
@@ -364,15 +364,15 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                 var ifscCode = ""
                 if self.viewModel.ifsc.value != nil && self.viewModel.ifsc.value?.isNotBlank ?? false {
                     if self.viewModel.ifsc.value?.isValidIFSC ?? false {
-                      ifscCode = self.viewModel.ifsc.value ?? ""
-                  } else {
-                      alert("Please enter valid IFSC code.")
-                      isEditable = true
-                      btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
-                      btnRow?.cell.buttonView.borderColour = .red
-                      btnRow?.cell.buttonView.backgroundColor = .red
-                      return
-                  }
+                        ifscCode = self.viewModel.ifsc.value ?? ""
+                    } else {
+                        alert("Please enter valid IFSC code.")
+                        isEditable = true
+                        btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                        btnRow?.cell.buttonView.borderColour = .red
+                        btnRow?.cell.buttonView.backgroundColor = .red
+                        return
+                    }
                 }else {
                     alert("Please enter valid IFSC code.")
                     isEditable = true
@@ -391,14 +391,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     if self.viewModel.gpayId.value != nil && self.viewModel.gpayId.value?.isNotBlank ?? false {
                         if self.viewModel.gpayId.value?.isValidIndianPhoneNumber ?? false {
                             gpay = self.viewModel.gpayId.value ?? ""
-                      } else {
-                          alert("Please enter valid Google Pay number.")
-                          isEditable = true
-                          btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
-                          btnRow?.cell.buttonView.borderColour = .red
-                          btnRow?.cell.buttonView.backgroundColor = .red
-                          return
-                      }
+                        } else {
+                            alert("Please enter valid Google Pay number.")
+                            isEditable = true
+                            btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                            btnRow?.cell.buttonView.borderColour = .red
+                            btnRow?.cell.buttonView.backgroundColor = .red
+                            return
+                        }
                     }
                     let newBankDetails = bankDetails.init(id: 0, accNo: gpay, accType: (accId: 2, accDesc: "gpay"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
@@ -410,14 +410,14 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     if self.viewModel.paytm.value != nil && self.viewModel.paytm.value?.isNotBlank ?? false {
                         if self.viewModel.paytm.value?.isValidIndianPhoneNumber ?? false {
                             paytmNo = self.viewModel.paytm.value ?? ""
-                      } else {
-                          alert("Please enter valid Paytm number.")
-                          isEditable = true
-                          btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
-                          btnRow?.cell.buttonView.borderColour = .red
-                          btnRow?.cell.buttonView.backgroundColor = .red
-                          return
-                      }
+                        } else {
+                            alert("Please enter valid Paytm number.")
+                            isEditable = true
+                            btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                            btnRow?.cell.buttonView.borderColour = .red
+                            btnRow?.cell.buttonView.backgroundColor = .red
+                            return
+                        }
                     }
                     let newBankDetails = bankDetails.init(id: 0, accNo: paytmNo, accType: (accId: 4, accDesc: "paytm"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
@@ -429,19 +429,19 @@ class ArtisanBankDetails: FormViewController, ButtonActionProtocol {
                     if self.viewModel.phonePay.value != nil && self.viewModel.phonePay.value?.isNotBlank ?? false {
                         if self.viewModel.phonePay.value?.isValidIndianPhoneNumber ?? false {
                             phonePayNo = self.viewModel.phonePay.value ?? ""
-                      } else {
-                          alert("Please enter valid PhonePe number.")
-                          isEditable = true
-                          btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
-                          btnRow?.cell.buttonView.borderColour = .red
-                          btnRow?.cell.buttonView.backgroundColor = .red
-                          return
-                      }
+                        } else {
+                            alert("Please enter valid PhonePe number.")
+                            isEditable = true
+                            btnRow?.cell.buttonView.setTitle("Save bank details".localized, for: .normal)
+                            btnRow?.cell.buttonView.borderColour = .red
+                            btnRow?.cell.buttonView.backgroundColor = .red
+                            return
+                        }
                     }
                     let newBankDetails = bankDetails.init(id: 0, accNo: phonePayNo, accType: (accId: 3, accDesc: "phonp"), bankName: nil, branchName: nil, ifsc: nil, name: nil)
                     finalJson?.append(newBankDetails.toJSON())
                 }
-
+                
                 if let _ = finalJson {
                     parentVC.viewModel.updateArtisanBankDetails?(finalJson!)
                 }

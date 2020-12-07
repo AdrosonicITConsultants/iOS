@@ -15,7 +15,7 @@ protocol MOQAcceptedViewProtocol {
 }
 
 class MOQAcceptedView: UIView {
-
+    
     @IBOutlet weak var brandClusterText: UILabel!
     @IBOutlet weak var moqText: UILabel!
     @IBOutlet weak var ETADaysText: UILabel!
@@ -25,12 +25,12 @@ class MOQAcceptedView: UIView {
     
     var delegate: MOQAcceptedViewProtocol?
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
     @IBAction func enquiryChatButtonSelected(_ sender: Any) {
         delegate?.enquiryChatButtonSelected()
     }

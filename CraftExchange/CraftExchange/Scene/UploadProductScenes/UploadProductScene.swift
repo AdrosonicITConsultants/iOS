@@ -16,7 +16,7 @@ import UIKit
 
 extension UploadProductService {
     func createScene(productObject: Product?) -> UIViewController {
-    
+        
         let vc = UploadProductController.init(style: .plain)
         vc.product = productObject
         vc.viewModel.saveProductSelected = {
@@ -120,7 +120,7 @@ extension UploadProductService {
     }
     
     func createCustomProductScene(productObject: CustomProduct?) -> UIViewController {
-    
+        
         let vc = UploadCustomProductController.init(style: .plain)
         vc.product = productObject
         

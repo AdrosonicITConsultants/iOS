@@ -27,12 +27,12 @@ extension ProductCategory {
         }
         return nil
     }
-
+    
     func saveOrUpdate() {
-      let realm = try! Realm()
-      if let object = realm.objects(ProductCategory.self).filter("%K == %@", "entityID", self.entityID).first {
+        let realm = try! Realm()
+        if let object = realm.objects(ProductCategory.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-              prodCatDescription = object.prodCatDescription
+                prodCatDescription = object.prodCatDescription
             }
         } else {
             try? realm.write {

@@ -16,7 +16,7 @@ import Eureka
 }
 
 class ImageViewRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var productCodeLbl: UILabel!
@@ -28,7 +28,7 @@ class ImageViewRowView: Cell<String>, CellType {
         super.setup()
         wishlistBtn.addTarget(self, action: #selector(wishlistSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }

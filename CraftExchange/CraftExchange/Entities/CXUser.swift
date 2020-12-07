@@ -9,216 +9,216 @@
 import Foundation
 
 struct CXUser {
-
-  var address: LocalAddress?
-  var alternateMobile: String?
-  var buyerCompanyDetails: buyerCompDetails?
-  var buyerPointOfContact: pointOfContact?
-  var clusterId: Int = 0
-  var designation: String?
-  var email: String?
-  var firstName: String?
-  var lastName: String?
-  var mobile: String?
-  var pancard: String?
-  var password: String?
-  var productCategoryIds : [Int]? = []
-  var refRoleId: Int = 0
-  var socialMediaLink: String?
-  var weaverId: String?
-  var websiteLink: String?
+    
+    var address: LocalAddress?
+    var alternateMobile: String?
+    var buyerCompanyDetails: buyerCompDetails?
+    var buyerPointOfContact: pointOfContact?
+    var clusterId: Int = 0
+    var designation: String?
+    var email: String?
+    var firstName: String?
+    var lastName: String?
+    var mobile: String?
+    var pancard: String?
+    var password: String?
+    var productCategoryIds : [Int]? = []
+    var refRoleId: Int = 0
+    var socialMediaLink: String?
+    var weaverId: String?
+    var websiteLink: String?
     var profileImg: Data?
 }
 
 extension CXUser {
     func toJSON(updateAddress: Bool, buyerComp: Bool) -> [String: Any] {
-    var message: [String: Any] = [:]
-    
-    if clusterId != 0 {
-        message["clusterId"] = clusterId
-    }
-    if productCategoryIds != [0] {
-        message["productCategoryIds"] = productCategoryIds
-    }
-    
-    if refRoleId != 0 {
-        message["refRoleId"] = refRoleId
-    }
-    
-    if refRoleId == 1 { //Artisan
-      if let weaverId = weaverId {
-          message["weaverId"] = weaverId
-      }
-    }else { // Buyer
-      if let buyerCompanyDetails = buyerCompanyDetails {
-        let json = buyerCompanyDetails.toJSON()
-        if buyerComp {
-            message["buyerCompanyDetails"] = json
-        }else {
-            message["companyDetails"] = json
+        var message: [String: Any] = [:]
+        
+        if clusterId != 0 {
+            message["clusterId"] = clusterId
         }
-      }
-      if let buyerPointOfContact = buyerPointOfContact {
-        let json = buyerPointOfContact.toJSON()
-        message["buyerPointOfContact"] = json
-      }
-    }
-    if let address = address {
-        if updateAddress {
-            let json = address.toUpdateAddressJSON()
-            message["address"] = json
-        }else {
-            let json = address.toJSON()
-            message["address"] = json
+        if productCategoryIds != [0] {
+            message["productCategoryIds"] = productCategoryIds
         }
+        
+        if refRoleId != 0 {
+            message["refRoleId"] = refRoleId
+        }
+        
+        if refRoleId == 1 { //Artisan
+            if let weaverId = weaverId {
+                message["weaverId"] = weaverId
+            }
+        }else { // Buyer
+            if let buyerCompanyDetails = buyerCompanyDetails {
+                let json = buyerCompanyDetails.toJSON()
+                if buyerComp {
+                    message["buyerCompanyDetails"] = json
+                }else {
+                    message["companyDetails"] = json
+                }
+            }
+            if let buyerPointOfContact = buyerPointOfContact {
+                let json = buyerPointOfContact.toJSON()
+                message["buyerPointOfContact"] = json
+            }
+        }
+        if let address = address {
+            if updateAddress {
+                let json = address.toUpdateAddressJSON()
+                message["address"] = json
+            }else {
+                let json = address.toJSON()
+                message["address"] = json
+            }
+        }
+        if let alternateMobile = alternateMobile {
+            message["alternateMobile"] = alternateMobile
+        }
+        if let designation = designation {
+            message["designation"] = designation
+        }
+        if let email = email {
+            message["email"] = email
+        }
+        if let firstName = firstName {
+            message["firstName"] = firstName
+        }
+        if let lastName = lastName {
+            message["lastName"] = lastName
+        }
+        if let mobile = mobile {
+            message["mobile"] = mobile
+        }
+        message["pancard"] = pancard ?? ""
+        if let password = password {
+            message["password"] = password
+        }
+        if let socialMediaLink = socialMediaLink {
+            message["socialMediaLink"] = socialMediaLink
+        }
+        if let websiteLink = websiteLink {
+            message["websiteLink"] = websiteLink
+        }
+        return message
     }
-    if let alternateMobile = alternateMobile {
-        message["alternateMobile"] = alternateMobile
-    }
-    if let designation = designation {
-        message["designation"] = designation
-    }
-    if let email = email {
-        message["email"] = email
-    }
-    if let firstName = firstName {
-        message["firstName"] = firstName
-    }
-    if let lastName = lastName {
-        message["lastName"] = lastName
-    }
-    if let mobile = mobile {
-        message["mobile"] = mobile
-    }
-    message["pancard"] = pancard ?? ""
-    if let password = password {
-        message["password"] = password
-    }
-    if let socialMediaLink = socialMediaLink {
-        message["socialMediaLink"] = socialMediaLink
-    }
-    if let websiteLink = websiteLink {
-        message["websiteLink"] = websiteLink
-    }
-    return message
-  }
 }
 
 struct LocalAddress {
-  var id: Int = 0
-  let addrType: (addrId: Int, addrType: String)?
-  var country: (countryId: Int, countryName: String)?
-  var city: String?
-  var district: String?
-  var landmark: String?
-  var line1: String?
-  var line2: String?
-  var pincode: String?
-  var state: String?
-  var street: String?
-  var userId: Int = 0
+    var id: Int = 0
+    let addrType: (addrId: Int, addrType: String)?
+    var country: (countryId: Int, countryName: String)?
+    var city: String?
+    var district: String?
+    var landmark: String?
+    var line1: String?
+    var line2: String?
+    var pincode: String?
+    var state: String?
+    var street: String?
+    var userId: Int = 0
 }
 
 extension LocalAddress {
-  func toJSON() -> [String: Any] {
-    var message: [String: Any] = [:]
-    
-    message["id"] = id
-    message["userId"] = id
-    
-    if let addrType = addrType {
-      var json: [String: Any] = [:]
-      json["id"] = addrType.addrId
-      json["addrType"] = addrType.addrType
-      message["addressType"] = json
+    func toJSON() -> [String: Any] {
+        var message: [String: Any] = [:]
+        
+        message["id"] = id
+        message["userId"] = id
+        
+        if let addrType = addrType {
+            var json: [String: Any] = [:]
+            json["id"] = addrType.addrId
+            json["addrType"] = addrType.addrType
+            message["addressType"] = json
+        }
+        if let country = country {
+            var json: [String: Any] = [:]
+            json["id"] = country.countryId
+            json["name"] = country.countryName
+            message["country"] = json
+        }
+        if let city = city {
+            message["city"] = city
+        }
+        if let district = district {
+            message["district"] = district
+        }
+        if let landmark = landmark {
+            message["landmark"] = landmark
+        }
+        if let line1 = line1 {
+            message["line1"] = line1
+        }
+        if let line2 = line2 {
+            message["line2"] = line2
+        }
+        if let pincode = pincode {
+            message["pincode"] = pincode
+        }
+        if let state = state {
+            message["state"] = state
+        }
+        if let street = street {
+            message["street"] = street
+        }
+        return message
     }
-    if let country = country {
-      var json: [String: Any] = [:]
-      json["id"] = country.countryId
-      json["name"] = country.countryName
-      message["country"] = json
-    }
-    if let city = city {
-        message["city"] = city
-    }
-    if let district = district {
-        message["district"] = district
-    }
-    if let landmark = landmark {
-        message["landmark"] = landmark
-    }
-    if let line1 = line1 {
-        message["line1"] = line1
-    }
-    if let line2 = line2 {
-        message["line2"] = line2
-    }
-    if let pincode = pincode {
-        message["pincode"] = pincode
-    }
-    if let state = state {
-        message["state"] = state
-    }
-    if let street = street {
-        message["street"] = street
-    }
-    return message
-  }
     
     func toUpdateAddressJSON() -> [String: Any] {
-      var message: [String: Any] = [:]
-
-      if let country = country {
-        var json: [String: Any] = [:]
-        json["id"] = country.countryId
-        message["country"] = json
-      }
-      if let city = city {
-          message["city"] = city
-      }
-      if let district = district {
-          message["district"] = district
-      }
-      if let landmark = landmark {
-          message["landmark"] = landmark
-      }
-      if let line1 = line1 {
-          message["line1"] = line1
-      }
-      if let line2 = line2 {
-          message["line2"] = line2
-      }
-      if let pincode = pincode {
-          message["pincode"] = pincode
-      }
-      if let state = state {
-          message["state"] = state
-      }
-      if let street = street {
-          message["street"] = street
-      }
-      return message
+        var message: [String: Any] = [:]
+        
+        if let country = country {
+            var json: [String: Any] = [:]
+            json["id"] = country.countryId
+            message["country"] = json
+        }
+        if let city = city {
+            message["city"] = city
+        }
+        if let district = district {
+            message["district"] = district
+        }
+        if let landmark = landmark {
+            message["landmark"] = landmark
+        }
+        if let line1 = line1 {
+            message["line1"] = line1
+        }
+        if let line2 = line2 {
+            message["line2"] = line2
+        }
+        if let pincode = pincode {
+            message["pincode"] = pincode
+        }
+        if let state = state {
+            message["state"] = state
+        }
+        if let street = street {
+            message["street"] = street
+        }
+        return message
     }
 }
 
 struct pointOfContact {
-  var id: Int = 0
-  let contactNo: String?
-  var email: String?
-  var firstName: String?
+    var id: Int = 0
+    let contactNo: String?
+    var email: String?
+    var firstName: String?
 }
 
 extension pointOfContact {
-  func toJSON() -> [String: Any] {
-    var message: [String: Any] = [:]
-    
-    message["id"] = id
-    message["contactNo"] = contactNo ?? ""
-    message["email"] = email ?? ""
-    message["firstName"] = firstName ?? ""
-    
-    return message
-  }
+    func toJSON() -> [String: Any] {
+        var message: [String: Any] = [:]
+        
+        message["id"] = id
+        message["contactNo"] = contactNo ?? ""
+        message["email"] = email ?? ""
+        message["firstName"] = firstName ?? ""
+        
+        return message
+    }
 }
 
 struct buyerCompDetails {
@@ -233,30 +233,30 @@ struct buyerCompDetails {
 }
 
 extension buyerCompDetails {
-  func toJSON() -> [String: Any] {
-    var message: [String: Any] = [:]
-    
-    message["id"] = id
-    if let companyName = companyName {
-        message["companyName"] = companyName
+    func toJSON() -> [String: Any] {
+        var message: [String: Any] = [:]
+        
+        message["id"] = id
+        if let companyName = companyName {
+            message["companyName"] = companyName
+        }
+        if let cin = cin {
+            message["cin"] = cin
+        }
+        if let contact = contact {
+            message["contact"] = contact
+        }
+        if let gstNo = gstNo {
+            message["gstNo"] = gstNo
+        }
+        if let logo = logo {
+            message["logo"] = logo
+        }
+        if let compDesc = compDesc {
+            message["desc"] = compDesc
+        }
+        return message
     }
-    if let cin = cin {
-        message["cin"] = cin
-    }
-    if let contact = contact {
-        message["contact"] = contact
-    }
-    if let gstNo = gstNo {
-        message["gstNo"] = gstNo
-    }
-    if let logo = logo {
-        message["logo"] = logo
-    }
-    if let compDesc = compDesc {
-        message["desc"] = compDesc
-    }
-    return message
-  }
 }
 
 struct bankDetails {
@@ -270,35 +270,35 @@ struct bankDetails {
 }
 
 extension bankDetails {
-  func toJSON() -> [String: Any] {
-    var message: [String: Any] = [:]
-    
-    if let accNo = accNo {
-        message["accNo_UPI_Mobile"] = accNo
+    func toJSON() -> [String: Any] {
+        var message: [String: Any] = [:]
+        
+        if let accNo = accNo {
+            message["accNo_UPI_Mobile"] = accNo
+        }
+        if let bankName = bankName {
+            message["bankName"] = bankName
+        }
+        if let branchName = branchName {
+            message["branch"] = branchName
+        }
+        if let ifsc = ifsc {
+            message["ifsc"] = ifsc
+        }
+        if let name = name {
+            message["name"] = name
+        }
+        if let accType = accType {
+            var json: [String: Any] = [:]
+            json["id"] = accType.accId
+            json["accountDesc"] = accType.accDesc
+            message["accountType"] = json
+        }
+        if let userId = User.loggedIn()?.entityID {
+            message["userId"] = userId
+        }
+        return message
     }
-    if let bankName = bankName {
-        message["bankName"] = bankName
-    }
-    if let branchName = branchName {
-        message["branch"] = branchName
-    }
-    if let ifsc = ifsc {
-        message["ifsc"] = ifsc
-    }
-    if let name = name {
-        message["name"] = name
-    }
-    if let accType = accType {
-      var json: [String: Any] = [:]
-      json["id"] = accType.accId
-      json["accountDesc"] = accType.accDesc
-      message["accountType"] = json
-    }
-    if let userId = User.loggedIn()?.entityID {
-        message["userId"] = userId
-    }
-    return message
-  }
 }
 
 struct productDetails {
@@ -331,7 +331,7 @@ struct productDetails {
 extension productDetails {
     func toJSON() -> [String: Any] {
         var product: [String: Any] = [:]
-
+        
         if let tag = tag {
             product["tag"] = tag
         }
@@ -525,9 +525,9 @@ extension relatedProductInfo {
         if let length = length {
             product["length"] = length
         }
-//        if let weigth = weigth {
-//            product["weigth"] = weigth
-//        }
+        //        if let weigth = weigth {
+        //            product["weigth"] = weigth
+        //        }
         
         return product
     }
@@ -543,9 +543,9 @@ struct changeRequest {
 
 extension changeRequest {
     func toJSON() -> [String: Any] {
-
+        
         var changeRequestJson: [String: Any] = [:]
-
+        
         changeRequestJson["id"] = id
         changeRequestJson["changeRequestId"] = changeRequestId
         changeRequestJson["requestItemsId"] = requestItemsId
@@ -553,7 +553,7 @@ extension changeRequest {
         if let requestText = requestText {
             changeRequestJson["requestText"] = requestText
         }
-
+        
         return changeRequestJson
     }
     
@@ -578,14 +578,14 @@ struct qualityCheck {
 
 extension qualityCheck {
     func toJSON() -> [String: Any] {
-
+        
         var changeRequestJson: [String: Any] = [:]
-
+        
         changeRequestJson["stageId"] = stageId
         changeRequestJson["enquiryId"] = enquiryId
         changeRequestJson["saveOrSend"] = saveOrSend
         changeRequestJson["questionAnswers"] = questionAnswers
-
+        
         return changeRequestJson
     }
 }
@@ -600,15 +600,15 @@ struct artisanRating {
 
 extension artisanRating {
     func toJSON() -> [String: Any] {
-
+        
         var artisanRatingJson: [String: Any] = [:]
-
+        
         artisanRatingJson["enquiryId"] = enquiryId
         artisanRatingJson["givenBy"] = givenBy
         artisanRatingJson["questionId"] = questionId
         artisanRatingJson["response"] = response
         artisanRatingJson["responseComment"] = responseComment
-
+        
         return artisanRatingJson
     }
 }

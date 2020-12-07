@@ -68,9 +68,9 @@ class PaymentArtistController: FormViewController{
                 if orderObject != nil {
                     $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
                 }
-//                if orderObject?.enquiryStageId == 8{
-//                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Paid amount: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
-//                }
+                //                if orderObject?.enquiryStageId == 8{
+                //                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Paid amount: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
+                //                }
                 $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
                 if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 5 {
                     $0.cell.statusLbl.textColor = .black
@@ -113,50 +113,50 @@ class PaymentArtistController: FormViewController{
             <<< LabelRow(){
                 $0.title = "Payment Receipt: ".localized
             }
-        <<< ArtistReceitImgRow(){
-            $0.cell.height = { 325.0 }
-//               $0.cell.delegate = self
-               $0.tag = "PaymentArtist-1"
-               $0.cell.tag = 4
-            if orderObject?.enquiryStageId == 8 {
-                $0.cell.AmountLabel.text = "Final amount paid by buyer: ".localized +  "\(finalPaymnetDetails?.payableAmount ?? 0)"
+            <<< ArtistReceitImgRow(){
+                $0.cell.height = { 325.0 }
+                //               $0.cell.delegate = self
+                $0.tag = "PaymentArtist-1"
+                $0.cell.tag = 4
+                if orderObject?.enquiryStageId == 8 {
+                    $0.cell.AmountLabel.text = "Final amount paid by buyer: ".localized +  "\(finalPaymnetDetails?.payableAmount ?? 0)"
+                }
             }
-        }
             
-        <<< ApprovePaymentRow() {
-            $0.cell.height = { 150.0}
-            $0.cell.ApproveBTn.tag = 5
-            $0.tag = "PaymentArtist-2"
-            $0.cell.tag = 5
-            if orderObject?.enquiryStageId == 8{
-                $0.cell.ApproveBTn.setTitle("Approve Final Payment by Buyer", for: .normal)
-            }
-            $0.cell.delegate = self
-            if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 >= 4{
-                $0.hidden = true
-            }
-            if orderObject?.enquiryStageId == 8{
-                 $0.hidden = false
-            }
-//            if orderObject?.isBlue == true {
-//                 $0.hidden = false
-//            }else{
-//                $0.hidden = true
-//            }
+            <<< ApprovePaymentRow() {
+                $0.cell.height = { 150.0}
+                $0.cell.ApproveBTn.tag = 5
+                $0.tag = "PaymentArtist-2"
+                $0.cell.tag = 5
+                if orderObject?.enquiryStageId == 8{
+                    $0.cell.ApproveBTn.setTitle("Approve Final Payment by Buyer", for: .normal)
+                }
+                $0.cell.delegate = self
+                if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 >= 4{
+                    $0.hidden = true
+                }
+                if orderObject?.enquiryStageId == 8{
+                    $0.hidden = false
+                }
+                //            if orderObject?.isBlue == true {
+                //                 $0.hidden = false
+                //            }else{
+                //                $0.hidden = true
+                //            }
         }
         
-}
+    }
 }
 extension PaymentArtistController: ApproveButtonProtocol {
     func RejectBtnSelected(tag: Int) {
-       switch tag{
+        switch tag{
         case 5:
             self.status = 2
             self.showLoading()
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let service = EnquiryDetailsService.init(client: client)
             if let order = self.orderObject {
-               service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
+                service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
             }else if let enquiry = self.enquiryObject {
                 service.validatePaymentFunc(vc: self,typeId: 1, enquiryId: enquiry.enquiryId, status: self.status!)
             }
@@ -178,7 +178,7 @@ extension PaymentArtistController: ApproveButtonProtocol {
                 service.validatePaymentFunc(vc: self,typeId:1, enquiryId: enquiry.enquiryId, status: self.status!)
             }
         default:
-             print("do nothing")
+            print("do nothing")
         }
     }
 }

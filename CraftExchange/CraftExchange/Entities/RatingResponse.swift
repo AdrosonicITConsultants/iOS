@@ -22,7 +22,7 @@ class RatingResponseArtisan: Object, Decodable {
     @objc dynamic var createdOn: String?
     @objc dynamic var modifiedOn: String?
     
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case enquiryId = "enquiryId"
@@ -38,7 +38,7 @@ class RatingResponseArtisan: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -46,13 +46,13 @@ class RatingResponseArtisan: Object, Decodable {
         id = "\(entityID)"
         enquiryId = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)
         questionId = try (values.decodeIfPresent(Int.self, forKey: .questionId) ?? 0)
-               response = try (values.decodeIfPresent(Int.self, forKey: .response) ?? 0)
-         responseComment = try? values.decodeIfPresent(String.self, forKey: .responseComment)
+        response = try (values.decodeIfPresent(Int.self, forKey: .response) ?? 0)
+        responseComment = try? values.decodeIfPresent(String.self, forKey: .responseComment)
         givenBy = try (values.decodeIfPresent(Int.self, forKey: .givenBy) ?? 0)
         givenTo = try (values.decodeIfPresent(Int.self, forKey: .givenTo) ?? 0)
         createdOn = try? values.decodeIfPresent(String.self, forKey: .createdOn)
         modifiedOn = try? values.decodeIfPresent(String.self, forKey: .modifiedOn)
-       
+        
     }
 }
 
@@ -72,7 +72,7 @@ class RatingResponseBuyer: Object, Decodable {
     @objc dynamic var createdOn: String?
     @objc dynamic var modifiedOn: String?
     
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case enquiryId = "enquiryId"
@@ -88,7 +88,7 @@ class RatingResponseBuyer: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -96,13 +96,13 @@ class RatingResponseBuyer: Object, Decodable {
         id = "\(entityID)"
         enquiryId = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)
         questionId = try (values.decodeIfPresent(Int.self, forKey: .questionId) ?? 0)
-               response = try (values.decodeIfPresent(Int.self, forKey: .response) ?? 0)
-         responseComment = try? values.decodeIfPresent(String.self, forKey: .responseComment)
+        response = try (values.decodeIfPresent(Int.self, forKey: .response) ?? 0)
+        responseComment = try? values.decodeIfPresent(String.self, forKey: .responseComment)
         givenBy = try (values.decodeIfPresent(Int.self, forKey: .givenBy) ?? 0)
         givenTo = try (values.decodeIfPresent(Int.self, forKey: .givenTo) ?? 0)
         createdOn = try? values.decodeIfPresent(String.self, forKey: .createdOn)
         modifiedOn = try? values.decodeIfPresent(String.self, forKey: .modifiedOn)
-       
+        
     }
 }
 

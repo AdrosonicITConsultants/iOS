@@ -13,16 +13,16 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class REGValidateUserEmailService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     func fetch(username: String) -> SafeSignal<Data> {
-      return User.sendVerificationOTP(username: username).response(using: client).debug()
+        return User.sendVerificationOTP(username: username).response(using: client).debug()
     }
-  
+    
     func fetch(emailId: String, otp: String) -> SafeSignal<Data> {
-      return User.verifyEmailOTPforReg(emailId: emailId, otp: otp).response(using: client).debug()
+        return User.verifyEmailOTPforReg(emailId: emailId, otp: otp).response(using: client).debug()
     }
 }

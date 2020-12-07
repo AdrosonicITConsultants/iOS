@@ -38,11 +38,11 @@ class uploadRecieptView: Cell<String>, CellType {
     
     @IBAction func uploadImgButtonSelected(_ sender: Any) {
         delegate?.UploadImageBtnSelected(tag: tag)
-       
+        
     }
     @IBAction func uploadButtonSelected(_ sender: Any) {
         delegate?.UploadBtnSelected(tag: tag)
-       
+        
     }
 }
 

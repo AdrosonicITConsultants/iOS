@@ -9,87 +9,87 @@
 import Foundation
 
 extension String {
-  var boolValue: Bool {
-      return self == "true"
-  }
-  
-  var isNotBlank: Bool {
-    let str = self.trimmingCharacters(in: .whitespaces)
-    return !str.isEmpty
-  }
-  
-  var isValidEmailAddress: Bool {
-      let emailRegEx = "['´’`‘A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-      let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-      return emailTest.evaluate(with: self)
-  }
-  
-  var isValidPhoneNumber: Bool {
-      let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
-      let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
-      return phoneTest.evaluate(with: self)
-  }
+    var boolValue: Bool {
+        return self == "true"
+    }
     
-  var isValidNumber: Bool {
-      let numberRegex = "^[0-9]{1,10}$"
-      let numberTest = NSPredicate(format: "SELF MATCHES %@", numberRegex)
-      return numberTest.evaluate(with: self)
-  }
-  
-  var isValidPincode: Bool {
-    let pincodeRegEx = "^[1-9][0-9]{5}$"
-    let pincodeTest = NSPredicate(format: "SELF MATCHES %@", pincodeRegEx)
-    let result = pincodeTest.evaluate(with: self)
-    return result
-  }
-  
-  var isValidPassword: Bool {
-    let passwordRegEx = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,20}$"
-    let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
-    let result = passwordTest.evaluate(with: self)
-    return result
-  }
-  
-  var isValidUrl: Bool {
-      let urlRegEx = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
-      let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-      let result = urlTest.evaluate(with: self)
-      return result
-  }
-  
-  var isValidPAN: Bool {
-      let panRegEx = "[A-Z]{5}[0-9]{4}[A-Z]{1}"
-      let panTest = NSPredicate(format:"SELF MATCHES %@", panRegEx)
-      let result = panTest.evaluate(with: self)
-      return result
-  }
-  
-  var isValidIFSC: Bool {
-      let ifscRegEx = "[A-Z]{4}[0]{1}[0-9]{6}"
-      let ifscTest = NSPredicate(format:"SELF MATCHES %@", ifscRegEx)
-      let result = ifscTest.evaluate(with: self)
-      return result
-  }
+    var isNotBlank: Bool {
+        let str = self.trimmingCharacters(in: .whitespaces)
+        return !str.isEmpty
+    }
     
-  var isValidGST: Bool {
-      let gstRegEx = "[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9][Z][0-9]"
-      let gstTest = NSPredicate(format:"SELF MATCHES %@", gstRegEx)
-      let result = gstTest.evaluate(with: self)
-      return result
-  }
+    var isValidEmailAddress: Bool {
+        let emailRegEx = "['´’`‘A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: self)
+    }
     
-  var isValidCIN: Bool {
-      let cinRegEx = "[A-Z][0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}"
-      let cinTest = NSPredicate(format:"SELF MATCHES %@", cinRegEx)
-      let result = cinTest.evaluate(with: self)
-      return result
-  }
+    var isValidPhoneNumber: Bool {
+        let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: self)
+    }
     
-  var isValidIndianPhoneNumber: Bool {
-      let phoneRegex = "^[0-9]{10}$"
-      let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
-      return phoneTest.evaluate(with: self)
-  }
+    var isValidNumber: Bool {
+        let numberRegex = "^[0-9]{1,10}$"
+        let numberTest = NSPredicate(format: "SELF MATCHES %@", numberRegex)
+        return numberTest.evaluate(with: self)
+    }
+    
+    var isValidPincode: Bool {
+        let pincodeRegEx = "^[1-9][0-9]{5}$"
+        let pincodeTest = NSPredicate(format: "SELF MATCHES %@", pincodeRegEx)
+        let result = pincodeTest.evaluate(with: self)
+        return result
+    }
+    
+    var isValidPassword: Bool {
+        let passwordRegEx = "^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,20}$"
+        let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
+        let result = passwordTest.evaluate(with: self)
+        return result
+    }
+    
+    var isValidUrl: Bool {
+        let urlRegEx = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
+        let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
+        let result = urlTest.evaluate(with: self)
+        return result
+    }
+    
+    var isValidPAN: Bool {
+        let panRegEx = "[A-Z]{5}[0-9]{4}[A-Z]{1}"
+        let panTest = NSPredicate(format:"SELF MATCHES %@", panRegEx)
+        let result = panTest.evaluate(with: self)
+        return result
+    }
+    
+    var isValidIFSC: Bool {
+        let ifscRegEx = "[A-Z]{4}[0]{1}[0-9]{6}"
+        let ifscTest = NSPredicate(format:"SELF MATCHES %@", ifscRegEx)
+        let result = ifscTest.evaluate(with: self)
+        return result
+    }
+    
+    var isValidGST: Bool {
+        let gstRegEx = "[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9][Z][0-9]"
+        let gstTest = NSPredicate(format:"SELF MATCHES %@", gstRegEx)
+        let result = gstTest.evaluate(with: self)
+        return result
+    }
+    
+    var isValidCIN: Bool {
+        let cinRegEx = "[A-Z][0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}"
+        let cinTest = NSPredicate(format:"SELF MATCHES %@", cinRegEx)
+        let result = cinTest.evaluate(with: self)
+        return result
+    }
+    
+    var isValidIndianPhoneNumber: Bool {
+        let phoneRegex = "^[0-9]{10}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: self)
+    }
     
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")

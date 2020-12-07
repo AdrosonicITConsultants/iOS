@@ -12,11 +12,11 @@ import UIKit
 import Eureka
 
 protocol AvailabilityCellProtocol {
-  func availabilitySelected(isAvailable: Bool)
+    func availabilitySelected(isAvailable: Bool)
 }
 
 class OrderAvailabilityCellView: Cell<String>, CellType {
-
+    
     var availabilityDelegate: AvailabilityCellProtocol?
     @IBOutlet weak var makeToOrderLbl: UILabel!
     @IBOutlet weak var inStockLbl: UILabel!
@@ -36,7 +36,7 @@ class OrderAvailabilityCellView: Cell<String>, CellType {
         makeToOrderBtn.layer.cornerRadius = 60
         inStockBtn.layer.cornerRadius = 60
     }
-
+    
     public override func update() {
         super.update()
     }

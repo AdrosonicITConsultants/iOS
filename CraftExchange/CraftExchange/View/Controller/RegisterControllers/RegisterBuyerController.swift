@@ -17,40 +17,40 @@ class REGBuyerViewModel {
 }
 
 class RegisterBuyerController: UIViewController {
-  
-  lazy var viewModel = REGBuyerViewModel()
-  var isTCAccepted = false
-  @IBOutlet weak var checkboxButton: UIButton!
-  @IBOutlet weak var websiteLinkField: RoundedTextField!
-  @IBOutlet weak var mediaLinkField: RoundedTextField!
-  let appDelegate = UIApplication.shared.delegate as? AppDelegate
-  @IBOutlet weak var changeLangButton: UIButton!
     
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.viewModel.websiteLink.bidirectionalBind(to: websiteLinkField.reactive.text)
-    self.viewModel.socialMediaLink.bidirectionalBind(to: mediaLinkField.reactive.text)
-    self.navigationItem.rightBarButtonItem = roleBarButton()
-    websiteLinkField.text = appDelegate?.registerUser?.websiteLink
-    mediaLinkField.text = appDelegate?.registerUser?.socialMediaLink
-    self.viewModel.websiteLink.value = websiteLinkField.text
-    self.viewModel.socialMediaLink.value = mediaLinkField.text
-    changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
-  }
+    lazy var viewModel = REGBuyerViewModel()
+    var isTCAccepted = false
+    @IBOutlet weak var checkboxButton: UIButton!
+    @IBOutlet weak var websiteLinkField: RoundedTextField!
+    @IBOutlet weak var mediaLinkField: RoundedTextField!
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    @IBOutlet weak var changeLangButton: UIButton!
     
-  @IBAction func toggleCheckbox(_ sender: Any) {
-    isTCAccepted = !isTCAccepted
-    let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")
-    checkboxButton.setImage(img, for: .normal)
-  }
-  
-  @IBAction func completeButtonSelected(_ sender: Any) {
-    self.viewModel.completeRegistration?()
-  }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.websiteLink.bidirectionalBind(to: websiteLinkField.reactive.text)
+        self.viewModel.socialMediaLink.bidirectionalBind(to: mediaLinkField.reactive.text)
+        self.navigationItem.rightBarButtonItem = roleBarButton()
+        websiteLinkField.text = appDelegate?.registerUser?.websiteLink
+        mediaLinkField.text = appDelegate?.registerUser?.socialMediaLink
+        self.viewModel.websiteLink.value = websiteLinkField.text
+        self.viewModel.socialMediaLink.value = mediaLinkField.text
+        changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
+    }
     
-  @IBAction func faqButtonSelected(_ sender: UIButton) {
+    @IBAction func toggleCheckbox(_ sender: Any) {
+        isTCAccepted = !isTCAccepted
+        let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")
+        checkboxButton.setImage(img, for: .normal)
+    }
+    
+    @IBAction func completeButtonSelected(_ sender: Any) {
+        self.viewModel.completeRegistration?()
+    }
+    
+    @IBAction func faqButtonSelected(_ sender: UIButton) {
         didTapFAQButton(tag: sender.tag)
-  }
+    }
     
     @IBAction func languageButtonSelected(_ sender: UIButton){
         showLanguagePickerAlert()

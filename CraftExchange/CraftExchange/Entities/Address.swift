@@ -42,24 +42,24 @@ class Address: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
-      self.init()
-      let values = try decoder.container(keyedBy: CodingKeys.self)
-      entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
-      userID = User.loggedIn()?.entityID ?? 0
-      line1 = try? values.decodeIfPresent(String.self, forKey: .line1)
-      line2 = try? values.decodeIfPresent(String.self, forKey: .line2)
-      street = try? values.decodeIfPresent(String.self, forKey: .street)
-      city = try? values.decodeIfPresent(String.self, forKey: .city)
-      district = try? values.decodeIfPresent(String.self, forKey: .district)
-      state = try? values.decodeIfPresent(String.self, forKey: .state)
-      if let list = try? values.decodeIfPresent(Country.self, forKey: .country) {
-          country.append(list)
-      }
-      pincode = try? values.decodeIfPresent(String.self, forKey: .pincode)
-      landmark = try? values.decodeIfPresent(String.self, forKey: .landmark)
-      addressType = try? values.decodeIfPresent(AddressType.self, forKey: .addressType)
+        userID = User.loggedIn()?.entityID ?? 0
+        line1 = try? values.decodeIfPresent(String.self, forKey: .line1)
+        line2 = try? values.decodeIfPresent(String.self, forKey: .line2)
+        street = try? values.decodeIfPresent(String.self, forKey: .street)
+        city = try? values.decodeIfPresent(String.self, forKey: .city)
+        district = try? values.decodeIfPresent(String.self, forKey: .district)
+        state = try? values.decodeIfPresent(String.self, forKey: .state)
+        if let list = try? values.decodeIfPresent(Country.self, forKey: .country) {
+            country.append(list)
+        }
+        pincode = try? values.decodeIfPresent(String.self, forKey: .pincode)
+        landmark = try? values.decodeIfPresent(String.self, forKey: .landmark)
+        addressType = try? values.decodeIfPresent(AddressType.self, forKey: .addressType)
     }
 }

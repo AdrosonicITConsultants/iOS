@@ -16,7 +16,7 @@ protocol DimensionCellProtocol {
 }
 
 class DimensionsCardCell: UICollectionViewCell {
-
+    
     var dimensionDelegate: DimensionCellProtocol?
     var option1: [String]?
     var option2: [String]?
@@ -47,26 +47,26 @@ class DimensionsCardCell: UICollectionViewCell {
         }
         let alert = UIAlertController.init(title: "Please select".localized, message: "", preferredStyle: .actionSheet)
         for option in options {
-          let action = UIAlertAction.init(title: option, style: .default) { (action) in
-            btn.setTitle(option, for: .normal)
-            self.dimensionDelegate?.showOption(tag: btn.tag, withValue: option)
-            if btn.tag == 101 || btn.tag == 201 || btn.tag == 301 {
-                self.resetYarnCount()
-                if self.option2 != nil && self.option2?.count == 0 {
-                    self.yarnCountTextField.isHidden = false
-                    self.buttonTwo.isHidden = true
-                    self.buttonTwo.isUserInteractionEnabled = false
-                    self.yarnCountTextField.text = ""
-                }else {
-                    self.yarnCountTextField.isHidden = true
-                    self.buttonTwo.isHidden = false
-                    self.buttonTwo.setTitle("", for: .normal)
-                    self.buttonTwo.isUserInteractionEnabled = true
-                    self.yarnCountTextField.text = ""
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                btn.setTitle(option, for: .normal)
+                self.dimensionDelegate?.showOption(tag: btn.tag, withValue: option)
+                if btn.tag == 101 || btn.tag == 201 || btn.tag == 301 {
+                    self.resetYarnCount()
+                    if self.option2 != nil && self.option2?.count == 0 {
+                        self.yarnCountTextField.isHidden = false
+                        self.buttonTwo.isHidden = true
+                        self.buttonTwo.isUserInteractionEnabled = false
+                        self.yarnCountTextField.text = ""
+                    }else {
+                        self.yarnCountTextField.isHidden = true
+                        self.buttonTwo.isHidden = false
+                        self.buttonTwo.setTitle("", for: .normal)
+                        self.buttonTwo.isUserInteractionEnabled = true
+                        self.yarnCountTextField.text = ""
+                    }
                 }
             }
-          }
-          alert.addAction(action)
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
@@ -80,7 +80,7 @@ class DimensionsCardCell: UICollectionViewCell {
         
         let selectedObj = self.allYarns?.filter({ (obj) -> Bool in
             obj.yarnDesc == self.buttonOne.titleLabel?.text
-            }).first
+        }).first
         self.option2 = selectedObj?.yarnType.first?.yarnCounts.compactMap({$0.count})
     }
 }

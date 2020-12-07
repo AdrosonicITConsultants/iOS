@@ -15,14 +15,14 @@ class SingleLabelRowView: Cell<String>, CellType {
     
     @IBOutlet weak var acceptLabel: UILabel!
     
-  public override func setup() {
-    super.setup()
-     }
-
-  
-  public override func update() {
-     super.update()
-   }
+    public override func setup() {
+        super.setup()
+    }
+    
+    
+    public override func update() {
+        super.update()
+    }
 }
 
 
@@ -32,6 +32,6 @@ final class SingleLabelRow: Row<SingleLabelRowView>, RowType {
         // We set the cellProvider to load the .xib corresponding to our cell
         cellProvider = CellProvider<SingleLabelRowView>(nibName: "SingleLabelRow")
     }
-   
+    
     
 }

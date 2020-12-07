@@ -13,7 +13,7 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class ChatDetailsService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
@@ -22,15 +22,15 @@ class ChatDetailsService: BaseService<Data> {
         return Chat.getSpecificChat(enquiryId: enquiryId).response(using: client).debug()
     }
     
-     func getConversation(enquiryId: Int) -> SafeSignal<Data> {
+    func getConversation(enquiryId: Int) -> SafeSignal<Data> {
         return Chat.getConversation(enquiryId: enquiryId).response(using: client).debug()
-     }
+    }
     
     func sendMessage(enquiryId: Int, messageFrom: Int, messageTo: Int, messageString: String, mediaType: Int)  -> SafeSignal<Data> {
         return Chat.sendMessage(enquiryId: enquiryId, messageFrom: messageFrom, messageTo: messageTo, messageString: messageString, mediaType: mediaType).response(using: client).debug()
     }
     
     func sendMedia(enquiryId: Int, messageFrom: Int, messageTo: Int, mediaType: Int,  mediaData: Data?, filename: String?) -> SafeSignal<Data> {
-           return Chat.sendMedia(enquiryId: enquiryId, messageFrom: messageFrom, messageTo: messageTo, mediaType: mediaType, mediaData: mediaData, filename: filename).response(using: client).debug()
+        return Chat.sendMedia(enquiryId: enquiryId, messageFrom: messageFrom, messageTo: messageTo, mediaType: mediaType, mediaData: mediaData, filename: filename).response(using: client).debug()
     }
 }

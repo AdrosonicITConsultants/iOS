@@ -2014,9 +2014,9 @@
             filePath = "CraftExchange/View/Controller/OrderController/OrderListController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "segmentValueChanged(_:)"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "endRefresh()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2240,7 +2240,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "130"
             endingLineNumber = "130"
-            landmarkName = "parseEnquiry(json:isOngoing:)"
+            landmarkName = "performSync()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2254,9 +2254,9 @@
             filePath = "CraftExchange/View/Controller/OrderController/OrderListController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "segmentValueChanged(_:)"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "endRefresh()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2903,7 +2903,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E5ACA6A6-88E6-4C3D-88D0-B25A0FD09A98"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CraftExchange/Scene/EnquiryScenes/AdvancePaymentScene.swift"

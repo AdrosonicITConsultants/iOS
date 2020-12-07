@@ -11,8 +11,8 @@ import UIKit
 import Eureka
 
 class StatusRowView: Cell<String>, CellType {
-
-
+    
+    
     @IBOutlet weak var previousStatusLbl: UILabel!
     @IBOutlet weak var currentStatusLbl: UILabel!
     @IBOutlet weak var actionLbl: UILabel!
@@ -24,7 +24,7 @@ class StatusRowView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

@@ -16,7 +16,7 @@ protocol CloseOrderViewProtocol {
 }
 
 class CloseOrderView: UIView {
-
+    
     @IBOutlet weak var closeOrderCancelButton: UIButton!
     @IBOutlet weak var confirmStatement: UILabel!
     @IBOutlet weak var enquiryCode: UILabel!
@@ -25,7 +25,7 @@ class CloseOrderView: UIView {
     
     @IBOutlet weak var closeOrderYesButton: RoundedButton!
     var delegate: CloseOrderViewProtocol?
-
+    
     @IBAction func closeOrderCancelButtonSelected(_ sender: Any) {
         delegate?.closeOrderCancelButtonSelected()
     }

@@ -13,16 +13,16 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class ForgotPasswordService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     func fetch(username: String) -> SafeSignal<Data> {
-      return User.sendOTP(username: username).response(using: client).debug()
+        return User.sendOTP(username: username).response(using: client).debug()
     }
-  
+    
     func fetch(emailId: String, otp: String) -> SafeSignal<Data> {
-      return User.verifyEmailOtp(emailId: emailId, otp: otp).response(using: client).debug()
+        return User.verifyEmailOtp(emailId: emailId, otp: otp).response(using: client).debug()
     }
 }

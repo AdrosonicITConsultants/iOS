@@ -37,18 +37,18 @@ class PaymentBuyerOneController: FormViewController{
         
         form
             +++ Section()
-//            <<< LabelRow(){
-//                $0.cell.height = { 25.0 }
-//                $0.title = enquiryObject?.enquiryCode
-//            }
-//            <<< LabelRow(){
-//                $0.cell.height = { 20.0 }
-//                let date = Date().ttceFormatter(isoDate: (enquiryObject?.startedOn!)!)
-//                $0.title = "Date accepted: " + date
-//            }.cellUpdate({ (cell, row) in
-//                cell.textLabel?.textColor = .darkGray
-//                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
-//            })
+            //            <<< LabelRow(){
+            //                $0.cell.height = { 25.0 }
+            //                $0.title = enquiryObject?.enquiryCode
+            //            }
+            //            <<< LabelRow(){
+            //                $0.cell.height = { 20.0 }
+            //                let date = Date().ttceFormatter(isoDate: (enquiryObject?.startedOn!)!)
+            //                $0.title = "Date accepted: " + date
+            //            }.cellUpdate({ (cell, row) in
+            //                cell.textLabel?.textColor = .darkGray
+            //                cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
+            //            })
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
@@ -117,11 +117,11 @@ class PaymentBuyerOneController: FormViewController{
                 $0.cell.ActualAmount.layer.borderWidth = 2.0
             }.cellUpdate({ (cell, row) in
                 if self.value == 30 {
-                     cell.TransactionBtn.setTitle("proceed with 30 percent ", for: .normal)
+                    cell.TransactionBtn.setTitle("proceed with 30 percent ", for: .normal)
                     cell.ActualAmount.text = "₹ \(Double(self.enquiryObject?.totalAmount ?? self.orderObject?.totalAmount ?? 0) * 0.30)"
                 }
                 else if self.value == 50 {
-                     cell.TransactionBtn.setTitle("proceed with 50 percent ", for: .normal)
+                    cell.TransactionBtn.setTitle("proceed with 50 percent ", for: .normal)
                     cell.ActualAmount.text = "₹ \(Double(self.enquiryObject?.totalAmount ?? self.orderObject?.totalAmount ?? 0) * 0.50)"
                 }
                 else{
@@ -133,48 +133,48 @@ class PaymentBuyerOneController: FormViewController{
 }
 extension PaymentBuyerOneController: BTransactionButtonProtocol {
     func TransactionBtnSelected(tag: Int) {
-         switch tag{
-                case 100:
-                    if enquiryObject?.totalAmount != nil {
-                        let client = try? SafeClient(wrapping: CraftExchangeClient())
-                        let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
-                        vc1.enquiryObject = self.enquiryObject
-                        vc1.orderObject = self.orderObject
-                        vc1.viewModel.totalAmount.value = "\(enquiryObject?.totalAmount ?? orderObject?.totalAmount ?? 0)"
-                        vc1.tobePaidAmount = "\(self.enquiryObject!.totalAmount * self.value / 100 )"
-                        vc1.viewModel.pid.value = "\(self.PI!.id)"
-                        vc1.viewModel.percentage.value = "\(self.value)"
-                        vc1.viewModel.paidAmount.value = "\(self.enquiryObject!.totalAmount * self.value / 100 )"
-                        vc1.viewModel.pid.value = "\(self.PI!.id)"
-                        vc1.viewModel.invoiceId.value = "0"
-                       // print(vc1.viewModel.paidAmount.value)
-                        vc1.modalPresentationStyle = .fullScreen
-                        self.navigationController?.pushViewController(vc1, animated: true)
-                    }
-                
-
-                default:
-                    print("Transaction Not working")
-                }
+        switch tag{
+        case 100:
+            if enquiryObject?.totalAmount != nil {
+                let client = try? SafeClient(wrapping: CraftExchangeClient())
+                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
+                vc1.enquiryObject = self.enquiryObject
+                vc1.orderObject = self.orderObject
+                vc1.viewModel.totalAmount.value = "\(enquiryObject?.totalAmount ?? orderObject?.totalAmount ?? 0)"
+                vc1.tobePaidAmount = "\(self.enquiryObject!.totalAmount * self.value / 100 )"
+                vc1.viewModel.pid.value = "\(self.PI!.id)"
+                vc1.viewModel.percentage.value = "\(self.value)"
+                vc1.viewModel.paidAmount.value = "\(self.enquiryObject!.totalAmount * self.value / 100 )"
+                vc1.viewModel.pid.value = "\(self.PI!.id)"
+                vc1.viewModel.invoiceId.value = "0"
+                // print(vc1.viewModel.paidAmount.value)
+                vc1.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc1, animated: true)
+            }
+            
+            
+        default:
+            print("Transaction Not working")
+        }
     }
     
     func ThirtyBtnSelected(tag: Int) {
         self.value = 30
-       
-                     let row = self.form.rowBy(tag: "TransactionBuyer")
-                     row?.updateCell()
+        
+        let row = self.form.rowBy(tag: "TransactionBuyer")
+        row?.updateCell()
         row?.reload()
         
     }
     
     func FiftyBtnSelected(tag: Int) {
         self.value = 50
-              
-                      let row = self.form.rowBy(tag: "TransactionBuyer")
-                      row?.updateCell()
+        
+        let row = self.form.rowBy(tag: "TransactionBuyer")
+        row?.updateCell()
         row?.reload()
-              
-                
+        
+        
     }
     
     

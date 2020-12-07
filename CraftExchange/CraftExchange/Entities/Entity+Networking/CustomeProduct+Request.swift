@@ -13,7 +13,7 @@ import RealmSwift
 import Eureka
 
 extension CustomProduct {
-  
+    
     public static func getAllBuyersCustomProduct() -> Request<Data, APIError> {
         //
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
@@ -22,26 +22,26 @@ extension CustomProduct {
             method: .get,
             headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "get all buyers custom product failed")
-            return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
-      }
+    }
     
     public static func getCustomProductDetails(custProdId: Int) -> Request<Data, APIError> {
-      //
-      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-      return Request(
-          path: "buyerCustomProduct/getProduct/\(custProdId)",
-          method: .get,
-          headers: headers,
-          resource: {print(String(data: $0, encoding: .utf8) ?? "get custom product details failed")
-          return $0},
-          error: APIError.init,
-          needsAuthorization: true
-      )
+        //
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: "buyerCustomProduct/getProduct/\(custProdId)",
+            method: .get,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "get custom product details failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
     }
-
+    
     static func fetchCustomProductImage(with productId: Int, imageName: String) -> Request<Data, APIError> {
         var str = "CustomProduct/\(productId)/\(imageName)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -67,8 +67,8 @@ extension CustomProduct {
                 dataLength = dataLength + imgData.1.count
             }
             let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
-                                             "accept": "application/json",
-                                             "Content-Length": String(dataLength)
+                "accept": "application/json",
+                "Content-Length": String(dataLength)
             ]
             let finalData = MultipartDataHelper().createBody(boundary: boundary, mimeType: "application/octet-stream", imageData: imageData)
             return Request(
@@ -88,7 +88,7 @@ extension CustomProduct {
                 method: .post,
                 headers: headers,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artisan upload product failed")
-                  return $0},
+                    return $0},
                 error: APIError.init,
                 needsAuthorization: true
             )
@@ -108,9 +108,9 @@ extension CustomProduct {
                 dataLength = dataLength + imgData.1.count
             }
             let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
-                                             "accept": "application/json",
-                                             "Content-Length": String(dataLength),
-                                             "Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"
+                "accept": "application/json",
+                "Content-Length": String(dataLength),
+                "Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"
             ]
             let finalData = MultipartDataHelper().createBody(boundary: boundary, mimeType: "application/octet-stream", imageData: imageData)
             return Request(
@@ -129,7 +129,7 @@ extension CustomProduct {
                 path: "buyerCustomProduct/edit/product?productData=\(str)",
                 method: .put,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artisan edit product failed")
-                  return $0},
+                    return $0},
                 error: APIError.init,
                 needsAuthorization: true
             )
@@ -138,31 +138,31 @@ extension CustomProduct {
     
     
     public static func deleteCustomProduct(withId: Int) -> Request<Data, APIError> {
-      //
-      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-      return Request(
-          path: "buyerCustomProduct/deleteProduct/\(withId)",
-          method: .delete,
-          headers: headers,
-          resource: {print(String(data: $0, encoding: .utf8) ?? "delete buyers custom product failed")
-          return $0},
-          error: APIError.init,
-          needsAuthorization: true
-      )
+        //
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: "buyerCustomProduct/deleteProduct/\(withId)",
+            method: .delete,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "delete buyers custom product failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
     }
     
     public static func deleteAllCustomProducts() -> Request<Data, APIError> {
-      //
-      let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-      return Request(
-          path: "buyerCustomProduct/deleteAllProducts",
-          method: .delete,
-          headers: headers,
-          resource: {print(String(data: $0, encoding: .utf8) ?? "delete all buyers custom product failed")
-          return $0},
-          error: APIError.init,
-          needsAuthorization: true
-      )
+        //
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: "buyerCustomProduct/deleteAllProducts",
+            method: .delete,
+            headers: headers,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "delete all buyers custom product failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
     }
-
+    
 }

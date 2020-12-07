@@ -44,8 +44,8 @@ class CustomProductListController: UITableViewController {
     }
     
     func initTable() {
-//        refreshControl = UIRefreshControl()
-//        tableView.refreshControl = refreshControl
+        //        refreshControl = UIRefreshControl()
+        //        tableView.refreshControl = refreshControl
     }
     
     override func viewDidLoad() {
@@ -72,7 +72,7 @@ class CustomProductListController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-      viewDidAppear?()
+        viewDidAppear?()
     }
     
     func endRefresh() {
@@ -118,7 +118,7 @@ extension CustomProductListController {
     }
     
     override func tableView(_ tableView: UITableView,
-                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         // Write action code for the trash
         let viewEditAction = UIContextualAction(style: .normal, title:  "Delete".localized, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let cell = tableView.cellForRow(at: indexPath) as? BuyerCustomProductCell
@@ -131,7 +131,7 @@ extension CustomProductListController {
         })
         viewEditAction.image = UIImage.init(named: "delete")
         viewEditAction.backgroundColor = .red
-
+        
         return UISwipeActionsConfiguration(actions: [viewEditAction])
     }
 }

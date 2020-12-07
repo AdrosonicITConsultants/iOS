@@ -29,7 +29,7 @@ class ChangeRequest: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)

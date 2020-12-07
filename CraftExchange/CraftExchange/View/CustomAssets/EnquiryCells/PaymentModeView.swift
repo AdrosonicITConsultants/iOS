@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class PaymentModeView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var paymentIcon: UIImageView!
     
     @IBOutlet weak var PaymentModeLbl: UILabel!
@@ -20,7 +20,7 @@ class PaymentModeView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

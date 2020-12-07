@@ -100,7 +100,7 @@ extension Order {
                 object.extraWeftYarnHistoryId = extraWeftYarnHistoryId
                 object.extraWeftYarnId = extraWeftYarnId
                 object.firstName = firstName
- 
+                
                 object.gst = gst
                 object.deliveryChallanUploaded = deliveryChallanUploaded
                 object.deliveryChallanLabel = deliveryChallanLabel

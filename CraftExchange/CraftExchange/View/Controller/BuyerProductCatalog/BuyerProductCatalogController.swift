@@ -15,7 +15,7 @@ import Bond
 import Reachability
 
 class BuyerProductCatalogController: UIViewController {
-
+    
     let reuseIdentifier = "BuyerProductCell"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
@@ -119,7 +119,7 @@ class BuyerProductCatalogController: UIViewController {
         switch selectedCluster?.entityID {
         case selectedCluster?.entityID:
             return CMSRegionACF.getRegionType(ClusterId: selectedCluster?.entityID ?? 0)?.regDescription ?? ""
-
+            
         default:
             return selectedCluster?.adjective ?? ""
         }
@@ -130,7 +130,7 @@ class BuyerProductCatalogController: UIViewController {
         switch selectedCategory?.entityID {
         case selectedCategory?.entityID:
             return CMSCategoryACF.getCategoryType(CategoryId: selectedCategory?.entityID ?? 0)?.catDescription ?? ""
-
+            
         default:
             return selectedCategory?.description ?? ""
         }
@@ -217,7 +217,7 @@ class BuyerProductCatalogController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-      viewDidAppear?()
+        viewDidAppear?()
     }
     
     func endRefresh() {
@@ -250,8 +250,8 @@ class BuyerProductCatalogController: UIViewController {
                     self.setDatasource(withId: option.entityID)
                     self.tableView.reloadData()
                     
-              }
-              alert.addAction(action)
+                }
+                alert.addAction(action)
             }
         }else if self.selectedCluster != nil || self.selectedArtisan != nil {
             //Show Category Filter Options
@@ -263,8 +263,8 @@ class BuyerProductCatalogController: UIViewController {
                     self.setDatasource(withId: option.entityID)
                     self.tableView.reloadData()
                     
-              }
-              alert.addAction(action)
+                }
+                alert.addAction(action)
             }
         }else {
             let textArray = ["Show Both", "Artisan Self Design Collection","Antaran Co-Design Collection"]
@@ -282,8 +282,8 @@ class BuyerProductCatalogController: UIViewController {
                     }else {
                         self.setDatasource(withId: 0)
                     }
-              }
-              alert.addAction(action)
+                }
+                alert.addAction(action)
             }
         }
         

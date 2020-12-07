@@ -16,7 +16,7 @@ protocol AddImageProtocol {
 }
 
 class ImageSelectorCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet weak var deleteImageButton: UIButton!
     @IBOutlet weak var editImageButton: UIButton!

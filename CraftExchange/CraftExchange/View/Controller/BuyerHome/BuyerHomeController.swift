@@ -84,13 +84,13 @@ class BuyerHomeController: UIViewController {
                             }
                             if let cardTitleText = acf["card_title"] as? String{
                                 DispatchQueue.main.async {
-                                self.cardTitle.text = cardTitleText
+                                    self.cardTitle.text = cardTitleText
                                 }
                             }
                             if let cardInfo = acf["card_para"] as? String{
                                 DispatchQueue.main.async {
                                     print(cardInfo)
-                                self.cardText.text = cardInfo
+                                    self.cardText.text = cardInfo
                                 }
                             }
                             if let card2 = acf["card_background_2"] as? String{

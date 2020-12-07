@@ -24,7 +24,7 @@ class  RatingStars: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
         StarsView.didFinishTouchingCosmos = {
@@ -32,7 +32,7 @@ class  RatingStars: Cell<String>, CellType {
             self.delegate?.ratingSelected(tag: self.tag, rating: rating)
         }
     }
-   
+    
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value

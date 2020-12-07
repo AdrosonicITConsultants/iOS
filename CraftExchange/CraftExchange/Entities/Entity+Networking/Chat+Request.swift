@@ -26,19 +26,19 @@ extension Chat {
     }
     
     static func getSpecificChat(enquiryId: Int) -> Request<Data, APIError> {
-           let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
-           
-           var str = "enquiry/getEnquiryMessageChatList?searchedString=\(enquiryId)"
-           str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-           return Request(
-               path: str,
-               method: .get,
-               headers: headers,
-               resource: { $0 },
-               error: APIError.init,
-               needsAuthorization: false
-           )
-       }
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        
+        var str = "enquiry/getEnquiryMessageChatList?searchedString=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
     
     static func getNewChatList() -> Request<Data, APIError> {
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
@@ -78,14 +78,14 @@ extension Chat {
             parameters: JSONParameters(parameters),
             headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "chat initiation failed")
-            return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
     }
     
     public static func getConversation(enquiryId: Int) -> Request<Data, APIError> {
-      
+        
         var str = "enquiry/getAndReadChatMessageForEnquiry?enquiryId=\(enquiryId)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
@@ -94,7 +94,7 @@ extension Chat {
             method: .get,
             headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "get conversation failed")
-            return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
@@ -108,7 +108,7 @@ extension Chat {
         
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
-            return Request(
+        return Request(
             path: "enquiry/sendChatboxMessage?messageJson=\(str)",
             method: .post,
             headers: headers,
@@ -117,8 +117,8 @@ extension Chat {
                 return $0},
             error: APIError.init,
             needsAuthorization: true
-            )
-       
+        )
+        
         
         
     }
@@ -131,24 +131,24 @@ extension Chat {
         let content = mediaData
         let filename = filename
         
-            let boundary = "\(UUID().uuidString)"
+        let boundary = "\(UUID().uuidString)"
         let dataLength = content?.count ?? 0
-            let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")", "accept": "application/json","Content-Type": "multipart/form-data; boundary=\(boundary)",
-                "Content-Length": String(dataLength) ]
-            
-            let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content!, mimeType: "application/octet-stream", filename: filename!, param: "file")
-            
-            return Request(
-                path: "enquiry/sendChatboxMessage?messageJson=\(str)",
-                method: .post,
-                parameters: DataParameter(finalData),
-                headers: headers,
-                resource: {
-                    print(String(data: $0, encoding: .utf8) ?? "sending message failed")
-                    return $0},
-                error: APIError.init,
-                needsAuthorization: true
-            )
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")", "accept": "application/json","Content-Type": "multipart/form-data; boundary=\(boundary)",
+            "Content-Length": String(dataLength) ]
+        
+        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content!, mimeType: "application/octet-stream", filename: filename!, param: "file")
+        
+        return Request(
+            path: "enquiry/sendChatboxMessage?messageJson=\(str)",
+            method: .post,
+            parameters: DataParameter(finalData),
+            headers: headers,
+            resource: {
+                print(String(data: $0, encoding: .utf8) ?? "sending message failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: true
+        )
         
     }
     
@@ -161,7 +161,7 @@ extension Chat {
             method: .get,
             headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "get escalations failed")
-            return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
@@ -192,7 +192,7 @@ extension Chat {
             parameters: JSONParameters(parameters),
             headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "chat initiation failed")
-            return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
@@ -209,7 +209,7 @@ extension Chat {
             parameters: JSONParameters(parameters),
             headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "chat initiation failed")
-            return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )

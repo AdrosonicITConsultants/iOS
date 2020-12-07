@@ -20,7 +20,7 @@ class RatingQuestionsArtisan: Object, Decodable {
     @objc dynamic var createdOn: String?
     @objc dynamic var modifiedOn: String?
     @objc dynamic var answerType: Int = 0
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case question = "question"
@@ -35,13 +35,13 @@ class RatingQuestionsArtisan: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
-         question = try? values.decodeIfPresent(String.self, forKey: .question)
+        question = try? values.decodeIfPresent(String.self, forKey: .question)
         questionNo = try (values.decodeIfPresent(Int.self, forKey: .questionNo) ?? 0)
         type = try (values.decodeIfPresent(Int.self, forKey: .type) ?? 0)
         isDelete = try (values.decodeIfPresent(Int.self, forKey: .isDelete) ?? 0)
@@ -61,7 +61,7 @@ class RatingQuestionsBuyer: Object, Decodable {
     @objc dynamic var createdOn: String?
     @objc dynamic var modifiedOn: String?
     @objc dynamic var answerType: Int = 0
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case question = "question"
@@ -76,13 +76,13 @@ class RatingQuestionsBuyer: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
-         question = try? values.decodeIfPresent(String.self, forKey: .question)
+        question = try? values.decodeIfPresent(String.self, forKey: .question)
         questionNo = try (values.decodeIfPresent(Int.self, forKey: .questionNo) ?? 0)
         type = try (values.decodeIfPresent(Int.self, forKey: .type) ?? 0)
         isDelete = try (values.decodeIfPresent(Int.self, forKey: .isDelete) ?? 0)

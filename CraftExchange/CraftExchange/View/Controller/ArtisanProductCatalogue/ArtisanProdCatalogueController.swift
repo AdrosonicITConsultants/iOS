@@ -89,8 +89,8 @@ class ArtisanProdCatalogueController: UITableViewController {
                 self.title = option.prodCatDescription?.localized
                 self.refreshCategory?(option.entityID)
                 self.currentCat = option
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
@@ -112,8 +112,8 @@ class ArtisanProdCatalogueController: UITableViewController {
                 }else {
                     self.refreshCategory?(0)
                 }
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
@@ -136,7 +136,7 @@ extension ArtisanProdCatalogueController {
     }
     
     override func tableView(_ tableView: UITableView,
-                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         // Write action code for the trash
         let viewEditAction = UIContextualAction(style: .normal, title:  "View & \n Edit".localized, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("Update action ...")
@@ -144,7 +144,7 @@ extension ArtisanProdCatalogueController {
         })
         viewEditAction.image = UIImage.init(named: "iOS-edit")
         viewEditAction.backgroundColor = .systemBlue
-
+        
         return UISwipeActionsConfiguration(actions: [viewEditAction])
     }
     

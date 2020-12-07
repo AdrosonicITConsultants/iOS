@@ -61,8 +61,8 @@ class Chat: Object, Decodable {
     }
     
     convenience required init(from decoder: Decoder) throws {
-    self.init()
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         entityID = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)
         id = "\(entityID)"
         enquiryId = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)

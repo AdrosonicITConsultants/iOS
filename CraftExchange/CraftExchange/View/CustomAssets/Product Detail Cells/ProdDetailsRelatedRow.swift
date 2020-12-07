@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class ProdDetailsRelatedRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var rowImage: UIImageView!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var prodLbl: UILabel!
@@ -22,7 +22,7 @@ class ProdDetailsRelatedRowView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

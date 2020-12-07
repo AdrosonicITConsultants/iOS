@@ -60,28 +60,28 @@ extension OrderDetailsService {
                 }.dispose(in: vc.bag)
                 
                 self.getOrderProgress(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                               if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
-                                   if let dataDict = json["data"] as? Dictionary<String,Any>
-                                   {
-                                       guard let moqObj = dataDict["orderProgress"] as? Dictionary<String,Any> else {
-                                           return
-                                       }
-                                       if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
-                                           if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
-                                               DispatchQueue.main.async {
-                                                  print("orderProgress: \(object)")
-                                                   
-                                                       vc.orderProgress = object
-                                                   vc.reloadFormData()
-                                                   
-                                               }
-                                           }
-                                       }
-                                   }
-                               }
-                           }.dispose(in: vc.bag)
-                
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                        if let dataDict = json["data"] as? Dictionary<String,Any>
+                        {
+                            guard let moqObj = dataDict["orderProgress"] as? Dictionary<String,Any> else {
+                                return
                             }
+                            if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
+                                if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
+                                    DispatchQueue.main.async {
+                                        print("orderProgress: \(object)")
+                                        
+                                        vc.orderProgress = object
+                                        vc.reloadFormData()
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }.dispose(in: vc.bag)
+                
+            }
             self.getRatingResponse(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
                     if let dataDict = json["data"] as? [String: Any]
@@ -122,7 +122,7 @@ extension OrderDetailsService {
                     
                 }
             }.dispose(in: vc.bag)
-
+            
             vc.hideLoading()
         }
         
@@ -154,11 +154,11 @@ extension OrderDetailsService {
             vc.hideLoading()
         }
         
-//        vc.checkMOQ = {
-//            vc.showLoading()
-//            let service = EnquiryDetailsService.init(client: self.client)
-//            service.checkMOQ(enquiryId: enquiryId, vc: vc)
-//        }
+        //        vc.checkMOQ = {
+        //            vc.showLoading()
+        //            let service = EnquiryDetailsService.init(client: self.client)
+        //            service.checkMOQ(enquiryId: enquiryId, vc: vc)
+        //        }
         
         vc.viewPI = { (isOld) in
             let date = Date().ttceISOString(isoDate: vc.orderObject!.lastUpdated!)
@@ -214,9 +214,9 @@ extension OrderDetailsService {
                         if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
                             if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
                                 DispatchQueue.main.async {
-                                   print("orderProgress: \(object)")
+                                    print("orderProgress: \(object)")
                                     
-                                        vc.orderProgress = object
+                                    vc.orderProgress = object
                                     vc.reloadFormData()
                                     
                                 }
@@ -229,53 +229,54 @@ extension OrderDetailsService {
         
         vc.recreateOrder = {
             self.recreateOrderFunc(vc: vc, enquiryId: enquiryId)
-           
+            
         }
         
         vc.orderDispatchAfterRecreation = {
             self.orderDispatchAfterRecreation(orderId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                if json["valid"] as? Bool == true {
-                    DispatchQueue.main.async {
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if json["valid"] as? Bool == true {
+                        DispatchQueue.main.async {
+                            vc.hideLoading()
+                            vc.view.hideMarkAsDispatchedView()
+                            vc.viewWillAppear?()
+                            
+                        }
+                    }else{
                         vc.hideLoading()
                         vc.view.hideMarkAsDispatchedView()
-                        vc.viewWillAppear?()
-                       
                     }
-                }else{
-                    vc.hideLoading()
-                    vc.view.hideMarkAsDispatchedView()
-                }
                 }
             }
-
+            
         }
         
         vc.checkTransactions = {
             let service = TransactionService.init(client: self.client)
             service.getAllTransactionsForEnquiry(enquiryId: vc.orderObject?.enquiryId ?? 0).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                if let responseDict = json["data"] as? [String: Any] {
-                    if !vc.isClosed {
-                        if let transactionArray = responseDict["ongoingTransactionResponses"] as? [[String:Any]]  {
-                            var finalArray: [Int]? = []
-                            transactionArray.forEach { (dataDict) in
-                                if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
-                                    if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
-                                        if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
-                                            DispatchQueue.main.async {
-                                                transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
-                                                transactionObj.eta = dataDict["eta"] as? String
-                                                transactionObj.orderCode = dataDict["orderCode"] as? String
-                                                transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
-                                                transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
-                                                transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
-                                                transactionObj.saveOrUpdate()
-                                                finalArray?.append(transactionObj.entityID)
-                                                if finalArray?.count == transactionArray.count {
-                                                    let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
-                                                    vc.listTransactions = transactions.compactMap({$0})
-                                                    vc.listTransactionsFunc()
+                    if let responseDict = json["data"] as? [String: Any] {
+                        if !vc.isClosed {
+                            if let transactionArray = responseDict["ongoingTransactionResponses"] as? [[String:Any]]  {
+                                var finalArray: [Int]? = []
+                                transactionArray.forEach { (dataDict) in
+                                    if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
+                                        if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                            if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                                DispatchQueue.main.async {
+                                                    transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                                    transactionObj.eta = dataDict["eta"] as? String
+                                                    transactionObj.orderCode = dataDict["orderCode"] as? String
+                                                    transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                                    transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                                    transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                                    transactionObj.saveOrUpdate()
+                                                    finalArray?.append(transactionObj.entityID)
+                                                    if finalArray?.count == transactionArray.count {
+                                                        let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
+                                                        vc.listTransactions = transactions.compactMap({$0})
+                                                        vc.listTransactionsFunc()
+                                                    }
                                                 }
                                             }
                                         }
@@ -283,27 +284,27 @@ extension OrderDetailsService {
                                 }
                             }
                         }
-                    }
-                    if vc.isClosed {
-                        if let transactionArray = responseDict["completedTransactionResponses"] as? [[String:Any]]  {
-                            var finalArray: [Int]? = []
-                            transactionArray.forEach { (dataDict) in
-                                if let transactionDict = dataDict["transactionCompleted"] as? [String: Any] {
-                                    if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
-                                        if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
-                                            DispatchQueue.main.async {
-                                                transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
-                                                transactionObj.eta = dataDict["eta"] as? String
-                                                transactionObj.orderCode = dataDict["orderCode"] as? String
-                                                transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
-                                                transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
-                                                transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
-                                                transactionObj.saveOrUpdate()
-                                                finalArray?.append(transactionObj.entityID)
-                                                if finalArray?.count == transactionArray.count {
-                                                    let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
-                                                    vc.listTransactions = transactions.compactMap({$0})
-                                                    vc.listTransactionsFunc()
+                        if vc.isClosed {
+                            if let transactionArray = responseDict["completedTransactionResponses"] as? [[String:Any]]  {
+                                var finalArray: [Int]? = []
+                                transactionArray.forEach { (dataDict) in
+                                    if let transactionDict = dataDict["transactionCompleted"] as? [String: Any] {
+                                        if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                            if let transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                                DispatchQueue.main.async {
+                                                    transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                                    transactionObj.eta = dataDict["eta"] as? String
+                                                    transactionObj.orderCode = dataDict["orderCode"] as? String
+                                                    transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                                    transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                                    transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                                    transactionObj.saveOrUpdate()
+                                                    finalArray?.append(transactionObj.entityID)
+                                                    if finalArray?.count == transactionArray.count {
+                                                        let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
+                                                        vc.listTransactions = transactions.compactMap({$0})
+                                                        vc.listTransactionsFunc()
+                                                    }
                                                 }
                                             }
                                         }
@@ -311,10 +312,9 @@ extension OrderDetailsService {
                                 }
                             }
                         }
+                        
+                        
                     }
-                    
-                    
-                }
                 }
             }
             let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
@@ -328,10 +328,10 @@ extension OrderDetailsService {
         vc.raiseNewCRPI = {
             let vc1 = EnquiryDetailsService(client: self.client).piCreate(enquiryId: vc.orderObject!.enquiryId, enquiryObj: nil, orderObj: vc.orderObject) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
-//            if vc.orderObject?.enquiryStageId == 6 || vc.orderObject?.enquiryStageId == 7 {
+            //            if vc.orderObject?.enquiryStageId == 6 || vc.orderObject?.enquiryStageId == 7 {
             vc1.PI = vc.PI
             vc1.advancePaymnet = vc.advancePaymnet
-//            }
+            //            }
             vc1.orderObject = vc.orderObject
             vc1.isRevisedPI = true
             vc.navigationController?.pushViewController(vc1, animated: true)
@@ -352,15 +352,15 @@ extension OrderDetailsService {
                 }.dispose(in: vc.bag)
             }else {
                 service.getClosedEnquiryDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
-                                   if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                                       if json["valid"] as? Bool == true {
-                                           service.pasrseEnquiryJson(json: json, vc: vc)
-                                       }
-                                   }
-                                   DispatchQueue.main.async {
-                                       vc.hideLoading()
-                                   }
-                               }.dispose(in: vc.bag)
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            service.pasrseEnquiryJson(json: json, vc: vc)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                    }
+                }.dispose(in: vc.bag)
             }
         }
         
@@ -386,10 +386,10 @@ extension OrderDetailsService {
                 DispatchQueue.main.async {
                     if error == nil {
                         if let finalData = data {
-                           
-                                vc.hideLoading()
-                                vc.view.showTransactionReceiptView(controller: vc, data: finalData)
-                           
+                            
+                            vc.hideLoading()
+                            vc.view.showTransactionReceiptView(controller: vc, data: finalData)
+                            
                         }
                     }
                     
@@ -403,42 +403,42 @@ extension OrderDetailsService {
             service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 1)
         }
         vc.downloadFinalReceipt = { (enquiryId) in
-                   let service = EnquiryDetailsService.init(client: self.client)
-                   vc.showLoading()
-                   service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 2)
+            let service = EnquiryDetailsService.init(client: self.client)
+            vc.showLoading()
+            service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 2)
         }
         vc.viewFI = {
             vc.showLoading()
-           let service = EnquiryDetailsService.init(client: self.client)
+            let service = EnquiryDetailsService.init(client: self.client)
             service.getViewFI(enquiryId: vc.orderObject?.enquiryId ?? 0, isOld: 1).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-               DispatchQueue.main.async {
-                let object = String(data: responseData, encoding: .utf8) ?? ""
-                vc.view.showAcceptedPIView(controller: vc, entityId: vc.orderObject?.orderCode ?? "\(vc.orderObject?.enquiryId ?? 0)", date: Date().ttceISOString(isoDate: vc.orderObject?.lastUpdated ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
-                   vc.hideLoading()
-               }
+                DispatchQueue.main.async {
+                    let object = String(data: responseData, encoding: .utf8) ?? ""
+                    vc.view.showAcceptedPIView(controller: vc, entityId: vc.orderObject?.orderCode ?? "\(vc.orderObject?.enquiryId ?? 0)", date: Date().ttceISOString(isoDate: vc.orderObject?.lastUpdated ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
+                    vc.hideLoading()
+                }
             }.dispose(in: vc.bag)
             vc.hideLoading()
-
+            
         }
         
         vc.viewTransactionReceipt = { (transaction, isOld, isPI) in
             let service = EnquiryDetailsService.init(client: self.client)
             if isPI {
                 service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                   DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
-                       vc.hideLoading()
-                   }
+                    DispatchQueue.main.async {
+                        let object = String(data: responseData, encoding: .utf8) ?? ""
+                        vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
+                        vc.hideLoading()
+                    }
                 }.dispose(in: vc.bag)
                 vc.hideLoading()
             }else{
                 service.getViewFI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                   DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
-                       vc.hideLoading()
-                   }
+                    DispatchQueue.main.async {
+                        let object = String(data: responseData, encoding: .utf8) ?? ""
+                        vc.view.showAcceptedPIView(controller: vc, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
+                        vc.hideLoading()
+                    }
                 }.dispose(in: vc.bag)
                 vc.hideLoading()
             }
@@ -491,50 +491,50 @@ extension OrderDetailsService {
     
     func getOrderProgressFunc(enquiryId: Int, vc: UIViewController) {
         self.getOrderProgress(enquiryId: enquiryId).toLoadingSignal().consumeLoadingState(by: vc).bind(to: vc, context: .global(qos: .background)) { _, responseData in
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
-                        if let dataDict = json["data"] as? Dictionary<String,Any>
-                        {
-                            guard let moqObj = dataDict["orderProgress"] as? Dictionary<String,Any> else {
-                                return
-                            }
-                            if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
-                                if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
-                                    DispatchQueue.main.async {
-                                        if let controller = vc as? OrderDetailController {
-                                            controller.orderProgress = object
-                                        }else if let controller = vc as? RaiseConcernController {
-                                            controller.orderProgress = object
-                                        }
-                                    }
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                if let dataDict = json["data"] as? Dictionary<String,Any>
+                {
+                    guard let moqObj = dataDict["orderProgress"] as? Dictionary<String,Any> else {
+                        return
+                    }
+                    if let orderData = try? JSONSerialization.data(withJSONObject: moqObj, options: .fragmentsAllowed) {
+                        if  let object = try? JSONDecoder().decode(OrderProgress.self, from: orderData) {
+                            DispatchQueue.main.async {
+                                if let controller = vc as? OrderDetailController {
+                                    controller.orderProgress = object
+                                }else if let controller = vc as? RaiseConcernController {
+                                    controller.orderProgress = object
                                 }
                             }
                         }
                     }
-                }.dispose(in: vc.bag)
+                }
+            }
+        }.dispose(in: vc.bag)
     }
     
     func recreateOrderFunc(vc: UIViewController, enquiryId: Int) {
         vc.showLoading()
         self.recreateOrder(orderId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-                   if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                       if json["valid"] as? Bool == true {
-                           DispatchQueue.main.async {
-                               vc.hideLoading()
-                               vc.view.hidePartialRefundReceivedView()
-                            if let controller = vc as? OrderDetailController{
-                                controller.viewWillAppear?()
-                            }else if let controller = vc as? RaiseConcernController{
-                                controller.viewWillAppear?()
-                            }
-                               
-                              
-                           }
-                       }else{
-                           vc.hideLoading()
-                           vc.view.hidePartialRefundReceivedView()
-                       }
-                       }
-                   }
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                        vc.view.hidePartialRefundReceivedView()
+                        if let controller = vc as? OrderDetailController{
+                            controller.viewWillAppear?()
+                        }else if let controller = vc as? RaiseConcernController{
+                            controller.viewWillAppear?()
+                        }
+                        
+                        
+                    }
+                }else{
+                    vc.hideLoading()
+                    vc.view.hidePartialRefundReceivedView()
+                }
+            }
+        }
     }
     
     

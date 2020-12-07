@@ -13,16 +13,16 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class LoginUserService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     func fetch(username: String, password: String) -> SafeSignal<Data> {
-      return User.authenticate(username: username, password: password).response(using: client).debug()
+        return User.authenticate(username: username, password: password).response(using: client).debug()
     }
     
     func logout() -> SafeSignal<Data> {
-      return User.logout().response(using: client).debug()
+        return User.logout().response(using: client).debug()
     }
 }

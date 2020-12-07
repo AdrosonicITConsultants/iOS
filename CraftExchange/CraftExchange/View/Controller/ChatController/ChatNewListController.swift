@@ -21,7 +21,7 @@ class ChatNewListController: UIViewController {
     var applicationEnteredForeground: (() -> ())?
     var allChat: [Chat]?
     var allChatResults: Results<Chat>?
-
+    
     var newChatList: [Int] = []
     let realm = try? Realm()
     var initiateChat: ((_ enquiryId: Int) -> ())?
@@ -44,7 +44,8 @@ class ChatNewListController: UIViewController {
         self.pullToRefreshButton.isUserInteractionEnabled = false
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        allChat = []
+        self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",false ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+        self.setData()
         definesPresentationContext = false
         self.setupSideMenu(true)
         let center = NotificationCenter.default
@@ -72,27 +73,32 @@ class ChatNewListController: UIViewController {
             refreshControl.endRefreshing()
         }
         if self.reachabilityManager?.connection == .unavailable {
-        
-             self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",false ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
-         
-         
-         }else{
-           allChatResults = realm?.objects(Chat.self).filter("%K IN %@","entityID",newChatList ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+            
+            self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",false ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+            
+            
+        }else{
+            allChatResults = realm?.objects(Chat.self).filter("%K IN %@","entityID",newChatList ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
         }
         
-            allChat = allChatResults?.compactMap({$0})
-               
-               if searchText != "" {
-                let query = NSCompoundPredicate(type: .or, subpredicates:
+        self.setData()
+        self.hideLoading()
+        
+    }
+    
+    func setData(){
+        allChat = allChatResults?.compactMap({$0})
+        
+        if searchText != "" {
+            let query = NSCompoundPredicate(type: .or, subpredicates:
                 [NSPredicate(format: "enquiryNumber contains[c] %@",searchText),
                  NSPredicate(format: "buyerCompanyName contains[c] %@",searchText)])
-                
-                   allChat = allChatResults?.filter(query).sorted(byKeyPath: "lastUpdatedOn", ascending: false).compactMap({$0})
-                   
-                      }
+            
+            allChat = allChatResults?.filter(query).sorted(byKeyPath: "lastUpdatedOn", ascending: false).compactMap({$0})
+            
+        }
         
         emptyView.isHidden = allChat?.count == 0 ? false : true
-        self.hideLoading()
         self.tableView.reloadData()
     }
     
@@ -108,11 +114,11 @@ extension ChatNewListController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ChatCell
         if let obj = allChat?[indexPath.row] {
             cell.configure(obj)
-//            cell.lastMessage.text = ""
-//            if let date = obj.lastUpdatedOn ?? obj.lastChatDate {
-//                cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: date)
-//            }
-//            cell.lastUpdatedTime.text = ""
+            //            cell.lastMessage.text = ""
+            //            if let date = obj.lastUpdatedOn ?? obj.lastChatDate {
+            //                cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: date)
+            //            }
+            //            cell.lastUpdatedTime.text = ""
         }
         
         return cell

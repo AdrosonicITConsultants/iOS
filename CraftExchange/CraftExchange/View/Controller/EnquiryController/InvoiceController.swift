@@ -188,7 +188,7 @@ class InvoiceController: FormViewController{
                 cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                 cell.selectionStyle = .none
+                cell.selectionStyle = .none
             })
             
             <<< DateRow(){
@@ -286,7 +286,7 @@ class InvoiceController: FormViewController{
                 cell.valueTextField.maxLength = 6
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                 cell.selectionStyle = .none
+                cell.selectionStyle = .none
             })
             
             <<< RoundedTextFieldRow() {
@@ -428,7 +428,7 @@ class InvoiceController: FormViewController{
                 //   cell.valueTextField.maxLength = 2
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                 cell.selectionStyle = .none
+                cell.selectionStyle = .none
             })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Cgst"
@@ -458,15 +458,15 @@ class InvoiceController: FormViewController{
                 // cell.valueTextField.maxLength = 2
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0
-                 cell.selectionStyle = .none
+                cell.selectionStyle = .none
                 
             })
             <<< RoundedTextFieldRow() {
                 $0.tag = "Final amount"
                 $0.cell.titleLabel.text =  "Final Amount".localized
-               // $0.cell.valueTextField.keyboardType = .numberPad
+                // $0.cell.valueTextField.keyboardType = .numberPad
                 if  self.orderObject?.productStatusId == 2 {
-                   $0.cell.titleLabel.text =  "Final amount to be paid".localized
+                    $0.cell.titleLabel.text =  "Final amount to be paid".localized
                 }
                 $0.cell.height = { 80.0 }
                 if  self.isFI {
@@ -485,12 +485,12 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.placeholder = "123456"
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.isUserInteractionEnabled = false
-              //  self.viewModel.finalamount.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-//                $0.cell.valueTextField.text = self.viewModel.finalamount.value ?? ""
-//                if PI?.totalAmount != nil {
-//                    $0.cell.valueTextField.text = "\(PI?.totalAmount ?? 0)"
-//                }
-//                self.viewModel.finalamount.value = $0.cell.valueTextField.text
+                //  self.viewModel.finalamount.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+                //                $0.cell.valueTextField.text = self.viewModel.finalamount.value ?? ""
+                //                if PI?.totalAmount != nil {
+                //                    $0.cell.valueTextField.text = "\(PI?.totalAmount ?? 0)"
+                //                }
+                //                self.viewModel.finalamount.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
                 // cell.valueTextField.maxLength = 6
                 let quantity = Double(self.viewModel.quantity.value ?? "0") ?? 0.0
@@ -509,7 +509,7 @@ class InvoiceController: FormViewController{
             <<< RoundedTextFieldRow() {
                 $0.tag = "Amount to be paid"
                 $0.cell.titleLabel.text =  "Amount to be paid (Final Amount - Advanced Payment)".localized
-               // $0.cell.valueTextField.keyboardType = .numberPad
+                // $0.cell.valueTextField.keyboardType = .numberPad
                 $0.cell.height = { 80.0 }
                 if  self.orderObject?.productStatusId != 2 && self.isFI  {
                     $0.hidden = false
@@ -528,18 +528,18 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.placeholder = "123456"
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.isUserInteractionEnabled = false
-//                self.viewModel.amountToBePaid.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-//                $0.cell.valueTextField.text = self.viewModel.amountToBePaid.value ?? ""
-//                if enquiryObject?.productStatusId != 2 {
-//                    if PI?.totalAmount != nil && advancePaymnet?.paidAmount != nil {
-//                        $0.cell.valueTextField.text = "\((PI?.totalAmount ?? 0) - (advancePaymnet?.paidAmount ?? 0))"
-//                    }else if PI?.totalAmount != nil && advancePaymnet?.paidAmount == nil{
-//                        $0.cell.valueTextField.text = "\(PI?.totalAmount ?? 0)"
-//
-//                    }
-//
-//                }
-//                self.viewModel.amountToBePaid.value = $0.cell.valueTextField.text
+                //                self.viewModel.amountToBePaid.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+                //                $0.cell.valueTextField.text = self.viewModel.amountToBePaid.value ?? ""
+                //                if enquiryObject?.productStatusId != 2 {
+                //                    if PI?.totalAmount != nil && advancePaymnet?.paidAmount != nil {
+                //                        $0.cell.valueTextField.text = "\((PI?.totalAmount ?? 0) - (advancePaymnet?.paidAmount ?? 0))"
+                //                    }else if PI?.totalAmount != nil && advancePaymnet?.paidAmount == nil{
+                //                        $0.cell.valueTextField.text = "\(PI?.totalAmount ?? 0)"
+                //
+                //                    }
+                //
+                //                }
+                //                self.viewModel.amountToBePaid.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
                 // cell.valueTextField.maxLength = 6
                 let total = Double(self.viewModel.finalamount.value ?? "0") ?? 0.0
@@ -658,17 +658,17 @@ class InvoiceController: FormViewController{
         let cgst = Double(self.viewModel.cgst.value ?? "0") ?? 0.0
         let dCharges = Double(self.viewModel.deliveryCharges.value ?? "0") ?? 0.0
         let tot = quantity * price
-       // print(1 + ((sgst + cgst)/100.0))
+        // print(1 + ((sgst + cgst)/100.0))
         let tax = (1 + ((sgst + cgst)/100.0))
         let total = (tot * tax) + dCharges
-       // let total = ((quantity * price) * (1.0 + ((sgst + cgst)/100.0))) + dCharges
+        // let total = ((quantity * price) * (1.0 + ((sgst + cgst)/100.0))) + dCharges
         self.viewModel.finalamount.value = "\(Int(total))"
         row?.cell.valueTextField.text = "\(total)"
         row?.cell.update()
         row?.updateCell()
         row?.reload()
         if self.orderObject?.productStatusId != 2 {
-           let row2 = self.form.rowBy(tag: "Amount to be paid") as? RoundedTextFieldRow
+            let row2 = self.form.rowBy(tag: "Amount to be paid") as? RoundedTextFieldRow
             let total = Double(self.viewModel.finalamount.value ?? "0") ?? 0.0
             let advPayment = Double(self.viewModel.advancePaidAmount.value ?? "0") ?? 0.0
             let toBePaid = total - advPayment

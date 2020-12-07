@@ -92,7 +92,7 @@ extension Enquiry {
                 object.extraWeftYarnHistoryId = extraWeftYarnHistoryId
                 object.extraWeftYarnId = extraWeftYarnId
                 object.firstName = firstName
- 
+                
                 object.gst = gst
                 object.historyProductId = historyProductId
                 object.innerEnquiryStageId = innerEnquiryStageId

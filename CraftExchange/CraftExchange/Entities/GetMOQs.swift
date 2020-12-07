@@ -16,12 +16,12 @@ class GetMOQs: Object, Decodable {
     @objc dynamic var artisanId: Int = 0
     @objc dynamic var enquiryId: Int = 0
     @objc dynamic var brand: String?
-   @objc dynamic var logo:  String?
+    @objc dynamic var logo:  String?
     @objc dynamic var clusterName: String?
     @objc dynamic var state: String?
     var accepted: Bool?
     
-
+    
     enum CodingKeys: String, CodingKey {
         case moq = "moq"
         case artisanId = "artisanId"
@@ -34,24 +34,24 @@ class GetMOQs: Object, Decodable {
         
     }
     
-//    override class func primaryKey() -> String? {
-//        return "id"
-//
-//
-//    }
-
+    //    override class func primaryKey() -> String? {
+    //        return "id"
+    //
+    //
+    //    }
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         artisanId = try (values.decodeIfPresent(Int.self, forKey: .artisanId) ?? 0)
         enquiryId = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)
-      
+        
         moq = try? values.decodeIfPresent(GetMOQ.self, forKey: .moq)
         brand = try values.decodeIfPresent(String.self, forKey: .brand)
-         logo = try values.decodeIfPresent(String.self, forKey: .logo)
-         clusterName = try values.decodeIfPresent(String.self, forKey: .clusterName)
-         state = try values.decodeIfPresent(String.self, forKey: .state)
-         accepted = try values.decodeIfPresent(Bool.self, forKey: .accepted)
+        logo = try values.decodeIfPresent(String.self, forKey: .logo)
+        clusterName = try values.decodeIfPresent(String.self, forKey: .clusterName)
+        state = try values.decodeIfPresent(String.self, forKey: .state)
+        accepted = try values.decodeIfPresent(Bool.self, forKey: .accepted)
         
     }
 }

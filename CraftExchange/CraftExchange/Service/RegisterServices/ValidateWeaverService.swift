@@ -13,12 +13,12 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class ValidateWeaverService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     func fetch(weaverId: String) -> SafeSignal<Data> {
-      return User.validateWeaverId(weaverId: weaverId).response(using: client).debug()
+        return User.validateWeaverId(weaverId: weaverId).response(using: client).debug()
     }
 }

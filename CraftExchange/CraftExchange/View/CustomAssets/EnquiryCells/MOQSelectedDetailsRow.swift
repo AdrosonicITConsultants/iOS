@@ -25,17 +25,17 @@ class MOQSelectedDetailsRowView: Cell<String>, CellType {
     var delegate: MOQButtonActionProtocol?
     
     public override func setup() {
-      super.setup()
+        super.setup()
         imageButton.imageView?.layer.cornerRadius = 22.5
         
         detailsButton.addTarget(self, action: #selector(detailsButtonSelected(_:)), for: .touchUpInside)
     }
     
     public override func update() {
-       super.update()
-     }
+        super.update()
+    }
     
-
+    
     @IBAction func detailsButtonSelected(_ sender: Any) {
         delegate?.detailsButtonSelected(tag: tag)
     }

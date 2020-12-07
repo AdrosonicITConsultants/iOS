@@ -37,7 +37,7 @@ class EnquiryArtisanDetailsController: FormViewController {
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
         form +++
-        Section()
+            Section()
             <<< ProfileImageRow() {
                 $0.cell.height = { 180.0 }
                 $0.cell.delegate = self
@@ -116,7 +116,7 @@ class EnquiryArtisanDetailsController: FormViewController {
             }.onChange({ (row) in
                 if User.loggedIn()?.refRoleId == "1" {
                     //Show Buyers Address and Other Details
-
+                    
                     let digitalSection = self.form.sectionBy(tag: "DeliveryAddress")
                     let bankSection = self.form.sectionBy(tag: "OtherDetails")
                     if row.value == "Other Details" {
@@ -385,11 +385,11 @@ class EnquiryArtisanDetailsController: FormViewController {
                     finalString.append(" \(self.enquiryObject?.district ?? "")")
                 }
                 if (self.enquiryObject?.state != nil && self.enquiryObject?.state?.isNotBlank ?? false) ||
-                   (self.orderObject?.state != nil && self.orderObject?.state?.isNotBlank ?? false) {
+                    (self.orderObject?.state != nil && self.orderObject?.state?.isNotBlank ?? false) {
                     finalString.append(", \(self.enquiryObject?.state ?? "")")
                 }
                 if (self.enquiryObject?.pincode != nil && self.enquiryObject?.pincode?.isNotBlank ?? false) ||
-                   (self.orderObject?.pincode != nil && self.orderObject?.pincode?.isNotBlank ?? false) {
+                    (self.orderObject?.pincode != nil && self.orderObject?.pincode?.isNotBlank ?? false) {
                     finalString.append(", \(self.enquiryObject?.pincode ?? "")")
                 }
                 if (self.enquiryObject?.country != nil && self.enquiryObject?.country?.isNotBlank ?? false) ||
@@ -414,12 +414,12 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.valueTextField.text = enquiryObject?.gst ?? orderObject?.gst ?? ""
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.height = { 80.0 }
-                }.cellUpdate({ (cell, row) in
-                    cell.isUserInteractionEnabled = false
-                    cell.valueTextField.isUserInteractionEnabled = false
-                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                    cell.valueTextField.leftPadding = 0
-                })
+            }.cellUpdate({ (cell, row) in
+                cell.isUserInteractionEnabled = false
+                cell.valueTextField.isUserInteractionEnabled = false
+                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                cell.valueTextField.leftPadding = 0
+            })
             <<< LabelRow() {
                 $0.cell.height = { 60.0 }
                 $0.title = "Details for Point of Contact".localized
@@ -435,12 +435,12 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.valueTextField.text = "\(enquiryObject?.pocFirstName ?? orderObject?.pocFirstName ?? "") \(enquiryObject?.pocLastName ?? orderObject?.pocLastName ?? "")"
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.height = { 80.0 }
-                }.cellUpdate({ (cell, row) in
-                    cell.isUserInteractionEnabled = false
-                    cell.valueTextField.isUserInteractionEnabled = false
-                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                    cell.valueTextField.leftPadding = 0
-                })
+            }.cellUpdate({ (cell, row) in
+                cell.isUserInteractionEnabled = false
+                cell.valueTextField.isUserInteractionEnabled = false
+                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                cell.valueTextField.leftPadding = 0
+            })
             <<< RoundedTextFieldRow() {
                 $0.tag = "PocMobile"
                 $0.cell.titleLabel.text = "Mobile Number".localized
@@ -451,12 +451,12 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.height = { 80.0 }
                 $0.cell.valueTextField.text = enquiryObject?.pocContact ?? orderObject?.pocContact ?? ""
                 $0.cell.valueTextField.textColor = .darkGray
-                }.cellUpdate({ (cell, row) in
-                    cell.isUserInteractionEnabled = false
-                    cell.valueTextField.isUserInteractionEnabled = false
-                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                    cell.valueTextField.leftPadding = 0
-                })
+            }.cellUpdate({ (cell, row) in
+                cell.isUserInteractionEnabled = false
+                cell.valueTextField.isUserInteractionEnabled = false
+                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                cell.valueTextField.leftPadding = 0
+            })
             <<< RoundedTextFieldRow() {
                 $0.tag = "PocEmail"
                 $0.cell.titleLabel.text = "Email Id".localized
@@ -467,12 +467,12 @@ class EnquiryArtisanDetailsController: FormViewController {
                 $0.cell.valueTextField.text = enquiryObject?.pocEmail ?? orderObject?.pocEmail ?? ""
                 $0.cell.valueTextField.textColor = .darkGray
                 $0.cell.height = { 80.0 }
-                }.cellUpdate({ (cell, row) in
-                    cell.isUserInteractionEnabled = false
-                    cell.valueTextField.isUserInteractionEnabled = false
-                    cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                    cell.valueTextField.leftPadding = 0
-                })
+            }.cellUpdate({ (cell, row) in
+                cell.isUserInteractionEnabled = false
+                cell.valueTextField.isUserInteractionEnabled = false
+                cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+                cell.valueTextField.leftPadding = 0
+            })
     }
     
     @objc func goToChat() {
@@ -496,7 +496,7 @@ class CustomMOQArtisanDetailsController: FormViewController {
         self.navigationItem.rightBarButtonItem = rightButtonItem
         
         form +++
-        Section()
+            Section()
             <<< ProfileImageRow() {
                 $0.cell.height = { 180.0 }
                 $0.cell.delegate = self
@@ -523,9 +523,9 @@ class CustomMOQArtisanDetailsController: FormViewController {
                 $0.title = getMOs?.brand
             }
             <<< LabelRow() {
-                    $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? orderObject?.productCategoryId ?? orderObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? orderObject?.clusterName ?? "")"
-            }
-            
+                $0.title = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? enquiryObject?.productCategoryHistoryId ?? orderObject?.productCategoryId ?? orderObject?.productCategoryHistoryId ?? 0)?.prodCatDescription ?? ""), \(enquiryObject?.clusterName ?? orderObject?.clusterName ?? "")"
+        }
+        
     }
     
     @objc func goToChat() {

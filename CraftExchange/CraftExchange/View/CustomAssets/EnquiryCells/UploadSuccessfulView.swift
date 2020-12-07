@@ -15,7 +15,7 @@ protocol uploadSuccessProtocol {
 }
 
 class UploadSuccessfulView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var Tick: UIImageView!
     @IBOutlet weak var ThankyouLabel: UILabel!
     @IBOutlet weak var PleaseNoteLabel: UILabel!
@@ -29,15 +29,15 @@ class UploadSuccessfulView: Cell<String>, CellType {
         super.setup()
         ViewTransactionBtn.addTarget(self, action: #selector(ViewTransactionButtonSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }
     
     @IBAction func ViewTransactionButtonSelected(_ sender: Any) {
-           delegate?.ViewTransactionBtnSelected(tag: tag)
-          
-       }
+        delegate?.ViewTransactionBtnSelected(tag: tag)
+        
+    }
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value

@@ -167,20 +167,20 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "coverImage")
             cell.logoImage.contentMode = .scaleAspectFill
             if let image = CMSRegionACF.getRegionType(ClusterId: (allRegions?[indexPath.row].entityID) ?? 0)?.image, CMSRegionACF.getRegionType(ClusterId: ((allRegions?[indexPath.row].entityID) ?? 0))?.image != "" {
-                      
-                           let url = URL(string: image)
-                       URLSession.shared.dataTask(with: url!) { data, response, error in
-                           // do your stuff here...
-                           DispatchQueue.main.async {
-                               if error == nil {
-                                   if let finalData = data {
-                                       // do something on the main queue
-                                       cell.logoImage.image = UIImage.init(data: finalData)
-                                   }
-                               }
-                           }
-                       }.resume()
-                       }
+                
+                let url = URL(string: image)
+                URLSession.shared.dataTask(with: url!) { data, response, error in
+                    // do your stuff here...
+                    DispatchQueue.main.async {
+                        if error == nil {
+                            if let finalData = data {
+                                // do something on the main queue
+                                cell.logoImage.image = UIImage.init(data: finalData)
+                            }
+                        }
+                    }
+                }.resume()
+            }
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.shadowColor = UIColor.lightGray.cgColor
@@ -195,19 +195,19 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
             cell.logoImage.contentMode = .scaleAspectFill
             if let image = CMSCategoryACF.getCategoryType(CategoryId: (allCategories?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((allCategories?[indexPath.row].entityID) ?? 0))?.image != "" {
                 let url = URL(string: image)
-            URLSession.shared.dataTask(with: url!) { data, response, error in
-                // do your stuff here...
-                DispatchQueue.main.async {
-                    if error == nil {
-                        if let finalData = data {
-                            // do something on the main queue
-                            cell.logoImage.image = UIImage.init(data: finalData)
+                URLSession.shared.dataTask(with: url!) { data, response, error in
+                    // do your stuff here...
+                    DispatchQueue.main.async {
+                        if error == nil {
+                            if let finalData = data {
+                                // do something on the main queue
+                                cell.logoImage.image = UIImage.init(data: finalData)
+                            }
                         }
                     }
-                }
-            }.resume()
+                }.resume()
             }
-
+            
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.shadowColor = UIColor.lightGray.cgColor

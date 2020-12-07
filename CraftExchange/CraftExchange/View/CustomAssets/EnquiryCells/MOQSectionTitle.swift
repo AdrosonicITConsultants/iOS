@@ -12,8 +12,8 @@ import UIKit
 import Eureka
 
 class MOQSectionTitleView: Cell<String>, CellType {
-
-
+    
+    
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var noOfUnitLbl: UILabel!
     @IBOutlet weak var costLbl: UILabel!
@@ -23,7 +23,7 @@ class MOQSectionTitleView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

@@ -306,7 +306,7 @@ extension HomeScreenService {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if let array = json["data"] as? [[String: Any]] {
                         try array.forEach { (dataDict) in
-                             if let stageDict = dataDict["orderStages"] as? [String: Any] {
+                            if let stageDict = dataDict["orderStages"] as? [String: Any] {
                                 if let data = try? JSONSerialization.data(withJSONObject: stageDict, options: .fragmentsAllowed){
                                     try JSONDecoder().decode(AvailableProductStages.self, from: data).saveOrUpdate()
                                 }
@@ -490,15 +490,15 @@ extension HomeScreenService {
                 }else {
                     return
                 }
-                 
+                
                 
             }.resume()
         }
     }
     
     func getCMSCatImages(){
-           if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categories") {
-               URLSession.shared.dataTask(with: url) { data, response, error in
+        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categories") {
+            URLSession.shared.dataTask(with: url) { data, response, error in
                 if data != nil {
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
                         DispatchQueue.main.async {
@@ -522,16 +522,16 @@ extension HomeScreenService {
                 }else{
                     return
                 }
-                   
-               }.resume()
-           }
-           
-       }
+                
+            }.resume()
+        }
+        
+    }
     
     func getCMSRegionImages(){
         if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/regions") {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                 if data != nil {
+                if data != nil {
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
                         DispatchQueue.main.async {
                             for obj in json  {
@@ -551,14 +551,14 @@ extension HomeScreenService {
                         }
                         
                     }
-
-                 }else{
+                    
+                }else{
                     return
                 }
             }.resume()
         }
         
     }
-       
-   
+    
+    
 }

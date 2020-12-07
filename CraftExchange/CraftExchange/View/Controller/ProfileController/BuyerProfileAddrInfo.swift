@@ -34,7 +34,7 @@ class BuyerProfileAddrInfo: FormViewController {
         allCountries = realm.objects(Country.self).sorted(byKeyPath: "entityID")
         
         self.form +++
-          Section()
+            Section()
             <<< LabelRow() {
                 $0.cell.height = { 80.0 }
                 $0.title = "Delivery Address".localized
@@ -67,36 +67,36 @@ class BuyerProfileAddrInfo: FormViewController {
                 $0.cell.textField.text = addressString
                 parentVC.viewModel.addr1.value = $0.cell.textField.text
                 parentVC.viewModel.addr1.bidirectionalBind(to: $0.cell.textField.reactive.text)
-                }.cellUpdate({ (cell, row) in
-                    parentVC.viewModel.addr1.value = cell.textField.text
-                })
-            <<< TextRow() {
-            $0.tag = "AddressEditRow2"
-            $0.title = "Address Line 2".localized
-            var addressString = ""
-            User.loggedIn()?.addressList .forEach({ (address) in
-                if address.addressType?.entityID == 1 {
-                    addressString = address.line2 ?? ""
-                }
+            }.cellUpdate({ (cell, row) in
+                parentVC.viewModel.addr1.value = cell.textField.text
             })
-            $0.cell.textField.text = addressString
-            parentVC.viewModel.addr2.value = $0.cell.textField.text
-            parentVC.viewModel.addr2.bidirectionalBind(to: $0.cell.textField.reactive.text)
+            <<< TextRow() {
+                $0.tag = "AddressEditRow2"
+                $0.title = "Address Line 2".localized
+                var addressString = ""
+                User.loggedIn()?.addressList .forEach({ (address) in
+                    if address.addressType?.entityID == 1 {
+                        addressString = address.line2 ?? ""
+                    }
+                })
+                $0.cell.textField.text = addressString
+                parentVC.viewModel.addr2.value = $0.cell.textField.text
+                parentVC.viewModel.addr2.bidirectionalBind(to: $0.cell.textField.reactive.text)
             }.cellUpdate({ (cell, row) in
                 parentVC.viewModel.addr2.value = cell.textField.text
             })
             <<< TextRow() {
-            $0.tag = "AddressEditRow3"
-            $0.title = "Street".localized
-            var addressString = ""
-            User.loggedIn()?.addressList .forEach({ (address) in
-                if address.addressType?.entityID == 1 {
-                    addressString = address.street ?? ""
-                }
-            })
-            $0.cell.textField.text = addressString
-            parentVC.viewModel.street.value = $0.cell.textField.text
-            parentVC.viewModel.street.bidirectionalBind(to: $0.cell.textField.reactive.text)
+                $0.tag = "AddressEditRow3"
+                $0.title = "Street".localized
+                var addressString = ""
+                User.loggedIn()?.addressList .forEach({ (address) in
+                    if address.addressType?.entityID == 1 {
+                        addressString = address.street ?? ""
+                    }
+                })
+                $0.cell.textField.text = addressString
+                parentVC.viewModel.street.value = $0.cell.textField.text
+                parentVC.viewModel.street.bidirectionalBind(to: $0.cell.textField.reactive.text)
             }.cellUpdate({ (cell, row) in
                 parentVC.viewModel.street.value = cell.textField.text
             })
@@ -112,9 +112,9 @@ class BuyerProfileAddrInfo: FormViewController {
                 $0.cell.textField.text = addressString
                 parentVC.viewModel.district.value = $0.cell.textField.text
                 parentVC.viewModel.district.bidirectionalBind(to: $0.cell.textField.reactive.text)
-                }.cellUpdate({ (cell, row) in
-                    parentVC.viewModel.district.value = cell.textField.text
-                })
+            }.cellUpdate({ (cell, row) in
+                parentVC.viewModel.district.value = cell.textField.text
+            })
             <<< TextRow() {
                 $0.tag = "AddressEditRow5"
                 $0.title = "City".localized
@@ -142,9 +142,9 @@ class BuyerProfileAddrInfo: FormViewController {
                 $0.cell.textField.text = addressString
                 parentVC.viewModel.state.value = $0.cell.textField.text
                 parentVC.viewModel.state.bidirectionalBind(to: $0.cell.textField.reactive.text)
-                }.cellUpdate({ (cell, row) in
-                    parentVC.viewModel.state.value = cell.textField.text
-                })
+            }.cellUpdate({ (cell, row) in
+                parentVC.viewModel.state.value = cell.textField.text
+            })
             <<< TextRow() {
                 $0.tag = "AddressEditRow7"
                 $0.title = "Pincode".localized
@@ -171,7 +171,7 @@ class BuyerProfileAddrInfo: FormViewController {
             })
             <<< LabelRow() { row in
                 row.cell.height = { 400.0 }
-            }
+        }
     }
     
     @objc func enableEditing() {

@@ -11,12 +11,12 @@ import Eureka
 
 protocol BTransactionButtonProtocol {
     func TransactionBtnSelected(tag: Int)
-     func ThirtyBtnSelected(tag: Int)
-     func FiftyBtnSelected(tag: Int)
+    func ThirtyBtnSelected(tag: Int)
+    func FiftyBtnSelected(tag: Int)
 }
 
 class PercentPaymentView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var thirtyBtn: UIButton!
     @IBOutlet weak var fiftyPercent: UIButton!
     @IBOutlet weak var SelectLabel: UILabel!
@@ -33,7 +33,7 @@ class PercentPaymentView: Cell<String>, CellType {
         thirtyBtn.addTarget(self, action: #selector(ThirtyBtnSelected(_:)), for: .touchUpInside)
         fiftyPercent.addTarget(self, action: #selector(FiftyBtnSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }
@@ -41,7 +41,7 @@ class PercentPaymentView: Cell<String>, CellType {
     @IBAction func TransactionBtnSelected(_ sender: Any) {
         delegate?.TransactionBtnSelected(tag: tag)
     }
-   
+    
     @IBAction func ThirtyBtnSelected(_ sender: Any) {
         delegate?.ThirtyBtnSelected(tag: tag)
         thirtyBtn.layer.borderWidth = 2.0
@@ -58,8 +58,8 @@ class PercentPaymentView: Cell<String>, CellType {
         thirtyBtn.backgroundColor = #colorLiteral(red: 0.7333333333, green: 0.6156862745, blue: 0.1411764706, alpha: 1)
         fiftyPercent.layer.borderWidth = 2.0
         fiftyPercent.layer.borderColor = UIColor.green.cgColor
-      }
-   
+    }
+    
     
 }
 

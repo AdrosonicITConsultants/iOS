@@ -22,7 +22,7 @@ import ViewRow
 import WebKit
 
 class BuyerProductDetailController: FormViewController {
-
+    
     var product: Product?
     var customProduct: CustomProduct?
     var productImages: [UIImage]? = []
@@ -39,11 +39,11 @@ class BuyerProductDetailController: FormViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
-
+        
         let weaveTypeSection = Section() {
             $0.hidden = "$weaveTypes == false"
         }
-
+        
         let weaveTypeView = LabelRow("weaveTypes") {
             $0.cell.height = { 30.0 }
             $0.title = "Weave types used"
@@ -52,7 +52,7 @@ class BuyerProductDetailController: FormViewController {
         let washSection = Section() {
             $0.hidden = "$washTypes == false"
         }
-
+        
         let washView = LabelRow("washTypes") {
             $0.cell.height = { 30.0 }
             $0.title = "Wash Care Instructions"
@@ -61,7 +61,7 @@ class BuyerProductDetailController: FormViewController {
         viewWillAppear?()
         
         form
-        +++ Section()
+            +++ Section()
             <<< ImageViewRow() {
                 $0.tag = "ProductNameRow"
                 $0.cell.height = { 130.0 }
@@ -392,7 +392,7 @@ extension BuyerProductDetailController: ProdDetailWishlistProtocol {
 }
 
 extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionViewDataSource, AddImageProtocol {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 2002 {
             return ((suggestedProdArray?.count ?? 0) > 5) ? 5 : suggestedProdArray?.count ?? 0
@@ -434,7 +434,7 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
         }else {
             cell.addImageButton.setImage(self.productImages?[indexPath.row], for: .normal)
         }
-
+        
         cell.deleteImageButton.isHidden = true
         cell.deleteImageButton.isUserInteractionEnabled = false
         cell.editImageButton.isHidden = true
@@ -567,7 +567,7 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
         let wkwebView = WKWebView.init(frame: CGRect.init(x: 0, y: 20, width: self.view.frame.size.width, height: webView.frame.size.height - 20))
         wkwebView.navigationDelegate = self
         wkwebView.uiDelegate = self
-
+        
         if let image = productImages?[index],
             let data = image.pngData() {
             let base64 = data.base64EncodedString(options: [])

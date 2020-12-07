@@ -34,9 +34,9 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.markOrderAsReceived(orderId: orderId, orderRecieveDate: orderRecieveDate, isAutoCompleted: isAutoCompleted).response(using: client).debug()
     }
     
-   func closeOrder(enquiryId: Int) -> SafeSignal<Data> {
-          return Enquiry.closeOrder(enquiryId: enquiryId).response(using: client).debug()
-      }
+    func closeOrder(enquiryId: Int) -> SafeSignal<Data> {
+        return Enquiry.closeOrder(enquiryId: enquiryId).response(using: client).debug()
+    }
     
     func getMOQs(enquiryId: Int) -> SafeSignal<Data>{
         return Enquiry.getMOQs(enquiryId: enquiryId).response(using: client).debug()
@@ -63,8 +63,8 @@ class EnquiryDetailsService: BaseService<Data> {
     }
     
     func getViewFI(enquiryId: Int, isOld: Int)  -> SafeSignal<Data>{
-           return Enquiry.getViewFI(enquiryId: enquiryId, isOld: isOld).response(using: client).debug()
-       }
+        return Enquiry.getViewFI(enquiryId: enquiryId, isOld: isOld).response(using: client).debug()
+    }
     
     func downloadPI(enquiryId: Int, isOld: Int) -> SafeSignal<Data>{
         return Enquiry.downloadPreviewPI(enquiryId: enquiryId, isOld: isOld).response(using: client).debug()

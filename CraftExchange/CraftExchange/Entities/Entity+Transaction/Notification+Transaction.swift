@@ -60,7 +60,7 @@ extension Notifications {
             }
         }
     }
-
+    
     func saveOrUpdate() {
         let realm = try! Realm()
         if let object = realm.objects(Notifications.self).filter("%K == %@", "entityID", self.entityID).first {
@@ -75,7 +75,7 @@ extension Notifications {
                 object.productDesc = productDesc
                 object.seen = seen
                 object.type = type
-               
+                
             }
         } else {
             try? realm.write {

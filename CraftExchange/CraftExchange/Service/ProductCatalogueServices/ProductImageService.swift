@@ -32,7 +32,7 @@ class ProductImageService: BaseService<URL> {
         let prodId = productObject.entityID
         _object.value = try? Disk.retrieveURL("\(prodId)/\(withName)", from: .caches, as: Data.self)
     }
-
+    
     func fetch() -> Signal<Data, Never> {
         return Product.fetchProductImage(with: productObject?.entityID ?? 0, imageName: name ?? productObject?.productImages.first?.lable ?? "").response(using: client).debug()
     }

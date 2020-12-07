@@ -11,13 +11,13 @@ import UIKit
 import Eureka
 
 class ProdDetailDescriptionRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var productDescLbl: UILabel!
     
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

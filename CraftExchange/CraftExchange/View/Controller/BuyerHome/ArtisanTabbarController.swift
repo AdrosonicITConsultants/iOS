@@ -48,7 +48,7 @@ extension ArtisanTabbarController {
                 let nav = self.customizableViewControllers?[2] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
-              print("Unable to load view:\n\(error.localizedDescription)")
+                print("Unable to load view:\n\(error.localizedDescription)")
             }
         }
     }

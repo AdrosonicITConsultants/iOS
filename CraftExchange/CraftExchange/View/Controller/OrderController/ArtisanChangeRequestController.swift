@@ -40,60 +40,60 @@ class ArtisanChangeRequestController: FormViewController {
         let changeReqTypeSection = Section() {
             $0.hidden = "$changeReqTypes == false"
         }
-
+        
         let changeReqTypeView = LabelRow("changeReqTypes") {
             $0.cell.height = { 30.0 }
             $0.title = "Change Request Details".localized
         }
         
         form
-        +++ Section()
-        <<< CRNoteViewRow() { (row) in
-            row.cell.Label1.text = "Please Note:\nChange request is the only one-time facility to the buyer for their ongoing order with you.\nDo consider with checking the box if able to accept".localized
-            row.cell.Label2.text = "If you accept this change request, the buyer shall not be able to raise another change request".localized
-        }
-        <<< changeReqTypeView
-        +++ changeReqTypeSection
-        +++ Section()
-        <<< ButtonRow() {
-            $0.title = "SUBMIT".localized
-        }.onCellSelection({ (cell, row) in
-            self.changeReqArray?.removeAll()
-            self.allChangeRequests?.forEach({ (changeReq) in
-                if let row = self.form.rowBy(tag: changeReq.id) as? CRArtisanRow {
-                    if row.cell.tickBtn.image(for: .normal) == UIImage.init(systemName: "checkmark.square.fill") {
-                        let cr = changeRequest.init(changeRequestId: changeReq.changeRequestId, id: changeReq.entityID, requestItemsId: changeReq.requestItemsId, requestStatus: 1, requestText: changeReq.requestText)
-                        self.changeReqArray?.append(cr)
+            +++ Section()
+            <<< CRNoteViewRow() { (row) in
+                row.cell.Label1.text = "Please Note:\nChange request is the only one-time facility to the buyer for their ongoing order with you.\nDo consider with checking the box if able to accept".localized
+                row.cell.Label2.text = "If you accept this change request, the buyer shall not be able to raise another change request".localized
+            }
+            <<< changeReqTypeView
+            +++ changeReqTypeSection
+            +++ Section()
+            <<< ButtonRow() {
+                $0.title = "SUBMIT".localized
+            }.onCellSelection({ (cell, row) in
+                self.changeReqArray?.removeAll()
+                self.allChangeRequests?.forEach({ (changeReq) in
+                    if let row = self.form.rowBy(tag: changeReq.id) as? CRArtisanRow {
+                        if row.cell.tickBtn.image(for: .normal) == UIImage.init(systemName: "checkmark.square.fill") {
+                            let cr = changeRequest.init(changeRequestId: changeReq.changeRequestId, id: changeReq.entityID, requestItemsId: changeReq.requestItemsId, requestStatus: 1, requestText: changeReq.requestText)
+                            self.changeReqArray?.append(cr)
+                        }
+                    }
+                })
+                var showText = "You are about to reject the complete request".localized
+                self.status = 2
+                if self.changeReqArray?.count ?? 0 > 0 {
+                    if self.changeReqArray?.count == self.allChangeRequests?.count {
+                        showText = "You are about to accept the complete request".localized
+                        self.status = 1
+                    }else {
+                        showText = "You are about to partially accepted the change request".localized
+                        self.status = 3
                     }
                 }
+                let vc = UIAlertController(title: "Are you sure?".localized, message: showText, preferredStyle: .alert)
+                vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: {(act) in }))
+                vc.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action) in
+                    self.updateChangeRequest?(self.changeReqArray ?? [], self.status)
+                }))
+                vc.addAction(UIAlertAction(title: "Go to this enquiry chat".localized, style: .default, handler: { (action) in
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        let service = ChatListService.init(client: client)
+                        service.initiateConversation(vc: self, enquiryId: self.enquiryId)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }))
+                self.present(vc, animated: true, completion: nil)
             })
-            var showText = "You are about to reject the complete request".localized
-            self.status = 2
-            if self.changeReqArray?.count ?? 0 > 0 {
-                if self.changeReqArray?.count == self.allChangeRequests?.count {
-                    showText = "You are about to accept the complete request".localized
-                    self.status = 1
-                }else {
-                    showText = "You are about to partially accepted the change request".localized
-                    self.status = 3
-                }
-            }
-            let vc = UIAlertController(title: "Are you sure?".localized, message: showText, preferredStyle: .alert)
-            vc.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: {(act) in }))
-            vc.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action) in
-                self.updateChangeRequest?(self.changeReqArray ?? [], self.status)
-            }))
-            vc.addAction(UIAlertAction(title: "Go to this enquiry chat".localized, style: .default, handler: { (action) in
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeClient())
-                    let service = ChatListService.init(client: client)
-                    service.initiateConversation(vc: self, enquiryId: self.enquiryId)
-                }catch {
-                    print(error.localizedDescription)
-                }
-            }))
-            self.present(vc, animated: true, completion: nil)
-        })
         
         allChangeRequests?.forEach({ (changeReq) in
             changeReqTypeSection <<< CRArtisanRow() {

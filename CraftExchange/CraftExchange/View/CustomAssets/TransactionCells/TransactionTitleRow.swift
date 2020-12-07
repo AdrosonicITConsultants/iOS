@@ -44,7 +44,7 @@ class TransactionTitleRow: Cell<String>, CellType {
                 icon.image = UIImage.init(named: "Group 1840")
             }
         }else if transaction.accomplishedStatus == 20 || transaction.accomplishedStatus == 22 {
-             //Delivery Challan Upload
+            //Delivery Challan Upload
             icon.image = UIImage.init(named: "Group 1835")
         }else if transaction.accomplishedStatus == 23 {
             //Order Delivered

@@ -14,7 +14,7 @@ import RealmSwift
 
 class UserProfilePicService: BaseService<URL> {
     var userObject: User!
-
+    
     convenience init(client: SafeClient, userObject: User) {
         self.init(client: client)
         self.userObject = userObject
@@ -23,11 +23,11 @@ class UserProfilePicService: BaseService<URL> {
             _object.value = try? Disk.retrieveURL("\(prodId)/\(name)", from: .caches, as: Data.self)
         }
     }
-
+    
     override func update(_ object: URL?) {
         super.update(object)
     }
-
+    
     func fetch() -> Signal<Data, Never> {
         return User.fetchProfileImage(with: userObject.entityID, name: userObject.profilePic ?? "") .response(using: client).debug()
     }

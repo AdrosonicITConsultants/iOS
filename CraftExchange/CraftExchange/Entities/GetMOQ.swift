@@ -21,7 +21,7 @@ class GetMOQ: Object, Decodable {
     @objc dynamic var createdOn: String?
     @objc dynamic var modifiedOn: String?
     
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case moq = "moq"
@@ -35,12 +35,12 @@ class GetMOQ: Object, Decodable {
         
     }
     
-//    override class func primaryKey() -> String? {
-//        return "id"
-//
-//
-//    }
-
+    //    override class func primaryKey() -> String? {
+    //        return "id"
+    //
+    //
+    //    }
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -49,9 +49,9 @@ class GetMOQ: Object, Decodable {
         ppu = try values.decodeIfPresent(String.self, forKey: .ppu)
         deliveryTimeId = try (values.decodeIfPresent(Int.self, forKey: .deliveryTimeId) ?? 0)
         isSend = try (values.decodeIfPresent(Int.self, forKey: .isSend) ?? 0)
-         additionalInfo = try values.decodeIfPresent(String.self, forKey: .additionalInfo)
-         createdOn = try values.decodeIfPresent(String.self, forKey: .createdOn)
-         modifiedOn = try values.decodeIfPresent(String.self, forKey: .modifiedOn)
+        additionalInfo = try values.decodeIfPresent(String.self, forKey: .additionalInfo)
+        createdOn = try values.decodeIfPresent(String.self, forKey: .createdOn)
+        modifiedOn = try values.decodeIfPresent(String.self, forKey: .modifiedOn)
         
     }
 }

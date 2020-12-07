@@ -13,12 +13,12 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class ResetPasswordService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     func fetch(username: String, password: String) -> SafeSignal<Data> {
-      return User.resetPassword(username: username, password: password).response(using: client).debug()
+        return User.resetPassword(username: username, password: password).response(using: client).debug()
     }
 }

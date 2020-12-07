@@ -20,9 +20,9 @@ class EnquiryGeneratedView: UIView {
     @IBOutlet var viewEnquiryBtn: RoundedButton!
     var delegate: EnquiryGeneratedViewProtocol?
     var enquiryId: Int?
-
+    
     @IBAction func closeButtonSelected(_ sender: Any) {
-      delegate?.closeButtonSelected()
+        delegate?.closeButtonSelected()
     }
     
     @IBAction func viewEnquiryButtonSelected(_ sender: Any) {

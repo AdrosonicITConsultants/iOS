@@ -27,7 +27,7 @@ extension NotificationService {
             storyboard = UIStoryboard(name: "Tabbar", bundle: nil)
             controller = storyboard.instantiateViewController(withIdentifier: "BuyerNotificationController") as! NotificationController
         }
-       
+        
         func performSync()   {
             getAllTheNotifications().toLoadingSignal().consumeLoadingState(by: controller)
                 .bind(to: controller, context: .global(qos: .background)) { _, responseData in

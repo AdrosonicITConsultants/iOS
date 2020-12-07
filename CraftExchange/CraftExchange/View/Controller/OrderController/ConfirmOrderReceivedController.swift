@@ -175,7 +175,7 @@ extension ConfirmOrderReceivedController: SingleButtonActionProtocol, RatingInit
                 let client = try SafeClient(wrapping: CraftExchangeClient())
                 let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: orderObject, enquiryId: orderObject?.enquiryId ?? 0) as! ProvideRatingController
                 vc.orderObject = self.orderObject
-                    self.navigationController?.pushViewController(vc, animated: false)
+                self.navigationController?.pushViewController(vc, animated: false)
                 vc.navigationController!.viewControllers.remove(at: vc.navigationController!.viewControllers.count - 2)
                 vc.navigationController!.viewControllers.remove(at: vc.navigationController!.viewControllers.count - 2)
                 
@@ -185,8 +185,8 @@ extension ConfirmOrderReceivedController: SingleButtonActionProtocol, RatingInit
         }
         print("rating selected")
         
-//        self.view.hideRatingInitaitionView()
-//        self.popBack(toControllerType: OrderListController.self)
+        //        self.view.hideRatingInitaitionView()
+        //        self.popBack(toControllerType: OrderListController.self)
     }
     
     func skipBtnSelected() {

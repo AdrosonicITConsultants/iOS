@@ -16,13 +16,13 @@ protocol PartialRefundReceivedViewProtocol {
 }
 
 class PartialRefundReceivedView: UIView {
-
+    
     @IBOutlet weak var RefundCancelButton: UIButton!
     @IBOutlet weak var confirmQuestion: UILabel!
     @IBOutlet weak var enquiryCode: UILabel!
     @IBOutlet weak var RefundNoButton: RoundedButton!
     @IBOutlet weak var RefundYesButton: RoundedButton!
-     var delegate: PartialRefundReceivedViewProtocol?
+    var delegate: PartialRefundReceivedViewProtocol?
     
     @IBAction func RefundCancelButtonSelected(_ sender: Any) {
         delegate?.RefundCancelButtonSelected()
@@ -35,5 +35,5 @@ class PartialRefundReceivedView: UIView {
     @IBAction func RefundYesButtonSelected(_ sender: Any) {
         delegate?.RefundYesButtonSelected()
     }
-
+    
 }

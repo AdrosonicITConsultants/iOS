@@ -83,8 +83,8 @@ extension EnquiryDetailsService {
                 
                 let quantity = vc.viewModel.quantity.value ?? ""
                 let pricePerUnitPI = vc.viewModel.pricePerUnitPI.value ?? ""
-//                let finalamount = vc.viewModel.finalamount.value ?? ""
-//                let amountToBePaid = vc.viewModel.amountToBePaid.value ?? ""
+                //                let finalamount = vc.viewModel.finalamount.value ?? ""
+                //                let amountToBePaid = vc.viewModel.amountToBePaid.value ?? ""
                 let cgst = vc.viewModel.cgst.value ?? ""
                 let sgst = vc.viewModel.sgst.value ?? ""
                 let deliveryCharges = vc.viewModel.deliveryCharges.value ?? ""

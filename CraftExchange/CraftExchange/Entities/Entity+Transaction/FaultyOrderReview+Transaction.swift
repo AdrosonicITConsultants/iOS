@@ -49,7 +49,7 @@ extension BuyerFaultyOrder {
         if let object = realm.objects(BuyerFaultyOrder.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
                 object.comment = comment
-                 object.subComment = subComment
+                object.subComment = subComment
             }
         } else {
             try? realm.write {

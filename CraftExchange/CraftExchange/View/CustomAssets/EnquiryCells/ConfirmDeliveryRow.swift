@@ -24,7 +24,7 @@ class ConfirmDeliveryRowView: Cell<String>, CellType {
         super.setup()
         ConfirmDeliveryInitationButton.addTarget(self, action: #selector(ConfirmDeliveryInitationBtnSelected), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }

@@ -12,7 +12,7 @@ import Eureka
 
 
 class DisableCRView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var BtnCancel: RoundedButton!
     @IBOutlet weak var BtnOk: RoundedButton!
     @IBOutlet weak var Label1: UILabel!
@@ -21,7 +21,7 @@ class DisableCRView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

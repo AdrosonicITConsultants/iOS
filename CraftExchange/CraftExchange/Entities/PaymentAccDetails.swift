@@ -20,7 +20,7 @@ class PaymentAccDetails: Object, Decodable {
     @objc dynamic var ifsc: String?
     @objc dynamic var accType: Int = 0
     @objc dynamic var userId: Int = 0
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case AccNoUpiMobile = "accNo_UPI_Mobile"
@@ -35,7 +35,7 @@ class PaymentAccDetails: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)

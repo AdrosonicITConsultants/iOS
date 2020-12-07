@@ -13,8 +13,8 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class REGBuyerAddressInfoService: BaseService<Data> {
-
-  required init() {
-      super.init()
-  }
+    
+    required init() {
+        super.init()
+    }
 }

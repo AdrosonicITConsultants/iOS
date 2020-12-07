@@ -11,13 +11,13 @@ import UIKit
 
 class BuyerTabbarController: UITabBarController {
     let actionsManager = OfflineRequestManager.defaultManager
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    appDelegate?.tabbar = self
-    OfflineRequestManager.defaultManager.delegate = self
-  }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.tabbar = self
+        OfflineRequestManager.defaultManager.delegate = self
+    }
 }
 
 extension BuyerTabbarController {
@@ -29,7 +29,7 @@ extension BuyerTabbarController {
                 let nav = self.customizableViewControllers?[2] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
-              print("Unable to load view:\n\(error.localizedDescription)")
+                print("Unable to load view:\n\(error.localizedDescription)")
             }
         }else if item.title == "Enquiries".localized {
             do {
@@ -38,7 +38,7 @@ extension BuyerTabbarController {
                 let nav = self.customizableViewControllers?[1] as! UINavigationController
                 nav.setViewControllers([vc], animated: false)
             } catch let error {
-              print("Unable to load view:\n\(error.localizedDescription)")
+                print("Unable to load view:\n\(error.localizedDescription)")
             }
         }
         else if item.title == "Chat".localized {
@@ -50,7 +50,7 @@ extension BuyerTabbarController {
             } catch let error {
                 print("Unable to load view:\n\(error.localizedDescription)")
             }
-
+            
         }
     }
 }
