@@ -122,7 +122,7 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.validateFinalPayment(enquiryId: enquiryId, status: status).response(using: client).debug()
     }
     
-    func uploadDeliveryChallan(enquiryId: Int,orderDispatchDate: String, ETA: String, imageData: Data?, filename: String?)-> SafeSignal<Data>  {
+    func uploadDeliveryChallan(enquiryId: Int,orderDispatchDate: String, ETA: String, imageData: Data, filename: String)-> SafeSignal<Data>  {
         return Enquiry.uploadDeliveryChallan(enquiryId: enquiryId, orderDispatchDate: orderDispatchDate, ETA: ETA, imageData: imageData, filename: filename).response(using: client).debug()
     }
     

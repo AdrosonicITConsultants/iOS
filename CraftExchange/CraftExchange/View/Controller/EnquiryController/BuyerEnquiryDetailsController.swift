@@ -189,9 +189,9 @@ class BuyerEnquiryDetailsController: FormViewController {
             }
             
             <<< AcceptedInvoiceRow() {
-                $0.cell.height = { 120.0 }
+                $0.cell.height = { 100.0 }
                 $0.tag = "View Invoice & Approve Advance Payment"
-                if User.loggedIn()?.refRoleId == "1"  && enquiryObject!.enquiryStageId >= 3{
+                if User.loggedIn()?.refRoleId == "1"  && enquiryObject?.enquiryStageId ?? 0 >= 3{
                     $0.hidden = false
                 }
                 else {
@@ -199,16 +199,15 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
                 $0.cell.tag = 3
                 $0.cell.delegate = self
-                //
                 if (enquiryObject!.isBlue){
                     $0.cell.approvePaymentButton.isHidden = false
                 }
                 else {
                     $0.cell.approvePaymentButton.isHidden = true
-                    $0.cell.height = { 90.0 }
+                    $0.cell.height = { 50.0 }
                 }
             }.cellUpdate({ (cell, row) in
-                if self.enquiryObject!.enquiryStageId >= 3 && User.loggedIn()?.refRoleId == "1"{
+                if self.enquiryObject?.enquiryStageId  ?? 0 >= 3 && User.loggedIn()?.refRoleId == "1"{
                     cell.row.hidden = false
                 }
                 else{
@@ -220,7 +219,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 }
                 else {
                     cell.approvePaymentButton.isHidden = true
-                    cell.height = { 90.0 }
+                    cell.height = { 50.0 }
                 }
             })
             
@@ -279,11 +278,11 @@ class BuyerEnquiryDetailsController: FormViewController {
             })
             
             <<< TransactionReceiptRow() {
-                $0.cell.height = { 120.0 }
+                $0.cell.height = { 90.0 }
                 $0.cell.delegate = self
                 $0.tag = "UploadReceipt"
                 $0.cell.tag = 100
-                $0.cell.viewProformaInvoiceBtn.setTitle("View\nPro forma\nInvoice", for: .normal)
+                $0.cell.viewProformaInvoiceBtn.setTitle("View Pro forma\nInvoice", for: .normal)
                 if User.loggedIn()?.refRoleId == "1"  {
                     $0.hidden = true
                 }else if ( enquiryObject?.isPiSend == 1 || enquiryObject!.enquiryStageId >= 3) && !self.isClosed {
@@ -292,11 +291,16 @@ class BuyerEnquiryDetailsController: FormViewController {
                 else {
                     $0.hidden = true
                 }
-                if self.enquiryObject?.productStatusId == 2 || self.enquiryObject!.isBlue || enquiryObject!.enquiryStageId > 3 {
+                if self.enquiryObject?.productStatusId == 2 || enquiryObject?.enquiryStageId ?? 0 > 3 {
                     $0.cell.uploadReceiptBtn.isHidden = true
-                    $0.cell.height = { 80.0 }
+                    $0.cell.height = { 50.0 }
                 }
-            }
+            }.cellUpdate({ (cell, row) in
+                if self.enquiryObject?.productStatusId == 2 || self.enquiryObject?.enquiryStageId ?? 0 > 3 {
+                    cell.uploadReceiptBtn.isHidden = true
+                    cell.height = { 50.0 }
+                }
+            })
             
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 150.0 }
@@ -736,10 +740,10 @@ class BuyerEnquiryDetailsController: FormViewController {
     
     func reloadFormData() {
         enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
-        if self.enquiryObject?.productStatusId == 2 || self.enquiryObject!.isBlue || enquiryObject!.enquiryStageId > 3 {
+        if self.enquiryObject?.productStatusId == 2 || enquiryObject!.enquiryStageId > 3 {
             let row = form.rowBy(tag: "UploadReceipt") as? TransactionReceiptRow
             row?.cell.uploadReceiptBtn.isHidden = true
-            row?.cell.height = { 80.0 }
+            row?.cell.height = { 50.0 }
             self.form.allSections.first?.reload(with: .none)
         }
         if User.loggedIn()?.refRoleId == "1" && self.enquiryObject!.enquiryStageId >= 4  {

@@ -410,7 +410,7 @@ class InvoiceController: FormViewController{
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.text =  "SGST %".localized
-                $0.cell.valueTextField.keyboardType = .numberPad
+                $0.cell.valueTextField.keyboardType = .decimalPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 // $0.cell.compulsoryIcon.isHidden = true
@@ -418,7 +418,7 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.placeholder = "12"
                 $0.cell.valueTextField.textColor = .darkGray
                 self.viewModel.sgst.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text =  "0"
+                $0.cell.valueTextField.text =  "0.0"
                 self.viewModel.sgst.value = $0.cell.valueTextField.text
                 if self.isFI {
                     $0.cell.valueTextField.delegate = self
@@ -440,7 +440,7 @@ class InvoiceController: FormViewController{
                     $0.hidden = true
                 }
                 $0.cell.titleLabel.text =  "CGST %"
-                $0.cell.valueTextField.keyboardType = .numberPad
+                $0.cell.valueTextField.keyboardType = .decimalPad
                 $0.cell.titleLabel.textColor = .black
                 $0.cell.titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
                 //  $0.cell.compulsoryIcon.isHidden = true
@@ -448,7 +448,7 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.placeholder = "12"
                 $0.cell.valueTextField.textColor = .darkGray
                 self.viewModel.cgst.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-                $0.cell.valueTextField.text = "0"
+                $0.cell.valueTextField.text = "0.0"
                 self.viewModel.cgst.value = $0.cell.valueTextField.text
                 if self.isFI {
                     $0.cell.valueTextField.delegate = self

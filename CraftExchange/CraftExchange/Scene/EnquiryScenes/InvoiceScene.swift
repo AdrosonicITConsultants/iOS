@@ -85,8 +85,8 @@ extension EnquiryDetailsService {
                 let pricePerUnitPI = vc.viewModel.pricePerUnitPI.value ?? ""
                 //                let finalamount = vc.viewModel.finalamount.value ?? ""
                 //                let amountToBePaid = vc.viewModel.amountToBePaid.value ?? ""
-                let cgst = vc.viewModel.cgst.value ?? ""
-                let sgst = vc.viewModel.sgst.value ?? ""
+                let cgst = "\(Int(vc.viewModel.cgst.value ?? "0.0") ?? Int(Double(vc.viewModel.cgst.value ?? "0.0") ?? 1000.0))"
+                let sgst = "\(Int(vc.viewModel.sgst.value ?? "0.0") ?? Int(Double(vc.viewModel.sgst.value ?? "0.0") ?? 1000.0))"
                 let deliveryCharges = vc.viewModel.deliveryCharges.value ?? ""
                 let advancePaidAmount = vc.viewModel.advancePaidAmount.value ?? ""
                 let previousTotalAmount = vc.viewModel.previousTotalAmount.value ?? ""
@@ -97,8 +97,8 @@ extension EnquiryDetailsService {
                         if pricePerUnitPI.isValidNumber && Int(vc.viewModel.pricePerUnitPI.value!)! > 0{
                             if previousTotalAmount.isValidNumber && Int(vc.viewModel.previousTotalAmount.value!)! > 0 {
                                 if advancePaidAmount.isValidNumber{
-                                    if cgst.isValidNumber {
-                                        if sgst.isValidNumber {
+                                    if sgst.isValidNumber && sgst != "1000"{
+                                        if cgst.isValidNumber && cgst != "1000" {
                                             if deliveryCharges.isValidNumber {
                                                 if isSave == 1{
                                                     self.previewFinalInvoice(enquiryId: "\(vc.orderObject!.enquiryId)", advancePaidAmount: vc.viewModel.advancePaidAmount.value!, finalTotalAmount: Int(vc.viewModel.finalamount.value ?? "0.0") ?? 0, quantity: Int(vc.viewModel.quantity.value!)!, ppu: Int(vc.viewModel.pricePerUnitPI.value!)!, cgst: vc.viewModel.cgst.value!, sgst: vc.viewModel.sgst.value!, deliveryCharges: vc.viewModel.deliveryCharges.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
@@ -152,11 +152,11 @@ extension EnquiryDetailsService {
                                             }
                                             
                                         }else {
-                                            vc.alert("Please enter valid SGST")
+                                            vc.alert("Please enter valid CGST")
                                             vc.hideLoading()
                                         }
                                     }else {
-                                        vc.alert("Please enter valid CGST")
+                                        vc.alert("Please enter valid SGST")
                                         vc.hideLoading()
                                     }
                                     

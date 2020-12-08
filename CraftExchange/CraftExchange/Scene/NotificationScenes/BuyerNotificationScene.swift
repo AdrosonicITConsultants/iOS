@@ -81,6 +81,8 @@ extension NotificationService {
             let request = OfflineNotificationRequest(type: .markAsAllReadNotification, notificationId: 0)
             OfflineRequestManager.defaultManager.queueRequest(request)
             DispatchQueue.main.async {
+                Notifications.setAllNotificationIsDeleteTrue()
+                Notifications.deleteAllNotificationsWithIsDeleteTrue()
                 controller.allNotifications?.removeAll()
                 controller.tableView.reloadData()
                 controller.notificationCount -= 0

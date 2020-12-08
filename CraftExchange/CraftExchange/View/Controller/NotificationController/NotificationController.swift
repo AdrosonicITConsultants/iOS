@@ -58,8 +58,21 @@ class NotificationController: UIViewController {
     }
     
     @IBAction func markAllAsReadAction(_ sender: Any) {
-        markAsReadAllActions?()
+        self.sendInputActionsheet()
+    }
+    
+    func sendInputActionsheet(){
+        let alert = UIAlertController.init(title: "Are you sure".localized, message: "you want to mark all notifcations read?", preferredStyle: .actionSheet)
         
+        let save = UIAlertAction.init(title: "Mark all as read".localized, style: .default) { (action) in
+            self.markAsReadAllActions?()
+        }
+        alert.addAction(save)
+        let cancel = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
+            
+        }
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func endRefresh() {

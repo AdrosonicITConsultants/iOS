@@ -51,9 +51,10 @@ extension EnquiryDetailsService {
         }
         
         vc.uploadDeliveryReciept = {
-            if vc.viewModel.imageData.value != nil {
-                if vc.viewModel.orderDispatchDate.value != nil {
-                    self.uploadDeliveryChallan(enquiryId: enquiryId, orderDispatchDate: vc.viewModel.orderDispatchDate.value!, ETA: vc.viewModel.ETA.value!, imageData: vc.viewModel.imageData.value, filename: vc.viewModel.fileName.value).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+            if let img = vc.viewModel.imageData.value {
+                if let name = vc.viewModel.orderDispatchDate.value {
+                    Order.updateDeliveryDetails(forId: enquiryId)
+                    self.uploadDeliveryChallan(enquiryId: enquiryId, orderDispatchDate: vc.viewModel.orderDispatchDate.value!, ETA: vc.viewModel.ETA.value!, imageData: img, filename: name).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                         if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                             if json["valid"] as? Bool == true {
                                 DispatchQueue.main.async {
@@ -218,6 +219,10 @@ extension EnquiryDetailsService {
                                     
                                 }else if let controller = vc as? OrderDetailController{
                                     controller.advancePaymnet = object
+                                }else if let controller = vc as? PaymentUploadController {
+                                    controller.tobePaidAmount2 = "\(object.paidAmount)"
+                                    let row = controller.form.rowBy(tag: "EnquiryDetailsRow")
+                                    row?.reload()
                                 }
                                 
                             }

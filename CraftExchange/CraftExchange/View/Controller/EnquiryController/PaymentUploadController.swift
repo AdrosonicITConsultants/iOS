@@ -50,13 +50,17 @@ class PaymentUploadController: FormViewController{
     var uploadDeliveryReciept: (() -> ())?
     var imageReciept: ((_ typeId: Int) -> ())?
     var tobePaidAmount: String?
+    var tobePaidAmount2: String?
     var receipt: PaymentArtist?
     //    let parentVC = self.parent as? PaymentUploadController
     override func viewDidLoad() {
         super.viewDidLoad()
+        let client = try! SafeClient(wrapping: CraftExchangeClient())
+        let service = EnquiryDetailsService.init(client: client)
         if orderObject?.enquiryStageId == 8{
             imageReciept?(2)
         }else{
+            service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
             imageReciept?(1)
         }
         
@@ -93,7 +97,7 @@ class PaymentUploadController: FormViewController{
                 if orderObject?.enquiryStageId == 8{
                     $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Final amount to be paid: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
                 }else{
-                    $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "Advance amount to be paid: " + (tobePaidAmount ?? "NA") : "NA"
+                    $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "Advance amount to be paid: " + (tobePaidAmount ?? tobePaidAmount2 ?? "NA") : "NA"
                 }
                 
                 if orderObject != nil {
@@ -133,7 +137,15 @@ class PaymentUploadController: FormViewController{
                         
                     }
                 }
-            }
+            }.cellUpdate({ (cell, row) in
+                if self.orderObject?.enquiryStageId == 8{
+                    cell.amountLbl.text = self.orderObject?.totalAmount != 0 ? "Final amount to be paid: " + "\(self.finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
+                }else if self.enquiryObject?.enquiryStageId == 3{
+                    cell.amountLbl.text = self.enquiryObject?.totalAmount != 0 ? "Advance amount to be paid: " + (self.tobePaidAmount ?? self.tobePaidAmount2 ?? "NA") : "NA"
+                }else{
+                   cell.amountLbl.text = ""
+                }
+            })
             <<< LabelRow(){
                 $0.title = "Upload the Payment Receipt to Confirm".localized
                 if enquiryObject?.isBlue ?? orderObject?.isBlue ?? false {
@@ -146,7 +158,7 @@ class PaymentUploadController: FormViewController{
                 }
             }
             <<< BuyerEnquirySectionViewRow() {
-                $0.cell.height = { 44.0 }
+                $0.cell.height = { 50.0 }
                 if User.loggedIn()?.refRoleId == "2" {
                     $0.cell.titleLbl.text = "Brand: \(enquiryObject?.brandName ?? orderObject?.brandName ?? "NA")"
                 }else {
@@ -322,24 +334,24 @@ class PaymentUploadController: FormViewController{
                 $0.cell.height = { 375.0 }
                 $0.tag = "uploadReceipt"
                 $0.cell.delegate = self
-                if enquiryObject?.isBlue ?? false || enquiryObject?.enquiryStageId ?? 0 >= 4{
+                if enquiryObject?.isBlue ?? false {
                     $0.hidden = true
                 }
-                if enquiryObject?.enquiryStageId ?? 0 < 4{
-                    $0.hidden = false
-                }
-                if orderObject?.isBlue ?? false || orderObject?.enquiryStageId ?? 0 >= 4{
-                    $0.hidden = true
-                }
-                if orderObject?.enquiryStageId ?? 0 < 4{
-                    $0.hidden = false
-                }
-                if orderObject?.enquiryStageId == 8 {
-                    $0.hidden = false
-                }
+//                if enquiryObject?.enquiryStageId ?? 0 < 4{
+//                    $0.hidden = false
+//                }
                 if orderObject?.isBlue ?? false {
                     $0.hidden = true
                 }
+//                if orderObject?.enquiryStageId ?? 0 < 4{
+//                    $0.hidden = false
+//                }
+//                if orderObject?.enquiryStageId == 8 {
+//                    $0.hidden = false
+//                }
+//                if orderObject?.isBlue ?? false {
+//                    $0.hidden = true
+//                }
                 if orderObject != nil{
                     if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
                         $0.hidden = false
@@ -358,26 +370,28 @@ class PaymentUploadController: FormViewController{
                 $0.cell.Tick.layer.borderColor = #colorLiteral(red: 0.2589518452, green: 0.5749325825, blue: 0.166714282, alpha: 1)
                 $0.cell.Tick.layer.borderWidth = 2
                 $0.hidden = true
-                if enquiryObject?.isBlue ?? false || enquiryObject?.enquiryStageId ?? 0 >= 4{
+                if enquiryObject?.isBlue ?? false {
                     $0.hidden = false
-                }
-                if orderObject?.isBlue ?? false || orderObject?.enquiryStageId ?? 0 >= 4{
-                    $0.hidden = false
-                }
-                if orderObject?.enquiryStageId ?? 0 < 4{
-                    $0.hidden = true
-                }
-                if orderObject?.enquiryStageId == 8 {
-                    $0.hidden = true
                 }
                 if orderObject?.isBlue ?? false {
                     $0.hidden = false
+                    $0.cell.PleaseNoteLabel.text = "Please Note: The Invoice will be updated"
+                    $0.cell.EnquiryLabel.text = "Order will be dispatched once payment is approved. check orders tab"
                 }
-                if orderObject != nil{
-                    if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
-                        $0.hidden = true
-                    }
-                }
+//                if orderObject?.enquiryStageId ?? 0 < 4{
+//                    $0.hidden = true
+//                }
+//                if orderObject?.enquiryStageId == 8 {
+//                    $0.hidden = true
+//                }
+//                if orderObject?.isBlue ?? false {
+//                    $0.hidden = false
+//                }
+//                if orderObject != nil{
+//                    if orderObject!.enquiryStageId >= 9 && orderObject?.deliveryChallanUploaded != 1{
+//                        $0.hidden = true
+//                    }
+//                }
                 
         }
     }

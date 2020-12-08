@@ -34,6 +34,17 @@ extension Order {
         }
     }
     
+   static func updateDeliveryDetails(forId: Int) {
+       let realm = try? Realm()
+       if let results = realm?.objects(Order.self).filter("%K == %@", "entityID", forId) {
+           try? realm?.write {
+               results .forEach { (obj) in
+                obj.isDelivery = true
+               }
+           }
+       }
+   }
+    
     func updateArtistDetails(blue: Bool, user: Int, accDetails: [PaymentAccDetails], catIds:[Int], cluster: String) {
         let realm = try! Realm()
         if let object = realm.objects(Order.self).filter("%K == %@", "entityID", self.entityID).first {

@@ -533,7 +533,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.createSendInvoiceBtn.setTitle("Upload delivery receipt".localized, for: .normal)
                 $0.hidden = true
                 if orderObject?.enquiryStageId != nil {
-                    if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                    if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 && !(self.orderObject?.isDelivery ?? false){
                         $0.hidden = false
                     }
                     
@@ -542,7 +542,7 @@ class OrderDetailController: FormViewController {
             }
             .cellUpdate({ (cell, row) in
                 if self.orderObject?.enquiryStageId != nil {
-                    if (self.orderObject?.enquiryStageId)! >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                    if (self.orderObject?.enquiryStageId)! >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 && !(self.orderObject?.isDelivery ?? false){
                         cell.row.hidden = false
                     }
                     else{
@@ -1114,7 +1114,7 @@ class OrderDetailController: FormViewController {
             self.form.allSections.first?.reload(with: .none)
         }
         if self.orderObject?.enquiryStageId != nil {
-            if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+            if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 && !(self.orderObject?.isDelivery ?? false) {
                 let row = form.rowBy(tag: "Upload delivery receipt")
                 row?.hidden = false
                 row?.evaluateHidden()

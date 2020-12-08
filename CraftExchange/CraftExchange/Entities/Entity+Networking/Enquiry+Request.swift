@@ -444,7 +444,7 @@ extension Enquiry {
         
     }
     
-    public static func uploadDeliveryChallan(enquiryId: Int,orderDispatchDate: String, ETA: String, imageData: Data?, filename: String?) -> Request<Data, APIError> {
+    public static func uploadDeliveryChallan(enquiryId: Int,orderDispatchDate: String, ETA: String, imageData: Data, filename: String) -> Request<Data, APIError> {
         var str = "enquiry/submitDeliveryChallan?enquiryId=\(enquiryId)&orderDispatchDate=\(orderDispatchDate)&ETA=\(ETA)"
         //           if ETA == "0"{
         //               str = "enquiry/submitDeliveryChallan?enquiryId=\(enquiryId)&orderDispatchDate=\(orderDispatchDate)"
@@ -454,11 +454,11 @@ extension Enquiry {
         let content = imageData
         let filename = filename
         let boundary = "\(UUID().uuidString)"
-        let dataLength = content!.count
+        let dataLength = content.count
         let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")", "accept": "application/json","Content-Type": "multipart/form-data; boundary=\(boundary)",
             "Content-Length": String(dataLength) ]
         
-        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content!, mimeType: "application/octet-stream", filename: filename!, param: "file")
+        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "file")
         
         return Request(
             path: str,
