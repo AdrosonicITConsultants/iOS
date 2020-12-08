@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -836,9 +836,6 @@
                                     <outlet property="delegate" destination="GhB-Hv-cDM" id="KY1-Fd-ft4"/>
                                 </connections>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ios - back 0 enq " translatesAutoresizingMaskIntoConstraints="NO" id="6rg-zg-RQT">
-                                <rect key="frame" x="0.0" y="293" width="414" height="520"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dh5-eO-B3H">
                                 <rect key="frame" x="364" y="243" width="30" height="30"/>
                                 <constraints>
@@ -848,34 +845,41 @@
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="list.bullet.indent" catalog="system"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Enquiries Present" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inW-zU-v5U">
+                                <rect key="frame" x="0.0" y="293" width="414" height="520"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6rg-zg-RQT" firstAttribute="trailing" secondItem="LRJ-iq-8v3" secondAttribute="trailing" id="4eU-ev-uft"/>
                             <constraint firstItem="LRJ-iq-8v3" firstAttribute="trailing" secondItem="qMo-gr-ana" secondAttribute="trailing" constant="20" id="5Bu-QK-GzW"/>
                             <constraint firstItem="dh5-eO-B3H" firstAttribute="top" secondItem="qMo-gr-ana" secondAttribute="bottom" constant="20" id="8WG-Ha-grR"/>
                             <constraint firstItem="dKP-hS-mkT" firstAttribute="top" secondItem="LRJ-iq-8v3" secondAttribute="top" constant="20" id="9Zk-ss-VQY"/>
                             <constraint firstItem="LRJ-iq-8v3" firstAttribute="trailing" secondItem="dh5-eO-B3H" secondAttribute="trailing" constant="20" id="B9o-c4-lMk"/>
-                            <constraint firstItem="6rg-zg-RQT" firstAttribute="top" secondItem="K7P-Eq-J6f" secondAttribute="bottom" constant="20" id="D0D-FN-ga4"/>
                             <constraint firstItem="qMo-gr-ana" firstAttribute="leading" secondItem="LRJ-iq-8v3" secondAttribute="leading" constant="20" id="Fa2-Y2-1gn"/>
                             <constraint firstItem="K7P-Eq-J6f" firstAttribute="top" secondItem="qMo-gr-ana" secondAttribute="bottom" constant="20" id="KIT-l6-Lju"/>
                             <constraint firstItem="snc-zp-0ui" firstAttribute="bottom" secondItem="LRJ-iq-8v3" secondAttribute="bottom" id="L63-Ga-o3Q"/>
                             <constraint firstItem="dh5-eO-B3H" firstAttribute="leading" secondItem="K7P-Eq-J6f" secondAttribute="trailing" constant="20" id="Qhq-yC-ufY"/>
                             <constraint firstItem="qMo-gr-ana" firstAttribute="top" secondItem="dKP-hS-mkT" secondAttribute="bottom" constant="15" id="RET-vP-nB9"/>
-                            <constraint firstItem="6rg-zg-RQT" firstAttribute="bottom" secondItem="LRJ-iq-8v3" secondAttribute="bottom" id="SXg-jW-crq"/>
+                            <constraint firstItem="inW-zU-v5U" firstAttribute="bottom" secondItem="LRJ-iq-8v3" secondAttribute="bottom" id="XJj-qr-XJZ"/>
                             <constraint firstItem="dKP-hS-mkT" firstAttribute="leading" secondItem="LRJ-iq-8v3" secondAttribute="leading" constant="20" id="Ysi-F1-81a"/>
                             <constraint firstItem="snc-zp-0ui" firstAttribute="trailing" secondItem="LRJ-iq-8v3" secondAttribute="trailing" id="eBM-uJ-7Wv"/>
+                            <constraint firstItem="inW-zU-v5U" firstAttribute="top" secondItem="K7P-Eq-J6f" secondAttribute="bottom" constant="20" id="fcC-xW-iYg"/>
                             <constraint firstItem="snc-zp-0ui" firstAttribute="top" secondItem="K7P-Eq-J6f" secondAttribute="bottom" constant="20" id="hCL-Pj-s6h"/>
                             <constraint firstItem="LRJ-iq-8v3" firstAttribute="trailing" secondItem="dKP-hS-mkT" secondAttribute="trailing" constant="20" id="mLG-TN-cBh"/>
                             <constraint firstItem="snc-zp-0ui" firstAttribute="leading" secondItem="LRJ-iq-8v3" secondAttribute="leading" id="mnC-76-ffu"/>
                             <constraint firstItem="K7P-Eq-J6f" firstAttribute="leading" secondItem="LRJ-iq-8v3" secondAttribute="leading" constant="20" id="nYP-bf-SCo"/>
-                            <constraint firstItem="6rg-zg-RQT" firstAttribute="leading" secondItem="LRJ-iq-8v3" secondAttribute="leading" id="wiZ-jZ-TsK"/>
+                            <constraint firstItem="inW-zU-v5U" firstAttribute="trailing" secondItem="LRJ-iq-8v3" secondAttribute="trailing" id="rQk-7f-iVI"/>
+                            <constraint firstItem="inW-zU-v5U" firstAttribute="leading" secondItem="LRJ-iq-8v3" secondAttribute="leading" id="zB5-T0-Sjo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LRJ-iq-8v3"/>
                     </view>
                     <navigationItem key="navigationItem" id="x5o-e4-vdk"/>
                     <connections>
-                        <outlet property="emptyView" destination="6rg-zg-RQT" id="3TU-cd-peM"/>
+                        <outlet property="emptyView" destination="inW-zU-v5U" id="skX-rk-lUw"/>
                         <outlet property="segmentView" destination="qMo-gr-ana" id="Txf-VE-kfB"/>
                         <outlet property="tableView" destination="snc-zp-0ui" id="gy2-HL-1tH"/>
                     </connections>
@@ -1309,7 +1313,6 @@
         <image name="exclamationmark.circle.fill" catalog="system" width="64" height="60"/>
         <image name="home-antaran-design" width="657" height="384"/>
         <image name="home-artist-self-design" width="169" height="71"/>
-        <image name="ios - back 0 enq " width="287" height="287"/>
         <image name="ios-blink heart" width="53" height="53"/>
         <image name="ios-explore" width="13" height="13"/>
         <image name="ios-hi-take it" width="331" height="251"/>
