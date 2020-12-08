@@ -13,6 +13,7 @@ import RealmSwift
 class TransactionObject: Object, Decodable {
     @objc dynamic var id: String?
     @objc dynamic var entityID: Int = 0
+    @objc dynamic var userID: Int = 0
     @objc dynamic var challanId: Int = 0
     @objc dynamic var accomplishedStatus: Int = 0
     @objc dynamic var enquiryId: Int = 0

@@ -42,6 +42,7 @@ extension TransactionService {
                                                 transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
                                                 transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
                                                 transactionObj.saveOrUpdate()
+                                                transactionObj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0)
                                                 finalArray.append(transactionObj.enquiryId)
                                                 if finalArray.count == array.count {
                                                     controller.endRefresh()

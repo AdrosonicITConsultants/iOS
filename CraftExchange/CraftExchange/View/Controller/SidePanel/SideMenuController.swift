@@ -177,9 +177,11 @@ class SideMenuController: FormViewController {
                 row.cell.imageView?.image = UIImage(named: "ios_help")
                 row.cell.height = { 56.0 }
             }.onCellSelection { (cell, row) in
+//                self.alert("For any support","please write to us at craftxchange.tatatrusts@gmail.com" )
                 self.dismiss(animated: true, completion: {
+                    
                     do {
-                        self.getNavBar()?.topViewController?.didTapFAQButton(tag: 1)
+                        self.getNavBar()?.topViewController?.didTapFAQButton(tag: 2)
                         
                     } catch let error {
                         print("Unable to load view:\n\(error.localizedDescription)")

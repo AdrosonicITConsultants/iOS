@@ -104,8 +104,8 @@
 /* Class = "UILabel"; text = "Browse the latest collection of"; ObjectID = "od1-jO-7LF"; */
 "od1-jO-7LF.text" = "Browse the latest collection of";
 
-/* Class = "UILabel"; text = "Antaran Co Design Collection"; ObjectID = "od3-TO-fte"; */
-"od3-TO-fte.text" = "Antaran Co Design Collection";
+/* Class = "UILabel"; text = "Antaran Co Design"; ObjectID = "od3-TO-fte"; */
+"od3-TO-fte.text" = "Antaran Co Design";
 
 /* Class = "UIButton"; normalTitle = "Mark all as read"; ObjectID = "qif-mx-DT5"; */
 "qif-mx-DT5.normalTitle" = "Mark all as read";

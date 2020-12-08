@@ -20,6 +20,15 @@ extension TransactionObject {
         return object
     }
     
+    func updateAddonDetails(userID: Int) {
+        let realm = try! Realm()
+        if let object = realm.objects(TransactionObject.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                object.userID = userID
+            }
+        }
+    }
+    
     static func getTransactionObjects(searchId: Int) -> Results<TransactionObject> {
         let realm = try! Realm()
         let object = realm.objects(TransactionObject.self).filter("%K == %@", "enquiryId", searchId).sorted(byKeyPath: "modifiedOn")

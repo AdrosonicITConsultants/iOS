@@ -449,17 +449,8 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" image="card_bg_1" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-hL-dXA">
                                                 <rect key="frame" x="0.0" y="1" width="254" height="118"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brocades of Benaras" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8I-e2-DJo">
-                                                <rect key="frame" x="20" y="15" width="214" height="26"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="jcB-kZ-hFx"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="23"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beautifully handcrafted collection from Varanasi’s traditional handlooms, spun to the sound of holy Ganga river." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ol2-bG-daB">
-                                                <rect key="frame" x="20" y="56" width="224" height="59"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Direct connect with the artisan. A platform to enable a sustainable exchange of craftsmanship reaching the right people." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ol2-bG-daB">
+                                                <rect key="frame" x="15" y="15" width="224" height="90"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -467,16 +458,13 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstItem="P8I-e2-DJo" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="leading" constant="20" id="AGT-po-8j3"/>
-                                            <constraint firstItem="ol2-bG-daB" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="leading" constant="20" id="BXr-0x-EUn"/>
+                                            <constraint firstItem="ol2-bG-daB" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="leading" constant="15" id="BXr-0x-EUn"/>
                                             <constraint firstItem="Ecx-hL-dXA" firstAttribute="top" secondItem="sOZ-eI-E9p" secondAttribute="top" constant="1" id="C7w-6g-DYa"/>
-                                            <constraint firstAttribute="trailing" secondItem="P8I-e2-DJo" secondAttribute="trailing" constant="20" id="EWn-4S-LxT"/>
+                                            <constraint firstItem="ol2-bG-daB" firstAttribute="top" secondItem="sOZ-eI-E9p" secondAttribute="top" constant="15" id="PN2-0I-3Y5"/>
                                             <constraint firstItem="Ecx-hL-dXA" firstAttribute="leading" secondItem="sOZ-eI-E9p" secondAttribute="leading" id="XO0-bZ-Sia"/>
-                                            <constraint firstAttribute="bottom" secondItem="ol2-bG-daB" secondAttribute="bottom" constant="5" id="cUv-VY-Uh0"/>
-                                            <constraint firstItem="P8I-e2-DJo" firstAttribute="top" secondItem="sOZ-eI-E9p" secondAttribute="top" constant="15" id="dgG-fI-wRR"/>
-                                            <constraint firstItem="ol2-bG-daB" firstAttribute="top" secondItem="P8I-e2-DJo" secondAttribute="bottom" constant="15" id="faj-DY-0Yt"/>
+                                            <constraint firstAttribute="bottom" secondItem="ol2-bG-daB" secondAttribute="bottom" constant="15" id="cUv-VY-Uh0"/>
                                             <constraint firstAttribute="bottom" secondItem="Ecx-hL-dXA" secondAttribute="bottom" constant="1" id="jVe-RE-3eT"/>
-                                            <constraint firstAttribute="trailing" secondItem="ol2-bG-daB" secondAttribute="trailing" constant="10" id="ypW-pz-mA8"/>
+                                            <constraint firstAttribute="trailing" secondItem="ol2-bG-daB" secondAttribute="trailing" constant="15" id="ypW-pz-mA8"/>
                                             <constraint firstAttribute="trailing" secondItem="Ecx-hL-dXA" secondAttribute="trailing" id="zuO-KM-mO3"/>
                                         </constraints>
                                     </view>
@@ -595,7 +583,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Cq6-bf-nZ4">
                                                 <rect key="frame" x="15" y="71" width="147" height="71"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <state key="normal" title="Antaran co-design collection">
+                                                <state key="normal" title="Antaran co-design">
                                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -747,7 +735,6 @@
                         <outlet property="cardBg1" destination="Ecx-hL-dXA" id="8Q7-0Q-gJF"/>
                         <outlet property="cardBg2" destination="jnN-ft-Zpb" id="iLj-mw-Dj5"/>
                         <outlet property="cardText" destination="ol2-bG-daB" id="w3i-Gv-g2u"/>
-                        <outlet property="cardTitle" destination="P8I-e2-DJo" id="ZxY-k2-g9v"/>
                         <outlet property="customDesignButton" destination="Lcj-dI-h1s" id="KI6-XX-v1F"/>
                         <outlet property="loggedInUserName" destination="CFS-hb-Jhu" id="CCd-tz-OSR"/>
                         <outlet property="notificationButton" destination="f5N-yE-UHz" id="aSK-HJ-NSO"/>
@@ -989,7 +976,7 @@
                                             <constraint firstAttribute="height" constant="55" id="xIo-il-xC2"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Antaran Co Design Collection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="od3-TO-fte">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Antaran Co Design" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="od3-TO-fte">
                                         <rect key="frame" x="90" y="17" width="304" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="4tg-a3-AJT"/>

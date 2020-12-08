@@ -54,12 +54,12 @@ class DesignCollectionController: UIViewController {
         categoryCollection.register(UINib(nibName: "CategoryBrandCell", bundle: nil), forCellWithReuseIdentifier: "CategoryBrandCell")
         
         if madeByAntaran == true {
-            createdByLbl.text = "Antaran Co Design Collection".localized
+            createdByLbl.text = "Antaran Co Design".localized
             madeByImage.image = UIImage.init(named: "iosAntaranSelfDesign")
             collectionSegment.buttonTitles = "Regions, Categories"
         }else {
             createdByView.backgroundColor = .lightGray
-            createdByLbl.text = "Artisan Self Design Collection".localized
+            createdByLbl.text = "Artisan Self Design".localized
             madeByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
             collectionSegment.buttonTitles = "Regions, Categories, Artisan Brands"
         }

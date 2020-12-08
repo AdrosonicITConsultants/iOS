@@ -314,7 +314,15 @@ extension UIView {
             initiationView?.delegate = controller as? TransactionReceiptViewProtocol
             initiationView?.tag = 130
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+//            let safeAreaTop: CGFloat
+//
+//            if #available(iOS 11.0, *) {
+//                safeAreaTop = controller.view.safeAreaInsets.top
+//            } else {
+//                safeAreaTop = controller.topLayoutGuide.length
+//            }
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x:0, y:0, width: self.frame.width, height: self.frame.height)
             self.bringSubviewToFront(initiationView!)
         }
     }

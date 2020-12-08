@@ -32,7 +32,6 @@ extension HomeScreenService {
                 self.fetchClusterData(vc: vc)
                 self.fetchProductUploadData(vc: vc)
                 self.fetchEnquiryStateData(vc: vc)
-                self.fetchNotification(vc: vc)
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
                 self.fetchChangeRequestData(vc: vc)
@@ -92,6 +91,7 @@ extension HomeScreenService {
             }
             
             vc.viewModel.viewWillAppear = {
+                 self.fetchNotification(vc: vc)
                 guard vc.reachabilityManager?.connection != .unavailable else {
                     DispatchQueue.main.async {
                         vc.dataSource = Product().getAllProductCatForUser()
@@ -368,7 +368,7 @@ extension HomeScreenService {
                 self.fetchClusterData(vc: vc)
                 self.fetchProductUploadData(vc: vc)
                 self.fetchEnquiryStateData(vc: vc)
-                self.fetchNotification(vc: vc)
+              //  self.fetchNotification(vc: vc)
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
                 self.fetchChangeRequestData(vc: vc)
@@ -422,6 +422,7 @@ extension HomeScreenService {
             }
             
             vc.viewModel.viewWillAppear = {
+                self.fetchNotification(vc: vc)
                 let service = WishlistService.init(client: self.client)
                 service.fetchAllWishlistProducts().observeNext { (attachment) in
                     if let json = try? JSONSerialization.jsonObject(with: attachment, options: .allowFragments) as? [String: Any] {

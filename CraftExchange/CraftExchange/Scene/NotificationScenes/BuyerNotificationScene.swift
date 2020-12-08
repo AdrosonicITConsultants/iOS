@@ -83,6 +83,7 @@ extension NotificationService {
             DispatchQueue.main.async {
                 Notifications.setAllNotificationIsDeleteTrue()
                 Notifications.deleteAllNotificationsWithIsDeleteTrue()
+                UIApplication.shared.applicationIconBadgeNumber = 0
                 controller.allNotifications?.removeAll()
                 controller.tableView.reloadData()
                 controller.notificationCount -= 0
