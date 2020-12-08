@@ -52,6 +52,18 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
     var messageObject = [MessageType]()
     var Bubble: TypingBubble?
     var user: User?
+    var escalationBtn: UIButton {
+        let btn = UIButton.init(type: .custom)
+        btn.frame = CGRect.init(x: 0, y: 0, width: UIScreen().bounds.width, height: 60)
+        btn.layer.borderColor = UIColor.white.cgColor
+        btn.layer.borderWidth = 5
+        btn.setTitle("Raise New Escalation", for: .normal)
+        btn.addTarget(self, action: #selector(presentInputActionsheet), for: .touchUpInside)
+        return btn
+    }
+    override var inputAccessoryView: UIView {
+        return escalationBtn
+    }
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var imageButton: UIButton!
@@ -82,7 +94,6 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
         messageInputBar.delegate = self
         messages = []
         
-        
         definesPresentationContext = false
         self.setupSideMenu(true)
         let center = NotificationCenter.default
@@ -92,14 +103,14 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
         
     }
     
-    private func presentInputActionsheet(){
+    @objc private func presentInputActionsheet(){
         let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
         
         if let escalationCategories = realm?.objects(EscalationCategory.self).filter("%K IN %@","id", catId) {
             
             for category in escalationCategories {
                 let change = UIAlertAction.init(title: category.category, style: .default) { (action) in
-                    self.sendInputActionsheet(mediaName: category.category, mediaId: category.id)
+                    self.sendInputActionsheet(mediaName: category.category ?? "Others", mediaId: category.id)
                 }
                 alert.addAction(change)
             }
@@ -112,25 +123,67 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
         self.present(alert, animated: true, completion: nil)
     }
     
-    func sendInputActionsheet(mediaName: String?, mediaId: Int){
-        let alert = UIAlertController.init(title: "Are you sure", message: "you want to send as " + mediaName! + "?", preferredStyle: .actionSheet)
-        
-        let save = UIAlertAction.init(title: "Send", style: .default) { (action) in
-            self.sendEscalationMessage?(self.chatObj.enquiryId, mediaId, KeychainManager.standard.userID!, self.chatObj.buyerId, self.viewModel.messageString.value!)
+    let textView = UITextView(frame: CGRect.zero)
+    func sendInputActionsheet(mediaName: String, mediaId: Int){
+        let alertController = UIAlertController(title: "\(mediaName) \n\n\n\n\n", message: nil, preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
+            alertController.view.removeObserver(self, forKeyPath: "bounds")
+            self.textView.text = ""
         }
-        alert.addAction(save)
-        
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
-            self.messagesCollectionView.scrollToBottom(animated: true)
+        alertController.addAction(cancelAction)
+
+        let saveAction = UIAlertAction(title: "Raise Escalation".localized, style: .default) { (action) in
+            if let enteredText = self.textView.text, enteredText.isNotBlank {
+                alertController.view.removeObserver(self, forKeyPath: "bounds")
+                self.confirmAction("Are you sure?".localized, "you want to send as " + mediaName + "?", confirmedCallback: { (action) in
+                    self.sendEscalationMessage?(self.chatObj.enquiryId, mediaId, KeychainManager.standard.userID!, self.chatObj.buyerId, enteredText)
+                    self.textView.text = ""
+                }) { (action) in
+                    self.textView.text = ""
+                }
+            }else {
+                self.alert("Error","Please enter escaltion details.")
+            }
         }
-        alert.addAction(cancel)
-        
-        self.present(alert, animated: true, completion: nil)
+        alertController.addAction(saveAction)
+
+        alertController.view.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
+        textView.backgroundColor = UIColor.white
+        textView.textContainerInset = UIEdgeInsets.init(top: 8, left: 5, bottom: 8, right: 5)
+        textView.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
+
+        alertController.view.addSubview(self.textView)
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "bounds"{
+            if let rect = (change?[NSKeyValueChangeKey.newKey] as? NSValue)?.cgRectValue {
+                let margin: CGFloat = 8
+                let xPos = rect.origin.x + margin
+                let yPos = rect.origin.y + 54
+                let width = rect.width - 2 * margin
+                let height: CGFloat = 90
+
+                textView.frame = CGRect.init(x: xPos, y: yPos, width: width, height: height)
+            }
+        }
+    }
+    
+    @objc func tapDone(sender: Any) {
+//       self.view.endEditing(true)
+        textView.resignFirstResponder()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+        self.tabBarController!.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController!.tabBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -380,4 +433,3 @@ extension ChatEscalationController: MessageCellDelegate, ChatEscalationHeaderVie
     }
     
 }
-
