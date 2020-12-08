@@ -54,14 +54,17 @@
                     <color key="textColor" red="0.1647058824" green="0.38431372549999998" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can find this MOQ in Ongoing Enquiry under Enquiries tab to track your Enquiry" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mve-ct-Jh2">
-                    <rect key="frame" x="20" y="387" width="374" height="41"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have accepted the MOQ. For further discussion and negotiation use Chat box option in the app." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mve-ct-Jh2">
+                    <rect key="frame" x="20" y="377" width="374" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="xg1-ju-FsH"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Yo-z7-xG1" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
-                    <rect key="frame" x="50" y="468" width="314" height="45"/>
+                    <rect key="frame" x="50" y="473" width="314" height="45"/>
                     <color key="backgroundColor" red="0.63566782994923865" green="0.17098710925494395" blue="0.34981331640324426" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="Faz-av-IiY"/>
@@ -99,7 +102,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEI-RY-ngZ" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
-                    <rect key="frame" x="157" y="543" width="100" height="36"/>
+                    <rect key="frame" x="157" y="548" width="100" height="36"/>
                     <color key="backgroundColor" red="0.1647058824" green="0.38431372549999998" blue="0.79607843140000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="khb-7X-f7i"/>
@@ -131,7 +134,7 @@
                 <constraint firstItem="ioH-8e-YHa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="9cY-YX-kEe"/>
                 <constraint firstItem="ioH-8e-YHa" firstAttribute="top" secondItem="KFh-AG-5Up" secondAttribute="bottom" constant="20" id="9x2-Y7-9bv"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ioH-8e-YHa" secondAttribute="trailing" constant="20" id="Bq4-Iw-S5f"/>
-                <constraint firstItem="5Yo-z7-xG1" firstAttribute="top" secondItem="Mve-ct-Jh2" secondAttribute="bottom" constant="40" id="DqW-tt-UvP"/>
+                <constraint firstItem="5Yo-z7-xG1" firstAttribute="top" secondItem="Mve-ct-Jh2" secondAttribute="bottom" constant="31" id="DqW-tt-UvP"/>
                 <constraint firstItem="hN9-K6-M1t" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Fj5-Ea-Cbj"/>
                 <constraint firstItem="6yZ-eR-zCv" firstAttribute="top" secondItem="nIK-bd-w0e" secondAttribute="bottom" constant="10" id="Fqe-xh-AOY"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KFh-AG-5Up" secondAttribute="trailing" constant="20" id="GPK-7N-wRu"/>
@@ -143,7 +146,7 @@
                 <constraint firstItem="EF5-CT-Vve" firstAttribute="leading" secondItem="nIK-bd-w0e" secondAttribute="trailing" constant="5" id="Npa-f2-CPU"/>
                 <constraint firstItem="Mve-ct-Jh2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Oq9-ys-C8D"/>
                 <constraint firstItem="Go3-Ug-eIV" firstAttribute="top" secondItem="hN9-K6-M1t" secondAttribute="bottom" constant="10" id="UZJ-Eb-z1x"/>
-                <constraint firstItem="Mve-ct-Jh2" firstAttribute="top" secondItem="Go3-Ug-eIV" secondAttribute="bottom" constant="30" id="Xon-Ya-Uti"/>
+                <constraint firstItem="Mve-ct-Jh2" firstAttribute="top" secondItem="Go3-Ug-eIV" secondAttribute="bottom" constant="20" id="Xon-Ya-Uti"/>
                 <constraint firstItem="dQF-VG-pxO" firstAttribute="leading" secondItem="6yZ-eR-zCv" secondAttribute="trailing" constant="5" id="atQ-p2-dvh"/>
                 <constraint firstItem="6yZ-eR-zCv" firstAttribute="top" secondItem="nIK-bd-w0e" secondAttribute="bottom" constant="10" id="bhm-FW-6Ct"/>
                 <constraint firstItem="5Yo-z7-xG1" firstAttribute="centerX" secondItem="Mve-ct-Jh2" secondAttribute="centerX" id="brb-DS-41W"/>

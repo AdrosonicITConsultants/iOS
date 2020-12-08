@@ -89,7 +89,7 @@ class TransactionListController: UIViewController {
     }
     
     func setData() {
-        allTransactions = TransactionObject.getAllTransactionObjects().sorted(byKeyPath: "modifiedOn", ascending: false)
+        allTransactions = TransactionObject.getAllTransactionObjects().filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).sorted(byKeyPath: "modifiedOn", ascending: false)
         if selectedFilter != 0{
             if selectedFilter == 1 {
                 //P ID

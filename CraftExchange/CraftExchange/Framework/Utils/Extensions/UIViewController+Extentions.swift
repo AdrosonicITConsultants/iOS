@@ -154,14 +154,20 @@ extension UIViewController : OpenAttachmentViewProtocol {
         var url = ""
         if tag == 1 {
             url = KeychainManager.standard.faqBaseURL + "/documents/PRIVACY%20POLICY.pdf"
+            self.view.showOpenFAQView(controller: self, data: url)
         } else if tag == 2 {
             url = KeychainManager.standard.faqBaseURL + "/documents/LEGAL%20DISCLAIMER.pdf"
+            self.view.showOpenFAQView(controller: self, data: url)
         } else if tag == 3 {
             url = KeychainManager.standard.faqBaseURL + "/documents/TERMS_and_CONDITIONS.pdf"
+            self.view.showOpenFAQView(controller: self, data: url)
         } else if tag == 4 {
-            url = KeychainManager.standard.faqBaseURL + "/documents/Help.pdf"
+            alert("For any help","please write to us at craftxchange.tatatrusts@gmail.com" )
+          //  alert("For any help, please write to us at craftxchange.tatatrusts@gmail.com")
+//            url = KeychainManager.standard.faqBaseURL + "/documents/Help.pdf"
+//            self.view.showOpenFAQView(controller: self, data: url)
         }
-        self.view.showOpenFAQView(controller: self, data: url)
+        
         
         if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
             initialView.fromFaq = true

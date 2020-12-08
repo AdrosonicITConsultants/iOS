@@ -82,11 +82,11 @@ class BuyerHomeController: UIViewController {
                                     }
                                 }.resume()
                             }
-                            if let cardTitleText = acf["card_title"] as? String{
-                                DispatchQueue.main.async {
-                                    self.cardTitle.text = cardTitleText
-                                }
-                            }
+//                            if let cardTitleText = acf["card_title"] as? String{
+//                                DispatchQueue.main.async {
+//                                    self.cardTitle.text = cardTitleText
+//                                }
+//                            }
                             if let cardInfo = acf["card_para"] as? String{
                                 DispatchQueue.main.async {
                                     print(cardInfo)

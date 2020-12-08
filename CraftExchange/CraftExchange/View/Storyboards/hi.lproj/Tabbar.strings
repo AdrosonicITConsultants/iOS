@@ -104,8 +104,8 @@
 /* Class = "UILabel"; text = "Browse the latest collection of"; ObjectID = "od1-jO-7LF"; */
 "od1-jO-7LF.text" = "के नवीनतम संग्रह को ब्राउज़ करें";
 
-/* Class = "UILabel"; text = "Antaran Co Design Collection"; ObjectID = "od3-TO-fte"; */
-"od3-TO-fte.text" = "अंतरण सह-डिज़ाइन संग्रह";
+/* Class = "UILabel"; text = "Antaran Co Design"; ObjectID = "od3-TO-fte"; */
+"od3-TO-fte.text" = "अंतरण सह-डिज़ाइन";
 
 /* Class = "UIButton"; normalTitle = "Mark all as read"; ObjectID = "qif-mx-DT5"; */
 "qif-mx-DT5.normalTitle" = "सभी को पढ़ा हुआ मार्क करें";
