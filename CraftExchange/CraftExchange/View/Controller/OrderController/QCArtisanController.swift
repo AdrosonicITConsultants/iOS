@@ -73,8 +73,10 @@ class QCArtisanController: FormViewController {
             +++ stageSection
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "QCRevised"), object: nil, queue: .main) { (notif) in
-            self.hideLoading()
-            self.navigationController?.popViewController(animated: true)
+            let qcSec = self.form.sectionBy(tag: "QCSection")
+            qcSec?.removeAll()
+            self.showSection = nil
+            self.viewWillAppear?()
         }
     }
     
@@ -84,8 +86,8 @@ class QCArtisanController: FormViewController {
     }
     
     func reloadData() {
+        self.hideLoading()
         guard let stageSection = self.form.sectionBy(tag: "QCSection") else {
-            
             return }
         if orderQCStageId == 0 {
             showSection = "0"

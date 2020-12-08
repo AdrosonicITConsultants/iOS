@@ -29,7 +29,7 @@ class BuyerEnquiryListController: UIViewController {
     let realm = try? Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentView: WMSegment!
-    @IBOutlet weak var emptyView: UIImageView!
+    @IBOutlet weak var emptyView: UILabel!
     var viewWillAppear: (() -> ())?
     
     override func viewDidLoad() {
@@ -92,6 +92,7 @@ class BuyerEnquiryListController: UIViewController {
         }
         
         emptyView.isHidden = allEnquiries?.count == 0 ? false : true
+        emptyView.text = segmentView.selectedSegmentIndex == 0 ? "No Ongoing Enquiries Present".localized : "No Completed Enquiries Present".localized
         self.hideLoading()
         self.tableView.reloadData()
     }

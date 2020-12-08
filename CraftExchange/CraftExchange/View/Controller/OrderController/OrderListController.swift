@@ -30,7 +30,7 @@ class OrderListController: UIViewController {
     let realm = try? Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentView: WMSegment!
-    @IBOutlet weak var emptyView: UIImageView!
+    @IBOutlet weak var emptyView: UILabel!
     var viewWillAppear: (() -> ())?
     
     override func viewDidLoad() {
@@ -59,11 +59,6 @@ class OrderListController: UIViewController {
         }
         tableView.refreshControl?.beginRefreshing()
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
-        if User.loggedIn()?.refRoleId == "1" {
-            self.emptyView.image = UIImage.init(named: "no-order-artisan")
-        }else {
-            self.emptyView.image = UIImage.init(named: "no-order-buyer")
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,6 +95,7 @@ class OrderListController: UIViewController {
             }
         }
         emptyView.isHidden = allOrders?.count == 0 ? false : true
+        emptyView.text = segmentView.selectedSegmentIndex == 0 ? "No Ongoing Orders Present".localized : "No Completed Orders Present".localized
         self.hideLoading()
         self.tableView.reloadData()
     }
