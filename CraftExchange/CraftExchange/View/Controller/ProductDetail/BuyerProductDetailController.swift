@@ -298,10 +298,24 @@ class BuyerProductDetailController: FormViewController {
             <<< washView
             +++ washSection
             +++ Section()
-            <<< ImageViewRow() {
-                $0.cell.height = { 80.0 }
-                $0.cell.cellImage.image = UIImage.init(named: "like_it")
-            }
+            <<< ButtonRow() {
+                $0.title = "Like it ?"
+//                $0.cell.contentView.backgroundColor = UIColor().colorWith(r: 43, g: 75, b: 112)
+            }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = .white
+                cell.tintColor = UIColor().colorWith(r: 43, g: 75, b: 112)
+            })
+            <<< ButtonRow() {
+                $0.title = "Genrate Enquiry"
+                if User.loggedIn()?.refRoleId == "1" {
+                    $0.hidden = true
+                }
+            }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = UIColor().colorWith(r: 43, g: 75, b: 112)
+                cell.tintColor = .white
+            }).onCellSelection({ (cell, row) in
+                self.checkEnquiry?(self.product?.entityID ?? 0)
+            })
             <<< LabelRow() {
                 $0.title = "More \(ProductCategory.getProductCat(catId: product?.productCategoryId ?? 0)?.prodCatDescription ?? "Items") from \(ClusterDetails.getCluster(clusterId: product?.clusterId ?? 0)?.clusterDescription ?? "-")"
             }.cellUpdate({ (cell, row) in
@@ -316,17 +330,6 @@ class BuyerProductDetailController: FormViewController {
                 $0.cell.collectionView.tag = 2002
                 $0.cell.height = { 280.0 }
             }
-            <<< ButtonRow() {
-                $0.title = "Genrate Enquiry"
-                if User.loggedIn()?.refRoleId == "1" {
-                    $0.hidden = true
-                }
-            }.cellUpdate({ (cell, row) in
-                cell.backgroundColor = .black
-                cell.tintColor = .white
-            }).onCellSelection({ (cell, row) in
-                self.checkEnquiry?(self.product?.entityID ?? 0)
-            })
         
         var strArr:[String] = []
         product?.weaves .forEach({ (weave) in
