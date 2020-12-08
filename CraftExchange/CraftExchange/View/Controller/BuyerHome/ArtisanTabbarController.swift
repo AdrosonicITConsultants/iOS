@@ -50,6 +50,11 @@ extension ArtisanTabbarController {
             } catch let error {
                 print("Unable to load view:\n\(error.localizedDescription)")
             }
+        }else if item.title == "Home".localized {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                let nav = self.customizableViewControllers?[0] as! UINavigationController
+                nav.popToRootViewController(animated: true)
+            }
         }
     }
 }
