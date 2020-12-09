@@ -37,7 +37,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aw2-Fs-LhI">
-                                                <rect key="frame" x="192" y="758" width="30" height="30"/>
+                                                <rect key="frame" x="192" y="684" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="bH5-if-nh9"/>
                                                     <constraint firstAttribute="width" constant="30" id="jcQ-IO-uac"/>
@@ -50,7 +50,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ZZ-2e-OIf">
-                                                <rect key="frame" x="20" y="758" width="120" height="30"/>
+                                                <rect key="frame" x="20" y="684" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="OwB-Ht-zBu"/>
                                                     <constraint firstAttribute="height" constant="30" id="tkU-f6-orM"/>
@@ -85,7 +85,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRv-bK-7fK" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
-                                                <rect key="frame" x="147.5" y="549" width="119" height="34"/>
+                                                <rect key="frame" x="147.5" y="405" width="119" height="34"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="119" id="9y6-5Y-wJC"/>
@@ -104,7 +104,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you don't have weaver id get in touch with us" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPU-Wj-0ZS">
-                                                <rect key="frame" x="80" y="613" width="254" height="50"/>
+                                                <rect key="frame" x="80" y="539" width="254" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="eW7-QQ-A8U"/>
                                                 </constraints>
@@ -113,7 +113,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3z-mi-jeB" customClass="RoundedButton" customModule="Craft_Xchange" customModuleProvider="target">
-                                                <rect key="frame" x="147.5" y="683" width="119" height="35"/>
+                                                <rect key="frame" x="147.5" y="609" width="119" height="35"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="bK5-6M-g2f"/>
@@ -133,7 +133,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Sz-zx-F3F">
-                                                <rect key="frame" x="274" y="758" width="120" height="30"/>
+                                                <rect key="frame" x="274" y="684" width="120" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Ydv-T9-11t"/>
                                                     <constraint firstAttribute="width" constant="120" id="dlY-nz-Isi"/>
@@ -154,14 +154,14 @@
                                             <constraint firstItem="0ZZ-2e-OIf" firstAttribute="top" secondItem="Aw2-Fs-LhI" secondAttribute="top" id="9KD-WF-WON"/>
                                             <constraint firstItem="Aw2-Fs-LhI" firstAttribute="top" secondItem="q3z-mi-jeB" secondAttribute="bottom" constant="40" id="Aw4-uP-f9c"/>
                                             <constraint firstItem="KXg-06-u9E" firstAttribute="top" secondItem="eca-mW-Hli" secondAttribute="top" constant="10" id="F5B-Ts-BNe"/>
-                                            <constraint firstItem="UPU-Wj-0ZS" firstAttribute="top" secondItem="IRv-bK-7fK" secondAttribute="bottom" constant="30" id="Ha3-Og-mx3"/>
+                                            <constraint firstItem="UPU-Wj-0ZS" firstAttribute="top" secondItem="IRv-bK-7fK" secondAttribute="bottom" constant="100" id="Ha3-Og-mx3"/>
                                             <constraint firstItem="0ZZ-2e-OIf" firstAttribute="baseline" secondItem="3Sz-zx-F3F" secondAttribute="baseline" id="HyG-C7-dpo"/>
                                             <constraint firstItem="KXg-06-u9E" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" id="MSo-X6-eL5"/>
                                             <constraint firstItem="WgC-ov-haV" firstAttribute="top" secondItem="ZfG-gl-5i3" secondAttribute="bottom" constant="30" id="Mz7-t8-9p0"/>
                                             <constraint firstItem="UPU-Wj-0ZS" firstAttribute="leading" secondItem="eca-mW-Hli" secondAttribute="leading" constant="80" id="RDe-mE-8Hx"/>
                                             <constraint firstItem="ZfG-gl-5i3" firstAttribute="top" secondItem="vJc-fC-iHP" secondAttribute="bottom" constant="20" id="RpJ-1Z-jix"/>
                                             <constraint firstAttribute="trailing" secondItem="3Sz-zx-F3F" secondAttribute="trailing" constant="20" id="TYI-rU-xPL"/>
-                                            <constraint firstAttribute="bottom" secondItem="0ZZ-2e-OIf" secondAttribute="bottom" constant="20" id="Tsb-u9-Jh4"/>
+                                            <constraint firstItem="IRv-bK-7fK" firstAttribute="top" secondItem="WgC-ov-haV" secondAttribute="bottom" constant="50" id="TgF-NS-dqk"/>
                                             <constraint firstItem="vJc-fC-iHP" firstAttribute="top" secondItem="KXg-06-u9E" secondAttribute="bottom" constant="20" id="ZGr-Eb-v6V"/>
                                             <constraint firstItem="IRv-bK-7fK" firstAttribute="centerX" secondItem="WgC-ov-haV" secondAttribute="centerX" id="auZ-RF-glO"/>
                                             <constraint firstAttribute="trailing" secondItem="ZfG-gl-5i3" secondAttribute="trailing" constant="80" id="el2-tG-Bx7"/>
@@ -1325,7 +1325,7 @@
         <image name="email" width="18" height="20"/>
         <image name="eye" catalog="system" width="64" height="40"/>
         <image name="lock" width="16" height="20"/>
-        <image name="logo-underlying-text" width="375" height="180"/>
+        <image name="logo-underlying-text" width="375" height="157"/>
         <image name="playpause.fill" catalog="system" width="64" height="36"/>
         <image name="square" catalog="system" width="64" height="56"/>
         <image name="upload" width="19" height="19"/>
