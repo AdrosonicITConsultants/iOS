@@ -53,7 +53,7 @@ extension SearchTableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! LabelCell
         cell.titleLbl.text = dataArray[indexPath.row]
-       
+        
         return cell
     }
     

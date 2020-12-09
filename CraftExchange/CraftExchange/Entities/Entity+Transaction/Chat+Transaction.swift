@@ -28,12 +28,12 @@ extension Chat {
         return nil
     }
     
-    func updateAddonDetails(isOld: Bool) {
+    func updateAddonDetails(isOld: Bool, userId: Int) {
         let realm = try! Realm()
         if let object = realm.objects(Chat.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
                 object.isOld = isOld
-                
+                object.userId = userId
             }
         }
     }
@@ -104,7 +104,7 @@ extension Conversation {
             try? realm.write {
                 object.createdOn = createdOn
                 object.enquiryId = enquiryId
-              //  object.id = id
+                //  object.id = id
                 object.isDelete = isDelete
                 object.mediaName = mediaName
                 object.mediaType = mediaType
@@ -128,7 +128,7 @@ extension EscalationCategory {
         let realm = try! Realm()
         if let object = realm.objects(EscalationCategory.self).filter("%K == %@", "id", self.id).first {
             try? realm.write {
-//                object.id = id
+                //                object.id = id
                 object.category = category
             }
         } else {

@@ -16,15 +16,15 @@ protocol ProvideRatingButtonProtocol {
 
 
 class ProvideRatingButtonRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var provideRatingButton: UIButton!
     var delegate: ProvideRatingButtonProtocol?
     
-   public override func setup() {
+    public override func setup() {
         super.setup()
         provideRatingButton.addTarget(self, action: #selector(provideRatingButtonSelected), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }

@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class CRArtisanRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var tickBtn: UIButton!
     @IBOutlet weak var labelField: UILabel!
     @IBOutlet weak var valuefield: UILabel!
@@ -20,7 +20,7 @@ class CRArtisanRowView: Cell<String>, CellType {
         super.setup()
         tickBtn.setImage(UIImage.init(systemName: "square"), for: .normal)
     }
-
+    
     public override func update() {
         super.update()
     }

@@ -13,11 +13,11 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class RegisterArtisanService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     func fetch(newUser: [String:Any], imageData: Data?) -> SafeSignal<Data> {
         return User.registerUser(json: newUser, imageData: imageData).response(using: client).debug()
     }

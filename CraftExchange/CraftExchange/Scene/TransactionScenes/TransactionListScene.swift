@@ -16,42 +16,50 @@ import UIKit
 
 extension TransactionService {
     func createScene() -> UIViewController {
-
+        
         let storyboard = UIStoryboard(name: "Transaction", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "TransactionListController") as! TransactionListController
-
+        
         func setupRefreshActions() {
-           syncData()
+            syncData()
         }
         
         func performSync() {
             getAllOngoingTransactions().toLoadingSignal().consumeLoadingState(by: controller)
                 .bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                      if let array = json["data"] as? [[String: Any]] {
-                        var finalArray: [Int] = []
-                        array.forEach { (dataDict) in
-                            if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
-                                if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
-                                    if var transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
-                                        DispatchQueue.main.async {
-                                            transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
-                                            transactionObj.eta = dataDict["eta"] as? String
-                                            transactionObj.orderCode = dataDict["orderCode"] as? String
-                                            transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
-                                            transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
-                                            transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
-                                            transactionObj.saveOrUpdate()
-                                            finalArray.append(transactionObj.enquiryId)
-                                            if finalArray.count == array.count {
-                                                controller.endRefresh()
+                        if let array = json["data"] as? [[String: Any]] {
+                            if array.count == 0 {
+                                DispatchQueue.main.async {
+                                    controller.endRefresh()
+                                }
+                            }
+                            else {
+                                var finalArray: [Int] = []
+                                array.forEach { (dataDict) in
+                                    if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
+                                        if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                            if var transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                                DispatchQueue.main.async {
+                                                    transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                                    transactionObj.eta = dataDict["eta"] as? String
+                                                    transactionObj.orderCode = dataDict["orderCode"] as? String
+                                                    transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                                    transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                                    transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                                    transactionObj.saveOrUpdate()
+                                                    transactionObj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0)
+                                                    finalArray.append(transactionObj.enquiryId)
+                                                    if finalArray.count == array.count {
+                                                        controller.endRefresh()
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
                         }
-                      }
                     }
             }.dispose(in: controller.bag)
         }
@@ -75,20 +83,20 @@ extension TransactionService {
             let service = EnquiryDetailsService.init(client: self.client)
             if isPI {
                 service.getPreviewPI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
-                   DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    controller.view.showAcceptedPIView(controller: controller, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
-                       controller.hideLoading()
-                   }
+                    DispatchQueue.main.async {
+                        let object = String(data: responseData, encoding: .utf8) ?? ""
+                        controller.view.showAcceptedPIView(controller: controller, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: true)
+                        controller.hideLoading()
+                    }
                 }.dispose(in: controller.bag)
                 controller.hideLoading()
             }else{
                 service.getViewFI(enquiryId: transaction.enquiryId, isOld: isOld).toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
-                   DispatchQueue.main.async {
-                    let object = String(data: responseData, encoding: .utf8) ?? ""
-                    controller.view.showAcceptedPIView(controller: controller, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
-                       controller.hideLoading()
-                   }
+                    DispatchQueue.main.async {
+                        let object = String(data: responseData, encoding: .utf8) ?? ""
+                        controller.view.showAcceptedPIView(controller: controller, entityId: transaction.orderCode ?? "\(transaction.enquiryId)", date: Date().ttceISOString(isoDate: transaction.modifiedOn ?? Date()) , data: object, containsOld: false, raiseNewPI: false, isPI: false)
+                        controller.hideLoading()
+                    }
                 }.dispose(in: controller.bag)
                 controller.hideLoading()
             }
@@ -128,10 +136,10 @@ extension TransactionService {
             service.downloadAndViewReceipt(vc: controller, enquiryId: enquiryId, typeId: 1)
         }
         controller.viewModel.downloadFinalReceipt = { (enquiryId) in
-                   let service = EnquiryDetailsService.init(client: self.client)
-                   controller.showLoading()
-                   service.downloadAndViewReceipt(vc: controller, enquiryId: enquiryId, typeId: 2)
-               }
+            let service = EnquiryDetailsService.init(client: self.client)
+            controller.showLoading()
+            service.downloadAndViewReceipt(vc: controller, enquiryId: enquiryId, typeId: 2)
+        }
         
         return controller
     }

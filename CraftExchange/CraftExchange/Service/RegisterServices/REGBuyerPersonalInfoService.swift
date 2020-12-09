@@ -13,12 +13,12 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class REGBuyerPersonalInfoService: BaseService<[Country]> {
-
-  required init() {
-      super.init()
-  }
-  
-  override func fetch() -> SafeSignal<[Country]> {
-    return Country.getAllCountries().response(using: client).debug()
-  }
+    
+    required init() {
+        super.init()
+    }
+    
+    override func fetch() -> SafeSignal<[Country]> {
+        return Country.getAllCountries().response(using: client).debug()
+    }
 }

@@ -19,7 +19,7 @@ import WebKit
 }
 
 class AcceptedPIView: UIView, WKUIDelegate {
-
+    
     @IBOutlet weak var entityIdLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
@@ -33,7 +33,7 @@ class AcceptedPIView: UIView, WKUIDelegate {
     var data: String = ""
     var isTIDownload = false
     var isOldPI = false
-
+    
     override func layoutSubviews() {
         previewPI.loadHTMLString( data, baseURL: nil)
         if showOldPI {

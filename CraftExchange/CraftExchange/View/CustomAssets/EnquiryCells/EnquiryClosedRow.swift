@@ -11,14 +11,14 @@ import UIKit
 import Eureka
 
 class EnquiryClosedRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var dotView: UIView!
     @IBOutlet weak var enquiryLabel: UILabel!
     
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

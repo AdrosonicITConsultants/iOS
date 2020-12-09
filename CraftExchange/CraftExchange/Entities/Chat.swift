@@ -16,6 +16,7 @@ class Chat: Object, Decodable {
     @objc dynamic var enquiryId: Int = 0
     @objc dynamic var entityID: Int = 0
     @objc dynamic var isOld: Bool = false
+    @objc dynamic var userId: Int = 0
     @objc dynamic var productTypeId: String?
     @objc dynamic var buyerId: Int = 0
     @objc dynamic var orderReceiveDate: String?
@@ -61,8 +62,8 @@ class Chat: Object, Decodable {
     }
     
     convenience required init(from decoder: Decoder) throws {
-    self.init()
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         entityID = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)
         id = "\(entityID)"
         enquiryId = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)

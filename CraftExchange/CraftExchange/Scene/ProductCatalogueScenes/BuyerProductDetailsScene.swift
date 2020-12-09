@@ -43,7 +43,7 @@ extension ProductCatalogService {
         }
         
         vc.addProdDetailToWishlist = { (prodId) in
-//            let service = ProductCatalogService.init(client: self.client)
+            //            let service = ProductCatalogService.init(client: self.client)
             self.addProductToWishlist(prodId: prodId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if json["valid"] as? Bool == true {
@@ -59,7 +59,7 @@ extension ProductCatalogService {
         }
         
         vc.deleteProdDetailToWishlist = { (prodId) in
-//            let service = ProductCatalogService.init(client: self.client)
+            //            let service = ProductCatalogService.init(client: self.client)
             self.removeProductFromWishlist(prodId: prodId).observeNext { (attachment) in
                 DispatchQueue.main.async {
                     let appDelegate = UIApplication.shared.delegate as? AppDelegate

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -137,7 +137,6 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Zs9-n0-5Wk" secondAttribute="trailing" constant="20" id="1aG-fg-xRT"/>
                 <constraint firstItem="iEa-jY-Al6" firstAttribute="top" secondItem="Zs9-n0-5Wk" secondAttribute="bottom" constant="30" id="2DC-9b-nK0"/>
                 <constraint firstItem="Zs9-n0-5Wk" firstAttribute="top" secondItem="BKK-FZ-aBn" secondAttribute="bottom" constant="15" id="3Wz-1m-hIM"/>
-                <constraint firstItem="W3B-iC-1M0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="100" id="DN5-D9-yi9"/>
                 <constraint firstItem="Vbg-4d-tAU" firstAttribute="leading" secondItem="W3B-iC-1M0" secondAttribute="trailing" constant="48" id="HNN-cf-klz"/>
                 <constraint firstItem="XGu-oF-167" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="M2N-kQ-SBx"/>
                 <constraint firstItem="BKK-FZ-aBn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Msv-u9-ysL"/>
@@ -149,6 +148,7 @@
                 <constraint firstItem="XGu-oF-167" firstAttribute="top" secondItem="4th-Av-G46" secondAttribute="bottom" constant="8" id="bRz-pP-1by"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="toy-b4-zMI" secondAttribute="trailing" constant="20" id="caV-op-0U4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BKK-FZ-aBn" secondAttribute="trailing" constant="20" id="f3P-kj-82w"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Vbg-4d-tAU" secondAttribute="trailing" constant="20" id="hgk-ru-DkP"/>
                 <constraint firstItem="W3B-iC-1M0" firstAttribute="baseline" secondItem="Vbg-4d-tAU" secondAttribute="baseline" id="jnM-dj-rbU"/>
                 <constraint firstItem="iEa-jY-Al6" firstAttribute="centerX" secondItem="Zs9-n0-5Wk" secondAttribute="centerX" id="lu1-OF-PRY"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XGu-oF-167" secondAttribute="trailing" constant="20" id="rMY-lw-qWH"/>

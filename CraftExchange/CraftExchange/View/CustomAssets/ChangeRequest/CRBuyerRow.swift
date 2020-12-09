@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class CRBuyerRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var Tickbtn: UIButton!
     @IBOutlet weak var LabelField: UILabel!
     @IBOutlet weak var CRTextfield: UITextField!
@@ -20,7 +20,7 @@ class CRBuyerRowView: Cell<String>, CellType {
         super.setup()
         Tickbtn.setImage(UIImage.init(systemName: "square"), for: .normal)
     }
-
+    
     public override func update() {
         super.update()
     }

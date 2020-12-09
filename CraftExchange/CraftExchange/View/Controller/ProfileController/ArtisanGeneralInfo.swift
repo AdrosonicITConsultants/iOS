@@ -21,11 +21,11 @@ import Realm
 import ImageRow
 
 class ArtisanGeneralInfoViewModel {
-  var addr1 = Observable<String?>(nil)
-  var district = Observable<String?>(nil)
-  var state = Observable<String?>(nil)
-  var country = Observable<String?>(nil)
-  var pincode = Observable<String?>(nil)
+    var addr1 = Observable<String?>(nil)
+    var district = Observable<String?>(nil)
+    var state = Observable<String?>(nil)
+    var country = Observable<String?>(nil)
+    var pincode = Observable<String?>(nil)
     var profileImageData = Observable<(Data,String)?>(nil)
 }
 
@@ -148,7 +148,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 cell.detailTextLabel?.textColor = .black
                 cell.detailTextLabel?.numberOfLines = 10
                 cell.detailTextLabel?.font = .systemFont(ofSize: 12)
-                })
+            })
             +++ Section() {
                 $0.tag = "EditAddressSection"
                 $0.hidden = true
@@ -165,9 +165,9 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 $0.cell.textField.text = addressString
                 self.viewModel.addr1.value = $0.cell.textField.text
                 self.viewModel.addr1.bidirectionalBind(to: $0.cell.textField.reactive.text)
-                }.cellUpdate({ (cell, row) in
-                    self.viewModel.addr1.value = cell.textField.text
-                })
+            }.cellUpdate({ (cell, row) in
+                self.viewModel.addr1.value = cell.textField.text
+            })
             <<< TextRow() {
                 $0.tag = "AddressEditRow2"
                 $0.title = "District".localized
@@ -180,9 +180,9 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 $0.cell.textField.text = addressString
                 self.viewModel.district.value = $0.cell.textField.text
                 self.viewModel.district.bidirectionalBind(to: $0.cell.textField.reactive.text)
-                }.cellUpdate({ (cell, row) in
-                    self.viewModel.district.value = cell.textField.text
-                })
+            }.cellUpdate({ (cell, row) in
+                self.viewModel.district.value = cell.textField.text
+            })
             <<< TextRow() {
                 $0.tag = "AddressEditRow3"
                 $0.title = "State".localized
@@ -195,9 +195,9 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 $0.cell.textField.text = addressString
                 self.viewModel.state.value = $0.cell.textField.text
                 self.viewModel.state.bidirectionalBind(to: $0.cell.textField.reactive.text)
-                }.cellUpdate({ (cell, row) in
-                    self.viewModel.state.value = cell.textField.text
-                })
+            }.cellUpdate({ (cell, row) in
+                self.viewModel.state.value = cell.textField.text
+            })
             <<< TextRow() {
                 $0.tag = "AddressEditRow4"
                 $0.title = "Pincode".localized
@@ -239,7 +239,7 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
             }
             <<< LabelRow() { row in
                 row.cell.height = { 300.0 }
-            }
+        }
     }
     
     func updateArtisanProfilePic() {
@@ -283,20 +283,20 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                 if self.viewModel.pincode.value?.isNotBlank ?? false {
                     if self.viewModel.pincode.value != nil {
                         if self.viewModel.pincode.value?.isValidPincode ?? false {
-                          pin = self.viewModel.pincode.value ?? ""
-                      } else {
-                          alert("Please enter valid pincode")
-                          editEnabled = true
-                          secRow?.hidden = false
-                          secRow?.evaluateHidden()
-                          btnRow?.cell.buttonView.setTitle("Save your details".localized, for: .normal)
-                          btnRow?.cell.buttonView.borderColour = .red
-                          btnRow?.cell.buttonView.backgroundColor = .red
-                          return
-                      }
+                            pin = self.viewModel.pincode.value ?? ""
+                        } else {
+                            alert("Please enter valid pincode")
+                            editEnabled = true
+                            secRow?.hidden = false
+                            secRow?.evaluateHidden()
+                            btnRow?.cell.buttonView.setTitle("Save your details".localized, for: .normal)
+                            btnRow?.cell.buttonView.borderColour = .red
+                            btnRow?.cell.buttonView.backgroundColor = .red
+                            return
+                        }
                     }
                 }else {
-                      return
+                    return
                 }
                 
                 let selectedCountryObj = self.allCountries?.filter("%K == %@", "name", self.viewModel.country.value).first
@@ -306,10 +306,10 @@ class ArtisanGeneralInfo: FormViewController, ButtonActionProtocol {
                     parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON(),self.viewModel.profileImageData.value?.0,self.viewModel.profileImageData.value?.1)
                 }else {
                     parentVC.viewModel.updateArtisanProfile?(newAddr.toJSON(),nil,nil)
-//                    let profileRow = self.form.rowBy(tag: "ProfileView")
-//                    profileRow?.reload()
-//                    self.refreshProfile?()
-//                    navigationController?.popViewController(animated: true)
+                    //                    let profileRow = self.form.rowBy(tag: "ProfileView")
+                    //                    profileRow?.reload()
+                    //                    self.refreshProfile?()
+                    //                    navigationController?.popViewController(animated: true)
                 }
             }
         }

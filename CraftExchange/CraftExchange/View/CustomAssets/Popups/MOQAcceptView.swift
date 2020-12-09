@@ -15,7 +15,7 @@ protocol MOQAcceptViewProtocol {
 }
 
 class MOQAcceptView: UIView {
-
+    
     
     @IBOutlet weak var brandClusterText: UILabel!
     
@@ -23,7 +23,7 @@ class MOQAcceptView: UIView {
     
     @IBOutlet weak var pricePerUnitText: UILabel!
     @IBOutlet weak var ETADaysText: UILabel!
-  
+    
     @IBOutlet weak var AcceptButton: RoundedButton!
     @IBOutlet weak var closeButton: UIButton!
     
@@ -34,13 +34,13 @@ class MOQAcceptView: UIView {
     
     @IBAction func cancelButtonSelected(_ sender: Any) {
         delegate?.cancelButtonSelected()
-
+        
     }
     /*    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
+    
 }

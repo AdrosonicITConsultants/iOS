@@ -34,7 +34,7 @@ class OrderProgress: Object, Decodable {
     @objc dynamic var isPartialRefundReceived: Int = 0
     @objc dynamic var partialRefundInitializedOn: String?
     @objc dynamic var partialRefundReceivedOn: String?
-   
+    
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -64,7 +64,7 @@ class OrderProgress: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)

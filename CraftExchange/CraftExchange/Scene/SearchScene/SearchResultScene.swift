@@ -73,10 +73,10 @@ extension SearchService {
                     }.dispose(in: vc.bag)
                 }
             }else {
-//                let results = Product.getSearchProducts(idList: searchIds, madeWithAntaran: catId)
+                //                let results = Product.getSearchProducts(idList: searchIds, madeWithAntaran: catId)
             }
         }
-                
+        
         vc.refreshSearchResult = { (loadPage, madeWithAntaran) in
             searchResult(page: loadPage, madeWithAntaran: madeWithAntaran)
         }

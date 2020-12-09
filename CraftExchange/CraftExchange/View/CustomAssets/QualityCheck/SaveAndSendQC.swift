@@ -15,28 +15,28 @@ import Eureka
 }
 
 class SaveAndSendQC: Cell<String>, CellType {
-
-   
+    
+    
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var btnSend: UIButton!
     var delegate: SaveAndSendBtnProtocol!
-
+    
     public override func setup() {
         super.setup()
         btnSave.addTarget(self, action: #selector(saveButtonSelected(_:)), for: .touchUpInside)
         btnSend.addTarget(self, action: #selector(sendButtonSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }
     
     @IBAction func saveButtonSelected(_ sender: Any) {
-      delegate?.saveQC?(tag: tag)
+        delegate?.saveQC?(tag: tag)
     }
     
     @IBAction func sendButtonSelected(_ sender: Any) {
-      delegate?.sendQC?(tag: tag)
+        delegate?.sendQC?(tag: tag)
     }
 }
 

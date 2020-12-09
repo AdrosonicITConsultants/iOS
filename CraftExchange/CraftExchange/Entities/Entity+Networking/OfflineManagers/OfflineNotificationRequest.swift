@@ -31,7 +31,7 @@ class OfflineNotificationRequest: NSObject, OfflineRequest {
         switch type {
         case .markAsReadNotification:
             self.request = Notifications.markAsReadNotification(withId: notificationId ?? 0)
-          
+            
         case .markAsAllReadNotification:
             self.request = Notifications.markAsAllReadNotification()
         }
@@ -41,7 +41,7 @@ class OfflineNotificationRequest: NSObject, OfflineRequest {
     /// Dictionary methods are optional for simple use cases, but required for saving to disk in the case of app termination
     required convenience init?(dictionary: [String : Any]) {
         guard let type = dictionary["type"] as? NotificationActionType else { return  nil }
-         guard let notificationId = dictionary["notificationId"] as? Int else { return  nil }
+        guard let notificationId = dictionary["notificationId"] as? Int else { return  nil }
         self.init(type: type, notificationId: notificationId)
     }
     

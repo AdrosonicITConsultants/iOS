@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class EnquiryDetailRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var prodDetailLbl: UILabel!
     @IBOutlet weak var designByLbl: UILabel!
@@ -25,7 +25,7 @@ class EnquiryDetailRowView: Cell<String>, CellType {
         super.setup()
         faultyStrings.isHidden = true
     }
-
+    
     public override func update() {
         super.update()
     }

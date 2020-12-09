@@ -69,15 +69,15 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                     $0.cell.washCare = false
                     $0.cell.toggleDelegate = self
                     $0.cell.toggleButton.tag = cat.entityID
-                    }.cellUpdate({ (cell, row) in
-                        if self.isEditable {
-                            cell.isUserInteractionEnabled = true
-                            cell.toggleButton.isUserInteractionEnabled = true
-                        }else {
-                            cell.isUserInteractionEnabled = false
-                            cell.toggleButton.isUserInteractionEnabled = false
-                        }
-                    }).onCellSelection({ (cell, row) in
+                }.cellUpdate({ (cell, row) in
+                    if self.isEditable {
+                        cell.isUserInteractionEnabled = true
+                        cell.toggleButton.isUserInteractionEnabled = true
+                    }else {
+                        cell.isUserInteractionEnabled = false
+                        cell.toggleButton.isUserInteractionEnabled = false
+                    }
+                }).onCellSelection({ (cell, row) in
                     cell.toggleButton.sendActions(for: .touchUpInside)
                     cell.contentView.backgroundColor = .white
                 })
@@ -160,27 +160,27 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
                 cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
             })
             /*<<< RoundedTextFieldRow() {
-                $0.tag = "Product Category"
-                $0.cell.height = { 80.0 }
-                $0.cell.compulsoryIcon.isHidden = true
-                $0.cell.valueTextField.isUserInteractionEnabled = false
-                $0.cell.backgroundColor = .white
-                $0.cell.valueTextField.textColor = .black
-                $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
-                $0.cell.valueTextField.leftPadding = 0
-                $0.cell.isUserInteractionEnabled = false
-            }.cellUpdate({ (cell, row) in
-                cell.titleLabel.text = "Product Category".localized
-                cell.titleLabel.textColor = .black
-                cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
-//                cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
-//                var finalString = ""
-//                User.loggedIn()?.userProductCategories .forEach({ (cat) in
-//                    finalString.append("\(cat.categoryString) ")
-//                })
-//                print("final string \n\n \(finalString) \(User.loggedIn()?.userProductCategories.count ?? 0)")
-//                cell.valueTextField.text = finalString
-            })*/
+             $0.tag = "Product Category"
+             $0.cell.height = { 80.0 }
+             $0.cell.compulsoryIcon.isHidden = true
+             $0.cell.valueTextField.isUserInteractionEnabled = false
+             $0.cell.backgroundColor = .white
+             $0.cell.valueTextField.textColor = .black
+             $0.cell.valueTextField.layer.borderColor = UIColor.white.cgColor
+             $0.cell.valueTextField.leftPadding = 0
+             $0.cell.isUserInteractionEnabled = false
+             }.cellUpdate({ (cell, row) in
+             cell.titleLabel.text = "Product Category".localized
+             cell.titleLabel.textColor = .black
+             cell.titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
+             //                cell.valueTextField.font = .systemFont(ofSize: 16, weight: .regular)
+             //                var finalString = ""
+             //                User.loggedIn()?.userProductCategories .forEach({ (cat) in
+             //                    finalString.append("\(cat.categoryString) ")
+             //                })
+             //                print("final string \n\n \(finalString) \(User.loggedIn()?.userProductCategories.count ?? 0)")
+             //                cell.valueTextField.text = finalString
+             })*/
             +++ catTypeSection
             +++ Section()
             <<< RoundedTextFieldRow() {
@@ -226,7 +226,7 @@ class ArtisanBrandDetails: FormViewController, ButtonActionProtocol {
             }
             <<< LabelRow() { row in
                 row.cell.height = { 300.0 }
-            }
+        }
     }
     
     func refreshBrandLogo() {

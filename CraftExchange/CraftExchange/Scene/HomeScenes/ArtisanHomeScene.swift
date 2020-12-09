@@ -32,7 +32,6 @@ extension HomeScreenService {
                 self.fetchClusterData(vc: vc)
                 self.fetchProductUploadData(vc: vc)
                 self.fetchEnquiryStateData(vc: vc)
-                self.fetchNotification(vc: vc)
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
                 self.fetchChangeRequestData(vc: vc)
@@ -92,6 +91,7 @@ extension HomeScreenService {
             }
             
             vc.viewModel.viewWillAppear = {
+                 self.fetchNotification(vc: vc)
                 guard vc.reachabilityManager?.connection != .unavailable else {
                     DispatchQueue.main.async {
                         vc.dataSource = Product().getAllProductCatForUser()
@@ -306,7 +306,7 @@ extension HomeScreenService {
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     if let array = json["data"] as? [[String: Any]] {
                         try array.forEach { (dataDict) in
-                             if let stageDict = dataDict["orderStages"] as? [String: Any] {
+                            if let stageDict = dataDict["orderStages"] as? [String: Any] {
                                 if let data = try? JSONSerialization.data(withJSONObject: stageDict, options: .fragmentsAllowed){
                                     try JSONDecoder().decode(AvailableProductStages.self, from: data).saveOrUpdate()
                                 }
@@ -368,7 +368,7 @@ extension HomeScreenService {
                 self.fetchClusterData(vc: vc)
                 self.fetchProductUploadData(vc: vc)
                 self.fetchEnquiryStateData(vc: vc)
-                self.fetchNotification(vc: vc)
+              //  self.fetchNotification(vc: vc)
                 self.handlePushNotification(vc: vc)
                 self.fetchTransactionStatus(vc: vc)
                 self.fetchChangeRequestData(vc: vc)
@@ -422,6 +422,7 @@ extension HomeScreenService {
             }
             
             vc.viewModel.viewWillAppear = {
+                self.fetchNotification(vc: vc)
                 let service = WishlistService.init(client: self.client)
                 service.fetchAllWishlistProducts().observeNext { (attachment) in
                     if let json = try? JSONSerialization.jsonObject(with: attachment, options: .allowFragments) as? [String: Any] {
@@ -490,22 +491,22 @@ extension HomeScreenService {
                 }else {
                     return
                 }
-                 
+                
                 
             }.resume()
         }
     }
     
     func getCMSCatImages(){
-           if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categories") {
-               URLSession.shared.dataTask(with: url) { data, response, error in
+        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categoriesselfdesign") {
+            URLSession.shared.dataTask(with: url) { data, response, error in
                 if data != nil {
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
                         DispatchQueue.main.async {
                             for obj in json  {
                                 if let acf = obj["acf"] as?  [String: Any] {
                                     if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
-                                        if let object = try? JSONDecoder().decode(CMSCategoryACF.self, from: categoryData) {
+                                        if let object = try? JSONDecoder().decode(CMSCategoryACFSelf.self, from: categoryData) {
                                             print("hey obj: \(object)")
                                             object.saveOrUpdate()
                                             
@@ -522,16 +523,44 @@ extension HomeScreenService {
                 }else{
                     return
                 }
-                   
-               }.resume()
-           }
-           
-       }
+                
+            }.resume()
+        }
+        
+        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categoriescodesign") {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if data != nil {
+                    if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
+                        DispatchQueue.main.async {
+                            for obj in json  {
+                                if let acf = obj["acf"] as?  [String: Any] {
+                                    if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
+                                        if let object = try? JSONDecoder().decode(CMSCategoryACFCo.self, from: categoryData) {
+                                            print("hey obj: \(object)")
+                                            object.saveOrUpdate()
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                }else{
+                    return
+                }
+                
+            }.resume()
+        }
+        
+    }
     
     func getCMSRegionImages(){
         if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/regions") {
             URLSession.shared.dataTask(with: url) { data, response, error in
-                 if data != nil {
+                if data != nil {
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
                         DispatchQueue.main.async {
                             for obj in json  {
@@ -551,14 +580,14 @@ extension HomeScreenService {
                         }
                         
                     }
-
-                 }else{
+                    
+                }else{
                     return
                 }
             }.resume()
         }
         
     }
-       
-   
+    
+    
 }

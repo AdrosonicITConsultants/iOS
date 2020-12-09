@@ -23,7 +23,7 @@ extension UIViewController {
         vc.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: callback))
         self.present(vc, animated: true, completion: nil)
     }
-
+    
     func confirmAction(_ title: String? = nil, _ message: String,
                        confirmedCallback: ((UIAlertAction) -> ())?,
                        cancelCallBack: ((UIAlertAction) -> ())? = nil) {
@@ -34,8 +34,8 @@ extension UIViewController {
     }
     
     func confirmActionWithCustomButtons(_ title: String? = nil, _ message: String, cancelBtnTitle: String? = nil, confirmBtnTitle: String? = nil,
-                       confirmedCallback: ((UIAlertAction) -> ())?,
-                       cancelCallBack: ((UIAlertAction) -> ())? = nil) {
+                                        confirmedCallback: ((UIAlertAction) -> ())?,
+                                        cancelCallBack: ((UIAlertAction) -> ())? = nil) {
         let vc = UIAlertController(title: title, message: message, preferredStyle: .alert)
         vc.addAction(UIAlertAction(title: cancelBtnTitle, style: .default, handler: cancelCallBack))
         vc.addAction(UIAlertAction(title: confirmBtnTitle, style: .cancel, handler: confirmedCallback))
@@ -54,10 +54,10 @@ extension UIViewController {
         }
         alert.addAction(action1)
         let action2 = UIAlertAction.init(title: "Gallery".localized, style: .default) { (action) in
-          let imagePicker =  UIImagePickerController()
+            let imagePicker =  UIImagePickerController()
             imagePicker.delegate = self as! UIImagePickerControllerDelegate & UINavigationControllerDelegate
-          imagePicker.sourceType = .photoLibrary
-          self.present(imagePicker, animated: true, completion: nil)
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
         }
         alert.addAction(action2)
         let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
@@ -72,16 +72,16 @@ extension UIViewController {
         let player = AVPlayer(url: url! as URL)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
-
+        
         present(playerViewController, animated: true, completion: {
             playerViewController.player!.play()
         })
     }
     
     func sharePdf(path:URL) {
-
+        
         let fileManager = FileManager.default
-
+        
         if fileManager.fileExists(atPath: path.path) {
             let activityViewController: UIActivityViewController = UIActivityViewController(activityItems: [path], applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
@@ -97,16 +97,16 @@ extension UIViewController {
 
 extension UIViewController : OpenAttachmentViewProtocol {
     
-  func roleBarButton() -> UIBarButtonItem {
-    let rightButtonItem = UIBarButtonItem.init(
-        title: "\(KeychainManager.standard.userRole?.localized ?? "")",
-        style: .plain,
-        target: self,
-        action: nil
-    )
-    rightButtonItem.tintColor = .darkGray
-    return rightButtonItem
-  }
+    func roleBarButton() -> UIBarButtonItem {
+        let rightButtonItem = UIBarButtonItem.init(
+            title: "\(KeychainManager.standard.userRole?.localized ?? "")",
+            style: .plain,
+            target: self,
+            action: nil
+        )
+        rightButtonItem.tintColor = .darkGray
+        return rightButtonItem
+    }
     
     func notificationBarButton() -> UIButton {
         let badgeCount = UILabel(frame: CGRect(x: 10, y: -05, width: 15, height: 15))
@@ -120,8 +120,8 @@ extension UIViewController : OpenAttachmentViewProtocol {
         badgeCount.backgroundColor = .red
         badgeCount.text = "\(UIApplication.shared.applicationIconBadgeNumber)"
         badgeCount.tag = 666
-
-
+        
+        
         let rightBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         rightBarButton.tintColor = .lightGray
         rightBarButton.setBackgroundImage(UIImage(named: "ios_bell"), for: .normal)
@@ -143,41 +143,50 @@ extension UIViewController : OpenAttachmentViewProtocol {
     }
     
     @objc func faqCancelButtonSelected() {
-       self.view.hideOpenFAQView()
-       self.inputAccessoryView?.isHidden = false
-       if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
+        self.view.hideOpenFAQView()
+        self.inputAccessoryView?.isHidden = false
+        if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
             initialView.fromFaq = false
-           }
-       }
-
-   func didTapFAQButton(tag: Int) {
-       var url = ""
-       if tag == 1 {
-           url = KeychainManager.standard.faqBaseURL + "/documents/PRIVACY%20POLICY.pdf"
-       } else if tag == 2 {
-           url = KeychainManager.standard.faqBaseURL + "/documents/LEGAL%20DISCLAIMER.pdf"
-       } else if tag == 3 {
-           url = KeychainManager.standard.faqBaseURL + "/documents/TERMS_and_CONDITIONS.pdf"
-       } else if tag == 4 {
-           url = KeychainManager.standard.faqBaseURL + "/documents/Help.pdf"
+        }
     }
-       self.view.showOpenFAQView(controller: self, data: url)
     
-    if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
-        initialView.fromFaq = true
-           }
-   }
+    func didTapFAQButton(tag: Int) {
+        var url = ""
+        if tag == 1 {
+            url = KeychainManager.standard.faqBaseURL + "/documents/PRIVACY%20POLICY.pdf"
+            self.view.showOpenFAQView(controller: self, data: url)
+        } else if tag == 2 {
+            url = KeychainManager.standard.faqBaseURL + "/documents/LEGAL%20DISCLAIMER.pdf"
+            self.view.showOpenFAQView(controller: self, data: url)
+        } else if tag == 3 {
+            url = KeychainManager.standard.faqBaseURL + "/documents/TERMS_and_CONDITIONS.pdf"
+            self.view.showOpenFAQView(controller: self, data: url)
+        } else if tag == 4 {
+            alert("For any help","please write to us at craftxchange.tatatrusts@gmail.com" )
+          //  alert("For any help, please write to us at craftxchange.tatatrusts@gmail.com")
+//            url = KeychainManager.standard.faqBaseURL + "/documents/Help.pdf"
+//            self.view.showOpenFAQView(controller: self, data: url)
+        } else if tag == 5 {
+            url = KeychainManager.standard.faqBaseURL + "/documents/FAQ.pdf"
+            self.view.showOpenFAQView(controller: self, data: url)
+        }
+        
+        
+        if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
+            initialView.fromFaq = true
+        }
+    }
     
     func searchBarButton() -> UIBarButtonItem {
         let rightButtonItem = UIBarButtonItem.init(
-          image: UIImage(named: "ios_search"),
-          style: .plain,
-          target: self,
-          action: #selector(self.searchSelected)
+            image: UIImage(named: "ios_search"),
+            style: .plain,
+            target: self,
+            action: #selector(self.searchSelected)
         )
         rightButtonItem.tintColor = .darkGray
         rightButtonItem.image = UIImage(named: "ios_search")
-      return rightButtonItem
+        return rightButtonItem
     }
     
     @objc func searchSelected() {
@@ -193,7 +202,7 @@ extension UIViewController : OpenAttachmentViewProtocol {
 }
 
 extension UIViewController: LoadingStateListener {
-
+    
     public func setLoadingState<LoadingValue, LoadingError>(_ state: ObservedLoadingState<LoadingValue, LoadingError>) {
         switch state {
         case .loading:
@@ -209,11 +218,11 @@ extension UIViewController: LoadingStateListener {
 }
 
 extension UIViewController {
-
+    
     var inNavigation: UINavigationController {
         return UINavigationController(rootViewController: self)
     }
-
+    
     var isModal: Bool {
         let presentingIsModal = presentingViewController != nil
         let presentingIsNavigation = navigationController?.presentingViewController?.presentedViewController == navigationController
@@ -222,8 +231,19 @@ extension UIViewController {
     }
 }
 
-extension UIViewController {
+extension Array where Iterator.Element == UIViewController {
+    
+    var previous: UIViewController? {
+        if self.count > 1 {
+            return self[self.count - 2]
+        }
+        return nil
+    }
+    
+}
 
+extension UIViewController {
+    
     @objc func showLoading() {
         let view = self.view
         if let hud = JGProgressHUD.allProgressHUDs(in: view!).first {
@@ -236,14 +256,14 @@ extension UIViewController {
             hud.show(in: view!, animated: true)
         }
     }
-
+    
     @objc func hideLoading() {
         let view = self.view
         guard let hud = JGProgressHUD.allProgressHUDs(in: view!).first else { return }
         guard hud.isVisible else { return }
         hud.dismiss(animated: true)
     }
-
+    
     @objc func loadingFailed() {
         let view = self.view
         guard let hud = JGProgressHUD.allProgressHUDs(in: view!).first else { return }
@@ -283,40 +303,40 @@ extension UIViewController {
             menu.settings.menuWidth = min(self.view.frame.width, self.view.frame.height) * CGFloat(0.80)
             self.present(menu, animated: true, completion: nil)
         }.dispose(in: bag)
-    
+        
     }
     
     func setupSearch() {
-      let resultsTableController = UITableViewController(style: .plain)
-      
-      resultsTableController.tableView.delegate = self as? UITableViewDelegate
-      
-      let searchController = UISearchController(searchResultsController: resultsTableController)
-      // searchController.searchResultsUpdater = self
-      
-      searchController.searchBar.autocapitalizationType = .none
-      if #available(iOS 11.0, *) {
-          // For iOS 11 and later, place the search bar in the navigation bar.
-          navigationItem.searchController = searchController
-          
-          // Make the search bar always visible.
-          navigationItem.hidesSearchBarWhenScrolling = false
-      }
-      
-      // searchController.delegate = self
-      searchController.obscuresBackgroundDuringPresentation = false // The default is true.
-      // searchController.searchBar.delegate = self // Monitor when the search button is tapped.
-      
-      /** Search presents a view controller by applying normal view controller presentation semantics.
-       This means that the presentation moves up the view controller hierarchy until it finds the root
-       view controller or one that defines a presentation context.
-       */
-      
-      /** Specify that this view controller determines how the search controller is presented.
-       The search controller should be presented modally and match the physical size of this view controller.
-       */
-      definesPresentationContext = true
-  }
+        let resultsTableController = UITableViewController(style: .plain)
+        
+        resultsTableController.tableView.delegate = self as? UITableViewDelegate
+        
+        let searchController = UISearchController(searchResultsController: resultsTableController)
+        // searchController.searchResultsUpdater = self
+        
+        searchController.searchBar.autocapitalizationType = .none
+        if #available(iOS 11.0, *) {
+            // For iOS 11 and later, place the search bar in the navigation bar.
+            navigationItem.searchController = searchController
+            
+            // Make the search bar always visible.
+            navigationItem.hidesSearchBarWhenScrolling = false
+        }
+        
+        // searchController.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false // The default is true.
+        // searchController.searchBar.delegate = self // Monitor when the search button is tapped.
+        
+        /** Search presents a view controller by applying normal view controller presentation semantics.
+         This means that the presentation moves up the view controller hierarchy until it finds the root
+         view controller or one that defines a presentation context.
+         */
+        
+        /** Specify that this view controller determines how the search controller is presented.
+         The search controller should be presented modally and match the physical size of this view controller.
+         */
+        definesPresentationContext = true
+    }
     
     /// pop back to specific viewcontroller
     func popBack<T: UIViewController>(toControllerType: T.Type) {

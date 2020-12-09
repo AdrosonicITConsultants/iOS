@@ -72,8 +72,8 @@ class SearchResultController: UITableViewController {
                     self.tableView.reloadData()
                     self.refreshSearchResult?(self.loadPage, self.catId)
                 }
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
         }
@@ -159,7 +159,7 @@ extension SearchResultController: WishlistProtocol{
     func wishlistSelected(prodId: Int) {
         if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
             value["id"] as? Int == prodId
-            }).first {
+        }).first {
             //add to wishlist Selected
             addToWishlist?(selectedSuggestion["id"] as? Int ?? 0)
         }
@@ -167,7 +167,7 @@ extension SearchResultController: WishlistProtocol{
     
     func removeFromWishlist(prodId: Int) {
         if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
-        value["id"] as? Int == prodId
+            value["id"] as? Int == prodId
         }).first {
             //removeFromWishlist
             removeFromWishlist?(selectedSuggestion["id"] as? Int ?? 0)
@@ -176,7 +176,7 @@ extension SearchResultController: WishlistProtocol{
     
     func loadProduct(prodId: Int) {
         if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
-        value["id"] as? Int == prodId
+            value["id"] as? Int == prodId
         }).first {
             do {
                 let client = try SafeClient(wrapping: CraftExchangeClient())
@@ -191,7 +191,7 @@ extension SearchResultController: WishlistProtocol{
     
     func generateEnquiryForProduct(prodId: Int) {
         if let selectedSuggestion = suggestionArray?.filter({ (value) -> Bool in
-        value["id"] as? Int == prodId
+            value["id"] as? Int == prodId
         }).first {
             //generate enquiry
             self.generateEnquiry?(selectedSuggestion["id"] as? Int ?? 0)

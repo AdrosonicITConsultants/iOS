@@ -13,16 +13,16 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class ValidateUserService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
-
+    
     func fetch(username: String) -> SafeSignal<Data> {
-      return User.validateUsername(username: username).response(using: client).debug()
+        return User.validateUsername(username: username).response(using: client).debug()
     }
     
     func fetchSocialLogin(socialToken: String, socialTokenType: String) -> SafeSignal<Data> {
-      return User.authenticateSocial(socialToken: socialToken, socialTokenType: socialTokenType).response(using: client).debug()
+        return User.authenticateSocial(socialToken: socialToken, socialTokenType: socialTokenType).response(using: client).debug()
     }
 }

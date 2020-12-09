@@ -12,22 +12,22 @@ import RealmSwift
 import Bond
 import ReactiveKit
 
-extension CMSCategoryACF {
+extension CMSCategoryACFSelf {
     
-    static func getCategoryType(CategoryId: Int) -> CMSCategoryACF? {
-           let realm = try! Realm()
-           if let object = realm.objects(CMSCategoryACF.self).filter("%K == %@", "entityID", CategoryId).first {
-               return object
-           }
-           return nil
-       }
+    static func getCategoryType(CategoryId: Int) -> CMSCategoryACFSelf? {
+        let realm = try! Realm()
+        if let object = realm.objects(CMSCategoryACFSelf.self).filter("%K == %@", "entityID", CategoryId).first {
+            return object
+        }
+        return nil
+    }
     
     
     func saveOrUpdate() {
         let realm = try! Realm()
-        if let object = realm.objects(CMSCategoryACF.self).filter("%K == %@", "entityID", self.entityID).first {
+        if let object = realm.objects(CMSCategoryACFSelf.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-               image = object.image
+                image = object.image
                 catDescription = object.catDescription
             }
         } else {
@@ -36,26 +36,26 @@ extension CMSCategoryACF {
             }
         }
     }
-
+    
 }
 
-extension CMSRegionACF {
+extension CMSCategoryACFCo {
     
-    static func getRegionType(ClusterId: Int) -> CMSRegionACF? {
-           let realm = try! Realm()
-           if let object = realm.objects(CMSRegionACF.self).filter("%K == %@", "entityID", ClusterId).first {
-               return object
-           }
-           return nil
-       }
+    static func getCategoryType(CategoryId: Int) -> CMSCategoryACFCo? {
+        let realm = try! Realm()
+        if let object = realm.objects(CMSCategoryACFCo.self).filter("%K == %@", "entityID", CategoryId).first {
+            return object
+        }
+        return nil
+    }
     
     
     func saveOrUpdate() {
         let realm = try! Realm()
-        if let object = realm.objects(CMSRegionACF.self).filter("%K == %@", "entityID", self.entityID).first {
+        if let object = realm.objects(CMSCategoryACFCo.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
-               image = object.image
-               regDescription = object.regDescription
+                image = object.image
+                catDescription = object.catDescription
             }
         } else {
             try? realm.write {
@@ -63,5 +63,32 @@ extension CMSRegionACF {
             }
         }
     }
+    
+}
 
+extension CMSRegionACF {
+    
+    static func getRegionType(ClusterId: Int) -> CMSRegionACF? {
+        let realm = try! Realm()
+        if let object = realm.objects(CMSRegionACF.self).filter("%K == %@", "entityID", ClusterId).first {
+            return object
+        }
+        return nil
+    }
+    
+    
+    func saveOrUpdate() {
+        let realm = try! Realm()
+        if let object = realm.objects(CMSRegionACF.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                image = object.image
+                regDescription = object.regDescription
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+    
 }

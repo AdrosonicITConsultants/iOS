@@ -15,6 +15,7 @@ class Order: Object, Decodable {
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0
     @objc dynamic var isOpen: Bool = false
+    @objc dynamic var isDelivery: Bool = false
     @objc dynamic var enquiryStageId: Int = 0
     @objc dynamic var mobile: String?
     @objc dynamic var logo: String?
@@ -90,7 +91,7 @@ class Order: Object, Decodable {
     var productCategories: [Int] = []
     
     enum CodingKeys: String, CodingKey {
-//        case id = "id"
+        //        case id = "id"
         case mobile = "mobile"
         case logo = "logo"
         case startedOn = "startedOn"
@@ -167,7 +168,7 @@ class Order: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)

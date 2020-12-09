@@ -28,7 +28,7 @@ class YarnType: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -37,7 +37,7 @@ class YarnType: Object, Decodable {
         yarnTypeDesc = try values.decodeIfPresent(String.self, forKey: .yarnTypeDesc)
         manual = try (values.decodeIfPresent(Bool.self, forKey: .manual) ?? false)
         if let list = try? values.decodeIfPresent([YarnCount].self, forKey: .yarnCounts) {
-           yarnCounts.append(objectsIn: list)
+            yarnCounts.append(objectsIn: list)
         }
     }
 }

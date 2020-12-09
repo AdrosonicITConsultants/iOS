@@ -52,7 +52,7 @@ extension UIView {
         shapeLayer.path = path
         layer.addSublayer(shapeLayer)
     }
-
+    
     
     func showEnquiryInitiationView() {
         if self.isKind(of: UITableView.self) {
@@ -222,7 +222,7 @@ extension UIView {
                 self, options: nil)?.first as? PreviewPIView
             
             if isPI == false{
-               initiationView?.entityIdLabel.text = "Tax invoice for " + entityId
+                initiationView?.entityIdLabel.text = "Tax invoice for " + entityId
                 initiationView?.sendButton.setTitle(" " + "Generate Tax Invoice", for: .normal)
             }
             initiationView?.dateLabel.text = "Date accepted " + date
@@ -314,7 +314,15 @@ extension UIView {
             initiationView?.delegate = controller as? TransactionReceiptViewProtocol
             initiationView?.tag = 130
             self.addSubview(initiationView!)
-            initiationView?.frame = CGRect(x:0, y: 0, width: self.frame.width, height: self.frame.height)
+//            let safeAreaTop: CGFloat
+//
+//            if #available(iOS 11.0, *) {
+//                safeAreaTop = controller.view.safeAreaInsets.top
+//            } else {
+//                safeAreaTop = controller.topLayoutGuide.length
+//            }
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x:0, y:0, width: self.frame.width, height: self.frame.height)
             self.bringSubviewToFront(initiationView!)
         }
     }
@@ -336,7 +344,7 @@ extension UIView {
             initiationView?.delegate =  controller as? OpenAttachmentViewProtocol
             initiationView?.tag = 131
             let safeAreaTop: CGFloat
-
+            
             if #available(iOS 11.0, *) {
                 safeAreaTop = controller.view.safeAreaInsets.top
             } else {
@@ -369,33 +377,33 @@ extension UIView {
             }
             initiationView?.imageButton.imageView?.layer.cornerRadius = 25
             if let tag = chat.buyerLogo, chat.buyerLogo != "" {
-                       let prodId = chat.buyerId
-                                  if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                                    initiationView?.imageButton.setImage(downloadedImage, for: .normal)
-                                   
-                                  }else {
-                                      do {
-                                          let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                                          let service = chatBrandLogoService.init(client: client, chatObj: chat)
-                                          service.fetch().observeNext { (attachment) in
-                                              DispatchQueue.main.async {
-                                               let tag = chat.buyerLogo ?? "name.jpg"
-                                                  let prodId = chat.buyerId
-                                                  _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                                initiationView?.imageButton.setImage(UIImage.init(data: attachment), for: .normal)
-                                               
-                                              }
-                                          }.dispose(in: controller.bag)
-                                      }catch {
-                                          print(error.localizedDescription)
-                                      }
-                                  }
-                              }
-             initiationView?.delegate =  controller as? ChatHeaderViewProtocol
+                let prodId = chat.buyerId
+                if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                    initiationView?.imageButton.setImage(downloadedImage, for: .normal)
+                    
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = chatBrandLogoService.init(client: client, chatObj: chat)
+                        service.fetch().observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                let tag = chat.buyerLogo ?? "name.jpg"
+                                let prodId = chat.buyerId
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                initiationView?.imageButton.setImage(UIImage.init(data: attachment), for: .normal)
+                                
+                            }
+                        }.dispose(in: controller.bag)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            initiationView?.delegate =  controller as? ChatHeaderViewProtocol
             initiationView?.tag = 132
             self.addSubview(initiationView!)
             let safeAreaTop: CGFloat
-
+            
             if #available(iOS 11.0, *) {
                 safeAreaTop = controller.view.safeAreaInsets.top
             } else {
@@ -432,7 +440,7 @@ extension UIView {
             initiationView?.tag = 133
             self.addSubview(initiationView!)
             let safeAreaTop: CGFloat
-
+            
             if #available(iOS 11.0, *) {
                 safeAreaTop = controller.view.safeAreaInsets.top
             } else {
@@ -471,7 +479,7 @@ extension UIView {
             initialView.removeFromSuperview()
         }
     }
-
+    
     func showCloseOrderView(controller: UIViewController, enquiryCode: String?, confirmStatement: String?) {
         if let _ = self.viewWithTag(144) {
             print("do nothing")
@@ -482,13 +490,13 @@ extension UIView {
             initiationView?.confirmStatement.text = confirmStatement ?? ""
             initiationView?.delegate =  controller as? CloseOrderViewProtocol
             initiationView?.tag = 144
-           
+            
             let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
-           let effectView = UIVisualEffectView(effect: effect)
+            let effectView = UIVisualEffectView(effect: effect)
             effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
             effectView.tag = 135
             self.addSubview(effectView)
-             self.addSubview(initiationView!)
+            self.addSubview(initiationView!)
             initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 150, width: 300, height: 300)
             initiationView?.dropShadow()
             
@@ -498,13 +506,13 @@ extension UIView {
     
     func hideCloseOrderView() {
         if let initialView = self.viewWithTag(144) {
-           // self.effectView.removeFromSuperview()
+            // self.effectView.removeFromSuperview()
             self.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
         }
         if let effectView = self.viewWithTag(135) {
             self.sendSubviewToBack(effectView)
-                       effectView.removeFromSuperview()
+            effectView.removeFromSuperview()
         }
     }
     
@@ -514,21 +522,21 @@ extension UIView {
         }else {
             let initiationView = Bundle.main.loadNibNamed("MarkAsDispatchedView", owner:
                 self, options: nil)?.first as? MarkAsDispatchedView
-           
+            
             
             initiationView?.delegate =  controller as? MarkAsDispatchedViewProtocol
             initiationView?.tag = 136
             let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
             let effectView = UIVisualEffectView(effect: effect)
-             effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
-             effectView.tag = 137
-              self.addSubview(effectView)
+            effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+            effectView.tag = 137
+            self.addSubview(effectView)
             self.addSubview(initiationView!)
-           
+            
             
             initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
             self.bringSubviewToFront(initiationView!)
-           
+            
         }
     }
     
@@ -539,82 +547,82 @@ extension UIView {
         }
         if let effectView = self.viewWithTag(137) {
             self.sendSubviewToBack(effectView)
-                       effectView.removeFromSuperview()
+            effectView.removeFromSuperview()
         }
     }
     
     func showPartialRefundReceivedView(controller: UIViewController, enquiryCode: String?, confirmQuestion: String?) {
-           if let _ = self.viewWithTag(138) {
-               print("do nothing")
-           }else {
-               let initiationView = Bundle.main.loadNibNamed("PartialRefundReceivedView", owner:
-                   self, options: nil)?.first as? PartialRefundReceivedView
-               initiationView?.enquiryCode.text = enquiryCode ?? ""
+        if let _ = self.viewWithTag(138) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("PartialRefundReceivedView", owner:
+                self, options: nil)?.first as? PartialRefundReceivedView
+            initiationView?.enquiryCode.text = enquiryCode ?? ""
             initiationView?.confirmQuestion.text = confirmQuestion ?? ""
-               
-               initiationView?.delegate =  controller as? PartialRefundReceivedViewProtocol
-               initiationView?.tag = 138
-              
-               let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
-              let effectView = UIVisualEffectView(effect: effect)
-               effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
-               effectView.tag = 139
-               self.addSubview(effectView)
-                self.addSubview(initiationView!)
-               initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 150, width: 300, height: 300)
-               initiationView?.dropShadow()
-               
-               self.bringSubviewToFront(initiationView!)
-              
-           }
-       }
+            
+            initiationView?.delegate =  controller as? PartialRefundReceivedViewProtocol
+            initiationView?.tag = 138
+            
+            let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let effectView = UIVisualEffectView(effect: effect)
+            effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+            effectView.tag = 139
+            self.addSubview(effectView)
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 150, width: 300, height: 300)
+            initiationView?.dropShadow()
+            
+            self.bringSubviewToFront(initiationView!)
+            
+        }
+    }
     
-       func hidePartialRefundReceivedView() {
-           if let initialView = self.viewWithTag(138) {
-              // self.effectView.removeFromSuperview()
-               self.sendSubviewToBack(initialView)
-               initialView.removeFromSuperview()
-           }
-           if let effectView = self.viewWithTag(139) {
-               self.sendSubviewToBack(effectView)
-                          effectView.removeFromSuperview()
-           }
-       }
+    func hidePartialRefundReceivedView() {
+        if let initialView = self.viewWithTag(138) {
+            // self.effectView.removeFromSuperview()
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+        if let effectView = self.viewWithTag(139) {
+            self.sendSubviewToBack(effectView)
+            effectView.removeFromSuperview()
+        }
+    }
     
     func showRatingInitaitionView(controller: UIViewController) {
-          if let _ = self.viewWithTag(140) {
-              print("do nothing")
-          }else {
-              let initiationView = Bundle.main.loadNibNamed("RatingInitaitionView", owner:
-                  self, options: nil)?.first as? RatingInitaitionView
-              initiationView?.delegate =  controller as? RatingInitaitionViewProtocol
-              initiationView?.tag = 140
-             
-              let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
-             let effectView = UIVisualEffectView(effect: effect)
-              effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
-              effectView.tag = 141
-              self.addSubview(effectView)
-               self.addSubview(initiationView!)
-              initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
-              initiationView?.dropShadow()
-              
-              self.bringSubviewToFront(initiationView!)
-             
-          }
-      }
+        if let _ = self.viewWithTag(140) {
+            print("do nothing")
+        }else {
+            let initiationView = Bundle.main.loadNibNamed("RatingInitaitionView", owner:
+                self, options: nil)?.first as? RatingInitaitionView
+            initiationView?.delegate =  controller as? RatingInitaitionViewProtocol
+            initiationView?.tag = 140
+            
+            let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let effectView = UIVisualEffectView(effect: effect)
+            effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
+            effectView.tag = 141
+            self.addSubview(effectView)
+            self.addSubview(initiationView!)
+            initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 200, width: 300, height: 400)
+            initiationView?.dropShadow()
+            
+            self.bringSubviewToFront(initiationView!)
+            
+        }
+    }
     
-      func hideRatingInitaitionView() {
-          if let initialView = self.viewWithTag(140) {
-             // self.effectView.removeFromSuperview()
-              self.sendSubviewToBack(initialView)
-              initialView.removeFromSuperview()
-          }
-          if let effectView = self.viewWithTag(141) {
-              self.sendSubviewToBack(effectView)
-                         effectView.removeFromSuperview()
-          }
-      }
+    func hideRatingInitaitionView() {
+        if let initialView = self.viewWithTag(140) {
+            // self.effectView.removeFromSuperview()
+            self.sendSubviewToBack(initialView)
+            initialView.removeFromSuperview()
+        }
+        if let effectView = self.viewWithTag(141) {
+            self.sendSubviewToBack(effectView)
+            effectView.removeFromSuperview()
+        }
+    }
     
     func showBuyerReviewConfirmView(controller: UIViewController) {
         if let _ = self.viewWithTag(142) {
@@ -624,30 +632,30 @@ extension UIView {
                 self, options: nil)?.first as? BuyerReviewConfirmView
             initiationView?.delegate =  controller as? BuyerReviewConfirmViewProtocol
             initiationView?.tag = 142
-           
+            
             let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
-           let effectView = UIVisualEffectView(effect: effect)
+            let effectView = UIVisualEffectView(effect: effect)
             effectView.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width, height:UIScreen.main.bounds.size.height)
             effectView.tag = 143
             self.addSubview(effectView)
-             self.addSubview(initiationView!)
+            self.addSubview(initiationView!)
             initiationView?.frame = CGRect(x: (self.frame.width/2) - 150, y: (self.frame.height/2) - 160, width: 300, height: 320)
             initiationView?.dropShadow()
             
             self.bringSubviewToFront(initiationView!)
-           
+            
         }
     }
     
     func hideBuyerReviewConfirmView() {
         if let initialView = self.viewWithTag(142) {
-           // self.effectView.removeFromSuperview()
+            // self.effectView.removeFromSuperview()
             self.sendSubviewToBack(initialView)
             initialView.removeFromSuperview()
         }
         if let effectView = self.viewWithTag(143) {
             self.sendSubviewToBack(effectView)
-                       effectView.removeFromSuperview()
+            effectView.removeFromSuperview()
         }
     }
     
@@ -662,7 +670,7 @@ extension UIView {
             initiationView?.tag = 150
             self.addSubview(initiationView!)
             let safeAreaTop: CGFloat
-
+            
             if #available(iOS 11.0, *) {
                 safeAreaTop = controller.view.safeAreaInsets.top
             } else {

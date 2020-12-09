@@ -11,15 +11,15 @@ import UIKit
 import Eureka
 
 class MOQValueRowView: Cell<String>, CellType {
-
-
+    
+    
     @IBOutlet weak var unitLbl: UILabel!
     @IBOutlet weak var valueLbl: UILabel!
     
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

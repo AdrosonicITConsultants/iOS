@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class RoundedTextFieldView: Cell<String>, CellType {
-
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var valueTextField: RoundedTextField!
     @IBOutlet var compulsoryIcon: UIImageView!
@@ -20,7 +20,7 @@ class RoundedTextFieldView: Cell<String>, CellType {
         super.setup()
         valueTextField.delegate = self
     }
-
+    
     public override func update() {
         super.update()
         //backgroundColor = (row.value ?? false) ? .white : .black

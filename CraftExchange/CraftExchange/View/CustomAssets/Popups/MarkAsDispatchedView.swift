@@ -15,14 +15,14 @@ protocol MarkAsDispatchedViewProtocol {
 }
 
 class MarkAsDispatchedView: UIView {
-
+    
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
     @IBOutlet weak var MarkAsDispatchedButton: UIButton!
     var delegate:MarkAsDispatchedViewProtocol?
     @IBOutlet weak var MarkAsDipatchedCloseButton: UIButton!

@@ -32,7 +32,7 @@ extension ProductCatalogService {
                                     }
                                 }
                             })
-                      }
+                        }
                     }
                 }catch let error as NSError {
                     print(error.description)

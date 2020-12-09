@@ -37,7 +37,6 @@ class DesignCollectionController: UIViewController {
     var madeByAntaran: Bool = false
     var allRegions: Results<ClusterDetails>?
     var allCategories: Results<ProductCategory>?
-    var categoryData: Results<CMSCategoryACF>?
     var regionData: Results<CMSRegionACF>?
     var allArtisanBrands: [User]?
     let realm = try! Realm()
@@ -47,19 +46,19 @@ class DesignCollectionController: UIViewController {
         allRegions = realm.objects(ClusterDetails.self).sorted(byKeyPath: "entityID")
         allCategories = realm.objects(ProductCategory.self).sorted(byKeyPath: "entityID")
         allArtisanBrands = realm.objects(User.self).filter("%K == %@", "refRoleId", "1").compactMap{$0}
-        categoryData = realm.objects(CMSCategoryACF.self).sorted(byKeyPath: "entityID")
         regionData =  realm.objects(CMSRegionACF.self).sorted(byKeyPath: "entityID")
         
         categoryCollection.register(UINib(nibName: "RegionCell", bundle: nil), forCellWithReuseIdentifier: "RegionCell")
         categoryCollection.register(UINib(nibName: "CategoryBrandCell", bundle: nil), forCellWithReuseIdentifier: "CategoryBrandCell")
         
         if madeByAntaran == true {
-            createdByLbl.text = "Antaran Co Design Collection".localized
+            createdByLbl.text = "Antaran Co Design".localized
             madeByImage.image = UIImage.init(named: "iosAntaranSelfDesign")
             collectionSegment.buttonTitles = "Regions, Categories"
         }else {
-            createdByView.backgroundColor = .lightGray
-            createdByLbl.text = "Artisan Self Design Collection".localized
+            createdByView.backgroundColor = #colorLiteral(red: 0.9294117647, green: 0.9294117647, blue: 0.9294117647, alpha: 1)
+            createdByLbl.textColor = .black
+            createdByLbl.text = "Artisan Self Design".localized
             madeByImage.image = UIImage.init(named: "ArtisanSelfDesigniconiOS")
             collectionSegment.buttonTitles = "Regions, Categories, Artisan Brands"
         }
@@ -163,23 +162,23 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RegionCell", for: indexPath) as! RegionCell
             cell.titleLabel.text = allRegions?.compactMap{$0}[indexPath.row].clusterDescription
-            cell.adjectiveLabel.text = allRegions?[indexPath.row].adjective
-            cell.logoImage.image = UIImage.init(named: "coverImage")
-            if let image = CMSRegionACF.getRegionType(ClusterId: (allRegions?[indexPath.row].entityID) ?? 0)?.image, CMSRegionACF.getRegionType(ClusterId: ((allRegions?[indexPath.row].entityID)!))!.image != "" {
-                      
-                           let url = URL(string: image)
-                       URLSession.shared.dataTask(with: url!) { data, response, error in
-                           // do your stuff here...
-                           DispatchQueue.main.async {
-                               if error == nil {
-                                   if let finalData = data {
-                                       // do something on the main queue
-                                       cell.logoImage.image = UIImage.init(data: finalData)
-                                   }
-                               }
-                           }
-                       }.resume()
-                       }
+            cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "coverImage")
+            cell.logoImage.contentMode = .scaleToFill
+            if let image = CMSRegionACF.getRegionType(ClusterId: (allRegions?[indexPath.row].entityID) ?? 0)?.image, CMSRegionACF.getRegionType(ClusterId: ((allRegions?[indexPath.row].entityID) ?? 0))?.image != "" {
+                
+                let url = URL(string: image)
+                URLSession.shared.dataTask(with: url!) { data, response, error in
+                    // do your stuff here...
+                    DispatchQueue.main.async {
+                        if error == nil {
+                            if let finalData = data {
+                                // do something on the main queue
+                                cell.logoImage.image = UIImage.init(data: finalData)
+                            }
+                        }
+                    }
+                }.resume()
+            }
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.shadowColor = UIColor.lightGray.cgColor
@@ -190,23 +189,48 @@ extension DesignCollectionController: UICollectionViewDelegate, UICollectionView
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryBrandCell", for: indexPath) as! CategoryBrandCell
             cell.titleLabel.text = allCategories?[indexPath.row].prodCatDescription
-            cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "Saree")
-            if let image = CMSCategoryACF.getCategoryType(CategoryId: (allCategories?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((allCategories?[indexPath.row].entityID)!))!.image != "" {
-           
-                let url = URL(string: image)
-            URLSession.shared.dataTask(with: url!) { data, response, error in
-                // do your stuff here...
-                DispatchQueue.main.async {
-                    if error == nil {
-                        if let finalData = data {
-                            // do something on the main queue
-                            cell.logoImage.image = UIImage.init(data: finalData)
-                        }
-                    }
-                }
-            }.resume()
+            if madeByAntaran == true {
+                let imageName = "Co" + (cell.titleLabel.text ?? "Saree")
+                print(imageName)
+               cell.logoImage.image = UIImage.init(named: imageName )
+            }else{
+               cell.logoImage.image = UIImage.init(named: cell.titleLabel.text ?? "Saree")
             }
-
+            
+            cell.logoImage.contentMode = .scaleAspectFill
+            if madeByAntaran == true  {
+                if let image = CMSCategoryACFCo.getCategoryType(CategoryId: (allCategories?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACFCo.getCategoryType(CategoryId: ((allCategories?[indexPath.row].entityID) ?? 0))?.image != "" {
+                    let url = URL(string: image)
+                    URLSession.shared.dataTask(with: url!) { data, response, error in
+                        // do your stuff here...
+                        DispatchQueue.main.async {
+                            if error == nil {
+                                if let finalData = data {
+                                    // do something on the main queue
+                                    cell.logoImage.image = UIImage.init(data: finalData)
+                                }
+                            }
+                        }
+                    }.resume()
+                }
+            }else{
+                if let image = CMSCategoryACFSelf.getCategoryType(CategoryId: (allCategories?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACFSelf.getCategoryType(CategoryId: ((allCategories?[indexPath.row].entityID) ?? 0))?.image != "" {
+                    let url = URL(string: image)
+                    URLSession.shared.dataTask(with: url!) { data, response, error in
+                        // do your stuff here...
+                        DispatchQueue.main.async {
+                            if error == nil {
+                                if let finalData = data {
+                                    // do something on the main queue
+                                    cell.logoImage.image = UIImage.init(data: finalData)
+                                }
+                            }
+                        }
+                    }.resume()
+                }
+            }
+            
+            
             cell.layer.borderWidth = 1
             cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.shadowColor = UIColor.lightGray.cgColor

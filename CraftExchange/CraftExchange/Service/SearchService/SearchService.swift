@@ -13,16 +13,16 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class SearchService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }
     
     func artisanSearch(withString: String) -> SafeSignal<Data> {
-      return Product.searchArtisanString(with: withString).response(using: client).debug()
+        return Product.searchArtisanString(with: withString).response(using: client).debug()
     }
     
     func buyerSearch(withString: String) -> SafeSignal<Data> {
-      return Product.searchBuyerString(with: withString).response(using: client).debug()
+        return Product.searchBuyerString(with: withString).response(using: client).debug()
     }
 }

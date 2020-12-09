@@ -20,18 +20,18 @@ class SingleButtonRowView: Cell<String>, CellType {
     
     var delegate: SingleButtonActionProtocol?
     
-  public override func setup() {
-    super.setup()
+    public override func setup() {
+        super.setup()
+        
+        singleButton.addTarget(self, action: #selector(singleButtonSelected(_:)), for: .touchUpInside)
+    }
     
-    singleButton.addTarget(self, action: #selector(singleButtonSelected(_:)), for: .touchUpInside)
-     }
-
-  
-  public override func update() {
-     super.update()
-   }
+    
+    public override func update() {
+        super.update()
+    }
     @IBAction func singleButtonSelected(_ sender: Any) {
-      delegate?.singleButtonSelected(tag: tag)
+        delegate?.singleButtonSelected(tag: tag)
     }
 }
 
@@ -42,6 +42,6 @@ final class SingleButtonRow: Row<SingleButtonRowView>, RowType {
         // We set the cellProvider to load the .xib corresponding to our cell
         cellProvider = CellProvider<SingleButtonRowView>(nibName: "SingleButtonRow")
     }
-   
+    
     
 }

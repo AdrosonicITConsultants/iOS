@@ -16,11 +16,12 @@ import Reachability
 import WMSegmentControl
 
 class OrderListController: UIViewController {
-
+    
     let reuseIdentifier = "BuyerEnquiryCell"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
     var getDeliveryTimes: (() -> ())?
+    var fetchData: (() -> ())?
     var getCurrencySigns: (() -> ())?
     var getReviewAndRatingData: (() -> ())?
     var allOrders: [Order]?
@@ -29,17 +30,23 @@ class OrderListController: UIViewController {
     let realm = try? Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentView: WMSegment!
-    @IBOutlet weak var emptyView: UIImageView!
+    @IBOutlet weak var emptyView: UILabel!
     var viewWillAppear: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData?()
         getDeliveryTimes?()
         getCurrencySigns?()
         getReviewAndRatingData?()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        allOrders = []
+        if self.segmentView.selectedSegmentIndex == 0 {
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }else {
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }
+        emptyView.isHidden = allOrders?.count == 0 ? false : true
         definesPresentationContext = false
         self.setupSideMenu(false)
         let center = NotificationCenter.default
@@ -52,11 +59,6 @@ class OrderListController: UIViewController {
         }
         tableView.refreshControl?.beginRefreshing()
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
-        if User.loggedIn()?.refRoleId == "1" {
-            self.emptyView.image = UIImage.init(named: "no-order-artisan")
-        }else {
-            self.emptyView.image = UIImage.init(named: "no-order-buyer")
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,23 +78,24 @@ class OrderListController: UIViewController {
             refreshControl.endRefreshing()
         }
         if self.reachabilityManager?.connection == .unavailable {
-       // let realm = try? Realm()
-        
-        if self.segmentView.selectedSegmentIndex == 0 {
-            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        }else {
-            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        }
-        
+            // let realm = try? Realm()
+            
+            if self.segmentView.selectedSegmentIndex == 0 {
+                self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }else {
+                self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }
+            
         }else{
-        
-        if segmentView.selectedSegmentIndex == 0 {
-            allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",ongoingOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        }else {
-            allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",closedOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-        }
+            
+            if segmentView.selectedSegmentIndex == 0 {
+                allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",ongoingOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }else {
+                allOrders = realm?.objects(Order.self).filter("%K IN %@","entityID",closedOrders ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }
         }
         emptyView.isHidden = allOrders?.count == 0 ? false : true
+        emptyView.text = segmentView.selectedSegmentIndex == 0 ? "No Ongoing Orders Present".localized : "No Completed Orders Present".localized
         self.hideLoading()
         self.tableView.reloadData()
     }
@@ -159,11 +162,11 @@ extension OrderListController: UITableViewDataSource, UITableViewDelegate {
         let viewEditAction = UIContextualAction(style: .normal, title:  "Chat".localized, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
             do {
-             let client = try SafeClient(wrapping: CraftExchangeClient())
-            if let obj = self.allOrders?[indexPath.row] {
-                let service = ChatListService.init(client: client)
-                service.initiateConversation(vc: self, enquiryId: obj.entityID)
-            }
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                if let obj = self.allOrders?[indexPath.row] {
+                    let service = ChatListService.init(client: client)
+                    service.initiateConversation(vc: self, enquiryId: obj.entityID)
+                }
             }catch {
                 print(error.localizedDescription)
             }
@@ -173,7 +176,7 @@ extension OrderListController: UITableViewDataSource, UITableViewDelegate {
         })
         viewEditAction.image = UIImage.init(named: "chat-icon")
         viewEditAction.backgroundColor = UIColor().CEMagenda()
-
+        
         return UISwipeActionsConfiguration(actions: [viewEditAction])
     }
 }

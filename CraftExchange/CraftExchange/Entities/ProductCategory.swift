@@ -27,7 +27,7 @@ class ProductCategory: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -36,7 +36,7 @@ class ProductCategory: Object, Decodable {
         prodCatDescription = try values.decodeIfPresent(String.self, forKey: .prodCatDescription)
         code = try values.decodeIfPresent(String.self, forKey: .code)
         if let list = try? values.decodeIfPresent([ProductType].self, forKey: .productTypes) {
-           productTypes.append(objectsIn: list)
+            productTypes.append(objectsIn: list)
         }
     }
 }

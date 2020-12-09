@@ -13,7 +13,7 @@ import RealmSwift
 import SwiftKeychainWrapper
 
 class NotificationService: BaseService<Data> {
-
+    
     required init() {
         super.init()
     }

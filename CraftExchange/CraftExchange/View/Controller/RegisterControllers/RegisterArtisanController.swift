@@ -16,22 +16,22 @@ class REGArtisanViewModel {
 }
 
 class RegisterArtisanController: UIViewController {
-  
-  lazy var viewModel = REGArtisanViewModel()
-  var isTCAccepted = false
-  @IBOutlet weak var completeButton: RoundedButton!
-  @IBOutlet weak var checkboxButton: UIButton!
-  @IBOutlet weak var uploadImageButton: UIButton!
     
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.navigationItem.rightBarButtonItem = roleBarButton()
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    self.viewModel.selectedProdCat.value = appDelegate?.registerUser?.productCategoryIds
-    uploadImageButton.layer.borderWidth = 1
-    uploadImageButton.layer.borderColor = UIColor.black.cgColor
-    uploadImageButton.layer.cornerRadius = 50
-  }
+    lazy var viewModel = REGArtisanViewModel()
+    var isTCAccepted = false
+    @IBOutlet weak var completeButton: RoundedButton!
+    @IBOutlet weak var checkboxButton: UIButton!
+    @IBOutlet weak var uploadImageButton: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = roleBarButton()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        self.viewModel.selectedProdCat.value = appDelegate?.registerUser?.productCategoryIds
+        uploadImageButton.layer.borderWidth = 1
+        uploadImageButton.layer.borderColor = UIColor.black.cgColor
+        uploadImageButton.layer.cornerRadius = 50
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         for subview in self.view.subviews {
@@ -42,17 +42,17 @@ class RegisterArtisanController: UIViewController {
             }
         }
     }
-  
-  @IBAction func toggleCheckbox(_ sender: Any) {
-    isTCAccepted = !isTCAccepted
-    let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")
-    checkboxButton.setImage(img, for: .normal)
     
-  }
-  
-  @IBAction func completeButtonSelected(_ sender: Any) {
-    self.viewModel.completeRegistration?()
-  }
+    @IBAction func toggleCheckbox(_ sender: Any) {
+        isTCAccepted = !isTCAccepted
+        let img = isTCAccepted == true ? UIImage.init(systemName: "checkmark.square") : UIImage.init(systemName: "square")
+        checkboxButton.setImage(img, for: .normal)
+        
+    }
+    
+    @IBAction func completeButtonSelected(_ sender: Any) {
+        self.viewModel.completeRegistration?()
+    }
     
     @IBAction func toggleProductCat(_ sender: Any) {
         let button = sender as? RoundedButton

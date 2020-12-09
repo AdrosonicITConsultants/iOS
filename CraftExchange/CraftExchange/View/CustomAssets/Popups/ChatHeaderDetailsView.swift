@@ -15,7 +15,7 @@ protocol ChatHeaderDetailsViewProtocol {
 }
 
 class ChatHeaderDetailsView: UIView {
-
+    
     @IBOutlet weak var enquiryStartedOn: UILabel!
     @IBOutlet weak var convertedToOrderOn: UILabel!
     @IBOutlet weak var lastUpdatedOn: UILabel!
@@ -39,6 +39,6 @@ class ChatHeaderDetailsView: UIView {
         self.layer.shadowOpacity = 0.5
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOffset = CGSize(width: 0 , height:2)
-       }
+    }
     
 }

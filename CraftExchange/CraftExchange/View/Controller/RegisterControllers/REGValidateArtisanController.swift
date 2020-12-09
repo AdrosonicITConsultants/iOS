@@ -16,37 +16,37 @@ class ValidationArtisanViewModel {
 }
 
 class REGValidateArtisanController: UIViewController {
-  
-  lazy var viewModel = ValidationArtisanViewModel()
-  let appDelegate = UIApplication.shared.delegate as? AppDelegate
-  @IBOutlet weak var nextButton: RoundedButton!
-  @IBOutlet weak var weaverIdField: RoundedTextField!
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view.
-    self.viewModel.weaverId.bidirectionalBind(to: weaverIdField.reactive.text)
-    self.navigationItem.rightBarButtonItem = roleBarButton()
-  }
+    
+    lazy var viewModel = ValidationArtisanViewModel()
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    @IBOutlet weak var nextButton: RoundedButton!
+    @IBOutlet weak var weaverIdField: RoundedTextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        self.viewModel.weaverId.bidirectionalBind(to: weaverIdField.reactive.text)
+        self.navigationItem.rightBarButtonItem = roleBarButton()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         weaverIdField.text = appDelegate?.registerUser?.weaverId
         self.viewModel.weaverId.value = weaverIdField.text
     }
-  
-  @IBAction func nextButtonSelected(_ sender: Any) {
-    self.viewModel.performValidation?()
-  }
     
-  @IBAction func faqButtonSelected(_ sender: UIButton){
+    @IBAction func nextButtonSelected(_ sender: Any) {
+        self.viewModel.performValidation?()
+    }
+    
+    @IBAction func faqButtonSelected(_ sender: UIButton){
         didTapFAQButton(tag: sender.tag)
-  }
+    }
     
     @IBAction func languageButtonSelected(_ sender: UIButton){
         showLanguagePickerAlert()
     }
     
     @IBAction func reachOutToUsSelected(_ sender: Any) {
-        alert("For any query reach us @ antaran@tatatrusts.org")
+        alert("For any query","please write to us at craftxchange.tatatrusts@gmail.com" )
     }
 }

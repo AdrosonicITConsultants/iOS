@@ -15,7 +15,7 @@ protocol ToggleButtonProtocol {
 }
 
 class ToggleOptionRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var toggleButton: UIButton!
     var washCare = false
@@ -25,7 +25,7 @@ class ToggleOptionRowView: Cell<String>, CellType {
         super.setup()
         toggleButton.addTarget(self, action: #selector(toggleSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }

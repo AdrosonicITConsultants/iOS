@@ -100,6 +100,7 @@ class OrderDetailController: FormViewController {
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.height = { 220.0 }
+                $0.cell.selectionStyle = .none
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
@@ -145,52 +146,52 @@ class OrderDetailController: FormViewController {
                 }
             })
             <<< BuyerEnquirySectionViewRow() {
-                          $0.cell.height = { 40.0 }
-                          $0.tag = "View Rating"
-                          $0.cell.titleLbl.text = "Buyer rated you!".localized
-                          $0.cell.valueLbl.text = "View"
-                          $0.cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.7554848031, blue: 0.2052248061, alpha: 1)
-                          $0.cell.titleLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
-                          $0.cell.valueLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
+                $0.cell.height = { 40.0 }
+                $0.tag = "View Rating"
+                $0.cell.titleLbl.text = "Buyer rated you!".localized
+                $0.cell.valueLbl.text = "View"
+                $0.cell.contentView.backgroundColor = #colorLiteral(red: 1, green: 0.7554848031, blue: 0.2052248061, alpha: 1)
+                $0.cell.titleLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
+                $0.cell.valueLbl.textColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
                 $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
                 $0.cell.arrow.tintColor = #colorLiteral(red: 0.5318118579, green: 0.3827857449, blue: 0, alpha: 1)
-                          $0.hidden = true
+                $0.hidden = true
                 if self.orderObject?.enquiryStageId != nil && self.isBuyerRatingDone != nil{
                     if (User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 10 && self.isBuyerRatingDone! == 1) {
-                                  $0.hidden = false
-                              }
-                          }
+                        $0.hidden = false
+                    }
+                }
                 
-                      }.onCellSelection({ (cell, row) in
-                          if self.orderObject != nil {
-                              do {
-                                  let client = try SafeClient(wrapping: CraftExchangeClient())
-                                     let vc = ViewRatingController.init(style: .plain)
-                                  vc.orderObject = self.orderObject
-                                      self.navigationController?.pushViewController(vc, animated: false)
-                              }catch {
-                                  print(error.localizedDescription)
-                              }
-                          }
-                      }).cellUpdate({ (cell, row) in
-                        
-                        if self.orderObject?.enquiryStageId != nil && self.isBuyerRatingDone != nil{
-                            if (User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 10 && self.isBuyerRatingDone! == 1) {
-                                cell.row.hidden = false
+            }.onCellSelection({ (cell, row) in
+                if self.orderObject != nil {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        let vc = ViewRatingController.init(style: .plain)
+                        vc.orderObject = self.orderObject
+                        self.navigationController?.pushViewController(vc, animated: false)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }).cellUpdate({ (cell, row) in
+                
+                if self.orderObject?.enquiryStageId != nil && self.isBuyerRatingDone != nil{
+                    if (User.loggedIn()?.refRoleId == "1" && self.orderObject!.enquiryStageId >= 10 && self.isBuyerRatingDone! == 1) {
+                        cell.row.hidden = false
+                    }
+                    cell.textLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+                    var ResponseArray:[Int] = []
+                    if self.allBuyerRatingResponse != nil{
+                        for object in self.allBuyerRatingResponse! {
+                            if object.responseComment == nil {
+                                ResponseArray.append(object.response)
+                                cell.valueLbl.text = "\((Double(ResponseArray.reduce(0, +))/Double(ResponseArray.count)))"
                             }
-                             cell.textLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-                            var ResponseArray:[Int] = []
-                            if self.allBuyerRatingResponse != nil{
-                                for object in self.allBuyerRatingResponse! {
-                                    if object.responseComment == nil {
-                                        ResponseArray.append(object.response)
-                                        cell.valueLbl.text = "\((Double(ResponseArray.reduce(0, +))/Double(ResponseArray.count)))"
-                                    }
-                                }
-                            }
-                            
                         }
-                      })
+                    }
+                    
+                }
+            })
             
             <<< LabelRow(){
                 $0.title = "Order Details".localized
@@ -218,31 +219,33 @@ class OrderDetailController: FormViewController {
                         cell.isUserInteractionEnabled = true
                     }else {
                         cell.isUserInteractionEnabled = false
+                        cell.switchControl.onTintColor = .lightGray
                     }
                 }else {
                     cell.isUserInteractionEnabled = false
+                    cell.switchControl.onTintColor = .lightGray
                 }
             })
-           <<< LabelRow(){
+            <<< LabelRow(){
                 $0.tag = "Order under Recreation"
-               // $0.cell.height = { 60.0 }
+                // $0.cell.height = { 60.0 }
                 $0.hidden = true
-            $0.title = "Order under Recreation".localized
+                $0.title = "Order under Recreation".localized
                 if self.orderObject?.isReprocess == 1  {
                     $0.hidden = false
                 }
-            if User.loggedIn()?.refRoleId == "2" {
-                $0.title = """
+                if User.loggedIn()?.refRoleId == "2" {
+                    $0.title = """
                 Order under Recreation
                 Kindly refer chats for regular updates and in-case of any inconvenience, feel free to escalate the issue over chat
                 """.localized
-            }
-            if User.loggedIn()?.refRoleId == "1" {
-                $0.title = """
-                Order under Recreation
-                Kindly keep updating buyer about the status of product over chat
-                """
-            }
+                }
+                if User.loggedIn()?.refRoleId == "1" {
+                    $0.title = """
+                    Order under Recreation
+                    Kindly keep updating buyer about the status of product over chat
+                    """
+                }
                 
                 $0.cellStyle = .default
                 $0.cell.textLabel?.numberOfLines = 5
@@ -276,7 +279,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.createSendInvoiceBtn.setTitle("Order recreation".localized, for: .normal)
                 $0.cell.createSendInvoiceBtn.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
                 $0.cell.createSendInvoiceBtn.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-               // $0.cell.createSendInvoiceBtn.layer.cornerRadius = 15
+                // $0.cell.createSendInvoiceBtn.layer.cornerRadius = 15
                 $0.cell.createSendInvoiceBtn.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
                 $0.hidden = true
                 if orderObject != nil {
@@ -351,7 +354,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 110.0 }
             }.cellUpdate({ (cell, row) in
                 cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.orderObject?.enquiryStageId ?? 0) - 1)?.stageDescription ?? "NA")"
-                if self.orderObject!.enquiryStageId == 3 && self.orderObject?.productStatusId == 2 {
+                if self.orderObject?.enquiryStageId == 7 && self.orderObject?.productStatusId == 2 {
                     cell.previousStatusLbl.text = "\(EnquiryStages.getStageType(searchId: (self.orderObject?.enquiryStageId ?? 0) - 4)?.stageDescription ?? "NA")"
                 }
                 if self.orderObject?.enquiryStageId == 5 && self.orderObject!.innerEnquiryStageId >= 2{
@@ -440,13 +443,13 @@ class OrderDetailController: FormViewController {
                     cell.height = { 0.0 }
                 }
             })
-             
-            <<< LabelRow(){
-                $0.cell.height = {30.0}
-                $0.title = ""
-            }.cellUpdate({ (cell, row) in
-                cell.selectionStyle = .none
-            })
+            
+            //            <<< LabelRow(){
+            //                $0.cell.height = {30.0}
+            //                $0.title = ""
+            //            }.cellUpdate({ (cell, row) in
+            //                cell.selectionStyle = .none
+            //            })
             
             <<< StartStageViewRow()
                 {
@@ -530,7 +533,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.createSendInvoiceBtn.setTitle("Upload delivery receipt".localized, for: .normal)
                 $0.hidden = true
                 if orderObject?.enquiryStageId != nil {
-                    if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                    if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 && !(self.orderObject?.isDelivery ?? false){
                         $0.hidden = false
                     }
                     
@@ -539,7 +542,7 @@ class OrderDetailController: FormViewController {
             }
             .cellUpdate({ (cell, row) in
                 if self.orderObject?.enquiryStageId != nil {
-                    if (self.orderObject?.enquiryStageId)! >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+                    if (self.orderObject?.enquiryStageId)! >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 && !(self.orderObject?.isDelivery ?? false){
                         cell.row.hidden = false
                     }
                     else{
@@ -648,7 +651,29 @@ class OrderDetailController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
+                $0.cell.titleLbl.text = "Enquiry Details".localized
+                $0.cell.valueLbl.text = "View"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQPinkText()
+                $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
+                $0.cell.titleLbl.textColor = UIColor().EQPinkText()
+                $0.cell.valueLbl.textColor = UIColor().EQPinkText()
+            }.onCellSelection({ (cell, row) in
+                if let obj = Enquiry().searchEnquiry(searchId: self.orderObject?.enquiryId ?? 0) {
+                    self.goToEnquiry?(obj.enquiryId)
+                }else {
+                    self.downloadEnquiry?(self.orderObject?.enquiryId ?? 0 )
+                }
+                
+                
+            })
+            
+            <<< BuyerEnquirySectionViewRow() {
+                $0.cell.height = { 44.0 }
                 $0.tag = "Raise Concern"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBrownText()
+                $0.hidden = true
                 $0.cell.titleLbl.text = "Eh! Problem?".localized
                 $0.cell.valueLbl.text = "Raise a concern"
                 if User.loggedIn()?.refRoleId == "1"{
@@ -671,28 +696,30 @@ class OrderDetailController: FormViewController {
                         let client = try SafeClient(wrapping: CraftExchangeClient())
                         
                         let vc = OrderDetailsService(client: client).createRaiseConcernScene(forOrder: self.orderObject, enquiryId: self.orderObject!.enquiryId) as! RaiseConcernController
-                           
+                        
                         vc.orderObject = self.orderObject
-                            self.navigationController?.pushViewController(vc, animated: false)
+                        self.navigationController?.pushViewController(vc, animated: false)
                     }catch {
                         print(error.localizedDescription)
                     }
                 }
             }).cellUpdate({ (cell, row) in
-                    if User.loggedIn()?.refRoleId == "1"{
-                        cell.titleLbl.text = "Concern Raised".localized
-                        cell.valueLbl.text = "View".localized
+                if User.loggedIn()?.refRoleId == "1"{
+                    cell.titleLbl.text = "Concern Raised".localized
+                    cell.valueLbl.text = "View".localized
+                }
+                if self.orderObject?.enquiryStageId != nil {
+                    if (self.orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId == "1") || ( User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && !self.isClosed && self.orderProgress?.artisanReviewId != "2" && self.orderObject?.isReprocess != 1){
+                        cell.row.hidden = false
                     }
-                    if self.orderObject?.enquiryStageId != nil {
-                        if (self.orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId == "1") || ( User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && !self.isClosed && self.orderProgress?.artisanReviewId != "2" && self.orderObject?.isReprocess != 1){
-                            cell.row.hidden = false
-                        }
-                    }
-                })
+                }
+            })
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.tag = "Delivery Receipt"
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBlueText()
                 $0.cell.titleLbl.text = "Delivery Receipt".localized
                 $0.cell.valueLbl.text = "View".localized
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
@@ -727,6 +754,8 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Tax Invoice".localized
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBrownText()
                 $0.cell.valueLbl.text = "View".localized
                 $0.cell.contentView.backgroundColor = UIColor().EQBrownBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBrownText()
@@ -747,6 +776,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Quality Check".localized
                 $0.cell.valueLbl.text = ""
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQGreenText()
                 $0.cell.contentView.backgroundColor = UIColor().EQGreenBg()
                 $0.cell.titleLbl.textColor = UIColor().EQGreenText()
                 $0.cell.valueLbl.textColor = UIColor().EQGreenText()
@@ -772,6 +803,8 @@ class OrderDetailController: FormViewController {
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Change Request".localized
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQPurpleText()
                 $0.cell.contentView.backgroundColor = UIColor().EQPurpleBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPurpleText()
                 $0.cell.valueLbl.textColor = UIColor().EQPurpleText()
@@ -794,8 +827,8 @@ class OrderDetailController: FormViewController {
                                 }else {
                                     if (self.orderObject?.changeRequestModifiedOn == nil && User.loggedIn()?.refRoleId == "1") ||
                                         (User.loggedIn()?.refRoleId == "2" &&
-                                        ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
-                                         ){
+                                            ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
+                                        ){
                                         row.cell.valueLbl.text = "No change request available"
                                     }else{
                                         row.cell.valueLbl.text = "Last date to raise Change Request passed.".localized
@@ -819,29 +852,29 @@ class OrderDetailController: FormViewController {
                     row.cell.valueLbl.text = "No change request raised".localized
                 }
             }).onCellSelection({ (cell, row) in
-            
+                
                 if self.orderObject?.enquiryStageId ?? 0 < 6 {
                     if self.orderObject?.productStatusId != 2 && self.orderObject?.changeRequestOn == 1 {
                         var execute = false
-                    
+                        
                         if (self.orderObject?.changeRequestModifiedOn != nil && User.loggedIn()?.refRoleId == "1") ||
                             (User.loggedIn()?.refRoleId == "2" &&
-                            ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
-                             ){
+                                ( Date() < (Calendar.current.date(byAdding: .day, value: 10, to: self.orderObject?.orderCreatedOn ?? Date()) ?? Date()))
+                            ){
                             execute = true
                         }
                         if execute {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeClient())
-                            if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
-                                let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
-                                self.navigationController?.pushViewController(vc, animated: false)
-                            }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
-                                self.fetchChangeRequest?()
+                            do {
+                                let client = try SafeClient(wrapping: CraftExchangeClient())
+                                if User.loggedIn()?.refRoleId == "2" && self.orderObject?.changeRequestModifiedOn == nil {
+                                    let vc = OrderDetailsService(client: client).createBuyerChangeRequestScene(forEnquiry: self.orderObject?.enquiryId ?? 0)
+                                    self.navigationController?.pushViewController(vc, animated: false)
+                                }else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.changeRequestStatus == 0 {
+                                    self.fetchChangeRequest?()
+                                }
+                            }catch {
+                                print(error.localizedDescription)
                             }
-                        }catch {
-                            print(error.localizedDescription)
-                        }
                         }
                     }
                 }
@@ -851,6 +884,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check PI".localized
                 $0.cell.valueLbl.text = "View".localized
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
+                $0.cell.arrow.tintColor = UIColor().EQBlueText()
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
                 $0.cell.titleLbl.textColor = UIColor().EQBlueText()
                 $0.cell.valueLbl.textColor = UIColor().EQBlueText()
@@ -864,6 +899,8 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Your Transactions".localized
                 $0.cell.valueLbl.text = ""
+                $0.cell.arrow.image = UIImage.init(systemName: "chevron.down")
+                $0.cell.arrow.tintColor = UIColor().EQPinkText()
                 $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPinkText()
                 $0.cell.valueLbl.textColor = UIColor().EQPinkText()
@@ -934,38 +971,38 @@ class OrderDetailController: FormViewController {
             let row = form.rowBy(tag: "Order under Recreation")
             row?.hidden = false
             row?.evaluateHidden()
-             self.form.allSections.first?.reload(with: .none)
+            self.form.allSections.first?.reload(with: .none)
         }else{
             let row = form.rowBy(tag: "Order under Recreation")
             row?.hidden = true
             row?.evaluateHidden()
-             self.form.allSections.first?.reload(with: .none)
+            self.form.allSections.first?.reload(with: .none)
         }
         
         if orderObject?.isReprocess == 1 && User.loggedIn()?.refRoleId == "1"  {
             let row = form.rowBy(tag: "Mark order dispatched after recreation".localized)
             row?.hidden = false
             row?.evaluateHidden()
-             self.form.allSections.first?.reload(with: .none)
+            self.form.allSections.first?.reload(with: .none)
         }else{
             let row = form.rowBy(tag: "Mark order dispatched after recreation".localized)
             row?.hidden = true
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-                                   
+        
         if orderObject != nil {
             if self.orderObject!.isReprocess == 0 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderProgress?.artisanReviewId == "2" {
-               let row = form.rowBy(tag: "Recreate Order")
+                let row = form.rowBy(tag: "Recreate Order")
                 row?.hidden = false
                 row?.evaluateHidden()
             }
-             self.form.allSections.first?.reload(with: .none)
+            self.form.allSections.first?.reload(with: .none)
         }
-       
+        
         
         if self.orderObject?.enquiryStageId != nil {
-if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId == "1") || ( User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && !self.isClosed && self.orderProgress?.artisanReviewId != "2" && self.orderObject?.isReprocess != 1){
+            if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId == "1") || ( User.loggedIn()?.refRoleId == "2" && self.orderObject!.enquiryStageId >= 10 && !self.isClosed && self.orderProgress?.artisanReviewId != "2" && self.orderObject?.isReprocess != 1){
                 let row = form.rowBy(tag: "Raise Concern")
                 row?.hidden = false
                 row?.evaluateHidden()
@@ -1013,12 +1050,12 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
-//        else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3 {
-//            let row = form.rowBy(tag: "Create Final Invoice")
-//            row?.hidden = false
-//            row?.evaluateHidden()
-//            self.form.allSections.first?.reload(with: .none)
-//        }
+            //        else if User.loggedIn()?.refRoleId == "1" && self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3 {
+            //            let row = form.rowBy(tag: "Create Final Invoice")
+            //            row?.hidden = false
+            //            row?.evaluateHidden()
+            //            self.form.allSections.first?.reload(with: .none)
+            //        }
         else{
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = true
@@ -1077,7 +1114,7 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
             self.form.allSections.first?.reload(with: .none)
         }
         if self.orderObject?.enquiryStageId != nil {
-            if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 {
+            if self.orderObject!.enquiryStageId >= 9 && User.loggedIn()?.refRoleId == "1" && !self.isClosed && self.orderObject?.deliveryChallanUploaded != 1 && !(self.orderObject?.isDelivery ?? false) {
                 let row = form.rowBy(tag: "Upload delivery receipt")
                 row?.hidden = false
                 row?.evaluateHidden()
@@ -1090,12 +1127,12 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
             }
         }
         
-//        if self.orderObject!.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
-//            let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
-//            row?.hidden = false
-//            row?.evaluateHidden()
-//            self.form.allSections.first?.reload(with: .none)
-//        }
+        //        if self.orderObject!.enquiryStageId == 3 && User.loggedIn()?.refRoleId == "1"{
+        //            let row = form.rowBy(tag: "View Invoice & Approve Advance Payment")
+        //            row?.hidden = false
+        //            row?.evaluateHidden()
+        //            self.form.allSections.first?.reload(with: .none)
+        //        }
         if User.loggedIn()?.refRoleId == "1" && self.orderObject?.enquiryStageId == 4{
             let row = form.rowBy(tag: "Start Production Stage")
             row?.hidden = false
@@ -1163,7 +1200,7 @@ if (orderProgress?.isFaulty == 1 && !self.isClosed && User.loggedIn()?.refRoleId
                     }else {
                         self.downloadEnquiry?(obj.enquiryId )
                     }
-
+                    
                 })
         })
         self.form.sectionBy(tag: "list Transactions")?.reload()
@@ -1348,29 +1385,29 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
     }
     
     
-//    func approvePaymentButtonSelected(tag: Int) {
-//        switch tag{
-//        case 3:
-//            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
-//            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
-//            vc1.orderObject = self.orderObject
-//            vc1.modalPresentationStyle = .fullScreen
-//            self.navigationController?.pushViewController(vc1, animated: true)
-//
-//        default:
-//            print("PaymentArtistBtnSelected Not WORKING")
-//        }
-//    }
-//
-//    func viewInvoiceButtonSelected(tag: Int) {
-//        switch tag{
-//        case 3:
-//            self.showLoading()
-//            self.viewPI?(0)
-//        default:
-//            print("do nothing")
-//        }
-//    }
+    //    func approvePaymentButtonSelected(tag: Int) {
+    //        switch tag{
+    //        case 3:
+    //            let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+    //            let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
+    //            vc1.orderObject = self.orderObject
+    //            vc1.modalPresentationStyle = .fullScreen
+    //            self.navigationController?.pushViewController(vc1, animated: true)
+    //
+    //        default:
+    //            print("PaymentArtistBtnSelected Not WORKING")
+    //        }
+    //    }
+    //
+    //    func viewInvoiceButtonSelected(tag: Int) {
+    //        switch tag{
+    //        case 3:
+    //            self.showLoading()
+    //            self.viewPI?(0)
+    //        default:
+    //            print("do nothing")
+    //        }
+    //    }
     
     
     func createSendInvoiceBtnSelected(tag: Int) {
@@ -1379,14 +1416,14 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject!.enquiryId, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
-          //  if orderObject?.enquiryStageId ?? 0 >= 3 {
-                vc1.isFI = true
-                vc1.PI = self.PI
-                vc1.advancePaymnet = self.advancePaymnet
-          //  }
-//            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
-//                vc1.PI = self.PI
-//            }
+            //  if orderObject?.enquiryStageId ?? 0 >= 3 {
+            vc1.isFI = true
+            vc1.PI = self.PI
+            vc1.advancePaymnet = self.advancePaymnet
+            //  }
+            //            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+            //                vc1.PI = self.PI
+            //            }
             vc1.orderObject = self.orderObject
             print("PI WORKING")
             self.navigationController?.pushViewController(vc1, animated: true)
@@ -1430,8 +1467,8 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
         case 106:
             self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Is Partial Refund Received?".localized)
         case 107:
-             print("NOt Working PI")
-             self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Are you sure you want to recreate order?".localized)
+            print("NOt Working PI")
+            self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Are you sure you want to recreate order?".localized)
         case 108:
             self.view.showMarkAsDispatchedView(controller: self)
         default:
@@ -1508,9 +1545,9 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
                     let client = try SafeClient(wrapping: CraftExchangeClient())
                     let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: orderObject, enquiryId: orderObject?.enquiryId ?? 0) as! ProvideRatingController
                     vc.orderObject = self.orderObject
-                   // vc.isBuyerRatingDone = self.isBuyerRatingDone
-                   // vc.isArtisanRatingDone = self.isArtisanRatingDone
-                        self.navigationController?.pushViewController(vc, animated: false)
+                    // vc.isBuyerRatingDone = self.isBuyerRatingDone
+                    // vc.isArtisanRatingDone = self.isArtisanRatingDone
+                    self.navigationController?.pushViewController(vc, animated: false)
                 }catch {
                     print(error.localizedDescription)
                 }
@@ -1556,13 +1593,13 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
         self.showLoading()
         if orderObject?.enquiryStageId == 9 {
             let client = try! SafeClient(wrapping: CraftExchangeClient())
-                   let service = EnquiryDetailsService.init(client: client)
-                   service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 10, innerStageId: 0)
+            let service = EnquiryDetailsService.init(client: client)
+            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 10, innerStageId: 0)
         }
         if orderObject?.isReprocess == 1{
             self.orderDispatchAfterRecreation?()
         }
-       
+        
     }
     
     ///close order
@@ -1600,9 +1637,9 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
         self.raiseNewCRPI?()
     }
     
-//    func RejectBtnSelected(tag: Int) {
-//        print("do nothing")
-//    }
+    //    func RejectBtnSelected(tag: Int) {
+    //        print("do nothing")
+    //    }
     ///final payment
     func paymentBtnSelected(tag: Int) {
         switch tag{
@@ -1633,7 +1670,7 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     }
     
     func downloadButtonSelected(isOld: Bool) {
-     //   let view = self.view.
+        //   let view = self.view.
         self.downloadPI?(true, isOld)
     }
     
@@ -1642,9 +1679,9 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     }
     
     
-//    func cancelButtonSelected() {
-//        self.view.hideAcceptMOQView()
-//    }
+    //    func cancelButtonSelected() {
+    //        self.view.hideAcceptMOQView()
+    //    }
     
     //    func acceptMOQButtonSelected() {
     //        self.showLoading()

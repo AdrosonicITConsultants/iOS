@@ -11,30 +11,30 @@ import UIKit
 import Eureka
 
 protocol ButtonActionProtocol {
-  func customButtonSelected(tag: Int)
+    func customButtonSelected(tag: Int)
 }
 
 class RoundedButtonView: Cell<String>, CellType {
-
-  @IBOutlet var titleLabel: UILabel!
-  @IBOutlet var greyLineView: UIView!
-  @IBOutlet var compulsoryIcon: UIImageView!
-  @IBOutlet var buttonView: RoundedButton!
-  var delegate: ButtonActionProtocol?
     
-  public override func setup() {
-    super.setup()
-    buttonView.addTarget(self, action: #selector(customButtonSelected(_:)), for: .touchUpInside)
-  }
-
-  public override func update() {
-    super.update()
-    //backgroundColor = (row.value ?? false) ? .white : .black
-  }
-  
-  @IBAction func customButtonSelected(_ sender: Any) {
-    delegate?.customButtonSelected(tag: tag)
-  }
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var greyLineView: UIView!
+    @IBOutlet var compulsoryIcon: UIImageView!
+    @IBOutlet var buttonView: RoundedButton!
+    var delegate: ButtonActionProtocol?
+    
+    public override func setup() {
+        super.setup()
+        buttonView.addTarget(self, action: #selector(customButtonSelected(_:)), for: .touchUpInside)
+    }
+    
+    public override func update() {
+        super.update()
+        //backgroundColor = (row.value ?? false) ? .white : .black
+    }
+    
+    @IBAction func customButtonSelected(_ sender: Any) {
+        delegate?.customButtonSelected(tag: tag)
+    }
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value

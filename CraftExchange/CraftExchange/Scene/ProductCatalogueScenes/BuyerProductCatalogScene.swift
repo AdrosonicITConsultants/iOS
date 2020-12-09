@@ -25,49 +25,49 @@ extension ProductCatalogService {
         controller.madeByAntaran = madeByAntaran == true ? 1 : 2
         
         func setupRefreshActions() {
-//            controller.refreshControl?.reactive.controlEvents(.valueChanged).observeNext {
-                syncData()
-//            }.dispose(in: controller.bag)
+            //            controller.refreshControl?.reactive.controlEvents(.valueChanged).observeNext {
+            syncData()
+            //            }.dispose(in: controller.bag)
         }
-
+        
         func performSync() {
             if let category = selectedProductCat {
                 fetchAllProducts(categoryId: category.entityID).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     DispatchQueue.main.async {
-                    responseData .forEach { (prodObj) in
-                        prodObj.saveOrUpdate()
-                        if prodObj == responseData.last {
-                            DispatchQueue.main.async {
-                                controller.endRefresh()
+                        responseData .forEach { (prodObj) in
+                            prodObj.saveOrUpdate()
+                            if prodObj == responseData.last {
+                                DispatchQueue.main.async {
+                                    controller.endRefresh()
+                                }
                             }
                         }
-                    }
                     }
                 }.dispose(in: controller.bag)
             } else if let region = selectedRegion {
                 fetchAllProducts(clusterId: region.entityID).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     DispatchQueue.main.async {
-                      responseData .forEach { (prodObj) in
-                          prodObj.saveOrUpdate()
-                          if prodObj == responseData.last {
-                              DispatchQueue.main.async {
-                                  controller.endRefresh()
-                              }
-                          }
-                      }
+                        responseData .forEach { (prodObj) in
+                            prodObj.saveOrUpdate()
+                            if prodObj == responseData.last {
+                                DispatchQueue.main.async {
+                                    controller.endRefresh()
+                                }
+                            }
+                        }
                     }
                 }.dispose(in: controller.bag)
             }else if let artisan = selectedArtisan {
                 fetchAllProducts(artisanId: artisan.entityID).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     DispatchQueue.main.async {
-                    responseData .forEach { (prodObj) in
-                        prodObj.saveOrUpdate()
-                        if prodObj == responseData.last {
-                            DispatchQueue.main.async {
-                                controller.endRefresh()
+                        responseData .forEach { (prodObj) in
+                            prodObj.saveOrUpdate()
+                            if prodObj == responseData.last {
+                                DispatchQueue.main.async {
+                                    controller.endRefresh()
+                                }
                             }
                         }
-                    }
                     }
                 }.dispose(in: controller.bag)
             }
@@ -222,7 +222,7 @@ extension ProductCatalogService {
                         if let proddata = try? JSONSerialization.data(withJSONObject: prodDictionary, options: .fragmentsAllowed) {
                             if let object = try? JSONDecoder().decode(Product.self, from: proddata) {
                                 DispatchQueue.main.async {
-//                                    object.saveOrUpdate()
+                                    //                                    object.saveOrUpdate()
                                     controller.hideLoading()
                                     do {
                                         let client = try SafeClient(wrapping: CraftExchangeClient())

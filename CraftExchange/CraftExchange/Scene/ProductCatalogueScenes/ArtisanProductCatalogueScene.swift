@@ -21,7 +21,7 @@ extension ProductCatalogService {
         guard var selectedProductCat = ProductCategory.getProductCat(catId: catId) else {
             return controller
         }
-
+        
         func setupRefreshActions() {
             controller.refreshControl?.reactive.controlEvents(.valueChanged).observeNext {
                 syncData()
@@ -30,20 +30,19 @@ extension ProductCatalogService {
         
         func performSync() {
             fetchAllArtisanProduct().bind(to: controller, context: .global(qos: .background)) { (_, responseData) in
-//                    self.update(sync)
-                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                        if let array = json["data"] as? [[String: Any]] {
-                            for obj in array {
-                                if let prodArray = obj["products"] as? [[String: Any]] {
-                                    if let proddata = try? JSONSerialization.data(withJSONObject: prodArray, options: .fragmentsAllowed) {
-                                        if let object = try? JSONDecoder().decode([Product].self, from: proddata) {
-                                            DispatchQueue.main.async {
-                                                object .forEach { (prodObj) in
-                                                    prodObj.saveOrUpdate()
-                                                    if prodObj == object.last {
-                                                        DispatchQueue.main.async {
-                                                            controller.endRefresh()
-                                                        }
+                //                    self.update(sync)
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                    if let array = json["data"] as? [[String: Any]] {
+                        for obj in array {
+                            if let prodArray = obj["products"] as? [[String: Any]] {
+                                if let proddata = try? JSONSerialization.data(withJSONObject: prodArray, options: .fragmentsAllowed) {
+                                    if let object = try? JSONDecoder().decode([Product].self, from: proddata) {
+                                        DispatchQueue.main.async {
+                                            object .forEach { (prodObj) in
+                                                prodObj.saveOrUpdate()
+                                                if prodObj == object.last {
+                                                    DispatchQueue.main.async {
+                                                        controller.endRefresh()
                                                     }
                                                 }
                                             }
@@ -51,12 +50,13 @@ extension ProductCatalogService {
                                     }
                                 }
                             }
-                        }else {
-                            DispatchQueue.main.async {
-                                controller.endRefresh()
-                            }
+                        }
+                    }else {
+                        DispatchQueue.main.async {
+                            controller.endRefresh()
                         }
                     }
+                }
             }.dispose(in: controller.bag)
         }
         
@@ -93,13 +93,13 @@ extension ProductCatalogService {
                 cell.configure(prodObj)
             }.dispose(in: controller.bag)
         }
-
+        
         controller.tableView.reactive.selectedRowIndexPath
-        .bind(to: controller, context: .immediateOnMain) { _, indexPath in
-            guard let object = dataSource.changeset?[indexPath.row] else { return }
-            let vc = UploadProductService(client: self.client).createScene(productObject: object)
-            vc.modalPresentationStyle = .fullScreen
-            controller.navigationController?.pushViewController(vc, animated: true)
+            .bind(to: controller, context: .immediateOnMain) { _, indexPath in
+                guard let object = dataSource.changeset?[indexPath.row] else { return }
+                let vc = UploadProductService(client: self.client).createScene(productObject: object)
+                vc.modalPresentationStyle = .fullScreen
+                controller.navigationController?.pushViewController(vc, animated: true)
         }.dispose(in: controller.bag)
         
         return controller

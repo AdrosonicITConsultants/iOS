@@ -34,32 +34,32 @@ extension Product {
     }
     
     public static func searchArtisanProduct(page: Int, searchString: String, suggectionType: Int, madeWithAntaran: Int) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["madeWithAntaran": madeWithAntaran,
-                                       "pageNo":page,
-                                       "searchString": searchString,
-                                       "searchType":suggectionType]
+        let parameters: [String: Any] = ["madeWithAntaran": madeWithAntaran,
+                                         "pageNo":page,
+                                         "searchString": searchString,
+                                         "searchType":suggectionType]
         return Request(
             path: "search/searchArtisanProducts",
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "searchArtisanProduct failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )
     }
     
     public static func searchBuyerProduct(page: Int, searchString: String, suggectionType: Int, madeWithAntaran: Int) -> Request<Data, APIError> {
-      let parameters: [String: Any] = ["madeWithAntaran": madeWithAntaran,
-                                       "pageNo":page,
-                                       "searchString": searchString,
-                                       "searchType":suggectionType]
+        let parameters: [String: Any] = ["madeWithAntaran": madeWithAntaran,
+                                         "pageNo":page,
+                                         "searchString": searchString,
+                                         "searchType":suggectionType]
         return Request(
             path: "search/searchProducts",
             method: .post,
             parameters: JSONParameters(parameters),
             resource: {print(String(data: $0, encoding: .utf8) ?? "searchProducts failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: false
         )

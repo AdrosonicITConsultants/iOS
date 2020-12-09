@@ -19,7 +19,7 @@ class TransactionStatus: Object, Decodable {
     @objc dynamic var buyerText: String?
     @objc dynamic var artisanText: String?
     @objc dynamic var transactionStage: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case transactionId = "transactionId"
@@ -33,7 +33,7 @@ class TransactionStatus: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)

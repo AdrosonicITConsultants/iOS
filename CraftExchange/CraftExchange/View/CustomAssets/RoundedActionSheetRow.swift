@@ -11,42 +11,42 @@ import UIKit
 import Eureka
 
 class RoundedActionSheetView: Cell<String>, CellType {
-
-  @IBOutlet var titleLabel: UILabel!
-  @IBOutlet var actionButton: RoundedButton!
-  @IBOutlet var compulsoryIcon: UIImageView!
-  var options: [String]?
-  var delegate: UIViewController?
+    
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var actionButton: RoundedButton!
+    @IBOutlet var compulsoryIcon: UIImageView!
+    var options: [String]?
+    var delegate: UIViewController?
     var selectedVal: String?
     
-  public override func setup() {
-    super.setup()
-    actionButton.addTarget(self, action: #selector(actionButtonSelected(_:)), for: .touchUpInside)
-  }
-
-  public override func update() {
-    super.update()
-  }
-  
-  @IBAction func actionButtonSelected(_ sender: Any) {
-
-    let alert = UIAlertController.init(title: "\(titleLabel.text ?? "")", message: "Please select:".localized, preferredStyle: .actionSheet)
-    for option in options ?? [] {
-      let action = UIAlertAction.init(title: option, style: .default) { (action) in
-        self.actionButton.setTitle(option, for: .normal)
-        self.row.value = option
-        if self.selectedVal == option {
-            action.setValue(true, forKey: "checked")
+    public override func setup() {
+        super.setup()
+        actionButton.addTarget(self, action: #selector(actionButtonSelected(_:)), for: .touchUpInside)
+    }
+    
+    public override func update() {
+        super.update()
+    }
+    
+    @IBAction func actionButtonSelected(_ sender: Any) {
+        
+        let alert = UIAlertController.init(title: "\(titleLabel.text ?? "")", message: "Please select:".localized, preferredStyle: .actionSheet)
+        for option in options ?? [] {
+            let action = UIAlertAction.init(title: option, style: .default) { (action) in
+                self.actionButton.setTitle(option, for: .normal)
+                self.row.value = option
+                if self.selectedVal == option {
+                    action.setValue(true, forKey: "checked")
+                }
+            }
+            alert.addAction(action)
         }
-      }
-      alert.addAction(action)
+        let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
+        }
+        alert.addAction(action)
+        delegate?.present(alert, animated: true, completion: nil)
     }
-    let action = UIAlertAction.init(title: "Cancel".localized, style: .cancel) { (action) in
-    }
-    alert.addAction(action)
-    delegate?.present(alert, animated: true, completion: nil)
-  }
-  
+    
 }
 
 // The custom Row also has the cell: CustomCell and its correspond value

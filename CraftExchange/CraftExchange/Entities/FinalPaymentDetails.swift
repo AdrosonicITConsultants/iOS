@@ -16,7 +16,7 @@ class FinalPaymentDetails: Object, Decodable {
     @objc dynamic var payableAmount: Int = 0
     @objc dynamic var totalAmount: Int = 0
     @objc dynamic var finalPaymentDone = false
-
+    
     enum CodingKeys: String, CodingKey {
         case pid = "pid"
         case invoiceId = "invoiceId"
@@ -34,6 +34,6 @@ class FinalPaymentDetails: Object, Decodable {
         payableAmount = try (values.decodeIfPresent(Int.self, forKey: .payableAmount) ?? 0)
         totalAmount = try (values.decodeIfPresent(Int.self, forKey: .totalAmount) ?? 0)
         finalPaymentDone = try(values.decodeIfPresent(Bool.self, forKey: .finalPaymentDone) ?? false)
-            }
+    }
 }
 

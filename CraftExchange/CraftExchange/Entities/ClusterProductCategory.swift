@@ -15,7 +15,7 @@ class ClusterProductCategory: Object, Decodable {
     @objc dynamic var entityID: Int = 0
     @objc dynamic var clusterDetailsId: String?
     @objc dynamic var productCategoryId: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case clusterDetailsId = "cluster_details_id"
@@ -25,13 +25,13 @@ class ClusterProductCategory: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
-      self.init()
-      let values = try decoder.container(keyedBy: CodingKeys.self)
-      entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        entityID = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         id = "\(entityID)"
-      clusterDetailsId = try values.decodeIfPresent(String.self, forKey: .clusterDetailsId)
-      productCategoryId = try values.decodeIfPresent(String.self, forKey: .productCategoryId)
+        clusterDetailsId = try values.decodeIfPresent(String.self, forKey: .clusterDetailsId)
+        productCategoryId = try values.decodeIfPresent(String.self, forKey: .productCategoryId)
     }
 }

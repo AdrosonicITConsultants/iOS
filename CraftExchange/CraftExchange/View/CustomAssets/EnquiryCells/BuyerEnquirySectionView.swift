@@ -11,8 +11,8 @@ import UIKit
 import Eureka
 
 class BuyerEnquirySectionView: Cell<String>, CellType {
-
-
+    
+    
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var valueLbl: UILabel!
     @IBOutlet weak var arrow: UIImageView!
@@ -20,7 +20,7 @@ class BuyerEnquirySectionView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

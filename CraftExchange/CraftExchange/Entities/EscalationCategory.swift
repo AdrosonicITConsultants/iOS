@@ -25,8 +25,8 @@ class EscalationCategory: Object, Decodable {
     }
     
     convenience required init(from decoder: Decoder) throws {
-    self.init()
-    let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         category = try? values.decodeIfPresent(String.self, forKey: .category)
     }

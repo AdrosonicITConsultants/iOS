@@ -126,7 +126,7 @@ extension QCService {
             }
             return qaArray
         }
-
+        
         return vc
     }
     

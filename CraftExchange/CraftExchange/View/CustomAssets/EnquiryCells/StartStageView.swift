@@ -13,23 +13,23 @@ protocol StartstageProtocol {
     func StartstageBtnSelected(tag: Int)
 }
 class StartStageView: Cell<String>, CellType {
-
-
-   
+    
+    
+    
     @IBOutlet weak var Startstage: UIButton!
     
     @IBOutlet weak var BottomLabel: UILabel!
     var delegate: StartstageProtocol?
     @IBAction func StartstageBtnSelected(_ sender: Any) {
         delegate?.StartstageBtnSelected(tag: tag)
-
+        
     }
     public override func setup() {
         super.setup()
         Startstage.addTarget(self, action: #selector(StartstageBtnSelected(_:)), for: .touchUpInside)
-
+        
     }
-
+    
     public override func update() {
         super.update()
     }

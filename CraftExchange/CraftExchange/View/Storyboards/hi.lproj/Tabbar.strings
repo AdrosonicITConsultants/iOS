@@ -35,8 +35,8 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "CFS-hb-Jhu"; */
 "CFS-hb-Jhu.text" = "Label";
 
-/* Class = "UIButton"; normalTitle = "Antaran co-design collection"; ObjectID = "Cq6-bf-nZ4"; */
-"Cq6-bf-nZ4.normalTitle" = "अंतरण सह-डिज़ाइन संग्रह";
+/* Class = "UIButton"; normalTitle = "Antaran co-design"; ObjectID = "Cq6-bf-nZ4"; */
+"Cq6-bf-nZ4.normalTitle" = "अंतरण सह-डिज़ाइन";
 
 /* Class = "UITableViewController"; title = "BuyerNotificationController"; ObjectID = "Deu-Fi-aU8"; */
 "Deu-Fi-aU8.title" = "BuyerNotificationController";
@@ -69,7 +69,7 @@
 "Kc4-Qe-NoT.text" = "ओढ़नी";
 
 /* Class = "UIButton"; normalTitle = "Customise your own design"; ObjectID = "Lcj-dI-h1s"; */
-"Lcj-dI-h1s.normalTitle" = "अपने खुद के डिजाइन को अनुकूलित करें";
+"Lcj-dI-h1s.normalTitle" = "अपने डिजाइन साझा करें";
 
 /* Class = "UIButton"; normalTitle = "  Recent"; ObjectID = "Pnx-8F-DiD"; */
 "Pnx-8F-DiD.normalTitle" = "  हाल का";
@@ -104,8 +104,8 @@
 /* Class = "UILabel"; text = "Browse the latest collection of"; ObjectID = "od1-jO-7LF"; */
 "od1-jO-7LF.text" = "के नवीनतम संग्रह को ब्राउज़ करें";
 
-/* Class = "UILabel"; text = "Antaran Co Design Collection"; ObjectID = "od3-TO-fte"; */
-"od3-TO-fte.text" = "अंतरण सह-डिज़ाइन संग्रह";
+/* Class = "UILabel"; text = "Antaran Co Design"; ObjectID = "od3-TO-fte"; */
+"od3-TO-fte.text" = "अंतरण सह-डिज़ाइन";
 
 /* Class = "UIButton"; normalTitle = "Mark all as read"; ObjectID = "qif-mx-DT5"; */
 "qif-mx-DT5.normalTitle" = "सभी को पढ़ा हुआ मार्क करें";

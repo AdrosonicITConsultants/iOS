@@ -16,7 +16,7 @@ protocol BuyerReviewConfirmViewProtocol {
 }
 
 class BuyerReviewConfirmView: UIView {
-
+    
     @IBOutlet weak var closeBuyerReviewConfirm: UIButton!
     
     @IBOutlet weak var cancelBuyerReviewConfirm: UIButton!

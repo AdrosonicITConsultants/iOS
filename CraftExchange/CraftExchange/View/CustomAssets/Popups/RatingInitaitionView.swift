@@ -15,7 +15,7 @@ protocol RatingInitaitionViewProtocol {
 }
 
 class RatingInitaitionView: UIView {
-
+    
     @IBOutlet weak var RevewAndRatingButton: UIButton!
     
     @IBOutlet weak var skipbutton: UIButton!

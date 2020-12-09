@@ -11,7 +11,7 @@ import UIKit
 import Eureka
 
 class ProductDetailInfoRowView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var productCatLbl: UILabel!
     @IBOutlet weak var productTypeLbl: UILabel!
     @IBOutlet weak var productAvailabilityLbl: UILabel!
@@ -20,7 +20,7 @@ class ProductDetailInfoRowView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

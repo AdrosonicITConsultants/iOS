@@ -94,7 +94,7 @@ class Product: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -151,10 +151,10 @@ class Product: Object, Decodable {
             isDeleted = false
         }
         if let list = try? values.decodeIfPresent([Product].self, forKey: .relProduct) {
-           relatedProducts.append(objectsIn: list)
+            relatedProducts.append(objectsIn: list)
         }
         if let list = try? values.decodeIfPresent([ProductImage].self, forKey: .productImages) {
-           productImages.append(objectsIn: list)
+            productImages.append(objectsIn: list)
         }
         if let list = try? values.decodeIfPresent(ClusterDetails.self, forKey: .cluster) {
             clusterId = list.entityID

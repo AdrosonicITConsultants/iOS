@@ -9,109 +9,122 @@
 import Foundation
 
 extension User {
-  public static func validateUsername(username: String) -> Request<Data, APIError> {
-    var roleId = 1
-    if let role =  KeychainManager.standard.userRoleId {
-      roleId = role
-    }
-      return Request(
-          path: "login/validateusername?emailOrMobile=\(username)&roleId=\(roleId)",
-          method: .get,
-          resource: { print(String(data: $0, encoding: .utf8) ?? "validation failed")
-          return $0
-      },
-          error: APIError.init,
-          needsAuthorization: false
-      )
-  }
-  
-  public static func authenticate(username: String, password: String) -> Request<Data, APIError> {
-    var roleId = 1
-    if let role =  KeychainManager.standard.userRoleId {
-      roleId = role
-    }
-    let parameters: [String: Any] = ["emailOrMobile":username,
-                                     "password":password,
-                                     "roleId":roleId]
-      return Request(
-          path: "login/authenticate",
-          method: .post,
-          parameters: JSONParameters(parameters),
-          resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
-            return $0},
-          error: APIError.init,
-          needsAuthorization: false
-      )
-  }
-    
-    public static func authenticateSocial(socialToken: String, socialTokenType: String) -> Request<Data, APIError> {
-      
+    public static func validateUsername(username: String) -> Request<Data, APIError> {
+        var roleId = 1
+        if let role =  KeychainManager.standard.userRoleId {
+            roleId = role
+        }
         return Request(
-            path: "login/authenticate?socialTokenType=\(socialTokenType)&socialToken=\(socialToken)&deviceType=iOS",
-            method: .post,
-            resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
-              return $0},
+            path: "login/validateusername?emailOrMobile=\(username)&roleId=\(roleId)",
+            method: .get,
+            resource: { print(String(data: $0, encoding: .utf8) ?? "validation failed")
+                return $0
+        },
             error: APIError.init,
             needsAuthorization: false
         )
     }
-  
-  public static func sendOTP(username: String) -> Request<Data, APIError> {
-    var roleId = 1
-    if let role =  KeychainManager.standard.userRoleId {
-      roleId = role
+    
+    public static func authenticate(username: String, password: String) -> Request<Data, APIError> {
+        var roleId = 1
+        if let role =  KeychainManager.standard.userRoleId {
+            roleId = role
+        }
+        let parameters: [String: Any] = ["emailOrMobile":username,
+                                         "password":password,
+                                         "roleId":roleId]
+        return Request(
+            path: "login/authenticate",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
     }
-      return Request(
-          path: "forgotpassword/sendotp?email=\(username)&roleId=\(roleId)",
-          method: .get,
-          resource: { print(String(data: $0, encoding: .utf8) ?? "opt sendind failed")
-          return $0
-      },
-          error: APIError.init,
-          needsAuthorization: false
-      )
-  }
-  
-  public static func verifyEmailOtp(emailId: String, otp: String) -> Request<Data, APIError> {
-    let parameters: [String: Any] = ["email":emailId,
-                                     "id": 0,
-                                     "otp":otp]
-      return Request(
-          path: "forgotpassword/verifyEmailOtp",
-          method: .post,
-          parameters: JSONParameters(parameters),
-          resource: {print(String(data: $0, encoding: .utf8) ?? "opt varification failed")
-            return $0},
-          error: APIError.init,
-          needsAuthorization: false
-      )
-  }
-  
-  public static func resetPassword(username: String, password: String) -> Request<Data, APIError> {
-    var roleId = 1
-    if let role =  KeychainManager.standard.userRoleId {
-      roleId = role
+    public static func logout() -> Request<Data, APIError> {
+        let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
+        let parameters: [String: Any] = ["deviceId":deviceId]
+        return Request(
+            path: "user/logoutMobile?deviceId=\(deviceId)",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
     }
-    let parameters: [String: Any] = ["emailOrMobile":username,
-                                     "password":password,
-                                     "roleId":roleId]
-      return Request(
-          path: "forgotpassword/resetpassword",
-          method: .post,
-          parameters: JSONParameters(parameters),
-          resource: {print(String(data: $0, encoding: .utf8) ?? "reset password failed")
-            return $0},
-          error: APIError.init,
-          needsAuthorization: false
-      )
-  }
+    
+    public static func authenticateSocial(socialToken: String, socialTokenType: String) -> Request<Data, APIError> {
+        
+        return Request(
+            path: "login/authenticate?socialTokenType=\(socialTokenType)&socialToken=\(socialToken)&deviceType=iOS",
+            method: .post,
+            resource: {print(String(data: $0, encoding: .utf8) ?? "authentication failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func sendOTP(username: String) -> Request<Data, APIError> {
+        var roleId = 1
+        if let role =  KeychainManager.standard.userRoleId {
+            roleId = role
+        }
+        return Request(
+            path: "forgotpassword/sendotp?email=\(username)&roleId=\(roleId)",
+            method: .get,
+            resource: { print(String(data: $0, encoding: .utf8) ?? "opt sendind failed")
+                return $0
+        },
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func verifyEmailOtp(emailId: String, otp: String) -> Request<Data, APIError> {
+        let parameters: [String: Any] = ["email":emailId,
+                                         "id": 0,
+                                         "otp":otp]
+        return Request(
+            path: "forgotpassword/verifyEmailOtp",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "opt varification failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
+    
+    public static func resetPassword(username: String, password: String) -> Request<Data, APIError> {
+        var roleId = 1
+        if let role =  KeychainManager.standard.userRoleId {
+            roleId = role
+        }
+        let parameters: [String: Any] = ["emailOrMobile":username,
+                                         "password":password,
+                                         "roleId":roleId]
+        return Request(
+            path: "forgotpassword/resetpassword",
+            method: .post,
+            parameters: JSONParameters(parameters),
+            resource: {print(String(data: $0, encoding: .utf8) ?? "reset password failed")
+                return $0},
+            error: APIError.init,
+            needsAuthorization: false
+        )
+    }
     
     public static func getProfile() -> Request<Data, APIError> {
         return Request(
             path: "user/myprofile",
             method: .get,
             resource: {print(String(data: $0, encoding: .utf8) ?? "get profile failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
@@ -126,8 +139,8 @@ extension User {
             let boundary = "\(UUID().uuidString)"
             let dataLength = content.count
             let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
-                                             "accept": "application/json",
-                                             "Content-Length": String(dataLength)
+                "accept": "application/json",
+                "Content-Length": String(dataLength)
             ]
             let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "logo")
             return Request(
@@ -141,10 +154,10 @@ extension User {
             )
         }else {
             return Request(
-              path: "user/edit/buyerProfile?profileDetails=\(str)",
+                path: "user/edit/buyerProfile?profileDetails=\(str)",
                 method: .put,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "buyer edit profile failed")
-                  return $0},
+                    return $0},
                 error: APIError.init,
                 needsAuthorization: true
             )
@@ -152,35 +165,35 @@ extension User {
     }
     
     public static func updateArtisanProfile(json: [String: Any], imageData: Data?, filename: String?) -> Request<Data, APIError> {
-      var str = json.jsonString
-      str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        var str = json.jsonString
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
         if let content = imageData, let filename = filename  {
-        let boundary = "\(UUID().uuidString)"
-        let dataLength = content.count
-        let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
-                                         "accept": "application/json",
-                                         "Content-Length": String(dataLength)
-        ]
-        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "profilePic")
+            let boundary = "\(UUID().uuidString)"
+            let dataLength = content.count
+            let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
+                "accept": "application/json",
+                "Content-Length": String(dataLength)
+            ]
+            let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "profilePic")
             return Request(
-              path: "user/edit/artistProfile?address=\(str)",
+                path: "user/edit/artistProfile?address=\(str)",
                 method: .put,
                 parameters: DataParameter(finalData),
                 headers: headers,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artist edit profile failed")
-                  return $0},
+                    return $0},
                 error: APIError.init,
                 needsAuthorization: true
             )
             
         }else {
-//            let headers: [String: String] = ["accept": "application/json"]
+            //            let headers: [String: String] = ["accept": "application/json"]
             return Request(
-              path: "user/edit/artistProfile?address=\(str)",
+                path: "user/edit/artistProfile?address=\(str)",
                 method: .put,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artist edit profile failed")
-                  return $0},
+                    return $0},
                 error: APIError.init,
                 needsAuthorization: true
             )
@@ -192,20 +205,20 @@ extension User {
         var str = finalJson.jsonString
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         if let content = imageData, let filename = filename  {
-        let boundary = "\(UUID().uuidString)"
-        let dataLength = content.count
-        let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
-                                         "accept": "application/json",
-                                         "Content-Length": String(dataLength)
-        ]
-        let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "logo")
+            let boundary = "\(UUID().uuidString)"
+            let dataLength = content.count
+            let headers: [String: String] = ["Content-Type": "multipart/form-data; boundary=\(boundary)",
+                "accept": "application/json",
+                "Content-Length": String(dataLength)
+            ]
+            let finalData = MultipartDataHelper().createBody(boundary: boundary, data: content, mimeType: "application/octet-stream", filename: filename, param: "logo")
             return Request(
                 path: "user/edit/artistBrandDetails?editBrandDetails=\(str)",
                 method: .put,
                 parameters: DataParameter(finalData),
                 headers: headers,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
-                  return $0},
+                    return $0},
                 error: APIError.init,
                 needsAuthorization: true
             )
@@ -216,7 +229,7 @@ extension User {
                 method: .put,
                 headers: headers,
                 resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
-                  return $0},
+                    return $0},
                 error: APIError.init,
                 needsAuthorization: true
             )
@@ -228,11 +241,11 @@ extension User {
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         let parameters: [String: Any] = ["paymentAccountDetails":json]
         return Request(
-          path: "user/edit/bankDetails",
+            path: "user/edit/bankDetails",
             method: .put,
             parameters: JSONParameters(json),
             resource: {print(String(data: $0, encoding: .utf8) ?? "artist edot brand details failed")
-              return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
@@ -245,7 +258,7 @@ extension User {
             method: .get,
             headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "get all filtered artisan failed")
-            return $0},
+                return $0},
             error: APIError.init,
             needsAuthorization: true
         )
@@ -279,34 +292,34 @@ extension User {
 class MultipartDataHelper {
     
     func convertToStringToData(inputString: String) -> Data {
-      let outputData = inputString.data(using: .utf8)
-      return outputData ?? Data()
+        let outputData = inputString.data(using: .utf8)
+        return outputData ?? Data()
     }
     
     func createBody(boundary: String, data: Data, mimeType: String, filename: String , param: String) -> Data {
-      let body = NSMutableData()
-      
-      let boundaryPrefix = "--\(boundary)\r\n"
-      let boundaryPrefixData = convertToStringToData(inputString: boundaryPrefix)
-      let contentDisposition = "Content-Disposition: form-data; name=\"\(param)\"; filename=\"\(filename)\"\r\n"
-      let contentDsipositionData = convertToStringToData(inputString: contentDisposition)
-      
-      let mimeType = "Content-Type: \(mimeType)\r\n\r\n"
-      let mimeTypeData = convertToStringToData(inputString: mimeType)
-      
-      body.append(boundaryPrefixData)
-      body.append(contentDsipositionData)
-      body.append(mimeTypeData)
-      body.append(data)
-      body.append(convertToStringToData(inputString: "\r\n"))
-      let bottomBoundaryStr = "--\(boundary)--"
-      body.append(convertToStringToData(inputString: bottomBoundaryStr))
-      
-      return body as Data
+        let body = NSMutableData()
+        
+        let boundaryPrefix = "--\(boundary)\r\n"
+        let boundaryPrefixData = convertToStringToData(inputString: boundaryPrefix)
+        let contentDisposition = "Content-Disposition: form-data; name=\"\(param)\"; filename=\"\(filename)\"\r\n"
+        let contentDsipositionData = convertToStringToData(inputString: contentDisposition)
+        
+        let mimeType = "Content-Type: \(mimeType)\r\n\r\n"
+        let mimeTypeData = convertToStringToData(inputString: mimeType)
+        
+        body.append(boundaryPrefixData)
+        body.append(contentDsipositionData)
+        body.append(mimeTypeData)
+        body.append(data)
+        body.append(convertToStringToData(inputString: "\r\n"))
+        let bottomBoundaryStr = "--\(boundary)--"
+        body.append(convertToStringToData(inputString: bottomBoundaryStr))
+        
+        return body as Data
     }
     
     func createBody(boundary: String, mimeType: String, imageData: [(String, Data)]) -> Data {
-      let body = NSMutableData()
+        let body = NSMutableData()
         var i = 1
         for image in imageData {
             let boundaryPrefix = "--\(boundary)\r\n"
@@ -328,7 +341,7 @@ class MultipartDataHelper {
             }
             i = i + 1
         }
-      
-      return body as Data
+        
+        return body as Data
     }
 }

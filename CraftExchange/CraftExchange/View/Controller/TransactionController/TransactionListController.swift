@@ -36,7 +36,7 @@ class TransactionListController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var transactionSearchBar: UISearchBar!
-//    @IBOutlet weak var emptyView: UIView!
+    //    @IBOutlet weak var emptyView: UIView!
     lazy var viewModel = TransactionListViewModel()
     var mySection: Int = -1
     var selectedFilter: Int = 0
@@ -85,11 +85,12 @@ class TransactionListController: UIViewController {
             refreshControl.endRefreshing()
         }
         self.setData()
+        self.hideLoading()
         self.tableView.reloadData()
     }
     
     func setData() {
-        allTransactions = TransactionObject.getAllTransactionObjects().sorted(byKeyPath: "modifiedOn", ascending: false)
+        allTransactions = TransactionObject.getAllTransactionObjects().filter("%K == %@","userID",User.loggedIn()?.entityID ?? 0 ).sorted(byKeyPath: "modifiedOn", ascending: false)
         if selectedFilter != 0{
             if selectedFilter == 1 {
                 //P ID
@@ -131,8 +132,8 @@ class TransactionListController: UIViewController {
                 }else {
                     self.setData()
                 }
-          }
-          alert.addAction(action)
+            }
+            alert.addAction(action)
         }
         let action = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
         }
@@ -173,7 +174,7 @@ extension TransactionListController: TransactionListProtocol, AcceptedPIViewProt
     func backButtonSelected() {
         self.view.hideAcceptedPIView()
     }
-
+    
     func downloadButtonSelected(isOld: Bool) {
         let view = self.view.viewWithTag(129) as! AcceptedPIView
         let entityId = view.entityIdLabel.text?.components(separatedBy: "-").last ?? "0"
@@ -208,7 +209,7 @@ extension TransactionListController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! TransactionTitleRow
             if let transaction = allTransactions?[indexPath.section] {

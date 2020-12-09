@@ -52,6 +52,48 @@ extension EnquiryDetailsService {
             vc.hideLoading()
         }
         
+        vc.downloadOrder = { (enquiryId) in
+            let service = OrderDetailsService.init(client: self.client)
+            if vc.isClosed == false {
+                service.getOpenOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            service.pasrseEnquiryJson(json: json, vc: vc)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                    }
+                }.dispose(in: vc.bag)
+            }else {
+                service.getClosedOrderDetails(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            service.pasrseEnquiryJson(json: json, vc: vc)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                    }
+                }.dispose(in: vc.bag)
+            }
+        }
+        
+        vc.goToOrder = { (enquiryId) in
+            if let obj = Order().searchOrder(searchId: enquiryId) {
+                let vc1 = OrderDetailsService(client: self.client).createOrderDetailScene(forOrder: obj, enquiryId: obj.entityID) as! OrderDetailController
+                vc1.modalPresentationStyle = .fullScreen
+                vc1.isClosed = vc.isClosed
+                if vc.navigationController?.viewControllers.previous is OrderDetailController {
+                    vc.navigationController?.popViewController(animated: true)
+                } else {
+                    vc.navigationController?.pushViewController(vc1, animated: true)
+                }
+                
+            }
+            
+        }
+        
         vc.showCustomProduct = {
             vc.showLoading()
             let service = UploadProductService.init(client: self.client)
@@ -258,6 +300,9 @@ extension EnquiryDetailsService {
                                                         }else if let controller = vc as? ChatDetailsController {
                                                             controller.goToEnquiry?(enquiryObj.enquiryId)
                                                         }
+                                                        else if let controller = vc as? OrderDetailController {
+                                                            controller.goToEnquiry?(enquiryObj.enquiryId)
+                                                        }
                                                         
                                                         vc.hideLoading()
                                                     }
@@ -290,10 +335,10 @@ extension EnquiryDetailsService {
                                     controller.getMOQ = object
                                     controller.assignMOQ()
                                 }
-//                                else if let controller = vc as? OrderDetailController {
-//                                    controller.getMOQ = object
-//                                    controller.assignMOQ()
-//                                }
+                                //                                else if let controller = vc as? OrderDetailController {
+                                //                                    controller.getMOQ = object
+                                //                                    controller.assignMOQ()
+                                //                                }
                             }
                         }
                     }
@@ -309,9 +354,9 @@ extension EnquiryDetailsService {
                 vc.view.showAcceptedPIView(controller: vc, entityId: code, date: lastUpdatedDate , data: object, containsOld: containsOld, raiseNewPI: raiseNewPI, isPI: true)
                 vc.hideLoading()
             }
-           
+            
         }.dispose(in: vc.bag)
-         vc.hideLoading()
+        vc.hideLoading()
     }
     
     func showPI(enquiryId: Int, vc: UIViewController) {
@@ -338,19 +383,19 @@ extension EnquiryDetailsService {
     func closeOrder(enquiryId: Int, enquiryCode: String, productStatusId: Int, vc: UIViewController){
         
         self.closeOrder(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-            if json["valid"] as? Bool == true {
-                DispatchQueue.main.async {
-                    if productStatusId == 2{
-                        self.completeOrder(enquiryId: enquiryId, vc: vc)
-                    }else{
-                        vc.hideLoading()
-                        vc.view.hideCloseOrderView()
-                        vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: enquiryCode, confirmQuestion: "Is Partial Refund Received?")
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+                        if productStatusId == 2{
+                            self.completeOrder(enquiryId: enquiryId, vc: vc)
+                        }else{
+                            vc.hideLoading()
+                            vc.view.hideCloseOrderView()
+                            vc.view.showPartialRefundReceivedView(controller: vc, enquiryCode: enquiryCode, confirmQuestion: "Is Partial Refund Received?")
+                        }
+                        
                     }
-                    
                 }
-            }
             }
         }
         
@@ -358,38 +403,38 @@ extension EnquiryDetailsService {
     
     func completeOrder(enquiryId: Int, vc: UIViewController){
         self.closeEnquiry(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-            if json["valid"] as? Bool == true {
-                DispatchQueue.main.async {
-                    vc.hideLoading()
-                    if let controller = vc as? ConfirmOrderReceivedController {
-                        controller.view.showRatingInitaitionView(controller: controller)
-                    }else{
-                       vc.navigationController?.popViewController(animated: true)
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+                        vc.hideLoading()
+                        if let controller = vc as? ConfirmOrderReceivedController {
+                            controller.view.showRatingInitaitionView(controller: controller)
+                        }else{
+                            vc.navigationController?.popViewController(animated: true)
+                        }
+                        
                     }
-                   
                 }
             }
-            }
         }
-
+        
     }
     
     func markOrderAsReceivedfunc(orderId: Int, orderRecieveDate: String, vc: UIViewController){
         self.markOrderAsReceived(orderId: orderId, orderRecieveDate: orderRecieveDate, isAutoCompleted: 0).bind(to: vc, context: .global(qos: .background)) {_,responseData in
-        if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-            if json["valid"] as? Bool == true {
-                DispatchQueue.main.async {
-                   
-                    self.completeOrder(enquiryId: orderId, vc: vc)
-
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                if json["valid"] as? Bool == true {
+                    DispatchQueue.main.async {
+                        
+                        self.completeOrder(enquiryId: orderId, vc: vc)
+                        
+                    }
                 }
-            }
             }
         }
     }
-   
     
-   
+    
+    
 }
 

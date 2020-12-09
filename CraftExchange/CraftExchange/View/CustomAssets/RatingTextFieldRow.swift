@@ -22,7 +22,7 @@ class  RatingTextFieldRowView: Cell<String>, CellType {
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

@@ -18,15 +18,15 @@ class MarkCompleteAndNext: Cell<String>, CellType {
     
     @IBOutlet weak var MarkCompleteNext: UIButton!
     @IBOutlet weak var BottomLabel: UILabel!
-     var delegate: MarkCompleteAndNextProtocol?
+    var delegate: MarkCompleteAndNextProtocol?
     
     @IBAction func MarkCompleteNextSelected(_ sender: Any) {
         delegate?.MarkCompleteNextSelected(tag: tag)
-
+        
     }
     @IBAction func MarkProgressSelected(_ sender: Any) {
         delegate?.MarkProgressSelected(tag: tag)
-
+        
     }
     
     public override func setup() {
@@ -34,7 +34,7 @@ class MarkCompleteAndNext: Cell<String>, CellType {
         MarkProgress.addTarget(self, action: #selector(MarkProgressSelected(_:)), for: .touchUpInside)
         MarkCompleteNext.addTarget(self, action: #selector(MarkCompleteNextSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }

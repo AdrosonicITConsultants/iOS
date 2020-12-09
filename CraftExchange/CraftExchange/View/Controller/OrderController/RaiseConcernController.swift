@@ -43,7 +43,7 @@ class RaiseConcernController: FormViewController {
     var allArtisanReviews: Results<ArtisanFaultyOrder>?
     let realm = try? Realm()
     var needToRefreshView = false
-
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -80,6 +80,7 @@ class RaiseConcernController: FormViewController {
             
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
+                $0.cell.selectionStyle = .none
                 $0.cell.height = { 220.0 }
                 $0.cell.statusLbl.text = ""
                 $0.cell.faultyStrings.isHidden = false
@@ -1506,12 +1507,12 @@ extension RaiseConcernController: ButtonActionProtocol, BuyerFaultyOrderOptionPr
                     let client = try SafeClient(wrapping: CraftExchangeClient())
                     let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: orderObject, enquiryId: orderObject?.enquiryId ?? 0) as! ProvideRatingController
                     vc.orderObject = self.orderObject
-                        self.navigationController?.pushViewController(vc, animated: false)
+                    self.navigationController?.pushViewController(vc, animated: false)
                 }catch {
                     print(error.localizedDescription)
                 }
             }
-            // print("do nothing")
+        // print("do nothing")
         default:
             print("do nothing")
         }
@@ -1584,8 +1585,8 @@ extension RaiseConcernController: ButtonActionProtocol, BuyerFaultyOrderOptionPr
     func customButtonSelected(tag: Int) {
         switch tag {
         case 101:
-          //  print(optionsArray)
-           // print(self.viewModel.buyerComment.value)
+            //  print(optionsArray)
+            // print(self.viewModel.buyerComment.value)
             var str = ""
             
             for id in optionsArray
@@ -1599,13 +1600,13 @@ extension RaiseConcernController: ButtonActionProtocol, BuyerFaultyOrderOptionPr
                 
             }
             self.viewModel.buyerReviewId.value = str
-//            print(self.viewModel.buyerReviewId.value)
+            //            print(self.viewModel.buyerReviewId.value)
             self.sendBuyerReview?()
             
             
         case 102:
-//            print(self.viewModel.artisanReviewId.value?.id)
-//            print(self.viewModel.artisanComment.value)
+            //            print(self.viewModel.artisanReviewId.value?.id)
+            //            print(self.viewModel.artisanComment.value)
             self.sendArtisanReview?()
         case 103:
             self.goToChat()

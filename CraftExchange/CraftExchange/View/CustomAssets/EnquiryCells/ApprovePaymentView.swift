@@ -14,29 +14,29 @@ protocol ApproveButtonProtocol {
     func RejectBtnSelected(tag: Int)
 }
 class ApprovePaymentView: Cell<String>, CellType{
-
+    
     @IBOutlet weak var ApproveBTn: UIButton!
     @IBOutlet weak var NoteLabel: UILabel!
     @IBOutlet weak var RejectBtn: UIButton!
     var delegate: ApproveButtonProtocol?
     @IBAction func ApproveBtnSelected(_ sender: Any) {
         delegate?.ApproveBtnSelected(tag: tag)
-
+        
     }
     @IBAction func RejectBtnSelected(_ sender: Any) {
         delegate?.RejectBtnSelected(tag: tag)
-
+        
     }
     public override func setup() {
         super.setup()
         ApproveBTn.addTarget(self, action: #selector(ApproveBtnSelected(_:)), for: .touchUpInside)
         RejectBtn.addTarget(self, action: #selector(RejectBtnSelected(_:)), for: .touchUpInside)
     }
-
+    
     public override func update() {
         super.update()
     }
-
+    
 }
 final class ApprovePaymentRow: Row<ApprovePaymentView>, RowType {
     required public init(tag: String?) {

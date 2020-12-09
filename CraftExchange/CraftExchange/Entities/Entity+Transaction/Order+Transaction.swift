@@ -22,17 +22,29 @@ extension Order {
         return nil
     }
     
-    func updateAddonDetails(blue: Bool, name: String, moqRejected: Bool, isOpen: Bool) {
+    func updateAddonDetails(blue: Bool, name: String, moqRejected: Bool, isOpen: Bool, userId: Int) {
         let realm = try! Realm()
         if let object = realm.objects(Order.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
                 object.isOpen = isOpen
                 object.isMoqRejected = moqRejected
                 object.isBlue = blue
+                object.userId = userId
                 object.brandName = name
             }
         }
     }
+    
+   static func updateDeliveryDetails(forId: Int) {
+       let realm = try? Realm()
+       if let results = realm?.objects(Order.self).filter("%K == %@", "entityID", forId) {
+           try? realm?.write {
+               results .forEach { (obj) in
+                obj.isDelivery = true
+               }
+           }
+       }
+   }
     
     func updateArtistDetails(blue: Bool, user: Int, accDetails: [PaymentAccDetails], catIds:[Int], cluster: String) {
         let realm = try! Realm()
@@ -100,7 +112,7 @@ extension Order {
                 object.extraWeftYarnHistoryId = extraWeftYarnHistoryId
                 object.extraWeftYarnId = extraWeftYarnId
                 object.firstName = firstName
- 
+                
                 object.gst = gst
                 object.deliveryChallanUploaded = deliveryChallanUploaded
                 object.deliveryChallanLabel = deliveryChallanLabel

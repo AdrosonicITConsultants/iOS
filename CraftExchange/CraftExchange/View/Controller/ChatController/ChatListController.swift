@@ -49,7 +49,8 @@ class ChatListController: UIViewController {
         
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        allChat = []
+        self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+        self.setData()
         definesPresentationContext = false
         self.setupSideMenu(false)
         let center = NotificationCenter.default
@@ -66,12 +67,12 @@ class ChatListController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
-         
+        
     }
     
     @objc func pullToRefresh() {
         viewWillAppear?()
-       
+        
     }
     
     func endRefresh() {
@@ -79,26 +80,31 @@ class ChatListController: UIViewController {
             refreshControl.endRefreshing()
         }
         if self.reachabilityManager?.connection == .unavailable {
-        
-             self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
-         
-         
-         }else{
+            
+            self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+            
+            
+        }else{
             allChatResults = realm?.objects(Chat.self).filter("%K IN %@","entityID",chatList ).sorted(byKeyPath: "lastChatDate", ascending: false)
         }
-
-            allChat = allChatResults?.compactMap({$0})
+        
+        self.setData()
+        self.hideLoading()
+        
+    }
+    
+    func setData() {
+        allChat = allChatResults?.compactMap({$0})
         
         if searchText != "" {
             let query = NSCompoundPredicate(type: .or, subpredicates:
-            [NSPredicate(format: "enquiryNumber contains[c] %@",searchText),
-             NSPredicate(format: "buyerCompanyName contains[c] %@",searchText)])
-
+                [NSPredicate(format: "enquiryNumber contains[c] %@",searchText),
+                 NSPredicate(format: "buyerCompanyName contains[c] %@",searchText)])
+            
             allChat = allChatResults?.filter(query).sorted(byKeyPath: "lastChatDate", ascending: false).compactMap({$0})
             
-               }
+        }
         emptyView.isHidden = allChat?.count == 0 ? false : true
-        self.hideLoading()
         self.tableView.reloadData()
     }
     
@@ -124,8 +130,8 @@ extension ChatListController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ChatCell
         if let obj = allChat?[indexPath.row] {
-             cell.configure(obj)
-                cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastChatDate ?? "" )
+            cell.configure(obj)
+            cell.lastUpdatedOn.text = Date().ttceFormatter(isoDate: obj.lastChatDate ?? "" )
             cell.lastUpdatedTime.text = Date().ttceFormatterTime(isoDate: obj.lastChatDate ?? "")
         }
         
@@ -137,7 +143,7 @@ extension ChatListController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-       
+        
         do {
             let client = try SafeClient(wrapping: CraftExchangeClient())
             if let obj = allChat?[indexPath.row] {
@@ -153,26 +159,26 @@ extension ChatListController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            let markAsRead = UIContextualAction(style: .normal, title: "\u{2713}\u{2713}\n Mark as read") { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                let chat = self.allChat?[indexPath.row]
-               // let index = indexPath.row
-                let id = chat?.enquiryId
-                self.markasRead?(id!)
-                success(true)
-            }
-            markAsRead.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
-    //        markAsRead.image = UIImage.init(named: "delete")
-            
-            return UISwipeActionsConfiguration(actions: [markAsRead])
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let markAsRead = UIContextualAction(style: .normal, title: "\u{2713}\u{2713}\n Mark as read") { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            let chat = self.allChat?[indexPath.row]
+            // let index = indexPath.row
+            let id = chat?.enquiryId
+            self.markasRead?(id!)
+            success(true)
         }
+        markAsRead.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        //        markAsRead.image = UIImage.init(named: "delete")
+        
+        return UISwipeActionsConfiguration(actions: [markAsRead])
+    }
     
     
 }
 
 extension ChatListController: UISearchBarDelegate {
     
-  
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }

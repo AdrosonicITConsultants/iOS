@@ -86,7 +86,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         
         messagesCollectionView.contentInset.top = 150
         
-       // messagesCollectionView.topAnchor = NSLayoutConstraint()
+        // messagesCollectionView.topAnchor = NSLayoutConstraint()
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -95,9 +95,9 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         showMessageTimestampOnSwipeLeft = true
         
         let image2View = UIImageView(frame: CGRect(x: 0, y: UIScreen.main.bounds.midY-167, width: 415, height: 254))
-      //  image2View.image = #imageLiteral(resourceName: "ChatCx.pdf")
+        //  image2View.image = #imageLiteral(resourceName: "ChatCx.pdf")
         image2View.image = UIImage.init(named: "ChatCx")
-       // messagesCollectionView.backgroundView =  UIImageView(image:#imageLiteral(resourceName: "ChatBg.pdf") )
+        // messagesCollectionView.backgroundView =  UIImageView(image:#imageLiteral(resourceName: "ChatBg.pdf") )
         messagesCollectionView.backgroundView =  UIImageView(image: UIImage.init(named: "ChatBg"))
         messagesCollectionView.backgroundView?.addSubview(image2View)
         additionalBottomInset = 50
@@ -107,7 +107,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         messageInputBar.sendButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
         messageInputBar.delegate = self
         setupInputButton()
-        messages = []
+        messages = realm?.objects(Conversation.self).filter("%K == %@","enquiryId", chatObj?.enquiryId ?? 0 ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
         
         
         definesPresentationContext = false
@@ -117,6 +117,21 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             self.applicationEnteredForeground?()
         }
         
+    }
+    
+    func getPreviousViewController() -> UIViewController? {
+        guard let _ = self.navigationController else {
+            return nil
+        }
+        
+        guard let viewControllers = self.navigationController?.viewControllers else {
+            return nil
+        }
+        
+        guard viewControllers.count >= 2 else {
+            return nil
+        }
+        return viewControllers[viewControllers.count - 2]
     }
     
     private func setupInputButton() {
@@ -177,7 +192,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     }
     
     func DocPickerAlert()  {
-       
+        
         let DocPicker = UIDocumentPickerViewController(documentTypes: [String(kUTTypePDF), String(kUTTypeText), String(kUTTypeSpreadsheet), "com.microsoft.word.doc" as String, "org.openxmlformats.wordprocessingml.document" as String, "org.openxmlformats.presentationml.presentation" as String, "com.microsoft.powerpoint.​ppt" as String], in: .open)
         
         DocPicker.delegate = self as UIDocumentPickerDelegate
@@ -213,7 +228,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     }
     
     func AudioPickerAlert()  {
-       
+        
         let AudioPicker = UIDocumentPickerViewController(documentTypes: [kUTTypeMP3 as String, kUTTypeAudio as String], in: .open)
         
         AudioPicker.delegate = self as UIDocumentPickerDelegate
@@ -263,17 +278,17 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
     
     func endRefresh() {
         if self.reachabilityManager?.connection == .unavailable {
-        
+            
             messages = realm?.objects(Conversation.self).filter("%K == %@","enquiryId", chatObj?.enquiryId ?? 0 ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
-         
-         }else{
+            
+        }else{
             messages = realm?.objects(Conversation.self).filter("%K IN %@","entityID", id ).sorted(byKeyPath: "entityID", ascending: true).compactMap({$0})
         }
-
+        
         
         otherUser = Sender(senderId: "\(chatObj.buyerId)", displayName: chatObj.buyerCompanyName!)
-
-      //  messageObject = []
+        
+        //  messageObject = []
         if messages != []{
             for obj in messages! {
                 if self.chatObj?.buyerId != obj.messageFrom {
@@ -299,7 +314,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
             
             let image1Attachment = NSTextAttachment()
             image1Attachment.image = showMediaIcon(mediaType: obj.mediaType)
-//            image1Attachment.bounds = CGRect(x: 2, y: 2, width: 20, height: 30)
+            //            image1Attachment.bounds = CGRect(x: 2, y: 2, width: 20, height: 30)
             // wrap the attachment in its own attributed string so we can append it
             let image1String = NSAttributedString(attachment: image1Attachment)
             
@@ -313,8 +328,8 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
                 .font: UIFont.systemFont(ofSize: 15, weight: .regular),
                 .foregroundColor: UIColor.blue
             ]))
-             
-                
+            
+            
             messageObject.append(Message(sender: user,
                                          messageId: obj.id!,
                                          sentDate: Date().ttceISODate(isoDate: obj.createdOn!),
@@ -338,7 +353,7 @@ class ChatDetailsController: MessagesViewController, MessagesDataSource, Message
         case 4:
             image = UIImage(systemName: "mic.fill")?.withTintColor(#colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1))
         case 5:
-        image = UIImage(systemName: "video.fill")?.withTintColor(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
+            image = UIImage(systemName: "video.fill")?.withTintColor(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
         default:
             image = UIImage(systemName: "paperclip")
         }
@@ -495,7 +510,7 @@ extension ChatDetailsController: UIImagePickerControllerDelegate, UINavigationCo
         self.viewModel.messageTo.value = self.chatObj.buyerId
         self.viewModel.messageFrom.value = KeychainManager.standard.userID!
         self.viewModel.mediaType.value = 2
-         self.viewModel.mediaData.value = Data(referencing: docData)
+        self.viewModel.mediaData.value = Data(referencing: docData)
         self.viewModel.fileName.value = urls.first?.lastPathComponent
         if  urls.first!.pathExtension == "mp3" || urls.first!.pathExtension == "audio" {
             self.viewModel.mediaType.value = 4
@@ -544,7 +559,7 @@ extension ChatDetailsController: UIImagePickerControllerDelegate, UINavigationCo
             self.viewModel.messageTo.value = self.chatObj.buyerId
             self.viewModel.messageFrom.value = KeychainManager.standard.userID!
             self.viewModel.mediaType.value = 5
-             self.viewModel.mediaData.value = Data(referencing: videoData)
+            self.viewModel.mediaData.value = Data(referencing: videoData)
             self.viewModel.fileName.value = url.lastPathComponent
             self.sendInputActionsheet(mediaName: url.lastPathComponent)
         } else {

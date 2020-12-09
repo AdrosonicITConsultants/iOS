@@ -18,14 +18,14 @@ class UploadProductService: BaseService<Data> {
     }
     
     func deleteBuyerCustomProduct(withId: Int) -> SafeSignal<Data> {
-      return CustomProduct.deleteCustomProduct(withId: withId).response(using: client).debug()
+        return CustomProduct.deleteCustomProduct(withId: withId).response(using: client).debug()
     }
     
     func deleteArtisanProduct(withId: Int) -> SafeSignal<Data> {
-      return Product.deleteArtisanProduct(withId: withId).response(using: client).debug()
+        return Product.deleteArtisanProduct(withId: withId).response(using: client).debug()
     }
     
     func getCustomProductDetails(withId: Int) -> SafeSignal<Data> {
-      return CustomProduct.getCustomProductDetails(custProdId: withId).response(using: client).debug()
+        return CustomProduct.getCustomProductDetails(custProdId: withId).response(using: client).debug()
     }
 }

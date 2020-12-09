@@ -40,7 +40,7 @@ extension ChatDetailsService {
                                         var i = 0
                                         var eqArray: [Int] = []
                                         DispatchQueue.main.async {
-
+                                            
                                             controller.messages = []
                                             for obj in chatObj {
                                                 i+=1
@@ -52,7 +52,7 @@ extension ChatDetailsService {
                                                 controller.id = eqArray
                                                 
                                             }
-
+                                            
                                             controller.endRefresh()
                                         }
                                     }
@@ -98,15 +98,15 @@ extension ChatDetailsService {
                 }.dispose(in: controller.bag)
             }else {
                 service.getClosedEnquiryDetails(enquiryId: enquiryId).bind(to: controller, context: .global(qos: .background)) { (_,responseData) in
-                                   if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                                       if json["valid"] as? Bool == true {
-                                           service.pasrseEnquiryJson(json: json, vc: controller)
-                                       }
-                                   }
-                                   DispatchQueue.main.async {
-                                       controller.hideLoading()
-                                   }
-                               }.dispose(in: controller.bag)
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            service.pasrseEnquiryJson(json: json, vc: controller)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        controller.hideLoading()
+                    }
+                }.dispose(in: controller.bag)
             }
             
         }
@@ -120,8 +120,12 @@ extension ChatDetailsService {
                 }else{
                     vc.isClosed = true
                 }
+                if controller.navigationController?.viewControllers.previous is BuyerEnquiryDetailsController {
+                    controller.navigationController?.popViewController(animated: true)
+                } else {
+                    controller.navigationController?.pushViewController(vc, animated: true)
+                }
                 
-                controller.navigationController?.pushViewController(vc, animated: true)
             }
         }
         
@@ -173,24 +177,24 @@ extension ChatDetailsService {
                                         chatObj.saveOrUpdate()
                                         if let vc1 = vc as? ChatNewListController{
                                             if let obj = Chat().searchChat(searchId: enquiryId) {
-                                            let vc2 = self.createScene(forChat: obj, enquiryId: enquiryId)
-                                            vc2.modalPresentationStyle = .fullScreen
-                                            vc1.navigationController?.pushViewController(vc2, animated: true)
-                                            let viewControllers = vc2.navigationController!.viewControllers
-                                           vc2.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
+                                                let vc2 = self.createScene(forChat: obj, enquiryId: enquiryId)
+                                                vc2.modalPresentationStyle = .fullScreen
+                                                vc1.navigationController?.pushViewController(vc2, animated: true)
+                                                let viewControllers = vc2.navigationController!.viewControllers
+                                                vc2.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
                                             }
                                         }
-
+                                            
                                         else {
                                             
                                             if let obj = Chat().searchChat(searchId: enquiryId) {
-                                               
+                                                
                                                 let vc1 = self.createScene(forChat: obj, enquiryId: enquiryId)
                                                 vc1.modalPresentationStyle = .fullScreen
                                                 vc.navigationController?.pushViewController(vc1, animated: true)
                                             }
                                             
-
+                                            
                                         }
                                     }
                                     

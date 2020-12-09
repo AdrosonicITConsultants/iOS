@@ -45,13 +45,25 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
     var resolveEscalation: ((_ escalationId: Int) -> ())?
     
     var goToEnquiry: ((_ enquiryId: Int) -> ())?
-
+    
     lazy var viewModel = SendMessageViewModel()
     let currentUser = Sender(senderId: "\(KeychainManager.standard.userID!)", displayName: KeychainManager.standard.username!)
     var otherUser:Sender?
     var messageObject = [MessageType]()
     var Bubble: TypingBubble?
     var user: User?
+    var escalationBtn: UIButton {
+        let btn = UIButton.init(type: .custom)
+        btn.frame = CGRect.init(x: 0, y: 0, width: UIScreen().bounds.width, height: 60)
+        btn.layer.borderColor = UIColor.white.cgColor
+        btn.layer.borderWidth = 5
+        btn.setTitle("Raise New Escalation", for: .normal)
+        btn.addTarget(self, action: #selector(presentInputActionsheet), for: .touchUpInside)
+        return btn
+    }
+    override var inputAccessoryView: UIView {
+        return escalationBtn
+    }
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var imageButton: UIButton!
@@ -77,11 +89,10 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
         
         messageInputBar.inputTextView.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         messageInputBar.inputTextView.placeholder = "Type your new escalation here"
-//        messageInputBar.inputTextView.font = .systemFont(ofSize: 14, weight: .regular)
+        //        messageInputBar.inputTextView.font = .systemFont(ofSize: 14, weight: .regular)
         messageInputBar.sendButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
         messageInputBar.delegate = self
         messages = []
-        
         
         definesPresentationContext = false
         self.setupSideMenu(true)
@@ -92,18 +103,18 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
         
     }
     
-    private func presentInputActionsheet(){
+    @objc private func presentInputActionsheet(){
         let alert = UIAlertController.init(title: "", message: "Choose", preferredStyle: .actionSheet)
         
         if let escalationCategories = realm?.objects(EscalationCategory.self).filter("%K IN %@","id", catId) {
-        
-        for category in escalationCategories {
-            let change = UIAlertAction.init(title: category.category, style: .default) { (action) in
-                self.sendInputActionsheet(mediaName: category.category, mediaId: category.id)
+            
+            for category in escalationCategories {
+                let change = UIAlertAction.init(title: category.category, style: .default) { (action) in
+                    self.sendInputActionsheet(mediaName: category.category ?? "Others", mediaId: category.id)
+                }
+                alert.addAction(change)
             }
-            alert.addAction(change)
         }
-    }
         
         let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
         }
@@ -112,25 +123,67 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
         self.present(alert, animated: true, completion: nil)
     }
     
-    func sendInputActionsheet(mediaName: String?, mediaId: Int){
-        let alert = UIAlertController.init(title: "Are you sure", message: "you want to send as " + mediaName! + "?", preferredStyle: .actionSheet)
-        
-        let save = UIAlertAction.init(title: "Send", style: .default) { (action) in
-            self.sendEscalationMessage?(self.chatObj.enquiryId, mediaId, KeychainManager.standard.userID!, self.chatObj.buyerId, self.viewModel.messageString.value!)
+    let textView = UITextView(frame: CGRect.zero)
+    func sendInputActionsheet(mediaName: String, mediaId: Int){
+        let alertController = UIAlertController(title: "\(mediaName) \n\n\n\n\n", message: nil, preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .default) { (action) in
+            alertController.view.removeObserver(self, forKeyPath: "bounds")
+            self.textView.text = ""
         }
-        alert.addAction(save)
-        
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { (action) in
-            self.messagesCollectionView.scrollToBottom(animated: true)
+        alertController.addAction(cancelAction)
+
+        let saveAction = UIAlertAction(title: "Raise Escalation".localized, style: .default) { (action) in
+            if let enteredText = self.textView.text, enteredText.isNotBlank {
+                alertController.view.removeObserver(self, forKeyPath: "bounds")
+                self.confirmAction("Are you sure?".localized, "you want to send as " + mediaName + "?", confirmedCallback: { (action) in
+                    self.sendEscalationMessage?(self.chatObj.enquiryId, mediaId, KeychainManager.standard.userID!, self.chatObj.buyerId, enteredText)
+                    self.textView.text = ""
+                }) { (action) in
+                    self.textView.text = ""
+                }
+            }else {
+                self.alert("Error","Please enter escaltion details.")
+            }
         }
-        alert.addAction(cancel)
-        
-        self.present(alert, animated: true, completion: nil)
+        alertController.addAction(saveAction)
+
+        alertController.view.addObserver(self, forKeyPath: "bounds", options: NSKeyValueObservingOptions.new, context: nil)
+        textView.backgroundColor = UIColor.white
+        textView.textContainerInset = UIEdgeInsets.init(top: 8, left: 5, bottom: 8, right: 5)
+        textView.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
+
+        alertController.view.addSubview(self.textView)
+
+        self.present(alertController, animated: true, completion: nil)
     }
     
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "bounds"{
+            if let rect = (change?[NSKeyValueChangeKey.newKey] as? NSValue)?.cgRectValue {
+                let margin: CGFloat = 8
+                let xPos = rect.origin.x + margin
+                let yPos = rect.origin.y + 54
+                let width = rect.width - 2 * margin
+                let height: CGFloat = 90
+
+                textView.frame = CGRect.init(x: xPos, y: yPos, width: width, height: height)
+            }
+        }
+    }
+    
+    @objc func tapDone(sender: Any) {
+//       self.view.endEditing(true)
+        textView.resignFirstResponder()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         viewWillAppear?()
+        self.tabBarController!.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController!.tabBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -162,22 +215,22 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
     
     
     func showMessage(obj: EscalationConversation, user: SenderType){
-
+        
         let fullString = NSMutableAttributedString(string: "")
         let imageAttachment = NSTextAttachment()
         
         let titleParagraphStyle = NSMutableParagraphStyle()
         titleParagraphStyle.alignment = .justified
-                
+        
         if Int(user.senderId) != chatObj.buyerId {
             fullString.append(NSAttributedString(string: "  " ))
             fullString.append(NSAttributedString(string:  obj.text ?? "", attributes: [
-                        .font: UIFont.systemFont(ofSize: 15, weight: .regular),
-                        .foregroundColor: UIColor.black
+                .font: UIFont.systemFont(ofSize: 15, weight: .regular),
+                .foregroundColor: UIColor.black
             ]))
             
             if obj.resolved == 0 {
-
+                
                 fullString.append(NSAttributedString(string:  "\n\n Mark as resolved  " , attributes: [
                     .font: UIFont.systemFont(ofSize: 15, weight: .medium),
                     .foregroundColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1),
@@ -187,13 +240,13 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
                 imageAttachment.image = UIImage(systemName: "checkmark.circle")!.withTintColor(#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1))
                 let imageString = NSAttributedString(attachment: imageAttachment)
                 fullString.append(imageString)
-                 
+                
                 messageObject.append(EscalationMessage(sender: user,
-                                             messageId: String(obj.id),
-                                             sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
-                                             kind: .attributedText(fullString),
-                                             id: obj.id, mediaName: "", pathName: "",
-                                             resolved: obj.resolved))
+                                                       messageId: String(obj.id),
+                                                       sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
+                                                       kind: .attributedText(fullString),
+                                                       id: obj.id, mediaName: "", pathName: "",
+                                                       resolved: obj.resolved))
             } else {
                 
                 fullString.append(NSAttributedString(string:  "\n\n Resolved  " , attributes: [
@@ -205,25 +258,25 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
                 imageAttachment.image = UIImage(systemName: "checkmark.circle")!.withTintColor(UIColor().CEGreen())
                 let imageString = NSAttributedString(attachment: imageAttachment)
                 fullString.append(imageString)
-                 
+                
                 messageObject.append(EscalationMessage(sender: user,
-                                             messageId: String(obj.id),
-                                             sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
-                                             kind: .attributedText(fullString),
-                                             id: obj.id, mediaName: "", pathName: "",
-                                             resolved: obj.resolved))
+                                                       messageId: String(obj.id),
+                                                       sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
+                                                       kind: .attributedText(fullString),
+                                                       id: obj.id, mediaName: "", pathName: "",
+                                                       resolved: obj.resolved))
             }
             
         } else {
             
             fullString.append(NSAttributedString(string: "  " ))
             fullString.append(NSAttributedString(string:  obj.text ?? "", attributes: [
-                        .font: UIFont.systemFont(ofSize: 15, weight: .medium),
-                        .foregroundColor: UIColor.white
+                .font: UIFont.systemFont(ofSize: 15, weight: .medium),
+                .foregroundColor: UIColor.white
             ]))
-
+            
             if obj.resolved == 0 {
-
+                
                 fullString.append(NSAttributedString(string:  "\n\n Waiting for response from User  " , attributes: [
                     .font: UIFont.systemFont(ofSize: 15, weight: .medium),
                     .foregroundColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
@@ -232,13 +285,13 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
                 imageAttachment.image = UIImage(systemName: "checkmark.circle")!.withTintColor(#colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1))
                 let imageString = NSAttributedString(attachment: imageAttachment)
                 fullString.append(imageString)
-                 
+                
                 messageObject.append(EscalationMessage(sender: user,
-                                             messageId: String(obj.id),
-                                             sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
-                                             kind: .attributedText(fullString),
-                                             id: obj.id, mediaName: "", pathName: "",
-                                             resolved: obj.resolved))
+                                                       messageId: String(obj.id),
+                                                       sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
+                                                       kind: .attributedText(fullString),
+                                                       id: obj.id, mediaName: "", pathName: "",
+                                                       resolved: obj.resolved))
             } else {
                 
                 fullString.append(NSAttributedString(string:  "\n\n Resolved  " , attributes: [
@@ -249,16 +302,16 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
                 imageAttachment.image = UIImage(systemName: "checkmark.circle")!.withTintColor(UIColor().CEGreen())
                 let imageString = NSAttributedString(attachment: imageAttachment)
                 fullString.append(imageString)
-                 
+                
                 messageObject.append(EscalationMessage(sender: user,
-                                             messageId: String(obj.id),
-                                             sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
-                                             kind: .attributedText(fullString),
-                                             id: obj.id, mediaName: "", pathName: "",
-                                             resolved: obj.resolved))
+                                                       messageId: String(obj.id),
+                                                       sentDate: Date().ttceISODate(isoDate: obj.modifiedOn!),
+                                                       kind: .attributedText(fullString),
+                                                       id: obj.id, mediaName: "", pathName: "",
+                                                       resolved: obj.resolved))
             }
         }
-
+        
     }
     
     
@@ -282,7 +335,7 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
         if messageObject[indexPath.section].sender.senderId == "\(KeychainManager.standard.userID!)"{
             avatarView.initials = "Me"
             user = User.getUser(userId: KeychainManager.standard.userID!)
-
+            
             if let tag = user?.buyerCompanyDetails.first?.logo, user?.buyerCompanyDetails.first?.logo != "" {
                 let prodId = user!.entityID
                 if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
@@ -306,7 +359,7 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
             }
         } else {
             avatarView.initials = "They"
-
+            
             if let tag = chatObj.buyerLogo, chatObj.buyerLogo != "" {
                 let prodId = chatObj.buyerId
                 if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
@@ -333,8 +386,8 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         //When use press send button this method is called.
-//        viewModel.enquiryId.value = self.chatObj.enquiryId
-//        viewModel.messageTo.value = self.chatObj.buyerId
+        //        viewModel.enquiryId.value = self.chatObj.enquiryId
+        //        viewModel.messageTo.value = self.chatObj.buyerId
         viewModel.messageFrom.value = KeychainManager.standard.userID!
         viewModel.messageString.value = text
         viewModel.mediaType.value = 1
@@ -351,7 +404,7 @@ class ChatEscalationController: MessagesViewController, MessagesDataSource, Mess
 }
 
 extension ChatEscalationController: MessageCellDelegate, ChatEscalationHeaderViewProtocol  {
-
+    
     func escalationButtonSelected2() {
         navigationController?.popViewController(animated: true)
     }
@@ -364,7 +417,7 @@ extension ChatEscalationController: MessageCellDelegate, ChatEscalationHeaderVie
         
         if self.chatObj?.buyerId != Int(message.sender.senderId) && message.resolved != 1 {
             let alert = UIAlertController.init(title: "Are you sure", message: "you want to mark it as resolved " + "?", preferredStyle: .actionSheet)
-
+            
             let save = UIAlertAction.init(title: "Yes", style: .default) { (action) in
                 self.resolveEscalation?(message.id)
             }
@@ -378,6 +431,5 @@ extension ChatEscalationController: MessageCellDelegate, ChatEscalationHeaderVie
             self.present(alert, animated: true, completion: nil)
         }
     }
-
+    
 }
-

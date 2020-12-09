@@ -11,13 +11,13 @@ import UIKit
 import Eureka
 
 class CollectionViewCellRow: Cell<String>, CellType {
-
+    
     @IBOutlet var collectionView: UICollectionView!
     var collectionDelegate: UIViewController!
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
         //backgroundColor = (row.value ?? false) ? .white : .black

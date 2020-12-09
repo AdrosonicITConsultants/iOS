@@ -15,7 +15,7 @@ import Bond
 import Reachability
 
 class BuyerProductCatalogController: UIViewController {
-
+    
     let reuseIdentifier = "BuyerProductCell"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
@@ -49,12 +49,10 @@ class BuyerProductCatalogController: UIViewController {
     var loadedPage = 1
     var searchLimitReached = false
     var searchType = -1
-    var categoryData: Results<CMSCategoryACF>?
     var regionData: Results<CMSRegionACF>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        categoryData = realm.objects(CMSCategoryACF.self).sorted(byKeyPath: "entityID")
         regionData =  realm.objects(CMSRegionACF.self).sorted(byKeyPath: "entityID")
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         if let cluster = selectedCluster {
@@ -118,8 +116,8 @@ class BuyerProductCatalogController: UIViewController {
         
         switch selectedCluster?.entityID {
         case selectedCluster?.entityID:
-            return CMSRegionACF.getRegionType(ClusterId: selectedCluster!.entityID)!.regDescription!
-
+            return CMSRegionACF.getRegionType(ClusterId: selectedCluster?.entityID ?? 0)?.regDescription ?? ""
+            
         default:
             return selectedCluster?.adjective ?? ""
         }
@@ -129,8 +127,12 @@ class BuyerProductCatalogController: UIViewController {
         
         switch selectedCategory?.entityID {
         case selectedCategory?.entityID:
-            return CMSCategoryACF.getCategoryType(CategoryId: selectedCategory!.entityID)!.catDescription!
-
+            if madeByAntaran == 0 {
+                return CMSCategoryACFSelf.getCategoryType( CategoryId: selectedCategory?.entityID ?? 0)?.catDescription ?? ""
+            }else{
+                return CMSCategoryACFCo.getCategoryType( CategoryId: selectedCategory?.entityID ?? 0)?.catDescription ?? ""
+            }
+           
         default:
             return selectedCategory?.description ?? ""
         }
@@ -145,11 +147,11 @@ class BuyerProductCatalogController: UIViewController {
                 }else {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                        let service = BrandLogoService.init(client: client, userObject: selectedArtisan!)
+                        let service = BrandLogoService.init(client: client, userObject: artisan)
                         service.fetch().observeNext { (attachment) in
                             DispatchQueue.main.async {
                                 let tag = artisan.buyerCompanyDetails.first?.logo ?? "name.jpg"
-                                let prodId = artisan.entityID ?? 0
+                                let prodId = artisan.entityID
                                 _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
                                 self.brandLogoImage.image = UIImage.init(data: attachment)
                             }
@@ -166,7 +168,7 @@ class BuyerProductCatalogController: UIViewController {
                 }else {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                        let service = UserProfilePicService.init(client: client, userObject: selectedArtisan!)
+                        let service = UserProfilePicService.init(client: client, userObject: artisan)
                         service.fetch().observeNext { (attachment) in
                             DispatchQueue.main.async {
                                 let tag = artisan.profilePic ?? "name.jpg"
@@ -217,7 +219,7 @@ class BuyerProductCatalogController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-      viewDidAppear?()
+        viewDidAppear?()
     }
     
     func endRefresh() {
@@ -250,8 +252,8 @@ class BuyerProductCatalogController: UIViewController {
                     self.setDatasource(withId: option.entityID)
                     self.tableView.reloadData()
                     
-              }
-              alert.addAction(action)
+                }
+                alert.addAction(action)
             }
         }else if self.selectedCluster != nil || self.selectedArtisan != nil {
             //Show Category Filter Options
@@ -263,8 +265,8 @@ class BuyerProductCatalogController: UIViewController {
                     self.setDatasource(withId: option.entityID)
                     self.tableView.reloadData()
                     
-              }
-              alert.addAction(action)
+                }
+                alert.addAction(action)
             }
         }else {
             let textArray = ["Show Both", "Artisan Self Design Collection","Antaran Co-Design Collection"]
@@ -282,8 +284,8 @@ class BuyerProductCatalogController: UIViewController {
                     }else {
                         self.setDatasource(withId: 0)
                     }
-              }
-              alert.addAction(action)
+                }
+                alert.addAction(action)
             }
         }
         

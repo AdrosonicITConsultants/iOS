@@ -24,7 +24,7 @@ class PaymentStatus: Object, Decodable {
     @objc dynamic var status: Int = 0
     @objc dynamic var createdOn: String?
     @objc dynamic var modifiedOn: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case type = "type"
@@ -44,7 +44,7 @@ class PaymentStatus: Object, Decodable {
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
-
+        
         id = try (values.decodeIfPresent(Int.self, forKey: .id) ?? 0)
         type = try (values.decodeIfPresent(Int.self, forKey: .type) ?? 0)
         enquiryId = try (values.decodeIfPresent(Int.self, forKey: .enquiryId) ?? 0)

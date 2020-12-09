@@ -25,15 +25,19 @@ extension ChatListService {
         }
         
         func performSync() {
-            getChatList().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
+            controller.showLoading()
+            getChatList().bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     parseEnquiry(json: json, isOngoing: true)
                 }else {
-                   controller.endRefresh()
+                    DispatchQueue.main.async {
+                        controller.hideLoading()
+                        controller.endRefresh()
+                    }
                 }
             }.dispose(in: controller.bag)
-           
-            controller.hideLoading()
+            
+            
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
@@ -41,37 +45,42 @@ extension ChatListService {
                 var i = 0
                 var esclation = 0
                 var eqArray: [Int] = []
-                
-                array.forEach { (dataDict) in
-                    i+=1
-                    if let chatdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
-                        if let chatObj = try? JSONDecoder().decode(Chat.self, from: chatdata) {
-                            DispatchQueue.main.async {
-                                print("chatObj: \(chatObj)")
-                                esclation += chatObj.escalation
-                                if chatObj.buyerCompanyName != nil{
-                                    chatObj.saveOrUpdate()
-                                    chatObj.updateAddonDetails(isOld: isOngoing)
-                                    eqArray.append(chatObj.entityID)
-                                    if i == array.count {
-                                        if isOngoing {
-                                            controller.chatList = eqArray
-                                            
-                                            if esclation == 1{
-                                                controller.escalationsButton.setTitle(" \(esclation) Escalation", for: .normal)
-                                            }else {
-                                                controller.escalationsButton.setTitle(" \(esclation) Escalations", for: .normal)
+                if array.count == 0 {
+                    DispatchQueue.main.async {
+                        controller.endRefresh()
+                    }
+                }else {
+                    array.forEach { (dataDict) in
+                        i+=1
+                        if let chatdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                            if let chatObj = try? JSONDecoder().decode(Chat.self, from: chatdata) {
+                                DispatchQueue.main.async {
+                                    print("chatObj: \(chatObj)")
+                                    esclation += chatObj.escalation
+                                    if chatObj.buyerCompanyName != nil{
+                                        chatObj.saveOrUpdate()
+                                        chatObj.updateAddonDetails(isOld: isOngoing, userId: User.loggedIn()?.entityID ?? 0)
+                                        eqArray.append(chatObj.entityID)
+                                        if i == array.count {
+                                            if isOngoing {
+                                                controller.chatList = eqArray
+                                                
+                                                if esclation == 1{
+                                                    controller.escalationsButton.setTitle(" \(esclation) Escalation", for: .normal)
+                                                }else {
+                                                    controller.escalationsButton.setTitle(" \(esclation) Escalations", for: .normal)
+                                                }
+                                                
                                             }
-                                            
+                                            controller.endRefresh()
                                         }
-                                        controller.endRefresh()
                                     }
                                 }
+                                
                             }
-                            
                         }
+                        
                     }
-                    
                 }
                 
             }
@@ -117,41 +126,48 @@ extension ChatListService {
             getNewChatList().toLoadingSignal().consumeLoadingState(by: controller).bind(to: controller, context: .global(qos: .background)) { _, responseData in
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                     parseEnquiry(json: json, isOngoing: false)
+                }else {
+                    DispatchQueue.main.async {
+                        controller.hideLoading()
+                        controller.endRefresh()
+                    }
                 }
             }.dispose(in: controller.bag)
-            controller.hideLoading()
+            
         }
         
         func parseEnquiry(json: [String: Any], isOngoing: Bool) {
             if let array = json["data"] as? [[String: Any]] {
                 if array.count != 0 {
-                var i = 0
-                var eqArray: [Int] = []
-                array.forEach { (dataDict) in
-                    i+=1
-                    if let chatdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
-                        if let chatObj = try? JSONDecoder().decode(Chat.self, from: chatdata) {
-                            DispatchQueue.main.async {
-                                print("chatObj: \(chatObj)")
-                                
-                                if chatObj.buyerCompanyName != nil{
-                                    chatObj.saveOrUpdate()
-                                    chatObj.updateAddonDetails(isOld: isOngoing)
-                                    eqArray.append(chatObj.entityID)
-                                    if i == array.count {
-                                        if !isOngoing {
-                                            controller.newChatList = eqArray
+                    var i = 0
+                    var eqArray: [Int] = []
+                    array.forEach { (dataDict) in
+                        i+=1
+                        if let chatdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                            if let chatObj = try? JSONDecoder().decode(Chat.self, from: chatdata) {
+                                DispatchQueue.main.async {
+                                    print("chatObj: \(chatObj)")
+                                    
+                                    if chatObj.buyerCompanyName != nil{
+                                        chatObj.saveOrUpdate()
+                                        chatObj.updateAddonDetails(isOld: isOngoing, userId: User.loggedIn()?.entityID ?? 0)
+                                        eqArray.append(chatObj.entityID)
+                                        if i == array.count {
+                                            if !isOngoing {
+                                                controller.newChatList = eqArray
+                                            }
+                                            controller.endRefresh()
                                         }
-                                        controller.endRefresh()
                                     }
                                 }
                             }
                         }
+                        
                     }
-                    
-                }
                 }else{
-                     controller.endRefresh()
+                    DispatchQueue.main.async {
+                        controller.endRefresh()
+                    }
                 }
             }
         }
@@ -186,11 +202,11 @@ extension ChatListService {
         self.initiateChat(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
             DispatchQueue.main.async {
                 do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    
                     let service = ChatDetailsService.init(client: client)
                     service.downloadChat(vc: vc, enquiryId: enquiryId)
-                
+                    
                 }catch {
                     print(error.localizedDescription)
                 }

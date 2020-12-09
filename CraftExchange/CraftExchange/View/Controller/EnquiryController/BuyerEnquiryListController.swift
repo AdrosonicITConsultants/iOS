@@ -16,28 +16,35 @@ import Reachability
 import WMSegmentControl
 
 class BuyerEnquiryListController: UIViewController {
-
+    
     let reuseIdentifier = "BuyerEnquiryCell"
     var reachabilityManager = try? Reachability()
     var applicationEnteredForeground: (() -> ())?
     var getDeliveryTimes: (() -> ())?
     var getCurrencySigns: (() -> ())?
+    var fetchData: (() -> ())?
     var allEnquiries: [Enquiry]?
     var ongoingEnquiries: [Int] = []
     var closedEnquiries: [Int] = []
     let realm = try? Realm()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentView: WMSegment!
-    @IBOutlet weak var emptyView: UIImageView!
+    @IBOutlet weak var emptyView: UILabel!
     var viewWillAppear: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData?()
         getDeliveryTimes?()
         getCurrencySigns?()
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        allEnquiries = []
+        if self.segmentView.selectedSegmentIndex == 0 {
+            self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }else {
+            self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+        }
+        emptyView.isHidden = allEnquiries?.count == 0 ? false : true
         definesPresentationContext = false
         self.setupSideMenu(false)
         let center = NotificationCenter.default
@@ -68,14 +75,14 @@ class BuyerEnquiryListController: UIViewController {
             refreshControl.endRefreshing()
         }
         if self.reachabilityManager?.connection == .unavailable {
-        // let realm = try? Realm()
-         
-         if self.segmentView.selectedSegmentIndex == 0 {
-             self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-         }else {
-             self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
-         }
-         
+            // let realm = try? Realm()
+            
+            if self.segmentView.selectedSegmentIndex == 0 {
+                self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }else {
+                self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            }
+            
         }else{
             if segmentView.selectedSegmentIndex == 0 {
                 allEnquiries = realm?.objects(Enquiry.self).filter("%K IN %@","entityID",ongoingEnquiries ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
@@ -85,6 +92,7 @@ class BuyerEnquiryListController: UIViewController {
         }
         
         emptyView.isHidden = allEnquiries?.count == 0 ? false : true
+        emptyView.text = segmentView.selectedSegmentIndex == 0 ? "No Ongoing Enquiries Present".localized : "No Completed Enquiries Present".localized
         self.hideLoading()
         self.tableView.reloadData()
     }
@@ -148,27 +156,27 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
+        
         let viewEditAction = UIContextualAction(style: .normal, title:  "Chat".localized) { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-
+            
             do {
-             let client = try SafeClient(wrapping: CraftExchangeClient())
-            if let obj = self.allEnquiries?[indexPath.row] {
-                let service = ChatListService.init(client: client)
-                service.initiateConversation(vc: self, enquiryId: obj.entityID)
-
-            }
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                if let obj = self.allEnquiries?[indexPath.row] {
+                    let service = ChatListService.init(client: client)
+                    service.initiateConversation(vc: self, enquiryId: obj.entityID)
+                    
+                }
                 
             }catch {
                 print(error.localizedDescription)
             }
             
             success(true)
-        
+            
         }
         viewEditAction.image = UIImage.init(named: "chat-icon")
         viewEditAction.backgroundColor = UIColor().CEMagenda()
-
+        
         return UISwipeActionsConfiguration(actions: [viewEditAction])
     }
     

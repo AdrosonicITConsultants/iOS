@@ -45,7 +45,7 @@ class QCArtisanController: FormViewController {
         rightButtonItem.image = UIImage.init(named: "ios magenta chat")
         rightButtonItem.tintColor = UIColor().CEMagenda()
         self.navigationItem.rightBarButtonItem = rightButtonItem
-
+        
         stagesArray = realm?.objects(QCStages.self).sorted(byKeyPath: "entityID", ascending: true)
         questionsArray = realm?.objects(QCQuestions.self)
         if let userID = User.loggedIn()?.entityID {
@@ -56,25 +56,27 @@ class QCArtisanController: FormViewController {
             $0.hidden = "$stageTypes == false"
             $0.tag = "QCSection"
         }
-
+        
         let stageView = LabelRow("stageTypes") {
             $0.cell.height = { 30.0 }
             $0.title = "Quality Check".localized
         }
         
         form
-        +++ Section()
+            +++ Section()
             <<< EnquiryDetailsRow() { (row) in
                 row.configureRow(orderObject: orderObject, enquiryObject: nil)
             }.cellUpdate({ (cell, row) in
                 row.cellUpdate(orderObject: self.orderObject, enquiryObject: nil)
             })
-        <<< stageView
-        +++ stageSection
+            <<< stageView
+            +++ stageSection
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "QCRevised"), object: nil, queue: .main) { (notif) in
-            self.hideLoading()
-            self.navigationController?.popViewController(animated: true)
+            let qcSec = self.form.sectionBy(tag: "QCSection")
+            qcSec?.removeAll()
+            self.showSection = nil
+            self.viewWillAppear?()
         }
     }
     
@@ -84,8 +86,8 @@ class QCArtisanController: FormViewController {
     }
     
     func reloadData() {
+        self.hideLoading()
         guard let stageSection = self.form.sectionBy(tag: "QCSection") else {
-            
             return }
         if orderQCStageId == 0 {
             showSection = "0"
@@ -121,7 +123,7 @@ class QCArtisanController: FormViewController {
                                 }
                             }
                         }else {
-                           if cell.row.tag == "1" {
+                            if cell.row.tag == "1" {
                                 cell.row.hidden = false
                             }else {
                                 cell.row.hidden = true
@@ -161,7 +163,7 @@ class QCArtisanController: FormViewController {
                     if let qcArray = questionsArray?.filter("%K == %@","stageId",stage.entityID).sorted(byKeyPath: "entityID"), qcArray.count > 0 {
                         qcArray .forEach { (question) in
                             if let getQC = self.artisanQCArray?.filter("%K == %@ AND %K == %@","stageId",stage.entityID,"questionId",question.questionNo).sorted(byKeyPath: "modifiedOn", ascending: false).first {
-//                                let index = (Int(self.showSection ?? "0") ?? 0)+1
+                                //                                let index = (Int(self.showSection ?? "0") ?? 0)+1
                                 if (getQC.stageId == self.orderQCStageId && self.orderQCIsSend == 1) || getQC.stageId < self.orderQCStageId {
                                     print("is Not Editable")
                                     showSave = false

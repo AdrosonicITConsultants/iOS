@@ -14,7 +14,7 @@ protocol ChatHeaderViewProtocol {
 }
 
 class ChatHeaderView: UIView {
-
+    
     @IBOutlet var imageButton: RoundedButton!
     @IBOutlet var buyerName: UILabel!
     @IBOutlet var enquiryNumber: UILabel!
@@ -33,8 +33,8 @@ class ChatHeaderView: UIView {
     @IBAction func escalationButtonSelected(_ sender: Any) {
         delegate?.escalationButtonSelected()
     }
-     override func layoutSubviews() {
+    override func layoutSubviews() {
         secondView.addBottomdBorder()
-//        secondView.addBorder(side: .bottom, color: UIColor.black, leftOffset: 15.0)
+        //        secondView.addBorder(side: .bottom, color: UIColor.black, leftOffset: 15.0)
     }
 }

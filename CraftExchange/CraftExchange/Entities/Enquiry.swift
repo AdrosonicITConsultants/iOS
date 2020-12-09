@@ -84,7 +84,7 @@ class Enquiry: Object, Decodable {
     var productCategories: [Int] = []
     
     enum CodingKeys: String, CodingKey {
-//        case id = "id"
+        //        case id = "id"
         case mobile = "mobile"
         case logo = "logo"
         case startedOn = "startedOn"
@@ -156,7 +156,7 @@ class Enquiry: Object, Decodable {
     override class func primaryKey() -> String? {
         return "id"
     }
-
+    
     convenience required init(from decoder: Decoder) throws {
         self.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -223,7 +223,7 @@ class Enquiry: Object, Decodable {
         warpYarnId = try (values.decodeIfPresent(Int.self, forKey: .warpYarnId) ?? 0)
         weftYarnHistoryId = try (values.decodeIfPresent(Int.self, forKey: .weftYarnHistoryId) ?? 0)
         weftYarnId = try (values.decodeIfPresent(Int.self, forKey: .weftYarnId) ?? 0)
-       if let blue = try (values.decodeIfPresent(Int.self, forKey: .isBlue)) {
+        if let blue = try (values.decodeIfPresent(Int.self, forKey: .isBlue)) {
             isBlue = blue == 1 ? true : false
         }
         if let list = try? values.decodeIfPresent([PaymentAccDetails].self, forKey: .paymentAccountDetails) {

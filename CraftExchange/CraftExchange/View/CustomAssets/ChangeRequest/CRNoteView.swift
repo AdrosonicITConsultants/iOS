@@ -11,14 +11,14 @@ import UIKit
 import Eureka
 
 class CRNoteView: Cell<String>, CellType {
-
+    
     @IBOutlet weak var Label1: UILabel!
     @IBOutlet weak var Label2: UILabel!
     @IBOutlet weak var Imagveiew: UIImageView!
     public override func setup() {
         super.setup()
     }
-
+    
     public override func update() {
         super.update()
     }

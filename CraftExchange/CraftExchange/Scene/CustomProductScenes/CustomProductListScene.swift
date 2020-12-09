@@ -17,7 +17,7 @@ import UIKit
 extension CustomProductService {
     func createScene() -> UIViewController {
         let controller = CustomProductListController.init(style: .plain)
-
+        
         func setupRefreshActions() {
             controller.refreshControl?.reactive.controlEvents(.valueChanged).observeNext {
                 syncData()
@@ -29,21 +29,21 @@ extension CustomProductService {
             fetchAllBuyersCustomProduct().toLoadingSignal().consumeLoadingState(by: controller)
                 .bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
-                      if let array = json["data"] as? [[String: Any]] {
-                          if let proddata = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
-                              if let object = try? JSONDecoder().decode([CustomProduct].self, from: proddata) {
-                                  DispatchQueue.main.async {
-                                      object .forEach { (prodObj) in
-                                          prodObj.saveOrUpdate()
-                                          if prodObj == object.last {
-                                            controller.endRefresh()
-                                            CustomProduct.deleteAllBuyerProductsWithIsDeleteTrue()
-                                          }
-                                      }
-                                  }
-                              }
-                          }
-                      }
+                        if let array = json["data"] as? [[String: Any]] {
+                            if let proddata = try? JSONSerialization.data(withJSONObject: array, options: .fragmentsAllowed) {
+                                if let object = try? JSONDecoder().decode([CustomProduct].self, from: proddata) {
+                                    DispatchQueue.main.async {
+                                        object .forEach { (prodObj) in
+                                            prodObj.saveOrUpdate()
+                                            if prodObj == object.last {
+                                                controller.endRefresh()
+                                                CustomProduct.deleteAllBuyerProductsWithIsDeleteTrue()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
             }.dispose(in: controller.bag)
         }
@@ -65,11 +65,11 @@ extension CustomProductService {
         
         controller.deleteAllCustomProducts = {
             self.deleteAllBuyersCustomProduct().toLoadingSignal().consumeLoadingState(by: controller)
-            .bind(to: controller, context: .global(qos: .background)) { _, responseData in
-                DispatchQueue.main.async {
-                    CustomProduct.setAllBuyerProductsDeleteTrue()
-                    controller.navigationController?.popViewController(animated: true)
-                }
+                .bind(to: controller, context: .global(qos: .background)) { _, responseData in
+                    DispatchQueue.main.async {
+                        CustomProduct.setAllBuyerProductsDeleteTrue()
+                        controller.navigationController?.popViewController(animated: true)
+                    }
             }.dispose(in: controller.bag)
         }
         
@@ -86,11 +86,11 @@ extension CustomProductService {
         }.dispose(in: controller.bag)
         
         controller.tableView.reactive.selectedRowIndexPath
-        .bind(to: controller, context: .immediateOnMain) { _, indexPath in
-            guard let object = dataSource.changeset?[indexPath.row] else { return }
-            let vc = UploadProductService(client: self.client).createCustomProductScene(productObject: object)
-            vc.modalPresentationStyle = .fullScreen
-            controller.navigationController?.pushViewController(vc, animated: true)
+            .bind(to: controller, context: .immediateOnMain) { _, indexPath in
+                guard let object = dataSource.changeset?[indexPath.row] else { return }
+                let vc = UploadProductService(client: self.client).createCustomProductScene(productObject: object)
+                vc.modalPresentationStyle = .fullScreen
+                controller.navigationController?.pushViewController(vc, animated: true)
         }.dispose(in: controller.bag)
         
         controller.deleteProduct = { (prodId) in

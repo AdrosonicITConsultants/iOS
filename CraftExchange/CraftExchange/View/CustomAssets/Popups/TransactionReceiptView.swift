@@ -13,9 +13,9 @@ protocol TransactionReceiptViewProtocol {
 }
 
 class TransactionReceiptView: UIView {
-
+    
     @IBOutlet weak var cancelButton: UIButton!
-
+    
     @IBOutlet weak var receiptImage: UIImageView!
     
     var delegate: TransactionReceiptViewProtocol?
@@ -23,6 +23,6 @@ class TransactionReceiptView: UIView {
     @IBAction func cancelButtonSelected(_ sender: Any) {
         delegate?.cancelBtnSelected()
     }
-
+    
 }
 

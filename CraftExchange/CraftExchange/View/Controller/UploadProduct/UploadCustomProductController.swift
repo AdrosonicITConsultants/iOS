@@ -34,7 +34,7 @@ enum CustomProductState: Int {
 
 class UploadCustProductViewModel {
     var productImages = Observable<[UIImage]?>(nil)
-
+    
     var prodCategory = Observable<ProductCategory?>(nil)
     var prodType = Observable<ProductType?>(nil)
     
@@ -59,7 +59,7 @@ class UploadCustProductViewModel {
     var prodWidth = Observable<String?>(nil)
     var relatedProdLength = Observable<String?>(nil)
     var relatedProdWidth = Observable<String?>(nil)
-
+    
     var gsm = Observable<String?>(nil)
     var prodDescription = Observable<String?>(nil)
     
@@ -103,14 +103,14 @@ class UploadCustomProductController: FormViewController {
             let ht: CGFloat = 60.0
             section.header = {
                 var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type")
-                  return view
+                    let view = self.createSectionView(forStep: 3, title: "Select Weave Type", isCompulsory: false)
+                    return view
                 }))
                 header.height = { ht }
                 return header
-              }()
+            }()
         }
-
+        
         if let productObj = product {
             viewWillAppear?()
             if fromEnquiry == false {
@@ -151,14 +151,14 @@ class UploadCustomProductController: FormViewController {
                 viewModel.exWeftYarnCnt.value = YarnCount.getYarnCount(forType: viewModel.exWeftYarn.value?.yarnType.first?.entityID ?? 0, searchString: productObj.extraWeftYarnCount ?? "0")
             }
             viewModel.reedCount.value = ReedCount.getReedCount(searchId: productObj.reedCountId)
-
+            
             viewModel.prodLength.value = productObj.length
             viewModel.prodWidth.value = productObj.width
             viewModel.relatedProdLength.value = productObj.relatedProducts.first?.length
             viewModel.relatedProdWidth.value = productObj.relatedProducts.first?.width
             viewModel.gsm.value = productObj.gsm
             viewModel.prodDescription.value = productObj.productSpec
-//            downloadProdImages()
+            //            downloadProdImages()
         }
         else {
             let rightButtonItem = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(saveClicked))
@@ -199,18 +199,18 @@ class UploadCustomProductController: FormViewController {
         }
         
         form
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.addPhotos.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 1, title: "Add Photos")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
+            +++ Section(){ section in
+                section.tag = "\(CustomProductState.addPhotos.rawValue)"
+                let ht: CGFloat = 60.0
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = self.createSectionView(forStep: 1, title: "Add Photos", isCompulsory: true)
+                        return view
+                    }))
+                    header.height = { ht }
+                    return header
+                }()
+            }
             <<< CollectionViewRow() {
                 $0.tag = "AddPhotoRow"
                 $0.cell.collectionView.register(UINib(nibName: "ImageSelectorCell", bundle: nil), forCellWithReuseIdentifier: "ImageSelectorCell")
@@ -233,311 +233,261 @@ class UploadCustomProductController: FormViewController {
                 $0.cell.delegate = self
                 $0.hidden = true
             }
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.addGeneralDetails.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 2, title: "Add General Details")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< RoundedActionSheetRow() {
-            $0.tag = "ProdCatRow"
-            $0.cell.titleLabel.text = "Select product category".localized
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.options = allCategories?.compactMap { $0.prodCatDescription }
-            if let selectedCluster = self.viewModel.prodCategory.value {
-                $0.cell.selectedVal = selectedCluster.prodCatDescription
-                $0.value = selectedCluster.prodCatDescription
+            +++ Section(){ section in
+                section.tag = "\(CustomProductState.addGeneralDetails.rawValue)"
+                let ht: CGFloat = 60.0
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = self.createSectionView(forStep: 2, title: "Add General Details", isCompulsory: true)
+                        return view
+                    }))
+                    header.height = { ht }
+                    return header
+                }()
             }
-            $0.cell.actionButton.setTitle($0.value, for: .normal)
-            $0.cell.delegate = self
-            $0.cell.height = { 80.0 }
-            $0.hidden = true
-            if fromEnquiry {
-                $0.cell.isUserInteractionEnabled = false
-            }
-        }.onChange({ (row) in
-          print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-            let selectedClusterObj = self.allCategories?.filter({ (obj) -> Bool in
-                obj.prodCatDescription == row.value
+            <<< RoundedActionSheetRow() {
+                $0.tag = "ProdCatRow"
+                $0.cell.titleLabel.text = "Select product category".localized
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.options = allCategories?.compactMap { $0.prodCatDescription }
+                if let selectedCluster = self.viewModel.prodCategory.value {
+                    $0.cell.selectedVal = selectedCluster.prodCatDescription
+                    $0.value = selectedCluster.prodCatDescription
+                }
+                $0.cell.actionButton.setTitle($0.value, for: .normal)
+                $0.cell.delegate = self
+                $0.cell.height = { 80.0 }
+                $0.hidden = true
+                if fromEnquiry {
+                    $0.cell.isUserInteractionEnabled = false
+                }
+            }.onChange({ (row) in
+                print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
+                let selectedClusterObj = self.allCategories?.filter({ (obj) -> Bool in
+                    obj.prodCatDescription == row.value
                 }).first
-            self.viewModel.prodCategory.value = selectedClusterObj
-            
-            let typeRow = self.form.rowBy(tag: "ProdTypeRow") as! RoundedActionSheetRow
-            typeRow.cell.options = selectedClusterObj?.productTypes.compactMap { $0.productDesc }
-            typeRow.value = nil
-            self.viewModel.prodType.value = nil
-            typeRow.cell.actionButton.setTitle("", for: .normal)
-        }).cellSetup({ (cell, row) in
-            if let selectedCluster = self.viewModel.prodCategory.value {
-                cell.selectedVal = selectedCluster.prodCatDescription
-                cell.row.value = selectedCluster.prodCatDescription
+                self.viewModel.prodCategory.value = selectedClusterObj
+                
+                let typeRow = self.form.rowBy(tag: "ProdTypeRow") as! RoundedActionSheetRow
+                typeRow.cell.options = selectedClusterObj?.productTypes.compactMap { $0.productDesc }
+                typeRow.value = nil
+                self.viewModel.prodType.value = nil
+                typeRow.cell.actionButton.setTitle("", for: .normal)
+            }).cellSetup({ (cell, row) in
+                if let selectedCluster = self.viewModel.prodCategory.value {
+                    cell.selectedVal = selectedCluster.prodCatDescription
+                    cell.row.value = selectedCluster.prodCatDescription
+                }
+                cell.actionButton.setTitle(cell.row.value, for: .normal)
+            })
+            <<< RoundedActionSheetRow() {
+                $0.tag = "ProdTypeRow"
+                $0.cell.titleLabel.text = "Product type".localized
+                $0.cell.compulsoryIcon.isHidden = true
+                if let selectedCat = self.viewModel.prodCategory.value {
+                    $0.cell.options = selectedCat.productTypes.compactMap { $0.productDesc }
+                }
+                if let selectedProdType = self.viewModel.prodType.value {
+                    $0.cell.selectedVal = selectedProdType.productDesc
+                    $0.value = selectedProdType.productDesc
+                }
+                $0.cell.actionButton.setTitle($0.value, for: .normal)
+                $0.cell.delegate = self
+                $0.cell.height = { 80.0 }
+                $0.hidden = true
+                if fromEnquiry {
+                    $0.cell.isUserInteractionEnabled = false
+                }
+            }.onChange({ (row) in
+                print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
+                let selectedTypeObj = self.viewModel.prodCategory.value?.productTypes.filter({ (obj) -> Bool in
+                    obj.productDesc == row.value
+                }).first
+                self.viewModel.prodType.value = selectedTypeObj
+                self.viewModel.prodLength.value = nil
+                self.viewModel.prodWidth.value = nil
+                self.viewModel.relatedProdLength.value = nil
+                self.viewModel.relatedProdWidth.value = nil
+                self.viewModel.gsm.value = nil
+                let row = self.form.rowBy(tag: "ProdLenWidthRow") as! lengthWidthRow
+                row.cell.lengthTextField.text = nil
+                row.cell.widthTextField.text = nil
+                row.cell.length.setTitle("Select length".localized, for: .normal)
+                row.cell.width.setTitle("Select width".localized, for: .normal)
+                let row2 = self.form.rowBy(tag: "RelatedProdLenWidthRow") as! lengthWidthRow
+                row2.cell.lengthTextField.text = nil
+                row2.cell.widthTextField.text = nil
+                row2.cell.length.setTitle("Select length".localized, for: .normal)
+                row2.cell.width.setTitle("Select width".localized, for: .normal)
+                let row5 = self.form.rowBy(tag: "GSMRow") as! RoundedTextFieldRow
+                row5.value = nil
+                row5.cell.valueTextField.text = nil
+                let section = self.form.sectionBy(tag: "\(CustomProductState.gsm.rawValue)")
+                if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                    section?.hidden = false
+                }else {
+                    section?.hidden = true
+                }
+                section?.evaluateHidden()
+            })
+            <<< RoundedButtonViewRow("Next2") {
+                $0.tag = "Next2"
+                $0.cell.titleLabel.isHidden = true
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.greyLineView.isHidden = true
+                $0.cell.buttonView.borderColour = UIColor().CEGreen()
+                $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
+                $0.cell.buttonView.setTitleColor(.white, for: .normal)
+                $0.cell.buttonView.setTitle("Next".localized, for: .normal)
+                $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
+                $0.cell.tag = CustomProductState.addGeneralDetails.rawValue
+                $0.cell.height = { 80.0 }
+                $0.cell.delegate = self
+                $0.hidden = true
             }
-            cell.actionButton.setTitle(cell.row.value, for: .normal)
-        })
-        <<< RoundedActionSheetRow() {
-            $0.tag = "ProdTypeRow"
-            $0.cell.titleLabel.text = "Product type".localized
-            $0.cell.compulsoryIcon.isHidden = true
-            if let selectedCat = self.viewModel.prodCategory.value {
-                $0.cell.options = selectedCat.productTypes.compactMap { $0.productDesc }
+            +++ weaveTypeSection
+            <<< RoundedButtonViewRow("Next3") {
+                $0.tag = "Next3"
+                $0.cell.titleLabel.isHidden = true
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.greyLineView.isHidden = true
+                $0.cell.buttonView.borderColour = UIColor().CEGreen()
+                $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
+                $0.cell.buttonView.setTitleColor(.white, for: .normal)
+                $0.cell.buttonView.setTitle("Next".localized, for: .normal)
+                $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
+                $0.cell.tag = CustomProductState.selectWeaveType.rawValue
+                $0.cell.height = { 80.0 }
+                $0.cell.delegate = self
+                $0.hidden = true
             }
-            if let selectedProdType = self.viewModel.prodType.value {
-                $0.cell.selectedVal = selectedProdType.productDesc
-                $0.value = selectedProdType.productDesc
+            +++ Section(){ section in
+                section.tag = "\(CustomProductState.selectWarpWeftYarn.rawValue)"
+                let ht: CGFloat = 60.0
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = self.createSectionView(forStep: 4, title: "Select Warp - Weft & Yarn", isCompulsory: false)
+                        return view
+                    }))
+                    header.height = { ht }
+                    return header
+                }()
             }
-            $0.cell.actionButton.setTitle($0.value, for: .normal)
-            $0.cell.delegate = self
-            $0.cell.height = { 80.0 }
-            $0.hidden = true
-            if fromEnquiry {
-                $0.cell.isUserInteractionEnabled = false
-            }
-        }.onChange({ (row) in
-          print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-            let selectedTypeObj = self.viewModel.prodCategory.value?.productTypes.filter({ (obj) -> Bool in
-                obj.productDesc == row.value
-            }).first
-            self.viewModel.prodType.value = selectedTypeObj
-            self.viewModel.prodLength.value = nil
-            self.viewModel.prodWidth.value = nil
-            self.viewModel.relatedProdLength.value = nil
-            self.viewModel.relatedProdWidth.value = nil
-            self.viewModel.gsm.value = nil
-            let row = self.form.rowBy(tag: "ProdLenWidthRow") as! lengthWidthRow
-            row.cell.lengthTextField.text = nil
-            row.cell.widthTextField.text = nil
-            row.cell.length.setTitle("Select length".localized, for: .normal)
-            row.cell.width.setTitle("Select width".localized, for: .normal)
-            let row2 = self.form.rowBy(tag: "RelatedProdLenWidthRow") as! lengthWidthRow
-            row2.cell.lengthTextField.text = nil
-            row2.cell.widthTextField.text = nil
-            row2.cell.length.setTitle("Select length".localized, for: .normal)
-            row2.cell.width.setTitle("Select width".localized, for: .normal)
-            let row5 = self.form.rowBy(tag: "GSMRow") as! RoundedTextFieldRow
-            row5.value = nil
-            row5.cell.valueTextField.text = nil
-            let section = self.form.sectionBy(tag: "\(CustomProductState.gsm.rawValue)")
-            if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
-                section?.hidden = false
-            }else {
-                section?.hidden = true
-            }
-            section?.evaluateHidden()
-        })
-        <<< RoundedButtonViewRow("Next2") {
-            $0.tag = "Next2"
-            $0.cell.titleLabel.isHidden = true
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.greyLineView.isHidden = true
-            $0.cell.buttonView.borderColour = UIColor().CEGreen()
-            $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
-            $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
-            $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
-            $0.cell.tag = CustomProductState.addGeneralDetails.rawValue
-            $0.cell.height = { 80.0 }
-            $0.cell.delegate = self
-            $0.hidden = true
-        }
-        +++ weaveTypeSection
-        <<< RoundedButtonViewRow("Next3") {
-            $0.tag = "Next3"
-            $0.cell.titleLabel.isHidden = true
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.greyLineView.isHidden = true
-            $0.cell.buttonView.borderColour = UIColor().CEGreen()
-            $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
-            $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
-            $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
-            $0.cell.tag = CustomProductState.selectWeaveType.rawValue
-            $0.cell.height = { 80.0 }
-            $0.cell.delegate = self
-            $0.hidden = true
-        }
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.selectWarpWeftYarn.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 4, title: "Select Warp - Weft & Yarn")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< CollectionViewRow() {
+            <<< CollectionViewRow() {
                 $0.tag = "AddWeftWarpYarnRow"
                 $0.cell.collectionView.register(UINib(nibName: "DimensionsCardCell", bundle: nil), forCellWithReuseIdentifier: "DimensionsCardCell")
                 $0.cell.collectionDelegate = self
                 $0.cell.height = { 300.0 }
                 $0.hidden = true
-        }
-        <<< RoundedButtonViewRow("Next4") {
-            $0.tag = "Next4"
-            $0.cell.titleLabel.isHidden = true
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.greyLineView.isHidden = true
-            $0.cell.buttonView.borderColour = UIColor().CEGreen()
-            $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
-            $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
-            $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
-            $0.cell.tag = CustomProductState.selectWarpWeftYarn.rawValue
-            $0.cell.height = { 80.0 }
-            $0.cell.delegate = self
-            $0.hidden = true
-        }
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.reedCount.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 5, title: "Enter the reed count")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< ImageViewRow() {
-            $0.cell.height = { 120.0 }
-            $0.cell.cellImage.image = UIImage(named: "reed count")
-            $0.hidden = true
-        }
-        <<< RoundedActionSheetRow() {
-            $0.tag = "ReedCountRow"
-            $0.cell.titleLabel.text = "Enter reed count".localized
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.options = allReed?.compactMap({$0.count})
-            if let selectedObj = self.viewModel.reedCount.value {
-                $0.cell.selectedVal = selectedObj.count
-                $0.value = selectedObj.count
             }
-            $0.cell.actionButton.setTitle($0.value, for: .normal)
-            $0.cell.delegate = self
-            $0.cell.height = { 80.0 }
-            $0.hidden = true
-            if fromEnquiry {
-                $0.cell.isUserInteractionEnabled = false
+            <<< RoundedButtonViewRow("Next4") {
+                $0.tag = "Next4"
+                $0.cell.titleLabel.isHidden = true
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.greyLineView.isHidden = true
+                $0.cell.buttonView.borderColour = UIColor().CEGreen()
+                $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
+                $0.cell.buttonView.setTitleColor(.white, for: .normal)
+                $0.cell.buttonView.setTitle("Next".localized, for: .normal)
+                $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
+                $0.cell.tag = CustomProductState.selectWarpWeftYarn.rawValue
+                $0.cell.height = { 80.0 }
+                $0.cell.delegate = self
+                $0.hidden = true
             }
-        }.onChange({ (row) in
-          print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
-            row.cell.options = self.allReed?.compactMap { $0.count }
-            let selectedObj = self.allReed?.filter({ (obj) -> Bool in
-                obj.count == row.value
+            +++ Section(){ section in
+                section.tag = "\(CustomProductState.reedCount.rawValue)"
+                let ht: CGFloat = 60.0
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = self.createSectionView(forStep: 5, title: "Enter the reed count", isCompulsory: false)
+                        return view
+                    }))
+                    header.height = { ht }
+                    return header
+                }()
+            }
+            <<< ImageViewRow() {
+                $0.cell.height = { 120.0 }
+                $0.cell.cellImage.image = UIImage(named: "reed count")
+                $0.hidden = true
+            }
+            <<< RoundedActionSheetRow() {
+                $0.tag = "ReedCountRow"
+                $0.cell.titleLabel.text = "Enter reed count".localized
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.options = allReed?.compactMap({$0.count})
+                if let selectedObj = self.viewModel.reedCount.value {
+                    $0.cell.selectedVal = selectedObj.count
+                    $0.value = selectedObj.count
+                }
+                $0.cell.actionButton.setTitle($0.value, for: .normal)
+                $0.cell.delegate = self
+                $0.cell.height = { 80.0 }
+                $0.hidden = true
+                if fromEnquiry {
+                    $0.cell.isUserInteractionEnabled = false
+                }
+            }.onChange({ (row) in
+                print("row: \(row.indexPath?.row ?? 100) \(row.value ?? "blank")")
+                row.cell.options = self.allReed?.compactMap { $0.count }
+                let selectedObj = self.allReed?.filter({ (obj) -> Bool in
+                    obj.count == row.value
                 }).first
-            self.viewModel.reedCount.value = selectedObj
-        })
-        <<< RoundedButtonViewRow("Next5") {
-            $0.tag = "Next5"
-            $0.cell.titleLabel.isHidden = true
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.greyLineView.isHidden = true
-            $0.cell.buttonView.borderColour = UIColor().CEGreen()
-            $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
-            $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
-            $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
-            $0.cell.tag = CustomProductState.reedCount.rawValue
-            $0.cell.height = { 80.0 }
-            $0.cell.delegate = self
-            $0.hidden = true
-        }
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.dimensions.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 6, title: "Enter the dimensions")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< ImageViewRow() {
-            $0.cell.height = { 120.0 }
-            $0.cell.cellImage.image = UIImage(named: "dimension icon")
-            $0.hidden = true
-        }
-        <<< lengthWidthRow() {
-            $0.tag = "ProdLenWidthRow"
-            $0.cell.productTitle.text = self.viewModel.prodType.value?.productDesc ?? ""
-            $0.cell.lengthWidthDelegate = self
-            $0.cell.height = { 80.0 }
-            $0.cell.length.tag = 1001
-            $0.cell.width.tag = 1002
-            $0.hidden = true
-            self.viewModel.prodLength.bidirectionalBind(to: $0.cell.lengthTextField.reactive.text)
-            $0.cell.lengthTextField.text = self.viewModel.prodLength.value ?? ""
-            self.viewModel.prodWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
-            $0.cell.widthTextField.text = self.viewModel.prodWidth.value ?? ""
-            if fromEnquiry {
-                $0.cell.isUserInteractionEnabled = false
+                self.viewModel.reedCount.value = selectedObj
+            })
+            <<< RoundedButtonViewRow("Next5") {
+                $0.tag = "Next5"
+                $0.cell.titleLabel.isHidden = true
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.greyLineView.isHidden = true
+                $0.cell.buttonView.borderColour = UIColor().CEGreen()
+                $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
+                $0.cell.buttonView.setTitleColor(.white, for: .normal)
+                $0.cell.buttonView.setTitle("Next".localized, for: .normal)
+                $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
+                $0.cell.tag = CustomProductState.reedCount.rawValue
+                $0.cell.height = { 80.0 }
+                $0.cell.delegate = self
+                $0.hidden = true
             }
-        }.cellUpdate({ (cell, row) in
-            cell.productTitle.text = self.viewModel.prodType.value?.productDesc ?? ""
-            cell.option1 = self.viewModel.prodType.value?.productLengths.compactMap({$0.length})
-            cell.option2 = self.viewModel.prodType.value?.productWidths.compactMap({$0.width})
-            if self.viewModel.prodType.value?.productLengths.count ?? 0 > 0 {
-                cell.length.isHidden = false
-                cell.length.isUserInteractionEnabled = true
-                cell.lengthTextField.isHidden = true
-            }else {
-                cell.length.isHidden = true
-                cell.length.isUserInteractionEnabled = false
-                cell.lengthTextField.isHidden = false
+            +++ Section(){ section in
+                section.tag = "\(CustomProductState.dimensions.rawValue)"
+                let ht: CGFloat = 60.0
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = self.createSectionView(forStep: 6, title: "Enter the dimensions", isCompulsory: false)
+                        return view
+                    }))
+                    header.height = { ht }
+                    return header
+                }()
             }
-            if self.viewModel.prodType.value?.productWidths.count ?? 0 > 0 {
-                cell.width.isHidden = false
-                cell.width.isUserInteractionEnabled = true
-                cell.widthTextField.isHidden = true
-            }else {
-                cell.width.isHidden = true
-                cell.width.isUserInteractionEnabled = false
-                cell.widthTextField.isHidden = false
+            <<< ImageViewRow() {
+                $0.cell.height = { 120.0 }
+                $0.cell.cellImage.image = UIImage(named: "dimension icon")
+                $0.hidden = true
             }
-            cell.length.setTitle(self.viewModel.prodLength.value, for: .normal)
-            cell.width.setTitle(self.viewModel.prodWidth.value, for: .normal)
-            cell.lengthTextField.text = self.viewModel.prodLength.value ?? ""
-            cell.widthTextField.text = self.viewModel.prodWidth.value ?? ""
-        })
-        <<< lengthWidthRow() {
-            $0.tag = "RelatedProdLenWidthRow"
-            $0.cell.productTitle.text = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
-            $0.cell.lengthWidthDelegate = self
-            $0.cell.height = { 80.0 }
-            $0.hidden = true
-            $0.cell.length.tag = 2001
-            $0.cell.width.tag = 2002
-            self.viewModel.relatedProdLength.bidirectionalBind(to: $0.cell.lengthTextField.reactive.text)
-            $0.cell.lengthTextField.text = self.viewModel.relatedProdLength.value ?? ""
-            self.viewModel.relatedProdLength.value = $0.cell.lengthTextField.text
-            self.viewModel.relatedProdWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
-            $0.cell.widthTextField.text = self.viewModel.relatedProdWidth.value ?? ""
-            self.viewModel.relatedProdWidth.value = $0.cell.widthTextField.text
-            if fromEnquiry {
-                $0.cell.isUserInteractionEnabled = false
-            }
-        }.cellUpdate({ (cell, row) in
-            cell.productTitle.text = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
-            if self.viewModel.prodType.value?.relatedProductTypes.count ?? 0 > 0 {
-                cell.height = { 70.0 }
-            }else {
-                cell.height = { 0.0 }
-            }
-            if let type = self.viewModel.prodType.value?.relatedProductTypes.first {
-                cell.option1 = type.productLengths.compactMap({$0.length})
-                cell.option2 = type.productWidths.compactMap({$0.width})
-                if type.productLengths.count > 0 {
+            <<< lengthWidthRow() {
+                $0.tag = "ProdLenWidthRow"
+                $0.cell.productTitle.text = self.viewModel.prodType.value?.productDesc ?? ""
+                $0.cell.lengthWidthDelegate = self
+                $0.cell.height = { 80.0 }
+                $0.cell.length.tag = 1001
+                $0.cell.width.tag = 1002
+                $0.hidden = true
+                self.viewModel.prodLength.bidirectionalBind(to: $0.cell.lengthTextField.reactive.text)
+                $0.cell.lengthTextField.text = self.viewModel.prodLength.value ?? ""
+                self.viewModel.prodWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
+                $0.cell.widthTextField.text = self.viewModel.prodWidth.value ?? ""
+                if fromEnquiry {
+                    $0.cell.isUserInteractionEnabled = false
+                }
+            }.cellUpdate({ (cell, row) in
+                cell.productTitle.text = self.viewModel.prodType.value?.productDesc ?? ""
+                cell.option1 = self.viewModel.prodType.value?.productLengths.compactMap({$0.length})
+                cell.option2 = self.viewModel.prodType.value?.productWidths.compactMap({$0.width})
+                if self.viewModel.prodType.value?.productLengths.count ?? 0 > 0 {
                     cell.length.isHidden = false
                     cell.length.isUserInteractionEnabled = true
                     cell.lengthTextField.isHidden = true
@@ -546,7 +496,7 @@ class UploadCustomProductController: FormViewController {
                     cell.length.isUserInteractionEnabled = false
                     cell.lengthTextField.isHidden = false
                 }
-                if type.productWidths.count > 0 {
+                if self.viewModel.prodType.value?.productWidths.count ?? 0 > 0 {
                     cell.width.isHidden = false
                     cell.width.isUserInteractionEnabled = true
                     cell.widthTextField.isHidden = true
@@ -555,173 +505,229 @@ class UploadCustomProductController: FormViewController {
                     cell.width.isUserInteractionEnabled = false
                     cell.widthTextField.isHidden = false
                 }
-                cell.length.setTitle(self.viewModel.relatedProdLength.value, for: .normal)
-                cell.width.setTitle(self.viewModel.relatedProdWidth.value, for: .normal)
-                cell.lengthTextField.text = self.viewModel.relatedProdLength.value ?? ""
-                cell.widthTextField.text = self.viewModel.relatedProdWidth.value ?? ""
+                cell.length.setTitle(self.viewModel.prodLength.value, for: .normal)
+                cell.width.setTitle(self.viewModel.prodWidth.value, for: .normal)
+                cell.lengthTextField.text = self.viewModel.prodLength.value ?? ""
+                cell.widthTextField.text = self.viewModel.prodWidth.value ?? ""
+            })
+            <<< lengthWidthRow() {
+                $0.tag = "RelatedProdLenWidthRow"
+                $0.cell.productTitle.text = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
+                $0.cell.lengthWidthDelegate = self
+                $0.cell.height = { 80.0 }
+                $0.hidden = true
+                $0.cell.length.tag = 2001
+                $0.cell.width.tag = 2002
+                self.viewModel.relatedProdLength.bidirectionalBind(to: $0.cell.lengthTextField.reactive.text)
+                $0.cell.lengthTextField.text = self.viewModel.relatedProdLength.value ?? ""
+                self.viewModel.relatedProdLength.value = $0.cell.lengthTextField.text
+                self.viewModel.relatedProdWidth.bidirectionalBind(to: $0.cell.widthTextField.reactive.text)
+                $0.cell.widthTextField.text = self.viewModel.relatedProdWidth.value ?? ""
+                self.viewModel.relatedProdWidth.value = $0.cell.widthTextField.text
+                if fromEnquiry {
+                    $0.cell.isUserInteractionEnabled = false
+                }
+            }.cellUpdate({ (cell, row) in
+                cell.productTitle.text = self.viewModel.prodType.value?.relatedProductTypes.first?.productDesc ?? ""
+                if self.viewModel.prodType.value?.relatedProductTypes.count ?? 0 > 0 {
+                    cell.height = { 70.0 }
+                }else {
+                    cell.height = { 0.0 }
+                }
+                if let type = self.viewModel.prodType.value?.relatedProductTypes.first {
+                    cell.option1 = type.productLengths.compactMap({$0.length})
+                    cell.option2 = type.productWidths.compactMap({$0.width})
+                    if type.productLengths.count > 0 {
+                        cell.length.isHidden = false
+                        cell.length.isUserInteractionEnabled = true
+                        cell.lengthTextField.isHidden = true
+                    }else {
+                        cell.length.isHidden = true
+                        cell.length.isUserInteractionEnabled = false
+                        cell.lengthTextField.isHidden = false
+                    }
+                    if type.productWidths.count > 0 {
+                        cell.width.isHidden = false
+                        cell.width.isUserInteractionEnabled = true
+                        cell.widthTextField.isHidden = true
+                    }else {
+                        cell.width.isHidden = true
+                        cell.width.isUserInteractionEnabled = false
+                        cell.widthTextField.isHidden = false
+                    }
+                    cell.length.setTitle(self.viewModel.relatedProdLength.value, for: .normal)
+                    cell.width.setTitle(self.viewModel.relatedProdWidth.value, for: .normal)
+                    cell.lengthTextField.text = self.viewModel.relatedProdLength.value ?? ""
+                    cell.widthTextField.text = self.viewModel.relatedProdWidth.value ?? ""
+                }
+                
+            })
+            <<< RoundedButtonViewRow("Next6") {
+                $0.tag = "Next6"
+                $0.cell.titleLabel.isHidden = true
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.greyLineView.isHidden = true
+                $0.cell.buttonView.borderColour = UIColor().CEGreen()
+                $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
+                $0.cell.buttonView.setTitleColor(.white, for: .normal)
+                $0.cell.buttonView.setTitle("Next".localized, for: .normal)
+                $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
+                $0.cell.tag = CustomProductState.dimensions.rawValue
+                $0.cell.height = { 80.0 }
+                $0.cell.delegate = self
+                $0.hidden = true
             }
-            
-        })
-        <<< RoundedButtonViewRow("Next6") {
-            $0.tag = "Next6"
-            $0.cell.titleLabel.isHidden = true
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.greyLineView.isHidden = true
-            $0.cell.buttonView.borderColour = UIColor().CEGreen()
-            $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
-            $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
-            $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
-            $0.cell.tag = CustomProductState.dimensions.rawValue
-            $0.cell.height = { 80.0 }
-            $0.cell.delegate = self
-            $0.hidden = true
-        }
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.gsm.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 7, title: "Enter the GSM value of fabric")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-            if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
-                section.hidden = false
-            }else {
-                section.hidden = true
+            +++ Section(){ section in
+                section.tag = "\(CustomProductState.gsm.rawValue)"
+                let ht: CGFloat = 60.0
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = self.createSectionView(forStep: 7, title: "Enter the GSM value of fabric", isCompulsory: false)
+                        return view
+                    }))
+                    header.height = { ht }
+                    return header
+                }()
+                if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                    section.hidden = false
+                }else {
+                    section.hidden = true
+                }
             }
-        }
-        <<< ImageViewRow() {
-            $0.cell.height = { 120.0 }
-            $0.cell.cellImage.image = UIImage(named: "GSM ")
-            $0.hidden = true
-        }.cellUpdate({ (cell, row) in
-            if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
-                cell.height = { 60.0 }
-            }else {
-                cell.height = { 0.0 }
+            <<< ImageViewRow() {
+                $0.cell.height = { 120.0 }
+                $0.cell.cellImage.image = UIImage(named: "GSM ")
+                $0.hidden = true
+            }.cellUpdate({ (cell, row) in
+                if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                    cell.height = { 60.0 }
+                }else {
+                    cell.height = { 0.0 }
+                }
+            })
+            <<< RoundedTextFieldRow() {
+                $0.tag = "GSMRow"
+                $0.cell.titleLabel.text = "GSM".localized
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.hidden = true
+                self.viewModel.gsm.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
+                $0.cell.valueTextField.text = self.viewModel.gsm.value
+                self.viewModel.gsm.value = $0.cell.valueTextField.text
+                if fromEnquiry {
+                    $0.cell.isUserInteractionEnabled = false
+                }
+            }.cellUpdate({ (cell, row) in
+                self.viewModel.gsm.value = cell.valueTextField.text
+                cell.valueTextField.maxLength = 10
+                if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
+                    cell.height = { 80.0 }
+                }else {
+                    cell.height = { 0.0 }
+                }
+            })
+            <<< RoundedButtonViewRow("Next7") {
+                $0.tag = "Next7"
+                $0.cell.titleLabel.isHidden = true
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.greyLineView.isHidden = true
+                $0.cell.buttonView.borderColour = UIColor().CEGreen()
+                $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
+                $0.cell.buttonView.setTitleColor(.white, for: .normal)
+                $0.cell.buttonView.setTitle("Next".localized, for: .normal)
+                $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
+                $0.cell.tag = CustomProductState.gsm.rawValue
+                $0.cell.height = { 80.0 }
+                $0.cell.delegate = self
+                $0.hidden = true
             }
-        })
-        <<< RoundedTextFieldRow() {
-            $0.tag = "GSMRow"
-            $0.cell.titleLabel.text = "GSM".localized
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.hidden = true
-            self.viewModel.gsm.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
-            $0.cell.valueTextField.text = self.viewModel.gsm.value
-            self.viewModel.gsm.value = $0.cell.valueTextField.text
-            if fromEnquiry {
-                $0.cell.isUserInteractionEnabled = false
+            +++ Section(){ section in
+                section.tag = "\(CustomProductState.addDescription.rawValue)"
+                let ht: CGFloat = 60.0
+                section.header = {
+                    var header = HeaderFooterView<UIView>(.callback({
+                        let view = self.createSectionView(forStep: 8, title: "Description", isCompulsory: true)
+                        return view
+                    }))
+                    header.height = { ht }
+                    return header
+                }()
             }
-        }.cellUpdate({ (cell, row) in
-            self.viewModel.gsm.value = cell.valueTextField.text
-            cell.valueTextField.maxLength = 10
-            if self.viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
-                cell.height = { 80.0 }
-            }else {
-                cell.height = { 0.0 }
-            }
-        })
-        <<< RoundedButtonViewRow("Next7") {
-            $0.tag = "Next7"
-            $0.cell.titleLabel.isHidden = true
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.greyLineView.isHidden = true
-            $0.cell.buttonView.borderColour = UIColor().CEGreen()
-            $0.cell.buttonView.backgroundColor = UIColor().CEGreen()
-            $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle("Next".localized, for: .normal)
-            $0.cell.buttonView.setImage(UIImage.init(named: "pencil"), for: .normal)
-            $0.cell.tag = CustomProductState.gsm.rawValue
-            $0.cell.height = { 80.0 }
-            $0.cell.delegate = self
-            $0.hidden = true
-        }
-        +++ Section(){ section in
-            section.tag = "\(CustomProductState.addDescription.rawValue)"
-            let ht: CGFloat = 60.0
-            section.header = {
-                var header = HeaderFooterView<UIView>(.callback({
-                    let view = self.createSectionView(forStep: 8, title: "Description")
-                  return view
-                }))
-                header.height = { ht }
-                return header
-              }()
-        }
-        <<< TextAreaRow() {
-            $0.cell.height = { 180.0 }
-            $0.placeholder = "Describe your product".localized
-            $0.hidden = true
-            self.viewModel.prodDescription.bidirectionalBind(to: $0.cell.textView.reactive.text)
-            $0.cell.textView.text = self.viewModel.prodDescription.value ?? ""
-            $0.value = self.viewModel.prodDescription.value ?? ""
-            if fromEnquiry {
-                $0.cell.isUserInteractionEnabled = false
-            }
-        }.cellUpdate({ (cell, row) in
-            cell.textView.delegate = self
-            self.viewModel.prodDescription.value = cell.textView.text
-        })
-        <<< RoundedButtonViewRow("Next8") {
-            $0.tag = "Next8"
-            $0.cell.titleLabel.isHidden = true
-            $0.cell.compulsoryIcon.isHidden = true
-            $0.cell.greyLineView.isHidden = true
-            $0.cell.buttonView.borderColour = UIColor().menuSelectorBlue()
-            $0.cell.buttonView.backgroundColor = UIColor().menuSelectorBlue()
-            $0.cell.buttonView.setTitleColor(.white, for: .normal)
-            $0.cell.buttonView.setTitle(" Save ", for: .normal)
-            $0.cell.buttonView.setImage(UIImage.init(named: "save and upload"), for: .normal)
-            $0.cell.buttonView.tintColor = .white
-            $0.cell.tag = CustomProductState.addDescription.rawValue
-            $0.cell.height = { 80.0 }
-            $0.cell.delegate = self
-            $0.hidden = true
+            <<< TextAreaRow() {
+                $0.cell.height = { 180.0 }
+                // $0.placeholder = "Describe your product".localized
+                $0.hidden = true
+                $0.cell.textView.layer.borderWidth = 1
+                $0.cell.textView.layer.borderColor = UIColor.black.cgColor
+                self.viewModel.prodDescription.bidirectionalBind(to: $0.cell.textView.reactive.text)
+                $0.cell.textView.text = self.viewModel.prodDescription.value ?? ""
+                $0.value = self.viewModel.prodDescription.value ?? ""
+                if fromEnquiry {
+                    $0.cell.isUserInteractionEnabled = false
+                }
+            }.cellUpdate({ (cell, row) in
+                cell.textView.delegate = self
+                self.viewModel.prodDescription.value = cell.textView.text
+            })
+            <<< RoundedButtonViewRow("Next8") {
+                $0.tag = "Next8"
+                $0.cell.titleLabel.isHidden = true
+                $0.cell.compulsoryIcon.isHidden = true
+                $0.cell.greyLineView.isHidden = true
+                $0.cell.buttonView.borderColour = UIColor().menuSelectorBlue()
+                $0.cell.buttonView.backgroundColor = UIColor().menuSelectorBlue()
+                $0.cell.buttonView.setTitleColor(.white, for: .normal)
+                $0.cell.buttonView.setTitle(" Save ", for: .normal)
+                $0.cell.buttonView.setImage(UIImage.init(named: "save and upload"), for: .normal)
+                $0.cell.buttonView.tintColor = .white
+                $0.cell.tag = CustomProductState.addDescription.rawValue
+                $0.cell.height = { 80.0 }
+                $0.cell.delegate = self
+                $0.hidden = true
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        downloadProductImages()
+    }
+    
     @objc func backSelected(_ sender: Any) {
-        self.confirmAction("Warning", "Are you sure you don't want to save this new product?", confirmedCallback: { (action) in
+        if fromEnquiry{
             self.navigationController?.popViewController(animated: true)
-        }) { (action) in
+        }else {
+            self.confirmAction("Warning", "Are you sure you don't want to save this new product?", confirmedCallback: { (action) in
+                self.navigationController?.popViewController(animated: true)
+            }) { (action) in
+            }
         }
     }
     
     func downloadProdImages() {
         product?.productImages .forEach { (image) in
-            let tag = image.lable
-            let prodId = product?.entityID
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
-                    viewModel.productImages.value?.append(downloadedImage)
-                }
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = CustomProductImageService.init(client: client, productObject: product!)
-                    service.fetchCustomImage(withName: tag ?? "name.jpg").observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            let tag = image.lable ?? "name.jpg"
-                            let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId ?? 0)/\(tag)")
-                            self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
-                        }
-                    }.dispose(in: self.bag)
-                }catch {
-                    print(error.localizedDescription)
+            if let tag = image.lable, let prodId = product?.entityID {
+                if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                    if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                        viewModel.productImages.value?.append(downloadedImage)
+                    }
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = CustomProductImageService.init(client: client, productObject: product!)
+                        service.fetchCustomImage(withName: tag ).observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId )/\(tag)")
+                                self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
+                            }
+                        }.dispose(in: self.bag)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
-            if image == product?.productImages.last {
-                let row = self.form.rowBy(tag: "AddPhotoRow") as? CollectionViewRow
-                row?.cell.collectionView.reloadData()
-            }
+            
         }
     }
-
+    
     @objc func expandSectionSelected(sender: UIButton) {
         expandSection(tag: sender.tag)
     }
@@ -773,7 +779,12 @@ class UploadCustomProductController: FormViewController {
         let stepLbl = headerView?.viewWithTag(444) as! UILabel
         if section.tag == "\(CustomProductState.addPhotos.rawValue)" {
             //Photos
-            circle?.backgroundColor = self.viewModel.productImages.value?.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+            if product != nil{
+                circle?.backgroundColor = product?.productImages.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+            }else{
+                circle?.backgroundColor = self.viewModel.productImages.value?.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+            }
+            
         }else if section.tag == "\(CustomProductState.addGeneralDetails.rawValue)" {
             //General info
             if viewModel.prodCategory.value != nil && viewModel.prodType.value != nil {
@@ -809,7 +820,7 @@ class UploadCustomProductController: FormViewController {
         }else if section.tag == "\(CustomProductState.gsm.rawValue)" {
             //gsm
             circle?.backgroundColor = (viewModel.gsm.value != nil &&
-            viewModel.gsm.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "") ? UIColor().CEGreen() : .red
+                viewModel.gsm.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "") ? UIColor().CEGreen() : .red
         }else if section.tag == "\(CustomProductState.addDescription.rawValue)" {
             //prod description
             if viewModel.prodCategory.value?.prodCatDescription == "Fabric" {
@@ -818,11 +829,11 @@ class UploadCustomProductController: FormViewController {
                 stepLbl.text = "Step 7:".localized
             }
             circle?.backgroundColor = (viewModel.prodDescription.value != nil &&
-            viewModel.prodDescription.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "") ? UIColor().CEGreen() : .red
+                viewModel.prodDescription.value?.trimmingCharacters(in: .whitespacesAndNewlines) != "") ? UIColor().CEGreen() : .red
         }
     }
     
-    func createSectionView(forStep:Int, title:String) -> UIView {
+    func createSectionView(forStep:Int, title:String, isCompulsory: Bool) -> UIView {
         let ht: CGFloat = 60.0
         let width: CGFloat = self.view.frame.width
         let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: ht))
@@ -840,8 +851,15 @@ class UploadCustomProductController: FormViewController {
         stepLbl.text = "Step \(forStep):".localized
         stepLbl.tag = 444
         view.addSubview(stepLbl)
-          
-        let stepTitle = UILabel.init(frame: CGRect(x: stepLbl.frame.origin.x + stepLbl.frame.size.width + 5, y: CGFloat(y), width: CGFloat(250), height: CGFloat(lblHt)))
+        
+        let newX = stepLbl.frame.origin.x + stepLbl.frame.size.width
+        if isCompulsory {
+            let star = UIImageView.init(image: UIImage(named: "star-red"))
+            star.frame = CGRect(x: newX, y: 15, width: 7, height: 7)
+            view.addSubview(star)
+        }
+        
+        let stepTitle = UILabel.init(frame: CGRect(x: newX + 7, y: CGFloat(y), width: CGFloat(250), height: CGFloat(lblHt)))
         stepTitle.font = .systemFont(ofSize: 17, weight: .medium)
         stepTitle.textColor = .black
         stepTitle.text = title.localized
@@ -925,7 +943,7 @@ extension UploadCustomProductController: ButtonActionProtocol, DimensionCellProt
             self.viewModel.saveProductSelected?()
         }
     }
-
+    
     func showOption(tag: Int, withValue: String) {
         print("option")
         switch tag {
@@ -967,21 +985,21 @@ extension UploadCustomProductController: ButtonActionProtocol, DimensionCellProt
     func searchYarnOptions(value: String) -> Yarn? {
         let selectedObj = self.allYarns?.filter({ (obj) -> Bool in
             obj.yarnDesc == value
-            }).first
+        }).first
         return selectedObj ?? nil
     }
     
     func searchYarnCntOptions(inYarn:Yarn?, value: String) -> YarnCount? {
         let selectedObj = inYarn?.yarnType.first?.yarnCounts.filter({ (obj) -> Bool in
             obj.count == value
-            }).first
+        }).first
         return selectedObj ?? nil
     }
     
     func searchDyeOptions(value: String) -> Dye? {
         let selectedObj = self.allDye?.filter({ (obj) -> Bool in
             obj.dyeDesc == value
-            }).first
+        }).first
         return selectedObj ?? nil
     }
 }
@@ -1013,7 +1031,7 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if currentState == CustomProductState.selectWarpWeftYarn {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DimensionsCardCell",
-            for: indexPath) as! DimensionsCardCell
+                                                          for: indexPath) as! DimensionsCardCell
             cell.dimensionDelegate = self
             cell.layer.borderWidth = 0.0
             cell.layer.shadowColor = UIColor.lightGray.cgColor
@@ -1149,12 +1167,15 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
                 let tag = product?.productImages[indexPath.row].lable
                 let prodId = product?.entityID
                 if let downloadedImage = try? Disk.retrieve("\(prodId ?? 0)/\(tag ?? "name.png")", from: .caches, as: UIImage.self) {
-                    if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
-                        viewModel.productImages.value?.append(downloadedImage)
+                    DispatchQueue.main.async {
+                        if !(self.viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                            self.viewModel.productImages.value?.append(downloadedImage)
+                        }
+                        if let image = self.viewModel.productImages.value?[indexPath.row] {
+                            cell.addImageButton.setImage(image, for: .normal)
+                        }
                     }
-                    if let image = viewModel.productImages.value?[indexPath.row] {
-                        cell.addImageButton.setImage(image, for: .normal)
-                    }
+                    
                 }else {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeImageClient())
@@ -1189,6 +1210,40 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
             cell.lineView.isHidden = true
         }
         return cell
+    }
+    
+    func downloadProductImages() {
+        if let custProduct = product {
+            custProduct.productImages .forEach { (img) in
+                
+                    let tag = img.lable
+                    let prodId = product?.entityID
+                    if let downloadedImage = try? Disk.retrieve("\(prodId ?? 0)/\(tag ?? "name.png")", from: .caches, as: UIImage.self) {
+                        DispatchQueue.main.async {
+                            if !(self.viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                                self.viewModel.productImages.value?.append(downloadedImage)
+                            }
+                            
+                        }
+                        
+                    }else {
+                        do {
+                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                            let service = CustomProductImageService.init(client: client, productObject: product!)
+                            service.fetchCustomImage(withName: tag ?? "name.jpg").observeNext { (attachment) in
+                                DispatchQueue.main.async {
+                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId ?? 0)/\(tag ?? "name.png")")
+                                    self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
+                                    
+                                }
+                            }.dispose(in: self.bag)
+                        }catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                
+            }
+        }
     }
     
     @objc func addImageSelected(atIndex: Int) {

@@ -42,7 +42,7 @@ class QCBuyerController: FormViewController {
         rightButtonItem.image = UIImage.init(named: "ios magenta chat")
         rightButtonItem.tintColor = UIColor().CEMagenda()
         self.navigationItem.rightBarButtonItem = rightButtonItem
-
+        
         stagesArray = realm?.objects(QCStages.self).sorted(byKeyPath: "entityID", ascending: true)
         questionsArray = realm?.objects(QCQuestions.self)
         if let _ = User.loggedIn()?.entityID {
@@ -54,21 +54,21 @@ class QCBuyerController: FormViewController {
             $0.hidden = "$stageTypes == false"
             $0.tag = "QCSection"
         }
-
+        
         let stageView = LabelRow("stageTypes") {
             $0.cell.height = { 30.0 }
             $0.title = "Quality Check".localized
         }
         
         form
-        +++ Section()
+            +++ Section()
             <<< EnquiryDetailsRow() { (row) in
                 row.configureRow(orderObject: orderObject, enquiryObject: nil)
             }.cellUpdate({ (cell, row) in
                 row.cellUpdate(orderObject: self.orderObject, enquiryObject: nil)
             })
-        <<< stageView
-        +++ stageSection
+            <<< stageView
+            +++ stageSection
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "QCRevised"), object: nil, queue: .main) { (notif) in
             self.hideLoading()
@@ -136,7 +136,7 @@ class QCBuyerController: FormViewController {
                                 }
                             }
                         }else {
-                           cell.row.hidden = true
+                            cell.row.hidden = true
                         }
                     }).onCellSelection({ (cell, row) in
                         if self.showSection != cell.row.tag {
@@ -168,7 +168,7 @@ class QCBuyerController: FormViewController {
                             section.reload()
                         }
                     })
-
+                    
                     if let qcArray = questionsArray?.filter("%K == %@","stageId",stage.entityID).sorted(byKeyPath: "entityID"), qcArray.count > 0 {
                         qcArray .forEach { (question) in
                             if let getQC = self.buyerQCArray?.filter("%K == %@ AND %K == %@","stageId",stage.entityID,"questionId",question.questionNo).sorted(byKeyPath: "modifiedOn", ascending: false).first {
