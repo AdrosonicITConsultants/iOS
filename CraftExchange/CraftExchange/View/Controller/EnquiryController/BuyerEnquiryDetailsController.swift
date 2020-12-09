@@ -225,6 +225,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             
             <<< BuyerEnquirySectionViewRow() {
                 $0.cell.height = { 44.0 }
+                $0.tag = "Order Details"
                 $0.cell.titleLbl.text = "Order Details".localized
                 $0.cell.valueLbl.text = "View"
                 $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
@@ -232,18 +233,19 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.contentView.backgroundColor = UIColor().EQPinkBg()
                 $0.cell.titleLbl.textColor = UIColor().EQPinkText()
                 $0.cell.valueLbl.textColor = UIColor().EQPinkText()
-                if enquiryObject?.productStatusId != 2 && (enquiryObject?.enquiryStageId ?? 0) >= 4  {
+                $0.hidden = true
+                if (enquiryObject?.productStatusId != 2 && (enquiryObject?.enquiryStageId ?? 0) >= 4 ) || ( enquiryObject?.productStatusId == 2 && (enquiryObject?.enquiryStageId ?? 0) >= 3 ) {
                     $0.hidden = false
-                }else if enquiryObject?.productStatusId == 2 && (enquiryObject?.enquiryStageId ?? 0) >= 3  {
-                    $0.hidden = false
-                }else {
-                    $0.hidden = true
                 }
             }.onCellSelection({ (cell, row) in
                 if let obj = Order().searchOrder(searchId: self.enquiryObject?.enquiryId ?? 0) {
                     self.goToOrder?(obj.enquiryId)
                 }else {
                     self.downloadOrder?(self.enquiryObject?.enquiryId ?? 0 )
+                }
+            }).cellUpdate({ (cell, row) in
+                if (self.enquiryObject?.productStatusId != 2 && (self.enquiryObject?.enquiryStageId ?? 0) >= 4 ) || ( self.enquiryObject?.productStatusId == 2 && (self.enquiryObject?.enquiryStageId ?? 0) >= 3 ) {
+                    row.hidden = false
                 }
             })
             
@@ -740,6 +742,13 @@ class BuyerEnquiryDetailsController: FormViewController {
     
     func reloadFormData() {
         enquiryObject = realm?.objects(Enquiry.self).filter("%K == %@","entityID",enquiryObject?.entityID ?? 0).first
+        
+        if (self.enquiryObject?.productStatusId != 2 && (self.enquiryObject?.enquiryStageId ?? 0) >= 4 ) || ( self.enquiryObject?.productStatusId == 2 && (self.enquiryObject?.enquiryStageId ?? 0) >= 3 ) {
+            let row = form.rowBy(tag: "Order Details")
+            row?.hidden = false
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
+        }
         if self.enquiryObject?.productStatusId == 2 || enquiryObject!.enquiryStageId > 3 {
             let row = form.rowBy(tag: "UploadReceipt") as? TransactionReceiptRow
             row?.cell.uploadReceiptBtn.isHidden = true

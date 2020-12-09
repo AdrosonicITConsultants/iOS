@@ -1044,6 +1044,7 @@ class UploadProductController: FormViewController {
     }
     
     func createSectionView(forStep:Int, title:String) -> UIView {
+         
         let ht: CGFloat = 60.0
         let width: CGFloat = self.view.frame.width
         let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: ht))
@@ -1062,7 +1063,12 @@ class UploadProductController: FormViewController {
         stepLbl.tag = 444
         view.addSubview(stepLbl)
         
-        let stepTitle = UILabel.init(frame: CGRect(x: stepLbl.frame.origin.x + stepLbl.frame.size.width + 5, y: CGFloat(y), width: CGFloat(250), height: CGFloat(lblHt)))
+        let newX = stepLbl.frame.origin.x + stepLbl.frame.size.width
+        let star = UIImageView.init(image: UIImage(named: "star-red"))
+        star.frame = CGRect(x: newX, y: 15, width: 7, height: 7)
+        view.addSubview(star)
+        
+        let stepTitle = UILabel.init(frame: CGRect(x: stepLbl.frame.origin.x + stepLbl.frame.size.width + 7, y: CGFloat(y), width: CGFloat(250), height: CGFloat(lblHt)))
         stepTitle.font = .systemFont(ofSize: 17, weight: .medium)
         stepTitle.textColor = .black
         stepTitle.text = title.localized

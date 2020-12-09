@@ -26,7 +26,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="cSc-oH-7qg"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="36"/>
+                    <fontDescription key="fontDescription" name="PlayfairDisplay-Regular" family="Playfair Display" pointSize="32"/>
                     <color key="textColor" red="0.25861328839999997" green="0.52682054040000004" blue="0.21560624240000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
                 </label>

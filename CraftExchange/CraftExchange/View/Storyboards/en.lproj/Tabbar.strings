@@ -35,8 +35,8 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "CFS-hb-Jhu"; */
 "CFS-hb-Jhu.text" = "Label";
 
-/* Class = "UIButton"; normalTitle = "Antaran co-design collection"; ObjectID = "Cq6-bf-nZ4"; */
-"Cq6-bf-nZ4.normalTitle" = "Antaran co-design collection";
+/* Class = "UIButton"; normalTitle = "Antaran co-design"; ObjectID = "Cq6-bf-nZ4"; */
+"Cq6-bf-nZ4.normalTitle" = "Antaran co-design";
 
 /* Class = "UITableViewController"; title = "BuyerNotificationController"; ObjectID = "Deu-Fi-aU8"; */
 "Deu-Fi-aU8.title" = "BuyerNotificationController";

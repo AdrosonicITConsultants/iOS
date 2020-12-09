@@ -11,13 +11,11 @@ import UIKit
 
 class RegionCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var adjectiveLabel: UILabel!
     @IBOutlet weak var logoImage: UIImageView!
     var delegate: UIViewController!
     
     func configure(_ cluster: ClusterDetails) {
         titleLabel.text = cluster.clusterDescription ?? ""
-        adjectiveLabel.text = cluster.adjective ?? ""
         logoImage.image = UIImage.init(named: cluster.clusterDescription ?? "Saree")
     }
 }

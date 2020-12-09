@@ -47,6 +47,6 @@ class REGValidateArtisanController: UIViewController {
     }
     
     @IBAction func reachOutToUsSelected(_ sender: Any) {
-        alert("For any query reach us @ antaran@tatatrusts.org")
+        alert("For any query","please write to us at craftxchange.tatatrusts@gmail.com" )
     }
 }

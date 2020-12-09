@@ -12,11 +12,11 @@ import RealmSwift
 import Bond
 import ReactiveKit
 
-extension CMSCategoryACF {
+extension CMSCategoryACFSelf {
     
-    static func getCategoryType(CategoryId: Int) -> CMSCategoryACF? {
+    static func getCategoryType(CategoryId: Int) -> CMSCategoryACFSelf? {
         let realm = try! Realm()
-        if let object = realm.objects(CMSCategoryACF.self).filter("%K == %@", "entityID", CategoryId).first {
+        if let object = realm.objects(CMSCategoryACFSelf.self).filter("%K == %@", "entityID", CategoryId).first {
             return object
         }
         return nil
@@ -25,7 +25,34 @@ extension CMSCategoryACF {
     
     func saveOrUpdate() {
         let realm = try! Realm()
-        if let object = realm.objects(CMSCategoryACF.self).filter("%K == %@", "entityID", self.entityID).first {
+        if let object = realm.objects(CMSCategoryACFSelf.self).filter("%K == %@", "entityID", self.entityID).first {
+            try? realm.write {
+                image = object.image
+                catDescription = object.catDescription
+            }
+        } else {
+            try? realm.write {
+                realm.add(self, update: .modified)
+            }
+        }
+    }
+    
+}
+
+extension CMSCategoryACFCo {
+    
+    static func getCategoryType(CategoryId: Int) -> CMSCategoryACFCo? {
+        let realm = try! Realm()
+        if let object = realm.objects(CMSCategoryACFCo.self).filter("%K == %@", "entityID", CategoryId).first {
+            return object
+        }
+        return nil
+    }
+    
+    
+    func saveOrUpdate() {
+        let realm = try! Realm()
+        if let object = realm.objects(CMSCategoryACFCo.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
                 image = object.image
                 catDescription = object.catDescription

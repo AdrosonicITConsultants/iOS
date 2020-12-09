@@ -10,7 +10,34 @@ import Foundation
 import Realm
 import RealmSwift
 
-class CMSCategoryACF: Object, Decodable {
+class CMSCategoryACFSelf: Object, Decodable {
+    
+    @objc dynamic var id: String = ""
+    @objc dynamic var entityID: Int = 0
+    @objc dynamic var image: String?
+    @objc dynamic var catDescription: String?
+    
+    enum CodingKeys: String, CodingKey  {
+        case id = "category_id"
+        case image = "image"
+        case catDescription = "description"
+    }
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
+    
+    convenience required init(from decoder: Decoder) throws {
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try (values.decodeIfPresent(String.self, forKey: .id) ?? "0")
+        entityID = Int(id) ?? 0
+        image = try? values.decodeIfPresent(String.self, forKey: .image)
+        catDescription = try? values.decodeIfPresent(String.self, forKey: .catDescription)
+    }
+}
+
+class CMSCategoryACFCo: Object, Decodable {
     
     @objc dynamic var id: String = ""
     @objc dynamic var entityID: Int = 0

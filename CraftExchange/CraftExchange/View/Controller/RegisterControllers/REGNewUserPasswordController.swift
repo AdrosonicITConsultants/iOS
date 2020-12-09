@@ -92,7 +92,7 @@ class REGNewUserPasswordController: UIViewController {
         showLanguagePickerAlert()
     }
     @IBAction func ReachOutToUsSelected(_ sender: Any) {
-        alert("For any query reach us @ antaran@tatatrusts.org")
+        alert("For any query","please write to us at craftxchange.tatatrusts@gmail.com" )
     }
 }
 

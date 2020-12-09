@@ -686,8 +686,13 @@ class UploadCustomProductController: FormViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        downloadProductImages()
+    }
+    
     @objc func backSelected(_ sender: Any) {
-        if User.loggedIn()?.refRoleId == "1" && fromEnquiry{
+        if fromEnquiry{
             self.navigationController?.popViewController(animated: true)
         }else {
             self.confirmAction("Warning", "Are you sure you don't want to save this new product?", confirmedCallback: { (action) in
@@ -699,32 +704,27 @@ class UploadCustomProductController: FormViewController {
     
     func downloadProdImages() {
         product?.productImages .forEach { (image) in
-            let tag = image.lable
-            let prodId = product?.entityID
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
-                    viewModel.productImages.value?.append(downloadedImage)
-                }
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = CustomProductImageService.init(client: client, productObject: product!)
-                    service.fetchCustomImage(withName: tag ?? "name.jpg").observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            let tag = image.lable ?? "name.jpg"
-                            let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId ?? 0)/\(tag)")
-                            self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
-                        }
-                    }.dispose(in: self.bag)
-                }catch {
-                    print(error.localizedDescription)
+            if let tag = image.lable, let prodId = product?.entityID {
+                if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                    if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                        viewModel.productImages.value?.append(downloadedImage)
+                    }
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = CustomProductImageService.init(client: client, productObject: product!)
+                        service.fetchCustomImage(withName: tag ).observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId )/\(tag)")
+                                self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
+                            }
+                        }.dispose(in: self.bag)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
-            if image == product?.productImages.last {
-                let row = self.form.rowBy(tag: "AddPhotoRow") as? CollectionViewRow
-                row?.cell.collectionView.reloadData()
-            }
+            
         }
     }
     
@@ -779,7 +779,12 @@ class UploadCustomProductController: FormViewController {
         let stepLbl = headerView?.viewWithTag(444) as! UILabel
         if section.tag == "\(CustomProductState.addPhotos.rawValue)" {
             //Photos
-            circle?.backgroundColor = self.viewModel.productImages.value?.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+            if product != nil{
+                circle?.backgroundColor = product?.productImages.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+            }else{
+                circle?.backgroundColor = self.viewModel.productImages.value?.count ?? 0 > 0 ? UIColor().CEGreen() : .red
+            }
+            
         }else if section.tag == "\(CustomProductState.addGeneralDetails.rawValue)" {
             //General info
             if viewModel.prodCategory.value != nil && viewModel.prodType.value != nil {
@@ -1162,12 +1167,15 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
                 let tag = product?.productImages[indexPath.row].lable
                 let prodId = product?.entityID
                 if let downloadedImage = try? Disk.retrieve("\(prodId ?? 0)/\(tag ?? "name.png")", from: .caches, as: UIImage.self) {
-                    if !(viewModel.productImages.value?.contains(downloadedImage) ?? false) {
-                        viewModel.productImages.value?.append(downloadedImage)
+                    DispatchQueue.main.async {
+                        if !(self.viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                            self.viewModel.productImages.value?.append(downloadedImage)
+                        }
+                        if let image = self.viewModel.productImages.value?[indexPath.row] {
+                            cell.addImageButton.setImage(image, for: .normal)
+                        }
                     }
-                    if let image = viewModel.productImages.value?[indexPath.row] {
-                        cell.addImageButton.setImage(image, for: .normal)
-                    }
+                    
                 }else {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeImageClient())
@@ -1202,6 +1210,40 @@ extension UploadCustomProductController: UICollectionViewDelegate, UICollectionV
             cell.lineView.isHidden = true
         }
         return cell
+    }
+    
+    func downloadProductImages() {
+        if let custProduct = product {
+            custProduct.productImages .forEach { (img) in
+                
+                    let tag = img.lable
+                    let prodId = product?.entityID
+                    if let downloadedImage = try? Disk.retrieve("\(prodId ?? 0)/\(tag ?? "name.png")", from: .caches, as: UIImage.self) {
+                        DispatchQueue.main.async {
+                            if !(self.viewModel.productImages.value?.contains(downloadedImage) ?? false) {
+                                self.viewModel.productImages.value?.append(downloadedImage)
+                            }
+                            
+                        }
+                        
+                    }else {
+                        do {
+                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                            let service = CustomProductImageService.init(client: client, productObject: product!)
+                            service.fetchCustomImage(withName: tag ?? "name.jpg").observeNext { (attachment) in
+                                DispatchQueue.main.async {
+                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId ?? 0)/\(tag ?? "name.png")")
+                                    self.viewModel.productImages.value?.append(UIImage.init(data: attachment) ?? UIImage())
+                                    
+                                }
+                            }.dispose(in: self.bag)
+                        }catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                
+            }
+        }
     }
     
     @objc func addImageSelected(atIndex: Int) {

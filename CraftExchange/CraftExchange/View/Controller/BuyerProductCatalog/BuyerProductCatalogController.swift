@@ -49,12 +49,10 @@ class BuyerProductCatalogController: UIViewController {
     var loadedPage = 1
     var searchLimitReached = false
     var searchType = -1
-    var categoryData: Results<CMSCategoryACF>?
     var regionData: Results<CMSRegionACF>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        categoryData = realm.objects(CMSCategoryACF.self).sorted(byKeyPath: "entityID")
         regionData =  realm.objects(CMSRegionACF.self).sorted(byKeyPath: "entityID")
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         if let cluster = selectedCluster {
@@ -129,8 +127,12 @@ class BuyerProductCatalogController: UIViewController {
         
         switch selectedCategory?.entityID {
         case selectedCategory?.entityID:
-            return CMSCategoryACF.getCategoryType(CategoryId: selectedCategory?.entityID ?? 0)?.catDescription ?? ""
-            
+            if madeByAntaran == 0 {
+                return CMSCategoryACFSelf.getCategoryType( CategoryId: selectedCategory?.entityID ?? 0)?.catDescription ?? ""
+            }else{
+                return CMSCategoryACFCo.getCategoryType( CategoryId: selectedCategory?.entityID ?? 0)?.catDescription ?? ""
+            }
+           
         default:
             return selectedCategory?.description ?? ""
         }

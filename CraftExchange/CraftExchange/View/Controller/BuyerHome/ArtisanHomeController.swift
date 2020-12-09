@@ -35,7 +35,6 @@ class ArtisanHomeController: UIViewController {
     let realm = try? Realm()
     lazy var viewModel = HomeViewModel()
     var reachabilityManager = try? Reachability()
-    var categoryData: Results<CMSCategoryACF>?
     
     override func viewDidLoad() {
         
@@ -47,7 +46,6 @@ class ArtisanHomeController: UIViewController {
         loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
         self.setupSideMenu(false)
         super.viewDidLoad()
-        categoryData = realm?.objects(CMSCategoryACF.self).sorted(byKeyPath: "entityID")
         viewModel.viewDidLoad?()
         let rightBarButtomItem1 = UIBarButtonItem(customView: self.notificationBarButton())
         let rightBarButtomItem2 = self.searchBarButton()
@@ -158,7 +156,7 @@ extension ArtisanHomeController: UICollectionViewDelegate, UICollectionViewDataS
         cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
         cell.categoryName.text = dataSource?[indexPath.row].prodCatDescription?.localized
         cell.categoryCover.image = UIImage.init(named: cell.categoryName.text ?? "Dupatta")
-        if let image = CMSCategoryACF.getCategoryType(CategoryId: (dataSource?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACF.getCategoryType(CategoryId: ((dataSource?[indexPath.row].entityID) ?? 0))?.image != "" {
+        if let image = CMSCategoryACFSelf.getCategoryType(CategoryId: (dataSource?[indexPath.row].entityID) ?? 0)?.image, CMSCategoryACFSelf.getCategoryType(CategoryId: ((dataSource?[indexPath.row].entityID) ?? 0))?.image != "" {
             // print(image)
             if let url = URL(string: image){
                 // print(url.lastPathComponent)

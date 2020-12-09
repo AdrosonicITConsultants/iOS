@@ -498,7 +498,7 @@ extension HomeScreenService {
     }
     
     func getCMSCatImages(){
-        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categories") {
+        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categoriesselfdesign") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if data != nil {
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
@@ -506,10 +506,38 @@ extension HomeScreenService {
                             for obj in json  {
                                 if let acf = obj["acf"] as?  [String: Any] {
                                     if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
-                                        if let object = try? JSONDecoder().decode(CMSCategoryACF.self, from: categoryData) {
+                                        if let object = try? JSONDecoder().decode(CMSCategoryACFSelf.self, from: categoryData) {
                                             print("hey obj: \(object)")
                                             object.saveOrUpdate()
                                             
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                }else{
+                    return
+                }
+                
+            }.resume()
+        }
+        
+        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/categoriescodesign") {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if data != nil {
+                    if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [[String: Any]] {
+                        DispatchQueue.main.async {
+                            for obj in json  {
+                                if let acf = obj["acf"] as?  [String: Any] {
+                                    if let categoryData = try? JSONSerialization.data(withJSONObject: acf, options: .fragmentsAllowed) {
+                                        if let object = try? JSONDecoder().decode(CMSCategoryACFCo.self, from: categoryData) {
+                                            print("hey obj: \(object)")
+                                            object.saveOrUpdate()
                                         }
                                     }
                                     

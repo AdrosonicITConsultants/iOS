@@ -87,7 +87,7 @@ class BuyerHomeController: UIViewController {
 //                                    self.cardTitle.text = cardTitleText
 //                                }
 //                            }
-                            if let cardInfo = acf["card_para"] as? String{
+                            if let cardInfo = acf["card_para2"] as? String{
                                 DispatchQueue.main.async {
                                     print(cardInfo)
                                     self.cardText.text = cardInfo
