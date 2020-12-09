@@ -29,23 +29,30 @@ extension TransactionService {
                 .bind(to: controller, context: .global(qos: .background)) { _, responseData in
                     if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
                         if let array = json["data"] as? [[String: Any]] {
-                            var finalArray: [Int] = []
-                            array.forEach { (dataDict) in
-                                if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
-                                    if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
-                                        if var transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
-                                            DispatchQueue.main.async {
-                                                transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
-                                                transactionObj.eta = dataDict["eta"] as? String
-                                                transactionObj.orderCode = dataDict["orderCode"] as? String
-                                                transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
-                                                transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
-                                                transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
-                                                transactionObj.saveOrUpdate()
-                                                transactionObj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0)
-                                                finalArray.append(transactionObj.enquiryId)
-                                                if finalArray.count == array.count {
-                                                    controller.endRefresh()
+                            if array.count == 0 {
+                                DispatchQueue.main.async {
+                                    controller.endRefresh()
+                                }
+                            }
+                            else {
+                                var finalArray: [Int] = []
+                                array.forEach { (dataDict) in
+                                    if let transactionDict = dataDict["transactionOngoing"] as? [String: Any] {
+                                        if let transactiondata = try? JSONSerialization.data(withJSONObject: transactionDict, options: .fragmentsAllowed) {
+                                            if var transactionObj = try? JSONDecoder().decode(TransactionObject.self, from: transactiondata) {
+                                                DispatchQueue.main.async {
+                                                    transactionObj.enquiryCode = dataDict["enquiryCode"] as? String
+                                                    transactionObj.eta = dataDict["eta"] as? String
+                                                    transactionObj.orderCode = dataDict["orderCode"] as? String
+                                                    transactionObj.paidAmount = dataDict["paidAmount"] as? Int ?? 0
+                                                    transactionObj.percentage = dataDict["percentage"] as? Int ?? 0
+                                                    transactionObj.totalAmount = dataDict["totalAmount"] as? Int ?? 0
+                                                    transactionObj.saveOrUpdate()
+                                                    transactionObj.updateAddonDetails(userID: User.loggedIn()?.entityID ?? 0)
+                                                    finalArray.append(transactionObj.enquiryId)
+                                                    if finalArray.count == array.count {
+                                                        controller.endRefresh()
+                                                    }
                                                 }
                                             }
                                         }

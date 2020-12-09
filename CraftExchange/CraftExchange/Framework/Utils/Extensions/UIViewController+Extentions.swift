@@ -166,6 +166,9 @@ extension UIViewController : OpenAttachmentViewProtocol {
           //  alert("For any help, please write to us at craftxchange.tatatrusts@gmail.com")
 //            url = KeychainManager.standard.faqBaseURL + "/documents/Help.pdf"
 //            self.view.showOpenFAQView(controller: self, data: url)
+        } else if tag == 5 {
+            url = KeychainManager.standard.faqBaseURL + "/documents/FAQ.docx"
+            self.view.showOpenFAQView(controller: self, data: url)
         }
         
         

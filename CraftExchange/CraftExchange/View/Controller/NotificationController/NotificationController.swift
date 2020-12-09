@@ -58,7 +58,11 @@ class NotificationController: UIViewController {
     }
     
     @IBAction func markAllAsReadAction(_ sender: Any) {
-        self.sendInputActionsheet()
+        if allNotifications?.count == 0 {
+            self.alert("There are no notifications to mark as read")
+        }else{
+            self.sendInputActionsheet()
+        }
     }
     
     func sendInputActionsheet(){

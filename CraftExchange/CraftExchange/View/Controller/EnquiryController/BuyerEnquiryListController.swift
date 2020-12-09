@@ -40,9 +40,9 @@ class BuyerEnquiryListController: UIViewController {
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
         if self.segmentView.selectedSegmentIndex == 0 {
-            self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {
-            self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }
         emptyView.isHidden = allEnquiries?.count == 0 ? false : true
         definesPresentationContext = false
@@ -78,9 +78,9 @@ class BuyerEnquiryListController: UIViewController {
             // let realm = try? Realm()
             
             if self.segmentView.selectedSegmentIndex == 0 {
-                self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }else {
-                self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                self.allEnquiries = realm?.objects(Enquiry.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }
             
         }else{

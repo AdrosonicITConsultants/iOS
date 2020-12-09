@@ -59,7 +59,7 @@ extension ChatListService {
                                     esclation += chatObj.escalation
                                     if chatObj.buyerCompanyName != nil{
                                         chatObj.saveOrUpdate()
-                                        chatObj.updateAddonDetails(isOld: isOngoing)
+                                        chatObj.updateAddonDetails(isOld: isOngoing, userId: User.loggedIn()?.entityID ?? 0)
                                         eqArray.append(chatObj.entityID)
                                         if i == array.count {
                                             if isOngoing {
@@ -150,7 +150,7 @@ extension ChatListService {
                                     
                                     if chatObj.buyerCompanyName != nil{
                                         chatObj.saveOrUpdate()
-                                        chatObj.updateAddonDetails(isOld: isOngoing)
+                                        chatObj.updateAddonDetails(isOld: isOngoing, userId: User.loggedIn()?.entityID ?? 0)
                                         eqArray.append(chatObj.entityID)
                                         if i == array.count {
                                             if !isOngoing {

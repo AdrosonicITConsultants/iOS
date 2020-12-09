@@ -42,9 +42,9 @@ class OrderListController: UIViewController {
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
         if self.segmentView.selectedSegmentIndex == 0 {
-            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }else {
-            self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+            self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
         }
         emptyView.isHidden = allOrders?.count == 0 ? false : true
         definesPresentationContext = false
@@ -81,9 +81,9 @@ class OrderListController: UIViewController {
             // let realm = try? Realm()
             
             if self.segmentView.selectedSegmentIndex == 0 {
-                self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",true ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }else {
-                self.allOrders = realm?.objects(Order.self).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
+                self.allOrders = realm?.objects(Order.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOpen",false ).sorted(byKeyPath: "entityID", ascending: false).compactMap({$0})
             }
             
         }else{

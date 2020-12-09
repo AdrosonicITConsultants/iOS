@@ -49,7 +49,7 @@ class ChatListController: UIViewController {
         
         tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         try? reachabilityManager?.startNotifier()
-        self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+        self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
         self.setData()
         definesPresentationContext = false
         self.setupSideMenu(false)
@@ -81,7 +81,7 @@ class ChatListController: UIViewController {
         }
         if self.reachabilityManager?.connection == .unavailable {
             
-            self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
+            self.allChatResults = realm?.objects(Chat.self).filter("%K == %@","userId",User.loggedIn()?.entityID ?? 0 ).filter("%K == %@","isOld",true ).sorted(byKeyPath: "lastUpdatedOn", ascending: false)
             
             
         }else{

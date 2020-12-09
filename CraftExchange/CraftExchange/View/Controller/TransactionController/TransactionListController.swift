@@ -85,6 +85,7 @@ class TransactionListController: UIViewController {
             refreshControl.endRefreshing()
         }
         self.setData()
+        self.hideLoading()
         self.tableView.reloadData()
     }
     

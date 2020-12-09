@@ -181,7 +181,7 @@ class SideMenuController: FormViewController {
                 self.dismiss(animated: true, completion: {
                     
                     do {
-                        self.getNavBar()?.topViewController?.didTapFAQButton(tag: 2)
+                        self.getNavBar()?.topViewController?.didTapFAQButton(tag: 5)
                         
                     } catch let error {
                         print("Unable to load view:\n\(error.localizedDescription)")

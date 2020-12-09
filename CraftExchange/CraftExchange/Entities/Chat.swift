@@ -16,6 +16,7 @@ class Chat: Object, Decodable {
     @objc dynamic var enquiryId: Int = 0
     @objc dynamic var entityID: Int = 0
     @objc dynamic var isOld: Bool = false
+    @objc dynamic var userId: Int = 0
     @objc dynamic var productTypeId: String?
     @objc dynamic var buyerId: Int = 0
     @objc dynamic var orderReceiveDate: String?

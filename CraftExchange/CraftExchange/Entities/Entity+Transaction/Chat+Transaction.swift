@@ -28,12 +28,12 @@ extension Chat {
         return nil
     }
     
-    func updateAddonDetails(isOld: Bool) {
+    func updateAddonDetails(isOld: Bool, userId: Int) {
         let realm = try! Realm()
         if let object = realm.objects(Chat.self).filter("%K == %@", "entityID", self.entityID).first {
             try? realm.write {
                 object.isOld = isOld
-                
+                object.userId = userId
             }
         }
     }
