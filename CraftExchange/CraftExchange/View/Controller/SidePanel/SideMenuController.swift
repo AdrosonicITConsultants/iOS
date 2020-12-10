@@ -248,18 +248,4 @@ class SideMenuController: FormViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    func getNavBar() -> UINavigationController? {
-        var nav: UINavigationController?
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        if let tab = appDelegate?.tabbar?.selectedViewController as? UINavigationController {
-            nav = tab
-        }else if let tab = appDelegate?.tabbar?.selectedViewController?.navigationController {
-            nav = tab
-        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController as? UINavigationController {
-            nav = tab
-        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController?.navigationController {
-            nav = tab
-        }
-        return nav
-    }
 }

@@ -86,10 +86,10 @@ class KeychainManager {
     }
     
     var faqBaseURL: String {
-    //UAT
-            return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
-    //        Dev
-    //        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+//    UAT
+        return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
+//        Dev
+//        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
     }
     
     var cmsBaseURL: String {
