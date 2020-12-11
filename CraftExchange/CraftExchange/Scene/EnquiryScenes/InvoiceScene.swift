@@ -28,7 +28,7 @@ extension EnquiryDetailsService {
                 let pricePerUnitPI = vc.viewModel.pricePerUnitPI.value ?? ""
                 let hsn = vc.viewModel.hsn.value ?? ""
                 
-                if quantity.isValidNumber && Int(vc.viewModel.quantity.value!)! > 0 {
+                if quantity.isValidNumber && Int(vc.viewModel.quantity.value!)! > 9 {
                     if pricePerUnitPI.isValidNumber && Int(vc.viewModel.pricePerUnitPI.value!)! > 0{
                         if hsn.isValidNumber {
                             if vc.isRevisedPI == true {
@@ -67,7 +67,7 @@ extension EnquiryDetailsService {
                         vc.hideLoading()
                     }
                 }else {
-                    vc.alert("Please enter valid quantity")
+                    vc.alert("Quantity should be at least 10")
                     vc.hideLoading()
                 }
             }else {

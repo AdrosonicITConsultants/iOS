@@ -47,16 +47,16 @@ class ConfirmOrderReceivedController: FormViewController{
             +++ Section()
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
-                $0.cell.height = { 220.0 }
+                $0.cell.height = { 200.0 }
                 $0.cell.selectionStyle = .none
-                if orderObject?.enquiryStageId == 9{
-                    $0.cell.statusLbl.text = ""
-                    // $0.cell.height = { 160.0 }
-                    
-                }
-                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                $0.cell.statusLbl.textColor = UIColor().CEGreen()
-                $0.cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//                if orderObject?.enquiryStageId == 9{
+//                    $0.cell.statusLbl.text = ""
+//                    // $0.cell.height = { 160.0 }
+//                    
+//                }
+//                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+//                $0.cell.statusLbl.textColor = UIColor().CEGreen()
+//                $0.cell.statusDotView.backgroundColor = UIColor().CEGreen()
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if enquiryObject?.productType ?? orderObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"

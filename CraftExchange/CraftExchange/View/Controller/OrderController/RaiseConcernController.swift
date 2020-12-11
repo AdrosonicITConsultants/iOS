@@ -81,8 +81,8 @@ class RaiseConcernController: FormViewController {
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.selectionStyle = .none
-                $0.cell.height = { 220.0 }
-                $0.cell.statusLbl.text = ""
+                $0.cell.height = { 200.0 }
+               // $0.cell.statusLbl.text = ""
                 $0.cell.faultyStrings.isHidden = false
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if orderObject?.productType == "Custom Product" {
@@ -114,26 +114,26 @@ class RaiseConcernController: FormViewController {
                 }
             }.cellUpdate({ (cell, row) in
                 
-                if self.orderProgress?.isFaulty == 0  && User.loggedIn()?.refRoleId == "2" {
-                    cell.statusLbl.text = "Report Fault"
-                    cell.statusLbl.textColor = .systemRed
-                    cell.statusDotView.backgroundColor = .systemRed
-                }
-                if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "2" {
-                    cell.statusLbl.text = "Fault Unresolved".localized
-                    cell.statusLbl.textColor = UIColor().CEGreen()
-                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
-                if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "1" {
-                    cell.statusLbl.text = "Fault Raised".localized
-                    cell.statusLbl.textColor = UIColor().CEGreen()
-                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
-                if self.orderProgress?.isResolved == 1  {
-                    cell.statusLbl.text = "Concern Resolved".localized
-                    cell.statusLbl.textColor = UIColor().CEGreen()
-                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
+//                if self.orderProgress?.isFaulty == 0  && User.loggedIn()?.refRoleId == "2" {
+//                    cell.statusLbl.text = "Report Fault"
+//                    cell.statusLbl.textColor = .systemRed
+//                    cell.statusDotView.backgroundColor = .systemRed
+//                }
+//                if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "2" {
+//                    cell.statusLbl.text = "Fault Unresolved".localized
+//                    cell.statusLbl.textColor = UIColor().CEGreen()
+//                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//                }
+//                if self.orderProgress?.isFaulty == 1  && User.loggedIn()?.refRoleId == "1" {
+//                    cell.statusLbl.text = "Fault Raised".localized
+//                    cell.statusLbl.textColor = UIColor().CEGreen()
+//                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//                }
+//                if self.orderProgress?.isResolved == 1  {
+//                    cell.statusLbl.text = "Concern Resolved".localized
+//                    cell.statusLbl.textColor = UIColor().CEGreen()
+//                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//                }
                 
                 cell.dateLbl.text = ""
                 
@@ -282,7 +282,7 @@ class RaiseConcernController: FormViewController {
             })
             <<< LabelRow(){
                 $0.tag = "2"
-                $0.cell.height = { 30.0 }
+                $0.cell.height = { 35.0 }
                 $0.hidden = true
                 if self.orderProgress?.isFaulty == 0  && User.loggedIn()?.refRoleId == "2" {
                     $0.hidden = false

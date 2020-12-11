@@ -499,14 +499,14 @@
                                         <gestureRecognizers/>
                                     </imageView>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgx-zE-xrF">
-                                        <rect key="frame" x="20" y="40" width="177" height="177"/>
+                                        <rect key="frame" x="20" y="40" width="184.5" height="165"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-artist-self-design" translatesAutoresizingMaskIntoConstraints="NO" id="xva-Ze-XaK">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="122"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-artist-self-design" translatesAutoresizingMaskIntoConstraints="NO" id="xva-Ze-XaK">
+                                                <rect key="frame" x="0.0" y="0.0" width="184.5" height="110"/>
                                                 <gestureRecognizers/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcb-iM-Ra2">
-                                                <rect key="frame" x="97" y="152" width="70" height="15"/>
+                                                <rect key="frame" x="104.5" y="140" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="ZKR-Fj-nNP"/>
                                                     <constraint firstAttribute="height" constant="15" id="m12-4Z-Irr"/>
@@ -521,7 +521,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7A-JW-g3T">
-                                                <rect key="frame" x="15" y="122" width="147" height="30"/>
+                                                <rect key="frame" x="15" y="110" width="154.5" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="p1B-0h-K58"/>
                                                 </constraints>
@@ -560,17 +560,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-Eu-hdm">
-                                        <rect key="frame" x="217" y="40" width="177" height="177"/>
+                                        <rect key="frame" x="209.5" y="40" width="184.5" height="165"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-antaran-design" translatesAutoresizingMaskIntoConstraints="NO" id="jEi-z8-Xys">
-                                                <rect key="frame" x="0.0" y="0.0" width="177" height="122"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-antaran-design" translatesAutoresizingMaskIntoConstraints="NO" id="jEi-z8-Xys">
+                                                <rect key="frame" x="0.0" y="0.0" width="184.5" height="110"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="122" id="jsI-Yh-pIg"/>
+                                                    <constraint firstAttribute="height" constant="110" id="jsI-Yh-pIg"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-xP-551">
-                                                <rect key="frame" x="97" y="152" width="70" height="15"/>
+                                                <rect key="frame" x="104.5" y="140" width="70" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="70" id="eir-EC-szw"/>
                                                     <constraint firstAttribute="height" constant="15" id="rI2-cj-RH4"/>
@@ -585,7 +585,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Cq6-bf-nZ4">
-                                                <rect key="frame" x="15" y="122" width="147" height="30"/>
+                                                <rect key="frame" x="15" y="110" width="154.5" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="d6D-Rg-ZE0"/>
                                                 </constraints>
@@ -620,7 +620,7 @@
                                     <constraint firstAttribute="trailing" secondItem="WiI-iy-Mr9" secondAttribute="trailing" constant="20" id="11G-iJ-6aG"/>
                                     <constraint firstItem="SMV-Eu-hdm" firstAttribute="height" secondItem="mgx-zE-xrF" secondAttribute="height" id="1hU-tm-qwU"/>
                                     <constraint firstAttribute="trailing" secondItem="SMV-Eu-hdm" secondAttribute="trailing" constant="20" id="5qe-Yh-VwB"/>
-                                    <constraint firstItem="SMV-Eu-hdm" firstAttribute="leading" secondItem="mgx-zE-xrF" secondAttribute="trailing" constant="20" id="Axs-Jb-ncp"/>
+                                    <constraint firstItem="SMV-Eu-hdm" firstAttribute="leading" secondItem="mgx-zE-xrF" secondAttribute="trailing" constant="5" id="Axs-Jb-ncp"/>
                                     <constraint firstItem="mgx-zE-xrF" firstAttribute="leading" secondItem="Xyb-gH-Nbd" secondAttribute="leading" constant="20" id="DKf-WQ-RJb"/>
                                     <constraint firstItem="WiI-iy-Mr9" firstAttribute="top" secondItem="Xyb-gH-Nbd" secondAttribute="top" id="Jm8-DM-HDH"/>
                                     <constraint firstItem="SMV-Eu-hdm" firstAttribute="width" secondItem="mgx-zE-xrF" secondAttribute="width" id="iHJ-m2-QwW"/>

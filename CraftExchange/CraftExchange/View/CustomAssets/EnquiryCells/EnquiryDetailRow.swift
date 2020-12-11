@@ -73,17 +73,17 @@ extension EnquiryDetailsRow {
     }
     
     func cellUpdate(orderObject: Order?, enquiryObject: Enquiry?) {
-        cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-        if orderObject?.enquiryStageId ?? 0 < 5 {
-            cell.statusLbl.textColor = .black
-            cell.statusDotView.backgroundColor = .black
-        }else if orderObject?.enquiryStageId ?? 0 < 9 {
-            cell.statusLbl.textColor = .systemYellow
-            cell.statusDotView.backgroundColor = .systemYellow
-        }else {
-            cell.statusLbl.textColor = UIColor().CEGreen()
-            cell.statusDotView.backgroundColor = UIColor().CEGreen()
-        }
+//        cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+//        if orderObject?.enquiryStageId ?? 0 < 5 {
+//            cell.statusLbl.textColor = .black
+//            cell.statusDotView.backgroundColor = .black
+//        }else if orderObject?.enquiryStageId ?? 0 < 9 {
+//            cell.statusLbl.textColor = .systemYellow
+//            cell.statusDotView.backgroundColor = .systemYellow
+//        }else {
+//            cell.statusLbl.textColor = UIColor().CEGreen()
+//            cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//        }
         if let date = orderObject?.lastUpdated {
             cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
         }

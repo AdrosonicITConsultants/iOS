@@ -99,7 +99,7 @@ class OrderDetailController: FormViewController {
             +++ Section()
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
-                $0.cell.height = { 220.0 }
+                $0.cell.height = { 200.0 }
                 $0.cell.selectionStyle = .none
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if orderObject?.productType == "Custom Product" {
@@ -130,17 +130,17 @@ class OrderDetailController: FormViewController {
                     }
                 }
             }.cellUpdate({ (cell, row) in
-                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if self.orderObject?.enquiryStageId ?? 0 < 5 {
-                    cell.statusLbl.textColor = .black
-                    cell.statusDotView.backgroundColor = .black
-                }else if self.orderObject?.enquiryStageId ?? 0 < 9 {
-                    cell.statusLbl.textColor = .systemYellow
-                    cell.statusDotView.backgroundColor = .systemYellow
-                }else {
-                    cell.statusLbl.textColor = UIColor().CEGreen()
-                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
+//                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+//                if self.orderObject?.enquiryStageId ?? 0 < 5 {
+//                    cell.statusLbl.textColor = .black
+//                    cell.statusDotView.backgroundColor = .black
+//                }else if self.orderObject?.enquiryStageId ?? 0 < 9 {
+//                    cell.statusLbl.textColor = .systemYellow
+//                    cell.statusDotView.backgroundColor = .systemYellow
+//                }else {
+//                    cell.statusLbl.textColor = UIColor().CEGreen()
+//                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//                }
                 if let date = self.orderObject?.lastUpdated {
                     cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
                 }
@@ -1414,7 +1414,7 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
         switch tag{
         case 100:
             let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject!.enquiryId, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
+            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject?.enquiryId ?? 0, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
             vc1.modalPresentationStyle = .fullScreen
             //  if orderObject?.enquiryStageId ?? 0 >= 3 {
             vc1.isFI = true
@@ -1430,7 +1430,7 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
             print("createSendInvoiceBtnSelected WORKING")
         case 101:
             let client = try? SafeClient(wrapping: CraftExchangeClient())
-            let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject!.enquiryId) as! PaymentUploadController
+            let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! PaymentUploadController
             vc1.orderObject = self.orderObject
             vc1.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(vc1, animated: true)

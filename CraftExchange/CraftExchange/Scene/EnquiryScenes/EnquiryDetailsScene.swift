@@ -189,7 +189,7 @@ extension EnquiryDetailsService {
                 
                 let minimumQuantity = vc.viewModel.minimumQuantity.value ?? ""
                 let pricePerUnit = vc.viewModel.pricePerUnit.value ?? ""
-                if minimumQuantity.isValidNumber && Int(vc.viewModel.minimumQuantity.value!)! > 0 {
+                if minimumQuantity.isValidNumber && Int(vc.viewModel.minimumQuantity.value!)! > 9 {
                     if pricePerUnit.isValidNumber && Int(vc.viewModel.pricePerUnit.value!)! > 0{
                         self.sendMOQ(enquiryId: enquiryId, additionalInfo: vc.viewModel.additionalNote.value ?? "", deliveryTimeId: vc.viewModel.estimatedDays.value!.entityID , moq: Int(vc.viewModel.minimumQuantity.value!)!, ppu: vc.viewModel.pricePerUnit.value!).bind(to: vc, context: .global(qos: .background)) {_,responseData in
                             if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
@@ -217,7 +217,7 @@ extension EnquiryDetailsService {
                         vc.hideLoading()
                     }
                 }else {
-                    vc.alert("Please enter valid minimum order quantity".localized)
+                    vc.alert("Minimum order quantity should be at least 10".localized)
                     vc.hideLoading()
                 }
             }else {

@@ -86,7 +86,7 @@ class BuyerEnquiryDetailsController: FormViewController {
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
                 $0.cell.selectionStyle = .none
-                $0.cell.height = { 220.0 }
+                $0.cell.height = { 200.0 }
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if enquiryObject?.productType == "Custom Product" {
                     $0.cell.designByLbl.text = "Requested Custom Design"
@@ -116,17 +116,17 @@ class BuyerEnquiryDetailsController: FormViewController {
                     }
                 }
             }.cellUpdate({ (cell, row) in
-                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if self.enquiryObject?.enquiryStageId ?? 0 < 5 {
-                    cell.statusLbl.textColor = .black
-                    cell.statusDotView.backgroundColor = .black
-                }else if self.enquiryObject?.enquiryStageId ?? 0 < 9 {
-                    cell.statusLbl.textColor = .systemYellow
-                    cell.statusDotView.backgroundColor = .systemYellow
-                }else {
-                    cell.statusLbl.textColor = UIColor().CEGreen()
-                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
+//                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+//                if self.enquiryObject?.enquiryStageId ?? 0 < 5 {
+//                    cell.statusLbl.textColor = .black
+//                    cell.statusDotView.backgroundColor = .black
+//                }else if self.enquiryObject?.enquiryStageId ?? 0 < 9 {
+//                    cell.statusLbl.textColor = .systemYellow
+//                    cell.statusDotView.backgroundColor = .systemYellow
+//                }else {
+//                    cell.statusLbl.textColor = UIColor().CEGreen()
+//                    cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//                }
                 if let date = self.enquiryObject?.lastUpdated {
                     cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
                 }
@@ -426,7 +426,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                     cell.isUserInteractionEnabled = false
                     cell.valueTextField.isUserInteractionEnabled = false
                 }
-                cell.valueTextField.maxLength = 2
+               // cell.valueTextField.maxLength = 2
                 cell.valueTextField.text = self.viewModel.minimumQuantity.value ?? ""
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor
                 cell.valueTextField.leftPadding = 0

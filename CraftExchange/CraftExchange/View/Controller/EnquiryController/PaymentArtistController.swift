@@ -56,7 +56,7 @@ class PaymentArtistController: FormViewController{
             
             <<< EnquiryDetailsRow(){
                 $0.tag = "EnquiryDetailsRow"
-                $0.cell.height = { 220.0 }
+                $0.cell.height = { 200.0 }
                 $0.cell.selectionStyle = .none
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 if enquiryObject?.productType == "Custom Product" || orderObject?.productType == "Custom Product" {
@@ -71,17 +71,17 @@ class PaymentArtistController: FormViewController{
                 //                if orderObject?.enquiryStageId == 8{
                 //                    $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "Paid amount: " + "\(finalPaymnetDetails?.payableAmount ?? 0)" : "NA"
                 //                }
-                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-                if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 5 {
-                    $0.cell.statusLbl.textColor = .black
-                    $0.cell.statusDotView.backgroundColor = .black
-                }else if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 9 {
-                    $0.cell.statusLbl.textColor = .systemYellow
-                    $0.cell.statusDotView.backgroundColor = .systemYellow
-                }else {
-                    $0.cell.statusLbl.textColor = UIColor().CEGreen()
-                    $0.cell.statusDotView.backgroundColor = UIColor().CEGreen()
-                }
+//                $0.cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
+//                if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 5 {
+//                    $0.cell.statusLbl.textColor = .black
+//                    $0.cell.statusDotView.backgroundColor = .black
+//                }else if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 < 9 {
+//                    $0.cell.statusLbl.textColor = .systemYellow
+//                    $0.cell.statusDotView.backgroundColor = .systemYellow
+//                }else {
+//                    $0.cell.statusLbl.textColor = UIColor().CEGreen()
+//                    $0.cell.statusDotView.backgroundColor = UIColor().CEGreen()
+//                }
                 if let date = enquiryObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceFormatter(isoDate: date))"
                 }
