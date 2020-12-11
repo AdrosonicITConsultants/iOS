@@ -399,7 +399,6 @@
 		C0A3F41D24B7A8220071F7F8 /* BuyerProfileAddrInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A3F41C24B7A8220071F7F8 /* BuyerProfileAddrInfo.swift */; };
 		C0A5EB6624A0EB0100AD42EA /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5EB6524A0EB0100AD42EA /* SideMenuController.swift */; };
 		C0A5EB6A24A0F68500AD42EA /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */; };
-		C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C0A5EB6D24A1321F00AD42EA /* video.mp4 */; };
 		C0A8EE9D24C095D20074C620 /* ArtisanHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A8EE9C24C095D20074C620 /* ArtisanHomeController.swift */; };
 		C0A8EE9F24C0ED070074C620 /* ProductCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A8EE9E24C0ED070074C620 /* ProductCategoryCell.swift */; };
 		C0A8EEA124C0EF680074C620 /* ArtisanTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A8EEA024C0EF680074C620 /* ArtisanTabbarController.swift */; };
@@ -938,7 +937,6 @@
 		C0A3F41C24B7A8220071F7F8 /* BuyerProfileAddrInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerProfileAddrInfo.swift; sourceTree = "<group>"; };
 		C0A5EB6524A0EB0100AD42EA /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		C0A5EB6924A0F68500AD42EA /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		C0A5EB6D24A1321F00AD42EA /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		C0A8EE9C24C095D20074C620 /* ArtisanHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanHomeController.swift; sourceTree = "<group>"; };
 		C0A8EE9E24C0ED070074C620 /* ProductCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryCell.swift; sourceTree = "<group>"; };
 		C0A8EEA024C0EF680074C620 /* ArtisanTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtisanTabbarController.swift; sourceTree = "<group>"; };
@@ -1319,7 +1317,6 @@
 		C03BD88E2476F7FC00279D7F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C0A5EB6D24A1321F00AD42EA /* video.mp4 */,
 				C05E3ADF24D1F2E600963FAA /* iCarousel */,
 				C0A91095247CD90B00852695 /* Playfair */,
 				C0A9107E247CD8D000852695 /* Lato */,
@@ -2305,7 +2302,6 @@
 				C03BD8872476F0BF00279D7F /* LaunchScreen.storyboard in Resources */,
 				A921AC182559C45300D318F9 /* ChatEscalationHeaderView.xib in Resources */,
 				C0A91091247CD8D000852695 /* OFL.txt in Resources */,
-				C0A5EB6E24A1321F00AD42EA /* video.mp4 in Resources */,
 				C097949D24EA8E2A00C11AC7 /* BuyerCustomProductCell.xib in Resources */,
 				C0A91094247CD8D000852695 /* Lato-ThinItalic.ttf in Resources */,
 				C0AE9CF924ED7E970037ECB3 /* ToggleOptionRow.xib in Resources */,
@@ -3180,13 +3176,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CraftExchange/CraftExchange.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = T8KECWD2DG;
 				INFOPLIST_FILE = CraftExchange/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adrosonic.beta.CraftExchange;
 				PRODUCT_NAME = "Craft Xchange";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";
@@ -3202,13 +3199,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CraftExchange/CraftExchange.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = T8KECWD2DG;
 				INFOPLIST_FILE = CraftExchange/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adrosonic.beta.CraftExchange;
 				PRODUCT_NAME = "Craft Xchange";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";

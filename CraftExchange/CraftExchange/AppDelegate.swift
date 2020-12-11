@@ -131,12 +131,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
         debugPrint("Failed to Register device token for notification")
     }
-    
-    // MARK: - Remote Notification
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        /// Perform background fetch  when new notification is received
-        logStatement = logStatement.appending("\n didReceiveRemoteNotification: \(userInfo)")
-    }
 }
 
