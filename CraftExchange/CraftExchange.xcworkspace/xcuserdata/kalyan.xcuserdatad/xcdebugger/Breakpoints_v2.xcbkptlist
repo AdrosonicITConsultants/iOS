@@ -112,7 +112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "523"
             endingLineNumber = "523"
-            landmarkName = "imagePickerControllerDidCancel(_:)"
+            landmarkName = "documentPicker(_:didPickDocumentsAt:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -254,8 +254,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1064"
-            endingLineNumber = "1064"
+            startingLineNumber = "1074"
+            endingLineNumber = "1074"
             landmarkName = "quantityButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -782,8 +782,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1142"
-            endingLineNumber = "1142"
+            startingLineNumber = "1152"
+            endingLineNumber = "1152"
             landmarkName = "ETAButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -798,8 +798,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1147"
-            endingLineNumber = "1147"
+            startingLineNumber = "1157"
+            endingLineNumber = "1157"
             landmarkName = "ETAButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -814,8 +814,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1142"
-            endingLineNumber = "1142"
+            startingLineNumber = "1152"
+            endingLineNumber = "1152"
             landmarkName = "ETAButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -862,8 +862,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1125"
-            endingLineNumber = "1125"
+            startingLineNumber = "1135"
+            endingLineNumber = "1135"
             landmarkName = "priceButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -872,22 +872,6 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "3C04C576-5953-4AF4-9E8B-BB701275D765"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1124"
-            endingLineNumber = "1124"
-            landmarkName = "priceButtonSelected(tag:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ACBE07BC-43B8-4D54-B0BC-976A94BAAC30"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -903,6 +887,54 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "ACBE07BC-43B8-4D54-B0BC-976A94BAAC30"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1144"
+            endingLineNumber = "1144"
+            landmarkName = "priceButtonSelected(tag:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ACBE07BC-43B8-4D54-B0BC-976A94BAAC30 - 1ced83272746b815"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Craft_Xchange.BuyerEnquiryDetailsController.ETAButtonSelected(tag: Swift.Int) -&gt; ()"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1144"
+                  endingLineNumber = "1144"
+                  offsetFromSymbolStart = "1047">
+               </Location>
+               <Location
+                  uuid = "ACBE07BC-43B8-4D54-B0BC-976A94BAAC30 - bcadc0939f0712fe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Craft_Xchange.GetMOQs, Craft_Xchange.GetMOQs) -&gt; Swift.Bool in Craft_Xchange.BuyerEnquiryDetailsController.ETAButtonSelected(tag: Swift.Int) -&gt; ()"
+                  moduleName = "Craft Xchange"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kalyan/Documents/TTCE/CraftExchange/CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1145"
+                  endingLineNumber = "1145"
+                  offsetFromSymbolStart = "150">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             uuid = "3B1D8DFB-8E4C-4F1D-947A-2D740ED7A45C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -910,8 +942,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1128"
-            endingLineNumber = "1128"
+            startingLineNumber = "1138"
+            endingLineNumber = "1138"
             landmarkName = "priceButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -926,8 +958,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1129"
-            endingLineNumber = "1129"
+            startingLineNumber = "1139"
+            endingLineNumber = "1139"
             landmarkName = "priceButtonSelected(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1175,38 +1207,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2CE090B1-323F-4B3D-BEB7-0A1340D1113B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/Entities/Entity+Networking/OfflineManagers/OfflineOrderActionRequest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "OfflineOrderRequest"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D668C76C-543D-4013-8369-64DD6A3F6DE8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/Entities/Entity+Networking/OfflineManagers/OfflineOrderActionRequest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "init(type:orderId:changeRequestStatus:changeRequestJson:submitRatingJson:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7DD81D8C-D42B-4949-8023-BE13097E772E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -1328,8 +1328,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1676"
             endingLineNumber = "1676"
-            landmarkName = "OrderDetailController"
-            landmarkType = "21">
+            landmarkName = "TIdownloadButtonSelected()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1344,7 +1344,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1673"
             endingLineNumber = "1673"
-            landmarkName = "downloadButtonSelected(isOld:)"
+            landmarkName = "TIdownloadButtonSelected()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1550,8 +1550,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1230"
-            endingLineNumber = "1230"
+            startingLineNumber = "1250"
+            endingLineNumber = "1250"
             landmarkName = "cancelButtonSelected()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1566,8 +1566,8 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "740"
-            endingLineNumber = "740"
+            startingLineNumber = "750"
+            endingLineNumber = "750"
             landmarkName = "goToChat()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1696,7 +1696,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "275"
             endingLineNumber = "275"
-            landmarkName = "viewDidAppear(_:)"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1712,8 +1712,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "940"
             endingLineNumber = "940"
-            landmarkName = "OrderDetailController"
-            landmarkType = "3">
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1728,8 +1728,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "941"
             endingLineNumber = "941"
-            landmarkName = "pullToRefresh()"
-            landmarkType = "7">
+            landmarkName = "OrderDetailController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2078,10 +2078,10 @@
             filePath = "CraftExchange/View/Controller/EnquiryController/BuyerEnquiryDetailsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1179"
-            endingLineNumber = "1179"
-            landmarkName = "BuyerEnquiryDetailsController"
-            landmarkType = "21">
+            startingLineNumber = "1189"
+            endingLineNumber = "1189"
+            landmarkName = "ETAButtonSelected(tag:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2631,22 +2631,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "89A127F9-90E4-4486-A149-FB9E7E612313"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CraftExchange/Scene/HomeScenes/ArtisanHomeScene.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
-            landmarkName = "fetchNotification(vc:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "497F3E55-1F26-4232-9160-572542769AC3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -2960,7 +2944,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
             endingLineNumber = "192"
-            landmarkName = "skipBtnSelected()"
+            landmarkName = "RevewAndRatingBtnSelected()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2993,6 +2977,70 @@
             startingLineNumber = "194"
             endingLineNumber = "194"
             landmarkName = "editProduct(json:imageData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8B2A6C44-BCD3-4BF6-A6FD-0B8B647FFEF3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/View/Controller/NotificationController/NotificationController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CEF03F2B-3C49-4E50-95B4-9E1C10BEC892"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Entities/Entity+Networking/OfflineManagers/OfflineNotificationRequest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "perform(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A6F8136B-074C-4AB9-817F-EF40ED7BF430"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Entities/Entity+Networking/OfflineManagers/OfflineNotificationRequest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "perform(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "46DC3013-ADF5-4739-87BF-B418299E3F34"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CraftExchange/Entities/Entity+Networking/OfflineManagers/OfflineNotificationRequest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "perform(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

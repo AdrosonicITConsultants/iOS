@@ -59,20 +59,20 @@ extension NotificationService {
         controller.markasRead = { (notificationId, index) in
             let request = OfflineNotificationRequest(type: .markAsReadNotification, notificationId: notificationId )
             OfflineRequestManager.defaultManager.queueRequest(request)
-            DispatchQueue.main.async {
-                controller.allNotifications?.remove(at: index)
-                Notifications.notificationIsDeleteTrue(forId: notificationId)
-                Notifications.deleteAllNotificationsWithIsDeleteTrue()
-                controller.tableView.reloadData()
-                controller.notificationCount = controller.allNotifications?.count ?? 0
-                let count =  controller.notificationCount
-                if count == 0 {
-                    controller.notificationsLabel?.text = "No new notifications"
-                }
-                else {
-                    controller.notificationsLabel?.text = "\(count) new notifications"
-                }
-            }
+//            DispatchQueue.main.async {
+//                controller.allNotifications?.remove(at: index)
+//                Notifications.notificationIsDeleteTrue(forId: notificationId)
+//                Notifications.deleteAllNotificationsWithIsDeleteTrue()
+//                controller.tableView.reloadData()
+//                controller.notificationCount = controller.allNotifications?.count ?? 0
+//                let count =  controller.notificationCount
+//                if count == 0 {
+//                    controller.notificationsLabel?.text = "No new notifications"
+//                }
+//                else {
+//                    controller.notificationsLabel?.text = "\(count) new notifications"
+//                }
+//            }
             
         }
         
@@ -80,15 +80,15 @@ extension NotificationService {
         func removeNotifications(){
             let request = OfflineNotificationRequest(type: .markAsAllReadNotification, notificationId: 0)
             OfflineRequestManager.defaultManager.queueRequest(request)
-            DispatchQueue.main.async {
-                Notifications.setAllNotificationIsDeleteTrue()
-                Notifications.deleteAllNotificationsWithIsDeleteTrue()
-                UIApplication.shared.applicationIconBadgeNumber = 0
-                controller.allNotifications?.removeAll()
-                controller.tableView.reloadData()
-                controller.notificationCount -= 0
-                controller.notificationsLabel?.text = "No new notifications"
-            }
+//            DispatchQueue.main.async {
+//                Notifications.setAllNotificationIsDeleteTrue()
+//                Notifications.deleteAllNotificationsWithIsDeleteTrue()
+//                UIApplication.shared.applicationIconBadgeNumber = 0
+//                controller.allNotifications?.removeAll()
+//                controller.tableView.reloadData()
+//                controller.notificationCount -= 0
+//                controller.notificationsLabel?.text = "No new notifications"
+//            }
             
         }
         

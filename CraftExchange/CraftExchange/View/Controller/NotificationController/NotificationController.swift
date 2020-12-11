@@ -43,6 +43,14 @@ class NotificationController: UIViewController {
         tableView.refreshControl?.beginRefreshing()
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
         
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "markAsReadNotificationUpdate"), object: nil, queue: .main) { (notif) in
+            self.setData()
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "markAsAllReadNotificationUpdate"), object: nil, queue: .main) { (notif) in
+            self.setData()
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

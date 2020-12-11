@@ -56,6 +56,20 @@ class OfflineNotificationRequest: NSObject, OfflineRequest {
             return
         }
         client.unsafeResponse(for: request).observe(with: { (response) in
+            if self.type == .markAsReadNotification && response.error == nil {
+                DispatchQueue.main.async {
+                    Notifications.notificationIsDeleteTrue(forId: self.notificationId ?? 0)
+                    Notifications.deleteAllNotificationsWithIsDeleteTrue()
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "markAsReadNotificationUpdate"), object: nil)
+                }
+            }else if self.type == .markAsAllReadNotification && response.error == nil {
+                DispatchQueue.main.async {
+                    Notifications.setAllNotificationIsDeleteTrue()
+                    Notifications.deleteAllNotificationsWithIsDeleteTrue()
+                    UIApplication.shared.applicationIconBadgeNumber = 0
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "markAsAllReadNotificationUpdate"), object: nil)
+                }
+            }
             completion(response.error)
         }).dispose(in: self.bag)
     }
