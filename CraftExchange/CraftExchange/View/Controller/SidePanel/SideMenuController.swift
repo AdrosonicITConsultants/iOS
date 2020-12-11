@@ -223,7 +223,7 @@ class SideMenuController: FormViewController {
         lbl.textColor = .lightGray
         lbl.textAlignment = .center
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        lbl.text = "09-12-2020 V\(appVersion ?? "1.1")"
+        lbl.text = "10-12-2020 V\(appVersion ?? "1.2")"
         self.view.addSubview(lbl)
         self.view.addSubview(view)
     }
@@ -247,19 +247,5 @@ class SideMenuController: FormViewController {
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
     }
-    
-    func getNavBar() -> UINavigationController? {
-        var nav: UINavigationController?
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        if let tab = appDelegate?.tabbar?.selectedViewController as? UINavigationController {
-            nav = tab
-        }else if let tab = appDelegate?.tabbar?.selectedViewController?.navigationController {
-            nav = tab
-        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController as? UINavigationController {
-            nav = tab
-        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController?.navigationController {
-            nav = tab
-        }
-        return nav
-    }
+
 }

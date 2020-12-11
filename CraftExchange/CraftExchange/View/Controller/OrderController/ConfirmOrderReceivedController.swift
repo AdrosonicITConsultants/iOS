@@ -171,27 +171,70 @@ extension ConfirmOrderReceivedController: SingleButtonActionProtocol, RatingInit
     
     func RevewAndRatingBtnSelected() {
         if self.orderObject != nil {
-            do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: orderObject, enquiryId: orderObject?.enquiryId ?? 0) as! ProvideRatingController
-                vc.orderObject = self.orderObject
-                self.navigationController?.pushViewController(vc, animated: false)
-                vc.navigationController!.viewControllers.remove(at: vc.navigationController!.viewControllers.count - 2)
-                vc.navigationController!.viewControllers.remove(at: vc.navigationController!.viewControllers.count - 2)
-                
-            }catch {
-                print(error.localizedDescription)
+            var orderList = false
+            var orderListVC: OrderListController?
+            self.navigationController?.viewControllers .forEach({ (controller) in
+                if controller.isKind(of: OrderListController.self) {
+                    orderList = true
+                    orderListVC = controller as? OrderListController
+                }
+            })
+            if orderList {
+                if let orderVC = orderListVC {
+                    self.navigationController?.popToViewController(orderVC, animated: true)
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeClient())
+                        let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: self.orderObject, enquiryId: self.orderObject?.enquiryId ?? 0) as! ProvideRatingController
+                        vc.orderObject = self.orderObject
+                        let nav = self.getNavBar()
+                        nav?.pushViewController(vc, animated: true)
+                    } catch let error {
+                        print("Unable to load view:\n\(error.localizedDescription)")
+                    }
+                }
+            }else {
+                self.navigationController?.popToRootViewController(animated: true)
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let listvc = OrderListService(client: client).createScene()
+                    let nav = self.getNavBar()
+                    nav?.pushViewController(listvc, animated: true)
+                    let vc = OrderDetailsService(client: client).createProvideRatingScene(forOrder: self.orderObject, enquiryId: self.orderObject?.enquiryId ?? 0) as! ProvideRatingController
+                    vc.orderObject = self.orderObject
+                    nav?.pushViewController(vc, animated: true)
+                } catch let error {
+                    print("Unable to load view:\n\(error.localizedDescription)")
+                }
             }
         }
         print("rating selected")
-        
-        //        self.view.hideRatingInitaitionView()
-        //        self.popBack(toControllerType: OrderListController.self)
     }
     
     func skipBtnSelected() {
         self.view.hideRatingInitaitionView()
-        self.popBack(toControllerType: OrderListController.self)
+        var orderList = false
+        var orderListVC: OrderListController?
+        self.navigationController?.viewControllers .forEach({ (controller) in
+            if controller.isKind(of: OrderListController.self) {
+                orderList = true
+                orderListVC = controller as? OrderListController
+            }
+        })
+        if orderList {
+            if let orderVC = orderListVC {
+                self.navigationController?.popToViewController(orderVC, animated: true)
+            }
+        }else {
+            self.navigationController?.popToRootViewController(animated: true)
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = OrderListService(client: client).createScene()
+                let nav = self.getNavBar()
+                nav?.pushViewController(vc, animated: true)
+            } catch let error {
+                print("Unable to load view:\n\(error.localizedDescription)")
+            }
+        }
     }
     
     func singleButtonSelected(tag: Int) {

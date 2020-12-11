@@ -72,21 +72,24 @@ class KeychainManager {
     }
     
     var baseURL: String {
-        //        //UAT
-        //        return "http://164.52.192.15:8090"
-        //        Dev
-        return "http://101.53.153.96:8090/api"
+        //UAT
+        return "http://164.52.192.15:8090/api"
+//        Dev
+//        return "http://101.53.153.96:8090"
     }
     
     var imageBaseURL: String {
-        //        //UAT
-        //        return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
-        //        Dev
-        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+        //UAT
+        return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
+//        Dev
+//        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
     }
     
     var faqBaseURL: String {
-        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+//    UAT
+        return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
+//        Dev
+//        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
     }
     
     var cmsBaseURL: String {
