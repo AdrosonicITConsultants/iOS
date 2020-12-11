@@ -75,7 +75,7 @@ class KeychainManager {
         //UAT
 //        return "http://164.52.192.15:8090/api"
 //        Dev
-        return "http://101.53.153.96:8090"
+        return "http://101.53.153.96:8090/api"
     }
     
     var imageBaseURL: String {
