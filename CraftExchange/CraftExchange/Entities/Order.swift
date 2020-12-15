@@ -18,6 +18,7 @@ class Order: Object, Decodable {
     @objc dynamic var isDelivery: Bool = false
     @objc dynamic var enquiryStageId: Int = 0
     @objc dynamic var mobile: String?
+    @objc dynamic var revisedAdvancePaymentId: Int = 0
     @objc dynamic var logo: String?
     @objc dynamic var startedOn: String?
     @objc dynamic var isReprocess: Int = 0
@@ -97,6 +98,7 @@ class Order: Object, Decodable {
         case startedOn = "startedOn"
         case enquiryStageId = "enquiryStageId"
         case changeRequestOn = "changeRequestOn"
+        case revisedAdvancePaymentId = "revisedAdvancePaymentId"
         case changeRequestStatus = "changeRequestStatus"
         case changeRequestModifiedOn = "changeRequestModifiedOn"
         case isReprocess = "isReprocess"
@@ -179,6 +181,7 @@ class Order: Object, Decodable {
             changeRequestModifiedOn = Date().ttceISODate(isoDate: dateString)
         }
         isReprocess = try (values.decodeIfPresent(Int.self, forKey: .isReprocess) ?? 0)
+        revisedAdvancePaymentId = try (values.decodeIfPresent(Int.self, forKey: .revisedAdvancePaymentId) ?? 0)
         artisanReviewId = try? values.decodeIfPresent(String.self, forKey: .artisanReviewId)
         changeRequestOn = try (values.decodeIfPresent(Int.self, forKey: .changeRequestOn) ?? 0)
         changeRequestStatus = try (values.decodeIfPresent(Int.self, forKey: .changeRequestStatus) ?? 0)

@@ -6,19 +6,43 @@
 //  Copyright © 2020 Adrosonic. All rights reserved.
 //
 
+import Foundation
 import UIKit
+import Eureka
 
-class PendingPaymentView: UITableViewCell {
+protocol PendingPaymentProtocol {
+    func pendingPaymentButtonSelected(tag: Int)
+    
+}
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+class PendingPaymentView: Cell<String>, CellType {
+
+    @IBOutlet weak var advanceAmountPaid: UILabel!
+    
+    @IBOutlet weak var pendingPaymentValue: RoundedButton!
+    @IBOutlet weak var pendingPaymentButton: RoundedButton!
+    var delegate: PendingPaymentProtocol?
+    
+    public override func setup() {
+    super.setup()
+        pendingPaymentButton.addTarget(self, action: #selector(pendingPaymentButtonSelected(_:)), for: .touchUpInside)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    public override func update() {
+        super.update()
     }
+    @IBAction func pendingPaymentButtonSelected(_ sender: Any) {
+        delegate?.pendingPaymentButtonSelected(tag: tag)
 
+    }
+    
+    
+}
+
+final class PendingPaymentRow: Row<PendingPaymentView>, RowType {
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        // We set the cellProvider to load the .xib corresponding to our cell
+        cellProvider = CellProvider<PendingPaymentView>(nibName: "PendingPaymentView")
+    }
 }

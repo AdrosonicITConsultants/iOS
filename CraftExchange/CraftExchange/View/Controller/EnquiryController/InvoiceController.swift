@@ -53,6 +53,7 @@ class InvoiceController: FormViewController{
     var closeEnquiry: ((_ enquiryId: Int) -> ())?
     var PI: GetPI?
     var advancePaymnet: PaymentStatus?
+    var revisedAdvancePayment: RevisedAdvancedPayment?
     var previewPI: ((_ isOld: Int) -> ())?
     var saveInvoice: Int = 0
     let realm = try? Realm()
@@ -348,7 +349,11 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.text = self.viewModel.advancePaidAmount.value ?? ""
                 //  if enquiryObject?.productStatusId != 2 {
                 if advancePaymnet?.paidAmount != nil {
-                    $0.cell.valueTextField.text = "\(advancePaymnet?.paidAmount ?? 0)"
+                    if revisedAdvancePayment?.pendingAmount != nil && self.orderObject?.revisedAdvancePaymentId == 4 {
+                        $0.cell.valueTextField.text = "\((advancePaymnet?.paidAmount ?? 0) + (revisedAdvancePayment?.pendingAmount ?? 0))"
+                    }else{
+                      $0.cell.valueTextField.text = "\(advancePaymnet?.paidAmount ?? 0)"
+                    }
                 }else{
                     $0.cell.valueTextField.text = "0"
                 }
@@ -572,10 +577,10 @@ class InvoiceController: FormViewController{
                 $0.cell.valueTextField.textColor = .darkGray
                 self.viewModel.hsn.bidirectionalBind(to: $0.cell.valueTextField.reactive.text)
                 $0.cell.valueTextField.text = self.viewModel.hsn.value ?? ""
-                self.viewModel.hsn.value = $0.cell.valueTextField.text
                 if PI?.quantity != nil {
                     $0.cell.valueTextField.text = "\(PI?.hsn ?? 12345678)"
                 }
+                self.viewModel.hsn.value = $0.cell.valueTextField.text
             }.cellUpdate({ (cell, row) in
                 cell.valueTextField.maxLength = 8
                 cell.valueTextField.layer.borderColor = UIColor.white.cgColor

@@ -100,6 +100,11 @@
 		30C8CDCA25500DF700AE6AEA /* CompleteOrderIconRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C8CDC825500DF700AE6AEA /* CompleteOrderIconRow.xib */; };
 		30C8CDCC25501B7700AE6AEA /* RatingInitaitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */; };
 		30C8CDCE25501B8600AE6AEA /* RatingInitaitionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */; };
+		30DEDFC22587361D000B7778 /* PendingPaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DEDFC02587361D000B7778 /* PendingPaymentView.xib */; };
+		30DEDFC425873FB4000B7778 /* RevisedAdvancedPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DEDFC325873FB4000B7778 /* RevisedAdvancedPayment.swift */; };
+		30DEDFC62587422A000B7778 /* RevisedPaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DEDFC52587422A000B7778 /* RevisedPaymentController.swift */; };
+		30DEDFC825874242000B7778 /* RevisedPaymentUploadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DEDFC725874242000B7778 /* RevisedPaymentUploadController.swift */; };
+		30DEDFCA2587AF1A000B7778 /* PendingPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DEDFC92587AF19000B7778 /* PendingPaymentView.swift */; };
 		30DFF0F8257E0489000E662E /* AccountDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DFF0F6257E0489000E662E /* AccountDetailsCell.swift */; };
 		30DFF0F9257E0489000E662E /* AccountDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30DFF0F7257E0489000E662E /* AccountDetailsCell.xib */; };
 		30EB8DE92537230800BA59E8 /* ChatNewListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EB8DE82537230800BA59E8 /* ChatNewListController.swift */; };
@@ -587,6 +592,11 @@
 		30C8CDC825500DF700AE6AEA /* CompleteOrderIconRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteOrderIconRow.xib; sourceTree = "<group>"; };
 		30C8CDCB25501B7700AE6AEA /* RatingInitaitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInitaitionView.swift; sourceTree = "<group>"; };
 		30C8CDCD25501B8600AE6AEA /* RatingInitaitionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingInitaitionView.xib; sourceTree = "<group>"; };
+		30DEDFC02587361D000B7778 /* PendingPaymentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PendingPaymentView.xib; sourceTree = "<group>"; };
+		30DEDFC325873FB4000B7778 /* RevisedAdvancedPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisedAdvancedPayment.swift; sourceTree = "<group>"; };
+		30DEDFC52587422A000B7778 /* RevisedPaymentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisedPaymentController.swift; sourceTree = "<group>"; };
+		30DEDFC725874242000B7778 /* RevisedPaymentUploadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisedPaymentUploadController.swift; sourceTree = "<group>"; };
+		30DEDFC92587AF19000B7778 /* PendingPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingPaymentView.swift; sourceTree = "<group>"; };
 		30DFF0F6257E0489000E662E /* AccountDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsCell.swift; sourceTree = "<group>"; };
 		30DFF0F7257E0489000E662E /* AccountDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailsCell.xib; sourceTree = "<group>"; };
 		30EB8DE82537230800BA59E8 /* ChatNewListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNewListController.swift; sourceTree = "<group>"; };
@@ -1438,6 +1448,7 @@
 				3097BF82255A84AE0095747E /* RatingResponse.swift */,
 				A967840B255AC4C10066C147 /* EscalationConversation.swift */,
 				A967840D255AD9280066C147 /* EscalationCategory.swift */,
+				30DEDFC325873FB4000B7778 /* RevisedAdvancedPayment.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1607,6 +1618,8 @@
 				3089DEDF252B3276003184FA /* PaymentBuyerOne.swift */,
 				3089DEE1252B327E003184FA /* PaymentUploadController.swift */,
 				307B3988252D8C1D000028AC /* PaymentArtistController.swift */,
+				30DEDFC52587422A000B7778 /* RevisedPaymentController.swift */,
+				30DEDFC725874242000B7778 /* RevisedPaymentUploadController.swift */,
 			);
 			path = EnquiryController;
 			sourceTree = "<group>";
@@ -1953,6 +1966,8 @@
 				3089685A25512AF300F6E14D /* BuyerFaultyOrderOptionRow.xib */,
 				30DFF0F6257E0489000E662E /* AccountDetailsCell.swift */,
 				30DFF0F7257E0489000E662E /* AccountDetailsCell.xib */,
+				30DEDFC02587361D000B7778 /* PendingPaymentView.xib */,
+				30DEDFC92587AF19000B7778 /* PendingPaymentView.swift */,
 			);
 			path = EnquiryCells;
 			sourceTree = "<group>";
@@ -2237,6 +2252,7 @@
 				C027F10925561B94001FEE09 /* MarkCompleteAndNext.xib in Resources */,
 				C0A910A2247CD90B00852695 /* PlayfairDisplay-Bold.ttf in Resources */,
 				C0A910A6247CD90B00852695 /* PlayfairDisplay-ExtraBoldItalic.ttf in Resources */,
+				30DEDFC22587361D000B7778 /* PendingPaymentView.xib in Resources */,
 				C027F0E5255616BA001FEE09 /* SingleLabelRow.xib in Resources */,
 				C027F0FB2556193D001FEE09 /* ApprovePaymentView.xib in Resources */,
 				3089DEDE252B3220003184FA /* UploadSuccessfulView.xib in Resources */,
@@ -2438,6 +2454,7 @@
 				C0A2A00024B8B7A900A49E56 /* AddressType.swift in Sources */,
 				307B3983252C8602000028AC /* PaymentArtist.swift in Sources */,
 				C0374DF025383A41008954C6 /* Order+Request.swift in Sources */,
+				30DEDFC425873FB4000B7778 /* RevisedAdvancedPayment.swift in Sources */,
 				301B7EE925223FDC0008DE3A /* MOQSortButtonsRow.swift in Sources */,
 				C006B3B1250E527B00882C4A /* ProFormaInvoiceRow.swift in Sources */,
 				C09B3F1424BA615900FBC115 /* Disk+UIImage.swift in Sources */,
@@ -2561,6 +2578,7 @@
 				C0A3F41B24B7A8090071F7F8 /* BuyerCompanyProfileInfo.swift in Sources */,
 				C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */,
 				C0989E43254767C1001B933F /* CRArtisanRow.swift in Sources */,
+				30DEDFC825874242000B7778 /* RevisedPaymentUploadController.swift in Sources */,
 				C0ACE9AC2485A54600EFA4ED /* RegisterArtisanService.swift in Sources */,
 				309796A02551450000851ECA /* RaiseConcernController.swift in Sources */,
 				C05836BB24C887AC0027FF44 /* ProductImage.swift in Sources */,
@@ -2641,6 +2659,7 @@
 				C071E234247EB6170085805B /* ProductCategory.swift in Sources */,
 				C04842BA24E7C43000D3207F /* CustomProductListController.swift in Sources */,
 				C094288124B39E74005FDF93 /* Country+Transaction.swift in Sources */,
+				30DEDFC62587422A000B7778 /* RevisedPaymentController.swift in Sources */,
 				C0A29FFE24B8ABC500A49E56 /* Weaver.swift in Sources */,
 				30EDDF05255AAB2D005A4BCC /* ViewRatingCell.swift in Sources */,
 				C05E3AE324D1F2E700963FAA /* iCarousel.m in Sources */,
@@ -2697,6 +2716,7 @@
 				C0A3F41924B7A7EF0071F7F8 /* BuyerGeneralInfo.swift in Sources */,
 				C0AE9CFB24ED842F0037ECB3 /* ToggleOptionRow.swift in Sources */,
 				308D5F672514C9FC00CA5152 /* MOQDeliveryTimes+Transaction.swift in Sources */,
+				30DEDFCA2587AF1A000B7778 /* PendingPaymentView.swift in Sources */,
 				C038EFC824D85EA100C43C35 /* YarnCount+Transaction.swift in Sources */,
 				C04249CB2547552100D9EA6C /* ChangeRequest.swift in Sources */,
 				C099E3EA24FE1BDF003B6E3B /* Enquiry+Request.swift in Sources */,

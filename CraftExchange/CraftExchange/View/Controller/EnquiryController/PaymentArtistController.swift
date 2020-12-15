@@ -33,7 +33,8 @@ class PaymentArtistController: FormViewController{
     var closeEnquiry: ((_ enquiryId: Int) -> ())?
     let realm = try? Realm()
     var status: Int?
-    
+    var revisedAdvancePayment: RevisedAdvancedPayment?
+    var revisedAdvancePaymentId: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,10 @@ class PaymentArtistController: FormViewController{
         let client = try! SafeClient(wrapping: CraftExchangeClient())
         let service = EnquiryDetailsService.init(client: client)
         
-        if orderObject?.enquiryStageId == 8 {
+        if orderObject?.revisedAdvancePaymentId == 3 {
+            service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 3)
+        }
+        else if orderObject?.enquiryStageId == 8 {
             service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 2)
         }else{
             service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
@@ -118,6 +122,9 @@ class PaymentArtistController: FormViewController{
                 //               $0.cell.delegate = self
                 $0.tag = "PaymentArtist-1"
                 $0.cell.tag = 4
+                if orderObject?.revisedAdvancePaymentId == 3{
+                    $0.cell.AmountLabel.text = "Pending advance paid by buyer: ".localized +  "\(revisedAdvancePayment?.pendingAmount ?? 0)"
+                }
                 if orderObject?.enquiryStageId == 8 {
                     $0.cell.AmountLabel.text = "Final amount paid by buyer: ".localized +  "\(finalPaymnetDetails?.payableAmount ?? 0)"
                 }
@@ -131,6 +138,9 @@ class PaymentArtistController: FormViewController{
                 if orderObject?.enquiryStageId == 8{
                     $0.cell.ApproveBTn.setTitle("Approve Final Payment by Buyer", for: .normal)
                 }
+                if orderObject?.revisedAdvancePaymentId == 3{
+                    $0.cell.ApproveBTn.setTitle("Approve pending advance by Buyer", for: .normal)
+                }
                 $0.cell.delegate = self
                 if enquiryObject?.enquiryStageId ?? orderObject?.enquiryStageId ?? 0 >= 4{
                     $0.hidden = true
@@ -138,11 +148,10 @@ class PaymentArtistController: FormViewController{
                 if orderObject?.enquiryStageId == 8{
                     $0.hidden = false
                 }
-                //            if orderObject?.isBlue == true {
-                //                 $0.hidden = false
-                //            }else{
-                //                $0.hidden = true
-                //            }
+                if orderObject?.revisedAdvancePaymentId == 3{
+                    $0.hidden = false
+                }
+                
         }
         
     }
@@ -156,7 +165,11 @@ extension PaymentArtistController: ApproveButtonProtocol {
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let service = EnquiryDetailsService.init(client: client)
             if let order = self.orderObject {
-                service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
+                if order.revisedAdvancePaymentId == 3 {
+                   service.validatePaymentFunc(vc: self,typeId: 3, enquiryId: order.enquiryId, status: self.status!)
+                }else{
+                   service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
+                }
             }else if let enquiry = self.enquiryObject {
                 service.validatePaymentFunc(vc: self,typeId: 1, enquiryId: enquiry.enquiryId, status: self.status!)
             }
@@ -173,7 +186,11 @@ extension PaymentArtistController: ApproveButtonProtocol {
             let client = try! SafeClient(wrapping: CraftExchangeClient())
             let service = EnquiryDetailsService.init(client: client)
             if let order = self.orderObject {
-                service.validatePaymentFunc(vc: self,typeId:2, enquiryId: order.enquiryId, status: self.status!)
+                if order.revisedAdvancePaymentId == 3 {
+                   service.validatePaymentFunc(vc: self,typeId: 3, enquiryId: order.enquiryId, status: self.status!)
+                }else{
+                  service.validatePaymentFunc(vc: self,typeId:2, enquiryId: order.enquiryId, status: self.status!)
+                }
             }else if let enquiry = self.enquiryObject {
                 service.validatePaymentFunc(vc: self,typeId:1, enquiryId: enquiry.enquiryId, status: self.status!)
             }

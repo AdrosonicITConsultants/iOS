@@ -402,6 +402,11 @@ extension OrderDetailsService {
             vc.showLoading()
             service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 1)
         }
+        vc.downloadRevisedAdvReceipt = { (enquiryId) in
+            let service = EnquiryDetailsService.init(client: self.client)
+            vc.showLoading()
+            service.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: 3)
+        }
         vc.downloadFinalReceipt = { (enquiryId) in
             let service = EnquiryDetailsService.init(client: self.client)
             vc.showLoading()

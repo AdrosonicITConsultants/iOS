@@ -37,6 +37,9 @@ extension EnquiryDetailsService {
                                     vc.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
                                 }else{
                                     vc.imageReciept?(2)
+                                    let row = vc.form.rowBy(tag: "uploadsuccess") as? UploadSuccessfulRow
+                                    row?.cell.PleaseNoteLabel.text = "Please Note: The final tax invoice will be updated"
+                                    row?.cell.EnquiryLabel.text = "Your Order will be dispatched as soon as Artisan approves your final payment receipt."
                                 }
                                 vc.hideLoading()
                             }
@@ -79,6 +82,43 @@ extension EnquiryDetailsService {
                 vc.hideLoading()
             }
             
+        }
+        
+        vc.imageReciept = { (typeId) in
+            self.downloadAndViewReceipt(vc: vc, enquiryId: enquiryId, typeId: typeId)
+        }
+        
+        return vc
+    }
+    
+    func createRevisedPaymentScene(enquiryId: Int)-> UIViewController {
+        let vc = RevisedPaymentUploadController.init(style: .plain)
+        
+        vc.uploadReciept = { (typeId) in
+            if vc.viewModel.imageData.value != nil {
+                self.uploadReceipt(enquiryId: enquiryId, type: typeId, paidAmount: Int(vc.viewModel.paidAmount.value!)!, percentage: Int(vc.viewModel.percentage.value!)!, invoiceId: 0, pid: Int(vc.viewModel.pid.value!)!, totalAmount: Int(vc.viewModel.totalAmount.value!)!, imageData: vc.viewModel.imageData.value!, filename: vc.viewModel.fileName.value).bind(to: vc, context: .global(qos: .background)) {_,responseData in
+                    if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any] {
+                        if json["valid"] as? Bool == true {
+                            DispatchQueue.main.async {
+                                
+                                vc.form.rowBy(tag: "uploadReceipt")?.hidden = true
+                                vc.form.rowBy(tag: "uploadReceipt")?.evaluateHidden()
+                                vc.form.rowBy(tag: "uploadsuccess")?.hidden = false
+                                vc.form.rowBy(tag: "uploadsuccess")?.evaluateHidden()
+                                vc.form.allSections.first?.reload(with: .none)
+                                vc.imageReciept?(3)
+                                let viewControllers = vc.navigationController!.viewControllers
+                                vc.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
+                                vc.hideLoading()
+                            }
+                        }
+                    }
+                }.dispose(in: vc.bag)
+            }
+            else {
+                vc.alert("Please upload image".localized)
+                vc.hideLoading()
+            }
         }
         
         vc.imageReciept = { (typeId) in
@@ -142,7 +182,7 @@ extension EnquiryDetailsService {
             }
             
         }
-        else{
+        else if typeId == 2 {
             self.FinalPaymentReceit(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
                 
                 if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
@@ -196,6 +236,60 @@ extension EnquiryDetailsService {
             }
             
         }
+        else if typeId == 3 {
+            
+            self.RevisedPaymentReceit(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+                
+                if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                    
+                    if let dataDict = json["data"] as? Dictionary<String,Any>
+                    {
+                        if let recieptdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                            
+                            if  let object = try? JSONDecoder().decode(PaymentArtist.self, from: recieptdata) {
+                                DispatchQueue.main.async {
+                                    print("hey:\(object)")
+                                    if let controller = vc as? RevisedPaymentUploadController {
+                                        controller.receipt = object
+                                    }
+                                    let name = object.label
+                                    let paymentID = object.paymentId
+                                    
+                                    let url = URL(string: KeychainManager.standard.imageBaseURL + "/AdvancedPayment/\(paymentID)/" + name!)
+                                    URLSession.shared.dataTask(with: url!) { data, response, error in
+                                        DispatchQueue.main.async {
+                                            if error == nil {
+                                                if let finalData = data {
+                                                    if let controller = vc as? RevisedPaymentUploadController {
+                                                        controller.data = finalData
+                                                    }else if let controller = vc as? TransactionListController {
+                                                        controller.hideLoading()
+                                                        controller.view.showTransactionReceiptView(controller: controller, data: finalData)
+                                                    }else if let controller = vc as? PaymentArtistController{
+                                                        //controller.hideLoading()
+                                                        let row = controller.form.rowBy(tag: "PaymentArtist-1") as? ArtistReceitImgRow
+                                                        row?.cell.ImageReceit.image = UIImage(data: finalData)
+                                                        //  controller.hideLoading()
+                                                        
+                                                    }else if let controller = vc as? OrderDetailController {
+                                                        controller.hideLoading()
+                                                        controller.view.showTransactionReceiptView(controller: controller, data: finalData)
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                    }.resume()
+                                    vc.hideLoading()
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
         
     }
     
@@ -221,6 +315,42 @@ extension EnquiryDetailsService {
                                     controller.advancePaymnet = object
                                 }else if let controller = vc as? PaymentUploadController {
                                     controller.tobePaidAmount2 = "\(object.paidAmount)"
+                                    let row = controller.form.rowBy(tag: "EnquiryDetailsRow")
+                                    row?.reload()
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+            }
+            
+        }.dispose(in: vc.bag)
+    }
+    
+    func revisedAdvancePaymentStatus(vc: UIViewController, enquiryId: Int) {
+        self.getRevisedAdvancePaymentStatus(enquiryId: enquiryId).bind(to: vc, context: .global(qos: .background)) { (_,responseData) in
+            
+            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Dictionary<String,Any> {
+                
+                if let dataDict = json["data"] as? Dictionary<String,Any>
+                {
+                    if let paymentdata = try? JSONSerialization.data(withJSONObject: dataDict, options: .fragmentsAllowed) {
+                        
+                        if  let object = try? JSONDecoder().decode(RevisedAdvancedPayment.self, from: paymentdata) {
+                            DispatchQueue.main.async {
+                                print("hey:\(object)")
+                                if let controller = vc as? PaymentArtistController{
+                                    // controller.hideLoading()
+                                    let row = controller.form.rowBy(tag: "PaymentArtist-1") as? ArtistReceitImgRow
+                                    row?.cell.AmountLabel.text = "Revised advance amount paid by buyer: ".localized +  "\(object.pendingAmount)"
+                                }else if let controller = vc as? OrderDetailController{
+                                    controller.revisedAdvancePayment = object
+                                }else if let controller = vc as? RevisedPaymentUploadController {
+                                    controller.revisedPayment = object
                                     let row = controller.form.rowBy(tag: "EnquiryDetailsRow")
                                     row?.reload()
                                 }
@@ -318,7 +448,7 @@ extension EnquiryDetailsService {
                     if json["valid"] as? Bool == true {
                         DispatchQueue.main.async {
                             vc.hideLoading()
-                            vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
+                            vc.navigationController?.popViewController(animated: true)
                         }
                     }
                 }

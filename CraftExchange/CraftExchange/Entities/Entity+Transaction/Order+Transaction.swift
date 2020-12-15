@@ -90,6 +90,7 @@ extension Order {
                 object.changeRequestModifiedOn = changeRequestModifiedOn
                 object.changeRequestOn = changeRequestOn
                 object.changeRequestStatus = changeRequestStatus
+                object.revisedAdvancePaymentId = revisedAdvancePaymentId
                 
                 object.warpYarnId = warpYarnId
                 object.weftYarnId = weftYarnId

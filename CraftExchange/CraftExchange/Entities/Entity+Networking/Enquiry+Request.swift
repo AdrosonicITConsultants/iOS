@@ -486,6 +486,19 @@ extension Enquiry {
             needsAuthorization: true
         )
     }
+    public static func RevisedPaymentReceit(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getRevisedAdvancedPaymentReceipt/\(enquiryId)?enquiryId=\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .get,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
     public static func FinalPaymentReceit(enquiryId: Int) -> Request<Data, APIError> {
         var str = "enquiry/getFinalPaymentReceipt/\(enquiryId)?enquiryId=\(enquiryId)"
         str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -507,6 +520,20 @@ extension Enquiry {
         return Request(
             path: str,
             method: .get,
+            headers: headers,
+            resource: { $0 },
+            error: APIError.init,
+            needsAuthorization: true
+        )
+    }
+    
+    public static func getRevisedAdvancePaymentStatus(enquiryId: Int) -> Request<Data, APIError> {
+        var str = "enquiry/getRevisedAdvancedPaymentStatus/\(enquiryId)"
+        str = str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+        return Request(
+            path: str,
+            method: .post,
             headers: headers,
             resource: { $0 },
             error: APIError.init,

@@ -375,8 +375,8 @@ class PaymentUploadController: FormViewController{
                 }
                 if orderObject?.isBlue ?? false {
                     $0.hidden = false
-                    $0.cell.PleaseNoteLabel.text = "Please Note: The Invoice will be updated"
-                    $0.cell.EnquiryLabel.text = "Order will be dispatched once payment is approved. check orders tab"
+                    $0.cell.PleaseNoteLabel.text = "Please Note: The final tax invoice will be updated"
+                    $0.cell.EnquiryLabel.text = "Your Order will be dispatched as soon as Artisan approves your final payment receipt."
                 }
 //                if orderObject?.enquiryStageId ?? 0 < 4{
 //                    $0.hidden = true

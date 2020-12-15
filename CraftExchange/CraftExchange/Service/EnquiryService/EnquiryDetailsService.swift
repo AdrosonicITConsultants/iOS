@@ -98,12 +98,20 @@ class EnquiryDetailsService: BaseService<Data> {
         return Enquiry.ReceivedReceit(enquiryId: enquiryId).response(using: client).debug()
     }
     
+    func RevisedPaymentReceit(enquiryId: Int)-> SafeSignal<Data>  {
+        return Enquiry.RevisedPaymentReceit(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
     func FinalPaymentReceit(enquiryId: Int)-> SafeSignal<Data>  {
         return Enquiry.FinalPaymentReceit(enquiryId: enquiryId).response(using: client).debug()
     }
     
     func getAdvancePaymentStatus(enquiryId: Int)-> SafeSignal<Data>  {
         return Enquiry.getAdvancePaymentStatus(enquiryId: enquiryId).response(using: client).debug()
+    }
+    
+    func getRevisedAdvancePaymentStatus(enquiryId: Int)-> SafeSignal<Data>  {
+        return Enquiry.getRevisedAdvancePaymentStatus(enquiryId: enquiryId).response(using: client).debug()
     }
     
     func getFinalPaymentDetails(enquiryId: Int)-> SafeSignal<Data>  {

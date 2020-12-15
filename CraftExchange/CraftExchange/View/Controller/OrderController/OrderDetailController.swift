@@ -42,6 +42,7 @@ class OrderDetailController: FormViewController {
     var getPI: (() -> ())?
     var PI: GetPI?
     var advancePaymnet: PaymentStatus?
+    var revisedAdvancePayment: RevisedAdvancedPayment?
     var finalPaymnet: PaymentStatus?
     var finalPaymnetDetails: FinalPaymentDetails?
     lazy var viewModel = CreateMOQModel()
@@ -55,6 +56,7 @@ class OrderDetailController: FormViewController {
     var viewPI: ((_ isOld: Int) -> ())?
     var downloadPI: ((_ isPI: Bool,_ isOld: Bool) -> ())?
     var downloadAdvReceipt: ((_ enquiryId: Int) -> ())?
+    var downloadRevisedAdvReceipt: ((_ enquiryId: Int) -> ())?
     var downloadFinalReceipt: ((_ enquiryId: Int) -> ())?
     var downloadDeliveryReceipt: ((_ enquiryId: Int, _ imageName: String) -> ())?
     var viewTransactionReceipt: ((_ transactionObj: TransactionObject, _ isOld: Int, _ isPI: Bool) -> ())?
@@ -85,6 +87,9 @@ class OrderDetailController: FormViewController {
         let client = try! SafeClient(wrapping: CraftExchangeClient())
         let service = EnquiryDetailsService.init(client: client)
         service.advancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+        if self.orderObject?.revisedAdvancePaymentId != 0 {
+            service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+        }
         checkTransactions?()
         getOrderProgress?()
         service.finalPaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
@@ -506,7 +511,7 @@ class OrderDetailController: FormViewController {
                 $0.cell.tag = 100
                 $0.cell.nextStepsLabel.text = "Next Step -------------------->  Create & Send Final Invoice".localized
                 $0.cell.createSendInvoiceBtn.setTitle("Create & Send Final Invoice".localized, for: .normal)
-                if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7 ) && !self.isClosed{
+                if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7 ) && !self.isClosed && self.orderObject?.revisedAdvancePaymentId != 2 && self.orderObject?.revisedAdvancePaymentId != 3 {
                     $0.hidden = false
                 }
                 else{
@@ -515,7 +520,7 @@ class OrderDetailController: FormViewController {
                 }
             }
             .cellUpdate({ (cell, row) in
-                if User.loggedIn()?.refRoleId == "1" && ( self.orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed {
+                if User.loggedIn()?.refRoleId == "1" && ( self.orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed && self.orderObject?.revisedAdvancePaymentId != 2 && self.orderObject?.revisedAdvancePaymentId != 3{
                     cell.row.hidden = false
                 }
                 else{
@@ -582,6 +587,31 @@ class OrderDetailController: FormViewController {
             <<< ProFormaInvoiceRow() {
                 $0.cell.height = { 85.0 }
                 $0.cell.delegate = self
+                $0.tag = "Upload pending advance receipt"
+                $0.cell.tag = 109
+                $0.cell.nextStepsLabel.text = "Next Step ------------------->  Upload pending advance receipt".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Upload pending advance receipt".localized, for: .normal)
+                if (self.orderObject?.revisedAdvancePaymentId ?? 0 == 2 || self.orderObject?.revisedAdvancePaymentId ?? 0 == 3) && User.loggedIn()?.refRoleId == "2" && !self.isClosed{
+                    $0.hidden = false
+                }
+                else {
+                    $0.hidden = true
+                }
+            }
+            .cellUpdate({ (cell, row) in
+                
+                if (self.orderObject?.revisedAdvancePaymentId ?? 0 == 2 || self.orderObject?.revisedAdvancePaymentId ?? 0 == 3) && User.loggedIn()?.refRoleId == "2" && !self.isClosed{
+                    cell.row.hidden = false
+                }
+                else{
+                    cell.row.hidden = true
+                    cell.height = { 0.0 }
+                }
+            })
+            
+            <<< ProFormaInvoiceRow() {
+                $0.cell.height = { 85.0 }
+                $0.cell.delegate = self
                 $0.tag = "Approve final payment receipt"
                 $0.cell.tag = 103
                 $0.cell.nextStepsLabel.text = "Next Step -------------------->  Approve final payment".localized
@@ -596,6 +626,29 @@ class OrderDetailController: FormViewController {
             }.cellUpdate({ (cell, row) in
                 
                 if self.orderObject?.enquiryStageId == 8 && User.loggedIn()?.refRoleId == "1" && !self.isClosed  && self.orderObject?.isBlue ?? false{
+                    cell.row.hidden = false
+                }
+                else{
+                    cell.row.hidden = true
+                    cell.height = { 0.0 }
+                }
+            })
+            
+            <<< ProFormaInvoiceRow() {
+                $0.cell.height = { 85.0 }
+                $0.cell.delegate = self
+                $0.tag = "Approve pending advance receipt"
+                $0.cell.tag = 110
+                $0.cell.nextStepsLabel.text = "Next Step -------------------->  Approve pending advance".localized
+                $0.cell.createSendInvoiceBtn.setTitle("Approve pending advance".localized, for: .normal)
+                if self.orderObject?.revisedAdvancePaymentId == 3 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+                    $0.hidden = false
+                }
+                else {
+                    $0.hidden = true
+                }
+            }.cellUpdate({ (cell, row) in
+                if self.orderObject?.revisedAdvancePaymentId == 3 && User.loggedIn()?.refRoleId == "1" && !self.isClosed{
                     cell.row.hidden = false
                 }
                 else{
@@ -884,6 +937,9 @@ class OrderDetailController: FormViewController {
                 $0.cell.height = { 44.0 }
                 $0.cell.titleLbl.text = "Check PI".localized
                 $0.cell.valueLbl.text = "View".localized
+                if self.orderObject?.revisedAdvancePaymentId == 1 && User.loggedIn()?.refRoleId == "2" {
+                   $0.cell.valueLbl.text = "Advance payment received".localized
+                }
                 $0.cell.arrow.image = UIImage.init(systemName: "chevron.right")
                 $0.cell.arrow.tintColor = UIColor().EQBlueText()
                 $0.cell.contentView.backgroundColor = UIColor().EQBlueBg()
@@ -1044,7 +1100,7 @@ class OrderDetailController: FormViewController {
             self.form.allSections.first?.reload(with: .none)
         }
         //"Create Final Invoice"
-        if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed{
+        if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed && self.orderObject?.revisedAdvancePaymentId != 2 && self.orderObject?.revisedAdvancePaymentId != 3{
             let row = form.rowBy(tag: "Create Final Invoice")
             row?.hidden = false
             row?.evaluateHidden()
@@ -1071,6 +1127,29 @@ class OrderDetailController: FormViewController {
         }
         else {
             let row = form.rowBy(tag: "Upload final payment receipt")
+            row?.hidden = true
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
+        }
+        
+        if (self.orderObject?.revisedAdvancePaymentId ?? 0 == 2 || self.orderObject?.revisedAdvancePaymentId ?? 0 == 3) && User.loggedIn()?.refRoleId == "2" && !self.isClosed{
+            let row = form.rowBy(tag: "Upload pending advance receipt")
+            row?.hidden = false
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
+        }else{
+            let row = form.rowBy(tag: "Upload pending advance receipt")
+            row?.hidden = true
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
+        }
+        if self.orderObject?.revisedAdvancePaymentId == 3 && User.loggedIn()?.refRoleId == "1" && !self.isClosed {
+            let row = form.rowBy(tag: "Approve pending advance receipt")
+            row?.hidden = false
+            row?.evaluateHidden()
+            self.form.allSections.first?.reload(with: .none)
+        }else{
+            let row = form.rowBy(tag: "Approve pending advance receipt")
             row?.hidden = true
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
@@ -1413,20 +1492,23 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
     func createSendInvoiceBtnSelected(tag: Int) {
         switch tag{
         case 100:
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject?.enquiryId ?? 0, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
-            vc1.modalPresentationStyle = .fullScreen
-            //  if orderObject?.enquiryStageId ?? 0 >= 3 {
-            vc1.isFI = true
-            vc1.PI = self.PI
-            vc1.advancePaymnet = self.advancePaymnet
-            //  }
-            //            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
-            //                vc1.PI = self.PI
-            //            }
-            vc1.orderObject = self.orderObject
-            print("PI WORKING")
-            self.navigationController?.pushViewController(vc1, animated: true)
+            if (self.orderObject?.revisedAdvancePaymentId == 0 && self.advancePaymnet != nil) || (self.orderObject?.revisedAdvancePaymentId != 0 && self.advancePaymnet != nil && self.revisedAdvancePayment != nil) {
+                let client = try! SafeClient(wrapping: CraftExchangeClient())
+                let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject?.enquiryId ?? 0, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
+                vc1.modalPresentationStyle = .fullScreen
+                //  if orderObject?.enquiryStageId ?? 0 >= 3 {
+                vc1.isFI = true
+                vc1.PI = self.PI
+                vc1.advancePaymnet = self.advancePaymnet
+                vc1.revisedAdvancePayment = self.revisedAdvancePayment
+                //  }
+                //            if self.orderObject?.productStatusId == 2 && orderObject?.enquiryStageId == 3{
+                //                vc1.PI = self.PI
+                //            }
+                vc1.orderObject = self.orderObject
+                print("PI WORKING")
+                self.navigationController?.pushViewController(vc1, animated: true)
+            }
             print("createSendInvoiceBtnSelected WORKING")
         case 101:
             let client = try? SafeClient(wrapping: CraftExchangeClient())
@@ -1471,6 +1553,38 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
             self.view.showPartialRefundReceivedView(controller: self, enquiryCode: orderObject?.orderCode, confirmQuestion: "Are you sure you want to recreate order?".localized)
         case 108:
             self.view.showMarkAsDispatchedView(controller: self)
+            
+        case 109:
+            if self.orderObject?.revisedAdvancePaymentId == 2{
+                let vc1 = RevisedPaymentController.init(style: .plain)
+                vc1.orderObject = self.orderObject
+                vc1.Payment = self.revisedAdvancePayment
+                vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
+                vc1.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc1, animated: true)
+                print("uploadReceiptBtnSelected")
+            }
+            else if self.orderObject?.revisedAdvancePaymentId == 3{
+                let client = try? SafeClient(wrapping: CraftExchangeClient())
+                let vc1 = EnquiryDetailsService(client: client!).createRevisedPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! RevisedPaymentUploadController
+                vc1.orderObject = self.orderObject
+                vc1.revisedPayment = self.revisedAdvancePayment
+                vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
+                vc1.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc1, animated: true)
+            }
+        case 110:
+            if revisedAdvancePayment != nil {
+                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentArtistController") as! PaymentArtistController
+                vc1.orderObject = self.orderObject
+                vc1.revisedAdvancePayment = self.revisedAdvancePayment
+                vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
+                vc1.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc1, animated: true)
+                
+            }
+        
         default:
             print("NOt Working PI")
         }
@@ -1748,6 +1862,7 @@ extension OrderDetailController: TransactionListProtocol, TransactionReceiptView
                 print(obj)
                 let invoiceStateArray = [1,2,3,4,5]
                 let advancePaymentArray = [6,8,10]
+                let revisedAdvancePaymentArray = [24,25,26,27,28,29]
                 let taxInvoiceArray = [12,13]
                 let finalPaymentarray = [14,16,18]
                 let deliveryReciptArray = [20]
@@ -1755,6 +1870,9 @@ extension OrderDetailController: TransactionListProtocol, TransactionReceiptView
                     self.viewTransactionReceipt?(obj, 0, true)
                 }else if advancePaymentArray.contains(obj.accomplishedStatus){
                     self.downloadAdvReceipt?(obj.enquiryId)
+                }
+                else if revisedAdvancePaymentArray.contains(obj.accomplishedStatus){
+                    self.downloadRevisedAdvReceipt?(obj.enquiryId)
                 }
                 else if finalPaymentarray.contains(obj.accomplishedStatus){
                     self.downloadFinalReceipt?(obj.enquiryId)
