@@ -1023,6 +1023,11 @@ class OrderDetailController: FormViewController {
             }
         }
         
+        if self.orderObject?.revisedAdvancePaymentId == 1 && User.loggedIn()?.refRoleId == "2" {
+            let row = form.rowBy(tag: "Check PI") as? BuyerEnquirySectionViewRow
+           row?.cell.valueLbl.text = "Advance payment received".localized
+        }
+        
         if self.orderObject?.isReprocess == 1  {
             let row = form.rowBy(tag: "Order under Recreation")
             row?.hidden = false
@@ -1101,8 +1106,9 @@ class OrderDetailController: FormViewController {
         }
         //"Create Final Invoice"
         if User.loggedIn()?.refRoleId == "1" && (orderObject?.enquiryStageId ?? 0 <= 7) && !self.isClosed && self.orderObject?.revisedAdvancePaymentId != 2 && self.orderObject?.revisedAdvancePaymentId != 3{
-            let row = form.rowBy(tag: "Create Final Invoice")
+            let row = form.rowBy(tag: "Create Final Invoice") as? ProFormaInvoiceRow
             row?.hidden = false
+            row?.cell.height = { 85.0 }
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
@@ -1113,8 +1119,9 @@ class OrderDetailController: FormViewController {
             //            self.form.allSections.first?.reload(with: .none)
             //        }
         else{
-            let row = form.rowBy(tag: "Create Final Invoice")
+            let row = form.rowBy(tag: "Create Final Invoice") as? ProFormaInvoiceRow
             row?.hidden = true
+            row?.cell.height = { 0.0 }
             row?.evaluateHidden()
             self.form.allSections.first?.reload(with: .none)
         }
@@ -1556,15 +1563,24 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
             
         case 109:
             if self.orderObject?.revisedAdvancePaymentId == 2{
-                let vc1 = RevisedPaymentController.init(style: .plain)
-                vc1.orderObject = self.orderObject
-                vc1.Payment = self.revisedAdvancePayment
-                vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-                print("uploadReceiptBtnSelected")
+                if self.revisedAdvancePayment != nil {
+                    let vc1 = RevisedPaymentController.init(style: .plain)
+                    vc1.orderObject = self.orderObject
+                    vc1.Payment = self.revisedAdvancePayment
+                    vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
+                    vc1.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(vc1, animated: true)
+                    print("uploadReceiptBtnSelected")
+                }else{
+                    let client = try! SafeClient(wrapping: CraftExchangeClient())
+                    let service = EnquiryDetailsService.init(client: client)
+                    if self.orderObject?.revisedAdvancePaymentId != 0 {
+                        service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+                    }
+                }
             }
             else if self.orderObject?.revisedAdvancePaymentId == 3{
+                if self.revisedAdvancePayment != nil {
                 let client = try? SafeClient(wrapping: CraftExchangeClient())
                 let vc1 = EnquiryDetailsService(client: client!).createRevisedPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! RevisedPaymentUploadController
                 vc1.orderObject = self.orderObject
@@ -1572,6 +1588,13 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
                 vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
                 vc1.modalPresentationStyle = .fullScreen
                 self.navigationController?.pushViewController(vc1, animated: true)
+                }else{
+                    let client = try! SafeClient(wrapping: CraftExchangeClient())
+                    let service = EnquiryDetailsService.init(client: client)
+                    if self.orderObject?.revisedAdvancePaymentId != 0 {
+                        service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+                    }
+                }
             }
         case 110:
             if revisedAdvancePayment != nil {
@@ -1583,6 +1606,12 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
                 vc1.modalPresentationStyle = .fullScreen
                 self.navigationController?.pushViewController(vc1, animated: true)
                 
+            }else{
+                let client = try! SafeClient(wrapping: CraftExchangeClient())
+                let service = EnquiryDetailsService.init(client: client)
+                if self.orderObject?.revisedAdvancePaymentId != 0 {
+                    service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+                }
             }
         
         default:
