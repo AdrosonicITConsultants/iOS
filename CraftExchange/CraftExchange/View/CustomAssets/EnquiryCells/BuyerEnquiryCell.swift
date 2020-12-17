@@ -39,6 +39,10 @@ class BuyerEnquiryCell: UITableViewCell {
         costLabel.text = enquiryObj.totalAmount != 0 ? "₹ \(enquiryObj.totalAmount)" : "NA"
         dateLabel.text = "Updated on: \(enquiryObj.lastUpdated?.split(separator: "T").first ?? "")"
         statusLabel.text = "\(EnquiryStages.getStageType(searchId: enquiryObj.enquiryStageId)?.stageDescription ?? "-")"
+        if enquiryObj.enquiryStageId == 5{
+            statusLabel.text = "\(EnquiryInnerStages.getStageType(searchId: enquiryObj.innerEnquiryStageId )?.stageDescription ?? "NA")"
+            
+        }
         if enquiryObj.enquiryStageId < 5 {
             statusLabel.textColor = .black
             statusDot.backgroundColor = .black
@@ -111,6 +115,10 @@ class BuyerEnquiryCell: UITableViewCell {
             dateLabel.text = "Updated On: \(Date().ttceISOString(isoDate: date))"
         }
         statusLabel.text = "\(EnquiryStages.getStageType(searchId: orderObj.enquiryStageId)?.stageDescription ?? "-")"
+        if orderObj.enquiryStageId == 5{
+            statusLabel.text = "\(EnquiryInnerStages.getStageType(searchId: orderObj.innerEnquiryStageId )?.stageDescription ?? "NA")"
+            
+        }
         if orderObj.enquiryStageId < 5 {
             statusLabel.textColor = .black
             statusDot.backgroundColor = .black

@@ -273,7 +273,7 @@ extension OrderDetailsService {
                                                     transactionObj.saveOrUpdate()
                                                     finalArray?.append(transactionObj.entityID)
                                                     if finalArray?.count == transactionArray.count {
-                                                        let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
+                                                        let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0).sorted(byKeyPath: "modifiedOn", ascending: false)
                                                         vc.listTransactions = transactions.compactMap({$0})
                                                         vc.listTransactionsFunc()
                                                     }
@@ -301,7 +301,7 @@ extension OrderDetailsService {
                                                     transactionObj.saveOrUpdate()
                                                     finalArray?.append(transactionObj.entityID)
                                                     if finalArray?.count == transactionArray.count {
-                                                        let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
+                                                        let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0).sorted(byKeyPath: "modifiedOn", ascending: false)
                                                         vc.listTransactions = transactions.compactMap({$0})
                                                         vc.listTransactionsFunc()
                                                     }
@@ -317,7 +317,7 @@ extension OrderDetailsService {
                     }
                 }
             }
-            let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0)
+            let transactions = TransactionObject.getTransactionObjects(searchId: vc.orderObject?.entityID ?? 0).sorted(byKeyPath: "modifiedOn", ascending: false)
             vc.listTransactions = transactions.compactMap({$0})
         }
         

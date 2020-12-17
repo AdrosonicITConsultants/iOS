@@ -145,12 +145,28 @@ extension NotificationController: UITableViewDataSource, UITableViewDelegate {
             enquiryImage = UIImage.init(named: "Enquiry")
         case "Moq Received","Moq accepted":
             enquiryImage = UIImage.init(named: "MOQ")
-        case "Pi finalized", "Tax Invoice Raised", "Delivery Challan Uploaded", "Order Received":
+        case "Pi finalized", "Tax Invoice Raised", "Delivery Challan Uploaded", "Order Received", "Issue resolved", "Order Dispached", "Partial Payment Received", "Revised Pi", "Order Closed" :
             enquiryImage = UIImage.init(named: "Pi")
-        case "Advance Payment Received", "Advanced Payment Accepted":
+        case "Advance Payment Received", "Advanced Payment Accepted", "Advanced Payment Rejected", "Final Payment Received", "Final Payment Accepted", "Final Payment Rejected", "Revised Advance Payment Received", "Revised Advanced Payment Accepted", "Revised Advanced Payment Rejected":
             enquiryImage = UIImage.init(named: "AdvancePayment")
-        case "Change Requested Initiated","Change Requested Accepted":
+        case "Change Requested Initiated","Change Requested Accepted", "Change Request Rejected":
             enquiryImage = UIImage.init(named: "ChangeRequest")
+        case "Yarn procured", "Yarn dye", "Pre loom process", "Weaving", "Post loom process", "Completion of Order":
+        enquiryImage = UIImage.init(named: "made to order noti")
+        case "Qc Received" :
+        enquiryImage = UIImage.init(named: "QC noti")
+        case "Faulty Order" :
+            enquiryImage = UIImage.init(named: "faulty order")
+        case "Escalation Received" :
+            enquiryImage = UIImage.init(named: "alert noti")
+        case "Escalation Raised" :
+        enquiryImage = UIImage.init(named: "alert red")
+        case "Escalation Resolved" :
+        enquiryImage = UIImage.init(named: "alert green")
+        case "Order Regenerated", "Order Dispatched After Recreation" :
+            enquiryImage = UIImage.init(named: "order recreated")
+        case "Rating Received" :
+            enquiryImage = UIImage.init(named: "rating order")
         default:
             enquiryImage = UIImage.init(named: "Enquiry")
         }

@@ -28,7 +28,7 @@ class TransactionTitleRow: Cell<String>, CellType {
             icon.image = UIImage.init(named: "Group 1853")
         }else if transaction.accomplishedStatus == 12 || transaction.accomplishedStatus == 14 {
             //Tax Invoice received & Tax Invoice receipt Upload
-            icon.image = UIImage.init(named: "Group 1834")
+            icon.image = UIImage.init(named: "Group 1840")
         }else if transaction.accomplishedStatus == 8 || transaction.accomplishedStatus == 10 {
             //Advance Payment
             if(transaction.upcomingStatus == 11){
@@ -38,17 +38,27 @@ class TransactionTitleRow: Cell<String>, CellType {
             }
         }else if transaction.accomplishedStatus == 16 || transaction.accomplishedStatus == 18 {
             //Final Payment
-            if(transaction.upcomingStatus == 17){
+//            if(transaction.upcomingStatus == 17){
                 icon.image = UIImage.init(named: "Group 1834")
-            }else{
-                icon.image = UIImage.init(named: "Group 1840")
-            }
+//            }else{
+//                icon.image = UIImage.init(named: "Group 1840")
+//            }
         }else if transaction.accomplishedStatus == 20 || transaction.accomplishedStatus == 22 {
             //Delivery Challan Upload
             icon.image = UIImage.init(named: "Group 1835")
         }else if transaction.accomplishedStatus == 23 {
             //Order Delivered
             icon.image = UIImage.init(named: "Group 1860")
+        }else if transaction.accomplishedStatus == 24 {
+            //Revised PI & Advance Payment
+            icon.image = UIImage.init(named: "revised advance payment - in verification")
+        }else if transaction.accomplishedStatus == 26 || transaction.accomplishedStatus == 28 {
+            //Revised Advance Payment
+            if(transaction.upcomingStatus == 29){
+                icon.image = UIImage.init(named: "revised advance payment - rejected")
+            }else{
+                icon.image = UIImage.init(named: "revised advance payment - accepted")
+            }
         }else {
             icon.image = UIImage.init(named: "Group 1834")
         }
