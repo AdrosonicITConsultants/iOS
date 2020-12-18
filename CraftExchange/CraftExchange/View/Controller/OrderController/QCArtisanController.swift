@@ -66,6 +66,7 @@ class QCArtisanController: FormViewController {
             +++ Section()
             <<< EnquiryDetailsRow() { (row) in
                 row.configureRow(orderObject: orderObject, enquiryObject: nil)
+                row.loadRowImage(orderObject: orderObject, enquiryObject: nil)
             }.cellUpdate({ (cell, row) in
                 row.cellUpdate(orderObject: self.orderObject, enquiryObject: nil)
             })

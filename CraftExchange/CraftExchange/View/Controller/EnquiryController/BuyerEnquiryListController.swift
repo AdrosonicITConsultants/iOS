@@ -114,7 +114,7 @@ extension BuyerEnquiryListController: UITableViewDataSource, UITableViewDelegate
             if segmentView.selectedSegmentIndex == 1 {
                 if obj.enquiryStageId == 10 {
                     cell.statusLabel.textColor = UIColor().CEGreen()
-                    cell.statusLabel.text = "Enquiry Completed"
+                    cell.statusLabel.text = "Order Completed"
                     cell.statusDot.backgroundColor = UIColor().CEGreen()
                 }else {
                     cell.statusLabel.textColor = .red

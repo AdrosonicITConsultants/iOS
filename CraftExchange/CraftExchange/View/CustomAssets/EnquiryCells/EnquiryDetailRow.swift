@@ -46,30 +46,15 @@ extension EnquiryDetailsRow {
         self.cell.height = { 220.0 }
         self.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
         if orderObject?.productType == "Custom Product" {
-            self.cell.designByLbl.text = "Requested Custom Design"
+            if orderObject?.brandName?.isNotBlank ?? false {
+                self.cell.designByLbl.text = orderObject?.brandName ?? "Requested Custom Design"
+            }else{
+                self.cell.designByLbl.text = "Requested Custom Design"
+            }
         }else {
             self.cell.designByLbl.text = orderObject?.brandName
         }
         self.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
-        if let tag = orderObject?.productImages?.components(separatedBy: ",").first, let prodId = orderObject?.productId {
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                self.cell.productImage.image = downloadedImage
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client)
-                    service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                            self.cell.productImage.image = UIImage.init(data: attachment)
-                            self.reload()
-                        }
-                    }.dispose()
-                }catch {
-                    print(error.localizedDescription)
-                }
-            }
-        }
     }
     
     func cellUpdate(orderObject: Order?, enquiryObject: Enquiry?) {
@@ -87,5 +72,53 @@ extension EnquiryDetailsRow {
         if let date = orderObject?.lastUpdated {
             cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
         }
+    }
+    
+    func loadRowImage(orderObject: Order?, enquiryObject: Enquiry?) {
+        if orderObject?.productType ?? enquiryObject?.productType == "Custom Product" {
+            if orderObject?.brandName?.isNotBlank ?? enquiryObject?.brandName?.isNotBlank ?? false {
+                self.cell.designByLbl.text = orderObject?.brandName ?? enquiryObject?.brandName ?? "Requested Custom Design"
+            }else{
+                self.cell.designByLbl.text = "Requested Custom Design"
+            }
+        }else {
+            self.cell.designByLbl.text = orderObject?.brandName ?? enquiryObject?.brandName
+        }
+        if let tag = orderObject?.productImages?.components(separatedBy: ",").first ?? enquiryObject?.productImages?.components(separatedBy: ",").first , let prodId = orderObject?.productId ?? enquiryObject?.productId{
+            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                self.cell.productImage.image = downloadedImage
+            }else {
+                if orderObject?.productType == "Custom Product" {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = CustomProductImageService.init(client: client)
+                        service.fetchCustomImage(withName: tag, prodId: prodId).observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                self.cell.productImage.image = UIImage.init(data: attachment)
+                                self.reload()
+                            }
+                        }.dispose()
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = ProductImageService.init(client: client)
+                        service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                self.cell.productImage.image = UIImage.init(data: attachment)
+                                self.reload()
+                            }
+                        }.dispose()
+                    }catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+        }
+
     }
 }

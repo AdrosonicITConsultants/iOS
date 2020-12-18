@@ -85,33 +85,9 @@ class RaiseConcernController: FormViewController {
                // $0.cell.statusLbl.text = ""
                 $0.cell.faultyStrings.isHidden = false
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
-                if orderObject?.productType == "Custom Product" {
-                    $0.cell.designByLbl.text = "Requested Custom Design"
-                }else {
-                    $0.cell.designByLbl.text = orderObject?.brandName
-                }
+                
                 $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
-                if let tag = orderObject?.productImages?.components(separatedBy: ",").first, let prodId = orderObject?.productId {
-                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                        $0.cell.productImage.image = downloadedImage
-                    }else {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                            let service = ProductImageService.init(client: client)
-                            service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
-                                DispatchQueue.main.async {
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                    let row = self.form.rowBy(tag: "EnquiryDetailsRow") as! EnquiryDetailsRow
-                                    row.cell.productImage.image = UIImage.init(data: attachment)
-                                    row.reload()
-                                }
-                            }.dispose(in: bag)
-                        }catch {
-                            print(error.localizedDescription)
-                        }
-                        
-                    }
-                }
+                $0.loadRowImage(orderObject: orderObject, enquiryObject: nil)
             }.cellUpdate({ (cell, row) in
                 
 //                if self.orderProgress?.isFaulty == 0  && User.loggedIn()?.refRoleId == "2" {

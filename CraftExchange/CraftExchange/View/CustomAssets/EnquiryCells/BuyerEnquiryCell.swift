@@ -25,15 +25,22 @@ class BuyerEnquiryCell: UITableViewCell {
         enquiryCodeLabel.text = enquiryObj.enquiryCode
         prodDetailLabel.text = "\(ProductCategory.getProductCat(catId: enquiryObj.productCategoryId)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObj.warpYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObj.weftYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObj.extraWeftYarnId)?.yarnDesc ?? "-")"
         if enquiryObj.productType == "Custom Product" {
-            brandLabel.text = "Requested Custom Design"
-            availabilityLabel.isHidden = true
+            if enquiryObj.brandName?.isNotBlank ?? false {
+              brandLabel.text = enquiryObj.brandName
+                availabilityLabel.isHidden = false
+                availabilityLabel.text = "Requested Custom Design".localized
+            }else{
+                brandLabel.text = "Requested Custom Design".localized
+                availabilityLabel.isHidden = true
+            }
+            
         }else {
             brandLabel.text = enquiryObj.brandName
             availabilityLabel.isHidden = false
         }
         if enquiryObj.productStatusId == 2 {
             availabilityLabel.text = "Available in stock".localized
-        }else {
+        }else if enquiryObj.productStatusId == 1 {
             availabilityLabel.text = "Make to order".localized
         }
         costLabel.text = enquiryObj.totalAmount != 0 ? "₹ \(enquiryObj.totalAmount)" : "NA"
@@ -99,16 +106,23 @@ class BuyerEnquiryCell: UITableViewCell {
         enquiryCodeLabel.text = orderObj.orderCode
         prodDetailLabel.text = "\(ProductCategory.getProductCat(catId: orderObj.productCategoryId)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObj.warpYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObj.weftYarnId)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObj.extraWeftYarnId)?.yarnDesc ?? "-")"
         if orderObj.productType == "Custom Product" {
-            brandLabel.text = "Requested Custom Design"
-            availabilityLabel.isHidden = true
+            if orderObj.brandName?.isNotBlank ?? false {
+              brandLabel.text = orderObj.brandName
+                availabilityLabel.isHidden = false
+                availabilityLabel.text = "Requested Custom Design".localized
+            }else{
+                brandLabel.text = "Requested Custom Design".localized
+                availabilityLabel.isHidden = true
+            }
+            
         }else {
             brandLabel.text = orderObj.brandName
             availabilityLabel.isHidden = false
         }
         if orderObj.productStatusId == 2 {
-            availabilityLabel.text = "Available in stock"
-        }else {
-            availabilityLabel.text = "Make to order"
+            availabilityLabel.text = "Available in stock".localized
+        }else if orderObj.productStatusId == 1 {
+            availabilityLabel.text = "Make to order".localized
         }
         costLabel.text = orderObj.totalAmount != 0 ? "₹ \(orderObj.totalAmount)" : "NA"
         if let date = orderObj.lastUpdated {

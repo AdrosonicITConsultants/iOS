@@ -88,33 +88,9 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.selectionStyle = .none
                 $0.cell.height = { 200.0 }
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
-                if enquiryObject?.productType == "Custom Product" {
-                    $0.cell.designByLbl.text = "Requested Custom Design"
-                }else {
-                    $0.cell.designByLbl.text = enquiryObject?.brandName
-                }
+                
                 $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
-                if let tag = enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = enquiryObject?.productId {
-                    if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                        $0.cell.productImage.image = downloadedImage
-                    }else {
-                        do {
-                            let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                            let service = ProductImageService.init(client: client)
-                            service.fetch(withId: prodId, withName: tag).observeNext { (attachment) in
-                                DispatchQueue.main.async {
-                                    _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                                    let row = self.form.rowBy(tag: "EnquiryDetailsRow") as! EnquiryDetailsRow
-                                    row.cell.productImage.image = UIImage.init(data: attachment)
-                                    row.reload()
-                                }
-                            }.dispose(in: bag)
-                        }catch {
-                            print(error.localizedDescription)
-                        }
-                        
-                    }
-                }
+                $0.loadRowImage(orderObject: nil, enquiryObject: enquiryObject)
             }.cellUpdate({ (cell, row) in
 //                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
 //                if self.enquiryObject?.enquiryStageId ?? 0 < 5 {
@@ -178,7 +154,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.height = { 110.0 }
                 if enquiryObject?.enquiryStageId == 10 {
                     $0.cell.dotView.backgroundColor = UIColor().CEGreen()
-                    $0.cell.enquiryLabel.text = "Enquiry Completed".localized
+                    $0.cell.enquiryLabel.text = "Order Completed".localized
                     $0.cell.enquiryLabel.textColor = UIColor().CEGreen()
                 }else {
                     $0.cell.dotView.backgroundColor = .red
