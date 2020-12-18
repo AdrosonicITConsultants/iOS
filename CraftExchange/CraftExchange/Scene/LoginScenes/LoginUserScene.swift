@@ -10,6 +10,7 @@ import Foundation
 import Bond
 import ReactiveKit
 import UIKit
+import RealmSwift
 
 extension LoginUserService {
     
@@ -46,8 +47,9 @@ extension LoginUserService {
                                 }
                                 let userData = try JSONSerialization.data(withJSONObject: userObj, options: .prettyPrinted)
                                 let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
-                                loggedInUser?.saveOrUpdate()
+                                
                                 DispatchQueue.main.async {
+                                    loggedInUser?.saveOrUpdate()
                                     KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
                                     KeychainManager.standard.userID = userObj["id"] as? Int ?? 0
                                     KeychainManager.standard.username = userObj["firstName"] as? String ?? ""
@@ -102,12 +104,17 @@ extension LoginUserService {
     }
     func logoutFunc(vc: UIViewController) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        vc.showLoading()
+        let realm = try? Realm()
+        try? realm?.write {
+          realm?.deleteAll()
+        }
         appDelegate?.tabbar = nil
         appDelegate?.artisanTabbar = nil
         KeychainManager.standard.deleteAll()
         UIApplication.shared.unregisterForRemoteNotifications()
         UIApplication.shared.applicationIconBadgeNumber = 0
-        vc.showLoading()
+      
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc1 = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
         vc1.modalPresentationStyle = .fullScreen

@@ -41,17 +41,18 @@ class PaymentArtistController: FormViewController{
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        
-        if orderObject?.revisedAdvancePaymentId == 3 {
-            service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 3)
-        }
-        else if orderObject?.enquiryStageId == 8 {
-            service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 2)
-        }else{
-            service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
-            service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 1)
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = EnquiryDetailsService.init(client: client)
+            
+            if orderObject?.revisedAdvancePaymentId == 3 {
+                service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 3)
+            }
+            else if orderObject?.enquiryStageId == 8 {
+                service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 2)
+            }else{
+                service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
+                service.downloadAndViewReceipt(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0, typeId: 1)
+            }
         }
         
         
@@ -162,16 +163,17 @@ extension PaymentArtistController: ApproveButtonProtocol {
         case 5:
             self.status = 2
             self.showLoading()
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let service = EnquiryDetailsService.init(client: client)
-            if let order = self.orderObject {
-                if order.revisedAdvancePaymentId == 3 {
-                   service.validatePaymentFunc(vc: self,typeId: 3, enquiryId: order.enquiryId, status: self.status!)
-                }else{
-                   service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let service = EnquiryDetailsService.init(client: client)
+                if let order = self.orderObject {
+                    if order.revisedAdvancePaymentId == 3 {
+                        service.validatePaymentFunc(vc: self,typeId: 3, enquiryId: order.enquiryId, status: self.status!)
+                    }else{
+                        service.validatePaymentFunc(vc: self,typeId: 2, enquiryId: order.enquiryId, status: self.status!)
+                    }
+                }else if let enquiry = self.enquiryObject {
+                    service.validatePaymentFunc(vc: self,typeId: 1, enquiryId: enquiry.enquiryId, status: self.status!)
                 }
-            }else if let enquiry = self.enquiryObject {
-                service.validatePaymentFunc(vc: self,typeId: 1, enquiryId: enquiry.enquiryId, status: self.status!)
             }
         default:
             print("do nothing")
@@ -183,16 +185,17 @@ extension PaymentArtistController: ApproveButtonProtocol {
         case 5:
             self.status = 1
             self.showLoading()
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let service = EnquiryDetailsService.init(client: client)
-            if let order = self.orderObject {
-                if order.revisedAdvancePaymentId == 3 {
-                   service.validatePaymentFunc(vc: self,typeId: 3, enquiryId: order.enquiryId, status: self.status!)
-                }else{
-                  service.validatePaymentFunc(vc: self,typeId:2, enquiryId: order.enquiryId, status: self.status!)
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let service = EnquiryDetailsService.init(client: client)
+                if let order = self.orderObject {
+                    if order.revisedAdvancePaymentId == 3 {
+                        service.validatePaymentFunc(vc: self,typeId: 3, enquiryId: order.enquiryId, status: self.status!)
+                    }else{
+                        service.validatePaymentFunc(vc: self,typeId:2, enquiryId: order.enquiryId, status: self.status!)
+                    }
+                }else if let enquiry = self.enquiryObject {
+                    service.validatePaymentFunc(vc: self,typeId:1, enquiryId: enquiry.enquiryId, status: self.status!)
                 }
-            }else if let enquiry = self.enquiryObject {
-                service.validatePaymentFunc(vc: self,typeId:1, enquiryId: enquiry.enquiryId, status: self.status!)
             }
         default:
             print("do nothing")

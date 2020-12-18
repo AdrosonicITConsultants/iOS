@@ -84,16 +84,18 @@ class OrderDetailController: FormViewController {
         // checkMOQ?()
         // checkMOQs?()
         getPI?()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        service.advancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
-        if self.orderObject?.revisedAdvancePaymentId != 0 {
-            service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = EnquiryDetailsService.init(client: client)
+            service.advancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+            if self.orderObject?.revisedAdvancePaymentId != 0 {
+                service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+            }
+            service.finalPaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+            service.finalPaymentDetails(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
         }
         checkTransactions?()
         getOrderProgress?()
-        service.finalPaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
-        service.finalPaymentDetails(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+        
         
         let rightButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: self, action: #selector(goToChat))
         rightButtonItem.image = UIImage.init(named: "ios magenta chat")
@@ -1500,7 +1502,7 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
         switch tag{
         case 100:
             if (self.orderObject?.revisedAdvancePaymentId == 0 && self.advancePaymnet != nil) || (self.orderObject?.revisedAdvancePaymentId != 0 && self.advancePaymnet != nil && self.revisedAdvancePayment != nil) {
-                let client = try! SafeClient(wrapping: CraftExchangeClient())
+                if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
                 let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject?.enquiryId ?? 0, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
                 vc1.modalPresentationStyle = .fullScreen
                 //  if orderObject?.enquiryStageId ?? 0 >= 3 {
@@ -1516,26 +1518,31 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
                 print("PI WORKING")
                 self.navigationController?.pushViewController(vc1, animated: true)
             }
+            }
             print("createSendInvoiceBtnSelected WORKING")
         case 101:
-            let client = try? SafeClient(wrapping: CraftExchangeClient())
-            let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! PaymentUploadController
-            vc1.orderObject = self.orderObject
-            vc1.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc1, animated: true)
-        case 102:
-            if finalPaymnetDetails != nil {
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject!.enquiryId) as! PaymentUploadController
+            
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let vc1 = EnquiryDetailsService(client: client).createPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! PaymentUploadController
                 vc1.orderObject = self.orderObject
-                vc1.finalPaymnetDetails = self.finalPaymnetDetails
-                vc1.viewModel.totalAmount.value = "\(self.finalPaymnetDetails!.totalAmount)"
-                vc1.viewModel.paidAmount.value = "\(self.finalPaymnetDetails!.payableAmount)"
-                vc1.viewModel.pid.value = "\(self.finalPaymnetDetails!.pid)"
-                vc1.viewModel.percentage.value = "0"
-                vc1.viewModel.invoiceId.value = "\(self.finalPaymnetDetails!.invoiceId)"
                 vc1.modalPresentationStyle = .fullScreen
                 self.navigationController?.pushViewController(vc1, animated: true)
+            }
+        case 102:
+            if finalPaymnetDetails != nil {
+                
+                if  let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                    let vc1 = EnquiryDetailsService(client: client).createPaymentScene(enquiryId: self.orderObject!.enquiryId) as! PaymentUploadController
+                    vc1.orderObject = self.orderObject
+                    vc1.finalPaymnetDetails = self.finalPaymnetDetails
+                    vc1.viewModel.totalAmount.value = "\(self.finalPaymnetDetails!.totalAmount)"
+                    vc1.viewModel.paidAmount.value = "\(self.finalPaymnetDetails!.payableAmount)"
+                    vc1.viewModel.pid.value = "\(self.finalPaymnetDetails!.pid)"
+                    vc1.viewModel.percentage.value = "0"
+                    vc1.viewModel.invoiceId.value = "\(self.finalPaymnetDetails!.invoiceId)"
+                    vc1.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(vc1, animated: true)
+                }
             }
         case 103:
             if finalPaymnetDetails != nil {
@@ -1572,29 +1579,33 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
                     self.navigationController?.pushViewController(vc1, animated: true)
                     print("uploadReceiptBtnSelected")
                 }else{
-                    let client = try! SafeClient(wrapping: CraftExchangeClient())
+                    if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
                     let service = EnquiryDetailsService.init(client: client)
                     if self.orderObject?.revisedAdvancePaymentId != 0 {
                         service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
                     }
+                }
                 }
             }
             else if self.orderObject?.revisedAdvancePaymentId == 3{
                 if self.revisedAdvancePayment != nil {
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createRevisedPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! RevisedPaymentUploadController
-                vc1.orderObject = self.orderObject
-                vc1.revisedPayment = self.revisedAdvancePayment
-                vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-                }else{
-                    let client = try! SafeClient(wrapping: CraftExchangeClient())
-                    let service = EnquiryDetailsService.init(client: client)
-                    if self.orderObject?.revisedAdvancePaymentId != 0 {
-                        service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+                  
+                        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                        let vc1 = EnquiryDetailsService(client: client).createRevisedPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! RevisedPaymentUploadController
+                        vc1.orderObject = self.orderObject
+                        vc1.revisedPayment = self.revisedAdvancePayment
+                        vc1.revisedAdvancePaymentId = self.orderObject?.revisedAdvancePaymentId ?? 0
+                        vc1.modalPresentationStyle = .fullScreen
+                        self.navigationController?.pushViewController(vc1, animated: true)
                     }
-                }
+                }else{
+                    
+                    if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                        let service = EnquiryDetailsService.init(client: client)
+                        if self.orderObject?.revisedAdvancePaymentId != 0 {
+                            service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+                        }
+                    }                }
             }
         case 110:
             if revisedAdvancePayment != nil {
@@ -1607,10 +1618,12 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
                 self.navigationController?.pushViewController(vc1, animated: true)
                 
             }else{
-                let client = try! SafeClient(wrapping: CraftExchangeClient())
-                let service = EnquiryDetailsService.init(client: client)
-                if self.orderObject?.revisedAdvancePaymentId != 0 {
-                    service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+                
+                    if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                    let service = EnquiryDetailsService.init(client: client)
+                    if self.orderObject?.revisedAdvancePaymentId != 0 {
+                        service.revisedAdvancePaymentStatus(vc: self, enquiryId: self.orderObject?.entityID ?? 0)
+                    }
                 }
             }
         
@@ -1713,12 +1726,13 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     
     func RefundYesButtonSelected() {
         if  User.loggedIn()?.refRoleId == "2" {
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
             let service = EnquiryDetailsService.init(client: client)
             self.showLoading()
             if orderObject?.enquiryId != nil {
                 service.completeOrder(enquiryId: orderObject!.enquiryId, vc: self)
             }
+        }
         }
         if User.loggedIn()?.refRoleId == "1" {
             self.recreateOrder?()
@@ -1735,9 +1749,10 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     func MarkAsDispatchedButtonSelected() {
         self.showLoading()
         if orderObject?.enquiryStageId == 9 {
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let service = EnquiryDetailsService.init(client: client)
-            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 10, innerStageId: 0)
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let service = EnquiryDetailsService.init(client: client)
+                service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 10, innerStageId: 0)
+            }
         }
         if orderObject?.isReprocess == 1{
             self.orderDispatchAfterRecreation?()
@@ -1755,11 +1770,12 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     }
     
     func closeOrderYesButtonSelected() {
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        self.showLoading()
-        if orderObject?.enquiryId != nil {
-            service.closeOrder(enquiryId: orderObject!.enquiryId,enquiryCode: orderObject?.enquiryCode ?? "", productStatusId: orderObject?.productStatusId ?? 0, vc: self)
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = EnquiryDetailsService.init(client: client)
+            self.showLoading()
+            if orderObject?.enquiryId != nil {
+                service.closeOrder(enquiryId: orderObject?.enquiryId ?? 0,enquiryCode: orderObject?.enquiryCode ?? "", productStatusId: orderObject?.productStatusId ?? 0, vc: self)
+            }
         }
         
     }
@@ -1785,27 +1801,27 @@ extension OrderDetailController: AcceptedPIViewProtocol, paymentButtonProtocol, 
     //    }
     ///final payment
     func paymentBtnSelected(tag: Int) {
-        switch tag{
-        case 100:
-            if self.orderObject?.isBlue ?? false || self.orderObject?.enquiryStageId ?? 0 >= 4{
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject!.enquiryId) as! PaymentUploadController
-                vc1.orderObject = self.orderObject
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-            }
-            else{
-                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
-                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
-                vc1.orderObject = self.orderObject
-                vc1.PI = self.PI
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
-                print("uploadReceiptBtnSelected")
-            }
-        default:
+//        switch tag{
+//        case 100:
+//            if self.orderObject?.isBlue ?? false || self.orderObject?.enquiryStageId ?? 0 >= 4{
+//                let client = try? SafeClient(wrapping: CraftExchangeClient())
+//                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! PaymentUploadController
+//                vc1.orderObject = self.orderObject
+//                vc1.modalPresentationStyle = .fullScreen
+//                self.navigationController?.pushViewController(vc1, animated: true)
+//            }
+//            else{
+//                let storyboard = UIStoryboard(name: "Payment", bundle: nil)
+//                let vc1 = storyboard.instantiateViewController(withIdentifier: "PaymentBuyerOneController") as! PaymentBuyerOneController
+//                vc1.orderObject = self.orderObject
+//                vc1.PI = self.PI
+//                vc1.modalPresentationStyle = .fullScreen
+//                self.navigationController?.pushViewController(vc1, animated: true)
+//                print("uploadReceiptBtnSelected")
+//            }
+//        default:
             print("uploadReceiptBtnSelected Not WORKING")
-        }
+       // }
     }
     
     func backButtonSelected() {
@@ -1850,21 +1866,23 @@ extension OrderDetailController: MarkCompleteAndNextProtocol, StartstageProtocol
     
     func MarkProgressSelected(tag: Int) {
         self.showLoading()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: orderObject?.innerEnquiryStageId ?? 0)
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = EnquiryDetailsService.init(client: client)
+            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: orderObject?.innerEnquiryStageId ?? 0)
+        }
     }
     
     func MarkCompleteNextSelected(tag: Int) {
         self.showLoading()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        if orderObject?.innerEnquiryStageId == 5 {
-            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 6, innerStageId: 0)
-        }
-        else{
-            if let innerStageId = orderObject?.innerEnquiryStageId, innerStageId > 0 {
-                service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: innerStageId + 1)
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = EnquiryDetailsService.init(client: client)
+            if orderObject?.innerEnquiryStageId == 5 {
+                service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 6, innerStageId: 0)
+            }
+            else{
+                if let innerStageId = orderObject?.innerEnquiryStageId, innerStageId > 0 {
+                    service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: orderObject?.enquiryStageId ?? 0, innerStageId: innerStageId + 1)
+                }
             }
         }
         
@@ -1872,9 +1890,10 @@ extension OrderDetailController: MarkCompleteAndNextProtocol, StartstageProtocol
     
     func StartstageBtnSelected(tag: Int) {
         self.showLoading()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 5, innerStageId: 1)
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = EnquiryDetailsService.init(client: client)
+            service.changeInnerStageFunc(vc: self, enquiryId: orderObject?.enquiryId ?? 0, stageId: 5, innerStageId: 1)
+        }
     }
     
     

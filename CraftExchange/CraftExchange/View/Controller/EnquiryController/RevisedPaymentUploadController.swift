@@ -59,6 +59,10 @@ class RevisedPaymentUploadController: FormViewController{
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? orderObject?.userId ?? 0)
         
+        let back = UIBarButtonItem(image: UIImage.init(systemName: "arrow.left"), style: .done, target: self, action: #selector(backSelected(_:)))
+        back.tintColor = .darkGray
+        self.navigationItem.leftBarButtonItem =  back
+        
         form
             +++ Section()
             <<< EnquiryDetailsRow(){
@@ -244,6 +248,20 @@ class RevisedPaymentUploadController: FormViewController{
                 }
                 
         }
+    }
+    
+    @objc func backSelected(_ sender: Any) {
+        
+        var orderVC: OrderDetailController?
+        self.navigationController?.viewControllers .forEach({ (controller) in
+            if controller.isKind(of: OrderDetailController.self) {
+                orderVC = controller as? OrderDetailController
+            }
+        })
+        if let ordervc = orderVC {
+            self.navigationController?.popToViewController(ordervc, animated: true)
+        }
+        
     }
     
     func reloadAddPhotoRow() {

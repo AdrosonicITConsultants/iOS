@@ -1488,10 +1488,11 @@ extension RaiseConcernController: ButtonActionProtocol, BuyerFaultyOrderOptionPr
     
     func RefundYesButtonSelected() {
         if orderObject != nil && orderObject?.enquiryId != nil{
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let service = OrderDetailsService.init(client: client)
-            self.showLoading()
-            service.recreateOrderFunc(vc: self, enquiryId: orderObject!.enquiryId)
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let service = OrderDetailsService.init(client: client)
+                self.showLoading()
+                service.recreateOrderFunc(vc: self, enquiryId: orderObject!.enquiryId)
+            }
         }
         
         

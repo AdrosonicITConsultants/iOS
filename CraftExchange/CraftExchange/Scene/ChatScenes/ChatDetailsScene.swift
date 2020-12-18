@@ -180,8 +180,8 @@ extension ChatDetailsService {
                                                 let vc2 = self.createScene(forChat: obj, enquiryId: enquiryId)
                                                 vc2.modalPresentationStyle = .fullScreen
                                                 vc1.navigationController?.pushViewController(vc2, animated: true)
-                                                let viewControllers = vc2.navigationController!.viewControllers
-                                                vc2.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
+//                                                let viewControllers = vc2.navigationController!.viewControllers
+//                                                vc2.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
                                             }
                                         }
                                             

@@ -33,8 +33,7 @@ extension EnquiryDetailsService {
                                 vc.form.allSections.first?.reload(with: .none)
                                 if typeId == 1{
                                     vc.imageReciept?(1)
-                                    let viewControllers = vc.navigationController!.viewControllers
-                                    vc.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
+                                 
                                 }else{
                                     vc.imageReciept?(2)
                                     let row = vc.form.rowBy(tag: "uploadsuccess") as? UploadSuccessfulRow
@@ -107,8 +106,7 @@ extension EnquiryDetailsService {
                                 vc.form.rowBy(tag: "uploadsuccess")?.evaluateHidden()
                                 vc.form.allSections.first?.reload(with: .none)
                                 vc.imageReciept?(3)
-                                let viewControllers = vc.navigationController!.viewControllers
-                                vc.navigationController!.viewControllers.remove(at: viewControllers.count - 2)
+                                
                                 vc.hideLoading()
                             }
                         }

@@ -240,12 +240,13 @@ extension ConfirmOrderReceivedController: SingleButtonActionProtocol, RatingInit
     func singleButtonSelected(tag: Int) {
         switch tag {
         case 100:
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let service = EnquiryDetailsService.init(client: client)
-            
-            if orderObject?.enquiryId != nil && self.viewModel.orderDeliveryDate.value != nil {
-                self.showLoading()
-                service.markOrderAsReceivedfunc(orderId: orderObject!.enquiryId, orderRecieveDate: self.viewModel.orderDeliveryDate.value!, vc: self)
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let service = EnquiryDetailsService.init(client: client)
+                
+                if orderObject?.enquiryId != nil && self.viewModel.orderDeliveryDate.value != nil {
+                    self.showLoading()
+                    service.markOrderAsReceivedfunc(orderId: orderObject!.enquiryId, orderRecieveDate: self.viewModel.orderDeliveryDate.value!, vc: self)
+                }
             }
         default:
             print("do nothing")

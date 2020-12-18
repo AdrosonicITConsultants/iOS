@@ -94,8 +94,9 @@ extension RevisedPaymentController: PendingPaymentProtocol {
     func pendingPaymentButtonSelected(tag: Int) {
         
         if self.Payment != nil {
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createRevisedPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! RevisedPaymentUploadController
+           
+                if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let vc1 = EnquiryDetailsService(client: client).createRevisedPaymentScene(enquiryId: self.orderObject?.enquiryId ?? 0) as! RevisedPaymentUploadController
                 vc1.enquiryObject = self.enquiryObject
                 vc1.orderObject = self.orderObject
                 vc1.revisedPayment = self.Payment
@@ -107,6 +108,7 @@ extension RevisedPaymentController: PendingPaymentProtocol {
                 vc1.modalPresentationStyle = .fullScreen
                 self.navigationController?.pushViewController(vc1, animated: true)
             }
+        }
         
     }
     

@@ -124,13 +124,15 @@ extension EnquiryDetailsService {
                     if json["valid"] as? Bool == true {
                         DispatchQueue.main.async {
                             print("PI sent successfully")
-                            let client = try! SafeClient(wrapping: CraftExchangeClient())
-                            if enquiryObj != nil {
-                                let vc1 = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: enquiryObj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
-                                vc1.modalPresentationStyle = .fullScreen
-                                vc.hideLoading()
-                                vc1.viewWillAppear?()
-                                vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
+                            
+                            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                                if enquiryObj != nil {
+                                    let vc1 = EnquiryDetailsService(client: client).createEnquiryDetailScene(forEnquiry: enquiryObj, enquiryId: enquiryId) as! BuyerEnquiryDetailsController
+                                    vc1.modalPresentationStyle = .fullScreen
+                                    vc.hideLoading()
+                                    vc1.viewWillAppear?()
+                                    vc.popBack(toControllerType: BuyerEnquiryDetailsController.self)
+                                }
                             }
                         }
                     }

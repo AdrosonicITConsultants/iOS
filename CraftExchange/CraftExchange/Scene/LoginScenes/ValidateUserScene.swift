@@ -94,8 +94,9 @@ extension ValidateUserService {
                                                 }
                                                 let userData = try JSONSerialization.data(withJSONObject: userObj, options: .prettyPrinted)
                                                 let loggedInUser = try? JSONDecoder().decode(User.self, from: userData)
-                                                loggedInUser?.saveOrUpdate()
+                                                
                                                 DispatchQueue.main.async {
+                                                    loggedInUser?.saveOrUpdate()
                                                     KeychainManager.standard.userAccessToken = dataDict["acctoken"] as? String ?? ""
                                                     KeychainManager.standard.userID = userObj["id"] as? Int ?? 0
                                                     KeychainManager.standard.username = userObj["firstName"] as? String ?? ""

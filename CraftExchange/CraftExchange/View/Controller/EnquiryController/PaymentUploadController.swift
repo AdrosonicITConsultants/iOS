@@ -55,18 +55,22 @@ class PaymentUploadController: FormViewController{
     //    let parentVC = self.parent as? PaymentUploadController
     override func viewDidLoad() {
         super.viewDidLoad()
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = EnquiryDetailsService.init(client: client)
-        if orderObject?.enquiryStageId == 8{
-            imageReciept?(2)
-        }else{
-            service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
-            imageReciept?(1)
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = EnquiryDetailsService.init(client: client)
+            if orderObject?.enquiryStageId == 8{
+                imageReciept?(2)
+            }else{
+                service.advancePaymentStatus(vc: self, enquiryId: self.enquiryObject?.enquiryId ?? self.orderObject?.entityID ?? 0)
+                imageReciept?(1)
+            }
         }
         
         self.view.backgroundColor = .white
         self.tableView?.separatorStyle = UITableViewCell.SeparatorStyle.none
         let accountDetails = realm?.objects(PaymentAccDetails.self).filter("%K == %@","userId",enquiryObject?.userId ?? orderObject?.userId ?? 0)
+        let back = UIBarButtonItem(image: UIImage.init(systemName: "arrow.left"), style: .done, target: self, action: #selector(backSelected(_:)))
+        back.tintColor = .darkGray
+        self.navigationItem.leftBarButtonItem =  back
         
         form
             +++ Section()
@@ -394,6 +398,23 @@ class PaymentUploadController: FormViewController{
 //                }
                 
         }
+    }
+    
+    @objc func backSelected(_ sender: Any) {
+        if enquiryObject?.enquiryStageId == 3{
+            var orderVC: BuyerEnquiryDetailsController?
+            self.navigationController?.viewControllers .forEach({ (controller) in
+                if controller.isKind(of: BuyerEnquiryDetailsController.self) {
+                    orderVC = controller as? BuyerEnquiryDetailsController
+                }
+            })
+            if let ordervc = orderVC {
+                self.navigationController?.popToViewController(ordervc, animated: true)
+            }
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     func reloadAddPhotoRow() {

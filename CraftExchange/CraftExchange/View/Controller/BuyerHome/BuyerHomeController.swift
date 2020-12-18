@@ -36,11 +36,12 @@ class BuyerHomeController: UIViewController {
         antaranDesignView.dropShadow()
         self.selfDesignView.layer.cornerRadius = 5
         self.antaranDesignView.layer.cornerRadius = 5
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = HomeScreenService.init(client: client)
-        service.getDemoVideo(vc: self)
-        service.getCMSCatImages()
-        service.getCMSRegionImages()
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = HomeScreenService.init(client: client)
+            service.getDemoVideo(vc: self)
+            service.getCMSCatImages()
+            service.getCMSRegionImages()
+        }
         loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
         
         self.setupSideMenu(false)

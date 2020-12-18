@@ -38,11 +38,12 @@ class ArtisanHomeController: UIViewController {
     
     override func viewDidLoad() {
         
-        let client = try! SafeClient(wrapping: CraftExchangeClient())
-        let service = HomeScreenService.init(client: client)
-        service.getDemoVideo(vc: self)
-        service.getCMSCatImages()
-        service.getCMSRegionImages()
+        if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+            let service = HomeScreenService.init(client: client)
+            service.getDemoVideo(vc: self)
+            service.getCMSCatImages()
+            service.getCMSRegionImages()
+        }
         loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
         self.setupSideMenu(false)
         super.viewDidLoad()

@@ -1014,14 +1014,15 @@ extension BuyerEnquiryDetailsController:  MOQButtonActionProtocol, SingleButtonA
     func createSendInvoiceBtnSelected(tag: Int) {
         switch tag{
         case 100:
-            let client = try! SafeClient(wrapping: CraftExchangeClient())
-            let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.enquiryObject!.enquiryId, enquiryObj: self.enquiryObject!, orderObj: nil) as! InvoiceController
-            vc1.modalPresentationStyle = .fullScreen
-            vc1.enquiryObject = self.enquiryObject
-            
-            print("PI WORKING")
-            self.navigationController?.pushViewController(vc1, animated: true)
-            print("createSendInvoiceBtnSelected WORKING")
+            if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.enquiryObject!.enquiryId, enquiryObj: self.enquiryObject!, orderObj: nil) as! InvoiceController
+                vc1.modalPresentationStyle = .fullScreen
+                vc1.enquiryObject = self.enquiryObject
+                
+                print("PI WORKING")
+                self.navigationController?.pushViewController(vc1, animated: true)
+                print("createSendInvoiceBtnSelected WORKING")
+            }
         default:
             print("NOt Working PI")
         }
@@ -1194,11 +1195,13 @@ extension BuyerEnquiryDetailsController: MOQAcceptViewProtocol, MOQAcceptedViewP
         switch tag{
         case 100:
             if self.enquiryObject!.isBlue || self.enquiryObject!.enquiryStageId >= 4{
-                let client = try? SafeClient(wrapping: CraftExchangeClient())
-                let vc1 = EnquiryDetailsService(client: client!).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
-                vc1.enquiryObject = self.enquiryObject
-                vc1.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(vc1, animated: true)
+                
+                if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
+                    let vc1 = EnquiryDetailsService(client: client).createPaymentScene(enquiryId: self.enquiryObject!.enquiryId) as! PaymentUploadController
+                    vc1.enquiryObject = self.enquiryObject
+                    vc1.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(vc1, animated: true)
+                }
             }
             else{
                 let storyboard = UIStoryboard(name: "Payment", bundle: nil)
