@@ -80,7 +80,7 @@ class RevisedPaymentUploadController: FormViewController{
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
                 }
             
-                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject)
+                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject, vc: self)
             }.cellUpdate({ (cell, row) in
                 cell.amountLbl.text = self.orderObject?.totalAmount != 0 ? "Amount to be paid: " + "\(self.revisedPayment?.pendingAmount ?? 0)" : "NA"
             })

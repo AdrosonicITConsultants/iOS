@@ -102,7 +102,7 @@ class PaymentUploadController: FormViewController{
                         $0.cell.dateLbl.text = ""
                     }
                 }
-                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject)
+                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject, vc: self)
             }.cellUpdate({ (cell, row) in
                 if self.orderObject?.enquiryStageId == 8{
                     cell.amountLbl.text = self.orderObject?.totalAmount != 0 ? "Final amount to be paid: " + "\(self.finalPaymnetDetails?.payableAmount ?? 0)" : "NA"

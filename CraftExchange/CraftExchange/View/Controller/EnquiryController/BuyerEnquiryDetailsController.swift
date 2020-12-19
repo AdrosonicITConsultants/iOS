@@ -90,7 +90,7 @@ class BuyerEnquiryDetailsController: FormViewController {
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: enquiryObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: enquiryObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: enquiryObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 
                 $0.cell.amountLbl.text = enquiryObject?.totalAmount != 0 ? "\(enquiryObject?.totalAmount ?? 0)" : "NA"
-                $0.loadRowImage(orderObject: nil, enquiryObject: enquiryObject)
+                $0.loadRowImage(orderObject: nil, enquiryObject: enquiryObject, vc: self)
             }.cellUpdate({ (cell, row) in
 //                cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: self.enquiryObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
 //                if self.enquiryObject?.enquiryStageId ?? 0 < 5 {

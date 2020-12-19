@@ -110,7 +110,7 @@ class InvoiceController: FormViewController{
                 if let date = orderObject?.lastUpdated {
                     $0.cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date)))"
                 }
-                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject)
+                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject, vc: self)
             }
             <<< LabelRow(){
                 $0.title = "Proforma Invoice"

@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import Eureka
+import Bond
+import ReactiveKit
 
 class EnquiryDetailRowView: Cell<String>, CellType {
     
@@ -58,23 +60,12 @@ extension EnquiryDetailsRow {
     }
     
     func cellUpdate(orderObject: Order?, enquiryObject: Enquiry?) {
-//        cell.statusLbl.text = "\(EnquiryStages.getStageType(searchId: orderObject?.enquiryStageId ?? 0)?.stageDescription ?? "-")"
-//        if orderObject?.enquiryStageId ?? 0 < 5 {
-//            cell.statusLbl.textColor = .black
-//            cell.statusDotView.backgroundColor = .black
-//        }else if orderObject?.enquiryStageId ?? 0 < 9 {
-//            cell.statusLbl.textColor = .systemYellow
-//            cell.statusDotView.backgroundColor = .systemYellow
-//        }else {
-//            cell.statusLbl.textColor = UIColor().CEGreen()
-//            cell.statusDotView.backgroundColor = UIColor().CEGreen()
-//        }
         if let date = orderObject?.lastUpdated {
             cell.dateLbl.text = "Last updated: \(Date().ttceISOString(isoDate: date))"
         }
     }
     
-    func loadRowImage(orderObject: Order?, enquiryObject: Enquiry?) {
+    func loadRowImage(orderObject: Order?, enquiryObject: Enquiry?, vc: UIViewController) {
         if orderObject?.productType ?? enquiryObject?.productType == "Custom Product" {
             if orderObject?.brandName?.isNotBlank ?? enquiryObject?.brandName?.isNotBlank ?? false {
                 self.cell.designByLbl.text = orderObject?.brandName ?? enquiryObject?.brandName ?? "Requested Custom Design"
@@ -84,11 +75,11 @@ extension EnquiryDetailsRow {
         }else {
             self.cell.designByLbl.text = orderObject?.brandName ?? enquiryObject?.brandName
         }
-        if let tag = orderObject?.productImages?.components(separatedBy: ",").first ?? enquiryObject?.productImages?.components(separatedBy: ",").first , let prodId = orderObject?.productId ?? enquiryObject?.productId{
+        if let tag = orderObject?.productImages?.components(separatedBy: ",").first ?? enquiryObject?.productImages?.components(separatedBy: ",").first, let prodId = orderObject?.productId ?? enquiryObject?.productId {
             if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
                 self.cell.productImage.image = downloadedImage
             }else {
-                if orderObject?.productType == "Custom Product" {
+                if orderObject?.productType == "Custom Product" || enquiryObject?.productType == "Custom Product" {
                     do {
                         let client = try SafeClient(wrapping: CraftExchangeImageClient())
                         let service = CustomProductImageService.init(client: client)
@@ -98,7 +89,7 @@ extension EnquiryDetailsRow {
                                 self.cell.productImage.image = UIImage.init(data: attachment)
                                 self.reload()
                             }
-                        }.dispose()
+                        }.dispose(in: vc.bag)
                     }catch {
                         print(error.localizedDescription)
                     }
@@ -112,13 +103,12 @@ extension EnquiryDetailsRow {
                                 self.cell.productImage.image = UIImage.init(data: attachment)
                                 self.reload()
                             }
-                        }.dispose()
+                        }.dispose(in: vc.bag)
                     }catch {
                         print(error.localizedDescription)
                     }
                 }
             }
         }
-
     }
 }

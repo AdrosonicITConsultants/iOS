@@ -480,32 +480,30 @@ extension BuyerProductDetailController: UICollectionViewDelegate, UICollectionVi
     
     func downloadProdImages() {
         product?.productImages .forEach { (image) in
-            let tag = image.lable
-            let prodId = product?.entityID
-            if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
-                self.productImages?.append(downloadedImage)
-                if image == product?.productImages.last {
-                    let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
-                    row?.cell.collectionView.reloadData()
-                }
-            }else {
-                do {
-                    let client = try SafeClient(wrapping: CraftExchangeImageClient())
-                    let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
-                    service.fetch(withName: tag ?? "name.jpg").observeNext { (attachment) in
-                        DispatchQueue.main.async {
-                            let tag = image.lable ?? "name.jpg"
-                            let prodId = self.product?.entityID
-                            _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
-                            self.productImages?.append(UIImage.init(data: attachment) ?? UIImage())
-                            if image == self.product?.productImages.last {
-                                let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
-                                row?.cell.collectionView.reloadData()
+            if let tag = image.lable, let prodId = product?.entityID {
+                if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
+                    self.productImages?.append(downloadedImage)
+                    if image == product?.productImages.last {
+                        let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+                        row?.cell.collectionView.reloadData()
+                    }
+                }else {
+                    do {
+                        let client = try SafeClient(wrapping: CraftExchangeImageClient())
+                        let service = ProductImageService.init(client: client, productObject: product!, withName: image.lable ?? "name.jpg")
+                        service.fetch(withName: tag).observeNext { (attachment) in
+                            DispatchQueue.main.async {
+                                _ = try? Disk.saveAndURL(attachment, to: .caches, as: "\(prodId)/\(tag)")
+                                self.productImages?.append(UIImage.init(data: attachment) ?? UIImage())
+                                if image == self.product?.productImages.last {
+                                    let row = self.form.rowBy(tag: "PhotoRow") as? CollectionViewRow
+                                    row?.cell.collectionView.reloadData()
+                                }
                             }
-                        }
-                    }.dispose(in: self.bag)
-                }catch {
-                    print(error.localizedDescription)
+                        }.dispose(in: self.bag)
+                    }catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }

@@ -87,7 +87,7 @@ class RaiseConcernController: FormViewController {
                 $0.cell.prodDetailLbl.text = "\(ProductCategory.getProductCat(catId: orderObject?.productCategoryId ?? 0)?.prodCatDescription ?? "") / \(Yarn.getYarn(searchId: orderObject?.warpYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.weftYarnId ?? 0)?.yarnDesc ?? "-") x \(Yarn.getYarn(searchId: orderObject?.extraWeftYarnId ?? 0)?.yarnDesc ?? "-")"
                 
                 $0.cell.amountLbl.text = orderObject?.totalAmount != 0 ? "\(orderObject?.totalAmount ?? 0)" : "NA"
-                $0.loadRowImage(orderObject: orderObject, enquiryObject: nil)
+                $0.loadRowImage(orderObject: orderObject, enquiryObject: nil, vc: self)
             }.cellUpdate({ (cell, row) in
                 
 //                if self.orderProgress?.isFaulty == 0  && User.loggedIn()?.refRoleId == "2" {

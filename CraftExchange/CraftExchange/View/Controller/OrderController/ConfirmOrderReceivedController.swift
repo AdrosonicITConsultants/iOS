@@ -57,7 +57,7 @@ class ConfirmOrderReceivedController: FormViewController{
                 //   $0.cell.dateLbl.text.height = { 0.0 }
                 $0.cell.dateLbl.isHidden = true
                 
-                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject)
+                $0.loadRowImage(orderObject: orderObject, enquiryObject: enquiryObject, vc: self)
             }
             
             <<< CompleteOrderIconRow(){
