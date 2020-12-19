@@ -1468,7 +1468,7 @@ extension OrderDetailController:  InvoiceButtonProtocol, ConfirmDeliveryProtocol
     func createSendInvoiceBtnSelected(tag: Int) {
         switch tag{
         case 100:
-            if (self.orderObject?.revisedAdvancePaymentId == 0 && self.advancePaymnet != nil) || (self.orderObject?.revisedAdvancePaymentId != 0 && self.advancePaymnet != nil && self.revisedAdvancePayment != nil) {
+            if (self.orderObject?.revisedAdvancePaymentId == 0 ) || (self.orderObject?.revisedAdvancePaymentId == 1 && self.advancePaymnet != nil) || ( self.orderObject?.revisedAdvancePaymentId == 4 && self.advancePaymnet != nil && self.revisedAdvancePayment != nil) {
                 if let client = try? SafeClient(wrapping: CraftExchangeClient()) {
                 let vc1 = EnquiryDetailsService(client: client).piCreate(enquiryId: self.orderObject?.enquiryId ?? 0, enquiryObj: nil, orderObj: self.orderObject) as! InvoiceController
                 vc1.modalPresentationStyle = .fullScreen
