@@ -186,6 +186,19 @@ class MarketHomeController: FormViewController {
 //                cell.BottomLabel1.text = "\(app?.countData?.ongoingEnquiries ?? 0)"
   //              cell.BottomLabel2.text = "\(app?.countData?.incompleteAndClosedEnquiries ?? 0)"
 //            })
+            <<< ButtonRow() {
+                $0.title = "User Manual"
+                $0.cell.height = { 40.0 }
+            }.cellUpdate({ (cell, row) in
+                cell.backgroundColor = .black
+                cell.tintColor = .white
+            }).onCellSelection({ (cell, row) in
+                let url = KeychainManager.standard.faqBaseURL + "/usermanual/AdminMobile.pdf"
+                self.view.showOpenFAQView(controller: self, data: url)
+                if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
+                    initialView.fromFaq = true
+                }
+            })
             
             <<< LabelRow() {
                 $0.cell.height = {50.0}
@@ -259,5 +272,15 @@ extension MarketHomeController: MarketActionsProtocol, ArrowBtnProtocol {
         row?.updateCell()
         let row2 = self.form.rowBy(tag: "AdminHomeBottomRow")
         row2?.updateCell()
+    }
+}
+
+extension MarketHomeController: OpenAttachmentViewProtocol {
+    @objc func faqCancelButtonSelected() {
+        self.view.hideOpenFAQView()
+        self.inputAccessoryView?.isHidden = false
+        if let initialView = self.view.viewWithTag(134) as? OpenAttachmentView {
+            initialView.fromFaq = false
+        }
     }
 }

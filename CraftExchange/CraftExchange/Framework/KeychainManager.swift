@@ -72,17 +72,30 @@ class KeychainManager {
     }
 
     var baseURL: String {
-//        //UAT
-        return "http://164.52.192.15:8090/api"
+        //UAT
+//        return "http://164.52.192.15:8090/api"
 //        Dev
 //        return "http://101.53.153.96:8090/api"
+//        Live
+        return "http://164.52.206.168:8090/api"
+    }
+        
+    var imageBaseURL: String {
+        //UAT
+//        return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
+//        Dev
+//        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+//        Live
+        return "https://tatatrustcraftxchangelive.objectstore.e2enetworks.net"
     }
     
-    var imageBaseURL: String {
-//        //UAT
-       return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
+    var faqBaseURL: String {
+//    UAT
+//        return "https://tatacrftexchangeuat.objectstore.e2enetworks.net"
 //        Dev
-//       return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+//        return "https://f3adac-craft-exchange-resource.objectstore.e2enetworks.net"
+//        Live
+        return "https://tatatrustcraftxchangelive.objectstore.e2enetworks.net"
     }
   
     var userRole: String? {
