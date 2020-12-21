@@ -169,6 +169,15 @@ extension UIViewController : OpenAttachmentViewProtocol {
         } else if tag == 5 {
             url = KeychainManager.standard.faqBaseURL + "/documents/FAQ.pdf"
             self.view.showOpenFAQView(controller: self, data: url)
+        } else if tag == 6 { //https://tatatrustcraftxchangelive.objectstore.e2enetworks.net/usermanual/Crafts%20Xchange%20-%20User%20Manual%20-%20Buyer%20Web.docx
+            if User.loggedIn()?.refRoleId == "1" {
+                url = KeychainManager.standard.faqBaseURL + "/usermanual/ArtisanMobile.pdf"
+            }else if User.loggedIn()?.refRoleId == "2" {
+                url = KeychainManager.standard.faqBaseURL + "/usermanual/BuyerMobile.pdf"
+            }else {
+                url = KeychainManager.standard.faqBaseURL + "/usermanual/AdminMobile.pdf"
+            }
+            self.view.showOpenFAQView(controller: self, data: url)
         }
         
         

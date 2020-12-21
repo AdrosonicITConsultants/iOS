@@ -65,7 +65,7 @@ class BuyerHomeController: UIViewController {
     
     func backgroundImages(){
         
-        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/pages/27") {
+        if let url = URL(string: KeychainManager.standard.cmsBaseURL + "/pages/64") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if data != nil {
                     if let json = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any] {

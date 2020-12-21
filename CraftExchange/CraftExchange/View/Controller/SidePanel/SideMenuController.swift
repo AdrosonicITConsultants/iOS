@@ -191,6 +191,25 @@ class SideMenuController: FormViewController {
                 row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
             })
             <<< LabelRow() { row in
+                row.title = "User Manual".localized
+                row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+                row.cell.imageView?.image = UIImage(named: "ios user manual")
+                row.cell.height = { 56.0 }
+            }.onCellSelection { (cell, row) in
+//                self.alert("For any support","please write to us at craftxchange.tatatrusts@gmail.com" )
+                self.dismiss(animated: true, completion: {
+                    
+                    do {
+                        self.getNavBar()?.topViewController?.didTapFAQButton(tag: 6)
+                        
+                    } catch let error {
+                        print("Unable to load view:\n\(error.localizedDescription)")
+                    }
+                })
+            }.cellUpdate({ (str, row) in
+                row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
+            })
+            <<< LabelRow() { row in
                 row.title = "Change Language".localized
                 row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
                 row.cell.imageView?.image = UIImage(named: "change language")
@@ -223,7 +242,7 @@ class SideMenuController: FormViewController {
         lbl.textColor = .lightGray
         lbl.textAlignment = .center
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        lbl.text = "10-12-2020 V\(appVersion ?? "1.2")"
+        lbl.text = "21-12-2020 V\(appVersion ?? "1.3")"
         self.view.addSubview(lbl)
         self.view.addSubview(view)
     }
