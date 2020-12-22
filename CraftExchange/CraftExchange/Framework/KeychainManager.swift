@@ -104,7 +104,7 @@ class KeychainManager {
         // Dev
 //        return "http://101.53.158.227/wordpress/index.php/wp-json/wp/v2"
 //        Live
-        return "https://craftxchange.antaran.in/index.php/wp-json/wp/v2"
+        return "https://craftxchangecms.antaran.in"
     }
     
     var userRole: String? {
