@@ -108,7 +108,7 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
     
     func googleAuthLogin() {
         self.googleSignIn?.presentingViewController = self
-        self.googleSignIn?.clientID = "241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
+        self.googleSignIn?.clientID = GIDSignIn.sharedInstance().clientID//"241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
         self.googleSignIn?.delegate = self
         self.googleSignIn?.signIn()
     }

@@ -3208,7 +3208,7 @@
 				PRODUCT_NAME = "Craft Xchange";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3231,7 +3231,7 @@
 				PRODUCT_NAME = "Craft Xchange";
 				SWIFT_OBJC_BRIDGING_HEADER = "CraftExchange/Resources/iCarousel/CraftExchange-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

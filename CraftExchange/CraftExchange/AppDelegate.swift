@@ -32,8 +32,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application,
         didFinishLaunchingWithOptions: launchOptions
     )
+//    Dev
+//    GIDSignIn.sharedInstance().clientID = "241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
+//    URL Scheme of Info.Plist ->
+//    com.googleusercontent.apps.241853758861-torqnu9vet36tshanfmovq0mr1h161gd
+//    FB URL Scheme: fb1235381163493109
     
-    GIDSignIn.sharedInstance().clientID = "241853758861-torqnu9vet36tshanfmovq0mr1h161gd.apps.googleusercontent.com"
+    
+//    Live
+    GIDSignIn.sharedInstance().clientID =
+    "951846626811-ov7nbg64f2ecgb713jtbt84o7lce7jrd.apps.googleusercontent.com"
+//    URL Schene of Info.plist
+//    com.googleusercontent.apps.951846626811-ov7nbg64f2ecgb713jtbt84o7lce7jrd
+//    FB URL Scheme: fb2960179490877793
         
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.backgroundColor = .white
