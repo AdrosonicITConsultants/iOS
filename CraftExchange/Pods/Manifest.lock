@@ -39,6 +39,7 @@ PODS:
   - InputBarAccessoryView/Core (5.2.1)
   - iOSPhotoEditor (1.0.0)
   - JGProgressHUD (2.1)
+  - JWTDecode (2.5.0)
   - MessageKit (3.4.2):
     - InputBarAccessoryView (~> 5.2.1)
   - ReachabilitySwift (5.0.0)
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - ImageRow
   - iOSPhotoEditor
   - JGProgressHUD
+  - JWTDecode (~> 2.4)
   - MessageKit
   - ReachabilitySwift
   - ReactiveKit
@@ -91,6 +93,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - iOSPhotoEditor
     - JGProgressHUD
+    - JWTDecode
     - MessageKit
     - ReachabilitySwift
     - ReactiveKit
@@ -117,6 +120,7 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 39a7ed22727baf3b8550ecdf6c8a4d28b2c6aa91
   iOSPhotoEditor: 2951f35246a31dcb428b6292248a9c065582d03e
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
   MessageKit: 5ff0908bce5a7b6e11bd0b60e13a33e03697d161
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   ReactiveKit: f578a74d3555296ea61fab228f5245a4ed7b4b27
@@ -128,6 +132,6 @@ SPEC CHECKSUMS:
   ViewRow: 8da541e9c019f3be63f4e28f311a62cac2045ecf
   WMSegmentControl: 00415dce32ed41ad7623ac6ac076eedbb8140a5e
 
-PODFILE CHECKSUM: ef59dee818545d3cd6256b80e5ac82f4e9607aff
+PODFILE CHECKSUM: 0679b90cb8403cb6d83f008f9fbb57b5a5f7f3db
 
 COCOAPODS: 1.8.4

@@ -23,4 +23,5 @@ target 'CraftExchange' do
   pod 'GoogleSignIn'
   pod 'Cosmos'
   pod 'iOSPhotoEditor'
+  pod 'JWTDecode', '~> 2.4'
 end

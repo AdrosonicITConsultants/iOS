@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P12-bk-zAP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="P12-bk-zAP">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -238,14 +238,14 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c34-5t-Am5">
-                                                <rect key="frame" x="80" y="467" width="215" height="1"/>
+                                                <rect key="frame" x="80" y="512" width="215" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Mxj-jP-Tb2"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaf-N3-KI9">
-                                                <rect key="frame" x="20" y="500" width="335" height="30"/>
+                                                <rect key="frame" x="20" y="515" width="335" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="cOf-Xs-KU8"/>
                                                 </constraints>
@@ -361,6 +361,20 @@
                                                     <constraint firstAttribute="height" constant="30" id="DLK-AA-pwd"/>
                                                 </constraints>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heZ-Eg-GHT" customClass="ASAuthorizationAppleIDButton">
+                                                <rect key="frame" x="112.33333333333331" y="472" width="150" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="LwQ-FI-thN"/>
+                                                    <constraint firstAttribute="width" constant="150" id="VES-c1-66l"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Login with Apple."/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -374,15 +388,15 @@
                                             <constraint firstItem="YB0-2C-Nhm" firstAttribute="top" secondItem="6GB-te-M1f" secondAttribute="bottom" constant="8" id="Ba9-4g-OpF"/>
                                             <constraint firstAttribute="trailing" secondItem="c34-5t-Am5" secondAttribute="trailing" constant="80" id="C1q-iM-YHb"/>
                                             <constraint firstItem="MZn-sN-cdx" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="C31-w9-ieX"/>
+                                            <constraint firstItem="heZ-Eg-GHT" firstAttribute="centerX" secondItem="c34-5t-Am5" secondAttribute="centerX" id="ChF-L1-WoX"/>
                                             <constraint firstAttribute="bottom" secondItem="Cnk-FA-mkm" secondAttribute="bottom" constant="44" id="Dxs-SI-Cod"/>
                                             <constraint firstItem="GPR-I0-MCd" firstAttribute="top" secondItem="WZa-NT-FFu" secondAttribute="bottom" constant="20" id="E3Z-RK-7g7"/>
-                                            <constraint firstItem="WZa-NT-FFu" firstAttribute="top" secondItem="oaf-N3-KI9" secondAttribute="bottom" constant="20" id="GIJ-3a-mQC"/>
                                             <constraint firstAttribute="trailing" secondItem="VWJ-hF-pAR" secondAttribute="trailing" constant="80" id="Hch-eh-g3K"/>
                                             <constraint firstItem="jL3-1T-tFh" firstAttribute="top" secondItem="GPR-I0-MCd" secondAttribute="bottom" constant="5" id="Hqa-uZ-WLo"/>
                                             <constraint firstAttribute="trailing" secondItem="WZa-NT-FFu" secondAttribute="trailing" constant="20" id="JOO-6r-Fjq"/>
                                             <constraint firstAttribute="trailing" secondItem="YB0-2C-Nhm" secondAttribute="trailing" constant="20" id="M7B-G5-Y3h"/>
-                                            <constraint firstItem="ZeI-2a-QgN" firstAttribute="centerX" secondItem="oaf-N3-KI9" secondAttribute="centerX" id="Mqt-Gu-GFV"/>
                                             <constraint firstItem="oaf-N3-KI9" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="NJQ-XO-27X"/>
+                                            <constraint firstItem="c34-5t-Am5" firstAttribute="top" secondItem="heZ-Eg-GHT" secondAttribute="bottom" constant="10" id="PLx-ti-XZZ"/>
                                             <constraint firstAttribute="trailing" secondItem="oaf-N3-KI9" secondAttribute="trailing" constant="20" id="Pv9-RP-BS2"/>
                                             <constraint firstItem="GPR-I0-MCd" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="RXa-jh-ELI"/>
                                             <constraint firstItem="Cnk-FA-mkm" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="Sg3-Md-dcv"/>
@@ -392,13 +406,14 @@
                                             <constraint firstItem="6GB-te-M1f" firstAttribute="top" secondItem="NQf-pO-apS" secondAttribute="top" constant="10" id="ZXs-hh-NA5"/>
                                             <constraint firstItem="YB0-2C-Nhm" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="bCK-uc-G3b"/>
                                             <constraint firstItem="jL3-1T-tFh" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="20" id="bwj-83-znb"/>
-                                            <constraint firstItem="c34-5t-Am5" firstAttribute="top" secondItem="MZn-sN-cdx" secondAttribute="bottom" constant="10" id="cEJ-aT-7WD"/>
                                             <constraint firstAttribute="trailing" secondItem="jL3-1T-tFh" secondAttribute="trailing" constant="20" id="dAj-4Q-Izq"/>
+                                            <constraint firstItem="heZ-Eg-GHT" firstAttribute="top" secondItem="MZn-sN-cdx" secondAttribute="bottom" constant="15" id="gvl-Ng-GYT"/>
                                             <constraint firstItem="ZeI-2a-QgN" firstAttribute="centerX" secondItem="VWJ-hF-pAR" secondAttribute="centerX" id="hIL-Uf-SBb"/>
+                                            <constraint firstItem="oaf-N3-KI9" firstAttribute="top" secondItem="c34-5t-Am5" secondAttribute="bottom" constant="2" id="qI6-6C-Zka"/>
+                                            <constraint firstItem="WZa-NT-FFu" firstAttribute="top" secondItem="oaf-N3-KI9" secondAttribute="bottom" constant="5" id="qhs-9d-uRx"/>
                                             <constraint firstItem="MZn-sN-cdx" firstAttribute="top" secondItem="ZeI-2a-QgN" secondAttribute="bottom" constant="10" id="tIk-vx-XMv"/>
                                             <constraint firstAttribute="bottom" secondItem="jL3-1T-tFh" secondAttribute="bottom" constant="69" id="tk5-5b-iWF"/>
                                             <constraint firstItem="c34-5t-Am5" firstAttribute="leading" secondItem="NQf-pO-apS" secondAttribute="leading" constant="80" id="u4l-ei-GMS"/>
-                                            <constraint firstItem="oaf-N3-KI9" firstAttribute="top" relation="greaterThanOrEqual" secondItem="c34-5t-Am5" secondAttribute="bottom" constant="10" id="uWn-rK-Hej"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -431,6 +446,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="appleLoginButton" destination="heZ-Eg-GHT" id="Oem-lX-uwj"/>
                         <outlet property="changeLangButton" destination="GPR-I0-MCd" id="FcB-1M-R2E"/>
                         <outlet property="facebookLoginButton" destination="nus-yZ-4SB" id="eTN-TC-uz8"/>
                         <outlet property="googleLoginButton" destination="oB3-dM-YGP" id="N5V-4E-5QB"/>

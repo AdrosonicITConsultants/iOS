@@ -11,6 +11,8 @@ import ReactiveKit
 import UIKit
 import FBSDKLoginKit
 import GoogleSignIn
+import AuthenticationServices
+import JWTDecode
 
 class ValidationViewModel {
     var username = Observable<String?>("")
@@ -28,6 +30,7 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
     @IBOutlet weak var facebookLoginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIButton!
     @IBOutlet weak var changeLangButton: UIButton!
+    @IBOutlet weak var appleLoginButton: ASAuthorizationAppleIDButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +45,8 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
         facebookLoginButton.setTitle("Login with Facebook.".localized, for: .normal)
         googleLoginButton.setTitle("Login with Google.".localized, for: .normal)
         changeLangButton.isHidden = KeychainManager.standard.userRole == "Buyer" ? true : false
+        appleLoginButton.addTarget(self, action: #selector(appleLoginSelected), for: .touchUpInside)
+
     }
     
     @IBAction func nextButtonSelected(_ sender: Any) {
@@ -121,5 +126,43 @@ class LoginEmailController: UIViewController, GIDSignInDelegate {
         let username = user.profile.email
         let accessToken = user.authentication.accessToken
         self.viewModel.performAuthenticationSocial?(username!, accessToken!, "GOOGLE")
+    }
+}
+
+extension LoginEmailController: ASAuthorizationControllerDelegate {
+    
+    @objc func appleLoginSelected(_ sender: Any) {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.performRequests()
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            if let identityTokenData = appleIDCredential.identityToken,
+            let identityTokenString = String(data: identityTokenData, encoding: .utf8) {
+            print("Identity Token \(identityTokenString)")
+            do {
+               let jwt = try decode(jwt: identityTokenString)
+               let decodedBody = jwt.body as Dictionary
+               print(decodedBody)
+               print("Decoded email: "+(decodedBody["email"] as? String ?? "n/a")   )
+                if let email = decodedBody["email"] as? String {
+                    self.viewModel.performAuthenticationSocial?(email, identityTokenString, "GOOGLE")
+                }
+            } catch {
+               print("decoding failed")
+            }
+            }
+            print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName))") }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    // Handle error.
     }
 }
