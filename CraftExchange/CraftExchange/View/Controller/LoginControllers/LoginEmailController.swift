@@ -153,7 +153,7 @@ extension LoginEmailController: ASAuthorizationControllerDelegate {
                print(decodedBody)
                print("Decoded email: "+(decodedBody["email"] as? String ?? "n/a")   )
                 if let email = decodedBody["email"] as? String {
-                    self.viewModel.performAuthenticationSocial?(email, identityTokenString, "GOOGLE")
+                    self.viewModel.performAuthenticationSocial?(email, email, "APPLE")
                 }
             } catch {
                print("decoding failed")
