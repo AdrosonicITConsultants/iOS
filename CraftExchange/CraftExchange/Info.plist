@@ -67,9 +67,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Please allow CraftExchange to use Camera.</string>
+	<string>CraftExchange will access Camera to upload your profile photo, product images or transaction receipts.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow  CraftExchange to use Photo Library.</string>
+	<string>CraftExchange will access Photo Library to upload profile photo, product images or transaction receipts.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -102,8 +102,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
