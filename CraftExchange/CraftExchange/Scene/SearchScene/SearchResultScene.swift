@@ -115,8 +115,12 @@ extension SearchService {
         }
         
         vc.generateEnquiry = { (prodId) in
-            let service = ProductCatalogService.init(client: self.client)
-            service.checkEnquiryExists(for: vc, prodId: prodId, isCustom: false)
+            if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                let service = ProductCatalogService.init(client: self.client)
+                service.checkEnquiryExists(for: vc, prodId: prodId, isCustom: false)
+            }else {
+                vc.showLogin(prodId: prodId)
+            }
         }
         
         vc.generateNewEnquiry = { (prodId) in

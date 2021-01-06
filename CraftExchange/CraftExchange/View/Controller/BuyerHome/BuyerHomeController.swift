@@ -173,13 +173,17 @@ class BuyerHomeController: UIViewController {
     }
     
     @IBAction func customDesignSelected(_ sender: Any) {
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = UploadProductService(client: client).createCustomProductScene(productObject: nil)
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
-            print(error.localizedDescription)
+        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = UploadProductService(client: client).createCustomProductScene(productObject: nil)
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
+        }else {
+            showLogin(prodId: 0)
         }
     }
     

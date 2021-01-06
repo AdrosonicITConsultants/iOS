@@ -36,28 +36,21 @@ class RoleViewController: UIViewController {
     @IBAction func artisanSelected(_ sender: Any) {
         KeychainManager.standard.userRole = "Artisan"
         KeychainManager.standard.userRoleId = 1
-        showLogin()
+        showLogin(prodId: 0)
     }
     
     @IBAction func buyerSelected(_ sender: Any) {
         KeychainManager.standard.userRole = "Buyer"
         KeychainManager.standard.userRoleId = 2
-        showLogin()
+        guard let client = try? SafeClient(wrapping: CraftExchangeClient()) else {
+            _ = NSError(domain: "Network Client Error", code: 502, userInfo: nil)
+            return
+        }
+        let controller = HomeScreenService(client: client).createBuyerScene()
+        self.present(controller, animated: true, completion: nil)
     }
     
     @IBAction func faqButtonSelected(_ sender: UIButton) {
         didTapFAQButton(tag: sender.tag)
-    }
-    
-    func showLogin() {
-        print(KeychainManager.standard.userRoleId as Any)
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let controller = ValidateUserService(client: client).createScene()
-            let navigationController = UINavigationController(rootViewController: controller)
-            self.present(navigationController, animated: true, completion: nil)
-        } catch let error {
-            print("Unable to load view:\n\(error.localizedDescription)")
-        }
     }
 }

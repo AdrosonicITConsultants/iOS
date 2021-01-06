@@ -56,20 +56,14 @@ class SideMenuController: FormViewController {
             }.onCellSelection { (cell, row) in
                 self.dismiss(animated: true, completion: {
                     do {
-                        let client = try SafeClient(wrapping: CraftExchangeClient())
-                        let vc = MyProfileService(client: client).createScene()
-                        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                        var nav: UINavigationController?
-                        if let tab = appDelegate?.tabbar?.selectedViewController as? UINavigationController {
-                            nav = tab
-                        }else if let tab = appDelegate?.tabbar?.selectedViewController?.navigationController {
-                            nav = tab
-                        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController as? UINavigationController {
-                            nav = tab
-                        }else if let tab = appDelegate?.artisanTabbar?.selectedViewController?.navigationController {
-                            nav = tab
+                        let nav = self.getNavBar()
+                        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            let vc = MyProfileService(client: client).createScene()
+                            nav?.pushViewController(vc, animated: true)
+                        }else {
+                            nav?.showLogin(prodId: 0)
                         }
-                        nav?.pushViewController(vc, animated: true)
                     } catch let error {
                         print("Unable to load view:\n\(error.localizedDescription)")
                     }
@@ -85,10 +79,14 @@ class SideMenuController: FormViewController {
             }.onCellSelection { (cell, row) in
                 self.dismiss(animated: true, completion: {
                     do {
-                        let client = try SafeClient(wrapping: CraftExchangeClient())
-                        let vc = TransactionService(client: client).createScene()
                         let nav = self.getNavBar()
-                        nav?.pushViewController(vc, animated: true)
+                        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            let vc = TransactionService(client: client).createScene()
+                            nav?.pushViewController(vc, animated: true)
+                        }else {
+                            nav?.showLogin(prodId: 0)
+                        }
                     } catch let error {
                         print("Unable to load view:\n\(error.localizedDescription)")
                     }
@@ -104,10 +102,14 @@ class SideMenuController: FormViewController {
             }.onCellSelection { (cell, row) in
                 self.dismiss(animated: true, completion: {
                     do {
-                        let client = try SafeClient(wrapping: CraftExchangeClient())
-                        let vc = OrderListService(client: client).createScene()
                         let nav = self.getNavBar()
-                        nav?.pushViewController(vc, animated: true)
+                        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            let vc = OrderListService(client: client).createScene()
+                            nav?.pushViewController(vc, animated: true)
+                        }else {
+                            nav?.showLogin(prodId: 0)
+                        }
                     } catch let error {
                         print("Unable to load view:\n\(error.localizedDescription)")
                     }
@@ -124,10 +126,14 @@ class SideMenuController: FormViewController {
             }.onCellSelection { (cell, row) in
                 self.dismiss(animated: true, completion: {
                     do {
-                        let client = try SafeClient(wrapping: CraftExchangeClient())
-                        let vc = CustomProductService(client: client).createScene()
                         let nav = self.getNavBar()
-                        nav?.pushViewController(vc, animated: true)
+                        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                            let client = try SafeClient(wrapping: CraftExchangeClient())
+                            let vc = CustomProductService(client: client).createScene()
+                            nav?.pushViewController(vc, animated: true)
+                        }else {
+                            nav?.showLogin(prodId: 0)
+                        }
                     } catch let error {
                         print("Unable to load view:\n\(error.localizedDescription)")
                     }
@@ -141,33 +147,21 @@ class SideMenuController: FormViewController {
                 row.cell.imageView?.image = UIImage(named: "ios_mydash")
                 row.cell.height = { 56.0 }
             }.onCellSelection { (cell, row) in
-                self.dismiss(animated: true, completion:
-                    {
-                        do {
-                            
+                self.dismiss(animated: true, completion: {
+                    do {
+                        let nav = self.getNavBar()
+                        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
                             let dashboardStoryboard = UIStoryboard.init(name: "MyDashboard", bundle: Bundle.main)
                             let vc = dashboardStoryboard.instantiateViewController(withIdentifier: "DashboardController") as! DashboardController
-                            
-                            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                            var nav: UINavigationController?
-                            if let tab = appDelegate?.tabbar?.selectedViewController as? UINavigationController {
-                                nav = tab
-                            }else if let tab = appDelegate?.tabbar?.selectedViewController?.navigationController {
-                                nav = tab
-                            }
-                            else if let tab = appDelegate?.artisanTabbar?.selectedViewController as? UINavigationController {
-                                nav = tab
-                            }else if let tab = appDelegate?.artisanTabbar?.selectedViewController?.navigationController {
-                                nav = tab
-                            }
                             nav?.pushViewController(vc, animated: true)
-                            
+                        }else {
+                            nav?.showLogin(prodId: 0)
                         }
-                        catch let error {
-                            print("Unable to load view:\n\(error.localizedDescription)")
-                        }
+                    }
+                    catch let error {
+                        print("Unable to load view:\n\(error.localizedDescription)")
+                    }
                 })
-                
             }.cellUpdate({ (str, row) in
                 row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
             })
@@ -179,13 +173,7 @@ class SideMenuController: FormViewController {
             }.onCellSelection { (cell, row) in
 //                self.alert("For any support","please write to us at craftxchange.tatatrusts@gmail.com" )
                 self.dismiss(animated: true, completion: {
-                    
-                    do {
-                        self.getNavBar()?.topViewController?.didTapFAQButton(tag: 5)
-                        
-                    } catch let error {
-                        print("Unable to load view:\n\(error.localizedDescription)")
-                    }
+                    self.getNavBar()?.topViewController?.didTapFAQButton(tag: 5)
                 })
             }.cellUpdate({ (str, row) in
                 row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
@@ -198,13 +186,7 @@ class SideMenuController: FormViewController {
             }.onCellSelection { (cell, row) in
 //                self.alert("For any support","please write to us at craftxchange.tatatrusts@gmail.com" )
                 self.dismiss(animated: true, completion: {
-                    
-                    do {
-                        self.getNavBar()?.topViewController?.didTapFAQButton(tag: 6)
-                        
-                    } catch let error {
-                        print("Unable to load view:\n\(error.localizedDescription)")
-                    }
+                    self.getNavBar()?.topViewController?.didTapFAQButton(tag: 6)
                 })
             }.cellUpdate({ (str, row) in
                 row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
@@ -225,10 +207,20 @@ class SideMenuController: FormViewController {
                 row.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
                 row.cell.imageView?.image = UIImage(named: "ios_logout")
                 row.cell.height = { 56.0 }
+                if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                    row.hidden = false
+                }else {
+                    row.hidden = true
+                }
             }.onCellSelection { (cell, row) in
                 self.sendInputActionsheet()
             }.cellUpdate({ (str, row) in
                 row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
+                if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                    row.hidden = false
+                }else {
+                    row.hidden = true
+                }
             })
         
         

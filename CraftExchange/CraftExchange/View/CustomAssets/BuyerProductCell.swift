@@ -73,6 +73,9 @@ class BuyerProductCell: UITableViewCell {
         }else {
             wishlistButton.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
         }
+        if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+            wishlistButton.isHidden = true
+        }
         if let tag = productObj.productImages.first?.lable {
             let prodId = productObj.entityID
             if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {
@@ -117,6 +120,9 @@ class BuyerProductCell: UITableViewCell {
             wishlistButton.setImage(UIImage.init(named: "red heart"), for: .normal)
         }else {
             wishlistButton.setImage(UIImage.init(named: "tab-wishlist"), for: .normal)
+        }
+        if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+            wishlistButton.isHidden = true
         }
         if let tag = (productObj["images"] as? String)?.components(separatedBy: ",").first, let prodId = productObj["id"] as? Int {
             if let downloadedImage = try? Disk.retrieve("\(prodId)/\(tag)", from: .caches, as: UIImage.self) {

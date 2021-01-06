@@ -449,6 +449,13 @@ extension HomeScreenService {
                         }
                     }
                 }.dispose(in: vc.bag)
+                if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                    let app = UIApplication.shared.delegate as? AppDelegate
+                    if let prodId = app?.shouldGenerateEnquiry, prodId != 0 {
+                        let service = ProductCatalogService.init(client: self.client)
+                        service.showSelectedProduct(for: vc, prodId: prodId)
+                    }
+                }
             }
         }
         return tab

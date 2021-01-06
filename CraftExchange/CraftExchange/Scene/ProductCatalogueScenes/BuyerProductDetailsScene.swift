@@ -30,6 +30,13 @@ extension ProductCatalogService {
                                     DispatchQueue.main.async {
                                         object.saveOrUpdate()
                                         vc.hideLoading()
+                                        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                                            let app = UIApplication.shared.delegate as? AppDelegate
+                                            if let prodId = app?.shouldGenerateEnquiry, prodId != 0 {
+                                                vc.checkEnquiry?(prodId)
+                                                app?.shouldGenerateEnquiry = 0
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -75,8 +82,12 @@ extension ProductCatalogService {
         }
         
         vc.checkEnquiry = { (prodId) in
-            let service = ProductCatalogService.init(client: self.client)
-            service.checkEnquiryExists(for: vc, prodId: prodId, isCustom: false)
+            if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                let service = ProductCatalogService.init(client: self.client)
+                service.checkEnquiryExists(for: vc, prodId: prodId, isCustom: false)
+            }else {
+                vc.showLogin(prodId: prodId)
+            }
         }
         
         vc.generateNewEnquiry = { (prodId) in

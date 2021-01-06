@@ -85,6 +85,9 @@ class BuyerProductDetailController: FormViewController {
                 if User.loggedIn()?.refRoleId == "1" {
                     cell.wishlistBtn.isHidden = true
                 }
+                if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+                    cell.wishlistBtn.isHidden = true
+                }
             })
             <<< CollectionViewRow() {
                 $0.tag = "PhotoRow"

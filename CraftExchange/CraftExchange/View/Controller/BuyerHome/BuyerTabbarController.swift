@@ -22,40 +22,52 @@ class BuyerTabbarController: UITabBarController {
 
 extension BuyerTabbarController {
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if item.title == "Wishlist" {
-            do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = WishlistService(client: client).createScene()
-                let nav = self.customizableViewControllers?[2] as! UINavigationController
-                nav.setViewControllers([vc], animated: false)
-            } catch let error {
-                print("Unable to load view:\n\(error.localizedDescription)")
+        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+            if item.title == "Wishlist" {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = WishlistService(client: client).createScene()
+                    let nav = self.customizableViewControllers?[2] as! UINavigationController
+                    nav.setViewControllers([vc], animated: false)
+                } catch let error {
+                    print("Unable to load view:\n\(error.localizedDescription)")
+                }
+            }else if item.title == "Enquiries".localized {
+                do {
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = EnquiryListService(client: client).createScene()
+                    let nav = self.customizableViewControllers?[1] as! UINavigationController
+                    nav.setViewControllers([vc], animated: false)
+                } catch let error {
+                    print("Unable to load view:\n\(error.localizedDescription)")
+                }
             }
-        }else if item.title == "Enquiries".localized {
-            do {
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = EnquiryListService(client: client).createScene()
-                let nav = self.customizableViewControllers?[1] as! UINavigationController
-                nav.setViewControllers([vc], animated: false)
-            } catch let error {
-                print("Unable to load view:\n\(error.localizedDescription)")
+            else if item.title == "Chat".localized {
+                do{
+                    let client = try SafeClient(wrapping: CraftExchangeClient())
+                    let vc = ChatListService(client: client).createScene()
+                    let nav = self.customizableViewControllers?[3] as! UINavigationController
+                    nav.setViewControllers([vc], animated: false)
+                } catch let error {
+                    print("Unable to load view:\n\(error.localizedDescription)")
+                }
+            }else if item.title == "Home".localized {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    let nav = self.customizableViewControllers?[0] as! UINavigationController
+                    nav.popToRootViewController(animated: true)
+                }
+            }
+        }else {
+            if item.title == "Home".localized {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    let nav = self.customizableViewControllers?[0] as! UINavigationController
+                    nav.popToRootViewController(animated: true)
+                }
+            }else {
+                self.showLogin(prodId: 0)
             }
         }
-        else if item.title == "Chat".localized {
-            do{
-                let client = try SafeClient(wrapping: CraftExchangeClient())
-                let vc = ChatListService(client: client).createScene()
-                let nav = self.customizableViewControllers?[3] as! UINavigationController
-                nav.setViewControllers([vc], animated: false)
-            } catch let error {
-                print("Unable to load view:\n\(error.localizedDescription)")
-            }
-        }else if item.title == "Home".localized {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                let nav = self.customizableViewControllers?[0] as! UINavigationController
-                nav.popToRootViewController(animated: true)
-            }
-        }
+        
     }
 }
 

@@ -93,7 +93,11 @@ extension ProductCatalogService {
         }
         
         controller.generateEnquiry = { (prodId) in
-            self.checkEnquiryExists(for: controller, prodId: prodId, isCustom: false)
+            if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                self.checkEnquiryExists(for: controller, prodId: prodId, isCustom: false)
+            }else {
+                controller.showLogin(prodId: prodId)
+            }
         }
         
         controller.generateNewEnquiry = { (prodId) in

@@ -15,11 +15,11 @@ extension Product {
     
     public static func getAllArtisanProduct() -> Request<Data, APIError> {
         //
-        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+//        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
             path: "product/getArtitionProducts",
             method: .get,
-            headers: headers,
+//            headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "get all artisan product failed")
                 return $0},
             error: APIError.init,
@@ -41,11 +41,11 @@ extension Product {
     
     public static func getAllProducts(clusterId: Int) -> Request<[Product], APIError> {
         //
-        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+//        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
             path: "product/getClusterProducts/\(clusterId)",
             method: .get,
-            headers: headers,
+//            headers: headers,
             resource: {
                 //            print(String(data: $0, encoding: .utf8) ?? "get all products failed")
                 //            return $0
@@ -70,11 +70,11 @@ extension Product {
     
     public static func getAllProducts(productCategoryId: Int) -> Request<[Product], APIError> {
         //
-        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+//        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
             path: "product/getProductCategoryProducts/\(productCategoryId)",
             method: .get,
-            headers: headers,
+//            headers: headers,
             resource: {
                 if let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as? [String: Any] {
                     if let obj = json["data"] as? [String: Any] {
@@ -96,11 +96,11 @@ extension Product {
     
     public static func getAllProducts(artisanId: Int) -> Request<[Product], APIError> {
         //
-        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+//        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
             path: "product/getProductByArtisan/\(artisanId)",
             method: .get,
-            headers: headers,
+//            headers: headers,
             resource: {
                 if let json = try? JSONSerialization.jsonObject(with: $0, options: .allowFragments) as? [String: Any] {
                     if let obj = json["data"] as? [String: Any] {
@@ -136,11 +136,11 @@ extension Product {
     
     public static func getProductDetails(prodId: Int) -> Request<Data, APIError> {
         //
-        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
+//        let headers: [String: String] = ["Authorization": "Bearer \(KeychainManager.standard.userAccessToken ?? "")"]
         return Request(
             path: "product/getProduct/\(prodId)",
             method: .get,
-            headers: headers,
+//            headers: headers,
             resource: {print(String(data: $0, encoding: .utf8) ?? "get product details failed")
                 return $0},
             error: APIError.init,

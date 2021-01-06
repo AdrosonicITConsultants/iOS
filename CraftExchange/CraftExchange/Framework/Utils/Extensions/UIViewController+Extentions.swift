@@ -132,13 +132,17 @@ extension UIViewController : OpenAttachmentViewProtocol {
     }
     
     @objc func notificationButtonSelected() {
-        do {
-            let client = try SafeClient(wrapping: CraftExchangeClient())
-            let vc = NotificationService(client: client).createScene()
-            vc.modalPresentationStyle = .fullScreen
-            self.navigationController?.pushViewController(vc, animated: true)
-        }catch {
-            print(error.localizedDescription)
+        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+            do {
+                let client = try SafeClient(wrapping: CraftExchangeClient())
+                let vc = NotificationService(client: client).createScene()
+                vc.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(vc, animated: true)
+            }catch {
+                print(error.localizedDescription)
+            }
+        }else {
+            showLogin(prodId: 0)
         }
     }
     
@@ -381,5 +385,21 @@ extension UIViewController {
             nav = tab
         }
         return nav
+    }
+}
+
+extension UIViewController {
+    func showLogin(prodId: Int) {
+        let app = UIApplication.shared.delegate as? AppDelegate
+        app?.shouldGenerateEnquiry = prodId
+        print(KeychainManager.standard.userRoleId as Any)
+        do {
+            let client = try SafeClient(wrapping: CraftExchangeClient())
+            let controller = ValidateUserService(client: client).createScene()
+            let navigationController = UINavigationController(rootViewController: controller)
+            self.present(navigationController, animated: true, completion: nil)
+        } catch let error {
+            print("Unable to load view:\n\(error.localizedDescription)")
+        }
     }
 }
