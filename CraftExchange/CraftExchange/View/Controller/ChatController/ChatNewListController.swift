@@ -56,7 +56,9 @@ class ChatNewListController: UIViewController {
             let refreshControl = UIRefreshControl()
             tableView.refreshControl = refreshControl
         }
-        tableView.refreshControl?.beginRefreshing()
+        if KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+            tableView.refreshControl?.beginRefreshing()
+        }
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
     
@@ -133,6 +135,29 @@ extension ChatNewListController: UITableViewDataSource, UITableViewDelegate {
         
         self.initiateChat?(id!)
         
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let labelView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: 60))
+        let header = UILabel.init(frame: CGRect.init(x: 20, y: 0, width: tableView.frame.size.width-40, height: 60))
+        header.textAlignment = .left
+        header.textColor = .lightGray
+        header.font = .systemFont(ofSize: 16)
+        header.numberOfLines = 2
+        if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+            header.text = "Please login to continue"
+        }else {
+            header.text = "No new records available to be added"
+        }
+        labelView.addSubview(header)
+        return labelView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if allChat?.count == 0 {
+            return 60
+        }
+        return 0
     }
     
 }

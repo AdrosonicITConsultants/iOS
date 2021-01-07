@@ -30,7 +30,10 @@ class SideMenuController: FormViewController {
                     hiLbl.font = .systemFont(ofSize: 24, weight: .semibold)
                     hiLbl.numberOfLines = 3
                     hiLbl.textColor = .black
-                    hiLbl.text = "Hi,".localized + "\n\(KeychainManager.standard.username ?? "")"
+                    if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+                        KeychainManager.standard.username = nil
+                    }
+                    hiLbl.text = "Hi,".localized + "\n\(KeychainManager.standard.username ?? "Guest")"
                     view.addSubview(hiLbl)
                     
                     let profileImg = UIImageView.init(image: UIImage(named: "person_icon"))
@@ -47,6 +50,33 @@ class SideMenuController: FormViewController {
                 return header
             }()
             }
+            <<< LabelRow() {
+                $0.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+                $0.title = "Switch to Artisan".localized
+                $0.cellStyle = .default
+                $0.cell.imageView?.image = UIImage(named: "artisan id")
+                $0.cell.height = { 56.0 }
+                if KeychainManager.standard.userRoleId == 2 && (KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0) {
+                    $0.hidden = false
+                }else {
+                    $0.hidden = true
+                }
+            }.onCellSelection { (cell, row) in
+                self.dismiss(animated: true, completion: {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = storyboard.instantiateViewController(withIdentifier: "RoleViewController") as! RoleViewController
+                    vc.modalPresentationStyle = .fullScreen
+                    let nav = self.getNavBar()
+                    nav?.topViewController?.present(vc, animated: true, completion: nil)
+                })
+            }.cellUpdate({ (str, row) in
+                if KeychainManager.standard.userRoleId == 2 && KeychainManager.standard.userID != nil && KeychainManager.standard.userID != 0 {
+                    row.hidden = false
+                }else {
+                    row.hidden = true
+                }
+                row.cell.textLabel?.textColor = UIColor().menuTitleBlue()
+            })
             <<< LabelRow() {
                 $0.cell.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
                 $0.title = "My Profile".localized

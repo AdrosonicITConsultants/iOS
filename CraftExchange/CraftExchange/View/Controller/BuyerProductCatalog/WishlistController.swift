@@ -47,11 +47,21 @@ class WishlistController: UIViewController {
         center.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { (notification) in
             self.applicationEnteredForeground?()
         }
-        
-        let rightButtonItem = UIBarButtonItem.init(title: "Empty wishlist".localized, style: .plain, target: self, action: #selector(deleteAllCustomProduct))
-        rightButtonItem.tintColor = .red
-        self.navigationItem.rightBarButtonItem = rightButtonItem
         setData()
+        if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+            if let img = UIImage.init(named: "loginToContinue") {
+                for view in emptyView.subviews{
+                    if view.tag == 21 {
+                        let heartimg = view as? UIImageView
+                        heartimg?.image = img
+                    }
+                }
+            }
+        }else {
+            let rightButtonItem = UIBarButtonItem.init(title: "Empty wishlist".localized, style: .plain, target: self, action: #selector(deleteAllCustomProduct))
+            rightButtonItem.tintColor = .red
+            self.navigationItem.rightBarButtonItem = rightButtonItem
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -42,7 +42,10 @@ class BuyerHomeController: UIViewController {
             service.getCMSCatImages()
             service.getCMSRegionImages()
         }
-        loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "")"
+        if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+            KeychainManager.standard.username = nil
+        }
+        loggedInUserName.text = "Hi \(KeychainManager.standard.username ?? "Guest")"
         
         self.setupSideMenu(false)
         //        let app = UIApplication.shared.delegate as? AppDelegate

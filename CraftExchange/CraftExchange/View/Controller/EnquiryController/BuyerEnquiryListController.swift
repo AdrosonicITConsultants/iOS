@@ -55,8 +55,13 @@ class BuyerEnquiryListController: UIViewController {
             let refreshControl = UIRefreshControl()
             tableView.refreshControl = refreshControl
         }
-        tableView.refreshControl?.beginRefreshing()
+        if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+            emptyView.text = "Please Login to Continue"
+        }else {
+            tableView.refreshControl?.beginRefreshing()
+        }
         tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +98,9 @@ class BuyerEnquiryListController: UIViewController {
         
         emptyView.isHidden = allEnquiries?.count == 0 ? false : true
         emptyView.text = segmentView.selectedSegmentIndex == 0 ? "No Ongoing Enquiries Present".localized : "No Completed Enquiries Present".localized
+        if KeychainManager.standard.userID == nil || KeychainManager.standard.userID == 0 {
+            emptyView.text = "Please Login to Continue"
+        }
         self.hideLoading()
         self.tableView.reloadData()
     }

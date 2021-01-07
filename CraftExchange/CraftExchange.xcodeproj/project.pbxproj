@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */; };
 		3001A8AE2518894E00CFC32A /* GetMOQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3001A8AD2518894D00CFC32A /* GetMOQ.swift */; };
 		3005D1E12521966200BF22C0 /* MOQAcceptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3005D1E02521966200BF22C0 /* MOQAcceptView.swift */; };
 		3005D1E32521978200BF22C0 /* MOQAcceptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3005D1E22521978100BF22C0 /* MOQAcceptView.xib */; };
@@ -467,6 +466,7 @@
 		C0C4CD85250BCD7100017889 /* EnquiryListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD84250BCD7100017889 /* EnquiryListService.swift */; };
 		C0C4CD87250BCF6A00017889 /* EnquiryStages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */; };
 		C0C4CD8A250BD2A400017889 /* EnquiryListScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */; };
+		C0C84FCA25A608EA00597644 /* Pods_CraftExchange.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C84FC925A608EA00597644 /* Pods_CraftExchange.framework */; };
 		C0C8DC7124A0A3B8000403B7 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */; };
 		C0CEF35A2559286F00AD9D86 /* MarkAsDispatchedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CEF35C2559286F00AD9D86 /* MarkAsDispatchedView.xib */; };
 		C0D218B124FEC67A0071896E /* EnquiryGeneratedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D218B024FEC67A0071896E /* EnquiryGeneratedView.swift */; };
@@ -1010,6 +1010,7 @@
 		C0C4CD84250BCD7100017889 /* EnquiryListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListService.swift; sourceTree = "<group>"; };
 		C0C4CD86250BCF6A00017889 /* EnquiryStages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryStages.swift; sourceTree = "<group>"; };
 		C0C4CD89250BD2A400017889 /* EnquiryListScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnquiryListScene.swift; sourceTree = "<group>"; };
+		C0C84FC925A608EA00597644 /* Pods_CraftExchange.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_CraftExchange.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C8DC7024A0A3B8000403B7 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		C0CEF35B2559286F00AD9D86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MarkAsDispatchedView.xib; sourceTree = "<group>"; };
 		C0CEF35E2559288E00AD9D86 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MarkAsDispatchedView.strings; sourceTree = "<group>"; };
@@ -1053,7 +1054,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BAC5D0DE8BFC26B2CD443BA /* Pods_CraftExchange.framework in Frameworks */,
+				C0C84FCA25A608EA00597644 /* Pods_CraftExchange.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2182,6 +2183,7 @@
 		D6A4220DEA2D7D94A1412932 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C0C84FC925A608EA00597644 /* Pods_CraftExchange.framework */,
 				D5412112F3E6109F7380B7E3 /* Pods_CraftExchange.framework */,
 			);
 			name = Frameworks;
