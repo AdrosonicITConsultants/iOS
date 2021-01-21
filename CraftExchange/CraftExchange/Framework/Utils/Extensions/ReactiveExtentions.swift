@@ -14,7 +14,18 @@ import UIKit
 extension ReactiveExtensions where Base: UIViewController {
     public var userErrors: Bond<UserFriendlyError> {
         return bond { vc, error in
-            let alert = UIAlertController(title: error.title, message: error.message, preferredStyle: .alert)
+            var msg = error.message
+            if let responseData = error.message.data(using: .utf8) {
+                do {
+                    if let jsonDict = try JSONSerialization.jsonObject(with: responseData, options : .allowFragments) as? Dictionary<String,Any>
+                    {
+                        msg = jsonDict["message"] as? String ?? error.message
+                    }
+                }catch _ as NSError {
+                    
+                }
+            }
+            let alert = UIAlertController(title: error.title, message: msg, preferredStyle: .alert)
             if let retry = error.retry {
                 let action = UIAlertAction(title: "Retry", style: .default) { _ in
                     retry.send()

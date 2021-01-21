@@ -211,6 +211,13 @@ class BuyerProductCatalogController: UIViewController {
                 allPorducts = realm.objects(Product.self).filter("%K IN %@", "entityID",searchIds).filter("%K == %@","madeWithAnthran", withId)
             }
         }
+        if searchType == -1 {
+            if self.madeByAntaran == 1 {
+                allPorducts = allPorducts?.filter("%K == %@","madeWithAnthran", 1)
+            }else {
+                allPorducts = allPorducts?.filter("%K != %@","madeWithAnthran", 1)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

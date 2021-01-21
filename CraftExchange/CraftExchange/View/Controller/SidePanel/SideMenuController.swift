@@ -264,7 +264,7 @@ class SideMenuController: FormViewController {
         lbl.textColor = .lightGray
         lbl.textAlignment = .center
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        lbl.text = "22-12-2020 V\(appVersion ?? "1.3")"
+        lbl.text = "21-01-2021 V\(appVersion ?? "1.4")"
         self.view.addSubview(lbl)
         self.view.addSubview(view)
     }
